@@ -19,9 +19,6 @@ dmg:
 win:
   icon: ./build-helpers/images/icon.ico
   target: nsis
-  arch:
-    - x64
-    - ia32
 
 nsis:
   perMachine: true
