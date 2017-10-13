@@ -53,4 +53,4 @@ Join the Franz community on [Slack](https://slack.franz.im) and get in touch wit
 - [ ] Developer Documentation
 
 ## License
-Franz 5 is open-source licensed under the GPLv2 License.
+Franz 5 is open-source licensed under the Apache-2.0 License.
