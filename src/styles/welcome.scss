@@ -1,0 +1,75 @@
+.auth {
+  .welcome {
+
+    &__content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+    }
+
+    &__logo {
+      width: 100px;
+    }
+
+    &__text {
+      margin-left: 40px;
+      padding-left: 40px;
+      border-left: 1px solid #FFF;
+
+      h1 {
+        font-size: 60px;
+        letter-spacing: -0.4rem;
+        margin-bottom: 5px;
+      }
+
+      h2 {
+        margin-left: 2px;
+        margin-bottom: 0;
+      }
+    }
+
+    &__services {
+      width: 100%;
+      max-width: 800px;
+      height: 100%;
+      max-height: 600px;
+      margin-left: -450px;
+    }
+
+    &__buttons {
+      display: block;
+      margin-top: 100px;
+      text-align: center;
+
+      .button:first-of-type {
+        margin-right: 25px;
+      }
+    }
+
+    .button {
+      border-color: #FFF;
+      color: #FFF;
+
+      &:hover {
+        background: #FFF;
+        color: $theme-brand-primary;
+      }
+    }
+
+    &__featured-services {
+      margin-top: 150px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    &__featured-service {
+      width: 35px;
+      margin-right: 30px;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+import { webFrame } from 'electron';
+
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'mobx-react';
+import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
+import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
+
+import 'babel-polyfill';
+import smoothScroll from 'smoothscroll-polyfill';
+
+import ServerApi from './api/server/ServerApi';
+import LocalApi from './api/server/LocalApi';
+import storeFactory from './stores';
+import apiFactory from './api';
+import actions from './actions';
+import MenuFactory from './lib/Menu';
+import TouchBarFactory from './lib/TouchBar';
+import * as analytics from './lib/analytics';
+
+import I18N from './I18n';
+import AppLayoutContainer from './containers/layout/AppLayoutContainer';
+import SettingsWindow from './containers/settings/SettingsWindow';
+import RecipesScreen from './containers/settings/RecipesScreen';
+import ServicesScreen from './containers/settings/ServicesScreen';
+import EditServiceScreen from './containers/settings/EditServiceScreen';
+import AccountScreen from './containers/settings/AccountScreen';
+import EditUserScreen from './containers/settings/EditUserScreen';
+import EditSettingsScreen from './containers/settings/EditSettingsScreen';
+import WelcomeScreen from './containers/auth/WelcomeScreen';
+import LoginScreen from './containers/auth/LoginScreen';
+import PasswordScreen from './containers/auth/PasswordScreen';
+import SignupScreen from './containers/auth/SignupScreen';
+import ImportScreen from './containers/auth/ImportScreen';
+import PricingScreen from './containers/auth/PricingScreen';
+import InviteScreen from './containers/auth/InviteScreen';
+import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
+import SubscriptionPopupScreen from './containers/ui/SubscriptionPopupScreen';
+
+// Add Polyfills
+smoothScroll.polyfill();
+
+// Basic electron Setup
+webFrame.setVisualZoomLevelLimits(1, 1);
+webFrame.setLayoutZoomLevelLimits(0, 0);
+
+window.addEventListener('load', () => {
+  const api = apiFactory(new ServerApi(), new LocalApi());
+  const router = new RouterStore();
+  const history = syncHistoryWithStore(hashHistory, router);
+  const stores = storeFactory(api, actions, router);
+  const menu = new MenuFactory(stores, actions);
+  const touchBar = new TouchBarFactory(stores, actions);
+
+  window.franz = {
+    stores,
+    actions,
+    api,
+    menu,
+    touchBar,
+    analytics,
+    render() {
+      const preparedApp = (
+        <Provider stores={stores} actions={actions}>
+          <I18N>
+            <Router history={history}>
+              <Route path="/" component={AppLayoutContainer}>
+                <Route path="/settings" component={SettingsWindow}>
+                  <IndexRedirect to="/settings/recipes" />
+                  <Route path="/settings/recipes" component={RecipesScreen} />
+                  <Route path="/settings/recipes/:filter" component={RecipesScreen} />
+                  <Route path="/settings/services" component={ServicesScreen} />
+                  <Route path="/settings/services/:action/:id" component={EditServiceScreen} />
+                  <Route path="/settings/user" component={AccountScreen} />
+                  <Route path="/settings/user/edit" component={EditUserScreen} />
+                  <Route path="/settings/app" component={EditSettingsScreen} />
+                </Route>
+              </Route>
+              <Route path="/auth" component={AuthLayoutContainer}>
+                <IndexRedirect to="/auth/welcome" />
+                <Route path="/auth/welcome" component={WelcomeScreen} />
+                <Route path="/auth/login" component={LoginScreen} />
+                <Route path="/auth/signup">
+                  <IndexRedirect to="/auth/signup/form" />
+                  <Route path="/auth/signup/form" component={SignupScreen} />
+                  <Route path="/auth/signup/pricing" component={PricingScreen} />
+                  <Route path="/auth/signup/import" component={ImportScreen} />
+                  <Route path="/auth/signup/invite" component={InviteScreen} />
+                </Route>
+                <Route path="/auth/password" component={PasswordScreen} />
+                <Route path="/auth/logout" component={LoginScreen} />
+              </Route>
+              <Route path="/payment/:url" component={SubscriptionPopupScreen} />
+              <Route path="*" component={AppLayoutContainer} />
+            </Router>
+          </I18N>
+        </Provider>
+      );
+      render(preparedApp, document.getElementById('root'));
+    },
+  };
+  window.franz.render();
+});

@@ -1,0 +1,32 @@
+environment:
+  GH_TOKEN:
+    secure: LiO1Z/i16UV5YyElROSUykQqpJowSMK86I7Nw4G/NMa0q5yNA7EsUqEiJUL+OG01
+  CSC_LINK:
+    secure: NEYFWgUIAB//y2GR4AJOaegwuNjkxyNsdDf5A40dYovebTUsnIB5k4GCbU3I6JKW9iwH2ldU7Z+QawfyFerNgw==
+  CSC_KEY_PASSWORD:
+    secure: t8ypNTPKTmvRfd3hHA4aMOtC5KOFqOw3AsKhpU7140Q=
+
+version: 5.0.0.{build}
+
+install:
+  - ps: Install-Product node 7
+  - yarn add global gulp-cli@1.2.2
+  - yarn add global gulpjs/gulp#4.0
+  - yarn install
+
+cache:
+ - "%LOCALAPPDATA%\\Yarn"
+
+before_build:
+  - yarn lint
+
+build_script:
+  - yarn build
+
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: 2NnhP/L7Jk9PDE0JvdNnYVBnmDHFRWHmTQBQ1492ZQ5O0Ok/97FAbk/FbGZVEalli8xcaPkVu3jiOD7IPVvHLKUrmyvficRgmL+qf4lhD1s=
+
+artifacts:
+  - path: out\*.exe

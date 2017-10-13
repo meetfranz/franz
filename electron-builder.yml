@@ -1,0 +1,28 @@
+directories:
+  app: ./build
+  output: ./out
+
+forceCodeSigning: true
+
+compression: maximum
+
+mac:
+  category: public.app-category.productivity
+  icon: ./build-helpers/images/icon.icns
+
+dmg:
+  background: ./build-helpers/images/dmgInstaller.tiff
+  icon: ./build-helpers/images/icon.icns
+  iconSize: 128
+  contents: [{x: 380, y: 240, type: link, path: /Applications}, {x: 122, y: 240, type: file}]
+
+win:
+  icon: ./build-helpers/images/icon.ico
+  target: nsis
+  arch:
+    - x64
+    - ia32
+
+nsis:
+  perMachine: true
+  oneClick: true

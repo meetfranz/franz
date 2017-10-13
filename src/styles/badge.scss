@@ -1,0 +1,15 @@
+@import './config.scss';
+
+.badge {
+  font-size: 14px;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: $theme-border-radius;
+  background: $theme-gray-lighter;
+
+  &.badge--primary,
+  &.badge--premium {
+    background: $theme-brand-primary;
+    color: #FFF;
+  }
+}

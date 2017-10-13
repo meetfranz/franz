@@ -1,0 +1,72 @@
+@import './config.scss';
+
+.tabs {
+  display: flex;
+  // flex: 1;
+  flex-direction: column;
+  flex-shrink: 1;
+  // align-items: center;
+  // height: auto;
+
+  .placeholder {
+    width: 100%;
+    height: 40px;
+  }
+}
+
+.tab-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: $theme-sidebar-width;
+  height: $theme-sidebar-width;
+  min-height: 50px;
+  transition: background $theme-transition-time;
+
+  &.is-active {
+    border-left: 4px solid $theme-brand-primary;
+    background: lighten($theme-brand-primary, 35%);
+
+    .tab-item__icon {
+      margin-left: -4px;
+    }
+  }
+
+  &.has-custom-icon {
+    .tab-item__icon {
+      border-radius: $theme-border-radius;
+      // border: 1px solid $theme-gray-lighter;
+      // width: 32px;
+    }
+  }
+
+  .tab-item__icon {
+    width: 30px;
+    height: auto;
+  }
+
+  .tab-item__message-count {
+    min-width: 17px;
+    min-height: 17px;
+    background: $theme-brand-danger;
+    color: #FFF;
+    border-radius: 20px;
+    padding: 0px 5px;
+    font-size: 11px;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.is-indirect {
+      padding-top: 0px;
+    }
+  }
+
+  &.is-reordering {
+    z-index: 99999;
+  }
+}

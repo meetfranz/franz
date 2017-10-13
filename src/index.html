@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Franz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+  <script type="text/javascript" src="./app.js"></script>
+</head>
+<body>
+  <div class="window-draggable"></div>
+  <div class="dev-warning">DEV MODE</div>
+  <div id="root"></div>
+  <script>
+    document.querySelector('body').classList.add(process.platform);
+
+    const { isDevMode } = require('./environment');
+    if (isDevMode) {
+      document.querySelector('body').classList.add('isDevMode');
+
+      (function() {
+        const lrHost = 'http://localhost:35729';
+        const s = document.createElement('script');
+        s.async = true;
+        s.setAttribute('src', lrHost + '/livereload.js');
+        document.body.appendChild(s);
+      })();
+    }
+  </script>
+</body
+</html>

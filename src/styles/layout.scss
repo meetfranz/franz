@@ -1,0 +1,141 @@
+@import './config.scss';
+
+html {
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+
+  .app__service {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+}
+
+.window-draggable {
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 35px;
+  pointer-events: none;
+  -webkit-app-region: drag;
+  z-index: 9999;
+}
+
+.darwin {
+  .sidebar {
+    padding-top: 23px;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: $theme-sidebar-width;
+  background: $theme-gray-lightest;
+  box-shadow: 1px 0 10px rgba(0,0,0,0.08);
+  z-index: 200;
+  text-align: center;
+  color: $theme-text-color;
+
+  .sidebar__add-service {
+    width: 32px;
+    height: 32px;
+    background: $theme-gray-lighter;
+    border-radius: $theme-border-radius-small;
+    margin: 10px auto;
+    color: $theme-gray-light;
+  }
+
+  .sidebar__settings-button {
+    height: auto;
+    padding: 20px 0;
+    font-size: 12px;
+    position: relative;
+
+    .emoji {
+      position: absolute;
+      top: 18px;
+      right: 12px;
+
+      img {
+        width: 18px;
+      }
+    }
+  }
+
+  .sidebar__logo {
+    width: 40px;
+    height: auto;
+  }
+
+  & > div {
+    display: flex;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.grid {
+  .grid__row {
+    display: flex;
+    flex-direction: row;
+
+    &>* {
+      margin-right: 20px;
+    }
+
+    & :last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.app-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .app-loader__title {
+    color: #FFF;
+    font-size: 40px;
+  }
+
+  &>span {
+    height: auto;
+  }
+}
+
+.dev-warning {
+  display: none;
+}
+
+.isDevMode {
+  .dev-warning {
+    display: block;
+    position: fixed;
+    background: $theme-brand-warning;
+    width: auto;
+    height: auto;
+    top: 5px;
+    right: 5px;
+    padding: 4px;
+    font-size: 10px;
+    color: #FFF;
+    z-index: 999999999;
+    border-radius: 3px;
+    transition: opacity 0.5s ease;
+
+    &:hover {
+      opacity: 0;
+    }
+  }
+}

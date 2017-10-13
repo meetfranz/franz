@@ -1,0 +1,73 @@
+@import './config.scss';
+@import './mixins.scss';
+
+h1 {
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin-bottom: 25px;
+  margin-top: 55px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+p {
+  margin-bottom: 10px;
+  line-height: 1.7rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: $theme-text-color;
+
+  &.button {
+    position: relative;
+    background: none;
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid $theme-brand-primary;
+    color: $theme-brand-primary;
+    border-radius: 3px;
+    transition: background 0.5s, color 0.5s;
+    text-align: center;
+
+    &:hover {
+      background: darken($theme-brand-primary, 5%);
+      color: #FFF;
+    }
+  }
+
+  &.link {
+    color: $theme-brand-primary;
+  }
+}
+
+.error-message, .error-message:last-of-type {
+  margin: 10px 0;
+  color: $theme-brand-danger;
+}
+
+.center {
+  text-align: center;
+}
+
+.label {
+  @include formLabel();
+}

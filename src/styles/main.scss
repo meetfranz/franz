@@ -1,0 +1,36 @@
+$mdi-font-path: '../node_modules/mdi/fonts';
+@if $env == development {
+  $mdi-font-path: '../../node_modules/mdi/fonts';
+}
+
+@import './node_modules/mdi/scss/materialdesignicons.scss';
+
+// modules
+@import './reset.scss';
+@import './util.scss';
+@import './layout.scss';
+@import './tabs.scss';
+@import './services.scss';
+@import './settings.scss';
+@import './service-table.scss';
+@import './recipes.scss';
+@import './fonts.scss';
+@import './type.scss';
+@import './welcome.scss';
+@import './auth.scss';
+@import './tooltip.scss';
+@import './info-bar.scss';
+@import './animations.scss';
+@import './infobox.scss';
+@import './badge.scss';
+@import './subscription.scss';
+@import './subscription-popup.scss';
+@import './content-tabs.scss';
+
+// form
+@import './input.scss';
+@import './radio.scss';
+@import './toggle.scss';
+@import './button.scss';
+@import './searchInput.scss';
+@import './select.scss';

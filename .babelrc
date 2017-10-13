@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "babel-preset-env",
+      {
+        "targets": {
+          "electron": "1.7.2"
+        }
+      }
+    ],
+    "babel-preset-react"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-flow-strip-types",
+    "transform-class-properties",
+  ],
+  "sourceMaps": "inline"
+}

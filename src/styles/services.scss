@@ -1,0 +1,60 @@
+@import './config.scss';
+
+.services {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #FFF;
+  order: 5;
+
+  .services__webview {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+
+    webview {
+      display: inline-flex;
+      width: 0px;
+      height: 0px;
+    }
+
+    &.is-active {
+      z-index: 100;
+
+      webview {
+        flex: 0 1;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &--force-repaint {
+      webview {
+        z-index: 5;
+      }
+    }
+  }
+
+  .services__no-service {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: $theme-gray-lighter;
+
+    h1 {
+      margin: 25px 0 40px;
+      color: $theme-gray-dark;
+    }
+
+    a.button {
+      margin-top: 40px;
+      // color: #FFF;
+      // border-color: #FFF;
+    }
+  }
+}

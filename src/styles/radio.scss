@@ -1,0 +1,34 @@
+@import './config.scss';
+
+.franz-form {
+  .franz-form__radio-wrapper {
+    display: flex;
+  }
+
+  .franz-form__radio {
+    // background: $theme-gray-lightest;
+    border: 2px solid $theme-gray-lighter;
+    color: $theme-gray;
+    padding: 11px;
+    margin-right: 20px;
+    text-align: center;
+    border-radius: $theme-border-radius-small;
+    flex: 1;
+    box-shadow: $theme-inset-shadow;
+    transition: background $theme-transition-time;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &.is-selected {
+      border: 2px solid $theme-brand-primary;
+      background: #FFF;
+      color: $theme-brand-primary;
+    }
+
+    input {
+      display: none;
+    }
+  }
+}

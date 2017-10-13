@@ -1,0 +1,52 @@
+@import './config.scss';
+
+.content-tabs {
+  .content-tabs__tabs {
+    display: flex;
+    border-top-left-radius: $theme-border-radius-small;
+    border-top-right-radius: $theme-border-radius-small;
+    overflow: hidden;
+
+    .content-tabs__item {
+      padding: 10px;
+      flex: 1;
+      // border: 1px solid $theme-gray-lightest;
+      color: $theme-gray-dark;
+      background: $theme-gray-lightest;
+      border-bottom: 1px solid $theme-gray-lighter;
+      box-shadow: inset 0px -3px 10px rgba(black, 0.05);
+      transition: all $theme-transition-time;
+
+      &.is-active {
+        background: $theme-brand-primary;
+        color: #FFF;
+        border-bottom: 1px solid $theme-brand-primary;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .content-tabs__content {
+    padding: 20px 20px;
+    border-bottom-left-radius: $theme-border-radius-small;
+    border-bottom-right-radius: $theme-border-radius-small;
+    background: $theme-gray-lightest;
+
+    .content-tabs__item {
+      top: 0;
+      display: none;
+
+      &.is-active {
+        display: block;
+      }
+    }
+
+    .franz-form__input-wrapper {
+      background: #FFF;
+    }
+
+    .franz-form__field:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

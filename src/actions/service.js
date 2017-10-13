@@ -1,0 +1,75 @@
+import PropTypes from 'prop-types';
+
+export default {
+  setActive: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  showAddServiceInterface: {
+    recipeId: PropTypes.string.isRequired,
+  },
+  createService: {
+    recipeId: PropTypes.string.isRequired,
+    serviceData: PropTypes.object.isRequired,
+  },
+  createFromLegacyService: {
+    data: PropTypes.object.isRequired,
+  },
+  updateService: {
+    serviceId: PropTypes.string.isRequired,
+    serviceData: PropTypes.object.isRequired,
+    redirect: PropTypes.bool,
+  },
+  deleteService: {
+    serviceId: PropTypes.string.isRequired,
+    redirect: PropTypes.string,
+  },
+  setUnreadMessageCount: {
+    serviceId: PropTypes.string.isRequired,
+    count: PropTypes.object.isRequired,
+  },
+  setWebviewReference: {
+    serviceId: PropTypes.string.isRequired,
+    webview: PropTypes.object.isRequired,
+  },
+  focusService: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  focusActiveService: {},
+  toggleService: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  handleIPCMessage: {
+    serviceId: PropTypes.string.isRequired,
+    channel: PropTypes.string.isRequired,
+    args: PropTypes.array.isRequired,
+  },
+  sendIPCMessage: {
+    serviceId: PropTypes.string.isRequired,
+    channel: PropTypes.string.isRequired,
+    args: PropTypes.object.isRequired,
+  },
+  openWindow: {
+    event: PropTypes.object.isRequired,
+  },
+  reload: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  reloadActive: {},
+  reloadAll: {},
+  reloadUpdatedServices: {},
+  filter: {
+    needle: PropTypes.string.isRequired,
+  },
+  resetFilter: {},
+  reorder: {
+    oldIndex: PropTypes.number.isRequired,
+    newIndex: PropTypes.number.isRequired,
+  },
+  toggleNotifications: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  openDevTools: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  openDevToolsForActiveService: {},
+};

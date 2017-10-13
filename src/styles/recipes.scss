@@ -1,0 +1,72 @@
+@import './config.scss';
+
+.recipes {
+  .recipes__list {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    min-height: 70%;
+    height: auto;
+
+    &.recipes__list--disabled {
+      opacity: 0.3;
+      filter: grayscale(100%);
+      pointer-events: none;
+    }
+  }
+
+  .recipes__navigation {
+    height: auto;
+    margin-bottom: 35px;
+
+    .badge {
+      margin-right: 10px;
+    }
+
+    &.recipes__navigation--disabled {
+      opacity: 0.3;
+      filter: grayscale(100%);
+      pointer-events: none;
+    }
+  }
+}
+
+.recipe-teaser {
+  position: relative;
+  width: calc(25% - 20px);
+  height: 120px;
+  margin: 0 20px 20px 0;
+  border-radius: $theme-border-radius;
+  background-color: $theme-gray-lightest;
+  transition: background $theme-transition-time;
+  overflow: hidden;
+
+  &:hover {
+    background-color: $theme-gray-lighter;
+  }
+
+  .recipe-teaser__icon {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  .recipe-teaser__label {
+    display: block;
+  }
+
+  h2 {
+    z-index: 10;
+  }
+
+  &__dev-badge {
+    position: absolute;
+    top: 5px;
+    right: -13px;
+    width: 50px;
+    background: $theme-brand-warning;
+    color: #FFF;
+    font-size: 10px;
+    transform: rotateZ(45deg);
+    box-shadow: 0 0 4px rgba(black, 0.2);
+  }
+}

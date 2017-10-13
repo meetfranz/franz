@@ -1,0 +1,72 @@
+.subscription {
+  .subscription__premium-features {
+    margin: 10px 0;
+
+    li {
+      height: 30px;
+      align-items: center;
+      display: flex;
+
+      &:before {
+        content: "👍";
+        margin-right: 10px;
+      }
+
+      .badge {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .subscription__premium-info {
+    margin: 15px 0 25px;
+  }
+}
+
+.paymentTiers {
+  .franz-form__radio-wrapper {
+    flex-flow: wrap;
+
+    .franz-form__radio {
+      width: 32%;
+      flex: initial;
+      margin-right: 2%;
+
+      &:nth-child(3) {
+        margin-right: 0;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+        margin-top: 2%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.settings {
+  .paymentTiers {
+    .franz-form__radio-wrapper {
+      .franz-form__radio {
+        width: 49%;
+
+        &:nth-child(2) {
+          margin-right: 0;
+        }
+
+        &:last-of-type {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.mining-details {
+  margin-bottom: 15px;
+
+  button {
+    color: $theme-brand-primary;
+  }
+}
