@@ -3,7 +3,9 @@
 
 <img src="./build-helpers/images/icon.png" alt="" width="150"/>
 
-# Franz 5 (beta) [![Build status Windows](https://ci.appveyor.com/api/projects/status/22e01sssgdt90d34/branch/master?svg=true)](https://ci.appveyor.com/project/adlk/franz/branch/master) [![Build Status Mac](https://travis-ci.com/meetfranz/franz.svg?token=9zxYPVb6RdKVnmTFMJLX&branch=master)](https://travis-ci.com/meetfranz/franz) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](http://meetfranz.com/payment.html)
+# Franz 5 (beta)
+[![Build status Windows](https://ci.appveyor.com/api/projects/status/9yman4ye19x4274o/branch/master?svg=true)](https://ci.appveyor.com/project/adlk/franz/branch/master)
+ [![Build Status Mac](https://travis-ci.com/meetfranz/franz.svg?token=9zxYPVb6RdKVnmTFMJLX&branch=master)](https://travis-ci.com/meetfranz/franz) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](http://meetfranz.com/payment.html)
 
 Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
 
