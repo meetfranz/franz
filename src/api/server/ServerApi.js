@@ -512,29 +512,15 @@ export default class ServerApi {
   _prepareAuthRequest(options, auth = true) {
     const request = Object.assign(options, {
       mode: 'cors',
-      headers: {
+      headers: Object.assign({
         'Content-Type': 'application/json',
         'X-Franz-Source': 'desktop',
         'X-Franz-Version': app.getVersion(),
         'X-Franz-platform': process.platform,
         'X-Franz-Timezone-Offset': new Date().getTimezoneOffset(),
         'X-Franz-System-Locale': app.getLocale(),
-      },
+      }, options.headers),
     });
-
-    // const headers = new window.Headers();
-    // headers.append('foo', 'bar');
-    // console.log(headers, request.headers);
-    //
-    //
-    // // request.headers.map((value, header) => headers.append(header, value));
-    // Object.keys(request.headers).map((key) => {
-    //   console.log(key);
-    //   return headers.append(key, request.headers[key]);
-    // });
-    // request.headers = headers;
-
-    // console.log(request);
 
     if (auth) {
       request.headers.Authorization = `Bearer ${localStorage.getItem('authToken')}`;
