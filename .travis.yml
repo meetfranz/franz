@@ -1,17 +1,24 @@
 language: node_js
+
 before_script:
 - yarn add global gulp-cli@1.2.2
 - yarn add global gulpjs/gulp#4.0
 - yarn add global node-sass
 - yarn install
+
 script:
 - yarn lint
 - yarn build
+
 node_js:
 - '7'
+
 os: osx
+
 osx_image: xcode8.3
+
 cache: yarn
+
 notifications:
   email: false
   slack:
@@ -19,7 +26,9 @@ notifications:
 
 deploy:
   provider: s3
-  access_key_id: AKIAI627QMQY3UHVODLQ
+  access_key_id: AKIAI6ZWIP2OWZUCXIGA
+  secret_access_key:
+    secure: NSST9RjAG6v57MQgFKXckah7k2TMcbozpMN7IAdBmyIvwDlRN6ELAMCynknXDSLE6b6LKyhsQ/i6ykSuZxVoHzRyY9z28lJhLkGqCeABqSAhcwQ6gWxetFXGqIV7o/oxTVMS3cDrUdkfUPCQRUgMO1ew0oV7e4HfqIiDYQMMWJY/HGr/LUgNqolrSLGB2GI38/I1nrhPHm3gwa/xYgKUNsO6plPS/YzC6oF/edstM8oO51Lfpq6+XmDMTUl9qq8GkUaRE4BwdGPG97FOA6Y4ONCeJ3xURkElwcfWab7oW3Mox7hj0Z8vot10cieIWEQjpRP+zO5O2NwUzFRH25FuQf4bbvgH4iWXpLan+qnJ9Ow6cl0lg4+8ESemwDCnKtTGb3ujagTH0S4KqBlwJ6sXFb9U2Diut4cEIT4k3rainjk+8ugIssuJq2TWfB40X49ymPw5BPjJfq2T4fOjx8OKzrBHQ1X6KJd8RhfEoLD3V5eToO5/l13uYOBrjSfyo6afvvUIraVNijSlnqYxPmJYnrLWZUUsTiHZFwSF+x2ffcYKs/tep9zqkZpyV4GhH17HcfuQpx4FUIXqMFmGLRj2uN7FweSVdfbsODhgpIwlpV7gMKONeSmEiFcCMwcRik1UK9off7TE6ZJPzX21BJ8QGM5j7Ot2tif2eGvAv+hUaXc=
   bucket: franz-travis
   region: eu-central-1
   local_dir: out
@@ -28,8 +37,6 @@ deploy:
   acl: public_read
   on:
     all_branches: true
-  secret_access_key:
-    secure: EL/nCG3E/yMhTV8/BqCsDCIbyxTXRnjIGm9Nv+EpiW2RPxLhhwzNvyM3/vfkvDpyIZeliru5JdrBtVWie17WDXeqGuP90YdDwSLVtt1iiY/7Wx3b3uGt4ilwfJHn5g1XwfkJvKy00LKE8z8UJMOHdFAMaqrhfD4aOS6SL+Q+kPnjfkk/nCZZyN06PDbUQ3s26DLkKtprwbW2SqgkH2oqk3fy3wtRL4FzQ+fgOFKNH4OyuRR3BxjX09rYVmp5C+Z0T6uFFUpSWHJEK+NIm/hpu9ZGMm7LNssJ5ebyw9QeUa3PmlzRIafWikTOpIvth5MKhqa9hRWhpo7fN/Ttw+C1B6nRSs8yFz6+79QoXNjU/x5n1OD/MeQfh0TrjvzJWQSGrvSgySSvFjdeHJ0rwoZFO6U+GbmFPDPI3Fo6+UZvzDgQTcbr59N2aqGPre4bvABryf4S9wmc8RpKNUNmppa0YlTLRJBQrTNxBOB8DRvPl3DI9OXnnVtWyEvw5L+tCqCJV+XbN15hS6Gap0P+Qp4SOjFNMuUST0G3OGuLXVjJK+ADuX0deu6hC3HQdpb9pNWfhm1fofZIkijNC+k1NyqAgRkZq4o6biOf/A0bTS0inbPw5fuSr8iJvMtIrdJ1OKcOOd1wZzjkuSH307J5Md8unSHfxZWBGe7dkucBLBB3PYg=
 
 env:
   global:
