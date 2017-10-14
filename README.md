@@ -35,6 +35,7 @@ Run these two commands __simultaneously__ in different console tabs.
 $ yarn run dev
 $ yarn start
 ```
+Be aware that the development database will be reset regularly.
 
 ## Packaging
 ```bash
@@ -51,6 +52,7 @@ Join the Franz community on [Slack](https://slack.franz.im) and get in touch wit
 - [ ] Create acceptance tests
 - [ ] 5.0 stable release
 - [ ] Developer Documentation
+- [ ] Add translations
 
 ## License
 Franz 5 is open-source licensed under the Apache-2.0 License.
