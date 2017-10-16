@@ -13,3 +13,14 @@ If you need help with development, want to discuss a new feature or improvement 
 
 ## How Can I Contribute?
 As a basic rule, before filing issues, feature requests or anything else. Take a look at the issues and check if this has not already been reported by another user. If so, engage in the already existing discussion.
+
+## Styleguide
+### Git Commit Messages
+* Use the present tense ("Add feature" not "Added feature")
+* Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
+* Limit the first line to 72 characters or less
+* Reference issues and pull requests liberally after the first line
+* When only changing documentation, include `[ci skip]` in the commit description
+
+### Javascript
+* Please use `es-lint` and the defined rules to maintain a consistent style  
