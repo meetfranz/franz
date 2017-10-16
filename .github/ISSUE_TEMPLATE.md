@@ -1,6 +1,6 @@
 <!--- Provide a general summary of the issue in the Title above -->
 
-<!--- If you want to propose a feature, use this template: https://github.com/meetfranz/franz/blob/master/.github/FEATURE_PROPOSAL_TEMPLATE.md -->
+<!--- If you want to propose a feature, use this template: https://raw.githubusercontent.com/meetfranz/franz/master/.github/FEATURE_PROPOSAL_TEMPLATE.md -->
 
 ### Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
