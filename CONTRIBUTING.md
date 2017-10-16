@@ -2,6 +2,16 @@
 
 :tada: First off, thanks for taking the time and your effort to make Franz better! :tada:
 
+#### Table of contents
+<!-- TOC depthFrom:2 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Code of Conduct](#code-of-conduct)
+- [What should I know before I get started?](#what-should-i-know-before-i-get-started)
+- [How Can I Contribute?](#how-can-i-contribute)
+- [Styleguide](#styleguide)
+
+<!-- /TOC -->
+
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the [Franz Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [stefan@adlk.io](mailto:stefan@adlk.io).
