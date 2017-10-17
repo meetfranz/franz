@@ -13,6 +13,13 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 ## Development
 
 ### Preparations
+
+#### Install OS Dependencies
+##### Linux (Debian/Ubuntu)
+```bash
+$ apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev
+```
+
 #### Install yarn
 ##### MacOS
 ```bash
@@ -21,12 +28,19 @@ $ brew install yarn
 ##### Windows
 [Download installer](https://yarnpkg.com/latest.msi)
 
+##### Linux
+[Install Yarn on Linux](https://yarnpkg.com/lang/en/docs/install/)
+
 #### Install Gulp 4
 ```bash
 $ yarn add global gulp-cli@1.2.2
 $ yarn add global gulpjs/gulp#4.0
 ```
 
+#### Fix native modules to match current electron node version
+```bash
+$ yarn run rebuild
+```
 
 ### Run Franz Development App
 Run these two commands __simultaneously__ in different console tabs.
@@ -50,7 +64,7 @@ Join the Franz community on [Slack](http://slack.franz.im) and get in touch with
 
 ## Create your own plugins/recipes
 You can find all the Information at the [Plugins repository](https://github.com/meetfranz/plugins).
-For questions feel free to ask in the [community Slack](http://slack.franz.im) 
+For questions feel free to ask in the [community Slack](http://slack.franz.im)
 
 ## Next steps
 - [ ] Create acceptance tests
