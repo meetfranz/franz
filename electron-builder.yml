@@ -20,6 +20,14 @@ win:
   icon: ./build-helpers/images/icon.ico
   target: nsis
 
+linux:
+  icon: ./build-helpers/images/icons
+  category: Network;InstantMessaging;
+  executableName: franz
+  target:
+    - target: AppImage
+    - target: deb
+
 nsis:
   perMachine: true
   oneClick: true
