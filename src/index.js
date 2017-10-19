@@ -90,6 +90,7 @@ const createWindow = async () => {
 
     if (settings.get('minimizeToSystemTray')) {
       mainWindow.setSkipTaskbar(true);
+      trayIcon.show();
     }
   });
 
