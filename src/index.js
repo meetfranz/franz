@@ -2,16 +2,18 @@ import { app, BrowserWindow, shell } from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 
-// eslint-disable-next-line
+/* eslint-disable */
 if (require('electron-squirrel-startup')) app.quit();
 
-import windowStateKeeper from 'electron-window-state'; // eslint-disable-line
+import windowStateKeeper from 'electron-window-state';
 
-import { isDevMode, isWindows } from './environment';  // eslint-disable-line
-import ipcApi from './electron/ipc-api';  // eslint-disable-line
-import Settings from './electron/Settings';  // eslint-disable-line
-import { appId } from './package.json'; // eslint-disable-line
-import './electron/exception'; // eslint-disable-line
+import { isDevMode, isWindows } from './environment';
+import ipcApi from './electron/ipc-api';
+import Tray from './lib/Tray';
+import Settings from './electron/Settings';
+import { appId } from './package.json';
+import './electron/exception';
+/* eslint-enable */
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -47,8 +49,11 @@ const createWindow = async () => {
     autoHideMenuBar: true,
   });
 
+  // Initialize System Tray
+  const trayIcon = new Tray(mainWindow);
+
   // Initialize ipcApi
-  ipcApi({ mainWindow, settings });
+  ipcApi({ mainWindow, settings, trayIcon });
 
   // Manage Window State
   mainWindowState.manage(mainWindow);
@@ -101,6 +106,10 @@ const createWindow = async () => {
 
     if (app.wasMaximized) {
       mainWindow.maximize();
+    }
+
+    if (!settings.get('enableSystemTray')) {
+      trayIcon.hide();
     }
   });
 

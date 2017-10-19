@@ -115,6 +115,7 @@ export default class EditSettingsForm extends Component {
             <h2>{intl.formatMessage(messages.headlineGeneral)}</h2>
             <Toggle field={form.$('autoLaunchOnStart')} />
             <Toggle field={form.$('runInBackground')} />
+            <Toggle field={form.$('enableSystemTray')} />
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
             )}
