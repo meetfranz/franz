@@ -209,21 +209,21 @@ export default class ServicesStore extends Store {
   }
 
   @action _setActiveNext() {
-    const nextIndex = this._wrapIndex(this.all.findIndex(service => service.isActive), 1, this.all.length);
+    const nextIndex = this._wrapIndex(this.enabled.findIndex(service => service.isActive), 1, this.enabled.length);
 
     this.all.forEach((s, index) => {
       this.all[index].isActive = false;
     });
-    this.all[nextIndex].isActive = true;
+    this.enabled[nextIndex].isActive = true;
   }
 
   @action _setActivePrev() {
-    const prevIndex = this._wrapIndex(this.all.findIndex(service => service.isActive), -1, this.all.length);
+    const prevIndex = this._wrapIndex(this.enabled.findIndex(service => service.isActive), -1, this.enabled.length);
 
     this.all.forEach((s, index) => {
       this.all[index].isActive = false;
     });
-    this.all[prevIndex].isActive = true;
+    this.enabled[prevIndex].isActive = true;
   }
 
   @action _setUnreadMessageCount({ serviceId, count }) {
