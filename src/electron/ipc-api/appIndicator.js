@@ -1,12 +1,11 @@
-import { app, ipcMain, Tray, Menu } from 'electron';
+import { app, ipcMain } from 'electron';
 import path from 'path';
+import { autorun } from 'mobx';
 
-const INDICATOR_TRAY_PLAIN = 'tray';
-const INDICATOR_TRAY_UNREAD = 'tray-unread';
 const INDICATOR_TASKBAR = 'taskbar';
-
 const FILE_EXTENSION = process.platform === 'win32' ? 'ico' : 'png';
-let trayIcon;
+
+let isTrayIconEnabled;
 
 function getAsset(type, asset) {
   return path.join(
@@ -15,26 +14,14 @@ function getAsset(type, asset) {
 }
 
 export default (params) => {
-  trayIcon = new Tray(getAsset('tray', INDICATOR_TRAY_PLAIN));
-  const trayMenuTemplate = [
-    {
-      label: 'Show Franz',
-      click() {
-        params.mainWindow.show();
-      },
-    }, {
-      label: 'Quit Franz',
-      click() {
-        app.quit();
-      },
-    },
-  ];
+  autorun(() => {
+    isTrayIconEnabled = params.settings.get('enableSystemTray');
 
-  const trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
-  trayIcon.setContextMenu(trayMenu);
-
-  trayIcon.on('click', () => {
-    params.mainWindow.show();
+    if (!isTrayIconEnabled) {
+      params.trayIcon.hide();
+    } else if (isTrayIconEnabled) {
+      params.trayIcon.show();
+    }
   });
 
   ipcMain.on('updateAppIndicator', (event, args) => {
@@ -68,13 +55,7 @@ export default (params) => {
       }
     }
 
-    // Update system tray
-    trayIcon.setImage(getAsset('tray', args.indicator !== 0 ? INDICATOR_TRAY_UNREAD : INDICATOR_TRAY_PLAIN));
-
-    if (process.platform === 'darwin') {
-      trayIcon.setPressedImage(
-        getAsset('tray', `${args.indicator !== 0 ? INDICATOR_TRAY_UNREAD : INDICATOR_TRAY_PLAIN}-active`),
-      );
-    }
+    // Update Tray
+    params.trayIcon.setIndicator(args.indicator);
   });
 };
