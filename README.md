@@ -20,6 +20,11 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 $ apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev
 ```
 
+##### Linux (Fedora)
+```bash
+$ dnf-install libX11-devel libXext-devel libXScrnSaver-devel libxkbfile-devel
+```
+
 #### Install yarn
 ##### MacOS
 ```bash
