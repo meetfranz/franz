@@ -6,7 +6,7 @@ before_script:
 - yarn install
 script:
 - yarn lint
-- yarn build
+- travis wait yarn build
 node_js:
 - '7'
 os: osx
