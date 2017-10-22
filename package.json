@@ -18,6 +18,7 @@
     "prebuild": "gulp build",
     "build": "node_modules/.bin/electron-builder --publish onTag",
     "rebuild": "node_modules/.bin/electron-rebuild",
+    "precommit": "yarn lint",
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
