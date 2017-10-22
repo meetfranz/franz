@@ -24,6 +24,8 @@ export default class ServicesStore extends Store {
 
     // Register action handlers
     this.actions.service.setActive.listen(this._setActive.bind(this));
+    this.actions.service.setActiveNext.listen(this._setActiveNext.bind(this));
+    this.actions.service.setActivePrev.listen(this._setActivePrev.bind(this));
     this.actions.service.showAddServiceInterface.listen(this._showAddServiceInterface.bind(this));
     this.actions.service.createService.listen(this._createService.bind(this));
     this.actions.service.createFromLegacyService.listen(this._createFromLegacyService.bind(this));
@@ -204,6 +206,24 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
+  }
+
+  @action _setActiveNext() {
+    const nextIndex = this._wrapIndex(this.enabled.findIndex(service => service.isActive), 1, this.enabled.length);
+
+    this.all.forEach((s, index) => {
+      this.all[index].isActive = false;
+    });
+    this.enabled[nextIndex].isActive = true;
+  }
+
+  @action _setActivePrev() {
+    const prevIndex = this._wrapIndex(this.enabled.findIndex(service => service.isActive), -1, this.enabled.length);
+
+    this.all.forEach((s, index) => {
+      this.all[index].isActive = false;
+    });
+    this.enabled[prevIndex].isActive = true;
   }
 
   @action _setUnreadMessageCount({ serviceId, count }) {
@@ -500,4 +520,8 @@ export default class ServicesStore extends Store {
   _reorderAnalytics = debounce(() => {
     gaEvent('Service', 'order');
   }, 5000);
+
+  _wrapIndex(index, delta, size) {
+    return (((index + delta) % size) + size) % size;
+  }
 }
