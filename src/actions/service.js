@@ -4,6 +4,8 @@ export default {
   setActive: {
     serviceId: PropTypes.string.isRequired,
   },
+  setActiveNext: {},
+  setActivePrev: {},
   showAddServiceInterface: {
     recipeId: PropTypes.string.isRequired,
   },
