@@ -192,6 +192,15 @@ export default class UserStore extends Store {
   @action async _importLegacyServices({ services }) {
     this.isImportLegacyServicesExecuting = true;
 
+    // Reduces recipe duplicates
+    const recipes = services.filter((obj, pos, arr) => arr.map(mapObj => mapObj.recipe.id).indexOf(obj.recipe.id) === pos).map(s => s.recipe.id);
+
+    // Install recipes
+    for (const recipe of recipes) {
+      // eslint-disable-next-line
+      await this.stores.recipes._install({ recipeId: recipe });
+    }
+
     for (const service of services) {
       this.actions.service.createFromLegacyService({
         data: service,
