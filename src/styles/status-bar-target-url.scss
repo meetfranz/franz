@@ -8,12 +8,7 @@
   box-shadow: 0 0 8px rgba(black, 0.2);
   font-size: 12px;
   color: $theme-gray-dark;
-  order: 10;
   bottom: 0;
   right: 0;
   border-top-left-radius: 5px;
-
-  .status-bar-target-url__content {
-    height: auto;
-  }
 }
