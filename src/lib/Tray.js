@@ -1,15 +1,9 @@
-import { app, Tray, Menu } from 'electron';
+import { app, Tray, Menu, systemPreferences } from 'electron';
 import path from 'path';
 
 const FILE_EXTENSION = process.platform === 'win32' ? 'ico' : 'png';
 const INDICATOR_TRAY_PLAIN = 'tray';
 const INDICATOR_TRAY_UNREAD = 'tray-unread';
-
-function getAsset(type, asset) {
-  return path.join(
-    __dirname, '..', 'assets', 'images', type, process.platform, `${asset}.${FILE_EXTENSION}`,
-  );
-}
 
 export default class TrayIcon {
   mainWindow = null;
@@ -20,7 +14,7 @@ export default class TrayIcon {
   }
 
   show() {
-    this.trayIcon = new Tray(getAsset('tray', INDICATOR_TRAY_PLAIN));
+    this.trayIcon = new Tray(this._getAsset('tray', INDICATOR_TRAY_PLAIN));
     const trayMenuTemplate = [
       {
         label: 'Show Franz',
@@ -53,12 +47,25 @@ export default class TrayIcon {
   setIndicator(indicator) {
     if (!this.trayIcon) return;
 
-    this.trayIcon.setImage(getAsset('tray', indicator !== 0 ? INDICATOR_TRAY_UNREAD : INDICATOR_TRAY_PLAIN));
+    this.trayIcon.setImage(this._getAsset('tray', indicator !== 0 ? INDICATOR_TRAY_UNREAD : INDICATOR_TRAY_PLAIN));
 
     if (process.platform === 'darwin') {
       this.trayIcon.setPressedImage(
-        getAsset('tray', `${indicator !== 0 ? INDICATOR_TRAY_UNREAD : INDICATOR_TRAY_PLAIN}-active`),
+        this._getAsset('tray', `${indicator !== 0 ? INDICATOR_TRAY_UNREAD : INDICATOR_TRAY_PLAIN}-active`),
       );
     }
+  }
+
+
+  _getAsset(type, asset) {
+    let platform = process.platform;
+
+    if (platform === 'darwin' && systemPreferences.isDarkMode()) {
+      platform = `${platform}-dark`;
+    }
+
+    return path.join(
+      __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`,
+    );
   }
 }
