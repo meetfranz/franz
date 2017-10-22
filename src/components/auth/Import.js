@@ -99,7 +99,6 @@ export default class Import extends Component {
                   <tr
                     key={service.id}
                     className="service-table__row"
-                    onClick={() => service.$('add').set(!service.$('add').value)}
                   >
                     <td className="service-table__toggle">
                       <Toggle
