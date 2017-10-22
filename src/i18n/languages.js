@@ -1,9 +1,9 @@
 module.exports = {
   'en-US': 'English',
   'pt-BR': 'Portuguese (Brazil)',
-  'nl-NL': 'Nederlands',
-  'de-DE': 'Deutsch',
-  'fr': 'French',
-  'pl-PL': 'Polish',
-  'ru-RU': 'Русский',
+  nl: 'Nederlands',
+  de: 'Deutsch',
+  fr: 'French',
+  pl: 'Polish',
+  ru: 'Русский',
 };
