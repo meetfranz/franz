@@ -125,6 +125,18 @@ export default class AppStore extends Store {
       this.actions.service.openDevToolsForActiveService();
     });
 
+    // Set active the next service
+    key(
+      '⌘+pagedown, ctrl+pagedown, ⌘+shift+tab, ctrl+shift+tab', () => {
+        this.actions.service.setActiveNext();
+      });
+
+    // Set active the prev service
+    key(
+      '⌘+pageup, ctrl+pageup, ⌘+tab, ctrl+tab', () => {
+        this.actions.service.setActivePrev();
+      });
+
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
