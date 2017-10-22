@@ -1,33 +1,19 @@
 @import './config.scss';
 
 .status-bar-target-url {
-  // width: 100%;
   height: auto;
   background: $theme-gray-lighter;
-  padding: 2px 20px 2px 10px;
+  padding: 4px;
   position: absolute;
-  // z-index: 100;
   box-shadow: 0 0 8px rgba(black, 0.2);
-
+  font-size: 12px;
   color: $theme-gray-dark;
+  order: 10;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 5px;
 
   .status-bar-target-url__content {
     height: auto;
-
-    .mdi {
-      margin-right: 5px;
-    }
-  }
-
-  &.status-bar-target-url--bottom {
-    order: 10;
-    bottom: 0;
-    border-top-right-radius: 5px;
-  }
-
-  &.status-bar-target-url--top {
-    order: 10;
-    top: 0;
-    border-bottom-right-radius: 5px;
   }
 }

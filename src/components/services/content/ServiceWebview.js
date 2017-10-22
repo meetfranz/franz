@@ -64,7 +64,7 @@ export default class ServiceWebview extends Component {
     let statusBar = null;
     if (this.state.statusBarVisible) {
       statusBar = (
-        <StatusBarTargetUrl position="bottom" text={this.state.targetUrl} />
+        <StatusBarTargetUrl text={this.state.targetUrl} />
       );
     }
 
