@@ -79,7 +79,7 @@ const messages = defineMessages({
   },
   miningDetail1: {
     id: 'subscription.mining.line1',
-    defaultMessage: '!!!By enabling "Support with processing power", Franz will use about 20-50% of your CPU to mine cryptocurrency Monero which equals approximately $ 5/year.',
+    defaultMessage: '!!!By enabling "Support with processing power", Franz will use about 20-50% of your CPU to mine cryptocurrency Monero which equals approximately € 5/year.',
   },
   miningDetail2: {
     id: 'subscription.mining.line2',
@@ -136,12 +136,12 @@ export default class SubscriptionForm extends Component {
           validate: [required],
           options: [{
             value: 'month',
-            label: `$ ${Object.hasOwnProperty.call(this.props.plan, 'month')
+            label: `€ ${Object.hasOwnProperty.call(this.props.plan, 'month')
               ? `${this.props.plan.month.price} / ${intl.formatMessage(messages.typeMonthly)}`
               : 'monthly'}`,
           }, {
             value: 'year',
-            label: `$ ${Object.hasOwnProperty.call(this.props.plan, 'year')
+            label: `€ ${Object.hasOwnProperty.call(this.props.plan, 'year')
               ? `${this.props.plan.year.price} / ${intl.formatMessage(messages.typeYearly)}`
               : 'yearly'}`,
           }, {
@@ -155,7 +155,7 @@ export default class SubscriptionForm extends Component {
     if (this.props.showSkipOption) {
       form.fields.paymentTier.options.unshift({
         value: 'skip',
-        label: `$ 0 / ${intl.formatMessage(messages.typeFree)}`,
+        label: `€ 0 / ${intl.formatMessage(messages.typeFree)}`,
       });
     }
 
