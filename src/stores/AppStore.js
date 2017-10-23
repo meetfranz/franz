@@ -173,23 +173,26 @@ export default class AppStore extends Store {
   @action _launchOnStartup({ enable, openInBackground }) {
     this.autoLaunchOnStart = enable;
 
-    const settings = {
+    let settings = {
       openAtLogin: enable,
-      openAsHidden: openInBackground,
-      path: updateExe,
-      args: [
-        '--processStart', `"${exeName}"`,
-      ],
     };
 
     // For Windows
-    if (openInBackground) {
-      settings.args.push(
-        '--process-start-args', '"--hidden"',
-      );
-    }
+    if (process.platform === 'win32') {
+      settings = Object.assign({
+        openAsHidden: openInBackground,
+        path: updateExe,
+        args: [
+          '--processStart', `"${exeName}"`,
+        ],
+      }, settings);
 
-    app.setLoginItemSettings(settings);
+      if (openInBackground) {
+        settings.args.push(
+          '--process-start-args', '"--hidden"',
+        );
+      }
+    }
 
     gaEvent('App', enable ? 'enable autostart' : 'disable autostart');
   }
