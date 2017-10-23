@@ -16,10 +16,6 @@ import Miner from '../lib/Miner';
 const { app, getCurrentWindow, powerMonitor } = remote;
 const defaultLocale = 'en-US';
 
-const appFolder = path.dirname(process.execPath);
-const updateExe = path.resolve(appFolder, '..', 'Update.exe');
-const exeName = path.basename(process.execPath);
-
 export default class AppStore extends Store {
   updateStatusTypes = {
     CHECKING: 'CHECKING',
@@ -181,9 +177,9 @@ export default class AppStore extends Store {
     if (process.platform === 'win32') {
       settings = Object.assign({
         openAsHidden: openInBackground,
-        path: updateExe,
+        path: app.getPath('exe'),
         args: [
-          '--processStart', `"${exeName}"`,
+          '--processStart', `"${path.basename(app.getPath('exe'))}"`,
         ],
       }, settings);
 
@@ -316,7 +312,7 @@ export default class AppStore extends Store {
 
   _checkAutoStart() {
     const loginItem = app.getLoginItemSettings({
-      path: updateExe,
+      path: app.getPath('exe'),
     });
 
     this.autoLaunchOnStart = loginItem.openAtLogin;
