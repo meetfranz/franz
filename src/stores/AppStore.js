@@ -16,10 +16,6 @@ import Miner from '../lib/Miner';
 const { app, getCurrentWindow, powerMonitor } = remote;
 const defaultLocale = 'en-US';
 
-const appFolder = path.dirname(process.execPath);
-const updateExe = path.resolve(appFolder, '..', 'Update.exe');
-const exeName = path.basename(process.execPath);
-
 export default class AppStore extends Store {
   updateStatusTypes = {
     CHECKING: 'CHECKING',
@@ -173,23 +169,26 @@ export default class AppStore extends Store {
   @action _launchOnStartup({ enable, openInBackground }) {
     this.autoLaunchOnStart = enable;
 
-    const settings = {
+    let settings = {
       openAtLogin: enable,
-      openAsHidden: openInBackground,
-      path: updateExe,
-      args: [
-        '--processStart', `"${exeName}"`,
-      ],
     };
 
     // For Windows
-    if (openInBackground) {
-      settings.args.push(
-        '--process-start-args', '"--hidden"',
-      );
-    }
+    if (process.platform === 'win32') {
+      settings = Object.assign({
+        openAsHidden: openInBackground,
+        path: app.getPath('exe'),
+        args: [
+          '--processStart', `"${path.basename(app.getPath('exe'))}"`,
+        ],
+      }, settings);
 
-    app.setLoginItemSettings(settings);
+      if (openInBackground) {
+        settings.args.push(
+          '--process-start-args', '"--hidden"',
+        );
+      }
+    }
 
     gaEvent('App', enable ? 'enable autostart' : 'disable autostart');
   }
@@ -319,7 +318,7 @@ export default class AppStore extends Store {
 
   _checkAutoStart() {
     const loginItem = app.getLoginItemSettings({
-      path: updateExe,
+      path: app.getPath('exe'),
     });
 
     this.autoLaunchOnStart = loginItem.openAtLogin;
