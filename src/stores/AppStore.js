@@ -303,6 +303,12 @@ export default class AppStore extends Store {
       // we need to wait until the settings request is resolved
       await this.stores.settings.allSettingsRequest;
 
+      // We don't set autostart on first launch for macOS as disabling
+      // the option is currently broken
+      // https://github.com/meetfranz/franz/issues/17
+      // https://github.com/electron/electron/issues/10880
+      if (process.platform === 'darwin') return;
+
       if (!this.stores.settings.all.appStarts) {
         this.actions.app.launchOnStartup({
           enable: true,
