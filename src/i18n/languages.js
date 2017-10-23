@@ -7,4 +7,5 @@ module.exports = {
   ja: 'Japanese',
   pl: 'Polish',
   ru: 'Русский',
+  ua: 'Українська'
 };
