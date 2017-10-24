@@ -29,15 +29,17 @@ if (isWindows) {
 }
 
 // Force single window
-const isSecondInstance = app.makeSingleInstance(() => {
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
-  }
-});
+if (process.platform !== 'darwin') {
+  const isSecondInstance = app.makeSingleInstance(() => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
 
-if (isSecondInstance) {
-  app.quit();
+  if (isSecondInstance) {
+    app.quit();
+  }
 }
 
 // Initialize Settings
