@@ -14,6 +14,8 @@ export default class TrayIcon {
   }
 
   show() {
+    if (this.trayIcon) return;
+
     this.trayIcon = new Tray(this._getAsset('tray', INDICATOR_TRAY_PLAIN));
     const trayMenuTemplate = [
       {
