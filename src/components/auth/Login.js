@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 
+import { isDevMode, useLiveAPI } from '../../environment';
 import Form from '../../lib/Form';
 import { required, email } from '../../helpers/validation-helpers';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 import Link from '../ui/Link';
+import Infobox from '../ui/Infobox';
+
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
@@ -117,6 +120,11 @@ export default class Login extends Component {
             alt=""
           />
           <h1>{intl.formatMessage(messages.headline)}</h1>
+          {isDevMode && !useLiveAPI && (
+            <Infobox type="warning">
+              In Dev Mode your data is not persistent. Please use the live app for accesing the production API.
+            </Infobox>
+          )}
           {isTokenExpired && (
             <p className="error-message center">{intl.formatMessage(messages.tokenExpired)}</p>
           )}
