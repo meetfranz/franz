@@ -1,6 +1,7 @@
 module.exports = {
   'en-US': 'English',
   'pt-BR': 'Portuguese (Brazil)',
+  'el-GR': 'Ελληνικά (Greece)',
   nl: 'Nederlands',
   de: 'Deutsch',
   fr: 'French',
