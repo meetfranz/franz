@@ -57,7 +57,7 @@ export default class SubscriptionPopup extends Component {
             className="subscription-popup__webview"
 
             autosize
-            src={url}
+            src={encodeURI(url)}
             disablewebsecurity
             onDidNavigate={completeCheck}
             // onNewWindow={(event, url, frameName, options) =>
