@@ -64,7 +64,7 @@
     "react-tooltip": "^3.2.7",
     "route-parser": "^0.0.5",
     "smoothscroll-polyfill": "^0.3.4",
-    "tar.gz": "^1.0.5",
+    "tar": "^4.0.2",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
