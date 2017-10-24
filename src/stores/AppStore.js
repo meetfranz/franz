@@ -80,7 +80,7 @@ export default class AppStore extends Store {
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
     // Check for an update in 30s (need a delay to prevent Squirrel Installer lock file issues)
-    setTimeout(() => this._checkForUpdates(), 3000);
+    setTimeout(() => this._checkForUpdates(), 30000);
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
