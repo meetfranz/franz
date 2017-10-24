@@ -24,7 +24,7 @@ export default class SubscriptionPopupScreen extends Component {
   render() {
     return (
       <SubscriptionPopup
-        url={decodeURIComponent(this.props.router.params.url)}
+        url={this.props.router.params.url}
         closeWindow={() => window.close()}
         completeCheck={e => this.completeCheck(e)}
         isCompleted={this.state.complete}

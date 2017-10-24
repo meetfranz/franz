@@ -16,10 +16,6 @@ import Miner from '../lib/Miner';
 const { app, getCurrentWindow, powerMonitor } = remote;
 const defaultLocale = 'en-US';
 
-const appFolder = path.dirname(process.execPath);
-const updateExe = path.resolve(appFolder, '..', 'Update.exe');
-const exeName = path.basename(process.execPath);
-
 export default class AppStore extends Store {
   updateStatusTypes = {
     CHECKING: 'CHECKING',
@@ -84,7 +80,7 @@ export default class AppStore extends Store {
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
     // Check for an update in 30s (need a delay to prevent Squirrel Installer lock file issues)
-    setTimeout(() => this._checkForUpdates(), 3000);
+    setTimeout(() => this._checkForUpdates(), 30000);
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
@@ -125,6 +121,18 @@ export default class AppStore extends Store {
       this.actions.service.openDevToolsForActiveService();
     });
 
+    // Set active the next service
+    key(
+      '⌘+pagedown, ctrl+pagedown, ⌘+shift+tab, ctrl+shift+tab', () => {
+        this.actions.service.setActiveNext();
+      });
+
+    // Set active the prev service
+    key(
+      '⌘+pageup, ctrl+pageup, ⌘+tab, ctrl+tab', () => {
+        this.actions.service.setActivePrev();
+      });
+
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
@@ -161,23 +169,26 @@ export default class AppStore extends Store {
   @action _launchOnStartup({ enable, openInBackground }) {
     this.autoLaunchOnStart = enable;
 
-    const settings = {
+    let settings = {
       openAtLogin: enable,
-      openAsHidden: openInBackground,
-      path: updateExe,
-      args: [
-        '--processStart', `"${exeName}"`,
-      ],
     };
 
     // For Windows
-    if (openInBackground) {
-      settings.args.push(
-        '--process-start-args', '"--hidden"',
-      );
-    }
+    if (process.platform === 'win32') {
+      settings = Object.assign({
+        openAsHidden: openInBackground,
+        path: app.getPath('exe'),
+        args: [
+          '--processStart', `"${path.basename(app.getPath('exe'))}"`,
+        ],
+      }, settings);
 
-    app.setLoginItemSettings(settings);
+      if (openInBackground) {
+        settings.args.push(
+          '--process-start-args', '"--hidden"',
+        );
+      }
+    }
 
     gaEvent('App', enable ? 'enable autostart' : 'disable autostart');
   }
@@ -291,6 +302,12 @@ export default class AppStore extends Store {
       // we need to wait until the settings request is resolved
       await this.stores.settings.allSettingsRequest;
 
+      // We don't set autostart on first launch for macOS as disabling
+      // the option is currently broken
+      // https://github.com/meetfranz/franz/issues/17
+      // https://github.com/electron/electron/issues/10880
+      if (process.platform === 'darwin') return;
+
       if (!this.stores.settings.all.appStarts) {
         this.actions.app.launchOnStartup({
           enable: true,
@@ -301,7 +318,7 @@ export default class AppStore extends Store {
 
   _checkAutoStart() {
     const loginItem = app.getLoginItemSettings({
-      path: updateExe,
+      path: app.getPath('exe'),
     });
 
     this.autoLaunchOnStart = loginItem.openAtLogin;

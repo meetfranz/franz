@@ -6,6 +6,7 @@ import Webview from 'react-electron-web-view';
 import classnames from 'classnames';
 
 import ServiceModel from '../../../models/Service';
+import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
 
 @observer
 export default class ServiceWebview extends Component {
@@ -20,6 +21,8 @@ export default class ServiceWebview extends Component {
 
   state = {
     forceRepaint: false,
+    targetUrl: '',
+    statusBarVisible: false,
   };
 
   componentDidMount() {
@@ -30,6 +33,17 @@ export default class ServiceWebview extends Component {
           this.setState({ forceRepaint: false });
         }, 100);
       }
+    });
+  }
+
+  updateTargetUrl = (event) => {
+    let visible = true;
+    if (event.url === '' || event.url === '#') {
+      visible = false;
+    }
+    this.setState({
+      targetUrl: event.url,
+      statusBarVisible: visible,
     });
   }
 
@@ -47,6 +61,13 @@ export default class ServiceWebview extends Component {
       'services__webview--force-repaint': this.state.forceRepaint,
     });
 
+    let statusBar = null;
+    if (this.state.statusBarVisible) {
+      statusBar = (
+        <StatusBarTargetUrl text={this.state.targetUrl} />
+      );
+    }
+
     return (
       <div className={webviewClasses}>
         <Webview
@@ -62,11 +83,14 @@ export default class ServiceWebview extends Component {
             webview: this.webview.view,
           })}
 
+          onUpdateTargetUrl={this.updateTargetUrl}
+
           useragent={service.userAgent}
 
           disablewebsecurity
           allowpopups
         />
+        {statusBar}
       </div>
     );
   }
