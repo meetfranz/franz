@@ -447,6 +447,10 @@ export default class ServerApi {
 
   // Helper
   async _mapServiceModels(services) {
+    const recipes = services.map(s => s.recipeId);
+
+    await this._bulkRecipeCheck(recipes);
+
     return Promise.all(services
       .map(async service => await this._prepareServiceModel(service)) // eslint-disable-line
     );
@@ -458,19 +462,8 @@ export default class ServerApi {
       recipe = this.recipes.find(r => r.id === service.recipeId);
 
       if (!recipe) {
-        console.warn(`Recipe '${service.recipeId}' not installed, trying to fetch from server`);
-
-        await this.getRecipePackage(service.recipeId);
-
-        console.debug('Rerun ServerAPI::getInstalledRecipes');
-        await this.getInstalledRecipes();
-
-        recipe = this.recipes.find(r => r.id === service.recipeId);
-
-        if (!recipe) {
-          console.warn(`Could not load recipe ${service.recipeId}`);
-          return null;
-        }
+        console.warn(`Recipe ${service.recipeId} not loaded`);
+        return null;
       }
 
       return new ServiceModel(service, recipe);
@@ -478,6 +471,35 @@ export default class ServerApi {
       console.debug(e);
       return null;
     }
+  }
+
+  async _bulkRecipeCheck(unfilteredRecipes) {
+    // Filter recipe duplicates as we don't need to download 3 Slack recipes
+    const recipes = unfilteredRecipes.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
+
+    return Promise.all(recipes
+      .map(async (recipeId) => {
+        let recipe = this.recipes.find(r => r.id === recipeId);
+
+        if (!recipe) {
+          console.warn(`Recipe '${recipeId}' not installed, trying to fetch from server`);
+
+          await this.getRecipePackage(recipeId);
+
+          console.debug('Rerun ServerAPI::getInstalledRecipes');
+          await this.getInstalledRecipes();
+
+          recipe = this.recipes.find(r => r.id === recipeId);
+
+          if (!recipe) {
+            console.warn(`Could not load recipe ${recipeId}`);
+            return null;
+          }
+        }
+
+        return recipe;
+      }),
+    ).catch(err => console.error(err));
   }
 
   _mapRecipePreviewModel(recipes) {
