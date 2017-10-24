@@ -1,6 +1,6 @@
 import os from 'os';
 import path from 'path';
-import targz from 'tar.gz';
+import tar from 'tar';
 import fs from 'fs-extra';
 import { remote } from 'electron';
 
@@ -293,7 +293,11 @@ export default class ServerApi {
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
 
-      await targz().extract(archivePath, recipeTempDirectory);
+      tar.x({
+        file: archivePath,
+        cwd: recipeTempDirectory,
+        sync: true,
+      });
 
       const { id } = fs.readJsonSync(path.join(recipeTempDirectory, 'package.json'));
       const recipeDirectory = path.join(recipesDirectory, id);
