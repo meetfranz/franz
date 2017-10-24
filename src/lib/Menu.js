@@ -49,6 +49,7 @@ const template = [
       },
       {
         role: 'zoomin',
+        accelerator: 'CommandOrControl+=',
       },
       {
         role: 'zoomout',
