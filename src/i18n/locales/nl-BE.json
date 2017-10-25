@@ -76,7 +76,7 @@
   "settings.account.headlineProfile": "Profiel aanpassen",
   "settings.account.headlineAccount": "Accountinformatie",
   "settings.account.headlinePassword": "Wachtwoord veranderen",
-  "settings.account.successInfo": "Je wijzigingen werden bewaard",
+  "settings.account.successInfo": "Je wijzigingen zijn opgeslagen",
   "settings.account.buttonSave": "Profiel aanpassen",
   "settings.account.mining.thankyou": "Bedankt om Franz te steunen met je rekenkracht.",
   "settings.account.mining.active": "Op dit moment maak je {hashes} berekeningen per seconde.",
