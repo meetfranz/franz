@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 
+import { isDevMode, useLiveAPI } from '../../environment';
 import Form from '../../lib/Form';
 import { required, email, minLength } from '../../helpers/validation-helpers';
 import Input from '../ui/Input';
 import Radio from '../ui/Radio';
 import Button from '../ui/Button';
 import Link from '../ui/Link';
+import Infobox from '../ui/Infobox';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
@@ -145,6 +147,11 @@ export default class Signup extends Component {
               alt=""
             />
             <h1>{intl.formatMessage(messages.headline)}</h1>
+            {isDevMode && !useLiveAPI && (
+              <Infobox type="warning">
+                In Dev Mode your data is not persistent. Please use the live app for accesing the production API.
+              </Infobox>
+            )}
             <Radio field={form.$('accountType')} showLabel={false} />
             <div className="grid__row">
               <Input field={form.$('firstname')} focus />
