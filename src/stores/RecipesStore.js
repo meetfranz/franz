@@ -65,6 +65,10 @@ export default class RecipesStore extends Store {
   @action async _update() {
     const recipeIds = this.recipeIdForServices;
     const recipes = {};
+
+    // Hackfix, reference this.all to fetch services
+    console.debug(`Check Recipe updates for ${this.all.map(recipe => recipe.id)}`);
+
     recipeIds.forEach((r) => {
       const recipe = this.one(r);
       recipes[r] = recipe.version;

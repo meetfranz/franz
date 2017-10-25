@@ -2,7 +2,7 @@
   "name": "franz",
   "productName": "Franz",
   "appId": "com.meetfranz.franz",
-  "version": "5.0.0-beta.10",
+  "version": "5.0.0-beta.11",
   "description": "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.",
   "copyright": "adlk x franz - Stefan Malzner",
   "main": "index.js",
@@ -18,6 +18,7 @@
     "prebuild": "gulp build",
     "build": "node_modules/.bin/electron-builder --publish onTag",
     "rebuild": "node_modules/.bin/electron-rebuild",
+    "precommit": "yarn lint",
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
@@ -63,7 +64,7 @@
     "react-tooltip": "^3.2.7",
     "route-parser": "^0.0.5",
     "smoothscroll-polyfill": "^0.3.4",
-    "tar.gz": "^1.0.5",
+    "tar": "^4.0.2",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
@@ -82,7 +83,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "del": "^2.2.2",
     "dotenv": "^4.0.0",
-    "electron": "^1.7.6",
+    "electron": "^1.7.9",
     "electron-builder": "19.15.1",
     "electron-packager": "^8.7.0",
     "electron-rebuild": "^1.6.0",

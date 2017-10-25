@@ -14,11 +14,8 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 
 ### Preparations
 
-#### Install OS Dependencies
-##### Linux (Debian/Ubuntu)
-```bash
-$ apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev
-```
+#### Install Linux OS dependencies
+[Guide: Linux distribution specific dependencies](docs/linux.md)
 
 #### Install yarn
 ##### MacOS
