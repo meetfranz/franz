@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Restart & install update",
   "infobar.requiredRequestsFailed": "Could not load services and user information",
   "sidebar.settings": "Settings",
+  "sidebar.addservice": "Add new service",
   "services.welcome": "Welcome to Franz",
   "services.getStarted": "Get started",
   "settings.account.headline": "Account",
