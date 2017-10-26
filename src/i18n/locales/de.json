@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Neustarten & Aktualisierung installieren",
   "infobar.requiredRequestsFailed": "Dienste und Benutzerinformationen konnten nicht geladen werden",
   "sidebar.settings": "Einstellungen",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Willkommen bei Franz",
   "services.getStarted": "Loslegen",
   "settings.account.headline": "Konto",

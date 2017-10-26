@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "再起動して更新をインストールする",
   "infobar.requiredRequestsFailed": "サービスとユーザー情報が読み込めません",
   "sidebar.settings": "設定",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Franzにようこそ",
   "services.getStarted": "はじめる",
   "settings.account.headline": "アカウント",

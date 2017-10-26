@@ -54,6 +54,8 @@ export default class TabBar extends Component {
       deleteService,
     } = this.props;
 
+    const { intl } = this.context;
+
     return (
       <div>
         <TabBarSortableList
@@ -70,6 +72,7 @@ export default class TabBar extends Component {
           axis="y"
           lockAxis="y"
           helperClass="is-reordering"
+          intl={intl}
         />
       </div>
     );

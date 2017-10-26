@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Reiniciar & instalar atualização",
   "infobar.requiredRequestsFailed": "Não foi possível carregar serviços e informações do usuário",
   "sidebar.settings": "Configurações",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Bem-vindo ao Franz",
   "services.getStarted": "Começar",
   "settings.account.headline": "Conta",

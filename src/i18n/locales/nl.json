@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Herstart & installeer update",
   "infobar.requiredRequestsFailed": "Kon services en gebruikerinformatie niet laden",
   "sidebar.settings": "Instellingen",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Welkom bij Franz",
   "services.getStarted": "Beginnen",
   "settings.account.headline": "Account",
