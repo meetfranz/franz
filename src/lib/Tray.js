@@ -21,7 +21,7 @@ export default class TrayIcon {
       {
         label: 'Show Franz',
         click() {
-          this.mainWindow.show();
+          app.mainWindow.show();
         },
       }, {
         label: 'Quit Franz',
