@@ -5,6 +5,13 @@ import { SortableContainer } from 'react-sortable-hoc';
 import TabItem from './TabItem';
 import { ctrlKey } from '../../../environment';
 
+const messages = defineMessages({
+  addservice: {
+    id: 'sidebar.addservice',
+    defaultMessage: '!!!Add new service',
+  },
+});
+
 export default SortableContainer(observer(({
   services,
   setActive,
@@ -35,7 +42,7 @@ export default SortableContainer(observer(({
       <button
         className="sidebar__add-service"
         onClick={() => openSettings({ path: 'recipes' })}
-        data-tip={`Add new service (${ctrlKey}+N)`}
+        data-tip={`${intl.formatMessage(messages.addservice)} (${ctrlKey}+N)`}
       >
         <span className="mdi mdi-plus" />
       </button>
