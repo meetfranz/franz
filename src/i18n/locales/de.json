@@ -126,7 +126,7 @@
   "settings.app.updateStatusUpToDate": "Du nutzt die aktuellste Version von Franz",
   "settings.app.form.autoLaunchOnStart": "Franz beim Systemstart ausführen",
   "settings.app.form.autoLaunchInBackground": "Im Hintergrund öffnen",
-  "settings.app.form.minimizeToSystemTray": "Franz in die Taskleiste minimieren",
+  "settings.app.form.minimizeToSystemTray": "Franz in die Systemleiste minimieren",
   "settings.app.form.runInBackground": "Franz im Hintergrund behalten, wenn das Fenster geschlossen wird",
   "settings.app.form.language": "Sprache",
   "settings.app.form.beta": "Beta-Versionen einbeziehen",
