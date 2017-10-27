@@ -13,7 +13,7 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
-const { app, getCurrentWindow, powerMonitor } = remote;
+const { app, powerMonitor } = remote;
 const defaultLocale = 'en-US';
 
 export default class AppStore extends Store {
