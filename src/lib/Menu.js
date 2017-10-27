@@ -1,7 +1,7 @@
 import { remote, shell } from 'electron';
 import { autorun, computed, observable, toJS } from 'mobx';
 
-import { isMac } from '../environment';
+import { isMac, isLinux } from '../environment';
 
 const { app, Menu } = remote;
 
@@ -242,9 +242,10 @@ export default class FranzMenu {
     const services = this.stores.services.enabled;
 
     if (this.stores.user.isLoggedIn) {
+      const systemAcceleratorKey = isLinux ? 'Alt' : 'CmdOrCtrl';
       return services.map((service, i) => ({
         label: service.name,
-        accelerator: i <= 9 ? `CmdOrCtrl+${i + 1}` : null,
+        accelerator: i <= 9 ? `${systemAcceleratorKey}+${i + 1}` : null,
         type: 'radio',
         checked: service.isActive,
         click: () => {
