@@ -123,13 +123,13 @@ export default class AppStore extends Store {
 
     // Set active the next service
     key(
-      '⌘+pagedown, ctrl+pagedown, ⌘+shift+tab, ctrl+shift+tab', () => {
+      '⌘+pagedown, ctrl+pagedown, ⌘+tab, ctrl+tab', () => {
         this.actions.service.setActiveNext();
       });
 
     // Set active the prev service
     key(
-      '⌘+pageup, ctrl+pageup, ⌘+tab, ctrl+tab', () => {
+      '⌘+pageup, ctrl+pageup, ⌘+shift+tab, ctrl+shift+tab', () => {
         this.actions.service.setActivePrev();
       });
 
