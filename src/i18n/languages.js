@@ -12,5 +12,5 @@ module.exports = {
   ua: 'Українська',
   'es-ES': 'Español - España',
   'zh-Hant': 'Chinese (Traditional)',
-  'nb-NO': 'Norsk'
+  'nb-NO': 'Norsk',
 };
