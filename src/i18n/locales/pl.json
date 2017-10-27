@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Uruchom ponownie i zainstaluj aktualizacje",
   "infobar.requiredRequestsFailed": "Nie można wczytać usług i informacji o użytkowniku",
   "sidebar.settings": "Ustawienia",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Witaj w aplikcji Franz",
   "services.getStarted": "Zacznij",
   "settings.account.headline": "Konto",
