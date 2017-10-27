@@ -4,6 +4,7 @@ import { autorun, computed, observable, toJS } from 'mobx';
 import { isDevMode, isMac } from '../environment';
 
 const { app, Menu } = remote;
+const { app, Menu, dialog } = remote;
 
 const template = [
   {
@@ -218,6 +219,18 @@ export default class FranzMenu {
           role: 'front',
         },
       ];
+    } else {
+      tpl[4].submenu.unshift({
+        role: 'about',
+        click: () => {
+          dialog.showMessageBox({
+            type: 'info',
+            title: 'Franz',
+            message: 'Franz',
+            detail: `Version: ${remote.app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
+          });
+        },
+      });
     }
 
     const serviceTpl = this.serviceTpl;
