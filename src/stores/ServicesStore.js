@@ -383,7 +383,7 @@ export default class ServicesStore extends Store {
       data.forEach((s) => {
         const service = s;
 
-        service.order = this.one(s.id).order;
+        service.order = services[s.id];
       });
     });
 
