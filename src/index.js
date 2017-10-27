@@ -66,7 +66,7 @@ const createWindow = async () => {
   });
 
   // Initialize System Tray
-  const trayIcon = new Tray(mainWindow);
+  const trayIcon = new Tray();
 
   // Initialize ipcApi
   ipcApi({ mainWindow, settings, trayIcon });
