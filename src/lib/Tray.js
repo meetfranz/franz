@@ -6,12 +6,7 @@ const INDICATOR_TRAY_PLAIN = 'tray';
 const INDICATOR_TRAY_UNREAD = 'tray-unread';
 
 export default class TrayIcon {
-  mainWindow = null;
   trayIcon = null;
-
-  constructor(mainWindow) {
-    this.mainWindow = mainWindow;
-  }
 
   show() {
     if (this.trayIcon) return;
@@ -21,7 +16,7 @@ export default class TrayIcon {
       {
         label: 'Show Franz',
         click() {
-          this.mainWindow.show();
+          app.mainWindow.show();
         },
       }, {
         label: 'Quit Franz',
@@ -35,7 +30,7 @@ export default class TrayIcon {
     this.trayIcon.setContextMenu(trayMenu);
 
     this.trayIcon.on('click', () => {
-      this.mainWindow.show();
+      app.mainWindow.show();
     });
   }
 
