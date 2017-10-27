@@ -1,7 +1,7 @@
 import { remote, shell } from 'electron';
 import { autorun, computed, observable, toJS } from 'mobx';
 
-import { isDevMode, isMac } from '../environment';
+import { isMac } from '../environment';
 
 const { app, Menu } = remote;
 
@@ -101,17 +101,15 @@ export default class FranzMenu {
   _build() {
     const tpl = toJS(this.tpl);
 
-    if (isDevMode) {
-      tpl[1].submenu.push({
-        role: 'toggledevtools',
-      }, {
-        label: 'Toggle Service Developer Tools',
-        accelerator: 'CmdOrCtrl+Shift+Alt+i',
-        click: () => {
-          this.actions.service.openDevToolsForActiveService();
-        },
-      });
-    }
+    tpl[1].submenu.push({
+      role: 'toggledevtools',
+    }, {
+      label: 'Toggle Service Developer Tools',
+      accelerator: 'CmdOrCtrl+Shift+Alt+i',
+      click: () => {
+        this.actions.service.openDevToolsForActiveService();
+      },
+    });
 
     tpl[1].submenu.unshift({
       label: 'Reload Service',
