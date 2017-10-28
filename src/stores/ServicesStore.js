@@ -295,9 +295,12 @@ export default class ServicesStore extends Store {
       }
 
       if (service.isNotificationEnabled) {
+        const title = typeof args[0].title === 'string' ? args[0].title : service.name;
+        options.body = typeof options.body === 'string' ? options.body : '';
+
         this.actions.app.notify({
           notificationId: args[0].notificationId,
-          title: args[0].title,
+          title,
           options,
           serviceId,
         });
