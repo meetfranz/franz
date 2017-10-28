@@ -10,5 +10,5 @@ module.exports = {
   pl: 'Polish',
   ru: 'Русский',
   ua: 'Українська',
-  it: 'Italian'
+  it: 'Italian',
 };
