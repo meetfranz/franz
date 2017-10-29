@@ -10,6 +10,7 @@ module.exports = {
   pl: 'Polish',
   ru: 'Русский',
   ua: 'Українська',
+  it: 'Italian',
   'es-ES': 'Español - España',
   'zh-Hant': 'Chinese (Traditional)',
 };
