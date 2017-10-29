@@ -11,4 +11,6 @@ module.exports = {
   ru: 'Русский',
   ua: 'Українська',
   it: 'Italian',
+  'es-ES': 'Español - España',
+  'zh-Hant': 'Chinese (Traditional)',
 };
