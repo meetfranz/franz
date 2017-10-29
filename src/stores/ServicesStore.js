@@ -41,6 +41,7 @@ export default class ServicesStore extends Store {
     this.actions.service.openWindow.listen(this._openWindow.bind(this));
     this.actions.service.filter.listen(this._filter.bind(this));
     this.actions.service.resetFilter.listen(this._resetFilter.bind(this));
+    this.actions.service.resetStatus.listen(this._resetStatus.bind(this));
     this.actions.service.reload.listen(this._reload.bind(this));
     this.actions.service.reloadActive.listen(this._reloadActive.bind(this));
     this.actions.service.reloadAll.listen(this._reloadAll.bind(this));
@@ -336,6 +337,10 @@ export default class ServicesStore extends Store {
 
   @action _resetFilter() {
     this.filterNeedle = null;
+  }
+
+  @action _resetStatus() {
+    this.actionStatus = [];
   }
 
   @action _reload({ serviceId }) {
