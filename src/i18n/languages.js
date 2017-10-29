@@ -13,4 +13,5 @@ module.exports = {
   it: 'Italian',
   'es-ES': 'Español - España',
   'zh-Hant': 'Chinese (Traditional)',
+  'nb-NO': 'Norsk',
 };
