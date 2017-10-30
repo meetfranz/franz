@@ -115,10 +115,10 @@ export default class Service {
 
     this.webview.addEventListener('crashed', (e) => {
       console.log(e);
-      let reload = confirm('Service crashed. Reload?');
+      const reload = window.confirm('Service crashed. Reload?'); // eslint-disable-line no-alert
       if (reload) {
         store.actions.service.reload({
-          serviceId: this.id
+          serviceId: this.id,
         });
       }
     });
