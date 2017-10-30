@@ -32,8 +32,8 @@
     underscore "^1.6.0"
 
 "@paulcbetts/spellchecker@^4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@paulcbetts/spellchecker/-/spellchecker-4.0.5.tgz#4ea9bfb85faba53c094c0809a18986bf44265c5f"
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/@paulcbetts/spellchecker/-/spellchecker-4.0.6.tgz#79ef1f9c19c5a3156921ccaa9ffdc3efbbee47e3"
   dependencies:
     nan "^2.0.0"
 
