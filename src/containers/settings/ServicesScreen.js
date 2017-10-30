@@ -18,6 +18,7 @@ export default class ServicesScreen extends Component {
 
   componentWillUnmount() {
     this.props.actions.service.resetFilter();
+    this.props.actions.service.resetStatus();
   }
 
   deleteService() {
@@ -70,6 +71,7 @@ ServicesScreen.wrappedComponent.propTypes = {
       toggleService: PropTypes.func.isRequired,
       filter: PropTypes.func.isRequired,
       resetFilter: PropTypes.func.isRequired,
+      resetStatus: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };
