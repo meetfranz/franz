@@ -145,12 +145,12 @@ export default class ServicesStore extends Store {
       serviceData.name = data.name;
     }
 
-    if (data.team) {
+    if (data.team && !data.customURL) {
       serviceData.team = data.team;
     }
 
-    if (data.team) {
-      serviceData.customUrl = data.customURL;
+    if (data.team && data.customURL) {
+      serviceData.customUrl = data.team;
     }
 
     this.actions.service.createService({
@@ -158,8 +158,6 @@ export default class ServicesStore extends Store {
       serviceData,
       redirect: false,
     });
-
-    return 'hello world';
   }
 
   @action async _updateService({ serviceId, serviceData, redirect = true }) {
