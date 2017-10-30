@@ -112,6 +112,16 @@ export default class Service {
       frameName,
       options,
     }));
+
+    this.webview.addEventListener('crashed', (e) => {
+      console.log(e);
+      let reload = confirm('Service crashed. Reload?');
+      if (reload) {
+        store.actions.service.reload({
+          serviceId: this.id
+        });
+      }
+    });
   }
 
   initializeWebViewListener() {
