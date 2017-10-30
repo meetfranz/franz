@@ -8,7 +8,16 @@ export const isMac = process.platform === 'darwin';
 export const isWindows = process.platform === 'win32';
 export const isLinux = process.platform === 'linux';
 
-export const ctrlKey = isMac ? '⌘' : 'Ctrl';
+let ctrlShortcutKey;
+if (isMac) {
+  ctrlShortcutKey = '⌘';
+} else if (isWindows) {
+  ctrlShortcutKey = 'Ctrl';
+} else {
+  ctrlShortcutKey = 'Alt';
+}
+
+export const ctrlKey = ctrlShortcutKey;
 
 let api;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
