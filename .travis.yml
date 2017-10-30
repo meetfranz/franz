@@ -1,21 +1,36 @@
+matrix:
+  include:
+  - os: linux
+    dist: trusty
+    sudo: required
+  - os: osx
+    osx_image: xcode8.3
+
 language: node_js
+
 before_script:
 - yarn add global gulp-cli@1.2.2
 - yarn add global gulpjs/gulp#4.0
 - yarn add global node-sass
 - yarn install
+
 script:
 - yarn lint
 - travis_wait yarn build
+
 node_js:
 - '7'
-os: osx
-osx_image: xcode8.3
+
+before_install:
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev; fi
+
 cache: yarn
+
 notifications:
   email: false
   slack:
     secure: NjEDG+6YvJvFNwRT8t8XyVR145m+Pb1pmYgdBeuhqtJbMAr0IOb0lLLW9ixKEsL1NU+0R58QGiG9qqY+lLnMNpDYjzluFo0gQtl2NJrULT4xUFDSu65XTwoutKyvj+hoCsHiwrSrO2dHTx3ZK2vsSueg+8jM/xss7dTLA6BcTYl14wTOU37PqFQZk9JYR+Dfq1Jjhy/mq4BiAsb/1clNIulkjmRjSm6R0XT4ZsZZfj0ifXhL4cLGsUv2n+iePiX6bLwZPFjXV1COYTBafbCu17gw3nRMdNMMTDLbwrXXdJZFS/EjFOPgOhwF7CkZ3kSpB2ZIcAJxG7iAUl5j+jHBXc5dafRbjzE4oYve1vPexLoV3NjV76uANUFkcli6eHYD0uJoUJGBRbRGWp+8Bbw9EcBsn4s3vbf5XqHX3S46zvGgqX+LyhyMJQtEG/iv+9XOsOql18ryyejij0z1K7DxpI0gLV1ATZCphY1Fyz1yZDGlYN4ej/Rl2P1Q3yXilweJRF7Ts04w4U9iuP1u598/w++CKSu4q4EeEuqT/hIeFQUKUkwCEsO4xa39vhLPaxKrG9UEUH8OXN+NPZyTAK/LKuIX7C56O1kwvWNMWlPmTcvsq2RghvNTwgSGUIO0EKZKrQYAEG3Y/veSt5CgZoNzLgc/6Xj+g7daxUo9heLy26A=
+
 deploy:
   provider: s3
   access_key_id: AKIAIVRBS4YFL4ZBLCLA
@@ -29,6 +44,7 @@ deploy:
   acl: public_read
   on:
     all_branches: true
+
 env:
   global:
   - secure: fddJzSmNYVX024jnhnFXEuAK1spEYi3y3RZdWaBtjQnzoObAxkcRW263JNpXQy+b7egnp2hSy8FvlQU+L967911F5Y70Pe3An4oI72hnS3DL4Njp2Dw5PwviwMA+X2ddWhzK4+k/JU6r8jBv1FGQ6ZjwSeaO/t8UKOsE8wDBFLRhnHqoR7QbM7zmKjzh/1oofunGbHsPOHmN4f7jBwSuSFTZltEENcQg3ZP++0NHU8UJdlpfqZOkro8v4AJMngAHeHlNtjwaAHdVv+6+kkwc4E/0Cy6YNyyBkbzipyngNY3GwnwzmNzvsfICD1TGklksjBlMQq7ld7eCiaYRNvyHVEmXJ17qlq7HhxkYgNy32hPRwb5Cv6o4M4tv8qS8UUk4W1RvBJ5fcmfZGQwGXPyQ/m85RJtrNfbYtr84jYcprTnSeji/9PuZv0f87dxELYm3DYmNUa1cgJqEdLUsEd0bMwUYNLnCSfu4ea2zxwir6LSBtJJCbGKxX87s5IOTrHkrWDe+PWd52v+UjQks7MBRlJnntTWo69Yy+ayXV1TnGVOHA5znHvPOvFlAF+y8tLGd4AGvehK1SAkf0+idmc9Q9xKk0QypT3ibjJui4D50p7sSajkzz3P2pUqOS/9HmjMfPMPN+Nl+48GU0CvB2aBGhdmp9vu54VaFzUaAGNGj4WI=
