@@ -3,7 +3,7 @@ import { autorun, computed, observable, toJS } from 'mobx';
 
 import { isMac, isLinux } from '../environment';
 
-const { app, Menu } = remote;
+const { app, Menu, dialog } = remote;
 
 const template = [
   {
@@ -83,6 +83,28 @@ const template = [
       {
         label: 'Learn More',
         click() { shell.openExternal('http://meetfranz.com'); },
+      },
+      {
+        label: 'Changelog',
+        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: 'Support',
+        click() { shell.openExternal('http://meetfranz.com/support'); },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: 'Terms of Service',
+        click() { shell.openExternal('https://meetfranz.com/terms'); },
+      },
+      {
+        label: 'Privacy Statement',
+        click() { shell.openExternal('https://meetfranz.com/privacy'); },
       },
     ],
   },
@@ -216,6 +238,18 @@ export default class FranzMenu {
           role: 'front',
         },
       ];
+    } else {
+      tpl[4].submenu.unshift({
+        role: 'about',
+        click: () => {
+          dialog.showMessageBox({
+            type: 'info',
+            title: 'Franz',
+            message: 'Franz',
+            detail: `Version: ${remote.app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
+          });
+        },
+      });
     }
 
     const serviceTpl = this.serviceTpl;
