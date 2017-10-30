@@ -24,7 +24,7 @@
   "signup.firstname.label": "Prénom",
   "signup.lastname.label": "Nom",
   "signup.email.label": "Adresse e-mail",
-  "signup.company.label": "Compagnie",
+  "signup.company.label": "Entreprise",
   "signup.password.label": "Mot de passe",
   "signup.submit.label": "Créer un compte",
   "signup.link.login": "Vous possédez déjà un compte ? Connectez-vous",
