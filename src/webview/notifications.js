@@ -7,13 +7,13 @@ class Notification {
     this.title = title;
     this.options = options;
     this.notificationId = uuidV1();
-    this.onclick = () => {};
+    this.onclick = () => { };
 
-    ipcRenderer.sendToHost('notification', {
+    ipcRenderer.sendToHost('notification', Notification.onNotify({
       notificationId: this.notificationId,
       title,
       options,
-    });
+    }));
 
     ipcRenderer.on(`notification-onclick:${this.notificationId}`, () => {
       this.onclick();
@@ -41,5 +41,7 @@ Notification.requestPermission = (cb = null) => {
 Notification.close = () => {
   // no implementation yet
 };
+
+Notification.onNotify = data => data;
 
 window.Notification = Notification;
