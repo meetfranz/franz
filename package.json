@@ -32,7 +32,6 @@
     "classnames": "^2.2.5",
     "electron-fetch": "^1.1.0",
     "electron-spellchecker": "^1.2.0",
-    "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^2.4.3",
     "electron-window-state": "^4.1.0",
     "fs-extra": "^3.0.1",
