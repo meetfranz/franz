@@ -32,7 +32,7 @@ if (isWindows) {
 if (process.platform !== 'darwin') {
   const isSecondInstance = app.makeSingleInstance(() => {
     if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
+      if (mainWindow.isMinimized()) mainWindow.show();
       mainWindow.focus();
     }
   });
