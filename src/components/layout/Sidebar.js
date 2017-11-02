@@ -52,7 +52,7 @@ export default class Sidebar extends Component {
         <button
           onClick={openSettings}
           className="sidebar__settings-button"
-          data-tip={`Settings (${ctrlKey}+,)`}
+          data-tip={`${intl.formatMessage(messages.settings)} (${ctrlKey}+,)`}
         >
           {isPremiumUser && (
             <span className="emoji">

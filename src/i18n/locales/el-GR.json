@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Επανεκκίνηση & εγκατάσταση ενημερώσεων",
   "infobar.requiredRequestsFailed": "Δεν ήταν δυνατή η φόρτωση υπηρεσιών και πληροφοριών χρηστών",
   "sidebar.settings": "Ρυθμίσεις",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Καλώς ορίσατε στον Franz",
   "services.getStarted": "Ξεκινήστε",
   "settings.account.headline": "Λογαριασμός",

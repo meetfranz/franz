@@ -13,7 +13,7 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
-const { app, getCurrentWindow, powerMonitor } = remote;
+const { app, powerMonitor } = remote;
 const defaultLocale = 'en-US';
 
 export default class AppStore extends Store {
@@ -112,24 +112,15 @@ export default class AppStore extends Store {
       setTimeout(window.location.reload, 5000);
     });
 
-    // Open Dev Tools (even in production mode)
-    key('⌘+ctrl+shift+alt+i, ctrl+shift+alt+i', () => {
-      getCurrentWindow().toggleDevTools();
-    });
-
-    key('⌘+ctrl+shift+alt+pageup, ctrl+shift+alt+pageup', () => {
-      this.actions.service.openDevToolsForActiveService();
-    });
-
     // Set active the next service
     key(
-      '⌘+pagedown, ctrl+pagedown, ⌘+shift+tab, ctrl+shift+tab', () => {
+      '⌘+pagedown, ctrl+pagedown, ⌘+tab, ctrl+tab', () => {
         this.actions.service.setActiveNext();
       });
 
     // Set active the prev service
     key(
-      '⌘+pageup, ctrl+pageup, ⌘+tab, ctrl+tab', () => {
+      '⌘+pageup, ctrl+pageup, ⌘+shift+tab, ctrl+shift+tab', () => {
         this.actions.service.setActivePrev();
       });
 
