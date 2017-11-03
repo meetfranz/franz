@@ -26,7 +26,8 @@ export default class Recipe {
     }
 
     if (!data.id) {
-      throw Error('Recipe requires Id');
+      // Franz 4 recipes do not have an Id
+      throw Error(`Recipe '${data.name}' requires Id`);
     }
 
     this.id = data.id || this.id;
