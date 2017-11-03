@@ -27,6 +27,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@paulcbetts/system-idle-time": "^1.0.4",
+    "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
