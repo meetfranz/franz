@@ -69,10 +69,6 @@ const messages = defineMessages({
 export default class EditServiceForm extends Component {
   static propTypes = {
     recipe: PropTypes.instanceOf(Recipe).isRequired,
-    // service: PropTypes.oneOfType([
-    //   PropTypes.object,
-    //   PropTypes.instanceOf(Service),
-    // ]),
     service(props, propName) {
       if (props.action === 'edit' && !(props[propName] instanceof Service)) {
         return new Error(`'${propName}'' is expected to be of type 'Service'
@@ -207,7 +203,7 @@ export default class EditServiceForm extends Component {
                 )}
                 {recipe.hasCustomUrl && (
                   <TabItem title={intl.formatMessage(messages.tabOnPremise)}>
-                    {user.isPremium ? (
+                    {user.isPremium || recipe.author.find(a => a.email === user.email) ? (
                       <div>
                         <Input field={form.$('customUrl')} />
                         {form.error === 'url-validation-error' && (
