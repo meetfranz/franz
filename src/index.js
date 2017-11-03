@@ -31,7 +31,6 @@ if (process.platform !== 'darwin') {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
     }
-    return true;
   });
 
   if (isSecondInstance) {
@@ -109,6 +108,13 @@ const createWindow = async () => {
 
   mainWindow.on('maximize', () => {
     app.isMaximized = true;
+  });
+
+  mainWindow.on('close', (e) => {
+    if (settings.get('minimizeToSystemTray')) {
+      e.preventDefault();
+      mainWindow.minimize();
+    }
   });
 
   mainWindow.on('unmaximize', () => {
