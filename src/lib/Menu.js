@@ -1,7 +1,7 @@
 import { remote, shell } from 'electron';
 import { autorun, computed, observable, toJS } from 'mobx';
 
-import { isMac, isLinux } from '../environment';
+import { isMac } from '../environment';
 
 const { app, Menu, dialog } = remote;
 
