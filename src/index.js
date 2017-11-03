@@ -2,18 +2,14 @@ import { app, BrowserWindow, shell } from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 
-/* eslint-disable */
-if (require('electron-squirrel-startup')) app.quit();
-
 import windowStateKeeper from 'electron-window-state';
 
 import { isDevMode, isWindows } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
-import { appId } from './package.json';
+import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
-/* eslint-enable */
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -112,6 +108,13 @@ const createWindow = async () => {
 
   mainWindow.on('maximize', () => {
     app.isMaximized = true;
+  });
+
+  mainWindow.on('close', (e) => {
+    if (settings.get('minimizeToSystemTray')) {
+      e.preventDefault();
+      mainWindow.minimize();
+    }
   });
 
   mainWindow.on('unmaximize', () => {
