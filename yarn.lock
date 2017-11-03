@@ -80,6 +80,12 @@ acorn@^5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.1.2.tgz#911cb53e036807cf0fa778dc5d370fbd864246d7"
 
+address-rfc2822@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/address-rfc2822/-/address-rfc2822-2.0.1.tgz#1a1bdb942b5e20e2c1ba5d5f396d5824ff7ae6ea"
+  dependencies:
+    email-addresses "^3.0.0"
+
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -2048,6 +2054,10 @@ electron@^1.7.9:
     "@types/node" "^7.0.18"
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
+
+email-addresses@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/email-addresses/-/email-addresses-3.0.1.tgz#c1fc20c189e7f96d4012d375db5feaccdd24391c"
 
 emojis-list@^2.0.0:
   version "2.1.0"
