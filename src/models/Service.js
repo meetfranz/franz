@@ -58,7 +58,12 @@ export default class Service {
 
   @computed get url() {
     if (this.recipe.hasCustomUrl && this.customUrl) {
-      let url = normalizeUrl(this.customUrl);
+      let url;
+      try {
+        url = normalizeUrl(this.customUrl);
+      } catch (err) {
+        console.error(`Service (${this.recipe.name}): '${this.customUrl}' is not a valid Url.`);
+      }
 
       if (typeof this.recipe.buildUrl === 'function') {
         url = this.recipe.buildUrl(url);
