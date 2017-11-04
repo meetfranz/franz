@@ -156,6 +156,8 @@ export default class AppStore extends Store {
       indicator = '•';
     } else if (unreadDirectMessageCount === 0 && unreadIndirectMessageCount === 0) {
       indicator = 0;
+    } else {
+      indicator = parseInt(indicator, 10);
     }
 
     ipcRenderer.send('updateAppIndicator', { indicator });
