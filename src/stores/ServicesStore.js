@@ -41,6 +41,7 @@ export default class ServicesStore extends Store {
     this.actions.service.openWindow.listen(this._openWindow.bind(this));
     this.actions.service.filter.listen(this._filter.bind(this));
     this.actions.service.resetFilter.listen(this._resetFilter.bind(this));
+    this.actions.service.resetStatus.listen(this._resetStatus.bind(this));
     this.actions.service.reload.listen(this._reload.bind(this));
     this.actions.service.reloadActive.listen(this._reloadActive.bind(this));
     this.actions.service.reloadAll.listen(this._reloadAll.bind(this));
@@ -144,12 +145,12 @@ export default class ServicesStore extends Store {
       serviceData.name = data.name;
     }
 
-    if (data.team) {
+    if (data.team && !data.customURL) {
       serviceData.team = data.team;
     }
 
-    if (data.team) {
-      serviceData.customUrl = data.customURL;
+    if (data.team && data.customURL) {
+      serviceData.customUrl = data.team;
     }
 
     this.actions.service.createService({
@@ -157,8 +158,6 @@ export default class ServicesStore extends Store {
       serviceData,
       redirect: false,
     });
-
-    return 'hello world';
   }
 
   @action async _updateService({ serviceId, serviceData, redirect = true }) {
@@ -295,9 +294,12 @@ export default class ServicesStore extends Store {
       }
 
       if (service.isNotificationEnabled) {
+        const title = typeof args[0].title === 'string' ? args[0].title : service.name;
+        options.body = typeof options.body === 'string' ? options.body : '';
+
         this.actions.app.notify({
           notificationId: args[0].notificationId,
-          title: args[0].title,
+          title,
           options,
           serviceId,
         });
@@ -336,6 +338,10 @@ export default class ServicesStore extends Store {
 
   @action _resetFilter() {
     this.filterNeedle = null;
+  }
+
+  @action _resetStatus() {
+    this.actionStatus = [];
   }
 
   @action _reload({ serviceId }) {
@@ -383,7 +389,7 @@ export default class ServicesStore extends Store {
       data.forEach((s) => {
         const service = s;
 
-        service.order = this.one(s.id).order;
+        service.order = services[s.id];
       });
     });
 

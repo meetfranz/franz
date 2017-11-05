@@ -63,6 +63,7 @@ export default {
     needle: PropTypes.string.isRequired,
   },
   resetFilter: {},
+  resetStatus: {},
   reorder: {
     oldIndex: PropTypes.number.isRequired,
     newIndex: PropTypes.number.isRequired,

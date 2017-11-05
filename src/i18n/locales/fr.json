@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Redémarrer et installer la mise à jour",
   "infobar.requiredRequestsFailed": "Impossible de charger les services et les informations de l'utilisateur",
   "sidebar.settings": "Paramètres",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Bienvenue sur Franz",
   "services.getStarted": "Commencer",
   "settings.account.headline": "Compte",
