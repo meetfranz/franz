@@ -1,5 +1,7 @@
 <!--- Provide a general summary of the issue in the Title above -->
 
+<!-- This repository is only for the Franz client. Please use this form ( https://adlk.typeform.com/to/Bj7vGq ) for service requests or check out the guide ( https://github.com/meetfranz/plugins ) to create your own service integration. -->
+
 <!--- If you want to propose a feature, use this template: https://raw.githubusercontent.com/meetfranz/franz/master/.github/FEATURE_PROPOSAL_TEMPLATE.md -->
 
 ### Expected Behavior
