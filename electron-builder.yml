@@ -29,5 +29,5 @@ linux:
     - target: deb
 
 nsis:
-  perMachine: true
+  perMachine: false
   oneClick: true

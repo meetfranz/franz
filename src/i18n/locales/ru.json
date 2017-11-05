@@ -60,6 +60,7 @@
   "infobar.buttonInstallUpdate": "Перезапустить и обновить",
   "infobar.requiredRequestsFailed": "Невозможно загрузить сервисы и информацию пользователя",
   "sidebar.settings": "Настройки",
+  "sidebar.addNewService": "!!!Add new service",
   "services.welcome": "Добро пожаловать во Franz",
   "services.getStarted": "Начать работу",
   "settings.account.headline": "Аккаунт",
