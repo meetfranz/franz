@@ -27,8 +27,6 @@ if (isWindows) {
 
 // Force single window
 const isSecondInstance = app.makeSingleInstance(() => {
-  console.log(mainWindow);
-  console.log('isMinimized', mainWindow.isMinimized);
   if (mainWindow) {
     if (mainWindow.isMinimized()) mainWindow.restore();
     mainWindow.focus();
