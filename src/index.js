@@ -26,18 +26,21 @@ if (isWindows) {
 }
 
 // Force single window
-if (process.platform !== 'darwin') {
-  const isSecondInstance = app.makeSingleInstance(() => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-    }
-  });
-
-  if (isSecondInstance) {
-    app.quit();
+// if (process.platform !== 'darwin') {
+const isSecondInstance = app.makeSingleInstance(() => {
+  console.log(mainWindow);
+  console.log('isMinimized', mainWindow.isMinimized);
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
   }
+});
+
+if (isSecondInstance) {
+  app.exit();
 }
+
+// }
 
 // Initialize Settings
 const settings = new Settings();
@@ -112,7 +115,7 @@ const createWindow = async () => {
   });
 
   mainWindow.on('close', (e) => {
-    if (settings.get('minimizeToSystemTray')) {
+    if (settings.get('minimizeToSystemTray') && settings.get('runInBackground')) {
       e.preventDefault();
       mainWindow.minimize();
     }
