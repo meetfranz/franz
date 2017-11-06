@@ -26,18 +26,17 @@ if (isWindows) {
 }
 
 // Force single window
-if (process.platform !== 'darwin') {
-  const isSecondInstance = app.makeSingleInstance(() => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-    }
-  });
-
-  if (isSecondInstance) {
-    app.quit();
+const isSecondInstance = app.makeSingleInstance(() => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
   }
+});
+
+if (isSecondInstance) {
+  app.exit();
 }
+
 
 // Initialize Settings
 const settings = new Settings();
@@ -86,9 +85,13 @@ const createWindow = async () => {
     // when you should delete the corresponding element.
     if (!willQuitApp && (settings.get('runInBackground') === undefined || settings.get('runInBackground'))) {
       e.preventDefault();
-      mainWindow.hide();
+      if (isWindows) {
+        mainWindow.minimize();
+      } else {
+        mainWindow.hide();
+      }
 
-      if (process.platform === 'win32') {
+      if (isWindows && settings.get('minimizeToSystemTray')) {
         mainWindow.setSkipTaskbar(true);
       }
     } else {
@@ -109,13 +112,6 @@ const createWindow = async () => {
 
   mainWindow.on('maximize', () => {
     app.isMaximized = true;
-  });
-
-  mainWindow.on('close', (e) => {
-    if (settings.get('minimizeToSystemTray')) {
-      e.preventDefault();
-      mainWindow.minimize();
-    }
   });
 
   mainWindow.on('unmaximize', () => {

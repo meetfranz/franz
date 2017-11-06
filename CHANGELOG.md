@@ -1,3 +1,11 @@
+<a name="5.0.0-beta.13"></a>
+# [5.0.0-beta.13](https://github.com/meetfranz/franz/compare/v5.0.0-beta.12...v5.0.0-beta.13) (2017-11-06)
+
+### Bug Fixes
+
+* **Windows:** Fix issue with multiple close handlers that prevent the app from quitting  ([eea593e](https://github.com/meetfranz/franz/commit/eea593e))
+
+
 <a name="5.0.0-beta.12"></a>
 # [5.0.0-beta.12](https://github.com/meetfranz/franz/compare/v5.0.0-beta.11...v5.0.0-beta.12) (2017-11-05)
 
