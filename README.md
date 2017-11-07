@@ -9,6 +9,9 @@
 
 Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
 
+## [Download Franz](https://www.meetfranz.com)
+👉 www.meetfranz.com
+
 
 ## Development
 

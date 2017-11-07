@@ -1,7 +1,8 @@
+import emailParser from 'address-rfc2822';
+
 export default class Recipe {
   id = '';
   name = '';
-  author = '';
   description = '';
   version = '1.0';
   path = '';
@@ -25,12 +26,13 @@ export default class Recipe {
     }
 
     if (!data.id) {
-      throw Error('Recipe requires Id');
+      // Franz 4 recipes do not have an Id
+      throw Error(`Recipe '${data.name}' requires Id`);
     }
 
     this.id = data.id || this.id;
     this.name = data.name || this.name;
-    this.author = data.author || this.author;
+    this.rawAuthor = data.author || this.author;
     this.description = data.description || this.description;
     this.version = data.version || this.version;
     this.path = data.path;
@@ -48,5 +50,16 @@ export default class Recipe {
     this.urlInputSuffix = data.config.urlInputSuffix || this.urlInputSuffix;
 
     this.message = data.config.message || this.message;
+  }
+
+  get author() {
+    try {
+      const addresses = emailParser.parse(this.rawAuthor);
+      return addresses.map(a => ({ email: a.address, name: a.phrase }));
+    } catch (err) {
+      console.warn(`Not a valid author for ${this.name}`);
+    }
+
+    return [];
   }
 }

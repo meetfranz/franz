@@ -499,7 +499,7 @@ export default class ServerApi {
 
         return recipe;
       }),
-    ).catch(err => console.error(err));
+    ).catch(err => console.error('Can\'t load recipe', err));
   }
 
   _mapRecipePreviewModel(recipes) {
@@ -562,9 +562,16 @@ export default class ServerApi {
         .filter(file => fs.statSync(path.join(recipesDirectory, file)).isDirectory() && file !== 'temp');
 
       const recipes = paths.map((id) => {
-        // eslint-disable-next-line
-        const Recipe = require(id)(RecipeModel);
-        return new Recipe(loadRecipeConfig(id));
+        let Recipe;
+        try {
+          // eslint-disable-next-line
+          Recipe = require(id)(RecipeModel);
+          return new Recipe(loadRecipeConfig(id));
+        } catch (err) {
+          console.error(err);
+        }
+
+        return false;
       }).filter(recipe => recipe.id).map((data) => {
         const recipe = data;
 
@@ -579,7 +586,7 @@ export default class ServerApi {
 
       return recipes;
     } catch (err) {
-      console.debug('Folder `recipe/dev` does not exist');
+      console.debug('Could not load dev recipes');
       return false;
     }
   }

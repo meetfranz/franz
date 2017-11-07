@@ -2,18 +2,14 @@ import { app, BrowserWindow, shell } from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 
-/* eslint-disable */
-if (require('electron-squirrel-startup')) app.quit();
-
 import windowStateKeeper from 'electron-window-state';
 
 import { isDevMode, isWindows } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
-import { appId } from './package.json';
+import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
-/* eslint-enable */
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -22,6 +18,7 @@ let willQuitApp = false;
 
 // Ensure that the recipe directory exists
 fs.ensureDir(path.join(app.getPath('userData'), 'recipes'));
+fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
 
 // Set App ID for Windows
 if (isWindows) {
@@ -29,18 +26,17 @@ if (isWindows) {
 }
 
 // Force single window
-if (process.platform !== 'darwin') {
-  const isSecondInstance = app.makeSingleInstance(() => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-    }
-  });
-
-  if (isSecondInstance) {
-    app.quit();
+const isSecondInstance = app.makeSingleInstance(() => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
   }
+});
+
+if (isSecondInstance) {
+  app.exit();
 }
+
 
 // Initialize Settings
 const settings = new Settings();
@@ -89,9 +85,13 @@ const createWindow = async () => {
     // when you should delete the corresponding element.
     if (!willQuitApp && (settings.get('runInBackground') === undefined || settings.get('runInBackground'))) {
       e.preventDefault();
-      mainWindow.hide();
+      if (isWindows) {
+        mainWindow.minimize();
+      } else {
+        mainWindow.hide();
+      }
 
-      if (process.platform === 'win32') {
+      if (isWindows && settings.get('minimizeToSystemTray')) {
         mainWindow.setSkipTaskbar(true);
       }
     } else {
