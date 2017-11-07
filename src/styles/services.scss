@@ -8,7 +8,8 @@
   background: #FFF;
   order: 5;
 
-  .services__webview {
+  .services__webview, 
+  .services__crash-handler {
     position: absolute;
     width: 100%;
     top: 0;
@@ -38,7 +39,8 @@
     }
   }
 
-  .services__no-service {
+  .services__no-service, 
+  .services__crash-handler {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,10 +53,15 @@
       color: $theme-gray-dark;
     }
 
-    a.button {
-      margin-top: 40px;
-      // color: #FFF;
-      // border-color: #FFF;
+    a.button,
+    button {
+      margin: 40px 0 20px;
     }
   }
+
+  .services__crash-handler {
+    position: absolut;
+    z-index: 110;
+  }
+
 }

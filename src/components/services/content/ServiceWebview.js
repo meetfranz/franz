@@ -7,12 +7,14 @@ import classnames from 'classnames';
 
 import ServiceModel from '../../../models/Service';
 import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
+import WebviewCrashHandler from './WebviewCrashHandler';
 
 @observer
 export default class ServiceWebview extends Component {
   static propTypes = {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
+    reload: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -53,6 +55,7 @@ export default class ServiceWebview extends Component {
     const {
       service,
       setWebviewReference,
+      reload,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -70,6 +73,13 @@ export default class ServiceWebview extends Component {
 
     return (
       <div className={webviewClasses}>
+        {service.hasCrashed && (
+          <WebviewCrashHandler
+            name={service.recipe.name}
+            webview={service.webview}
+            reload={reload}
+          />
+        )}
         <Webview
           ref={(element) => { this.webview = element; }}
 

@@ -23,6 +23,7 @@ export default class Service {
   @observable isNotificationEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
   @observable customIconUrl = '';
+  @observable hasCrashed = false;
 
   constructor(data, recipe) {
     if (!data) {
@@ -118,14 +119,12 @@ export default class Service {
       options,
     }));
 
-    this.webview.addEventListener('crashed', (e) => {
-      console.log(e);
-      const reload = window.confirm('Service crashed. Reload?'); // eslint-disable-line no-alert
-      if (reload) {
-        store.actions.service.reload({
-          serviceId: this.id,
-        });
-      }
+    this.webview.addEventListener('did-start-loading', () => {
+      this.hasCrashed = false;
+    });
+
+    this.webview.addEventListener('crashed', () => {
+      this.hasCrashed = true;
     });
   }
 

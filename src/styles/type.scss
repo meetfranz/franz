@@ -71,3 +71,8 @@ a {
 .label {
   @include formLabel();
 }
+
+.footnote {
+  font-size: 12px;
+  color: $theme-gray-light;
+}

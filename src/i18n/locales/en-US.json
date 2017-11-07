@@ -165,5 +165,9 @@
   "tabs.item.disableNotifications": "Disable notifications",
   "tabs.item.enableNotification": "Enable notifications",
   "tabs.item.disableService": "Disable service",
-  "tabs.item.deleteService": "Delete service"
+  "tabs.item.deleteService": "Delete service",
+  "service.crashHandler.headline": "Oh no!",
+  "service.crashHandler.text": "{name} has caused an error.",
+  "service.crashHandler.action": "Reload {name}",
+  "service.crashHandler.autoReload": "Trying to automatically restore {name} in {seconds} seconds"
 }
