@@ -36,6 +36,8 @@ export default class AppLayoutContainer extends Component {
 
     const {
       setActive,
+      setActiveNext,
+      setActivePrev,
       handleIPCMessage,
       setWebviewReference,
       openWindow,
@@ -79,6 +81,8 @@ export default class AppLayoutContainer extends Component {
       <Sidebar
         services={allServices}
         setActive={setActive}
+        setActiveNext={setActiveNext}
+        setActivePrev={setActivePrev}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}
@@ -137,6 +141,8 @@ AppLayoutContainer.wrappedComponent.propTypes = {
   actions: PropTypes.shape({
     service: PropTypes.shape({
       setActive: PropTypes.func.isRequired,
+      setActiveNext: PropTypes.func.isRequired,
+      setActivePrev: PropTypes.func.isRequired,
       reload: PropTypes.func.isRequired,
       toggleNotifications: PropTypes.func.isRequired,
       handleIPCMessage: PropTypes.func.isRequired,
