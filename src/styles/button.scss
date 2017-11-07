@@ -1,74 +1,72 @@
 @import './config.scss';
 
-.franz-form {
-  .franz-form__button {
-    position: relative;
-    background: $theme-brand-primary;
-    display: block;
-    padding: 10px 20px;
-    color: #FFF;
-    border-radius: 3px;
-    transition: background 0.5s;
-    text-align: center;
+.franz-form__button {
+  position: relative;
+  background: $theme-brand-primary;
+  display: block;
+  padding: 10px 20px;
+  color: #FFF;
+  border-radius: 3px;
+  transition: background 0.5s;
+  text-align: center;
+
+  &:hover {
+    background: darken($theme-brand-primary, 5%);
+  }
+
+  &:active {
+    transition: none;
+    background: lighten($theme-brand-primary, 5%);
+  }
+
+  &:disabled {
+    opacity: 0.2;
+  }
+
+  &.franz-form__button--secondary {
+    background: $theme-gray-lighter;
+    color: $theme-gray;
 
     &:hover {
-      background: darken($theme-brand-primary, 5%);
+      background: darken($theme-gray-lighter, 5%);
     }
 
     &:active {
-      transition: none;
-      background: lighten($theme-brand-primary, 5%);
+      background: lighten($theme-gray-lighter, 5%);
+    }
+  }
+
+  &.franz-form__button--danger {
+    background: $theme-brand-danger;
+
+    &:hover {
+      background: darken($theme-brand-danger, 5%);
     }
 
-    &:disabled {
-      opacity: 0.2;
+    &:active {
+      background: lighten($theme-brand-danger, 5%);
     }
+  }
 
-    &.franz-form__button--secondary {
-      background: $theme-gray-lighter;
-      color: $theme-gray;
+  &.franz-form__button--inverted {
+    background: none;
+    padding: 10px 20px;
+    border: 2px solid $theme-brand-primary;
+    color: $theme-brand-primary;
+    transition: background 0.5s, color 0.5s;
 
-      &:hover {
-        background: darken($theme-gray-lighter, 5%);
-      }
-
-      &:active {
-        background: lighten($theme-gray-lighter, 5%);
-      }
+    &:hover {
+      background: darken($theme-brand-primary, 5%);
+      color: #FFF;
     }
+  }
 
-    &.franz-form__button--danger {
-      background: $theme-brand-danger;
-
-      &:hover {
-        background: darken($theme-brand-danger, 5%);
-      }
-
-      &:active {
-        background: lighten($theme-brand-danger, 5%);
-      }
-    }
-
-    &.franz-form__button--inverted {
-      background: none;
-      padding: 10px 20px;
-      border: 2px solid $theme-brand-primary;
-      color: $theme-brand-primary;
-      transition: background 0.5s, color 0.5s;
-
-      &:hover {
-        background: darken($theme-brand-primary, 5%);
-        color: #FFF;
-      }
-    }
-
-    .loader {
-      position: relative;
-      width: 20px;
-      height: 12px;
-      z-index: 9999;
-      display: inline-block;
-      margin-right: 5px;
-    }
+  .loader {
+    position: relative;
+    width: 20px;
+    height: 12px;
+    z-index: 9999;
+    display: inline-block;
+    margin-right: 5px;
   }
 }
