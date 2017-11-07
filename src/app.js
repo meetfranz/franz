@@ -101,3 +101,7 @@ window.addEventListener('load', () => {
   };
   window.franz.render();
 });
+
+// Prevent drag and drop into window from redirecting
+window.addEventListener('dragover', event => event.preventDefault());
+window.addEventListener('drop', event => event.preventDefault());
