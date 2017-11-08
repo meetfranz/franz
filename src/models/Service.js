@@ -23,6 +23,7 @@ export default class Service {
   @observable isNotificationEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
   @observable customIconUrl = '';
+  @observable hasCrashed = false;
 
   constructor(data, recipe) {
     if (!data) {
@@ -117,6 +118,14 @@ export default class Service {
       frameName,
       options,
     }));
+
+    this.webview.addEventListener('did-start-loading', () => {
+      this.hasCrashed = false;
+    });
+
+    this.webview.addEventListener('crashed', () => {
+      this.hasCrashed = true;
+    });
   }
 
   initializeWebViewListener() {

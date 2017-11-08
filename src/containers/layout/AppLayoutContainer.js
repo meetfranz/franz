@@ -92,11 +92,11 @@ export default class AppLayoutContainer extends Component {
 
     const servicesContainer = (
       <Services
-        // settings={allSettings}
         services={allServices}
         handleIPCMessage={handleIPCMessage}
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
+        reload={reload}
       />
     );
 
