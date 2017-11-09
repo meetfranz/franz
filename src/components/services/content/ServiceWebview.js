@@ -82,21 +82,17 @@ export default class ServiceWebview extends Component {
         )}
         <Webview
           ref={(element) => { this.webview = element; }}
-
           autosize
           src={service.url}
           preload="./webview/plugin.js"
           partition={`persist:service-${service.id}`}
-
           onDidAttach={() => setWebviewReference({
             serviceId: service.id,
             webview: this.webview.view,
           })}
-
           onUpdateTargetUrl={this.updateTargetUrl}
-
           useragent={service.userAgent}
-
+          muted={service.isMuted}
           disablewebsecurity
           allowpopups
         />

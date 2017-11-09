@@ -287,7 +287,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound) {
+      if (service.recipe.hasNotificationSound || service.isMuted) {
         Object.assign(options, {
           silent: true,
         });
