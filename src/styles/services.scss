@@ -8,6 +8,10 @@
   background: #FFF;
   order: 5;
 
+  .services__webview-wrapper {
+    background: $theme-gray-lighter;
+  }
+
   .services__webview, 
   .services__crash-handler {
     position: absolute;

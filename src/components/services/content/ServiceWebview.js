@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import ServiceModel from '../../../models/Service';
 import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
 import WebviewCrashHandler from './WebviewCrashHandler';
+import ServiceDisabled from './ServiceDisabled';
 
 @observer
 export default class ServiceWebview extends Component {
@@ -15,6 +16,7 @@ export default class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    enable: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -56,6 +58,7 @@ export default class ServiceWebview extends Component {
       service,
       setWebviewReference,
       reload,
+      enable,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -80,27 +83,38 @@ export default class ServiceWebview extends Component {
             reload={reload}
           />
         )}
-        <Webview
-          ref={(element) => { this.webview = element; }}
+        {!service.isEnabled && (
+          <ServiceDisabled
+            name={service.recipe.name}
+            webview={service.webview}
+            enable={enable}
+          />
+        )}
+        {service.isEnabled && (
+          <div className="services__webview-wrapper">
+            <Webview
+              ref={(element) => { this.webview = element; }}
 
-          autosize
-          src={service.url}
-          preload="./webview/plugin.js"
-          partition={`persist:service-${service.id}`}
+              autosize
+              src={service.url}
+              preload="./webview/plugin.js"
+              partition={`persist:service-${service.id}`}
 
-          onDidAttach={() => setWebviewReference({
-            serviceId: service.id,
-            webview: this.webview.view,
-          })}
+              onDidAttach={() => setWebviewReference({
+                serviceId: service.id,
+                webview: this.webview.view,
+              })}
 
-          onUpdateTargetUrl={this.updateTargetUrl}
+              onUpdateTargetUrl={this.updateTargetUrl}
 
-          useragent={service.userAgent}
+              useragent={service.userAgent}
 
-          disablewebsecurity
-          allowpopups
-        />
-        {statusBar}
+              disablewebsecurity
+              allowpopups
+            />
+            {statusBar}
+          </div>
+        )}
       </div>
     );
   }
