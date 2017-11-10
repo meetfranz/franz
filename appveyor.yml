@@ -14,8 +14,8 @@ install:
   - yarn add global gulpjs/gulp#4.0
   - yarn install
 
-cache:
- - "%LOCALAPPDATA%\\Yarn"
+# cache:
+#  - "%LOCALAPPDATA%\\Yarn"
 
 before_build:
   - yarn lint
