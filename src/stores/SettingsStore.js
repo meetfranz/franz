@@ -40,7 +40,8 @@ export default class SettingsStore extends Store {
       Object.assign(result, settings);
     });
 
-    this._shareSettingsWithMainProcess();
+    // We need a little hack to wait until everything is patched
+    setTimeout(() => this._shareSettingsWithMainProcess(), 0);
 
     gaEvent('Settings', 'update');
   }
@@ -54,6 +55,7 @@ export default class SettingsStore extends Store {
 
   // Reactions
   _shareSettingsWithMainProcess() {
+    console.log(this.all);
     ipcRenderer.send('settings', this.all);
   }
 }
