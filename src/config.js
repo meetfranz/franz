@@ -12,4 +12,5 @@ export const DEFAULT_APP_SETTINGS = {
   minimizeToSystemTray: false,
   locale: 'en-us', // TODO: Replace with proper solution once translations are in
   beta: false,
+  isAppMuted: false,
 };

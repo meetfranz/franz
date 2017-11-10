@@ -57,6 +57,8 @@ export default class AppStore extends Store {
     this.actions.app.installUpdate.listen(this._installUpdate.bind(this));
     this.actions.app.resetUpdateStatus.listen(this._resetUpdateStatus.bind(this));
     this.actions.app.healthCheck.listen(this._healthCheck.bind(this));
+    this.actions.app.muteApp.listen(this._muteApp.bind(this));
+    this.actions.app.toggleMuteApp.listen(this._toggleMuteApp.bind(this));
 
     this.registerReactions([
       this._offlineCheck.bind(this),
@@ -200,6 +202,18 @@ export default class AppStore extends Store {
 
   @action _healthCheck() {
     this.healthCheckRequest.execute();
+  }
+
+  @action _muteApp({ isMuted }) {
+    this.actions.settings.update({
+      settings: {
+        isMuted,
+      },
+    });
+  }
+
+  @action _toggleMuteApp() {
+    this._muteApp({ isMuted: !this.stores.settings.all.isMuted });
   }
 
   // Reactions

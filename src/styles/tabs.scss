@@ -41,9 +41,16 @@
     }
   }
 
+  &:hover {
+    .tab-item__icon {
+      transform: scale(1.1);
+    }
+  }
+
   .tab-item__icon {
     width: 30px;
     height: auto;
+    transition: transform 0.25s;
   }
 
   .tab-item__message-count {

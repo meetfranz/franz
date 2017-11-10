@@ -15,6 +15,7 @@ export default class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    isAppMuted: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -56,6 +57,7 @@ export default class ServiceWebview extends Component {
       service,
       setWebviewReference,
       reload,
+      isAppMuted,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -92,7 +94,7 @@ export default class ServiceWebview extends Component {
           })}
           onUpdateTargetUrl={this.updateTargetUrl}
           useragent={service.userAgent}
-          muted={service.isMuted}
+          muted={isAppMuted || service.isMuted}
           disablewebsecurity
           allowpopups
         />

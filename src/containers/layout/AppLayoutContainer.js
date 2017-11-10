@@ -7,7 +7,7 @@ import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
 import UIStore from '../../stores/UIStore';
 import NewsStore from '../../stores/NewsStore';
-import UserStore from '../../stores/UserStore';
+import SettingsStore from '../../stores/SettingsStore';
 import RequestStore from '../../stores/RequestStore';
 import GlobalErrorStore from '../../stores/GlobalErrorStore';
 
@@ -29,8 +29,8 @@ export default class AppLayoutContainer extends Component {
       services,
       ui,
       news,
+      settings,
       globalError,
-      user,
       requests,
     } = this.props.stores;
 
@@ -43,6 +43,7 @@ export default class AppLayoutContainer extends Component {
       reorder,
       reload,
       toggleNotifications,
+      toggleAudio,
       deleteService,
       updateService,
     } = this.props.actions.service;
@@ -53,6 +54,7 @@ export default class AppLayoutContainer extends Component {
 
     const {
       installUpdate,
+      toggleMuteApp,
     } = this.props.actions.app;
 
     const {
@@ -79,14 +81,16 @@ export default class AppLayoutContainer extends Component {
       <Sidebar
         services={allServices}
         setActive={setActive}
+        isAppMuted={settings.all.isMuted}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}
         reload={reload}
         toggleNotifications={toggleNotifications}
+        toggleAudio={toggleAudio}
         deleteService={deleteService}
         updateService={updateService}
-        isPremiumUser={user.data.isPremium}
+        toggleMuteApp={toggleMuteApp}
       />
     );
 
@@ -97,6 +101,7 @@ export default class AppLayoutContainer extends Component {
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
+        isAppMuted={settings.all.isMuted}
       />
     );
 
@@ -130,7 +135,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
     app: PropTypes.instanceOf(AppStore).isRequired,
     ui: PropTypes.instanceOf(UIStore).isRequired,
     news: PropTypes.instanceOf(NewsStore).isRequired,
-    user: PropTypes.instanceOf(UserStore).isRequired,
+    settings: PropTypes.instanceOf(SettingsStore).isRequired,
     requests: PropTypes.instanceOf(RequestStore).isRequired,
     globalError: PropTypes.instanceOf(GlobalErrorStore).isRequired,
   }).isRequired,
@@ -139,6 +144,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
       setActive: PropTypes.func.isRequired,
       reload: PropTypes.func.isRequired,
       toggleNotifications: PropTypes.func.isRequired,
+      toggleAudio: PropTypes.func.isRequired,
       handleIPCMessage: PropTypes.func.isRequired,
       setWebviewReference: PropTypes.func.isRequired,
       openWindow: PropTypes.func.isRequired,
@@ -156,7 +162,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
     }).isRequired,
     app: PropTypes.shape({
       installUpdate: PropTypes.func.isRequired,
-      healthCheck: PropTypes.func.isRequired,
+      toggleMuteApp: PropTypes.func.isRequired,
     }).isRequired,
     requests: PropTypes.shape({
       retryRequiredRequests: PropTypes.func.isRequired,

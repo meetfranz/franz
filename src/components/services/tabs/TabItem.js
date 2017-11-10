@@ -28,6 +28,14 @@ const messages = defineMessages({
     id: 'tabs.item.enableNotification',
     defaultMessage: '!!!Enable notifications',
   },
+  disableAudio: {
+    id: 'tabs.item.disableAudio',
+    defaultMessage: '!!!Disable audio',
+  },
+  enableAudio: {
+    id: 'tabs.item.enableAudio',
+    defaultMessage: '!!!Enable audio',
+  },
   disableService: {
     id: 'tabs.item.disableService',
     defaultMessage: '!!!Disable Service',
@@ -46,6 +54,7 @@ class TabItem extends Component {
     shortcutIndex: PropTypes.number.isRequired,
     reload: PropTypes.func.isRequired,
     toggleNotifications: PropTypes.func.isRequired,
+    toggleAudio: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
@@ -62,6 +71,7 @@ class TabItem extends Component {
       shortcutIndex,
       reload,
       toggleNotifications,
+      toggleAudio,
       deleteService,
       disableService,
       openSettings,
@@ -89,6 +99,11 @@ class TabItem extends Component {
         ? intl.formatMessage(messages.disableNotifications)
         : intl.formatMessage(messages.enableNotifications),
       click: () => toggleNotifications(),
+    }, {
+      label: service.isMuted
+        ? intl.formatMessage(messages.enableAudio)
+        : intl.formatMessage(messages.disableAudio),
+      click: () => toggleAudio(),
     }, {
       label: intl.formatMessage(messages.disableService),
       click: () => disableService(),

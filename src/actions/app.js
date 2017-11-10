@@ -20,4 +20,8 @@ export default {
   resetUpdateStatus: {},
   installUpdate: {},
   healthCheck: {},
+  muteApp: {
+    isMuted: PropTypes.bool.isRequired,
+  },
+  toggleMuteApp: {},
 };
