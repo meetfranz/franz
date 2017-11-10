@@ -81,7 +81,7 @@ export default class AppLayoutContainer extends Component {
       <Sidebar
         services={allServices}
         setActive={setActive}
-        isAppMuted={settings.all.isMuted}
+        isAppMuted={app.isSystemMuted || settings.all.isMuted}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}

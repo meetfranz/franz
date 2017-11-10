@@ -2,7 +2,7 @@ import { remote, ipcRenderer, shell } from 'electron';
 import { action, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
-// import path from 'path';
+import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import idleTimer from '@paulcbetts/system-idle-time';
 import AutoLaunch from 'auto-launch';
 
@@ -45,6 +45,8 @@ export default class AppStore extends Store {
   miner = null;
   @observable minerHashrate = 0.0;
 
+  @observable isSystemMuted = false;
+
   constructor(...args) {
     super(...args);
 
@@ -82,6 +84,11 @@ export default class AppStore extends Store {
     // Check if Franz should launch on start
     // Needs to be delayed a bit
     this._autoStart();
+
+    // Check if system is muted
+    // There are no events to subscribe so we need to poll everey 5s
+    this._systemDND();
+    setInterval(() => this._systemDND(), 5000);
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
@@ -310,5 +317,9 @@ export default class AppStore extends Store {
 
   async _checkAutoStart() {
     return autoLauncher.isEnabled() || false;
+  }
+
+  _systemDND() {
+    this.isSystemMuted = getDoNotDisturb();
   }
 }
