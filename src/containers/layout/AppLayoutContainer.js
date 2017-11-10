@@ -80,7 +80,7 @@ export default class AppLayoutContainer extends Component {
       <Sidebar
         services={services.allDisplayed}
         setActive={setActive}
-        isAppMuted={app.isSystemMuted || settings.all.isMuted}
+        isAppMuted={Boolean(app.isSystemMuted) || Boolean(settings.all.isMuted)}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}
@@ -100,7 +100,7 @@ export default class AppLayoutContainer extends Component {
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
-        isAppMuted={settings.all.isMuted}
+        isAppMuted={settings.all.isMuted || false}
         update={updateService}
       />
     );
