@@ -19,6 +19,8 @@ class TabBarSortableList extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     setActive: PropTypes.func.isRequired,
+    setActiveNext: PropTypes.func.isRequired,
+    setActivePrev: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     toggleNotifications: PropTypes.func.isRequired,
@@ -34,6 +36,8 @@ class TabBarSortableList extends Component {
     const {
       services,
       setActive,
+      setActiveNext,
+      setActivePrev,
       reload,
       toggleNotifications,
       deleteService,
@@ -46,6 +50,7 @@ class TabBarSortableList extends Component {
     return (
       <ul
         className="tabs"
+        onWheel={e => (e.deltaY > 0 ? setActiveNext() : setActivePrev())}
       >
         {services.map((service, index) => (
           <TabItem

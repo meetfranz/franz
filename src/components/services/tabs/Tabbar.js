@@ -9,6 +9,8 @@ export default class TabBar extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     setActive: PropTypes.func.isRequired,
+    setActiveNext: PropTypes.func.isRequired,
+    setActivePrev: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     enableToolTip: PropTypes.func.isRequired,
     disableToolTip: PropTypes.func.isRequired,
@@ -47,6 +49,8 @@ export default class TabBar extends Component {
     const {
       services,
       setActive,
+      setActiveNext,
+      setActivePrev,
       openSettings,
       disableToolTip,
       reload,
@@ -59,6 +63,8 @@ export default class TabBar extends Component {
         <TabBarSortableList
           services={services}
           setActive={setActive}
+          setActiveNext={setActiveNext}
+          setActivePrev={setActivePrev}
           onSortEnd={this.onSortEnd}
           onSortStart={disableToolTip}
           reload={reload}
