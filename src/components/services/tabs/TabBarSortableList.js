@@ -16,6 +16,7 @@ class TabBarSortableList extends Component {
     toggleAudio: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
+    enableService: PropTypes.func.isRequired,
   }
 
   render() {
@@ -27,6 +28,7 @@ class TabBarSortableList extends Component {
       toggleAudio,
       deleteService,
       disableService,
+      enableService,
       openSettings,
     } = this.props;
 
@@ -46,6 +48,7 @@ class TabBarSortableList extends Component {
             toggleAudio={() => toggleAudio({ serviceId: service.id })}
             deleteService={() => deleteService({ serviceId: service.id })}
             disableService={() => disableService({ serviceId: service.id })}
+            enableService={() => enableService({ serviceId: service.id })}
             openSettings={openSettings}
           />
         ))}

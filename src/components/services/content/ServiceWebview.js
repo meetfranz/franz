@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import ServiceModel from '../../../models/Service';
 import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
 import WebviewCrashHandler from './WebviewCrashHandler';
+import ServiceDisabled from './ServiceDisabled';
 
 @observer
 export default class ServiceWebview extends Component {
@@ -15,7 +16,11 @@ export default class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+<<<<<<< HEAD
     isAppMuted: PropTypes.bool.isRequired,
+=======
+    enable: PropTypes.func.isRequired,
+>>>>>>> develop
   };
 
   static defaultProps = {
@@ -58,6 +63,7 @@ export default class ServiceWebview extends Component {
       setWebviewReference,
       reload,
       isAppMuted,
+      enable,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -80,6 +86,13 @@ export default class ServiceWebview extends Component {
             name={service.recipe.name}
             webview={service.webview}
             reload={reload}
+          />
+        )}
+        {!service.isEnabled && (
+          <ServiceDisabled
+            name={service.recipe.name}
+            webview={service.webview}
+            enable={enable}
           />
         )}
         <Webview

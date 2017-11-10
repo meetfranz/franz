@@ -10,7 +10,8 @@ export const DEFAULT_APP_SETTINGS = {
   runInBackground: false,
   enableSystemTray: true,
   minimizeToSystemTray: false,
-  locale: 'en-us', // TODO: Replace with proper solution once translations are in
+  showDisabledServices: true,
+  locale: 'en-US',
   beta: false,
   isAppMuted: false,
 };

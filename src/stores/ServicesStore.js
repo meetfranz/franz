@@ -79,6 +79,10 @@ export default class ServicesStore extends Store {
     return this.all.filter(service => service.isEnabled);
   }
 
+  @computed get allDisplayed() {
+    return this.stores.settings.all.showDisabledServices ? this.all : this.enabled;
+  }
+
   @computed get filtered() {
     return this.all.filter(service => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
   }
@@ -209,21 +213,23 @@ export default class ServicesStore extends Store {
   }
 
   @action _setActiveNext() {
-    const nextIndex = this._wrapIndex(this.enabled.findIndex(service => service.isActive), 1, this.enabled.length);
+    const nextIndex = this._wrapIndex(this.allDisplayed.findIndex(service => service.isActive), 1, this.allDisplayed.length);
 
+    // TODO: simplify this;
     this.all.forEach((s, index) => {
       this.all[index].isActive = false;
     });
-    this.enabled[nextIndex].isActive = true;
+    this.allDisplayed[nextIndex].isActive = true;
   }
 
   @action _setActivePrev() {
-    const prevIndex = this._wrapIndex(this.enabled.findIndex(service => service.isActive), -1, this.enabled.length);
+    const prevIndex = this._wrapIndex(this.allDisplayed.findIndex(service => service.isActive), -1, this.allDisplayed.length);
 
+    // TODO: simplify this;
     this.all.forEach((s, index) => {
       this.all[index].isActive = false;
     });
-    this.enabled[prevIndex].isActive = true;
+    this.allDisplayed[prevIndex].isActive = true;
   }
 
   @action _setUnreadMessageCount({ serviceId, count }) {
@@ -374,9 +380,9 @@ export default class ServicesStore extends Store {
   }
 
   @action _reorder({ oldIndex, newIndex }) {
-    const oldEnabledSortIndex = this.all.indexOf(this.enabled[oldIndex]);
-    const newEnabledSortIndex = this.all.indexOf(this.enabled[newIndex]);
-
+    const showDisabledServices = this.stores.settings.all.showDisabledServices;
+    const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
+    const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
 
     this.all.splice(newEnabledSortIndex, 0, this.all.splice(oldEnabledSortIndex, 1)[0]);
 
@@ -459,19 +465,11 @@ export default class ServicesStore extends Store {
 
   _mapActiveServiceToServiceModelReaction() {
     const { activeService } = this.stores.settings.all;
-    const services = this.enabled;
-    if (services.length) {
-      services.map(service => Object.assign(service, {
-        isActive: activeService ? activeService === service.id : services[0].id === service.id,
+    if (this.allDisplayed.length) {
+      this.allDisplayed.map(service => Object.assign(service, {
+        isActive: activeService ? activeService === service.id : this.allDisplayed[0].id === service.id,
       }));
-
-      // if (!services.active) {
-      //
-      // }
     }
-    //  else if (!activeService && services.length) {
-    //   services[0].isActive = true;
-    // }
   }
 
   _getUnreadMessageCountReaction() {

@@ -5,6 +5,7 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
+import { DEFAULT_APP_SETTINGS } from '../config';
 
 export default class SettingsStore extends Store {
   @observable allSettingsRequest = new CachedRequest(this.api.local, 'getSettings');
@@ -29,7 +30,7 @@ export default class SettingsStore extends Store {
   }
 
   @computed get all() {
-    return this.allSettingsRequest.result || {};
+    return observable(Object.assign(DEFAULT_APP_SETTINGS, this.allSettingsRequest.result));
   }
 
   @action async _update({ settings }) {

@@ -27,6 +27,7 @@ export default class Services extends Component {
     openWindow: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
+    update: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -46,6 +47,7 @@ export default class Services extends Component {
       openWindow,
       reload,
       isAppMuted,
+      update,
     } = this.props;
     const { intl } = this.context;
 
@@ -79,6 +81,13 @@ export default class Services extends Component {
             openWindow={openWindow}
             reload={() => reload({ serviceId: service.id })}
             isAppMuted={isAppMuted}
+            enable={() => update({
+              serviceId: service.id,
+              serviceData: {
+                isEnabled: true,
+              },
+              redirect: false,
+            })}
           />
         ))}
       </div>
