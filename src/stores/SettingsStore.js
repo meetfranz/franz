@@ -35,7 +35,10 @@ export default class SettingsStore extends Store {
 
   @action async _update({ settings }) {
     await this.updateSettingsRequest.execute(settings)._promise;
-    await this.allSettingsRequest.invalidate({ immediately: true });
+    this.allSettingsRequest.patch((result) => {
+      if (!result) return;
+      Object.assign(result, settings);
+    });
 
     this._shareSettingsWithMainProcess();
 
