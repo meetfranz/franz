@@ -32,6 +32,10 @@ const messages = defineMessages({
     id: 'tabs.item.disableService',
     defaultMessage: '!!!Disable Service',
   },
+  enableService: {
+    id: 'tabs.item.enableService',
+    defaultMessage: '!!!Enable Service',
+  },
   deleteService: {
     id: 'tabs.item.deleteService',
     defaultMessage: '!!!Delete Service',
@@ -49,6 +53,7 @@ class TabItem extends Component {
     openSettings: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
+    enableService: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -64,6 +69,7 @@ class TabItem extends Component {
       toggleNotifications,
       deleteService,
       disableService,
+      enableService,
       openSettings,
     } = this.props;
     const { intl } = this.context;
@@ -90,8 +96,8 @@ class TabItem extends Component {
         : intl.formatMessage(messages.enableNotifications),
       click: () => toggleNotifications(),
     }, {
-      label: intl.formatMessage(messages.disableService),
-      click: () => disableService(),
+      label: intl.formatMessage(service.isEnabled ? messages.disableService : messages.enableService),
+      click: () => (service.isEnabled ? disableService() : enableService()),
     }, {
       type: 'separator',
     }, {
@@ -106,6 +112,7 @@ class TabItem extends Component {
           'tab-item': true,
           'is-active': service.isActive,
           'has-custom-icon': service.hasCustomIcon,
+          'is-disabled': !service.isEnabled,
         })}
         onClick={clickHandler}
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}

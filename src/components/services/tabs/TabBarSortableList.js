@@ -24,6 +24,7 @@ class TabBarSortableList extends Component {
     toggleNotifications: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
+    enableService: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
@@ -38,6 +39,7 @@ class TabBarSortableList extends Component {
       toggleNotifications,
       deleteService,
       disableService,
+      enableService,
       openSettings,
     } = this.props;
 
@@ -58,6 +60,7 @@ class TabBarSortableList extends Component {
             toggleNotifications={() => toggleNotifications({ serviceId: service.id })}
             deleteService={() => deleteService({ serviceId: service.id })}
             disableService={() => disableService({ serviceId: service.id })}
+            enableService={() => enableService({ serviceId: service.id })}
             openSettings={openSettings}
           />
         ))}

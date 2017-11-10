@@ -61,7 +61,6 @@ export default class AppLayoutContainer extends Component {
     } = this.props.actions.ui;
 
     const { children } = this.props;
-    const allServices = services.enabled;
 
     const isLoadingServices = services.allServicesRequest.isExecuting
       && services.allServicesRequest.isExecutingFirstTime;
@@ -77,7 +76,7 @@ export default class AppLayoutContainer extends Component {
 
     const sidebar = (
       <Sidebar
-        services={allServices}
+        services={services.allDisplayed}
         setActive={setActive}
         openSettings={openSettings}
         closeSettings={closeSettings}
@@ -92,11 +91,12 @@ export default class AppLayoutContainer extends Component {
 
     const servicesContainer = (
       <Services
-        services={allServices}
+        services={services.allDisplayed}
         handleIPCMessage={handleIPCMessage}
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
+        update={updateService}
       />
     );
 

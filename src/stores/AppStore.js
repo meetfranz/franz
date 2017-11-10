@@ -8,14 +8,14 @@ import AutoLaunch from 'auto-launch';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
-import { CHECK_INTERVAL } from '../config';
+import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
 const { app, powerMonitor } = remote;
-const defaultLocale = 'en-US';
+const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
 });

@@ -39,6 +39,10 @@ const messages = defineMessages({
     id: 'settings.app.form.language',
     defaultMessage: '!!!Language',
   },
+  showDisabledServices: {
+    id: 'settings.app.form.showDisabledServices',
+    defaultMessage: '!!!Display disabled services tabs',
+  },
   beta: {
     id: 'settings.app.form.beta',
     defaultMessage: '!!!Include beta versions',
@@ -68,6 +72,7 @@ export default class EditSettingsScreen extends Component {
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        showDisabledServices: settingsData.showDisabledServices,
         locale: settingsData.locale,
         beta: settingsData.beta,
       },
@@ -118,6 +123,11 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.minimizeToSystemTray),
           value: settings.all.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+        },
+        showDisabledServices: {
+          label: intl.formatMessage(messages.showDisabledServices),
+          value: settings.all.showDisabledServices,
+          default: DEFAULT_APP_SETTINGS.showDisabledServices,
         },
         locale: {
           label: intl.formatMessage(messages.language),
