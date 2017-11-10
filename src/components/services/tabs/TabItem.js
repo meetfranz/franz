@@ -111,8 +111,8 @@ class TabItem extends Component {
         : intl.formatMessage(messages.disableAudio),
       click: () => toggleAudio(),
     }, {
-      label: intl.formatMessage(messages.disableService),
-      click: () => disableService(),
+      label: intl.formatMessage(service.isEnabled ? messages.disableService : messages.enableService),
+      click: () => (service.isEnabled ? disableService() : enableService()),
     }, {
       type: 'separator',
     }, {

@@ -16,11 +16,8 @@ export default class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
-<<<<<<< HEAD
     isAppMuted: PropTypes.bool.isRequired,
-=======
     enable: PropTypes.func.isRequired,
->>>>>>> develop
   };
 
   static defaultProps = {
