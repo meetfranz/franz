@@ -59,16 +59,13 @@ html {
     font-size: 24px;
     position: relative;
     color: $theme-gray-light;
-    transition: color 0.25s, transform 0.25s;
 
     &:hover {
-      transform: scale(1.15);
       color: darken($theme-gray-light, 10%);
     }
 
     &:active {
-      transition: transform 0.1s;
-      transform: scale(1);
+      color: lighten($theme-gray-light, 10%);
     }
 
     &.is-muted {
