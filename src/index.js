@@ -37,6 +37,9 @@ if (isSecondInstance) {
   app.exit();
 }
 
+// Lets disable Hardware Acceleration until we have a better solution
+// to deal with the high-perf-gpu requirement of some services
+app.disableHardwareAcceleration();
 
 // Initialize Settings
 const settings = new Settings();
