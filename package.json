@@ -26,6 +26,7 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@meetfranz/electron-notification-state": "^1.0.0",
     "@paulcbetts/system-idle-time": "^1.0.4",
     "address-rfc2822": "^2.0.1",
     "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",

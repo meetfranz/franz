@@ -61,7 +61,11 @@ const messages = defineMessages({
   },
   indirectMessageInfo: {
     id: 'settings.service.form.indirectMessageInfo',
-    defaultMessage: '!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...', // eslint-disable-line
+    defaultMessage: '!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...',
+  },
+  isMutedInfo: {
+    id: 'settings.service.form.isMutedInfo',
+    defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
   },
 });
 
@@ -231,11 +235,15 @@ export default class EditServiceForm extends Component {
               {recipe.hasIndirectMessages && (
                 <div>
                   <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
-                  <p className="settings__indirect-message-help">
+                  <p className="settings__help">
                     {intl.formatMessage(messages.indirectMessageInfo)}
                   </p>
                 </div>
               )}
+              <Toggle field={form.$('isMuted')} />
+              <p className="settings__help">
+                {intl.formatMessage(messages.isMutedInfo)}
+              </p>
               <Toggle field={form.$('isEnabled')} />
             </div>
             {recipe.message && (

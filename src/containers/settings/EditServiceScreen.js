@@ -9,7 +9,6 @@ import ServicesStore from '../../stores/ServicesStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
-
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
 import { required, url, oneRequired } from '../../helpers/validation-helpers';
@@ -26,6 +25,10 @@ const messages = defineMessages({
   enableNotification: {
     id: 'settings.service.form.enableNotification',
     defaultMessage: '!!!Enable Notifications',
+  },
+  enableAudio: {
+    id: 'settings.service.form.enableAudio',
+    defaultMessage: '!!!Enable audio',
   },
   team: {
     id: 'settings.service.form.team',
@@ -51,10 +54,13 @@ export default class EditServiceScreen extends Component {
     gaPage('Settings/Service/Edit');
   }
 
-  onSubmit(serviceData) {
+  onSubmit(data) {
     const { action } = this.props.router.params;
     const { recipes, services } = this.props.stores;
     const { createService, updateService } = this.props.actions.service;
+
+    const serviceData = data;
+    serviceData.isMuted = !serviceData.isMuted;
 
     if (action === 'edit') {
       updateService({ serviceId: services.activeSettings.id, serviceData });
@@ -80,6 +86,11 @@ export default class EditServiceScreen extends Component {
         isNotificationEnabled: {
           label: intl.formatMessage(messages.enableNotification),
           value: service.isNotificationEnabled,
+          default: true,
+        },
+        isMuted: {
+          label: intl.formatMessage(messages.enableAudio),
+          value: !service.isMuted,
           default: true,
         },
       },

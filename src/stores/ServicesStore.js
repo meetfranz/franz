@@ -48,6 +48,7 @@ export default class ServicesStore extends Store {
     this.actions.service.reloadUpdatedServices.listen(this._reloadUpdatedServices.bind(this));
     this.actions.service.reorder.listen(this._reorder.bind(this));
     this.actions.service.toggleNotifications.listen(this._toggleNotifications.bind(this));
+    this.actions.service.toggleAudio.listen(this._toggleAudio.bind(this));
     this.actions.service.openDevTools.listen(this._openDevTools.bind(this));
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
 
@@ -293,7 +294,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound) {
+      if (service.recipe.hasNotificationSound || service.isMuted) {
         Object.assign(options, {
           silent: true,
         });
@@ -405,11 +406,25 @@ export default class ServicesStore extends Store {
   @action _toggleNotifications({ serviceId }) {
     const service = this.one(serviceId);
 
+    this.actions.service.updateService({
+      serviceId,
+      serviceData: {
+        isNotificationEnabled: !service.isNotificationEnabled,
+      },
+      redirect: false,
+    });
+  }
+
+  @action _toggleAudio({ serviceId }) {
+    const service = this.one(serviceId);
+
     service.isNotificationEnabled = !service.isNotificationEnabled;
 
     this.actions.service.updateService({
       serviceId,
-      serviceData: service,
+      serviceData: {
+        isMuted: !service.isMuted,
+      },
       redirect: false,
     });
   }

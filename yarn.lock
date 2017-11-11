@@ -22,6 +22,14 @@
     "7zip-bin-mac" "^1.0.1"
     "7zip-bin-win" "^2.1.0"
 
+"@meetfranz/electron-notification-state@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@meetfranz/electron-notification-state/-/electron-notification-state-1.0.0.tgz#75e9d774bdaf15991eacd92cde8469b348259d8c"
+  dependencies:
+    macos-notification-state "^1.1.0"
+    windows-notification-state "^1.3.0"
+    windows-quiet-hours "^1.2.2"
+
 "@paulcbetts/cld@^2.4.6":
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/@paulcbetts/cld/-/cld-2.4.6.tgz#a992f6bc43cab212ac2c4488a671cf302f8b62e7"
@@ -1167,6 +1175,10 @@ binary@^0.3.0:
   dependencies:
     buffers "~0.1.1"
     chainsaw "~0.1.0"
+
+bindings@^1.2.1, bindings@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
 
 bindings@~1.2.1:
   version "1.2.1"
@@ -4012,6 +4024,13 @@ macaddress@^0.2.7:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
 
+macos-notification-state@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/macos-notification-state/-/macos-notification-state-1.1.0.tgz#ee59671e05c1ec388c0b09101ef611c85b4b4e0e"
+  dependencies:
+    bindings "^1.2.1"
+    nan "^2.4.0"
+
 make-dir@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.0.0.tgz#97a011751e91dd87cfadef58832ebb04936de978"
@@ -4243,7 +4262,7 @@ mute-stream@0.0.7, mute-stream@~0.0.4:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.0.0, nan@^2.0.5, nan@^2.3.0, nan@^2.3.2:
+nan@^2.0.0, nan@^2.0.5, nan@^2.3.0, nan@^2.3.2, nan@^2.4.0, nan@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.7.0.tgz#d95bf721ec877e08db276ed3fc6eb78f9083ad46"
 
@@ -6154,6 +6173,20 @@ widest-line@^1.0.0:
 window-size@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
+
+windows-notification-state@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/windows-notification-state/-/windows-notification-state-1.3.0.tgz#9f727782ecac8d920a408f1026be6f8e08fd902e"
+  dependencies:
+    bindings "^1.2.1"
+    nan "^2.4.0"
+
+windows-quiet-hours@^1.2.2:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/windows-quiet-hours/-/windows-quiet-hours-1.2.4.tgz#7ae57b13fe9423f2635ac0ed5791f674401a7c7a"
+  dependencies:
+    bindings "^1.3.0"
+    nan "^2.7.0"
 
 winreg@1.2.2:
   version "1.2.2"

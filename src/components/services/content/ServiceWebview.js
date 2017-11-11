@@ -16,6 +16,7 @@ export default class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    isAppMuted: PropTypes.bool.isRequired,
     enable: PropTypes.func.isRequired,
   };
 
@@ -58,6 +59,7 @@ export default class ServiceWebview extends Component {
       service,
       setWebviewReference,
       reload,
+      isAppMuted,
       enable,
     } = this.props;
 
@@ -90,31 +92,23 @@ export default class ServiceWebview extends Component {
             enable={enable}
           />
         )}
-        {service.isEnabled && (
-          <div className="services__webview-wrapper">
-            <Webview
-              ref={(element) => { this.webview = element; }}
-
-              autosize
-              src={service.url}
-              preload="./webview/plugin.js"
-              partition={`persist:service-${service.id}`}
-
-              onDidAttach={() => setWebviewReference({
-                serviceId: service.id,
-                webview: this.webview.view,
-              })}
-
-              onUpdateTargetUrl={this.updateTargetUrl}
-
-              useragent={service.userAgent}
-
-              disablewebsecurity
-              allowpopups
-            />
-            {statusBar}
-          </div>
-        )}
+        <Webview
+          ref={(element) => { this.webview = element; }}
+          autosize
+          src={service.url}
+          preload="./webview/plugin.js"
+          partition={`persist:service-${service.id}`}
+          onDidAttach={() => setWebviewReference({
+            serviceId: service.id,
+            webview: this.webview.view,
+          })}
+          onUpdateTargetUrl={this.updateTargetUrl}
+          useragent={service.userAgent}
+          muted={isAppMuted || service.isMuted}
+          disablewebsecurity
+          allowpopups
+        />
+        {statusBar}
       </div>
     );
   }

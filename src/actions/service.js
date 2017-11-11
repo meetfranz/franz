@@ -71,6 +71,9 @@ export default {
   toggleNotifications: {
     serviceId: PropTypes.string.isRequired,
   },
+  toggleAudio: {
+    serviceId: PropTypes.string.isRequired,
+  },
   openDevTools: {
     serviceId: PropTypes.string.isRequired,
   },

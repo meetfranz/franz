@@ -26,6 +26,7 @@ export default class Services extends Component {
     handleIPCMessage: PropTypes.func.isRequired,
     openWindow: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    isAppMuted: PropTypes.bool.isRequired,
     update: PropTypes.func.isRequired,
   };
 
@@ -45,6 +46,7 @@ export default class Services extends Component {
       setWebviewReference,
       openWindow,
       reload,
+      isAppMuted,
       update,
     } = this.props;
     const { intl } = this.context;
@@ -78,6 +80,7 @@ export default class Services extends Component {
             setWebviewReference={setWebviewReference}
             openWindow={openWindow}
             reload={() => reload({ serviceId: service.id })}
+            isAppMuted={isAppMuted}
             enable={() => update({
               serviceId: service.id,
               serviceData: {

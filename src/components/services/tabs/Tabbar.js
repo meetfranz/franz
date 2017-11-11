@@ -15,6 +15,7 @@ export default class TabBar extends Component {
     reorder: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     toggleNotifications: PropTypes.func.isRequired,
+    toggleAudio: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     updateService: PropTypes.func.isRequired,
   }
@@ -59,6 +60,7 @@ export default class TabBar extends Component {
       disableToolTip,
       reload,
       toggleNotifications,
+      toggleAudio,
       deleteService,
     } = this.props;
 
@@ -71,6 +73,7 @@ export default class TabBar extends Component {
           onSortStart={disableToolTip}
           reload={reload}
           toggleNotifications={toggleNotifications}
+          toggleAudio={toggleAudio}
           deleteService={deleteService}
           disableService={args => this.disableService(args)}
           enableService={args => this.enableService(args)}

@@ -13,4 +13,5 @@ export const DEFAULT_APP_SETTINGS = {
   showDisabledServices: true,
   locale: 'en-US',
   beta: false,
+  isAppMuted: false,
 };

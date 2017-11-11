@@ -18,6 +18,7 @@ export default class Service {
 
   @observable order = 99;
   @observable isEnabled = true;
+  @observable isMuted = false;
   @observable team = '';
   @observable customUrl = '';
   @observable isNotificationEnabled = true;
@@ -53,6 +54,8 @@ export default class Service {
 
     this.isIndirectMessageBadgeEnabled = data.isIndirectMessageBadgeEnabled !== undefined
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
+
+    this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
 
     this.recipe = recipe;
   }

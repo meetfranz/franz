@@ -42,6 +42,7 @@ html {
   z-index: 200;
   text-align: center;
   color: $theme-text-color;
+  padding-bottom: 10px;
 
   .sidebar__add-service {
     width: 32px;
@@ -52,26 +53,28 @@ html {
     color: $theme-gray-light;
   }
 
-  .sidebar__settings-button {
-    height: auto;
-    padding: 20px 0;
-    font-size: 12px;
+  .sidebar__button {
+    width: $theme-sidebar-width;
+    padding: 7px 0;
+    font-size: 24px;
     position: relative;
+    color: $theme-gray-light;
 
-    .emoji {
-      position: absolute;
-      top: 18px;
-      right: 12px;
-
-      img {
-        width: 18px;
-      }
+    &:hover {
+      color: darken($theme-gray-light, 10%);
     }
-  }
 
-  .sidebar__logo {
-    width: 40px;
-    height: auto;
+    &:active {
+      color: lighten($theme-gray-light, 10%);
+    }
+
+    &.is-muted {
+      color: $theme-brand-primary;
+    }
+
+    &--new-service {
+      padding-bottom: 6px;
+    }
   }
 
   & > div {
