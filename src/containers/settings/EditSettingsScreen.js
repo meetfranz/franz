@@ -43,6 +43,10 @@ const messages = defineMessages({
     id: 'settings.app.form.showDisabledServices',
     defaultMessage: '!!!Display disabled services tabs',
   },
+  enableSpellchecking: {
+    id: 'settings.app.form.enableSpellchecking',
+    defaultMessage: '!!!Enable spell checking',
+  },
   beta: {
     id: 'settings.app.form.beta',
     defaultMessage: '!!!Include beta versions',
@@ -73,6 +77,7 @@ export default class EditSettingsScreen extends Component {
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
         showDisabledServices: settingsData.showDisabledServices,
+        enableSpellchecking: settingsData.enableSpellchecking,
         locale: settingsData.locale,
         beta: settingsData.beta,
       },
@@ -128,6 +133,11 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.showDisabledServices),
           value: settings.all.showDisabledServices,
           default: DEFAULT_APP_SETTINGS.showDisabledServices,
+        },
+        enableSpellchecking: {
+          label: intl.formatMessage(messages.enableSpellchecking),
+          value: settings.all.enableSpellchecking,
+          default: DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
         locale: {
           label: intl.formatMessage(messages.language),

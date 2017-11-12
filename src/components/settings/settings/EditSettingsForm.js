@@ -30,6 +30,10 @@ const messages = defineMessages({
     id: 'settings.app.headlineAppearance',
     defaultMessage: '!!!Appearance',
   },
+  headlineMessaging: {
+    id: 'settings.app.headlineMessaging',
+    defaultMessage: '!!!Messaging',
+  },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
     defaultMessage: '!!!Check for updates',
@@ -125,6 +129,8 @@ export default class EditSettingsForm extends Component {
             )}
             <h2>{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
+            <h2>{intl.formatMessage(messages.headlineMessaging)}</h2>
+            <Toggle field={form.$('enableSpellchecking')} />
             <h2>{intl.formatMessage(messages.headlineLanguage)}</h2>
             <Select field={form.$('locale')} showLabel={false} />
             <h2>{intl.formatMessage(messages.headlineUpdates)}</h2>
