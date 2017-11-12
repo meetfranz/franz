@@ -1,0 +1,52 @@
+.image-upload {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: $theme-border-radius;
+  overflow: hidden;
+
+  &__preview,
+  &__action {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &__preview {
+    z-index: 1;
+    background-size: cover;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 5px;
+  }
+
+  &__action {
+    position: relative;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    &-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba($theme-gray, 0.7);
+      z-index: 10;
+    }
+
+    button {
+      position: relative;
+      z-index: 100;
+    }
+  }
+
+  &:hover {
+    .image-upload__action {
+      opacity: 1;
+    }
+  }
+}

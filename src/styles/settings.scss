@@ -111,6 +111,20 @@
     &::-webkit-scrollbar-thumb:window-inactive {
     	background: none;
     }
+    
+    .service-flex-grid {
+      display: flex;
+    }
+
+    .service-name {
+      flex: 1px;
+    }
+
+    .service-icon {
+      width: 30%;
+      min-width: 100px;
+      margin-left: 40px;
+    }
   }
 
   .settings__close {
@@ -308,12 +322,6 @@
     }
   }
 
-  // @include element(add-service-teaser) {
-  //   height: auto;
-  //   margin-top: 20px;
-  //   display: block;
-  //   text-align: center;
-  // }
   .emoji {
     display: block;
     font-size: 40px;

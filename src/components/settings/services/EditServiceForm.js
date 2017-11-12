@@ -13,6 +13,7 @@ import Tabs, { TabItem } from '../../ui/Tabs';
 import Input from '../../ui/Input';
 import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
+import ImageUpload from '../../ui/ImageUpload';
 
 const messages = defineMessages({
   saveService: {
@@ -195,7 +196,15 @@ export default class EditServiceForm extends Component {
         </div>
         <div className="settings__body">
           <form onSubmit={e => this.submit(e)} id="form">
-            <Input field={form.$('name')} focus />
+            <div className="service-flex-grid">
+              <div className="service-name">
+                <Input field={form.$('name')} focus />
+              </div>
+              <div className="service-icon">
+                {/* <Input field={form.$('name')} focus /> */}
+                <ImageUpload field={form.$('icon')} />
+              </div>
+            </div>
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (
               <Tabs
                 active={service.customUrl ? 1 : 0}

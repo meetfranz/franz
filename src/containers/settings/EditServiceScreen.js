@@ -42,6 +42,10 @@ const messages = defineMessages({
     id: 'settings.service.form.indirectMessages',
     defaultMessage: '!!!Show message badge for all new messages',
   },
+  icon: {
+    id: 'settings.service.form.icon',
+    defaultMessage: '!!!Icon',
+  },
 });
 
 @inject('stores', 'actions') @observer
@@ -91,6 +95,11 @@ export default class EditServiceScreen extends Component {
         isMuted: {
           label: intl.formatMessage(messages.enableAudio),
           value: !service.isMuted,
+          default: true,
+        },
+        icon: {
+          label: intl.formatMessage(messages.icon),
+          value: service.icon,
           default: true,
         },
       },
@@ -177,6 +186,12 @@ export default class EditServiceScreen extends Component {
 
     if (isLoading) {
       return (<div>Loading...</div>);
+    }
+
+    if (!recipe) {
+      return (
+        <div>something went wrong</div>
+      );
     }
 
     const form = this.prepareForm(recipe, service);
