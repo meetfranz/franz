@@ -1,11 +1,11 @@
-const { ipcRenderer } = require('electron');
-const path = require('path');
+import { ipcRenderer } from 'electron';
+import path from 'path';
 
-const RecipeWebview = require('./lib/RecipeWebview');
+import RecipeWebview from './lib/RecipeWebview';
 
-require('./notifications.js');
-require('./spellchecker.js');
-require('./ime.js');
+import './spellchecker.js';
+import './notifications.js';
+import './ime.js';
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
