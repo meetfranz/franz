@@ -19,6 +19,10 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   }
 });
 
+ipcRenderer.on('settings-update', (e, data) => {
+  console.log(data);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');
 }, false);

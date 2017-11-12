@@ -37,6 +37,7 @@ export default class ServicesStore extends Store {
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
     this.actions.service.handleIPCMessage.listen(this._handleIPCMessage.bind(this));
     this.actions.service.sendIPCMessage.listen(this._sendIPCMessage.bind(this));
+    this.actions.service.sendIPCMessageToAllServices.listen(this._sendIPCMessageToAllServices.bind(this));
     this.actions.service.setUnreadMessageCount.listen(this._setUnreadMessageCount.bind(this));
     this.actions.service.openWindow.listen(this._openWindow.bind(this));
     this.actions.service.filter.listen(this._filter.bind(this));
@@ -58,6 +59,7 @@ export default class ServicesStore extends Store {
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
+      this._shareSettingsWithServiceProcess.bind(this),
     ]);
 
     // Just bind this
@@ -330,7 +332,17 @@ export default class ServicesStore extends Store {
   @action _sendIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    service.webview.send(channel, args);
+    if (service.webview) {
+      service.webview.send(channel, args);
+    }
+  }
+
+  @action _sendIPCMessageToAllServices({ channel, args }) {
+    this.all.forEach(s => this.actions.service.sendIPCMessage({
+      serviceId: s.id,
+      channel,
+      args,
+    }));
   }
 
   @action _openWindow({ event }) {
@@ -493,6 +505,13 @@ export default class ServicesStore extends Store {
       this.actions.settings.remove({ key: 'activeService' });
       this.allServicesRequest.invalidate().reset();
     }
+  }
+
+  _shareSettingsWithServiceProcess() {
+    this.actions.service.sendIPCMessageToAllServices({
+      channel: 'settings-update',
+      args: this.stores.settings.all,
+    });
   }
 
   _cleanUpTeamIdAndCustomUrl(recipeId, data) {
