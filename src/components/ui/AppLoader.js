@@ -8,7 +8,7 @@ export default function () {
     <div className="app-loader">
       <Appear>
         <h1 className="app-loader__title">Franz</h1>
-        <Loader />
+        <Loader color="#FFF" />
       </Appear>
     </div>
   );
