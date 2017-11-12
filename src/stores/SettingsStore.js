@@ -55,7 +55,6 @@ export default class SettingsStore extends Store {
 
   // Reactions
   _shareSettingsWithMainProcess() {
-    console.log(this.all);
     ipcRenderer.send('settings', this.all);
   }
 }
