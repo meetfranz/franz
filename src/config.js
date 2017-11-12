@@ -7,7 +7,7 @@ export const GA_ID = 'UA-74126766-6';
 export const DEFAULT_APP_SETTINGS = {
   autoLaunchOnStart: true,
   autoLaunchInBackground: false,
-  runInBackground: false,
+  runInBackground: true,
   enableSystemTray: true,
   minimizeToSystemTray: false,
   showDisabledServices: true,
