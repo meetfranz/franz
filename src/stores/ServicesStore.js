@@ -286,6 +286,7 @@ export default class ServicesStore extends Store {
     if (channel === 'hello') {
       this._initRecipePolling(service.id);
       this._initializeServiceRecipeInWebview(serviceId);
+      this._shareSettingsWithServiceProcess();
     } else if (channel === 'messages') {
       this.actions.service.setUnreadMessageCount({
         serviceId,

@@ -3,9 +3,11 @@ import path from 'path';
 
 import RecipeWebview from './lib/RecipeWebview';
 
-import './spellchecker.js';
+import Spellchecker from './spellchecker.js';
 import './notifications.js';
 import './ime.js';
+
+const spellchecker = new Spellchecker();
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -20,7 +22,17 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
 });
 
 ipcRenderer.on('settings-update', (e, data) => {
-  console.log(data);
+  if (data.enableSpellchecking) {
+    if (!spellchecker.isEnabled) {
+      spellchecker.enable();
+
+      // TODO: this does not work yet, needs more testing
+      // if (data.spellcheckingLanguage !== 'auto') {
+      //   console.log('set spellchecking language to', data.spellcheckingLanguage);
+      //   spellchecker.switchLanguage(data.spellcheckingLanguage);
+      // }
+    }
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {

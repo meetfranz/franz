@@ -12,6 +12,7 @@ export const DEFAULT_APP_SETTINGS = {
   minimizeToSystemTray: false,
   showDisabledServices: true,
   enableSpellchecking: true,
+  // spellcheckingLanguage: 'auto',
   locale: 'en-US',
   beta: false,
   isAppMuted: false,

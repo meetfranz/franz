@@ -30,9 +30,9 @@ const messages = defineMessages({
     id: 'settings.app.headlineAppearance',
     defaultMessage: '!!!Appearance',
   },
-  headlineMessaging: {
-    id: 'settings.app.headlineMessaging',
-    defaultMessage: '!!!Messaging',
+  headlineAdvanced: {
+    id: 'settings.app.headlineAdvanced',
+    defaultMessage: '!!!Advanced',
   },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
@@ -57,6 +57,10 @@ const messages = defineMessages({
   currentVersion: {
     id: 'settings.app.currentVersion',
     defaultMessage: '!!!Current version:',
+  },
+  restartRequired: {
+    id: 'settings.app.restartRequired',
+    defaultMessage: '!!!Changes require restart',
   },
 });
 
@@ -120,20 +124,31 @@ export default class EditSettingsForm extends Component {
             onChange={e => this.submit(e)}
             id="form"
           >
-            <h2>{intl.formatMessage(messages.headlineGeneral)}</h2>
+            {/* General */}
+            <h2 id="general">{intl.formatMessage(messages.headlineGeneral)}</h2>
             <Toggle field={form.$('autoLaunchOnStart')} />
             <Toggle field={form.$('runInBackground')} />
             <Toggle field={form.$('enableSystemTray')} />
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
             )}
-            <h2>{intl.formatMessage(messages.headlineAppearance)}</h2>
+
+            {/* Appearance */}
+            <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
-            <h2>{intl.formatMessage(messages.headlineMessaging)}</h2>
-            <Toggle field={form.$('enableSpellchecking')} />
-            <h2>{intl.formatMessage(messages.headlineLanguage)}</h2>
+
+            {/* Language */}
+            <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
             <Select field={form.$('locale')} showLabel={false} />
-            <h2>{intl.formatMessage(messages.headlineUpdates)}</h2>
+
+            {/* Advanced */}
+            <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
+            <Toggle field={form.$('enableSpellchecking')} />
+            <p className="settings__help">{intl.formatMessage(messages.restartRequired)}</p>
+            {/* <Select field={form.$('spellcheckingLanguage')} /> */}
+
+            {/* Updates */}
+            <h2 id="updates">{intl.formatMessage(messages.headlineUpdates)}</h2>
             {updateIsReadyToInstall ? (
               <Button
                 label={intl.formatMessage(messages.buttonInstallUpdate)}
