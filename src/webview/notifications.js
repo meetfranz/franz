@@ -10,9 +10,9 @@ class Notification {
     this.notificationId = uuidV1();
 
     ipcRenderer.sendToHost('notification', this.onNotify({
+      title: this.title,
+      options: this.options,
       notificationId: this.notificationId,
-      title,
-      options,
     }));
 
     ipcRenderer.once(`notification-onclick:${this.notificationId}`, () => {
