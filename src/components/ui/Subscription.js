@@ -7,6 +7,7 @@ import Form from '../../lib/Form';
 import Radio from '../ui/Radio';
 import Button from '../ui/Button';
 import Loader from '../ui/Loader';
+import { isWindows } from '../../environment';
 
 import { required } from '../../helpers/validation-helpers';
 
@@ -148,13 +149,17 @@ export default class SubscriptionForm extends Component {
             label: `€ ${Object.hasOwnProperty.call(this.props.plan, 'year')
               ? `${this.props.plan.year.price} / ${intl.formatMessage(messages.typeYearly)}`
               : 'yearly'}`,
-          }, {
-            value: 'mining',
-            label: intl.formatMessage(messages.typeMining),
           }],
         },
       },
     };
+
+    if (!isWindows) {
+      form.fields.paymentTier.options.push({
+        value: 'mining',
+        label: intl.formatMessage(messages.typeMining),
+      });
+    }
 
     if (this.props.showSkipOption) {
       form.fields.paymentTier.options.unshift({
