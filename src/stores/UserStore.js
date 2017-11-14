@@ -231,7 +231,7 @@ export default class UserStore extends Store {
       && currentRoute.includes(this.BASE_ROUTE)
       && (this.hasCompletedSignup
         || this.hasCompletedSignup === null)) {
-      // this.stores.router.push('/');
+      this.stores.router.push('/');
     }
   };
 
