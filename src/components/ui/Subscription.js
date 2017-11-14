@@ -93,6 +93,10 @@ const messages = defineMessages({
     id: 'subscription.mining.moreInformation',
     defaultMessage: '!!!Get more information about this plan',
   },
+  euTaxInfo: {
+    id: 'subscription.euTaxInfo',
+    defaultMessage: '!!!EU residents: local sales tax may apply',
+  },
 });
 
 @observer
@@ -258,6 +262,11 @@ export default class SubscriptionForm extends Component {
             loaded={!isCreatingHostedPage}
             onClick={() => handlePayment(this.form.$('paymentTier').value)}
           />
+        )}
+        {this.form.$('paymentTier').value !== 'skip' && this.form.$('paymentTier').value !== 'mining' && (
+          <p className="legal">
+            {intl.formatMessage(messages.euTaxInfo)}
+          </p>
         )}
       </Loader>
     );
