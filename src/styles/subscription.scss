@@ -36,7 +36,7 @@
         margin-right: 0;
       }
 
-      &:last-of-type {
+      &:nth-child(4) {
         margin-right: 0;
         margin-top: 2%;
         width: 100%;
@@ -55,7 +55,8 @@
           margin-right: 0;
         }
 
-        &:last-of-type {
+        &:nth-child(3) {
+          margin-top: 2%;
           width: 100%;
         }
       }

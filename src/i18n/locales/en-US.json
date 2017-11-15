@@ -165,6 +165,7 @@
   "subscription.mining.line2": "We will adapt the CPU usage based to your work behaviour to not drain your battery and slow you and your machine down.",
   "subscription.mining.line3": "As long as the miner is active, you will have unlimited access to all the Franz Premium Supporter Features.",
   "subscription.mining.moreInformation": "Get more information about this plan.",
+  "subscription.euTaxInfo": "EU residents: local sales tax may apply",
   "subscriptionPopup.buttonCancel": "Cancel",
   "subscriptionPopup.buttonDone": "Done",
   "tabs.item.reload": "Reload",

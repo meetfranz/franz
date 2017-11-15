@@ -40,7 +40,7 @@
   width: 100%;
   max-width: 900px;
   min-height: 400px;
-  max-height: 600px;
+  max-height: 720px;
   z-index: 9999;
   background: #FFF;
   border-radius: $theme-border-radius;
@@ -333,6 +333,12 @@
   .content-tabs .premium-info {
     background: none;
     padding: 0;
+  }
+
+  .legal {
+    text-align: center;
+    margin-top: 20px;
+    color: $theme-gray-light;
   }
 }
 

