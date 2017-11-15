@@ -66,7 +66,7 @@ class RecipeWebview {
 
   onNotify(fn) {
     if (typeof fn === 'function') {
-      window.Notification.onNotify = fn;
+      window.Notification.prototype.onNotify = fn;
     }
   }
 
