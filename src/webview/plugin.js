@@ -1,11 +1,13 @@
-const { ipcRenderer } = require('electron');
-const path = require('path');
+import { ipcRenderer } from 'electron';
+import path from 'path';
 
-const RecipeWebview = require('./lib/RecipeWebview');
+import RecipeWebview from './lib/RecipeWebview';
 
-require('./notifications.js');
-require('./spellchecker.js');
-require('./ime.js');
+import Spellchecker from './spellchecker.js';
+import './notifications.js';
+import './ime.js';
+
+const spellchecker = new Spellchecker();
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -16,6 +18,20 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
     require(modulePath)(new RecipeWebview(), data);
   } catch (err) {
     console.error(err);
+  }
+});
+
+ipcRenderer.on('settings-update', (e, data) => {
+  if (data.enableSpellchecking) {
+    if (!spellchecker.isEnabled) {
+      spellchecker.enable();
+
+      // TODO: this does not work yet, needs more testing
+      // if (data.spellcheckingLanguage !== 'auto') {
+      //   console.log('set spellchecking language to', data.spellcheckingLanguage);
+      //   spellchecker.switchLanguage(data.spellcheckingLanguage);
+      // }
+    }
   }
 });
 

@@ -350,9 +350,10 @@
   flex-direction: column;
 
   .settings-navigation__link {
-    display: block;
+    display: flex;
+    align-items: center;
     height: 50px;
-    line-height: 50px;
+    flex-shrink: 0;
     text-decoration: none;
     color: $theme-text-color;
     padding: 0 20px;
