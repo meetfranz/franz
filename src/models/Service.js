@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
@@ -55,6 +55,14 @@ export default class Service {
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
 
     this.recipe = recipe;
+
+    autorun(() => {
+      if (!this.isEnabled) {
+        this.webview = null;
+        this.unreadDirectMessageCount = 0;
+        this.unreadIndirectMessageCount = 0;
+      }
+    });
   }
 
   @computed get url() {
