@@ -35,7 +35,7 @@ export default class ServiceDisabled extends Component {
     const { intl } = this.context;
 
     return (
-      <div className="services__crash-handler">
+      <div className="services__info-layer">
         <h1>{intl.formatMessage(messages.headline, { name })}</h1>
         <Button
           label={intl.formatMessage(messages.action, { name })}

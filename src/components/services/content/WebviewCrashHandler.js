@@ -62,7 +62,7 @@ export default class WebviewCrashHandler extends Component {
     const { intl } = this.context;
 
     return (
-      <div className="services__crash-handler">
+      <div className="services__info-layer">
         <h1>{intl.formatMessage(messages.headline)}</h1>
         <p>{intl.formatMessage(messages.text, { name })}</p>
         <Button

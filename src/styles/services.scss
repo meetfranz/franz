@@ -13,7 +13,7 @@
   }
 
   .services__webview, 
-  .services__crash-handler {
+  .services__info-layer {
     position: absolute;
     width: 100%;
     top: 0;
@@ -44,7 +44,7 @@
   }
 
   .services__no-service, 
-  .services__crash-handler {
+  .services__info-layer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +63,7 @@
     }
   }
 
-  .services__crash-handler {
+  .services__info-layer {
     position: absolut;
     z-index: 110;
   }
