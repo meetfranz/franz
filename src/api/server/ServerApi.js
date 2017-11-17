@@ -374,7 +374,7 @@ export default class ServerApi {
   // News
   async getLatestNews() {
     // eslint-disable-next-line
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/news?platform=${os.platform()}&arch=${os.arch()}version=${app.getVersion()}`,
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/news?platform=${os.platform()}&arch=${os.arch()}&version=${app.getVersion()}`,
       this._prepareAuthRequest({
         method: 'GET',
       }));
