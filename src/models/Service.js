@@ -59,6 +59,7 @@ export default class Service {
     autorun(() => {
       if (!this.isEnabled) {
         this.webview = null;
+        this.isAttached = false;
         this.unreadDirectMessageCount = 0;
         this.unreadIndirectMessageCount = 0;
       }
