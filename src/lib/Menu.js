@@ -214,30 +214,6 @@ export default class FranzMenu {
           ],
         },
       );
-      // Window menu.
-      tpl[3].submenu = [
-        {
-          // label: 'Close',
-          accelerator: 'CmdOrCtrl+W',
-          role: 'close',
-        },
-        {
-          // label: 'Minimize',
-          accelerator: 'CmdOrCtrl+M',
-          role: 'minimize',
-        },
-        {
-          // label: 'Zoom',
-          role: 'zoom',
-        },
-        {
-          type: 'separator',
-        },
-        {
-          // label: 'Bring All to Front',
-          role: 'front',
-        },
-      ];
     } else {
       tpl[4].submenu.unshift({
         role: 'about',
@@ -277,7 +253,7 @@ export default class FranzMenu {
 
     if (this.stores.user.isLoggedIn) {
       return services.map((service, i) => ({
-        label: service.name,
+        label: this._getServiceName(service),
         accelerator: i <= 9 ? `CmdOrCtrl+${i + 1}` : null,
         type: 'radio',
         checked: service.isActive,
@@ -288,5 +264,21 @@ export default class FranzMenu {
     }
 
     return [];
+  }
+
+  _getServiceName(service) {
+    if (service.name) {
+      return service.name;
+    }
+
+    let name = service.recipe.name;
+
+    if (service.team) {
+      name = `${name} (${service.team})`;
+    } else if (service.customUrl) {
+      name = `${name} (${service.customUrl})`;
+    }
+
+    return name;
   }
 }
