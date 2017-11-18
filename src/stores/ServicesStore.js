@@ -547,6 +547,8 @@ export default class ServicesStore extends Store {
 
     if (service) {
       const loop = () => {
+        if (!service.webview) return;
+
         service.webview.send('poll');
 
         setTimeout(loop, delay);
