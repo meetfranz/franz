@@ -30,6 +30,8 @@ export default class TabBar extends Component {
     reorder({ oldIndex, newIndex });
   };
 
+  shouldPreventSorting = event => event.target.tagName !== 'LI';
+
   toggleService = ({ serviceId, isEnabled }) => {
     const { updateService } = this.props;
 
@@ -71,6 +73,7 @@ export default class TabBar extends Component {
           setActive={setActive}
           onSortEnd={this.onSortEnd}
           onSortStart={disableToolTip}
+          shouldCancelStart={this.shouldPreventSorting}
           reload={reload}
           toggleNotifications={toggleNotifications}
           toggleAudio={toggleAudio}
