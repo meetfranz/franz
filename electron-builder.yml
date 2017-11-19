@@ -2,7 +2,7 @@ directories:
   app: ./build
   output: ./out
 
-# forceCodeSigning: true
+appId: "com.meetfranz.franz"
 
 compression: maximum
 
