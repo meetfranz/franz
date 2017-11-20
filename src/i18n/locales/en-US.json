@@ -147,6 +147,7 @@
   "settings.app.form.enableSpellchecking": "Enable spell checking",
   "settings.app.form.showDisabledServices": "Display disabled services tabs",
   "settings.app.form.beta": "Include beta versions",
+  "settings.app.translationHelp": "Help us to translate Franz into your language.",
   "settings.app.currentVersion": "Current version:",
   "settings.app.restartRequired": "Changes require restart",
   "settings.user.form.firstname": "First Name",
