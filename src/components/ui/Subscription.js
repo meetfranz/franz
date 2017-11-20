@@ -7,7 +7,6 @@ import Form from '../../lib/Form';
 import Radio from '../ui/Radio';
 import Button from '../ui/Button';
 import Loader from '../ui/Loader';
-import { isWindows } from '../../environment';
 
 import { required } from '../../helpers/validation-helpers';
 
