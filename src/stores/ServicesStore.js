@@ -470,8 +470,10 @@ export default class ServicesStore extends Store {
     const service = this.active;
 
     if (service) {
-      this.stores.settings.updateSettingsRequest.execute({
-        activeService: service.id,
+      this.actions.settings.update({
+        settings: {
+          activeService: service.id,
+        },
       });
     }
   }
