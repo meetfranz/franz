@@ -154,7 +154,7 @@ export default class SubscriptionForm extends Component {
       },
     };
 
-    if (!isWindows) {
+    if (this.props.plan.miner) {
       form.fields.paymentTier.options.push({
         value: 'mining',
         label: intl.formatMessage(messages.typeMining),
