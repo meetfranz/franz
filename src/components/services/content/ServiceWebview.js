@@ -85,29 +85,30 @@ export default class ServiceWebview extends Component {
             reload={reload}
           />
         )}
-        {!service.isEnabled && (
+        {!service.isEnabled ? (
           <ServiceDisabled
             name={service.recipe.name}
             webview={service.webview}
             enable={enable}
           />
+        ) : (
+          <Webview
+            ref={(element) => { this.webview = element; }}
+            autosize
+            src={service.url}
+            preload="./webview/plugin.js"
+            partition={`persist:service-${service.id}`}
+            onDidAttach={() => setWebviewReference({
+              serviceId: service.id,
+              webview: this.webview.view,
+            })}
+            onUpdateTargetUrl={this.updateTargetUrl}
+            useragent={service.userAgent}
+            muted={isAppMuted || service.isMuted}
+            disablewebsecurity
+            allowpopups
+          />
         )}
-        <Webview
-          ref={(element) => { this.webview = element; }}
-          autosize
-          src={service.url}
-          preload="./webview/plugin.js"
-          partition={`persist:service-${service.id}`}
-          onDidAttach={() => setWebviewReference({
-            serviceId: service.id,
-            webview: this.webview.view,
-          })}
-          onUpdateTargetUrl={this.updateTargetUrl}
-          useragent={service.userAgent}
-          muted={isAppMuted || service.isMuted}
-          disablewebsecurity
-          allowpopups
-        />
         {statusBar}
       </div>
     );

@@ -58,7 +58,7 @@ const createWindow = () => {
     width: mainWindowState.width,
     height: mainWindowState.height,
     minWidth: 600,
-    minHeight: 400,
+    minHeight: 500,
     titleBarStyle: 'hidden',
     backgroundColor: '#3498db',
     autoHideMenuBar: true,
