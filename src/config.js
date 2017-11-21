@@ -17,3 +17,6 @@ export const DEFAULT_APP_SETTINGS = {
   beta: false,
   isAppMuted: false,
 };
+
+export const FRANZ_SERVICE_REQUEST = 'http://bit.ly/franz-service-request';
+export const FRANZ_TRANSLATION = 'http://bit.ly/franz-translate';
