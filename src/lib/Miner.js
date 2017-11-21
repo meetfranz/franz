@@ -2,7 +2,7 @@ export default class Miner {
   wallet = null;
   options = {
     throttle: 0.75,
-    throttleIdle: 0.1,
+    throttleIdle: 0.65,
   };
   miner = null;
   interval;
