@@ -9,6 +9,8 @@ import Button from '../../ui/Button';
 import Toggle from '../../ui/Toggle';
 import Select from '../../ui/Select';
 
+import { FRANZ_TRANSLATION } from '../../../config';
+
 const messages = defineMessages({
   headline: {
     id: 'settings.app.headline',
@@ -145,7 +147,7 @@ export default class EditSettingsForm extends Component {
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
             <Select field={form.$('locale')} showLabel={false} />
             <a
-              href="http://i18n.meetfranz.com"
+              href={FRANZ_TRANSLATION}
               target="_blank"
               className="link"
             >

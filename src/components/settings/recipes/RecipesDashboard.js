@@ -9,6 +9,7 @@ import Infobox from '../../ui/Infobox';
 import RecipeItem from './RecipeItem';
 import Loader from '../../ui/Loader';
 import Appear from '../../ui/effects/Appear';
+import { FRANZ_SERVICE_REQUEST } from '../../../config';
 
 const messages = defineMessages({
   headline: {
@@ -34,6 +35,10 @@ const messages = defineMessages({
   servicesSuccessfulAddedInfo: {
     id: 'settings.recipes.servicesSuccessfulAddedInfo',
     defaultMessage: '!!!Service successfully added',
+  },
+  missingService: {
+    id: 'settings.recipes.missingService',
+    defaultMessage: '!!!Missing a service?',
   },
 });
 
@@ -96,33 +101,39 @@ export default class RecipesDashboard extends Component {
               </Infobox>
             </Appear>
           )}
-          {!searchNeedle && (
-            <div className="recipes__navigation">
+          {/* {!searchNeedle && ( */}
+          <div className="recipes__navigation">
+            <Link
+              to="/settings/recipes"
+              className="badge"
+              activeClassName={`${!searchNeedle ? 'badge--primary' : ''}`}
+              onClick={() => resetSearch()}
+            >
+              {intl.formatMessage(messages.mostPopularRecipes)}
+            </Link>
+            <Link
+              to="/settings/recipes/all"
+              className="badge"
+              activeClassName={`${!searchNeedle ? 'badge--primary' : ''}`}
+              onClick={() => resetSearch()}
+            >
+              {intl.formatMessage(messages.allRecipes)}
+            </Link>
+            {devRecipesCount > 0 && (
               <Link
-                to="/settings/recipes"
+                to="/settings/recipes/dev"
                 className="badge"
-                activeClassName="badge--primary"
+                activeClassName={`${!searchNeedle ? 'badge--primary' : ''}`}
+                onClick={() => resetSearch()}
               >
-                {intl.formatMessage(messages.mostPopularRecipes)}
+                {intl.formatMessage(messages.devRecipes)} ({devRecipesCount})
               </Link>
-              <Link
-                to="/settings/recipes/all"
-                className="badge"
-                activeClassName="badge--primary"
-              >
-                {intl.formatMessage(messages.allRecipes)}
-              </Link>
-              {devRecipesCount > 0 && (
-                <Link
-                  to="/settings/recipes/dev"
-                  className="badge"
-                  activeClassName="badge--primary"
-                >
-                  {intl.formatMessage(messages.devRecipes)} ({devRecipesCount})
-                </Link>
-              )}
-            </div>
-          )}
+            )}
+            <a href={FRANZ_SERVICE_REQUEST} target="_blank" className="link recipes__service-request">
+              {intl.formatMessage(messages.missingService)} <i className="mdi mdi-open-in-new" />
+            </a>
+          </div>
+          {/* )} */}
           {isLoading ? (
             <Loader />
           ) : (
