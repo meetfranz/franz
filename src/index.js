@@ -44,7 +44,7 @@ app.disableHardwareAcceleration();
 // Initialize Settings
 const settings = new Settings();
 
-const createWindow = async () => {
+const createWindow = () => {
   // Remember window size
   const mainWindowState = windowStateKeeper({
     defaultWidth: 800,
