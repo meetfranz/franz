@@ -34,6 +34,10 @@ const messages = defineMessages({
     id: 'settings.app.headlineAdvanced',
     defaultMessage: '!!!Advanced',
   },
+  translationHelp: {
+    id: 'settings.app.translationHelp',
+    defaultMessage: '!!!Help us to translate Franz into your language.',
+  },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
     defaultMessage: '!!!Check for updates',
@@ -140,6 +144,13 @@ export default class EditSettingsForm extends Component {
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
             <Select field={form.$('locale')} showLabel={false} />
+            <a
+              href="http://i18n.meetfranz.com"
+              target="_blank"
+              className="link"
+            >
+              {intl.formatMessage(messages.translationHelp)} <i className="mdi mdi-open-in-new" />
+            </a>
 
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
