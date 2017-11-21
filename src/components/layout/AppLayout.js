@@ -23,6 +23,10 @@ const messages = defineMessages({
     id: 'infobar.buttonReloadServices',
     defaultMessage: '!!!Reload services',
   },
+  changelog: {
+    id: 'infobar.buttonChangelog',
+    defaultMessage: '!!!Changelog',
+  },
   buttonInstallUpdate: {
     id: 'infobar.buttonInstallUpdate',
     defaultMessage: '!!!Restart & install update',
@@ -135,7 +139,9 @@ export default class AppLayout extends Component {
                 sticky
               >
                 <span className="mdi mdi-information" />
-                {intl.formatMessage(messages.updateAvailable)}
+                {intl.formatMessage(messages.updateAvailable)} <a href="https://meetfranz.com/changelog" target="_blank">
+                  <u>{intl.formatMessage(messages.changelog)}</u>
+                </a>
               </InfoBar>
             )}
             {services}

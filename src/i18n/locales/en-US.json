@@ -58,6 +58,7 @@
   "infobar.updateAvailable": "A new update for Franz is available.",
   "infobar.buttonReloadServices": "Reload services",
   "infobar.buttonInstallUpdate": "Restart & install update",
+  "infobar.buttonChangelog": "What is new?",
   "infobar.requiredRequestsFailed": "Could not load services and user information",
   "sidebar.settings": "Settings",
   "sidebar.addNewService": "Add new service",
