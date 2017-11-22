@@ -137,6 +137,12 @@ export default class AppStore extends Store {
         this.actions.service.setActivePrev();
       });
 
+    // Global Mute 
+    key(
+      '⌘+shift+m ctrl+shift+m', () => {
+        this.actions.app.toggleMuteApp();
+      });
+
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
