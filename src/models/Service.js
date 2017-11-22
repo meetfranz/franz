@@ -60,7 +60,7 @@ export default class Service {
     if (this.recipe.hasCustomUrl && this.customUrl) {
       let url;
       try {
-        url = normalizeUrl(this.customUrl);
+        url = normalizeUrl(this.customUrl, { stripWWW: false });
       } catch (err) {
         console.error(`Service (${this.recipe.name}): '${this.customUrl}' is not a valid Url.`);
       }

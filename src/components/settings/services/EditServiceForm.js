@@ -110,7 +110,7 @@ export default class EditServiceForm extends Component {
         if (recipe.validateUrl && values.customUrl) {
           this.setState({ isValidatingCustomUrl: true });
           try {
-            values.customUrl = normalizeUrl(values.customUrl);
+            values.customUrl = normalizeUrl(values.customUrl, { stripWWW: false });
             isValid = await recipe.validateUrl(values.customUrl);
           } catch (err) {
             console.warn('ValidateURL', err);
