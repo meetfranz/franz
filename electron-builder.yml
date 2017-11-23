@@ -27,6 +27,7 @@ linux:
   target:
     - target: AppImage
     - target: deb
+    - target: tar.gz
 
 nsis:
   perMachine: false
