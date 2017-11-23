@@ -11,6 +11,7 @@
 * **App:** Respect System DoNotDisturb mode for service audio ([7d41227](https://github.com/meetfranz/franz/commit/7d41227)), closes [#162](https://github.com/meetfranz/franz/issues/162)
 * **Service:** Add option to display disabled services in tabs ([1839eff](https://github.com/meetfranz/franz/commit/1839eff))
 * **Service:** Add option to mute service ([b405ba1](https://github.com/meetfranz/franz/commit/b405ba1))
+* **Service:** Add dialog to reload crashed services ([259d40c](https://github.com/meetfranz/franz/commit/259d40c)) ([dannyqiu](https://github.com/dannyqiu))
 * **Translations:** Added new translations and improved existing ones. **[A million thanks to the amazing community.](http://i18n.meetfranz.com/)**
 
 
