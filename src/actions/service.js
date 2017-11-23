@@ -50,6 +50,10 @@ export default {
     channel: PropTypes.string.isRequired,
     args: PropTypes.object.isRequired,
   },
+  sendIPCMessageToAllServices: {
+    channel: PropTypes.string.isRequired,
+    args: PropTypes.object.isRequired,
+  },
   openWindow: {
     event: PropTypes.object.isRequired,
   },
@@ -69,6 +73,9 @@ export default {
     newIndex: PropTypes.number.isRequired,
   },
   toggleNotifications: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  toggleAudio: {
     serviceId: PropTypes.string.isRequired,
   },
   openDevTools: {

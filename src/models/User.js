@@ -16,7 +16,7 @@ export default class User {
   @observable isDonor = false;
   @observable isMiner = false;
 
-  constructor(data: Object) {
+  constructor(data) {
     if (!data.id) {
       throw Error('User requires Id');
     }

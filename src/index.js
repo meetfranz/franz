@@ -37,11 +37,16 @@ if (isSecondInstance) {
   app.exit();
 }
 
+// Lets disable Hardware Acceleration until we have a better solution
+// to deal with the high-perf-gpu requirement of some services
+
+// Disabled to test tweetdeck glitches
+// app.disableHardwareAcceleration();
 
 // Initialize Settings
 const settings = new Settings();
 
-const createWindow = async () => {
+const createWindow = () => {
   // Remember window size
   const mainWindowState = windowStateKeeper({
     defaultWidth: 800,
@@ -54,8 +59,8 @@ const createWindow = async () => {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
-    minWidth: 800,
-    minHeight: 600,
+    minWidth: 600,
+    minHeight: 500,
     titleBarStyle: 'hidden',
     backgroundColor: '#3498db',
     autoHideMenuBar: true,

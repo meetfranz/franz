@@ -16,6 +16,10 @@ const messages = defineMessages({
     id: 'settings.services.tooltip.notificationsDisabled',
     defaultMessage: '!!!Notifications are disabled',
   },
+  tooltipIsMuted: {
+    id: 'settings.services.tooltip.isMuted',
+    defaultMessage: '!!!All sounds are muted',
+  },
 });
 
 @observer
@@ -66,6 +70,17 @@ export default class ServiceItem extends Component {
           className="service-table__column-info"
           onClick={goToServiceForm}
         >
+          {service.isMuted && (
+            <span
+              className="mdi mdi-bell-off"
+              data-tip={intl.formatMessage(messages.tooltipIsMuted)}
+            />
+          )}
+        </td>
+        <td
+          className="service-table__column-info"
+          onClick={goToServiceForm}
+        >
           {!service.isEnabled && (
             <span
               className="mdi mdi-power"
@@ -85,13 +100,6 @@ export default class ServiceItem extends Component {
           )}
           <ReactTooltip place="top" type="dark" effect="solid" />
         </td>
-        {/* <td className="service-table__column-action">
-          <input
-            type="checkbox"
-            onChange={toggleAction}
-            checked={service.isEnabled}
-          />
-        </td> */}
       </tr>
     );
   }

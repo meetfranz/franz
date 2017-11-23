@@ -2,17 +2,8 @@ import React, { Component } from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { SortableContainer } from 'react-sortable-hoc';
-import { defineMessages, intlShape } from 'react-intl';
 
 import TabItem from './TabItem';
-import { ctrlKey } from '../../../environment';
-
-const messages = defineMessages({
-  addNewService: {
-    id: 'sidebar.addNewService',
-    defaultMessage: '!!!Add new service',
-  },
-});
 
 @observer
 class TabBarSortableList extends Component {
@@ -22,13 +13,11 @@ class TabBarSortableList extends Component {
     openSettings: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     toggleNotifications: PropTypes.func.isRequired,
+    toggleAudio: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
+    enableService: PropTypes.func.isRequired,
   }
-
-  static contextTypes = {
-    intl: intlShape,
-  };
 
   render() {
     const {
@@ -36,12 +25,12 @@ class TabBarSortableList extends Component {
       setActive,
       reload,
       toggleNotifications,
+      toggleAudio,
       deleteService,
       disableService,
+      enableService,
       openSettings,
     } = this.props;
-
-    const { intl } = this.context;
 
     return (
       <ul
@@ -56,12 +45,14 @@ class TabBarSortableList extends Component {
             shortcutIndex={index + 1}
             reload={() => reload({ serviceId: service.id })}
             toggleNotifications={() => toggleNotifications({ serviceId: service.id })}
+            toggleAudio={() => toggleAudio({ serviceId: service.id })}
             deleteService={() => deleteService({ serviceId: service.id })}
             disableService={() => disableService({ serviceId: service.id })}
+            enableService={() => enableService({ serviceId: service.id })}
             openSettings={openSettings}
           />
         ))}
-        <li>
+        {/* <li>
           <button
             className="sidebar__add-service"
             onClick={() => openSettings({ path: 'recipes' })}
@@ -69,7 +60,7 @@ class TabBarSortableList extends Component {
           >
             <span className="mdi mdi-plus" />
           </button>
-        </li>
+        </li> */}
       </ul>
     );
   }

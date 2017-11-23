@@ -29,6 +29,10 @@
       pointer-events: none;
     }
   }
+
+  &__service-request {
+    float: right;
+  }
 }
 
 .recipe-teaser {

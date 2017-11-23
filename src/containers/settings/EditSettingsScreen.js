@@ -7,7 +7,7 @@ import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
 import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
-import languages from '../../i18n/languages';
+import { APP_LOCALES } from '../../i18n/languages';
 import { gaPage } from '../../lib/analytics';
 import { DEFAULT_APP_SETTINGS } from '../../config';
 
@@ -39,6 +39,22 @@ const messages = defineMessages({
     id: 'settings.app.form.language',
     defaultMessage: '!!!Language',
   },
+  showDisabledServices: {
+    id: 'settings.app.form.showDisabledServices',
+    defaultMessage: '!!!Display disabled services tabs',
+  },
+  enableSpellchecking: {
+    id: 'settings.app.form.enableSpellchecking',
+    defaultMessage: '!!!Enable spell checking',
+  },
+  spellcheckingLanguage: {
+    id: 'settings.app.form.spellcheckingLanguage',
+    defaultMessage: '!!!Language for spell checking',
+  },
+  // spellcheckingAutomaticDetection: {
+  //   id: 'settings.app.form.spellcheckingAutomaticDetection',
+  //   defaultMessage: '!!!Detect language automatically',
+  // },
   beta: {
     id: 'settings.app.form.beta',
     defaultMessage: '!!!Include beta versions',
@@ -68,6 +84,9 @@ export default class EditSettingsScreen extends Component {
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        showDisabledServices: settingsData.showDisabledServices,
+        enableSpellchecking: settingsData.enableSpellchecking,
+        // spellcheckingLanguage: settingsData.spellcheckingLanguage,
         locale: settingsData.locale,
         beta: settingsData.beta,
       },
@@ -84,13 +103,24 @@ export default class EditSettingsScreen extends Component {
     const { app, settings, user } = this.props.stores;
     const { intl } = this.context;
 
-    const options = [];
-    Object.keys(languages).forEach((key) => {
-      options.push({
+    const locales = [];
+    Object.keys(APP_LOCALES).forEach((key) => {
+      locales.push({
         value: key,
-        label: languages[key],
+        label: APP_LOCALES[key],
       });
     });
+
+    // const spellcheckerLocales = [{
+    //   value: 'auto',
+    //   label: intl.formatMessage(messages.spellcheckingAutomaticDetection),
+    // }];
+    // Object.keys(SPELLCHECKER_LOCALES).forEach((key) => {
+    //   spellcheckerLocales.push({
+    //     value: key,
+    //     label: SPELLCHECKER_LOCALES[key],
+    //   });
+    // });
 
     const config = {
       fields: {
@@ -119,10 +149,26 @@ export default class EditSettingsScreen extends Component {
           value: settings.all.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
         },
+        showDisabledServices: {
+          label: intl.formatMessage(messages.showDisabledServices),
+          value: settings.all.showDisabledServices,
+          default: DEFAULT_APP_SETTINGS.showDisabledServices,
+        },
+        enableSpellchecking: {
+          label: intl.formatMessage(messages.enableSpellchecking),
+          value: settings.all.enableSpellchecking,
+          default: DEFAULT_APP_SETTINGS.enableSpellchecking,
+        },
+        // spellcheckingLanguage: {
+        //   label: intl.formatMessage(messages.spellcheckingLanguage),
+        //   value: settings.all.spellcheckingLanguage,
+        //   options: spellcheckerLocales,
+        //   default: DEFAULT_APP_SETTINGS.spellcheckingLanguage,
+        // },
         locale: {
           label: intl.formatMessage(messages.language),
           value: app.locale,
-          options,
+          options: locales,
           default: DEFAULT_APP_SETTINGS.locale,
         },
         beta: {

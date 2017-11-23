@@ -28,9 +28,21 @@ const messages = defineMessages({
     id: 'tabs.item.enableNotification',
     defaultMessage: '!!!Enable notifications',
   },
+  disableAudio: {
+    id: 'tabs.item.disableAudio',
+    defaultMessage: '!!!Disable audio',
+  },
+  enableAudio: {
+    id: 'tabs.item.enableAudio',
+    defaultMessage: '!!!Enable audio',
+  },
   disableService: {
     id: 'tabs.item.disableService',
     defaultMessage: '!!!Disable Service',
+  },
+  enableService: {
+    id: 'tabs.item.enableService',
+    defaultMessage: '!!!Enable Service',
   },
   deleteService: {
     id: 'tabs.item.deleteService',
@@ -46,9 +58,11 @@ class TabItem extends Component {
     shortcutIndex: PropTypes.number.isRequired,
     reload: PropTypes.func.isRequired,
     toggleNotifications: PropTypes.func.isRequired,
+    toggleAudio: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
+    enableService: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -62,8 +76,10 @@ class TabItem extends Component {
       shortcutIndex,
       reload,
       toggleNotifications,
+      toggleAudio,
       deleteService,
       disableService,
+      enableService,
       openSettings,
     } = this.props;
     const { intl } = this.context;
@@ -90,8 +106,13 @@ class TabItem extends Component {
         : intl.formatMessage(messages.enableNotifications),
       click: () => toggleNotifications(),
     }, {
-      label: intl.formatMessage(messages.disableService),
-      click: () => disableService(),
+      label: service.isMuted
+        ? intl.formatMessage(messages.enableAudio)
+        : intl.formatMessage(messages.disableAudio),
+      click: () => toggleAudio(),
+    }, {
+      label: intl.formatMessage(service.isEnabled ? messages.disableService : messages.enableService),
+      click: () => (service.isEnabled ? disableService() : enableService()),
     }, {
       type: 'separator',
     }, {
@@ -106,6 +127,7 @@ class TabItem extends Component {
           'tab-item': true,
           'is-active': service.isActive,
           'has-custom-icon': service.hasCustomIcon,
+          'is-disabled': !service.isEnabled,
         })}
         onClick={clickHandler}
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}

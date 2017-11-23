@@ -93,6 +93,10 @@ const messages = defineMessages({
     id: 'subscription.mining.moreInformation',
     defaultMessage: '!!!Get more information about this plan',
   },
+  euTaxInfo: {
+    id: 'subscription.euTaxInfo',
+    defaultMessage: '!!!EU residents: local sales tax may apply',
+  },
 });
 
 @observer
@@ -144,13 +148,17 @@ export default class SubscriptionForm extends Component {
             label: `€ ${Object.hasOwnProperty.call(this.props.plan, 'year')
               ? `${this.props.plan.year.price} / ${intl.formatMessage(messages.typeYearly)}`
               : 'yearly'}`,
-          }, {
-            value: 'mining',
-            label: intl.formatMessage(messages.typeMining),
           }],
         },
       },
     };
+
+    if (this.props.plan.miner) {
+      form.fields.paymentTier.options.push({
+        value: 'mining',
+        label: intl.formatMessage(messages.typeMining),
+      });
+    }
 
     if (this.props.showSkipOption) {
       form.fields.paymentTier.options.unshift({
@@ -258,6 +266,11 @@ export default class SubscriptionForm extends Component {
             loaded={!isCreatingHostedPage}
             onClick={() => handlePayment(this.form.$('paymentTier').value)}
           />
+        )}
+        {this.form.$('paymentTier').value !== 'skip' && this.form.$('paymentTier').value !== 'mining' && (
+          <p className="legal">
+            {intl.formatMessage(messages.euTaxInfo)}
+          </p>
         )}
       </Loader>
     );

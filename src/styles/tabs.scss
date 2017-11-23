@@ -20,7 +20,7 @@
   align-items: center;
   position: relative;
   width: $theme-sidebar-width;
-  height: $theme-sidebar-width;
+  height: 65px;
   min-height: 50px;
   transition: background $theme-transition-time;
 
@@ -33,11 +33,23 @@
     }
   }
 
+  &.is-disabled {
+    .tab-item__icon {
+      filter: grayscale(100%) opacity(0.2);
+    }
+  }
+
   &.has-custom-icon {
     .tab-item__icon {
       border-radius: $theme-border-radius;
       // border: 1px solid $theme-gray-lighter;
       // width: 32px;
+    }
+  }
+
+  &:active {
+    .tab-item__icon {
+      opacity: 0.7;
     }
   }
 
@@ -55,8 +67,8 @@
     padding: 0px 5px;
     font-size: 11px;
     position: absolute;
-    right: 5px;
-    bottom: 5px;
+    right: 8px;
+    bottom: 8px;
     display: flex;
     justify-content: center;
     align-items: center;

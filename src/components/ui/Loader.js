@@ -9,12 +9,14 @@ export default class LoaderComponent extends Component {
     children: oneOrManyChildElements,
     loaded: PropTypes.bool,
     className: PropTypes.string,
+    color: PropTypes.string,
   };
 
   static defaultProps = {
     children: null,
     loaded: false,
     className: '',
+    color: '#373a3c',
   };
 
   render() {
@@ -22,6 +24,7 @@ export default class LoaderComponent extends Component {
       children,
       loaded,
       className,
+      color,
     } = this.props;
 
     return (
@@ -30,7 +33,7 @@ export default class LoaderComponent extends Component {
         // lines={10}
         width={4}
         scale={0.6}
-        color="#373a3c"
+        color={color}
         component="span"
         className={className}
       >

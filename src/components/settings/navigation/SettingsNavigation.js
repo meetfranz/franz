@@ -74,7 +74,6 @@ export default class SettingsNavigation extends Component {
         <Link
           to="/auth/logout"
           className="settings-navigation__link"
-          activeClassName="is-active"
         >
           {intl.formatMessage(messages.logout)}
         </Link>

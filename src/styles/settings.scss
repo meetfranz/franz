@@ -40,7 +40,7 @@
   width: 100%;
   max-width: 900px;
   min-height: 400px;
-  max-height: 600px;
+  max-height: 720px;
   z-index: 9999;
   background: #FFF;
   border-radius: $theme-border-radius;
@@ -169,7 +169,7 @@
     }
   }
 
-  .settings__indirect-message-help {
+  .settings__help {
     margin: -10px 0 20px 55px;;
     font-size: 12px;
     color: $theme-gray-light;
@@ -334,6 +334,12 @@
     background: none;
     padding: 0;
   }
+
+  .legal {
+    text-align: center;
+    margin-top: 20px;
+    color: $theme-gray-light;
+  }
 }
 
 .settings-navigation {
@@ -344,9 +350,10 @@
   flex-direction: column;
 
   .settings-navigation__link {
-    display: block;
+    display: flex;
+    align-items: center;
     height: 50px;
-    line-height: 50px;
+    flex-shrink: 0;
     text-decoration: none;
     color: $theme-text-color;
     padding: 0 20px;

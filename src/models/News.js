@@ -6,7 +6,7 @@ export default class News {
   type: string = 'primary';
   sticky: bool = false;
 
-  constructor(data: Object) {
+  constructor(data) {
     if (!data.id) {
       throw Error('News requires Id');
     }

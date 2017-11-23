@@ -2,7 +2,7 @@
   "name": "franz",
   "productName": "Franz",
   "appId": "com.meetfranz.franz",
-  "version": "5.0.0-beta.13",
+  "version": "5.0.0-beta.14",
   "description": "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.",
   "copyright": "adlk x franz - Stefan Malzner",
   "main": "index.js",
@@ -26,6 +26,7 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@meetfranz/electron-notification-state": "^1.0.0",
     "@paulcbetts/system-idle-time": "^1.0.4",
     "address-rfc2822": "^2.0.1",
     "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",
@@ -64,6 +65,7 @@
     "react-sortable-hoc": "^0.6.7",
     "react-tooltip": "^3.2.7",
     "route-parser": "^0.0.5",
+    "semver": "^5.4.1",
     "smoothscroll-polyfill": "^0.3.4",
     "tar": "^4.0.2",
     "uuid": "^3.0.1"

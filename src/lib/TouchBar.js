@@ -1,3 +1,5 @@
+import os from 'os';
+import semver from 'semver';
 import { remote } from 'electron';
 import { autorun } from 'mobx';
 
@@ -8,17 +10,21 @@ export default class FranzTouchBar {
     this.stores = stores;
     this.actions = actions;
 
-    this._initializeReactions();
-  }
-
-  _initializeReactions() {
-    this.build = autorun(this._build.bind(this));
+    // Temporary fix for https://github.com/electron/electron/issues/10442
+    // TODO: remove when we upgrade to electron 1.8.2 or later
+    try {
+      if (isMac && semver.gt(os.release(), '16.6.0')) {
+        this.build = autorun(this._build.bind(this));
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   _build() {
     const currentWindow = remote.getCurrentWindow();
 
-    if (isMac && this.stores.user.isLoggedIn) {
+    if (this.stores.user.isLoggedIn) {
       const { TouchBar } = remote;
       const { TouchBarButton, TouchBarSpacer } = TouchBar;
 
