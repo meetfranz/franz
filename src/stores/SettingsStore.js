@@ -1,11 +1,10 @@
 import { ipcRenderer } from 'electron';
-import { action, computed, observable } from 'mobx';
+import { action, computed, observable, extendObservable } from 'mobx';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
-import { DEFAULT_APP_SETTINGS } from '../config';
 
 export default class SettingsStore extends Store {
   @observable allSettingsRequest = new CachedRequest(this.api.local, 'getSettings');
@@ -18,10 +17,6 @@ export default class SettingsStore extends Store {
     // Register action handlers
     this.actions.settings.update.listen(this._update.bind(this));
     this.actions.settings.remove.listen(this._remove.bind(this));
-
-    // this.registerReactions([
-    //   this._shareSettingsWithMainProcess.bind(this),
-    // ]);
   }
 
   setup() {
@@ -30,14 +25,14 @@ export default class SettingsStore extends Store {
   }
 
   @computed get all() {
-    return observable(Object.assign(DEFAULT_APP_SETTINGS, this.allSettingsRequest.result));
+    return this.allSettingsRequest.result || {};
   }
 
   @action async _update({ settings }) {
     await this.updateSettingsRequest.execute(settings)._promise;
-    this.allSettingsRequest.patch((result) => {
+    await this.allSettingsRequest.patch((result) => {
       if (!result) return;
-      Object.assign(result, settings);
+      extendObservable(result, settings);
     });
 
     // We need a little hack to wait until everything is patched
