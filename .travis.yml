@@ -9,8 +9,6 @@ matrix:
 language: node_js
 
 before_script:
-- yarn add global gulp-cli@1.2.2
-- yarn add global gulpjs/gulp#4.0
 - yarn add global node-sass
 - yarn install
 
