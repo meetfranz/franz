@@ -10,7 +10,7 @@ export default class Plan {
     price: 0,
   }
 
-  constructor(data: Object) {
+  constructor(data) {
     Object.assign(this, data);
   }
 }
