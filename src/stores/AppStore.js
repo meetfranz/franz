@@ -220,13 +220,13 @@ export default class AppStore extends Store {
   @action _muteApp({ isMuted }) {
     this.actions.settings.update({
       settings: {
-        isMuted,
+        isAppMuted: isMuted,
       },
     });
   }
 
   @action _toggleMuteApp() {
-    this._muteApp({ isMuted: !this.stores.settings.all.isMuted });
+    this._muteApp({ isMuted: !this.stores.settings.all.isAppMuted });
   }
 
   // Reactions

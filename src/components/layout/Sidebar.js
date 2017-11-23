@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { defineMessages, intlShape } from 'react-intl';
+import { observer } from 'mobx-react';
 
 import Tabbar from '../services/tabs/Tabbar';
 import { ctrlKey } from '../../environment';
@@ -25,6 +26,7 @@ const messages = defineMessages({
   },
 });
 
+@observer
 export default class Sidebar extends Component {
   static propTypes = {
     openSettings: PropTypes.func.isRequired,
