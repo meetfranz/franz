@@ -19,7 +19,7 @@ script:
 - travis_wait yarn build
 
 node_js:
-- '7'
+- '8'
 
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev; fi
