@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
   skipButtonLabel: {
     id: 'import.skip.label',
-    defaultMessage: '!!!I want add services manually',
+    defaultMessage: '!!!I want to add services manually',
   },
 });
 
