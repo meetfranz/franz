@@ -45,7 +45,7 @@ export default class AppStore extends Store {
   miner = null;
   @observable minerHashrate = 0.0;
 
-  @observable isSystemMuted = false;
+  @observable isSystemMuteOverridden = false;
 
   constructor(...args) {
     super(...args);
@@ -219,7 +219,9 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({ isMuted }) {
+  @action _muteApp({ isMuted, overrideSystemMute = true }) {
+    this.isSystemMuteOverriden = overrideSystemMute;
+
     this.actions.settings.update({
       settings: {
         isAppMuted: isMuted,
@@ -328,6 +330,12 @@ export default class AppStore extends Store {
   }
 
   _systemDND() {
-    this.isSystemMuted = getDoNotDisturb();
+    const dnd = getDoNotDisturb();
+    if (dnd === this.stores.settings.all.isAppMuted || !this.isSystemMuteOverriden) {
+      this.actions.app.muteApp({
+        isMuted: dnd,
+        overrideSystemMute: false,
+      });
+    }
   }
 }
