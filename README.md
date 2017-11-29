@@ -31,12 +31,6 @@ $ brew install yarn
 ##### Linux
 [Install Yarn on Linux](https://yarnpkg.com/lang/en/docs/install/)
 
-#### Install Gulp 4
-```bash
-$ yarn add global gulp-cli@1.2.2
-$ yarn add global gulpjs/gulp#4.0
-```
-
 #### Fix native modules to match current electron node version
 ```bash
 $ yarn run rebuild
