@@ -150,6 +150,8 @@ export default class AppStore extends Store {
 
   // Actions
   @action _notify({ title, options, notificationId, serviceId = null }) {
+    if (this.stores.settings.all.isAppMuted) return;
+
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
       if (serviceId) {
