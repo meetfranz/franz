@@ -32,6 +32,16 @@ html {
   }
 }
 
+.app--dark {
+  .sidebar {
+    background-color: $theme-gray-dark;
+
+    .tab-item.is-active {
+      background-color: $theme-gray
+    }
+  }
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
