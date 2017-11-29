@@ -8,6 +8,7 @@ export default class Settings {
   @observable enableSystemTray = DEFAULT_APP_SETTINGS.enableSystemTray;
   @observable minimizeToSystemTray = DEFAULT_APP_SETTINGS.minimizeToSystemTray;
   @observable showDisabledServices = DEFAULT_APP_SETTINGS.showDisabledServices;
+  @observable darkMode = DEFAULT_APP_SETTINGS.darkMode;
   @observable enableSpellchecking = DEFAULT_APP_SETTINGS.enableSpellchecking;
   @observable locale = DEFAULT_APP_SETTINGS.locale;
   @observable beta = DEFAULT_APP_SETTINGS.beta;

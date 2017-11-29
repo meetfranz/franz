@@ -9,6 +9,7 @@ export default class Settings {
     runInBackground: DEFAULT_APP_SETTINGS.runInBackground,
     enableSystemTray: DEFAULT_APP_SETTINGS.enableSystemTray,
     minimizeToSystemTray: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+    darkMode: DEFAULT_APP_SETTINGS.darkMode,
     locale: DEFAULT_APP_SETTINGS.locale,
     beta: DEFAULT_APP_SETTINGS.beta,
   };

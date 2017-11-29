@@ -120,6 +120,7 @@ export default class AppLayoutContainer extends Component {
         areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
         retryRequiredRequests={retryRequiredRequests}
         areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
+        darkMode={settings.all.darkMode}
       >
         {React.Children.count(children) > 0 ? children : null}
       </AppLayout>

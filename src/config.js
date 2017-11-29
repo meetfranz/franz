@@ -10,6 +10,7 @@ export const DEFAULT_APP_SETTINGS = {
   runInBackground: true,
   enableSystemTray: true,
   minimizeToSystemTray: false,
+  darkMode: false,
   showDisabledServices: true,
   enableSpellchecking: true,
   // spellcheckingLanguage: 'auto',

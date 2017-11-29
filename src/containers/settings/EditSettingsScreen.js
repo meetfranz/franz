@@ -39,6 +39,10 @@ const messages = defineMessages({
     id: 'settings.app.form.language',
     defaultMessage: '!!!Language',
   },
+  darkMode: {
+    id: 'settings.app.form.darkMode',
+    defaultMessage: '!!!Dark Mode',
+  },
   showDisabledServices: {
     id: 'settings.app.form.showDisabledServices',
     defaultMessage: '!!!Display disabled services tabs',
@@ -85,6 +89,7 @@ export default class EditSettingsScreen extends Component {
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
         showDisabledServices: settingsData.showDisabledServices,
+        darkMode: settingsData.darkMode,
         enableSpellchecking: settingsData.enableSpellchecking,
         // spellcheckingLanguage: settingsData.spellcheckingLanguage,
         locale: settingsData.locale,
@@ -153,6 +158,11 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.showDisabledServices),
           value: settings.all.showDisabledServices,
           default: DEFAULT_APP_SETTINGS.showDisabledServices,
+        },
+        darkMode: {
+          label: intl.formatMessage(messages.darkMode),
+          value: settings.all.darkMode,
+          default: DEFAULT_APP_SETTINGS.darkMode,
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
