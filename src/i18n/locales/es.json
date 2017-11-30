@@ -3,7 +3,7 @@
    "global.notConnectedToTheInternet" : "You are not connected to the internet.",
    "import.headline" : "Import your Franz 4 services",
    "import.notSupportedHeadline" : "Services not yet supported in Franz 5",
-   "import.skip.label" : "I want add services manually",
+   "import.skip.label" : "I want to add services manually",
    "import.submit.label" : "Import services",
    "infobar.buttonChangelog" : "What is new?",
    "infobar.buttonInstallUpdate" : "Restart & install update",

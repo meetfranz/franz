@@ -39,7 +39,7 @@
   "import.headline": "Import your Franz 4 services",
   "import.notSupportedHeadline": "Services not yet supported in Franz 5",
   "import.submit.label": "Import services",
-  "import.skip.label": "I want add services manually",
+  "import.skip.label": "I want to add services manually",
   "invite.submit.label": "Send invites",
   "invite.headline.friends": "Invite 3 of your friends or colleagues",
   "invite.name.label": "Name",
@@ -188,5 +188,5 @@
   "service.crashHandler.action": "Reload {name}",
   "service.crashHandler.autoReload": "Trying to automatically restore {name} in {seconds} seconds",
   "service.disabledHandler.headline": "{name} is disabled",
-  "service.disabledHandler.action": "Enable {name}"    
+  "service.disabledHandler.action": "Enable {name}"
 }
