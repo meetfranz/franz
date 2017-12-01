@@ -17,6 +17,8 @@ class TabBarSortableList extends Component {
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
     enableService: PropTypes.func.isRequired,
+    showMessageBadgeWhenMutedSetting: PropTypes.bool.isRequired,
+    showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   }
 
   render() {
@@ -30,6 +32,8 @@ class TabBarSortableList extends Component {
       disableService,
       enableService,
       openSettings,
+      showMessageBadgeWhenMutedSetting,
+      showMessageBadgesEvenWhenMuted,
     } = this.props;
 
     return (
@@ -50,6 +54,8 @@ class TabBarSortableList extends Component {
             disableService={() => disableService({ serviceId: service.id })}
             enableService={() => enableService({ serviceId: service.id })}
             openSettings={openSettings}
+            showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
+            showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
           />
         ))}
         {/* <li>

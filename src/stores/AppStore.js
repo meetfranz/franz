@@ -67,6 +67,7 @@ export default class AppStore extends Store {
       this._setLocale.bind(this),
       this._handleMiner.bind(this),
       this._handleMinerThrottle.bind(this),
+      this._muteAppHandler.bind(this),
     ]);
   }
 
@@ -297,6 +298,14 @@ export default class AppStore extends Store {
       if (this.miner) this.miner.setIdleThrottle();
     } else {
       if (this.miner) this.miner.setActiveThrottle(); // eslint-disable-line
+    }
+  }
+
+  _muteAppHandler() {
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
+    if (!showMessageBadgesEvenWhenMuted) {
+      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
     }
   }
 

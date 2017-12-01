@@ -87,6 +87,8 @@ export default class AppLayoutContainer extends Component {
         deleteService={deleteService}
         updateService={updateService}
         toggleMuteApp={toggleMuteApp}
+        showMessageBadgeWhenMutedSetting={settings.all.showMessageBadgeWhenMuted}
+        showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
       />
     );
 

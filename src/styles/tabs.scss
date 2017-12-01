@@ -78,6 +78,26 @@
     }
   }
 
+  .tab-item__info-badge {
+    width: 17px;
+    height: 17px;
+    background: $theme-gray-light;
+    color: $theme-gray-lighter;
+    border-radius: 20px;
+    padding: 0px 5px;
+    font-size: 11px;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.is-indirect {
+      padding-top: 0px;
+    }
+  }
+
   &.is-reordering {
     z-index: 99999;
   }
