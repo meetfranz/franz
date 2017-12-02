@@ -132,6 +132,7 @@ class TabItem extends Component {
         onClick={clickHandler}
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}
         data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
+        aria-label={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
       >
         <img
           src={service.icon}
