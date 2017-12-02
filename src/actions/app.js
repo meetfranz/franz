@@ -22,6 +22,7 @@ export default {
   healthCheck: {},
   muteApp: {
     isMuted: PropTypes.bool.isRequired,
+    overrideSystemMute: PropTypes.bool,
   },
   toggleMuteApp: {},
 };

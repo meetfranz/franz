@@ -43,6 +43,10 @@ const messages = defineMessages({
     id: 'settings.app.form.showDisabledServices',
     defaultMessage: '!!!Display disabled services tabs',
   },
+  showMessageBadgeWhenMuted: {
+    id: 'settings.app.form.showMessagesBadgesWhenMuted',
+    defaultMessage: '!!!Show unread message badge when notifications are disabled',
+  },
   enableSpellchecking: {
     id: 'settings.app.form.enableSpellchecking',
     defaultMessage: '!!!Enable spell checking',
@@ -85,6 +89,7 @@ export default class EditSettingsScreen extends Component {
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
         showDisabledServices: settingsData.showDisabledServices,
+        showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
         // spellcheckingLanguage: settingsData.spellcheckingLanguage,
         locale: settingsData.locale,
@@ -153,6 +158,11 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.showDisabledServices),
           value: settings.all.showDisabledServices,
           default: DEFAULT_APP_SETTINGS.showDisabledServices,
+        },
+        showMessageBadgeWhenMuted: {
+          label: intl.formatMessage(messages.showMessageBadgeWhenMuted),
+          value: settings.all.showMessageBadgeWhenMuted,
+          default: DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted,
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),

@@ -18,6 +18,8 @@ export default class TabBar extends Component {
     toggleAudio: PropTypes.func.isRequired,
     deleteService: PropTypes.func.isRequired,
     updateService: PropTypes.func.isRequired,
+    showMessageBadgeWhenMutedSetting: PropTypes.bool.isRequired,
+    showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -64,6 +66,8 @@ export default class TabBar extends Component {
       toggleNotifications,
       toggleAudio,
       deleteService,
+      showMessageBadgeWhenMutedSetting,
+      showMessageBadgesEvenWhenMuted,
     } = this.props;
 
     return (
@@ -85,6 +89,8 @@ export default class TabBar extends Component {
           axis="y"
           lockAxis="y"
           helperClass="is-reordering"
+          showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
+          showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
         />
       </div>
     );

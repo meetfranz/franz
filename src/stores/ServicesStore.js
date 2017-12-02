@@ -488,19 +488,26 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
+    const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
     const unreadDirectMessageCount = this.enabled
+      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted)
       .map(s => s.unreadDirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     const unreadIndirectMessageCount = this.enabled
-      .filter(s => s.isIndirectMessageBadgeEnabled)
+      .filter(s => (showMessageBadgeWhenMuted || s.isIndirectMessageBadgeEnabled) && showMessageBadgesEvenWhenMuted)
       .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
-    this.actions.app.setBadge({
-      unreadDirectMessageCount,
-      unreadIndirectMessageCount,
-    });
+    // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
+    if (showMessageBadgesEvenWhenMuted) {
+      this.actions.app.setBadge({
+        unreadDirectMessageCount,
+        unreadIndirectMessageCount,
+      });
+    }
   }
 
   _logoutReaction() {
