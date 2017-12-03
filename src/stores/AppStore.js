@@ -163,6 +163,11 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
+
+        if (!isMac) {
+          const mainWindow = remote.getCurrentWindow();
+          mainWindow.restore();
+        }
       }
     };
   }
