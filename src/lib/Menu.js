@@ -249,7 +249,7 @@ export default class FranzMenu {
   }
 
   @computed get serviceTpl() {
-    const services = this.stores.services.enabled;
+    const services = this.stores.services.allDisplayed;
 
     if (this.stores.user.isLoggedIn) {
       return services.map((service, i) => ({
