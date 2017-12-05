@@ -12,6 +12,8 @@ import NewsModel from '../../models/News';
 import UserModel from '../../models/User';
 import OrderModel from '../../models/Order';
 
+import { sleep } from '../../helpers/async-helpers';
+
 import { API } from '../../environment';
 
 import {
@@ -303,21 +305,36 @@ export default class ServerApi {
 
       fs.ensureDirSync(recipeTempDirectory);
       const res = await fetch(packageUrl);
+      console.debug('Recipe downloaded', recipeId);
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
+      console.debug('Recipe written to filesystem', recipeId);
 
-      tar.x({
+      await sleep(10);
+
+      await tar.x({
         file: archivePath,
         cwd: recipeTempDirectory,
-        sync: true,
+        preservePaths: true,
+        unlink: true,
+        onwarn: x => console.log('warn', recipeId, x),
       });
+      console.debug('Recipe extracted to', recipeTempDirectory);
+
+      await sleep(10);
 
       const { id } = fs.readJsonSync(path.join(recipeTempDirectory, 'package.json'));
-      const recipeDirectory = path.join(recipesDirectory, id);
+      console.debug('Recipe config parsed', id);
 
+      const recipeDirectory = path.join(recipesDirectory, id);
       fs.copySync(recipeTempDirectory, recipeDirectory);
+      console.debug('Recipe moved to', recipeDirectory);
+
       fs.remove(recipeTempDirectory);
+      console.debug('Recipe temp directory removed', recipeTempDirectory);
+
       fs.remove(path.join(recipesDirectory, recipeId, 'recipe.tar.gz'));
+      console.debug('Recipe tar.gz removed', path.join(recipesDirectory, recipeId, 'recipe.tar.gz'));
 
       return id;
     } catch (err) {
