@@ -116,6 +116,11 @@ export default class AppStore extends Store {
       }
     });
 
+    // Handle deep linking (franz://)
+    ipcRenderer.on('navigateFromDeepLink', (event, data) => {
+      console.log(event, data);
+    });
+
     // Check system idle time every minute
     setInterval(() => {
       this.idleTime = idleTimer.getIdleTime();
