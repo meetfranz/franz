@@ -1,5 +1,5 @@
-export default function handleDeepLink(window, url) {
-  console.log(url);
+export default function handleDeepLink(window, rawUrl) {
+  const url = rawUrl.replace('franz://', '');
 
   window.webContents.send('navigateFromDeepLink', { url });
 }
