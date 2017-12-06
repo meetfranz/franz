@@ -317,6 +317,7 @@ export default class ServerApi {
         cwd: recipeTempDirectory,
         preservePaths: true,
         unlink: true,
+        preserveOwner: false,
         onwarn: x => console.log('warn', recipeId, x),
       });
       console.debug('Recipe extracted to', recipeTempDirectory);
