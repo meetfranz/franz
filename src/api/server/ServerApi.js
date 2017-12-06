@@ -308,7 +308,6 @@ export default class ServerApi {
       console.debug('Recipe downloaded', recipeId);
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
-      console.debug('Recipe written to filesystem', recipeId);
 
       await sleep(10);
 
@@ -320,22 +319,14 @@ export default class ServerApi {
         preserveOwner: false,
         onwarn: x => console.log('warn', recipeId, x),
       });
-      console.debug('Recipe extracted to', recipeTempDirectory);
 
       await sleep(10);
 
       const { id } = fs.readJsonSync(path.join(recipeTempDirectory, 'package.json'));
-      console.debug('Recipe config parsed', id);
-
       const recipeDirectory = path.join(recipesDirectory, id);
       fs.copySync(recipeTempDirectory, recipeDirectory);
-      console.debug('Recipe moved to', recipeDirectory);
-
       fs.remove(recipeTempDirectory);
-      console.debug('Recipe temp directory removed', recipeTempDirectory);
-
       fs.remove(path.join(recipesDirectory, recipeId, 'recipe.tar.gz'));
-      console.debug('Recipe tar.gz removed', path.join(recipesDirectory, recipeId, 'recipe.tar.gz'));
 
       return id;
     } catch (err) {
