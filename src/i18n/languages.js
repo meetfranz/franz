@@ -19,6 +19,11 @@ export const APP_LOCALES = {
   sk: 'Slovak',
   uk: 'Ukrainian',
   'nl-BE': 'Vlaams',
+  el: 'Greek',
+  hr: 'Croatian',
+  sr: 'Serbian',
+  tr: 'Turkish',
+  'zh-TW': 'Chinese (Taiwan)',
 };
 
 export default APP_LOCALES;
