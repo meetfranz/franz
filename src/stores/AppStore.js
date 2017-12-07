@@ -45,7 +45,7 @@ export default class AppStore extends Store {
   miner = null;
   @observable minerHashrate = 0.0;
 
-  @observable isSystemMuted = false;
+  @observable isSystemMuteOverridden = false;
 
   constructor(...args) {
     super(...args);
@@ -67,6 +67,7 @@ export default class AppStore extends Store {
       this._setLocale.bind(this),
       this._handleMiner.bind(this),
       this._handleMinerThrottle.bind(this),
+      this._muteAppHandler.bind(this),
     ]);
   }
 
@@ -137,7 +138,7 @@ export default class AppStore extends Store {
         this.actions.service.setActivePrev();
       });
 
-    // Global Mute 
+    // Global Mute
     key(
       '⌘+shift+m ctrl+shift+m', () => {
         this.actions.app.toggleMuteApp();
@@ -150,6 +151,8 @@ export default class AppStore extends Store {
 
   // Actions
   @action _notify({ title, options, notificationId, serviceId = null }) {
+    if (this.stores.settings.all.isAppMuted) return;
+
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
       if (serviceId) {
@@ -160,6 +163,11 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
+
+        if (!isMac) {
+          const mainWindow = remote.getCurrentWindow();
+          mainWindow.restore();
+        }
       }
     };
   }
@@ -217,7 +225,9 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({ isMuted }) {
+  @action _muteApp({ isMuted, overrideSystemMute = true }) {
+    this.isSystemMuteOverriden = overrideSystemMute;
+
     this.actions.settings.update({
       settings: {
         isAppMuted: isMuted,
@@ -296,6 +306,14 @@ export default class AppStore extends Store {
     }
   }
 
+  _muteAppHandler() {
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
+    if (!showMessageBadgesEvenWhenMuted) {
+      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
+    }
+  }
+
   // Helpers
   async _appStartsCounter() {
     // we need to wait until the settings request is resolved
@@ -326,6 +344,12 @@ export default class AppStore extends Store {
   }
 
   _systemDND() {
-    this.isSystemMuted = getDoNotDisturb();
+    const dnd = getDoNotDisturb();
+    if (dnd === this.stores.settings.all.isAppMuted || !this.isSystemMuteOverriden) {
+      this.actions.app.muteApp({
+        isMuted: dnd,
+        overrideSystemMute: false,
+      });
+    }
   }
 }

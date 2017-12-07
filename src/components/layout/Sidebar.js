@@ -17,12 +17,12 @@ const messages = defineMessages({
     defaultMessage: '!!!Add new service',
   },
   mute: {
-    id: 'sidebar.mute',
-    defaultMessage: '!!!Disable audio',
+    id: 'sidebar.muteApp',
+    defaultMessage: '!!!Disable notifications & audio',
   },
   unmute: {
-    id: 'sidebar.unmute',
-    defaultMessage: '!!!Enable audio',
+    id: 'sidebar.unmuteApp',
+    defaultMessage: '!!!Enable notifications & audio',
   },
 });
 

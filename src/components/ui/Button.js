@@ -68,7 +68,7 @@ export default class Button extends Component {
           loaded={loaded}
           lines={10}
           scale={0.4}
-          color={buttonType === '' ? '#FFF' : '#373a3c'}
+          color={buttonType !== 'secondary' ? '#FFF' : '#373a3c'}
           component="span"
         />
         {label}

@@ -55,12 +55,16 @@ export default class Login extends Component {
         </div>
         <div className="welcome__featured-services">
           {recipes.map(recipe => (
-            <img
+            <div
               key={recipe.id}
-              src={recipe.icons.svg}
               className="welcome__featured-service"
-              alt=""
-            />
+            >
+              <img
+                key={recipe.id}
+                src={recipe.icons.svg}
+                alt=""
+              />
+            </div>
           ))}
         </div>
       </div>

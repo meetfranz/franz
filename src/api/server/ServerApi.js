@@ -125,6 +125,19 @@ export default class ServerApi {
     return user;
   }
 
+  async deleteAccount() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, this._prepareAuthRequest({
+      method: 'DELETE',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    console.debug('ServerApi::deleteAccount resolves', data);
+    return data;
+  }
+
   // Services
   async getServices() {
     const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/services`, this._prepareAuthRequest({
