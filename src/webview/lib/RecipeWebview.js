@@ -40,8 +40,8 @@ class RecipeWebview {
       && this.countCache.indirect === indirect) return;
 
     const count = {
-      direct,
-      indirect,
+      direct: direct > 0 ? direct : 0,
+      indirect: indirect > 0 ? indirect : 0,
     };
 
     ipcRenderer.sendToHost('messages', count);
