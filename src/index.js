@@ -8,6 +8,7 @@ import { isDevMode, isWindows } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
+import handleDeepLink from './electron/deepLinking';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
@@ -26,10 +27,20 @@ if (isWindows) {
 }
 
 // Force single window
-const isSecondInstance = app.makeSingleInstance(() => {
+const isSecondInstance = app.makeSingleInstance((argv) => {
   if (mainWindow) {
     if (mainWindow.isMinimized()) mainWindow.restore();
     mainWindow.focus();
+
+    if (process.platform === 'win32') {
+      // Keep only command line / deep linked arguments
+      const url = argv.slice(1);
+
+      if (url) {
+        console.log(url.toString());
+        handleDeepLink(mainWindow, url.toString());
+      }
+    }
   }
 });
 
@@ -70,7 +81,8 @@ const createWindow = () => {
   const trayIcon = new Tray();
 
   // Initialize ipcApi
-  ipcApi({ mainWindow, settings, trayIcon });
+  const franzIpcApi = ipcApi({ mainWindow, settings, trayIcon });
+  console.log(franzIpcApi);
 
   // Manage Window State
   mainWindowState.manage(mainWindow);
@@ -137,6 +149,8 @@ const createWindow = () => {
 
   mainWindow.on('show', () => {
     mainWindow.setSkipTaskbar(false);
+
+    handleDeepLink(mainWindow, 'franz://settings/services/add/msteams');
   });
 
   app.mainWindow = mainWindow;
@@ -176,3 +190,15 @@ app.on('activate', () => {
     mainWindow.show();
   }
 });
+
+app.on('will-finish-launching', () => {
+  // Protocol handler for osx
+  app.on('open-url', (event, url) => {
+    event.preventDefault();
+    console.log(`open-url event: ${url}`);
+    handleDeepLink(mainWindow, url);
+  });
+});
+
+// Register App URL
+app.setAsDefaultProtocolClient('franz');

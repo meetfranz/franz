@@ -116,6 +116,14 @@ export default class AppStore extends Store {
       }
     });
 
+    // Handle deep linking (franz://)
+    ipcRenderer.on('navigateFromDeepLink', (event, data) => {
+      const { url } = data;
+      if (!url) return;
+
+      this.stores.router.push(data.url);
+    });
+
     // Check system idle time every minute
     setInterval(() => {
       this.idleTime = idleTimer.getIdleTime();
