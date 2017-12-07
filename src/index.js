@@ -36,8 +36,10 @@ const isSecondInstance = app.makeSingleInstance((argv) => {
       // Keep only command line / deep linked arguments
       const url = argv.slice(1);
 
-      console.log(url);
-      handleDeepLink(mainWindow, url);
+      if (url) {
+        console.log(url.toString());
+        handleDeepLink(mainWindow, url.toString());
+      }
     }
   }
 });
