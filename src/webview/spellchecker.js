@@ -1,30 +1,42 @@
-import { SpellCheckHandler, ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
+import { SpellCheckHandler } from 'electron-spellchecker';
 
 import { isMac } from '../environment';
 
 export default class Spellchecker {
-  isEnabled = false;
-  spellchecker = null;
+  isInitialized = false;
+  handler = null;
+  initRetries = 0;
 
-  enable() {
-    this.spellchecker = new SpellCheckHandler();
+  initialize() {
+    this.handler = new SpellCheckHandler();
+
     if (!isMac) {
-      this.spellchecker.attachToInput();
-      this.spellchecker.switchLanguage(navigator.language);
+      this.attach();
+    } else {
+      this.isInitialized = true;
     }
-
-    const contextMenuBuilder = new ContextMenuBuilder(this.spellchecker);
-
-    new ContextMenuListener((info) => { // eslint-disable-line
-      contextMenuBuilder.showPopupMenu(info);
-    });
   }
 
-  // TODO: this does not work yet, needs more testing
-  // switchLanguage(language) {
-  //   if (language !== 'auto') {
-  //     this.spellchecker.switchLanguage(language);
-  //   }
-  // }
+  attach() {
+    let initFailed = false;
+
+    if (this.initRetries > 3) {
+      console.error('Could not initialize spellchecker');
+      return;
+    }
+
+    try {
+      this.handler.attachToInput();
+      this.handler.switchLanguage(navigator.language);
+    } catch (err) {
+      initFailed = true;
+      this.initRetries = +1;
+      setTimeout(() => { this.attach(); console.warn('Spellchecker init failed, trying again in 5s'); }, 5000);
+    }
+
+    if (!initFailed) {
+      this.isInitialized = true;
+    }
+  }
 }
 

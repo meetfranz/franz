@@ -1,13 +1,13 @@
 import { ipcRenderer } from 'electron';
+import { ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
 import path from 'path';
 
+import { isDevMode } from '../environment';
 import RecipeWebview from './lib/RecipeWebview';
 
 import Spellchecker from './spellchecker.js';
 import './notifications.js';
 import './ime.js';
-
-const spellchecker = new Spellchecker();
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -21,19 +21,26 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   }
 });
 
-ipcRenderer.on('settings-update', (e, data) => {
-  if (data.enableSpellchecking) {
-    if (!spellchecker.isEnabled) {
-      spellchecker.enable();
+let contextMenuBuilder = new ContextMenuBuilder(null, null, isDevMode);
+const spellchecker = new Spellchecker();
 
-      // TODO: this does not work yet, needs more testing
-      // if (data.spellcheckingLanguage !== 'auto') {
-      //   console.log('set spellchecking language to', data.spellcheckingLanguage);
-      //   spellchecker.switchLanguage(data.spellcheckingLanguage);
-      // }
-    }
+new ContextMenuListener((info) => { // eslint-disable-line
+  contextMenuBuilder.showPopupMenu(info);
+});
+
+ipcRenderer.on('settings-update', (e, data) => {
+  if (data.enableSpellchecking && !spellchecker.isInitialized) {
+    spellchecker.initialize();
+
+    contextMenuBuilder = new ContextMenuBuilder(spellchecker.handler, null, isDevMode);
+
+    new ContextMenuListener((info) => { // eslint-disable-line
+      contextMenuBuilder.showPopupMenu(info);
+    });
   }
 });
+
+// initSpellche
 
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');
