@@ -263,8 +263,10 @@ export default class AppStore extends Store {
   _setLocale() {
     const locale = this.stores.settings.all.locale;
 
-    if (locale && locale !== this.locale) {
+    if (locale && Object.prototype.hasOwnProperty.call(locales, locale) && locale !== this.locale) {
       this.locale = locale;
+    } else if (!locale) {
+      this.locale = this._getDefaultLocale();
     }
   }
 
@@ -287,6 +289,10 @@ export default class AppStore extends Store {
 
     if (locales[locale] === undefined) {
       locale = defaultLocale;
+    }
+
+    if (!locale) {
+      locale = DEFAULT_APP_SETTINGS.fallbackLocale;
     }
 
     return locale;
