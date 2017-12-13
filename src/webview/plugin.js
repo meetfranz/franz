@@ -21,23 +21,18 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   }
 });
 
-let contextMenuBuilder = new ContextMenuBuilder(null, null, isDevMode);
 const spellchecker = new Spellchecker();
+spellchecker.initialize();
+
+const contextMenuBuilder = new ContextMenuBuilder(spellchecker.handler, null, isDevMode);
 
 new ContextMenuListener((info) => { // eslint-disable-line
   contextMenuBuilder.showPopupMenu(info);
 });
 
 ipcRenderer.on('settings-update', (e, data) => {
-  if (data.enableSpellchecking && !spellchecker.isInitialized) {
-    spellchecker.initialize();
-
-    contextMenuBuilder = new ContextMenuBuilder(spellchecker.handler, null, isDevMode);
-
-    new ContextMenuListener((info) => { // eslint-disable-line
-      contextMenuBuilder.showPopupMenu(info);
-    });
-  }
+  console.log('settings-update', data);
+  spellchecker.toggleSpellchecker(data.enableSpellchecking);
 });
 
 // initSpellche

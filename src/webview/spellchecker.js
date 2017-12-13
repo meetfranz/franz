@@ -6,6 +6,11 @@ export default class Spellchecker {
   isInitialized = false;
   handler = null;
   initRetries = 0;
+  DOMCheckInterval = null;
+
+  get inputs() {
+    return document.querySelectorAll('input[type="text"], [contenteditable="true"], textarea');
+  }
 
   initialize() {
     this.handler = new SpellCheckHandler();
@@ -36,6 +41,22 @@ export default class Spellchecker {
 
     if (!initFailed) {
       this.isInitialized = true;
+    }
+  }
+
+  toggleSpellchecker(enable = false) {
+    this.inputs.forEach((input) => {
+      input.setAttribute('spellcheck', enable);
+    });
+
+    this.intervalHandler(enable);
+  }
+
+  intervalHandler(enable) {
+    clearInterval(this.DOMCheckInterval);
+
+    if (enable) {
+      this.DOMCheckInterval = setInterval(() => this.toggleSpellchecker(enable), 30000);
     }
   }
 }
