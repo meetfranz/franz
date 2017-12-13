@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, extendObservable } from 'mobx';
 import { DEFAULT_APP_SETTINGS } from '../config';
 
 export default class Settings {
@@ -16,5 +16,9 @@ export default class Settings {
 
   constructor(data) {
     Object.assign(this, data);
+  }
+
+  update(data) {
+    extendObservable(this, data);
   }
 }
