@@ -126,7 +126,7 @@ class TabItem extends Component {
     const menu = Menu.buildFromTemplate(menuTemplate);
 
     let notificationBadge = null;
-    if ((showMessageBadgeWhenMutedSetting || service.isNotificationEnabled) && showMessageBadgesEvenWhenMuted) {
+    if ((showMessageBadgeWhenMutedSetting || service.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && service.isBadgeEnabled) {
       notificationBadge = (
         <span>
           {service.unreadDirectMessageCount > 0 && (

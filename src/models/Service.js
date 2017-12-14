@@ -53,6 +53,9 @@ export default class Service {
     this.isNotificationEnabled = data.isNotificationEnabled !== undefined
       ? data.isNotificationEnabled : this.isNotificationEnabled;
 
+    this.isBadgeEnabled = data.isBadgeEnabled !== undefined
+      ? data.isBadgeEnabled : this.isBadgeEnabled;
+
     this.isIndirectMessageBadgeEnabled = data.isIndirectMessageBadgeEnabled !== undefined
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
 
