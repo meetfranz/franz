@@ -202,7 +202,11 @@ export default class EditServiceForm extends Component {
               >
                 {recipe.hasTeamId && (
                   <TabItem title={intl.formatMessage(messages.tabHosted)}>
-                    <Input field={form.$('team')} suffix={recipe.urlInputSuffix} />
+                    <Input
+                      field={form.$('team')}
+                      prefix={recipe.urlInputPrefix}
+                      suffix={recipe.urlInputSuffix}
+                    />
                   </TabItem>
                 )}
                 {recipe.hasCustomUrl && (
