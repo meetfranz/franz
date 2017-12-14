@@ -5,7 +5,6 @@ import RecipeWebview from './lib/RecipeWebview';
 
 import Spellchecker from './spellchecker.js';
 import './notifications.js';
-import './ime.js';
 
 const spellchecker = new Spellchecker();
 
