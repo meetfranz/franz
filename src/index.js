@@ -37,7 +37,6 @@ const isSecondInstance = app.makeSingleInstance((argv) => {
       const url = argv.slice(1);
 
       if (url) {
-        console.log(url.toString());
         handleDeepLink(mainWindow, url.toString());
       }
     }
@@ -81,8 +80,7 @@ const createWindow = () => {
   const trayIcon = new Tray();
 
   // Initialize ipcApi
-  const franzIpcApi = ipcApi({ mainWindow, settings, trayIcon });
-  console.log(franzIpcApi);
+  ipcApi({ mainWindow, settings, trayIcon });
 
   // Manage Window State
   mainWindowState.manage(mainWindow);
