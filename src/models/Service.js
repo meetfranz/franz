@@ -22,6 +22,7 @@ export default class Service {
   @observable team = '';
   @observable customUrl = '';
   @observable isNotificationEnabled = true;
+  @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
   @observable customIconUrl = '';
   @observable hasCrashed = false;

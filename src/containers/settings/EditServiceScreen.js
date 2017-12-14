@@ -26,6 +26,10 @@ const messages = defineMessages({
     id: 'settings.service.form.enableNotification',
     defaultMessage: '!!!Enable Notifications',
   },
+  enableBadge: {
+    id: 'settings.service.form.enableBadge',
+    defaultMessage: '!!!Show unread message badges',
+  },
   enableAudio: {
     id: 'settings.service.form.enableAudio',
     defaultMessage: '!!!Enable audio',
@@ -86,6 +90,11 @@ export default class EditServiceScreen extends Component {
         isNotificationEnabled: {
           label: intl.formatMessage(messages.enableNotification),
           value: service.isNotificationEnabled,
+          default: true,
+        },
+        isBadgeEnabled: {
+          label: intl.formatMessage(messages.enableBadge),
+          value: service.isBadgeEnabled,
           default: true,
         },
         isMuted: {

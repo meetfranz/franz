@@ -67,6 +67,18 @@ const messages = defineMessages({
     id: 'settings.service.form.isMutedInfo',
     defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
   },
+  headlineNotifications: {
+    id: 'settings.service.form.headlineNotifications',
+    defaultMessage: '!!!Notifications',
+  },
+  headlineBadges: {
+    id: 'settings.service.form.headlineBadges',
+    defaultMessage: '!!!Unread message dadges',
+  },
+  headlineGeneral: {
+    id: 'settings.service.form.headlineGeneral',
+    defaultMessage: '!!!General',
+  },
 });
 
 @observer
@@ -231,20 +243,32 @@ export default class EditServiceForm extends Component {
               </Tabs>
             )}
             <div className="settings__options">
-              <Toggle field={form.$('isNotificationEnabled')} />
-              {recipe.hasIndirectMessages && (
-                <div>
-                  <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
-                  <p className="settings__help">
-                    {intl.formatMessage(messages.indirectMessageInfo)}
-                  </p>
-                </div>
-              )}
-              <Toggle field={form.$('isMuted')} />
-              <p className="settings__help">
-                {intl.formatMessage(messages.isMutedInfo)}
-              </p>
-              <Toggle field={form.$('isEnabled')} />
+              <div className="settings__settings-group">
+                <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
+                <Toggle field={form.$('isNotificationEnabled')} />
+                <Toggle field={form.$('isMuted')} />
+                <p className="settings__help">
+                  {intl.formatMessage(messages.isMutedInfo)}
+                </p>
+              </div>
+
+              <div className="settings__settings-group">
+                <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
+                <Toggle field={form.$('isBadgeEnabled')} />
+                {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
+                  <div>
+                    <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
+                    <p className="settings__help">
+                      {intl.formatMessage(messages.indirectMessageInfo)}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="settings__settings-group">
+                <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
+                <Toggle field={form.$('isEnabled')} />
+              </div>
             </div>
             {recipe.message && (
               <p className="settings__message">
