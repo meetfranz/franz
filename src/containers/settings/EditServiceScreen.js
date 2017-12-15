@@ -118,9 +118,20 @@ export default class EditServiceScreen extends Component {
       });
     }
 
+    // More fine grained and use case specific validation rules
     if (recipe.hasTeamId && recipe.hasCustomUrl) {
       config.fields.team.validate = [oneRequired(['team', 'customUrl'])];
       config.fields.customUrl.validate = [url, oneRequired(['team', 'customUrl'])];
+    }
+
+    // If a service can be hosted and has a teamId or customUrl
+    if (recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl)) {
+      if (config.fields.team) {
+        config.fields.team.validate = [];
+      }
+      if (config.fields.customUrl) {
+        config.fields.customUrl.validate = [url];
+      }
     }
 
     if (recipe.hasIndirectMessages) {

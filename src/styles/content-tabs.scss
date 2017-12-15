@@ -12,15 +12,17 @@
       flex: 1;
       // border: 1px solid $theme-gray-lightest;
       color: $theme-gray-dark;
-      background: $theme-gray-lightest;
-      border-bottom: 1px solid $theme-gray-lighter;
-      box-shadow: inset 0px -3px 10px rgba(black, 0.05);
-      transition: all $theme-transition-time;
+      background: linear-gradient($theme-gray-lightest 80%, darken($theme-gray-lightest, 3%));
+      border-right: 1px solid $theme-gray-lighter;
+      transition: background $theme-transition-time;
+
+      &:last-of-type {
+        border-right: 0;
+      }
 
       &.is-active {
         background: $theme-brand-primary;
         color: #FFF;
-        border-bottom: 1px solid $theme-brand-primary;
         box-shadow: none;
       }
     }
