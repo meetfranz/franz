@@ -110,6 +110,7 @@
   "settings.service.form.editServiceHeadline": "Edit {name}",
   "settings.service.form.tabHosted": "Hosted",
   "settings.service.form.tabOnPremise": "Self hosted ⭐️",
+  "settings.service.form.useHostedService": "Use the hosted {name} service.",
   "settings.service.form.customUrlValidationError": "Could not validate custom {name} server.",
   "settings.service.form.customUrlPremiumInfo": "To add self hosted services, you need a Franz Premium Supporter Account.",
   "settings.service.form.customUrlUpgradeAccount": "Upgrade your account",

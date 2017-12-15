@@ -15,6 +15,7 @@ export default class Recipe {
   hasTeamId = false;
   hasPredefinedUrl = false;
   hasCustomUrl = false;
+  hasHostedOption = false;
   urlInputPrefix = '';
   urlInputSuffix = '';
 
@@ -45,6 +46,7 @@ export default class Recipe {
     this.hasTeamId = data.config.hasTeamId || this.hasTeamId;
     this.hasPredefinedUrl = data.config.hasPredefinedUrl || this.hasPredefinedUrl;
     this.hasCustomUrl = data.config.hasCustomUrl || this.hasCustomUrl;
+    this.hasHostedOption = data.config.hasHostedOption || this.hasHostedOption;
 
     this.urlInputPrefix = data.config.urlInputPrefix || this.urlInputPrefix;
     this.urlInputSuffix = data.config.urlInputSuffix || this.urlInputSuffix;

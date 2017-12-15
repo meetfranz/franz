@@ -47,6 +47,10 @@
     padding: 8px;
     // font-size: 18px;
     color: $theme-gray;
+
+    &::placeholder {
+      color: lighten($theme-gray-light, 10%);
+    }
   }
 
   .franz-form__input-prefix,

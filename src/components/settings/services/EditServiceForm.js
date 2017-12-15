@@ -47,6 +47,10 @@ const messages = defineMessages({
     id: 'settings.service.form.tabOnPremise',
     defaultMessage: '!!!Self hosted ⭐️',
   },
+  useHostedService: {
+    id: 'settings.service.form.useHostedService',
+    defaultMessage: '!!!Use the hosted {name} service.',
+  },
   customUrlValidationError: {
     id: 'settings.service.form.customUrlValidationError',
     defaultMessage: '!!!Could not validate custom {name} server.',
@@ -120,7 +124,6 @@ export default class EditServiceForm extends Component {
     this.props.form.submit({
       onSuccess: async (form) => {
         const values = form.values();
-
         let isValid = true;
 
         if (recipe.validateUrl && values.customUrl) {
@@ -178,6 +181,13 @@ export default class EditServiceForm extends Component {
       />
     );
 
+    let activeTabIndex = 0;
+    if (recipe.hasHostedOption && service.team) {
+      activeTabIndex = 1;
+    } else if (recipe.hasHostedOption && service.customUrl) {
+      activeTabIndex = 2;
+    }
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -210,11 +220,20 @@ export default class EditServiceForm extends Component {
             <Input field={form.$('name')} focus />
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (
               <Tabs
-                active={service.customUrl ? 1 : 0}
+                active={activeTabIndex}
               >
+                {recipe.hasHostedOption && (
+                  <TabItem title={recipe.name}>
+                    {intl.formatMessage(messages.useHostedService, { name: recipe.name })}
+                  </TabItem>
+                )}
                 {recipe.hasTeamId && (
                   <TabItem title={intl.formatMessage(messages.tabHosted)}>
-                    <Input field={form.$('team')} suffix={recipe.urlInputSuffix} />
+                    <Input
+                      field={form.$('team')}
+                      prefix={recipe.urlInputPrefix}
+                      suffix={recipe.urlInputSuffix}
+                    />
                   </TabItem>
                 )}
                 {recipe.hasCustomUrl && (
