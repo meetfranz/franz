@@ -64,10 +64,6 @@ const messages = defineMessages({
     id: 'settings.app.currentVersion',
     defaultMessage: '!!!Current version:',
   },
-  restartRequired: {
-    id: 'settings.app.restartRequired',
-    defaultMessage: '!!!Changes require restart',
-  },
 });
 
 @observer
@@ -158,7 +154,6 @@ export default class EditSettingsForm extends Component {
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
             <Toggle field={form.$('enableSpellchecking')} />
-            <p className="settings__help">{intl.formatMessage(messages.restartRequired)}</p>
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}
 
             {/* Updates */}

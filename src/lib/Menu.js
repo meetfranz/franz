@@ -167,7 +167,7 @@ export default class FranzMenu {
             label: 'Settings',
             accelerator: 'CmdOrCtrl+,',
             click: () => {
-              this.actions.ui.openSettings({ path: '' });
+              this.actions.ui.openSettings({ path: 'app' });
             },
           },
           {

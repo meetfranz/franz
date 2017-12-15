@@ -1,5 +1,3 @@
-import SettingsModel from '../../models/Settings';
-
 export default class LocalApi {
   // App
   async updateAppSettings(data) {
@@ -15,7 +13,7 @@ export default class LocalApi {
   async getAppSettings() {
     const settingsString = localStorage.getItem('app');
     try {
-      const settings = new SettingsModel(JSON.parse(settingsString) || {});
+      const settings = JSON.parse(settingsString) || {};
       console.debug('LocalApi::getAppSettings resolves', settings);
 
       return settings;
