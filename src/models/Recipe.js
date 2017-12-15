@@ -1,10 +1,11 @@
 import emailParser from 'address-rfc2822';
+import semver from 'semver';
 
 export default class Recipe {
   id = '';
   name = '';
   description = '';
-  version = '1.0';
+  version = '';
   path = '';
 
   serviceURL = '';
@@ -29,6 +30,10 @@ export default class Recipe {
     if (!data.id) {
       // Franz 4 recipes do not have an Id
       throw Error(`Recipe '${data.name}' requires Id`);
+    }
+
+    if (!semver.valid(data.version)) {
+      throw Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
     }
 
     this.id = data.id || this.id;
