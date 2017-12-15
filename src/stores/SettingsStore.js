@@ -26,7 +26,7 @@ export default class SettingsStore extends Store {
   }
 
   @computed get all() {
-    return this.allSettingsRequest.result || new SettingsModel();
+    return new SettingsModel(this.allSettingsRequest.result);
   }
 
   @action async _update({ settings }) {

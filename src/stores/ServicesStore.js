@@ -297,7 +297,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound || service.isMuted) {
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.isAppMuted) {
         Object.assign(options, {
           silent: true,
         });
@@ -491,13 +491,13 @@ export default class ServicesStore extends Store {
     const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
 
-    const unreadDirectMessageCount = this.enabled
-      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted)
+    const unreadDirectMessageCount = this.allDisplayed
+      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
       .map(s => s.unreadDirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
-    const unreadIndirectMessageCount = this.enabled
-      .filter(s => (showMessageBadgeWhenMuted || s.isIndirectMessageBadgeEnabled) && showMessageBadgesEvenWhenMuted)
+    const unreadIndirectMessageCount = this.allDisplayed
+      .filter(s => (showMessageBadgeWhenMuted || s.isIndirectMessageBadgeEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
       .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
