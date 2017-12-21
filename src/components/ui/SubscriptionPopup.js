@@ -58,7 +58,6 @@ export default class SubscriptionPopup extends Component {
 
             autosize
             src={encodeURI(url)}
-            disablewebsecurity
             onDidNavigate={completeCheck}
             // onNewWindow={(event, url, frameName, options) =>
             //   openWindow({ event, url, frameName, options })}
