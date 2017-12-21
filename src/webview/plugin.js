@@ -7,7 +7,6 @@ import RecipeWebview from './lib/RecipeWebview';
 
 import Spellchecker from './spellchecker.js';
 import './notifications.js';
-import './ime.js';
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
