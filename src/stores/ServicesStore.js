@@ -503,6 +503,7 @@ export default class ServicesStore extends Store {
 
     // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
     if (showMessageBadgesEvenWhenMuted) {
+      console.log('set badge', unreadDirectMessageCount, unreadIndirectMessageCount);
       this.actions.app.setBadge({
         unreadDirectMessageCount,
         unreadIndirectMessageCount,
