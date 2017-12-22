@@ -106,7 +106,6 @@ export default class ServiceWebview extends Component {
             onUpdateTargetUrl={this.updateTargetUrl}
             useragent={service.userAgent}
             muted={isAppMuted || service.isMuted}
-            disablewebsecurity
             allowpopups
           />
         )}
