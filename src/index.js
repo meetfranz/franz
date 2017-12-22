@@ -147,8 +147,6 @@ const createWindow = () => {
 
   mainWindow.on('show', () => {
     mainWindow.setSkipTaskbar(false);
-
-    handleDeepLink(mainWindow, 'franz://settings/services/add/msteams');
   });
 
   app.mainWindow = mainWindow;
