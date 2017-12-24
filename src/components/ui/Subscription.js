@@ -31,10 +31,6 @@ const messages = defineMessages({
     id: 'subscription.type.year',
     defaultMessage: '!!!year',
   },
-  typeMining: {
-    id: 'subscription.type.mining',
-    defaultMessage: '!!!Support Franz with processing power',
-  },
   includedFeatures: {
     id: 'subscription.includedFeatures',
     defaultMessage: '!!!The Franz Premium Supporter Account includes',
@@ -68,30 +64,6 @@ const messages = defineMessages({
       id: 'subscription.features.comingSoon',
       defaultMessage: '!!!coming soon',
     },
-  },
-  miningHeadline: {
-    id: 'subscription.mining.headline',
-    defaultMessage: '!!!How does this work?',
-  },
-  experimental: {
-    id: 'subscription.mining.experimental',
-    defaultMessage: '!!!experimental',
-  },
-  miningDetail1: {
-    id: 'subscription.mining.line1',
-    defaultMessage: '!!!By enabling "Support with processing power", Franz will use about 20-50% of your CPU to mine cryptocurrency Monero which equals approximately € 5/year.',
-  },
-  miningDetail2: {
-    id: 'subscription.mining.line2',
-    defaultMessage: '!!!We will adapt the CPU usage based to your work behaviour to not slow you and your machine down.',
-  },
-  miningDetail3: {
-    id: 'subscription.mining.line3',
-    defaultMessage: '!!!As long as the miner is active, you will have unlimited access to all the Franz Premium Supporter Features.',
-  },
-  miningMoreInfo: {
-    id: 'subscription.mining.moreInformation',
-    defaultMessage: '!!!Get more information about this plan',
   },
   euTaxInfo: {
     id: 'subscription.euTaxInfo',
@@ -153,13 +125,6 @@ export default class SubscriptionForm extends Component {
       },
     };
 
-    if (this.props.plan.miner) {
-      form.fields.paymentTier.options.push({
-        value: 'mining',
-        label: intl.formatMessage(messages.typeMining),
-      });
-    }
-
     if (this.props.showSkipOption) {
       form.fields.paymentTier.options.unshift({
         value: 'skip',
@@ -200,52 +165,31 @@ export default class SubscriptionForm extends Component {
         <Radio field={this.form.$('paymentTier')} showLabel={false} className="paymentTiers" />
         {!hideInfo && (
           <div className="subscription__premium-info">
-            {this.form.$('paymentTier').value !== 'mining' && (
-              <div>
-                <p>
-                  <strong>{intl.formatMessage(messages.includedFeatures)}</strong>
-                </p>
-                <div className="subscription">
-                  <ul className="subscription__premium-features">
-                    <li>{intl.formatMessage(messages.features.onpremise)}</li>
-                    <li>
-                      {intl.formatMessage(messages.features.encryptedSync)}
-                      <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
-                    </li>
-                    <li>
-                      {intl.formatMessage(messages.features.customServices)}
-                      <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
-                    </li>
-                    <li>
-                      {intl.formatMessage(messages.features.vpn)}
-                      <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
-                    </li>
-                    <li>
-                      {intl.formatMessage(messages.features.ads)}
-                    </li>
-                  </ul>
-                </div>
+            <div>
+              <p>
+                <strong>{intl.formatMessage(messages.includedFeatures)}</strong>
+              </p>
+              <div className="subscription">
+                <ul className="subscription__premium-features">
+                  <li>{intl.formatMessage(messages.features.onpremise)}</li>
+                  <li>
+                    {intl.formatMessage(messages.features.encryptedSync)}
+                    <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
+                  </li>
+                  <li>
+                    {intl.formatMessage(messages.features.customServices)}
+                    <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
+                  </li>
+                  <li>
+                    {intl.formatMessage(messages.features.vpn)}
+                    <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
+                  </li>
+                  <li>
+                    {intl.formatMessage(messages.features.ads)}
+                  </li>
+                </ul>
               </div>
-            )}
-            {this.form.$('paymentTier').value === 'mining' && (
-              <div className="subscription mining-details">
-                <p>
-                  <strong>{intl.formatMessage(messages.miningHeadline)}</strong>
-                  &nbsp;
-                  <span className="badge">{intl.formatMessage(messages.experimental)}</span>
-                </p>
-                <p>{intl.formatMessage(messages.miningDetail1)}</p>
-                <p>{intl.formatMessage(messages.miningDetail2)}</p>
-                <p>{intl.formatMessage(messages.miningDetail3)}</p>
-                <p>
-                  <button
-                    onClick={() => openExternalUrl({ url: 'http://meetfranz.com/mining' })}
-                  >
-                    {intl.formatMessage(messages.miningMoreInfo)}
-                  </button>
-                </p>
-              </div>
-            )}
+            </div>
           </div>
         )}
         <div>
@@ -267,7 +211,7 @@ export default class SubscriptionForm extends Component {
             onClick={() => handlePayment(this.form.$('paymentTier').value)}
           />
         )}
-        {this.form.$('paymentTier').value !== 'skip' && this.form.$('paymentTier').value !== 'mining' && (
+        {this.form.$('paymentTier').value !== 'skip' && (
           <p className="legal">
             {intl.formatMessage(messages.euTaxInfo)}
           </p>
