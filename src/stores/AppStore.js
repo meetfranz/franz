@@ -3,7 +3,6 @@ import { action, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
-import idleTimer from '@paulcbetts/system-idle-time';
 import AutoLaunch from 'auto-launch';
 
 import Store from './lib/Store';
@@ -115,11 +114,6 @@ export default class AppStore extends Store {
 
       this.stores.router.push(data.url);
     });
-
-    // Check system idle time every minute
-    setInterval(() => {
-      this.idleTime = idleTimer.getIdleTime();
-    }, 60000);
 
     // Reload all services after a healthy nap
     powerMonitor.on('resume', () => {
