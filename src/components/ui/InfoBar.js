@@ -61,10 +61,13 @@ export default class InfoBar extends Component {
           [`${className}`]: true,
         })}
       >
-        <div onClick={onClick} className="info-bar__content">
+        <div className="info-bar__content">
           {children}
           {ctaLabel && (
-            <button className="info-bar__cta">
+            <button
+              className="info-bar__cta"
+              onClick={onClick}
+            >
               <Loader
                 loaded={!ctaLoading}
                 lines={10}

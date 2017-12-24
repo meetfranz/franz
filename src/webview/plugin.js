@@ -1,11 +1,12 @@
-const { ipcRenderer } = require('electron');
-const path = require('path');
+import { ipcRenderer } from 'electron';
+import { ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
+import path from 'path';
 
-const RecipeWebview = require('./lib/RecipeWebview');
+import { isDevMode } from '../environment';
+import RecipeWebview from './lib/RecipeWebview';
 
-require('./notifications.js');
-require('./spellchecker.js');
-require('./ime.js');
+import Spellchecker from './spellchecker.js';
+import './notifications.js';
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -18,6 +19,22 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
     console.error(err);
   }
 });
+
+const spellchecker = new Spellchecker();
+spellchecker.initialize();
+
+const contextMenuBuilder = new ContextMenuBuilder(spellchecker.handler, null, isDevMode);
+
+new ContextMenuListener((info) => { // eslint-disable-line
+  contextMenuBuilder.showPopupMenu(info);
+});
+
+ipcRenderer.on('settings-update', (e, data) => {
+  console.log('settings-update', data);
+  spellchecker.toggleSpellchecker(data.enableSpellchecking);
+});
+
+// initSpellche
 
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');

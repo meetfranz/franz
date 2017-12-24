@@ -6,7 +6,7 @@ export default class RecipePreview {
   icon: string = ''; // TODO: check if this isn't replaced by `icons`
   featured: bool = false;
 
-  constructor(data: Object) {
+  constructor(data) {
     if (!data.id) {
       throw Error('RecipePreview requires Id');
     }

@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
@@ -22,6 +22,7 @@ export default class Service {
   @observable team = '';
   @observable customUrl = '';
   @observable isNotificationEnabled = true;
+  @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
   @observable customIconUrl = '';
   @observable hasCrashed = false;
@@ -52,19 +53,31 @@ export default class Service {
     this.isNotificationEnabled = data.isNotificationEnabled !== undefined
       ? data.isNotificationEnabled : this.isNotificationEnabled;
 
+    this.isBadgeEnabled = data.isBadgeEnabled !== undefined
+      ? data.isBadgeEnabled : this.isBadgeEnabled;
+
     this.isIndirectMessageBadgeEnabled = data.isIndirectMessageBadgeEnabled !== undefined
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
 
     this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
 
     this.recipe = recipe;
+
+    autorun(() => {
+      if (!this.isEnabled) {
+        this.webview = null;
+        this.isAttached = false;
+        this.unreadDirectMessageCount = 0;
+        this.unreadIndirectMessageCount = 0;
+      }
+    });
   }
 
   @computed get url() {
     if (this.recipe.hasCustomUrl && this.customUrl) {
       let url;
       try {
-        url = normalizeUrl(this.customUrl);
+        url = normalizeUrl(this.customUrl, { stripWWW: false });
       } catch (err) {
         console.error(`Service (${this.recipe.name}): '${this.customUrl}' is not a valid Url.`);
       }

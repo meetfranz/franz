@@ -26,6 +26,7 @@ export default class UserStore extends Store {
   @observable getUserInfoRequest = new CachedRequest(this.api.user, 'getInfo');
   @observable updateUserInfoRequest = new Request(this.api.user, 'updateInfo');
   @observable getLegacyServicesRequest = new CachedRequest(this.api.user, 'getLegacyServices');
+  @observable deleteAccountRequest = new CachedRequest(this.api.user, 'delete');
 
   @observable isImportLegacyServicesExecuting = false;
   @observable isImportLegacyServicesCompleted = false;
@@ -57,6 +58,7 @@ export default class UserStore extends Store {
     this.actions.user.update.listen(this._update.bind(this));
     this.actions.user.resetStatus.listen(this._resetStatus.bind(this));
     this.actions.user.importLegacyServices.listen(this._importLegacyServices.bind(this));
+    this.actions.user.delete.listen(this._delete.bind(this));
 
     // Reactions
     this.registerReactions([
@@ -210,6 +212,10 @@ export default class UserStore extends Store {
 
     this.isImportLegacyServicesExecuting = false;
     this.isImportLegacyServicesCompleted = true;
+  }
+
+  @action async _delete() {
+    this.deleteAccountRequest.execute();
   }
 
   // This is a mobx autorun which forces the user to login if not authenticated

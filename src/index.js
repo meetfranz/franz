@@ -8,6 +8,7 @@ import { isDevMode, isWindows } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
+import handleDeepLink from './electron/deepLinking';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
@@ -26,10 +27,19 @@ if (isWindows) {
 }
 
 // Force single window
-const isSecondInstance = app.makeSingleInstance(() => {
+const isSecondInstance = app.makeSingleInstance((argv) => {
   if (mainWindow) {
     if (mainWindow.isMinimized()) mainWindow.restore();
     mainWindow.focus();
+
+    if (process.platform === 'win32') {
+      // Keep only command line / deep linked arguments
+      const url = argv.slice(1);
+
+      if (url) {
+        handleDeepLink(mainWindow, url.toString());
+      }
+    }
   }
 });
 
@@ -39,12 +49,14 @@ if (isSecondInstance) {
 
 // Lets disable Hardware Acceleration until we have a better solution
 // to deal with the high-perf-gpu requirement of some services
-app.disableHardwareAcceleration();
+
+// Disabled to test tweetdeck glitches
+// app.disableHardwareAcceleration();
 
 // Initialize Settings
 const settings = new Settings();
 
-const createWindow = async () => {
+const createWindow = () => {
   // Remember window size
   const mainWindowState = windowStateKeeper({
     defaultWidth: 800,
@@ -57,8 +69,8 @@ const createWindow = async () => {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
-    minWidth: 800,
-    minHeight: 600,
+    minWidth: 600,
+    minHeight: 500,
     titleBarStyle: 'hidden',
     backgroundColor: '#3498db',
     autoHideMenuBar: true,
@@ -174,3 +186,15 @@ app.on('activate', () => {
     mainWindow.show();
   }
 });
+
+app.on('will-finish-launching', () => {
+  // Protocol handler for osx
+  app.on('open-url', (event, url) => {
+    event.preventDefault();
+    console.log(`open-url event: ${url}`);
+    handleDeepLink(mainWindow, url);
+  });
+});
+
+// Register App URL
+app.setAsDefaultProtocolClient('franz');

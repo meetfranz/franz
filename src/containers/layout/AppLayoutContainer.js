@@ -67,9 +67,6 @@ export default class AppLayoutContainer extends Component {
     const isLoadingServices = services.allServicesRequest.isExecuting
       && services.allServicesRequest.isExecutingFirstTime;
 
-    // const isLoadingRecipes = recipes.allRecipesRequest.isExecuting
-    //   && recipes.allRecipesRequest.isExecutingFirstTime;
-
     if (isLoadingServices) {
       return (
         <AppLoader />
@@ -80,7 +77,7 @@ export default class AppLayoutContainer extends Component {
       <Sidebar
         services={services.allDisplayed}
         setActive={setActive}
-        isAppMuted={Boolean(app.isSystemMuted) || Boolean(settings.all.isMuted)}
+        isAppMuted={settings.all.isAppMuted}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}
@@ -90,6 +87,8 @@ export default class AppLayoutContainer extends Component {
         deleteService={deleteService}
         updateService={updateService}
         toggleMuteApp={toggleMuteApp}
+        showMessageBadgeWhenMutedSetting={settings.all.showMessageBadgeWhenMuted}
+        showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
       />
     );
 
@@ -100,7 +99,7 @@ export default class AppLayoutContainer extends Component {
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
-        isAppMuted={settings.all.isMuted || false}
+        isAppMuted={settings.all.isAppMuted}
         update={updateService}
       />
     );

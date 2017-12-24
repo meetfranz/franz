@@ -37,6 +37,7 @@ export default class ServicesStore extends Store {
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
     this.actions.service.handleIPCMessage.listen(this._handleIPCMessage.bind(this));
     this.actions.service.sendIPCMessage.listen(this._sendIPCMessage.bind(this));
+    this.actions.service.sendIPCMessageToAllServices.listen(this._sendIPCMessageToAllServices.bind(this));
     this.actions.service.setUnreadMessageCount.listen(this._setUnreadMessageCount.bind(this));
     this.actions.service.openWindow.listen(this._openWindow.bind(this));
     this.actions.service.filter.listen(this._filter.bind(this));
@@ -58,6 +59,7 @@ export default class ServicesStore extends Store {
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
+      this._shareSettingsWithServiceProcess.bind(this),
     ]);
 
     // Just bind this
@@ -284,6 +286,7 @@ export default class ServicesStore extends Store {
     if (channel === 'hello') {
       this._initRecipePolling(service.id);
       this._initializeServiceRecipeInWebview(serviceId);
+      this._shareSettingsWithServiceProcess();
     } else if (channel === 'messages') {
       this.actions.service.setUnreadMessageCount({
         serviceId,
@@ -294,7 +297,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound || service.isMuted) {
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.isAppMuted) {
         Object.assign(options, {
           silent: true,
         });
@@ -330,7 +333,17 @@ export default class ServicesStore extends Store {
   @action _sendIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    service.webview.send(channel, args);
+    if (service.webview) {
+      service.webview.send(channel, args);
+    }
+  }
+
+  @action _sendIPCMessageToAllServices({ channel, args }) {
+    this.all.forEach(s => this.actions.service.sendIPCMessage({
+      serviceId: s.id,
+      channel,
+      args,
+    }));
   }
 
   @action _openWindow({ event }) {
@@ -457,8 +470,10 @@ export default class ServicesStore extends Store {
     const service = this.active;
 
     if (service) {
-      this.stores.settings.updateSettingsRequest.execute({
-        activeService: service.id,
+      this.actions.settings.update({
+        settings: {
+          activeService: service.id,
+        },
       });
     }
   }
@@ -473,19 +488,26 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
-    const unreadDirectMessageCount = this.enabled
+    const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
+    const unreadDirectMessageCount = this.allDisplayed
+      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
       .map(s => s.unreadDirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
-    const unreadIndirectMessageCount = this.enabled
-      .filter(s => s.isIndirectMessageBadgeEnabled)
+    const unreadIndirectMessageCount = this.allDisplayed
+      .filter(s => (showMessageBadgeWhenMuted || s.isIndirectMessageBadgeEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
       .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
-    this.actions.app.setBadge({
-      unreadDirectMessageCount,
-      unreadIndirectMessageCount,
-    });
+    // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
+    if (showMessageBadgesEvenWhenMuted) {
+      this.actions.app.setBadge({
+        unreadDirectMessageCount,
+        unreadIndirectMessageCount,
+      });
+    }
   }
 
   _logoutReaction() {
@@ -493,6 +515,13 @@ export default class ServicesStore extends Store {
       this.actions.settings.remove({ key: 'activeService' });
       this.allServicesRequest.invalidate().reset();
     }
+  }
+
+  _shareSettingsWithServiceProcess() {
+    this.actions.service.sendIPCMessageToAllServices({
+      channel: 'settings-update',
+      args: this.stores.settings.all,
+    });
   }
 
   _cleanUpTeamIdAndCustomUrl(recipeId, data) {
@@ -527,6 +556,8 @@ export default class ServicesStore extends Store {
 
     if (service) {
       const loop = () => {
+        if (!service.webview) return;
+
         service.webview.send('poll');
 
         setTimeout(loop, delay);

@@ -50,6 +50,10 @@ export default {
     channel: PropTypes.string.isRequired,
     args: PropTypes.object.isRequired,
   },
+  sendIPCMessageToAllServices: {
+    channel: PropTypes.string.isRequired,
+    args: PropTypes.object.isRequired,
+  },
   openWindow: {
     event: PropTypes.object.isRequired,
   },

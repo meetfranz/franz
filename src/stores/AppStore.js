@@ -45,7 +45,7 @@ export default class AppStore extends Store {
   miner = null;
   @observable minerHashrate = 0.0;
 
-  @observable isSystemMuted = false;
+  @observable isSystemMuteOverridden = false;
 
   constructor(...args) {
     super(...args);
@@ -67,6 +67,7 @@ export default class AppStore extends Store {
       this._setLocale.bind(this),
       this._handleMiner.bind(this),
       this._handleMinerThrottle.bind(this),
+      this._muteAppHandler.bind(this),
     ]);
   }
 
@@ -115,6 +116,14 @@ export default class AppStore extends Store {
       }
     });
 
+    // Handle deep linking (franz://)
+    ipcRenderer.on('navigateFromDeepLink', (event, data) => {
+      const { url } = data;
+      if (!url) return;
+
+      this.stores.router.push(data.url);
+    });
+
     // Check system idle time every minute
     setInterval(() => {
       this.idleTime = idleTimer.getIdleTime();
@@ -127,14 +136,20 @@ export default class AppStore extends Store {
 
     // Set active the next service
     key(
-      '⌘+pagedown, ctrl+pagedown, ⌘+tab, ctrl+tab', () => {
+      '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
         this.actions.service.setActiveNext();
       });
 
     // Set active the prev service
     key(
-      '⌘+pageup, ctrl+pageup, ⌘+shift+tab, ctrl+shift+tab', () => {
+      '⌘+pageup, ctrl+pageup, ⌘+alt+left, ctrl+shift+tab', () => {
         this.actions.service.setActivePrev();
+      });
+
+    // Global Mute
+    key(
+      '⌘+shift+m ctrl+shift+m', () => {
+        this.actions.app.toggleMuteApp();
       });
 
     this.locale = this._getDefaultLocale();
@@ -144,6 +159,8 @@ export default class AppStore extends Store {
 
   // Actions
   @action _notify({ title, options, notificationId, serviceId = null }) {
+    if (this.stores.settings.all.isAppMuted) return;
+
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
       if (serviceId) {
@@ -154,6 +171,11 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
+
+        if (!isMac) {
+          const mainWindow = remote.getCurrentWindow();
+          mainWindow.restore();
+        }
       }
     };
   }
@@ -211,16 +233,18 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({ isMuted }) {
+  @action _muteApp({ isMuted, overrideSystemMute = true }) {
+    this.isSystemMuteOverriden = overrideSystemMute;
+
     this.actions.settings.update({
       settings: {
-        isMuted,
+        isAppMuted: isMuted,
       },
     });
   }
 
   @action _toggleMuteApp() {
-    this._muteApp({ isMuted: !this.stores.settings.all.isMuted });
+    this._muteApp({ isMuted: !this.stores.settings.all.isAppMuted });
   }
 
   // Reactions
@@ -239,8 +263,10 @@ export default class AppStore extends Store {
   _setLocale() {
     const locale = this.stores.settings.all.locale;
 
-    if (locale && locale !== this.locale) {
+    if (locale && Object.prototype.hasOwnProperty.call(locales, locale) && locale !== this.locale) {
       this.locale = locale;
+    } else if (!locale) {
+      this.locale = this._getDefaultLocale();
     }
   }
 
@@ -265,6 +291,10 @@ export default class AppStore extends Store {
       locale = defaultLocale;
     }
 
+    if (!locale) {
+      locale = DEFAULT_APP_SETTINGS.fallbackLocale;
+    }
+
     return locale;
   }
 
@@ -287,6 +317,14 @@ export default class AppStore extends Store {
       if (this.miner) this.miner.setIdleThrottle();
     } else {
       if (this.miner) this.miner.setActiveThrottle(); // eslint-disable-line
+    }
+  }
+
+  _muteAppHandler() {
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
+    if (!showMessageBadgesEvenWhenMuted) {
+      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
     }
   }
 
@@ -320,6 +358,12 @@ export default class AppStore extends Store {
   }
 
   _systemDND() {
-    this.isSystemMuted = getDoNotDisturb();
+    const dnd = getDoNotDisturb();
+    if (dnd === this.stores.settings.all.isAppMuted || !this.isSystemMuteOverriden) {
+      this.actions.app.muteApp({
+        isMuted: dnd,
+        overrideSystemMute: false,
+      });
+    }
   }
 }

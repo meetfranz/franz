@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { defineMessages, intlShape } from 'react-intl';
+import { observer } from 'mobx-react';
 
 import Tabbar from '../services/tabs/Tabbar';
 import { ctrlKey } from '../../environment';
@@ -16,15 +17,16 @@ const messages = defineMessages({
     defaultMessage: '!!!Add new service',
   },
   mute: {
-    id: 'sidebar.mute',
-    defaultMessage: '!!!Disable audio',
+    id: 'sidebar.muteApp',
+    defaultMessage: '!!!Disable notifications & audio',
   },
   unmute: {
-    id: 'sidebar.unmute',
-    defaultMessage: '!!!Enable audio',
+    id: 'sidebar.unmuteApp',
+    defaultMessage: '!!!Enable notifications & audio',
   },
 });
 
+@observer
 export default class Sidebar extends Component {
   static propTypes = {
     openSettings: PropTypes.func.isRequired,

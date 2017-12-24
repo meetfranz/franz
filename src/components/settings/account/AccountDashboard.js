@@ -28,6 +28,10 @@ const messages = defineMessages({
     id: 'settings.account.headlineInvoices',
     defaultMessage: '!!Invoices',
   },
+  headlineDangerZone: {
+    id: 'settings.account.headlineDangerZone',
+    defaultMessage: '!!Danger Zone',
+  },
   manageSubscriptionButtonLabel: {
     id: 'settings.account.manageSubscription.label',
     defaultMessage: '!!!Manage your subscription',
@@ -72,6 +76,18 @@ const messages = defineMessages({
     id: 'settings.account.mining.cancel',
     defaultMessage: '!!!Cancel mining',
   },
+  deleteAccount: {
+    id: 'settings.account.deleteAccount',
+    defaultMessage: '!!!Delete account',
+  },
+  deleteInfo: {
+    id: 'settings.account.deleteInfo',
+    defaultMessage: '!!!If you don\'t need your Franz account any longer, you can delete your account and all related data here.',
+  },
+  deleteEmailSent: {
+    id: 'settings.account.deleteEmailSent',
+    defaultMessage: '!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!',
+  },
 });
 
 @observer
@@ -90,6 +106,9 @@ export default class AccountDashboard extends Component {
     openExternalUrl: PropTypes.func.isRequired,
     onCloseSubscriptionWindow: PropTypes.func.isRequired,
     stopMiner: PropTypes.func.isRequired,
+    deleteAccount: PropTypes.func.isRequired,
+    isLoadingDeleteAccount: PropTypes.bool.isRequired,
+    isDeleteAccountSuccessful: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -111,6 +130,9 @@ export default class AccountDashboard extends Component {
       retryUserInfoRequest,
       onCloseSubscriptionWindow,
       stopMiner,
+      deleteAccount,
+      isLoadingDeleteAccount,
+      isDeleteAccountSuccessful,
     } = this.props;
     const { intl } = this.context;
 
@@ -201,7 +223,7 @@ export default class AccountDashboard extends Component {
                             />
                           </div>
                         </div>
-                        <div className="account__box account__box--last">
+                        <div className="account__box">
                           <h2>{intl.formatMessage(messages.headlineInvoices)}</h2>
                           <table className="invoices">
                             <tbody>
@@ -230,7 +252,7 @@ export default class AccountDashboard extends Component {
 
               {user.isMiner && (
                 <div className="account franz-form">
-                  <div className="account__box">
+                  <div className="account__box account__box--last">
                     <h2>{intl.formatMessage(messages.headlineSubscription)}</h2>
                     <div className="account__subscription">
                       <div>
@@ -267,7 +289,7 @@ export default class AccountDashboard extends Component {
                   <Loader />
                 ) : (
                   <div className="account franz-form">
-                    <div className="account__box account__box--last">
+                    <div className="account__box">
                       <h2>{intl.formatMessage(messages.headlineUpgrade)}</h2>
                       <SubscriptionForm
                         onCloseWindow={onCloseSubscriptionWindow}
@@ -276,8 +298,29 @@ export default class AccountDashboard extends Component {
                   </div>
                 )
               )}
+
+              <div className="account franz-form">
+                <div className="account__box">
+                  <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
+                  {!isDeleteAccountSuccessful && (
+                    <div className="account__subscription">
+                      <p>{intl.formatMessage(messages.deleteInfo)}</p>
+                      <Button
+                        label={intl.formatMessage(messages.deleteAccount)}
+                        buttonType="danger"
+                        onClick={() => deleteAccount()}
+                        loaded={!isLoadingDeleteAccount}
+                      />
+                    </div>
+                  )}
+                  {isDeleteAccountSuccessful && (
+                    <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
+                  )}
+                </div>
+              </div>
             </div>
           )}
+
         </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
       </div>

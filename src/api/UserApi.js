@@ -46,4 +46,8 @@ export default class UserApi {
   getLegacyServices() {
     return this.server.getLegacyServices();
   }
+
+  delete() {
+    return this.server.deleteAccount();
+  }
 }

@@ -12,6 +12,8 @@ import NewsModel from '../../models/News';
 import UserModel from '../../models/User';
 import OrderModel from '../../models/Order';
 
+import { sleep } from '../../helpers/async-helpers';
+
 import { API } from '../../environment';
 
 import {
@@ -123,6 +125,19 @@ export default class ServerApi {
     const user = Object.assign(updatedData, { data: new UserModel(updatedData.data) });
     console.debug('ServerApi::updateUserInfo resolves', user);
     return user;
+  }
+
+  async deleteAccount() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, this._prepareAuthRequest({
+      method: 'DELETE',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    console.debug('ServerApi::deleteAccount resolves', data);
+    return data;
   }
 
   // Services
@@ -290,18 +305,25 @@ export default class ServerApi {
 
       fs.ensureDirSync(recipeTempDirectory);
       const res = await fetch(packageUrl);
+      console.debug('Recipe downloaded', recipeId);
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
 
-      tar.x({
+      await sleep(10);
+
+      await tar.x({
         file: archivePath,
         cwd: recipeTempDirectory,
-        sync: true,
+        preservePaths: true,
+        unlink: true,
+        preserveOwner: false,
+        onwarn: x => console.log('warn', recipeId, x),
       });
+
+      await sleep(10);
 
       const { id } = fs.readJsonSync(path.join(recipeTempDirectory, 'package.json'));
       const recipeDirectory = path.join(recipesDirectory, id);
-
       fs.copySync(recipeTempDirectory, recipeDirectory);
       fs.remove(recipeTempDirectory);
       fs.remove(path.join(recipesDirectory, recipeId, 'recipe.tar.gz'));
@@ -374,7 +396,7 @@ export default class ServerApi {
   // News
   async getLatestNews() {
     // eslint-disable-next-line
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/news?platform=${os.platform()}&arch=${os.arch()}version=${app.getVersion()}`,
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/news?platform=${os.platform()}&arch=${os.arch()}&version=${app.getVersion()}`,
       this._prepareAuthRequest({
         method: 'GET',
       }));

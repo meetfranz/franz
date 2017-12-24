@@ -69,6 +69,7 @@ export default class AccountScreen extends Component {
   render() {
     const { user, payment, app } = this.props.stores;
     const { openExternalUrl } = this.props.actions.app;
+    const { user: userActions } = this.props.actions;
 
     const isLoadingUserInfo = user.getUserInfoRequest.isExecuting;
     const isLoadingOrdersInfo = payment.ordersDataRequest.isExecuting;
@@ -89,6 +90,9 @@ export default class AccountScreen extends Component {
         openExternalUrl={url => openExternalUrl({ url })}
         onCloseSubscriptionWindow={() => this.onCloseWindow()}
         stopMiner={() => this.stopMiner()}
+        deleteAccount={userActions.delete}
+        isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
+        isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
       />
     );
   }
@@ -109,6 +113,7 @@ AccountScreen.wrappedComponent.propTypes = {
     }).isRequired,
     user: PropTypes.shape({
       update: PropTypes.func.isRequired,
+      delete: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };

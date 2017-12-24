@@ -27,4 +27,5 @@ export default {
   importLegacyServices: PropTypes.arrayOf(PropTypes.shape({
     recipe: PropTypes.string.isRequired,
   })).isRequired,
+  delete: {},
 };
