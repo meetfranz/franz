@@ -367,7 +367,7 @@ export default class AppStore extends Store {
 
   _reactivateServices(retryCount = 0) {
     if (!this.isOnline) {
-      console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount)
+      console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
       return setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
     }
 
