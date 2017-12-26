@@ -14,7 +14,7 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
-const { app, powerMonitor } = remote;
+const { app } = remote;
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
@@ -368,11 +368,11 @@ export default class AppStore extends Store {
   _reactivateServices(retryCount = 0) {
     if (!this.isOnline) {
       console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
-      return setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
+      setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
+    } else {
+      console.debug('reactivateServices: reload all services');
+      this.actions.service.reloadAll();
     }
-
-    console.debug('reactivateServices: reload all services');
-    this.actions.service.reloadAll();
   }
 
   _systemDND() {
