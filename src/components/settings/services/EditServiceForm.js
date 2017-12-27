@@ -127,6 +127,11 @@ export default class EditServiceForm extends Component {
         const values = form.values();
         let isValid = true;
 
+        const files = form.$('customIcon').files;
+        if (files) {
+          values.iconFile = files[0];
+        }
+
         if (recipe.validateUrl && values.customUrl) {
           this.setState({ isValidatingCustomUrl: true });
           try {
@@ -224,7 +229,7 @@ export default class EditServiceForm extends Component {
               </div>
               <div className="service-icon">
                 {/* <Input field={form.$('name')} focus /> */}
-                <ImageUpload field={form.$('icon')} />
+                <ImageUpload field={form.$('customIcon')} />
               </div>
             </div>
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (

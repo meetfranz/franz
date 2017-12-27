@@ -167,25 +167,63 @@ export default class ServerApi {
       throw request;
     }
     const serviceData = await request.json();
+
+    if (data.iconFile) {
+      const iconUrl = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
+
+      serviceData.data.iconUrl = iconUrl;
+    }
+
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
 
     console.debug('ServerApi::createService resolves', service);
     return service;
   }
 
-  async updateService(recipeId, data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${recipeId}`, this._prepareAuthRequest({
+  async updateService(serviceId, rawData) {
+    const data = rawData;
+
+    if (data.iconFile) {
+      await this.uploadServiceIcon(serviceId, data.iconFile);
+    }
+
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${serviceId}`, this._prepareAuthRequest({
       method: 'PUT',
       body: JSON.stringify(data),
     }));
+
     if (!request.ok) {
       throw request;
     }
+
     const serviceData = await request.json();
+
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
 
     console.debug('ServerApi::updateService resolves', service);
     return service;
+  }
+
+  async uploadServiceIcon(serviceId, icon) {
+    const formData = new FormData();
+    formData.append('icon', icon);
+
+    const requestData = this._prepareAuthRequest({
+      method: 'PUT',
+      body: formData,
+    });
+
+    delete requestData.headers['Content-Type'];
+
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${serviceId}`, requestData);
+
+    if (!request.ok) {
+      throw request;
+    }
+
+    const serviceData = await request.json();
+
+    return serviceData.data.iconUrl;
   }
 
   async reorderService(data) {

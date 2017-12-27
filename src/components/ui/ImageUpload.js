@@ -12,82 +12,64 @@ export default class ImageUpload extends Component {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
     multiple: PropTypes.bool,
-    // disabled: PropTypes.bool,
-    // onClick: PropTypes.func,
-    // type: PropTypes.string,
-    // buttonType: PropTypes.string,
-    // loaded: PropTypes.bool,
-    // htmlForm: PropTypes.string,
   };
 
   static defaultProps = {
     className: null,
     multiple: false,
-    // disabled: false,
-    // onClick: () => {},
-    // type: 'button',
-    // buttonType: '',
-    // loaded: true,
-    // htmlForm: '',
   };
-
-  dropzoneRef = null;
 
   state = {
     path: null,
   }
 
   onDrop(acceptedFiles) {
-    // const req = request.post('/upload');
     acceptedFiles.forEach((file) => {
-      console.log(file);
       this.setState({
         path: file.path,
       });
-      // req.attach(file.name, file);
+      this.props.field.onDrop(file);
     });
-    // req.end(callback);
   }
+
+  dropzoneRef = null;
 
   render() {
     const {
       field,
       className,
       multiple,
-      // disabled,
-      // onClick,
-      // type,
-      // buttonType,
-      // loaded,
-      // htmlForm,
     } = this.props;
 
     const cssClasses = classnames({
       'franz-form__button': true,
-      // [`franz-form__button--${buttonType}`]: buttonType,
       [`${className}`]: className,
     });
 
     return (
       <div>
         {field.label}
-        {this.state.path ? (
+        {(field.value && field.value !== 'delete') || this.state.path ? (
           <div
             className="image-upload"
           >
             <div
               className="image-upload__preview"
               style={({
-                backgroundImage: `url(${this.state.path})`,
+                backgroundImage: `url(${field.value || this.state.path})`,
               })}
             />
             <div className="image-upload__action">
               <button
                 type="button"
                 onClick={() => {
-                  this.setState({
-                    path: null,
-                  });
+                  if (field.value) {
+                    field.value = 'delete';
+                  } else {
+                    this.setState({
+                      path: null,
+                    });
+                  }
                 }}
               >
                 remove icon

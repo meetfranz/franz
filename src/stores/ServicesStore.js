@@ -172,9 +172,21 @@ export default class ServicesStore extends Store {
     const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
     const request = this.updateServiceRequest.execute(serviceId, data);
 
+    const newData = serviceData;
+    if (serviceData.iconFile) {
+      await request._promise;
+
+      newData.iconUrl = request.result.data.iconUrl;
+    }
+
     this.allServicesRequest.patch((result) => {
       if (!result) return;
-      Object.assign(result.find(c => c.id === serviceId), serviceData);
+
+      if (data.customIcon === 'delete') {
+        data.iconUrl = '';
+      }
+
+      Object.assign(result.find(c => c.id === serviceId), newData);
     });
 
     await request._promise;

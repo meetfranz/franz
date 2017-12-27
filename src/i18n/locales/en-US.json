@@ -127,6 +127,7 @@
   "settings.service.form.headlineNotifications": "Notifications",
   "settings.service.form.headlineBadges": "Unread message badges",
   "settings.service.form.headlineGeneral": "General",
+  "settings.service.form.icon": "Icon",
   "settings.service.error.headline": "Error",
   "settings.service.error.goBack": "Back to services",
   "settings.service.error.message": "Could not load service recipe.",

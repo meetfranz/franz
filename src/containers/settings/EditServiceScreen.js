@@ -106,10 +106,11 @@ export default class EditServiceScreen extends Component {
           value: !service.isMuted,
           default: true,
         },
-        icon: {
+        customIcon: {
           label: intl.formatMessage(messages.icon),
-          value: service.icon,
-          default: true,
+          value: service.hasCustomIcon ? service.icon : false,
+          default: null,
+          type: 'file',
         },
       },
     };

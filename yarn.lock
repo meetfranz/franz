@@ -4231,9 +4231,9 @@ mksnapshot@^0.3.0:
     fs-extra "0.26.7"
     request "^2.79.0"
 
-mobx-react-form@1.24.0:
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.24.0.tgz#bc9fbd652e65fb1f2b51917865d465fcaab7f0d9"
+mobx-react-form@^1.32.2:
+  version "1.32.2"
+  resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.32.2.tgz#5610dd0e4fab006acf2daf1becbedecad182a5a0"
   dependencies:
     lodash "^4.16.2"
 
