@@ -35,7 +35,7 @@
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "electron-fetch": "^1.1.0",
-    "electron-spellchecker": "^1.2.0",
+    "electron-spellchecker": "^1.1.2",
     "electron-updater": "^2.4.3",
     "electron-window-state": "^4.1.0",
     "fs-extra": "^3.0.1",
@@ -104,7 +104,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-sass-variables": "^1.1.1",
     "gulp-server-livereload": "^1.9.2",
-    "node-sass": "^4.5.3"
+    "node-sass": "^4.7.2"
   },
   "config": {
     "commitizen": {
