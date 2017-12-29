@@ -15,4 +15,8 @@ export default class LocalApi {
   removeKey(key) {
     return this.local.removeKey(key);
   }
+
+  clearAppCache() {
+    return this.local.clearAppCache();
+  }
 }

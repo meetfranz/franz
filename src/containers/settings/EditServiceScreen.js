@@ -169,6 +169,14 @@ export default class EditServiceScreen extends Component {
     }
   }
 
+  clearCache() {
+    const { clearCache } = this.props.actions.service;
+    const { activeSettings: service } = this.props.stores.services;
+    clearCache({
+      serviceId: service.id,
+    });
+  }
+
   render() {
     const { recipes, services, user } = this.props.stores;
     const { action } = this.props.router.params;
@@ -211,8 +219,10 @@ export default class EditServiceScreen extends Component {
         status={services.actionStatus}
         isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
         isDeleting={services.deleteServiceRequest.isExecuting}
+        isClearingCache={services.clearCacheRequest.isExecuting}
         onSubmit={d => this.onSubmit(d)}
         onDelete={() => this.deleteService()}
+        onClearCache={() => this.clearCache()}
       />
     );
   }
@@ -234,6 +244,7 @@ EditServiceScreen.wrappedComponent.propTypes = {
       createService: PropTypes.func.isRequired,
       updateService: PropTypes.func.isRequired,
       deleteService: PropTypes.func.isRequired,
+      clearCache: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };

@@ -1,3 +1,7 @@
+import { remote } from 'electron';
+
+const { session } = remote;
+
 export default class LocalApi {
   // App
   async updateAppSettings(data) {
@@ -29,5 +33,12 @@ export default class LocalApi {
       delete settings[key];
       localStorage.setItem('app', JSON.stringify(settings));
     }
+  }
+
+  // Services
+  async clearCache(serviceId) {
+    console.debug(`Clearing cache for persist:service-${serviceId}`);
+    const s = session.fromPartition(`persist:service-${serviceId}`);
+    await new Promise(resolve => s.clearCache(resolve));
   }
 }

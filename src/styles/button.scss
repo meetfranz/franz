@@ -48,6 +48,18 @@
     }
   }
 
+  &.franz-form__button--warning {
+    background: $theme-brand-warning;
+
+    &:hover {
+      background: darken($theme-brand-warning, 5%);
+    }
+
+    &:active {
+      background: lighten($theme-brand-warning, 5%);
+    }
+  }
+
   &.franz-form__button--inverted {
     background: none;
     padding: 10px 20px;

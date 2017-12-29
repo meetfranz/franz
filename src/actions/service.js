@@ -25,6 +25,9 @@ export default {
     serviceId: PropTypes.string.isRequired,
     redirect: PropTypes.string,
   },
+  clearCache: {
+    serviceId: PropTypes.string.isRequired,
+  },
   setUnreadMessageCount: {
     serviceId: PropTypes.string.isRequired,
     count: PropTypes.object.isRequired,
