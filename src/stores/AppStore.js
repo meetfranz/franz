@@ -14,6 +14,8 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
+import { getServiceIdsFromPartitions } from '../helpers/service-helpers.js';
+
 const { app, powerMonitor } = remote;
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
@@ -30,6 +32,7 @@ export default class AppStore extends Store {
   };
 
   @observable healthCheckRequest = new Request(this.api.app, 'health');
+  @observable clearAppCacheRequest = new Request(this.api.local, 'clearAppCache');
 
   @observable autoLaunchOnStart = true;
 
@@ -47,6 +50,8 @@ export default class AppStore extends Store {
 
   @observable isSystemMuteOverridden = false;
 
+  @observable isClearingAllCache = false;
+
   constructor(...args) {
     super(...args);
 
@@ -61,6 +66,7 @@ export default class AppStore extends Store {
     this.actions.app.healthCheck.listen(this._healthCheck.bind(this));
     this.actions.app.muteApp.listen(this._muteApp.bind(this));
     this.actions.app.toggleMuteApp.listen(this._toggleMuteApp.bind(this));
+    this.actions.app.clearAllCache.listen(this._clearAllCache.bind(this));
 
     this.registerReactions([
       this._offlineCheck.bind(this),
@@ -245,6 +251,15 @@ export default class AppStore extends Store {
 
   @action _toggleMuteApp() {
     this._muteApp({ isMuted: !this.stores.settings.all.isAppMuted });
+  }
+
+  @action async _clearAllCache() {
+    this.isClearingAllCache = true;
+    const clearAppCache = this.clearAppCacheRequest.execute();
+    const serviceIds = await getServiceIdsFromPartitions();
+    await Promise.all(serviceIds.map(id => this.actions.service.clearCache({ serviceId: id, })));
+    await clearAppCache._promise;
+    this.isClearingAllCache = false;
   }
 
   // Reactions

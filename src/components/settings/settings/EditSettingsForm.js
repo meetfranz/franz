@@ -40,6 +40,14 @@ const messages = defineMessages({
     id: 'settings.app.translationHelp',
     defaultMessage: '!!!Help us to translate Franz into your language.',
   },
+  buttonClearAllCache: {
+    id: 'settings.app.buttonClearAllCache',
+    defaultMessage: '!!!Clear global cache for Franz and all services',
+  },
+  buttonClearingAllCache: {
+    id: 'settings.app.buttonClearingAllCache',
+    defaultMessage: '!!!Clearing global cache...',
+  },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
     defaultMessage: '!!!Check for updates',
@@ -77,6 +85,8 @@ export default class EditSettingsForm extends Component {
     isUpdateAvailable: PropTypes.bool.isRequired,
     noUpdateAvailable: PropTypes.bool.isRequired,
     updateIsReadyToInstall: PropTypes.bool.isRequired,
+    isClearingAllCache: PropTypes.bool.isRequired,
+    onClearAllCache: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -103,6 +113,8 @@ export default class EditSettingsForm extends Component {
       isUpdateAvailable,
       noUpdateAvailable,
       updateIsReadyToInstall,
+      isClearingAllCache,
+      onClearAllCache,
     } = this.props;
     const { intl } = this.context;
 
@@ -114,6 +126,23 @@ export default class EditSettingsForm extends Component {
     } else {
       updateButtonLabelMessage = messages.buttonSearchForUpdate;
     }
+
+    const clearAllCacheButton = isClearingAllCache ? (
+      <Button
+        buttonType="secondary"
+        className="settings__clear-all-cache-button"
+        loaded={false}
+        label={intl.formatMessage(messages.buttonClearingAllCache)}
+        disabled
+      />
+    ) : (
+      <Button
+        buttonType="warning"
+        className="settings__clear-all-cache-button"
+        label={intl.formatMessage(messages.buttonClearAllCache)}
+        onClick={onClearAllCache}
+      />
+    );
 
     return (
       <div className="settings__main">
@@ -155,6 +184,7 @@ export default class EditSettingsForm extends Component {
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
             <Toggle field={form.$('enableSpellchecking')} />
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}
+            {clearAllCacheButton}
 
             {/* Updates */}
             <h2 id="updates">{intl.formatMessage(messages.headlineUpdates)}</h2>

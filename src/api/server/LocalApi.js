@@ -41,4 +41,9 @@ export default class LocalApi {
     const s = session.fromPartition(`persist:service-${serviceId}`);
     await new Promise(resolve => s.clearCache(resolve));
   }
+
+  async clearAppCache() {
+    const s = session.defaultSession;
+    await new Promise(resolve => s.clearCache(resolve));
+  }
 }
