@@ -257,7 +257,7 @@ export default class AppStore extends Store {
     this.isClearingAllCache = true;
     const clearAppCache = this.clearAppCacheRequest.execute();
     const serviceIds = await getServiceIdsFromPartitions();
-    await Promise.all(serviceIds.map(id => this.actions.service.clearCache({ serviceId: id, })));
+    await Promise.all(serviceIds.map(id => this.actions.service.clearCache({ serviceId: id })));
     await clearAppCache._promise;
     this.isClearingAllCache = false;
   }
