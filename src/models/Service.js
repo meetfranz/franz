@@ -25,6 +25,7 @@ export default class Service {
   @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
   @observable iconUrl = '';
+  @observable hasCustomUploadedIcon = false;
   @observable hasCrashed = false;
 
   constructor(data, recipe) {
@@ -61,6 +62,8 @@ export default class Service {
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
 
     this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
+
+    this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
 
     this.recipe = recipe;
 

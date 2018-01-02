@@ -84,6 +84,14 @@ const messages = defineMessages({
     id: 'settings.service.form.headlineGeneral',
     defaultMessage: '!!!General',
   },
+  iconDelete: {
+    id: 'settings.service.form.iconDelete',
+    defaultMessage: '!!!Delete',
+  },
+  iconUpload: {
+    id: 'settings.service.form.iconUpload',
+    defaultMessage: '!!!Drop your image, or click here',
+  },
 });
 
 @observer
@@ -223,14 +231,8 @@ export default class EditServiceForm extends Component {
         </div>
         <div className="settings__body">
           <form onSubmit={e => this.submit(e)} id="form">
-            <div className="service-flex-grid">
-              <div className="service-name">
-                <Input field={form.$('name')} focus />
-              </div>
-              <div className="service-icon">
-                {/* <Input field={form.$('name')} focus /> */}
-                <ImageUpload field={form.$('customIcon')} />
-              </div>
+            <div className="service-name">
+              <Input field={form.$('name')} focus />
             </div>
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (
               <Tabs
@@ -275,32 +277,41 @@ export default class EditServiceForm extends Component {
                 )}
               </Tabs>
             )}
-            <div className="settings__options">
-              <div className="settings__settings-group">
-                <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
-                <Toggle field={form.$('isNotificationEnabled')} />
-                <Toggle field={form.$('isMuted')} />
-                <p className="settings__help">
-                  {intl.formatMessage(messages.isMutedInfo)}
-                </p>
-              </div>
+            <div className="service-flex-grid">
+              <div className="settings__options">
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
+                  <Toggle field={form.$('isNotificationEnabled')} />
+                  <Toggle field={form.$('isMuted')} />
+                  <p className="settings__help">
+                    {intl.formatMessage(messages.isMutedInfo)}
+                  </p>
+                </div>
 
-              <div className="settings__settings-group">
-                <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
-                <Toggle field={form.$('isBadgeEnabled')} />
-                {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
-                  <div>
-                    <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
-                    <p className="settings__help">
-                      {intl.formatMessage(messages.indirectMessageInfo)}
-                    </p>
-                  </div>
-                )}
-              </div>
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
+                  <Toggle field={form.$('isBadgeEnabled')} />
+                  {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
+                    <div>
+                      <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
+                      <p className="settings__help">
+                        {intl.formatMessage(messages.indirectMessageInfo)}
+                      </p>
+                    </div>
+                  )}
+                </div>
 
-              <div className="settings__settings-group">
-                <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
-                <Toggle field={form.$('isEnabled')} />
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
+                  <Toggle field={form.$('isEnabled')} />
+                </div>
+              </div>
+              <div className="service-icon">
+                <ImageUpload
+                  field={form.$('customIcon')}
+                  textDelete={intl.formatMessage(messages.iconDelete)}
+                  textUpload={intl.formatMessage(messages.iconUpload)}
+                />
               </div>
             </div>
             {recipe.message && (

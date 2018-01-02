@@ -1,9 +1,12 @@
 .image-upload {
   position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: $theme-border-radius;
+  width: 140px;
+  height: 140px;
+  border: 1px solid $theme-gray-lighter;
+  border-radius: $theme-border-radius-small;
+  background: $theme-gray-lightest;
   overflow: hidden;
+  margin-top: 5px;
 
   &__preview,
   &__action {
@@ -19,7 +22,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center center;
-    margin: 5px;
+    border-radius: 3px;
   }
 
   &__action {
@@ -27,6 +30,8 @@
     z-index: 10;
     opacity: 0;
     transition: opacity 0.5s;
+    display: flex;
+    justify-content: center;
 
     &-background {
       position: absolute;
@@ -41,6 +46,33 @@
     button {
       position: relative;
       z-index: 100;
+      color: #FFF;
+
+      .mdi {
+        color: #FFF;
+      }
+    }
+  }
+
+  &__dropzone {
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__dropzone, 
+  button {
+    .mdi {
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 10px;
+      line-height: 10px;
     }
   }
 
@@ -48,5 +80,12 @@
     .image-upload__action {
       opacity: 1;
     }
+  }
+}
+
+.image-upload-wrapper {
+  .mdi {
+    font-size: 40px;
+    color: $theme-gray-light;
   }
 }

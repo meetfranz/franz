@@ -12,6 +12,8 @@ export default class ImageUpload extends Component {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
     multiple: PropTypes.bool,
+    textDelete: PropTypes.string.isRequired,
+    textUpload: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -39,56 +41,63 @@ export default class ImageUpload extends Component {
       field,
       className,
       multiple,
+      textDelete,
+      textUpload,
     } = this.props;
 
     const cssClasses = classnames({
-      'franz-form__button': true,
+      'image-upload__dropzone': true,
       [`${className}`]: className,
     });
 
     return (
-      <div>
-        {field.label}
-        {(field.value && field.value !== 'delete') || this.state.path ? (
-          <div
-            className="image-upload"
-          >
-            <div
-              className="image-upload__preview"
-              style={({
-                backgroundImage: `url(${field.value || this.state.path})`,
-              })}
-            />
-            <div className="image-upload__action">
-              <button
-                type="button"
-                onClick={() => {
-                  if (field.value) {
-                    field.value = 'delete';
-                  } else {
-                    this.setState({
-                      path: null,
-                    });
-                  }
-                }}
-              >
-                remove icon
-
-              </button>
-              <div className="image-upload__action-background" />
+      <div className="image-upload-wrapper">
+        <label className="franz-form__label" htmlFor="iconUpload">{field.label}</label>
+        <div className="image-upload">
+          {(field.value && field.value !== 'delete') || this.state.path ? (
+            <div>
+              <div
+                className="image-upload__preview"
+                style={({
+                  backgroundImage: `url("${field.value || this.state.path}")`,
+                })}
+              />
+              <div className="image-upload__action">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (field.value) {
+                      field.set('delete');
+                    } else {
+                      this.setState({
+                        path: null,
+                      });
+                    }
+                  }}
+                >
+                  <i className="mdi mdi-delete" />
+                  <p>
+                    {textDelete}
+                  </p>
+                </button>
+                <div className="image-upload__action-background" />
+              </div>
             </div>
-          </div>
-        ) : (
-          <Dropzone
-            ref={(node) => { this.dropzoneRef = node; }}
-            onDrop={this.onDrop.bind(this)}
-            className={cssClasses}
-            multiple={multiple}
-            accept="image/jpeg, image/png"
-          >
-            <p>Try dropping some files here, or click to select files to upload.</p>
-          </Dropzone>
-        )}
+          ) : (
+            <Dropzone
+              ref={(node) => { this.dropzoneRef = node; }}
+              onDrop={this.onDrop.bind(this)}
+              className={cssClasses}
+              multiple={multiple}
+              accept="image/jpeg, image/png"
+            >
+              <i className="mdi mdi-file-image" />
+              <p>
+                {textUpload}
+              </p>
+            </Dropzone>
+          )}
+        </div>
       </div>
     );
   }

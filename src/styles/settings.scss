@@ -121,9 +121,15 @@
     }
 
     .service-icon {
-      width: 30%;
-      min-width: 100px;
+      width: 140px;
+      float: right;
+      margin-top: 30px;
       margin-left: 40px;
+
+      label {
+        font-weight: bold;
+        letter-spacing: -0.1px;
+      }
     }
   }
 
@@ -167,6 +173,7 @@
 
   &__options {
     margin-top: 20px;
+    flex: 1;
   }
 
   &__settings-group {

@@ -177,13 +177,21 @@ export default class ServicesStore extends Store {
       await request._promise;
 
       newData.iconUrl = request.result.data.iconUrl;
+      newData.hasCustomUploadedIcon = true;
     }
 
     this.allServicesRequest.patch((result) => {
       if (!result) return;
 
+      // patch custom icon deletion
       if (data.customIcon === 'delete') {
         data.iconUrl = '';
+        data.hasCustomUploadedIcon = false;
+      }
+
+      // patch custom icon url
+      if (data.customIconUrl) {
+        data.iconUrl = data.customIconUrl;
       }
 
       Object.assign(result.find(c => c.id === serviceId), newData);
@@ -328,7 +336,7 @@ export default class ServicesStore extends Store {
       }
     } else if (channel === 'avatar') {
       const url = args[0];
-      if (service.customIconUrl !== url) {
+      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
         service.customIconUrl = url;
 
         this.actions.service.updateService({

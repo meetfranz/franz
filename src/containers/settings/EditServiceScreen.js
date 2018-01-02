@@ -48,7 +48,7 @@ const messages = defineMessages({
   },
   icon: {
     id: 'settings.service.form.icon',
-    defaultMessage: '!!!Icon',
+    defaultMessage: '!!!Custom icon',
   },
 });
 
@@ -108,7 +108,7 @@ export default class EditServiceScreen extends Component {
         },
         customIcon: {
           label: intl.formatMessage(messages.icon),
-          value: service.hasCustomIcon ? service.icon : false,
+          value: service.hasCustomUploadedIcon ? service.icon : false,
           default: null,
           type: 'file',
         },
