@@ -14,7 +14,7 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
-const { app, powerMonitor } = remote;
+const { app } = remote;
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
@@ -124,15 +124,23 @@ export default class AppStore extends Store {
       this.stores.router.push(data.url);
     });
 
+    const TIMEOUT = 5000;
     // Check system idle time every minute
     setInterval(() => {
       this.idleTime = idleTimer.getIdleTime();
-    }, 60000);
+    }, TIMEOUT);
 
     // Reload all services after a healthy nap
-    powerMonitor.on('resume', () => {
-      setTimeout(window.location.reload, 5000);
-    });
+    // Alternative solution for powerMonitor as the resume event is not fired
+    // More information: https://github.com/electron/electron/issues/1615
+    let lastTime = (new Date()).getTime();
+    setInterval(() => {
+      const currentTime = (new Date()).getTime();
+      if (currentTime > (lastTime + TIMEOUT + 2000)) {
+        this._reactivateServices();
+      }
+      lastTime = currentTime;
+    }, TIMEOUT);
 
     // Set active the next service
     key(
@@ -355,6 +363,16 @@ export default class AppStore extends Store {
 
   async _checkAutoStart() {
     return autoLauncher.isEnabled() || false;
+  }
+
+  _reactivateServices(retryCount = 0) {
+    if (!this.isOnline) {
+      console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
+      setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
+    } else {
+      console.debug('reactivateServices: reload all services');
+      this.actions.service.reloadAll();
+    }
   }
 
   _systemDND() {
