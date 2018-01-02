@@ -368,7 +368,7 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
     service.resetMessageCount();
 
-    service.webview.reload();
+    service.webview.loadURL(service.url);
   }
 
   @action _reloadActive() {
