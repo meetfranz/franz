@@ -497,12 +497,13 @@ export default class ServicesStore extends Store {
       .reduce((a, b) => a + b, 0);
 
     const unreadIndirectMessageCount = this.allDisplayed
-      .filter(s => (showMessageBadgeWhenMuted || s.isIndirectMessageBadgeEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
+      .filter(s => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
       .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
     if (showMessageBadgesEvenWhenMuted) {
+      console.log('set badge', unreadDirectMessageCount, unreadIndirectMessageCount);
       this.actions.app.setBadge({
         unreadDirectMessageCount,
         unreadIndirectMessageCount,
