@@ -213,7 +213,9 @@ export default class ServerApi {
       throw request;
     }
     const data = await request.json();
-    await removeServicePartitionDirectory(id);
+
+    removeServicePartitionDirectory(id, true);
+
     console.debug('ServerApi::deleteService resolves', data);
     return data;
   }

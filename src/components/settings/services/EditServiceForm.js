@@ -71,14 +71,6 @@ const messages = defineMessages({
     id: 'settings.service.form.isMutedInfo',
     defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
   },
-  buttonClearCache: {
-    id: 'settings.service.form.buttonClearCache',
-    defaultMessage: '!!!Clear cache',
-  },
-  buttonClearingCache: {
-    id: 'settings.service.form.buttonClearingCache',
-    defaultMessage: '!!!Clearing cache',
-  },
   headlineNotifications: {
     id: 'settings.service.form.headlineNotifications',
     defaultMessage: '!!!Notifications',
@@ -110,10 +102,8 @@ export default class EditServiceForm extends Component {
     form: PropTypes.instanceOf(Form).isRequired,
     onSubmit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onClearCache: PropTypes.func.isRequired,
     isSaving: PropTypes.bool.isRequired,
     isDeleting: PropTypes.bool.isRequired,
-    isClearingCache: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -168,9 +158,7 @@ export default class EditServiceForm extends Component {
       form,
       isSaving,
       isDeleting,
-      isClearingCache,
       onDelete,
-      onClearCache,
     } = this.props;
     const { intl } = this.context;
 
@@ -190,23 +178,6 @@ export default class EditServiceForm extends Component {
         label={intl.formatMessage(messages.deleteService)}
         className="settings__delete-button"
         onClick={onDelete}
-      />
-    );
-
-    const clearCacheButton = isClearingCache ? (
-      <Button
-        buttonType="secondary"
-        className="settings__clear-cache-button"
-        loaded={false}
-        label={intl.formatMessage(messages.buttonClearingCache)}
-        disabled
-      />
-    ) : (
-      <Button
-        buttonType="warning"
-        className="settings__clear-cache-button"
-        label={intl.formatMessage(messages.buttonClearCache)}
-        onClick={onClearCache}
       />
     );
 
@@ -316,7 +287,6 @@ export default class EditServiceForm extends Component {
               <div className="settings__settings-group">
                 <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
                 <Toggle field={form.$('isEnabled')} />
-                {clearCacheButton}
               </div>
             </div>
             {recipe.message && (

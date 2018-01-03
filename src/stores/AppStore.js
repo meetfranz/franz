@@ -1,10 +1,11 @@
 import { remote, ipcRenderer, shell } from 'electron';
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import idleTimer from '@paulcbetts/system-idle-time';
 import AutoLaunch from 'auto-launch';
+import prettyBytes from 'pretty-bytes';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -14,7 +15,7 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
-import { getServiceIdsFromPartitions } from '../helpers/service-helpers.js';
+import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
 const { app, powerMonitor } = remote;
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
@@ -32,6 +33,7 @@ export default class AppStore extends Store {
   };
 
   @observable healthCheckRequest = new Request(this.api.app, 'health');
+  @observable getAppCacheSizeRequest = new Request(this.api.local, 'getAppCacheSize');
   @observable clearAppCacheRequest = new Request(this.api.local, 'clearAppCache');
 
   @observable autoLaunchOnStart = true;
@@ -163,6 +165,10 @@ export default class AppStore extends Store {
     this._healthCheck();
   }
 
+  @computed get cacheSize() {
+    return prettyBytes(this.getAppCacheSizeRequest.execute().result || 0);
+  }
+
   // Actions
   @action _notify({ title, options, notificationId, serviceId = null }) {
     if (this.stores.settings.all.isAppMuted) return;
@@ -256,9 +262,17 @@ export default class AppStore extends Store {
   @action async _clearAllCache() {
     this.isClearingAllCache = true;
     const clearAppCache = this.clearAppCacheRequest.execute();
-    const serviceIds = await getServiceIdsFromPartitions();
-    await Promise.all(serviceIds.map(id => this.actions.service.clearCache({ serviceId: id })));
+    const allServiceIds = await getServiceIdsFromPartitions();
+    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
+
+    await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
+
+    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({ serviceId: s.id })));
+
     await clearAppCache._promise;
+
+    this.getAppCacheSizeRequest.execute();
+
     this.isClearingAllCache = false;
   }
 
