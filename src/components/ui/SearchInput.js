@@ -9,34 +9,44 @@ import { debounce } from 'lodash';
 export default class SearchInput extends Component {
   static propTypes = {
     value: PropTypes.string,
-    defaultValue: PropTypes.string,
+    placeholder: PropTypes.string,
     className: PropTypes.string,
     onChange: PropTypes.func,
     onReset: PropTypes.func,
     name: PropTypes.string,
     throttle: PropTypes.bool,
     throttleDelay: PropTypes.number,
+    autoFocus: PropTypes.bool,
   };
 
   static defaultProps = {
     value: '',
-    defaultValue: '',
+    placeholder: '',
     className: '',
     name: uuidv1(),
     throttle: false,
     throttleDelay: 250,
     onChange: () => null,
     onReset: () => null,
+    autoFocus: false,
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      value: props.value || props.defaultValue,
+      value: props.value,
     };
 
     this.throttledOnChange = debounce(this.throttledOnChange, this.props.throttleDelay);
+  }
+
+  componentDidMount() {
+    const { autoFocus } = this.props;
+
+    if (autoFocus) {
+      this.input.focus();
+    }
   }
 
   onChange(e) {
@@ -52,26 +62,6 @@ export default class SearchInput extends Component {
     }
   }
 
-  onClick() {
-    const { defaultValue } = this.props;
-    const { value } = this.state;
-
-    if (value === defaultValue) {
-      this.setState({ value: '' });
-    }
-
-    this.input.focus();
-  }
-
-  onBlur() {
-    const { defaultValue } = this.props;
-    const { value } = this.state;
-
-    if (value === '') {
-      this.setState({ value: defaultValue });
-    }
-  }
-
   throttledOnChange(e) {
     const { onChange } = this.props;
 
@@ -79,8 +69,8 @@ export default class SearchInput extends Component {
   }
 
   reset() {
-    const { defaultValue, onReset } = this.props;
-    this.setState({ value: defaultValue });
+    const { onReset } = this.props;
+    this.setState({ value: '' });
 
     onReset();
   }
@@ -88,7 +78,7 @@ export default class SearchInput extends Component {
   input = null;
 
   render() {
-    const { className, name, defaultValue } = this.props;
+    const { className, name, placeholder } = this.props;
     const { value } = this.state;
 
     return (
@@ -101,18 +91,16 @@ export default class SearchInput extends Component {
         <label
           htmlFor={name}
           className="mdi mdi-magnify"
-          onClick={() => this.onClick()}
         />
         <input
           name={name}
           type="text"
+          placeholder={placeholder}
           value={value}
           onChange={e => this.onChange(e)}
-          onClick={() => this.onClick()}
-          onBlur={() => this.onBlur()}
           ref={(ref) => { this.input = ref; }}
         />
-        {value !== defaultValue && value.length > 0 && (
+        {value.length > 0 && (
           <span
             className="mdi mdi-close-circle-outline"
             onClick={() => this.reset()}
