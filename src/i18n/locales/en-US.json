@@ -66,6 +66,7 @@
   "sidebar.unmuteApp": "Enable notifications & audio",
   "services.welcome": "Welcome to Franz",
   "services.getStarted": "Get started",
+  "settings.searchService": "Search service",
   "settings.account.headline": "Account",
   "settings.account.headlineSubscription": "Your subscription",
   "settings.account.headlineUpgrade": "Upgrade your account & support Franz",
