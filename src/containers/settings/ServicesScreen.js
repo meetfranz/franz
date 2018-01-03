@@ -53,6 +53,7 @@ export default class ServicesScreen extends Component {
         goTo={router.push}
         servicesRequestFailed={services.allServicesRequest.wasExecuted && services.allServicesRequest.isError}
         retryServicesRequest={() => services.allServicesRequest.reload()}
+        searchNeedle={services.filterNeedle}
       />
     );
   }

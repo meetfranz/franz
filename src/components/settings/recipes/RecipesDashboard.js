@@ -16,6 +16,10 @@ const messages = defineMessages({
     id: 'settings.recipes.headline',
     defaultMessage: '!!!Available Services',
   },
+  searchService: {
+    id: 'settings.searchService',
+    defaultMessage: '!!!Search service',
+  },
   mostPopularRecipes: {
     id: 'settings.recipes.mostPopular',
     defaultMessage: '!!!Most popular',
@@ -81,13 +85,7 @@ export default class RecipesDashboard extends Component {
     return (
       <div className="settings__main">
         <div className="settings__header">
-          <SearchInput
-            className="settings__search-header"
-            defaultValue={intl.formatMessage(messages.headline)}
-            onChange={e => searchRecipes(e)}
-            onReset={() => resetSearch()}
-            throttle
-          />
+          <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body recipes">
           {serviceStatus.length > 0 && serviceStatus.includes('created') && (
@@ -101,7 +99,13 @@ export default class RecipesDashboard extends Component {
               </Infobox>
             </Appear>
           )}
-          {/* {!searchNeedle && ( */}
+          <SearchInput
+            placeholder={intl.formatMessage(messages.searchService)}
+            onChange={e => searchRecipes(e)}
+            onReset={() => resetSearch()}
+            autoFocus
+            throttle
+          />
           <div className="recipes__navigation">
             <Link
               to="/settings/recipes"
