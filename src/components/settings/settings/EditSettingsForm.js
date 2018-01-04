@@ -40,6 +40,10 @@ const messages = defineMessages({
     id: 'settings.app.translationHelp',
     defaultMessage: '!!!Help us to translate Franz into your language.',
   },
+  subheadlineCache: {
+    id: 'settings.app.subheadlineCache',
+    defaultMessage: '!!!Cache',
+  },
   cacheInfo: {
     id: 'settings.app.cacheInfo',
     defaultMessage: '!!!Franz cache is currently using {size} of disk space.',
@@ -171,8 +175,7 @@ export default class EditSettingsForm extends Component {
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}
             <div className="settings__settings-group">
               <h3>
-                {/* {intl.formatMessage(messages.headlineGeneral)} */}
-                Service cache
+                {intl.formatMessage(messages.subheadlineCache)}
               </h3>
               <p>
                 {intl.formatMessage(messages.cacheInfo, {
