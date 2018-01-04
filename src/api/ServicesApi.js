@@ -1,5 +1,6 @@
 export default class ServicesApi {
-  constructor(server) {
+  constructor(server, local) {
+    this.local = local;
     this.server = server;
   }
 
@@ -29,5 +30,9 @@ export default class ServicesApi {
 
   reorder(data) {
     return this.server.reorderService(data);
+  }
+
+  clearCache(serviceId) {
+    return this.local.clearCache(serviceId);
   }
 }

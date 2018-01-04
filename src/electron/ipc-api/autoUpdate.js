@@ -1,8 +1,9 @@
 import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import { isDevMode } from '../../environment.js';
 
 export default (params) => {
-  if (process.platform === 'darwin' || process.platform === 'win32') {
+  if (!isDevMode && (process.platform === 'darwin' || process.platform === 'win32')) {
     // autoUpdater.setFeedURL(updateUrl);
     ipcMain.on('autoUpdate', (event, args) => {
       try {

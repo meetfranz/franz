@@ -16,6 +16,7 @@ export default class ServicesStore extends Store {
   @observable updateServiceRequest = new Request(this.api.services, 'update');
   @observable reorderServicesRequest = new Request(this.api.services, 'reorder');
   @observable deleteServiceRequest = new Request(this.api.services, 'delete');
+  @observable clearCacheRequest = new Request(this.api.services, 'clearCache');
 
   @observable filterNeedle = null;
 
@@ -31,6 +32,7 @@ export default class ServicesStore extends Store {
     this.actions.service.createFromLegacyService.listen(this._createFromLegacyService.bind(this));
     this.actions.service.updateService.listen(this._updateService.bind(this));
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
+    this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
     this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
@@ -203,6 +205,13 @@ export default class ServicesStore extends Store {
     this.actionStatus = request.result.status;
 
     gaEvent('Service', 'delete', service.recipe.id);
+  }
+
+  @action async _clearCache({ serviceId }) {
+    this.clearCacheRequest.reset();
+    const request = this.clearCacheRequest.execute(serviceId);
+    await request._promise;
+    gaEvent('Service', 'clear cache');
   }
 
   @action _setActive({ serviceId }) {

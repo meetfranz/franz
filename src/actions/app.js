@@ -25,4 +25,5 @@ export default {
     overrideSystemMute: PropTypes.bool,
   },
   toggleMuteApp: {},
+  clearAllCache: {},
 };

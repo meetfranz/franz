@@ -44,6 +44,7 @@ const isSecondInstance = app.makeSingleInstance((argv) => {
 });
 
 if (isSecondInstance) {
+  console.log('An instance of Franz is already running. Exiting...');
   app.exit();
 }
 

@@ -22,6 +22,10 @@ import {
   loadRecipeConfig,
 } from '../../helpers/recipe-helpers';
 
+import {
+  removeServicePartitionDirectory,
+} from '../../helpers/service-helpers.js';
+
 module.paths.unshift(
   getDevRecipeDirectory(),
   getRecipeDirectory(),
@@ -209,6 +213,8 @@ export default class ServerApi {
       throw request;
     }
     const data = await request.json();
+
+    removeServicePartitionDirectory(id, true);
 
     console.debug('ServerApi::deleteService resolves', data);
     return data;
