@@ -16,6 +16,7 @@ export default class ServicesStore extends Store {
   @observable updateServiceRequest = new Request(this.api.services, 'update');
   @observable reorderServicesRequest = new Request(this.api.services, 'reorder');
   @observable deleteServiceRequest = new Request(this.api.services, 'delete');
+  @observable clearCacheRequest = new Request(this.api.services, 'clearCache');
 
   @observable filterNeedle = null;
 
@@ -31,6 +32,7 @@ export default class ServicesStore extends Store {
     this.actions.service.createFromLegacyService.listen(this._createFromLegacyService.bind(this));
     this.actions.service.updateService.listen(this._updateService.bind(this));
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
+    this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
     this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
@@ -205,6 +207,13 @@ export default class ServicesStore extends Store {
     gaEvent('Service', 'delete', service.recipe.id);
   }
 
+  @action async _clearCache({ serviceId }) {
+    this.clearCacheRequest.reset();
+    const request = this.clearCacheRequest.execute(serviceId);
+    await request._promise;
+    gaEvent('Service', 'clear cache');
+  }
+
   @action _setActive({ serviceId }) {
     const service = this.one(serviceId);
 
@@ -368,7 +377,7 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
     service.resetMessageCount();
 
-    service.webview.reload();
+    service.webview.loadURL(service.url);
   }
 
   @action _reloadActive() {
@@ -497,12 +506,13 @@ export default class ServicesStore extends Store {
       .reduce((a, b) => a + b, 0);
 
     const unreadIndirectMessageCount = this.allDisplayed
-      .filter(s => (showMessageBadgeWhenMuted || s.isIndirectMessageBadgeEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
+      .filter(s => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
       .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
     if (showMessageBadgesEvenWhenMuted) {
+      console.log('set badge', unreadDirectMessageCount, unreadIndirectMessageCount);
       this.actions.app.setBadge({
         unreadDirectMessageCount,
         unreadIndirectMessageCount,

@@ -193,8 +193,17 @@ export default class EditSettingsScreen extends Component {
   }
 
   render() {
-    const { updateStatus, updateStatusTypes } = this.props.stores.app;
-    const { checkForUpdates, installUpdate } = this.props.actions.app;
+    const {
+      updateStatus,
+      cacheSize,
+      updateStatusTypes,
+      isClearingAllCache,
+    } = this.props.stores.app;
+    const {
+      checkForUpdates,
+      installUpdate,
+      clearAllCache,
+    } = this.props.actions.app;
     const form = this.prepareForm();
 
     return (
@@ -207,6 +216,9 @@ export default class EditSettingsScreen extends Component {
         noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
         updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
         onSubmit={d => this.onSubmit(d)}
+        cacheSize={cacheSize}
+        isClearingAllCache={isClearingAllCache}
+        onClearAllCache={clearAllCache}
       />
     );
   }
@@ -223,6 +235,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
       launchOnStartup: PropTypes.func.isRequired,
       checkForUpdates: PropTypes.func.isRequired,
       installUpdate: PropTypes.func.isRequired,
+      clearAllCache: PropTypes.func.isRequired,
     }).isRequired,
     settings: PropTypes.shape({
       update: PropTypes.func.isRequired,
