@@ -23,6 +23,24 @@
         s.async = true;
         s.setAttribute('src', lrHost + '/livereload.js');
         document.body.appendChild(s);
+
+        s.onload = () => {
+          console.log('livereload loaded');
+          const originalReloadBehaviour = window._onLiveReloadFileChanged;
+
+          window._onLiveReloadFileChanged = (file) => {
+            if (!file.path.includes('/build/webview/') && !file.path.includes('/build/index.js') && !file.path.includes('/build/electron/')) {
+              originalReloadBehaviour(file);
+            } else {              
+              if (file.path.includes('/build/webview/')) {
+                console.log('Livereload: Reloading all webvies');
+                const webviews = document.querySelectorAll('webview').forEach(webview => webview.reload());
+              } else {
+                console.log('Livereload: skip reload as only main process files have changed');
+              }
+            }
+          }
+        }
       })();
     }
   </script>
