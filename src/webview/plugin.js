@@ -5,8 +5,8 @@ import path from 'path';
 import { isDevMode } from '../environment';
 import RecipeWebview from './lib/RecipeWebview';
 
-import Spellchecker from './spellchecker.js';
-import './notifications.js';
+import Spellchecker from './spellchecker';
+import './notifications';
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -39,3 +39,15 @@ ipcRenderer.on('settings-update', (e, data) => {
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');
 }, false);
+
+// Patching window.open
+const originalWindowOpen = window.open;
+
+window.open = (url, frameName, features) => {
+  // We need to differentiate if the link should be opened in a popup or in the systems default browser 
+  if (!frameName && !features) {
+    return ipcRenderer.sendToHost('new-window', url);
+  }
+
+  return originalWindowOpen(url, frameName, features);
+};
