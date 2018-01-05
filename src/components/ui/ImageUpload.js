@@ -26,12 +26,16 @@ export default class ImageUpload extends Component {
   }
 
   onDrop(acceptedFiles) {
+    const { field } = this.props;
+
     acceptedFiles.forEach((file) => {
       this.setState({
         path: file.path,
       });
       this.props.field.onDrop(file);
     });
+
+    field.set('');
   }
 
   dropzoneRef = null;
