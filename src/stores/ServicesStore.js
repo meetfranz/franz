@@ -336,6 +336,10 @@ export default class ServicesStore extends Store {
           redirect: false,
         });
       }
+    } else if (channel === 'new-window') {
+      const url = args[0];
+
+      this.actions.app.openExternalUrl({ url });
     }
   }
 
