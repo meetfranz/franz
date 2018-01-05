@@ -77,7 +77,7 @@ const messages = defineMessages({
   },
   headlineBadges: {
     id: 'settings.service.form.headlineBadges',
-    defaultMessage: '!!!Unread message dadges',
+    defaultMessage: '!!!Unread message badges',
   },
   headlineGeneral: {
     id: 'settings.service.form.headlineGeneral',

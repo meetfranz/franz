@@ -16,7 +16,9 @@ class Notification {
     }));
 
     ipcRenderer.once(`notification-onclick:${this.notificationId}`, () => {
-      this.onclick();
+      if (typeof this.onclick === 'function') {
+        this.onclick();
+      }
     });
   }
 
