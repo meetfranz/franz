@@ -63,7 +63,7 @@ export default class ImageUpload extends Component {
               <div
                 className="image-upload__preview"
                 style={({
-                  backgroundImage: `url("${field.value || this.state.path}")`,
+                  backgroundImage: `url("${this.state.path || field.value}")`,
                 })}
               />
               <div className="image-upload__action">
