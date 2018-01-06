@@ -174,9 +174,29 @@ export default class ServicesStore extends Store {
     const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
     const request = this.updateServiceRequest.execute(serviceId, data);
 
+    const newData = serviceData;
+    if (serviceData.iconFile) {
+      await request._promise;
+
+      newData.iconUrl = request.result.data.iconUrl;
+      newData.hasCustomUploadedIcon = true;
+    }
+
     this.allServicesRequest.patch((result) => {
       if (!result) return;
-      Object.assign(result.find(c => c.id === serviceId), serviceData);
+
+      // patch custom icon deletion
+      if (data.customIcon === 'delete') {
+        data.iconUrl = '';
+        data.hasCustomUploadedIcon = false;
+      }
+
+      // patch custom icon url
+      if (data.customIconUrl) {
+        data.iconUrl = data.customIconUrl;
+      }
+
+      Object.assign(result.find(c => c.id === serviceId), newData);
     });
 
     await request._promise;
@@ -325,7 +345,7 @@ export default class ServicesStore extends Store {
       }
     } else if (channel === 'avatar') {
       const url = args[0];
-      if (service.customIconUrl !== url) {
+      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
         service.customIconUrl = url;
 
         this.actions.service.updateService({

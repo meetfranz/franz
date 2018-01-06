@@ -24,7 +24,8 @@ export default class Service {
   @observable isNotificationEnabled = true;
   @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
-  @observable customIconUrl = '';
+  @observable iconUrl = '';
+  @observable hasCustomUploadedIcon = false;
   @observable hasCrashed = false;
 
   constructor(data, recipe) {
@@ -42,7 +43,8 @@ export default class Service {
     this.name = data.name || this.name;
     this.team = data.team || this.team;
     this.customUrl = data.customUrl || this.customUrl;
-    this.customIconUrl = data.customIconUrl || this.customIconUrl;
+    // this.customIconUrl = data.customIconUrl || this.customIconUrl;
+    this.iconUrl = data.iconUrl || this.iconUrl;
 
     this.order = data.order !== undefined
       ? data.order : this.order;
@@ -60,6 +62,8 @@ export default class Service {
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
 
     this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
+
+    this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
 
     this.recipe = recipe;
 
@@ -97,15 +101,15 @@ export default class Service {
   }
 
   @computed get icon() {
-    if (this.hasCustomIcon) {
-      return this.customIconUrl;
+    if (this.iconUrl) {
+      return this.iconUrl;
     }
 
     return path.join(this.recipe.path, 'icon.svg');
   }
 
   @computed get hasCustomIcon() {
-    return (this.customIconUrl !== '');
+    return Boolean(this.iconUrl);
   }
 
   @computed get iconPNG() {

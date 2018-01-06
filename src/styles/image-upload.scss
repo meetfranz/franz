@@ -1,0 +1,91 @@
+.image-upload {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border: 1px solid $theme-gray-lighter;
+  border-radius: $theme-border-radius-small;
+  background: $theme-gray-lightest;
+  overflow: hidden;
+  margin-top: 5px;
+
+  &__preview,
+  &__action {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &__preview {
+    z-index: 1;
+    background-size: cover;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 3px;
+  }
+
+  &__action {
+    position: relative;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s;
+    display: flex;
+    justify-content: center;
+
+    &-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba($theme-gray, 0.7);
+      z-index: 10;
+    }
+
+    button {
+      position: relative;
+      z-index: 100;
+      color: #FFF;
+
+      .mdi {
+        color: #FFF;
+      }
+    }
+  }
+
+  &__dropzone {
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__dropzone, 
+  button {
+    .mdi {
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 10px;
+      line-height: 10px;
+    }
+  }
+
+  &:hover {
+    .image-upload__action {
+      opacity: 1;
+    }
+  }
+}
+
+.image-upload-wrapper {
+  .mdi {
+    font-size: 40px;
+    color: $theme-gray-light;
+  }
+}

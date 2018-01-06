@@ -341,6 +341,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+attr-accept@^1.0.3:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
+
 "auto-launch@https://github.com/meetfranz/node-auto-launch.git":
   version "5.0.1"
   resolved "https://github.com/meetfranz/node-auto-launch.git#b90a0470467eb84435e6554ae9db1e2c6db79e61"
@@ -4277,9 +4281,9 @@ mksnapshot@^0.3.0:
     fs-extra "0.26.7"
     request "^2.79.0"
 
-mobx-react-form@1.24.0:
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.24.0.tgz#bc9fbd652e65fb1f2b51917865d465fcaab7f0d9"
+mobx-react-form@^1.32.2:
+  version "1.32.2"
+  resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.32.2.tgz#5610dd0e4fab006acf2daf1becbedecad182a5a0"
   dependencies:
     lodash "^4.16.2"
 
@@ -5044,6 +5048,13 @@ react-dom@^15.4.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react-dropzone@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.2.1.tgz#695e80bd0b065f1181e69f2d0f6d1d5cc72664c9"
+  dependencies:
+    attr-accept "^1.0.3"
+    prop-types "^15.5.7"
 
 react-electron-web-view@^2.0.1:
   version "2.0.1"

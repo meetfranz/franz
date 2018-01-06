@@ -111,6 +111,26 @@
     &::-webkit-scrollbar-thumb:window-inactive {
     	background: none;
     }
+    
+    .service-flex-grid {
+      display: flex;
+    }
+
+    .service-name {
+      flex: 1px;
+    }
+
+    .service-icon {
+      width: 140px;
+      float: right;
+      margin-top: 30px;
+      margin-left: 40px;
+
+      label {
+        font-weight: bold;
+        letter-spacing: -0.1px;
+      }
+    }
   }
 
   .settings__close {
@@ -135,6 +155,7 @@
 
   &__options {
     margin-top: 20px;
+    flex: 1;
   }
 
   &__settings-group {
@@ -305,12 +326,6 @@
     }
   }
 
-  // @include element(add-service-teaser) {
-  //   height: auto;
-  //   margin-top: 20px;
-  //   display: block;
-  //   text-align: center;
-  // }
   .emoji {
     display: block;
     font-size: 40px;
