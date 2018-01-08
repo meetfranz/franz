@@ -34,3 +34,7 @@ linux:
 nsis:
   perMachine: false
   oneClick: true
+
+protocols: 
+  name: Franz
+  schemes: [franz] 

@@ -14,7 +14,8 @@ export const DEFAULT_APP_SETTINGS = {
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
   // spellcheckingLanguage: 'auto',
-  locale: 'en-US',
+  locale: '',
+  fallbackLocale: 'en-US',
   beta: false,
   isAppMuted: false,
 };

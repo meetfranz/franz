@@ -73,14 +73,7 @@
       width: 35px;
       height: 35px;
       margin: 0 10px 15px;
-      filter: grayscale(1)
-      opacity(0.5);
       transition: 0.5s filter, 0.5s opacity;
-
-      &:hover {
-        filter: grayscale(0);
-        opacity: (1);
-      }
 
       img {
         width: 35px;
