@@ -109,7 +109,7 @@ export default class EditSettingsScreen extends Component {
     const { intl } = this.context;
 
     const locales = [];
-    Object.keys(APP_LOCALES).forEach((key) => {
+    Object.keys(APP_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
       locales.push({
         value: key,
         label: APP_LOCALES[key],
