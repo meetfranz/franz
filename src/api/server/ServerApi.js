@@ -173,9 +173,9 @@ export default class ServerApi {
     const serviceData = await request.json();
 
     if (data.iconFile) {
-      const iconUrl = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
+      const iconData = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
 
-      serviceData.data.iconUrl = iconUrl;
+      serviceData.data = iconData;
     }
 
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
@@ -227,7 +227,7 @@ export default class ServerApi {
 
     const serviceData = await request.json();
 
-    return serviceData.data.iconUrl;
+    return serviceData.data;
   }
 
   async reorderService(data) {

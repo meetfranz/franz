@@ -187,13 +187,13 @@ export default class ServicesStore extends Store {
 
       // patch custom icon deletion
       if (data.customIcon === 'delete') {
-        data.iconUrl = '';
-        data.hasCustomUploadedIcon = false;
+        newData.iconUrl = '';
+        newData.hasCustomUploadedIcon = false;
       }
 
       // patch custom icon url
       if (data.customIconUrl) {
-        data.iconUrl = data.customIconUrl;
+        newData.iconUrl = data.customIconUrl;
       }
 
       Object.assign(result.find(c => c.id === serviceId), newData);
