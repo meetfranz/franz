@@ -68,7 +68,7 @@
    "settings.account.successInfo" : "Vaše promjene su spremljene",
    "settings.account.tryReloadUserInfoRequest" : "Pokušajte ponovno",
    "settings.account.userInfoRequestFailed" : "Nije moguće učitati informacije o korisniku",
-   "settings.app.buttonClearAllCache" : "Clear cache",
+   "settings.app.buttonClearAllCache" : "Očisti memoriju",
    "settings.app.buttonInstallUpdate" : "Ponovo pokreni i instaliraj ažuriranje",
    "settings.app.buttonSearchForUpdate" : "Potraži ažuriranja",
    "settings.app.cacheInfo" : "Franz cache is currently using {size} of disk space.",
