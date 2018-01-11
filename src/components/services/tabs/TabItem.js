@@ -63,6 +63,8 @@ class TabItem extends Component {
     deleteService: PropTypes.func.isRequired,
     disableService: PropTypes.func.isRequired,
     enableService: PropTypes.func.isRequired,
+    showMessageBadgeWhenMutedSetting: PropTypes.bool.isRequired,
+    showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -81,6 +83,8 @@ class TabItem extends Component {
       disableService,
       enableService,
       openSettings,
+      showMessageBadgeWhenMutedSetting,
+      showMessageBadgesEvenWhenMuted,
     } = this.props;
     const { intl } = this.context;
 
@@ -121,6 +125,26 @@ class TabItem extends Component {
     }];
     const menu = Menu.buildFromTemplate(menuTemplate);
 
+    let notificationBadge = null;
+    if ((showMessageBadgeWhenMutedSetting || service.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && service.isBadgeEnabled) {
+      notificationBadge = (
+        <span>
+          {service.unreadDirectMessageCount > 0 && (
+            <span className="tab-item__message-count">
+              {service.unreadDirectMessageCount}
+            </span>
+          )}
+          {service.unreadIndirectMessageCount > 0
+            && service.unreadDirectMessageCount === 0
+            && service.isIndirectMessageBadgeEnabled && (
+              <span className="tab-item__message-count is-indirect">
+                •
+              </span>
+            )}
+        </span>
+      );
+    }
+
     return (
       <li
         className={classnames({
@@ -138,18 +162,7 @@ class TabItem extends Component {
           className="tab-item__icon"
           alt=""
         />
-        {service.unreadDirectMessageCount > 0 && (
-          <span className="tab-item__message-count">
-            {service.unreadDirectMessageCount}
-          </span>
-        )}
-        {service.unreadIndirectMessageCount > 0
-          && service.unreadDirectMessageCount === 0
-          && service.isIndirectMessageBadgeEnabled && (
-            <span className="tab-item__message-count is-indirect">
-            •
-            </span>
-          )}
+        {notificationBadge}
       </li>
     );
   }

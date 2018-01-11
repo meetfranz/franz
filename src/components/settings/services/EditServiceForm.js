@@ -13,6 +13,7 @@ import Tabs, { TabItem } from '../../ui/Tabs';
 import Input from '../../ui/Input';
 import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
+import ImageUpload from '../../ui/ImageUpload';
 
 const messages = defineMessages({
   saveService: {
@@ -47,6 +48,10 @@ const messages = defineMessages({
     id: 'settings.service.form.tabOnPremise',
     defaultMessage: '!!!Self hosted ⭐️',
   },
+  useHostedService: {
+    id: 'settings.service.form.useHostedService',
+    defaultMessage: '!!!Use the hosted {name} service.',
+  },
   customUrlValidationError: {
     id: 'settings.service.form.customUrlValidationError',
     defaultMessage: '!!!Could not validate custom {name} server.',
@@ -66,6 +71,26 @@ const messages = defineMessages({
   isMutedInfo: {
     id: 'settings.service.form.isMutedInfo',
     defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
+  },
+  headlineNotifications: {
+    id: 'settings.service.form.headlineNotifications',
+    defaultMessage: '!!!Notifications',
+  },
+  headlineBadges: {
+    id: 'settings.service.form.headlineBadges',
+    defaultMessage: '!!!Unread message badges',
+  },
+  headlineGeneral: {
+    id: 'settings.service.form.headlineGeneral',
+    defaultMessage: '!!!General',
+  },
+  iconDelete: {
+    id: 'settings.service.form.iconDelete',
+    defaultMessage: '!!!Delete',
+  },
+  iconUpload: {
+    id: 'settings.service.form.iconUpload',
+    defaultMessage: '!!!Drop your image, or click here',
   },
 });
 
@@ -108,8 +133,12 @@ export default class EditServiceForm extends Component {
     this.props.form.submit({
       onSuccess: async (form) => {
         const values = form.values();
-
         let isValid = true;
+
+        const files = form.$('customIcon').files;
+        if (files) {
+          values.iconFile = files[0];
+        }
 
         if (recipe.validateUrl && values.customUrl) {
           this.setState({ isValidatingCustomUrl: true });
@@ -166,6 +195,13 @@ export default class EditServiceForm extends Component {
       />
     );
 
+    let activeTabIndex = 0;
+    if (recipe.hasHostedOption && service.team) {
+      activeTabIndex = 1;
+    } else if (recipe.hasHostedOption && service.customUrl) {
+      activeTabIndex = 2;
+    }
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -195,14 +231,25 @@ export default class EditServiceForm extends Component {
         </div>
         <div className="settings__body">
           <form onSubmit={e => this.submit(e)} id="form">
-            <Input field={form.$('name')} focus />
+            <div className="service-name">
+              <Input field={form.$('name')} focus />
+            </div>
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (
               <Tabs
-                active={service.customUrl ? 1 : 0}
+                active={activeTabIndex}
               >
+                {recipe.hasHostedOption && (
+                  <TabItem title={recipe.name}>
+                    {intl.formatMessage(messages.useHostedService, { name: recipe.name })}
+                  </TabItem>
+                )}
                 {recipe.hasTeamId && (
                   <TabItem title={intl.formatMessage(messages.tabHosted)}>
-                    <Input field={form.$('team')} suffix={recipe.urlInputSuffix} />
+                    <Input
+                      field={form.$('team')}
+                      prefix={recipe.urlInputPrefix}
+                      suffix={recipe.urlInputSuffix}
+                    />
                   </TabItem>
                 )}
                 {recipe.hasCustomUrl && (
@@ -230,21 +277,42 @@ export default class EditServiceForm extends Component {
                 )}
               </Tabs>
             )}
-            <div className="settings__options">
-              <Toggle field={form.$('isNotificationEnabled')} />
-              {recipe.hasIndirectMessages && (
-                <div>
-                  <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
+            <div className="service-flex-grid">
+              <div className="settings__options">
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
+                  <Toggle field={form.$('isNotificationEnabled')} />
+                  <Toggle field={form.$('isMuted')} />
                   <p className="settings__help">
-                    {intl.formatMessage(messages.indirectMessageInfo)}
+                    {intl.formatMessage(messages.isMutedInfo)}
                   </p>
                 </div>
-              )}
-              <Toggle field={form.$('isMuted')} />
-              <p className="settings__help">
-                {intl.formatMessage(messages.isMutedInfo)}
-              </p>
-              <Toggle field={form.$('isEnabled')} />
+
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
+                  <Toggle field={form.$('isBadgeEnabled')} />
+                  {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
+                    <div>
+                      <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
+                      <p className="settings__help">
+                        {intl.formatMessage(messages.indirectMessageInfo)}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
+                  <Toggle field={form.$('isEnabled')} />
+                </div>
+              </div>
+              <div className="service-icon">
+                <ImageUpload
+                  field={form.$('customIcon')}
+                  textDelete={intl.formatMessage(messages.iconDelete)}
+                  textUpload={intl.formatMessage(messages.iconUpload)}
+                />
+              </div>
             </div>
             {recipe.message && (
               <p className="settings__message">

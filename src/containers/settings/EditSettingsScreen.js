@@ -43,6 +43,10 @@ const messages = defineMessages({
     id: 'settings.app.form.showDisabledServices',
     defaultMessage: '!!!Display disabled services tabs',
   },
+  showMessageBadgeWhenMuted: {
+    id: 'settings.app.form.showMessagesBadgesWhenMuted',
+    defaultMessage: '!!!Show unread message badge when notifications are disabled',
+  },
   enableSpellchecking: {
     id: 'settings.app.form.enableSpellchecking',
     defaultMessage: '!!!Enable spell checking',
@@ -85,6 +89,7 @@ export default class EditSettingsScreen extends Component {
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
         showDisabledServices: settingsData.showDisabledServices,
+        showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
         // spellcheckingLanguage: settingsData.spellcheckingLanguage,
         locale: settingsData.locale,
@@ -104,7 +109,7 @@ export default class EditSettingsScreen extends Component {
     const { intl } = this.context;
 
     const locales = [];
-    Object.keys(APP_LOCALES).forEach((key) => {
+    Object.keys(APP_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
       locales.push({
         value: key,
         label: APP_LOCALES[key],
@@ -154,6 +159,11 @@ export default class EditSettingsScreen extends Component {
           value: settings.all.showDisabledServices,
           default: DEFAULT_APP_SETTINGS.showDisabledServices,
         },
+        showMessageBadgeWhenMuted: {
+          label: intl.formatMessage(messages.showMessageBadgeWhenMuted),
+          value: settings.all.showMessageBadgeWhenMuted,
+          default: DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted,
+        },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
           value: settings.all.enableSpellchecking,
@@ -183,8 +193,17 @@ export default class EditSettingsScreen extends Component {
   }
 
   render() {
-    const { updateStatus, updateStatusTypes } = this.props.stores.app;
-    const { checkForUpdates, installUpdate } = this.props.actions.app;
+    const {
+      updateStatus,
+      cacheSize,
+      updateStatusTypes,
+      isClearingAllCache,
+    } = this.props.stores.app;
+    const {
+      checkForUpdates,
+      installUpdate,
+      clearAllCache,
+    } = this.props.actions.app;
     const form = this.prepareForm();
 
     return (
@@ -197,6 +216,9 @@ export default class EditSettingsScreen extends Component {
         noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
         updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
         onSubmit={d => this.onSubmit(d)}
+        cacheSize={cacheSize}
+        isClearingAllCache={isClearingAllCache}
+        onClearAllCache={clearAllCache}
       />
     );
   }
@@ -213,6 +235,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
       launchOnStartup: PropTypes.func.isRequired,
       checkForUpdates: PropTypes.func.isRequired,
       installUpdate: PropTypes.func.isRequired,
+      clearAllCache: PropTypes.func.isRequired,
     }).isRequired,
     settings: PropTypes.shape({
       update: PropTypes.func.isRequired,

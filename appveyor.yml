@@ -11,8 +11,6 @@ version: 5.0.0.{build}
 install:
   - ps: Install-Product node 8
   - yarn cache clean
-  - yarn add global gulp-cli@1.2.2
-  - yarn add global gulpjs/gulp#4.0
   - yarn install
 
 # cache:

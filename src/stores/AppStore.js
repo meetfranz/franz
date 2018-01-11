@@ -1,10 +1,11 @@
 import { remote, ipcRenderer, shell } from 'electron';
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import idleTimer from '@paulcbetts/system-idle-time';
 import AutoLaunch from 'auto-launch';
+import prettyBytes from 'pretty-bytes';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -14,7 +15,10 @@ import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import Miner from '../lib/Miner';
 
-const { app, powerMonitor } = remote;
+import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+
+const { app } = remote;
+
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
@@ -30,6 +34,8 @@ export default class AppStore extends Store {
   };
 
   @observable healthCheckRequest = new Request(this.api.app, 'health');
+  @observable getAppCacheSizeRequest = new Request(this.api.local, 'getAppCacheSize');
+  @observable clearAppCacheRequest = new Request(this.api.local, 'clearAppCache');
 
   @observable autoLaunchOnStart = true;
 
@@ -45,7 +51,9 @@ export default class AppStore extends Store {
   miner = null;
   @observable minerHashrate = 0.0;
 
-  @observable isSystemMuted = false;
+  @observable isSystemMuteOverridden = false;
+
+  @observable isClearingAllCache = false;
 
   constructor(...args) {
     super(...args);
@@ -61,12 +69,14 @@ export default class AppStore extends Store {
     this.actions.app.healthCheck.listen(this._healthCheck.bind(this));
     this.actions.app.muteApp.listen(this._muteApp.bind(this));
     this.actions.app.toggleMuteApp.listen(this._toggleMuteApp.bind(this));
+    this.actions.app.clearAllCache.listen(this._clearAllCache.bind(this));
 
     this.registerReactions([
       this._offlineCheck.bind(this),
       this._setLocale.bind(this),
       this._handleMiner.bind(this),
       this._handleMinerThrottle.bind(this),
+      this._muteAppHandler.bind(this),
     ]);
   }
 
@@ -115,15 +125,31 @@ export default class AppStore extends Store {
       }
     });
 
+    // Handle deep linking (franz://)
+    ipcRenderer.on('navigateFromDeepLink', (event, data) => {
+      const { url } = data;
+      if (!url) return;
+
+      this.stores.router.push(data.url);
+    });
+
+    const TIMEOUT = 5000;
     // Check system idle time every minute
     setInterval(() => {
       this.idleTime = idleTimer.getIdleTime();
-    }, 60000);
+    }, TIMEOUT);
 
     // Reload all services after a healthy nap
-    powerMonitor.on('resume', () => {
-      setTimeout(window.location.reload, 5000);
-    });
+    // Alternative solution for powerMonitor as the resume event is not fired
+    // More information: https://github.com/electron/electron/issues/1615
+    let lastTime = (new Date()).getTime();
+    setInterval(() => {
+      const currentTime = (new Date()).getTime();
+      if (currentTime > (lastTime + TIMEOUT + 2000)) {
+        this._reactivateServices();
+      }
+      lastTime = currentTime;
+    }, TIMEOUT);
 
     // Set active the next service
     key(
@@ -137,7 +163,7 @@ export default class AppStore extends Store {
         this.actions.service.setActivePrev();
       });
 
-    // Global Mute 
+    // Global Mute
     key(
       '⌘+shift+m ctrl+shift+m', () => {
         this.actions.app.toggleMuteApp();
@@ -148,8 +174,14 @@ export default class AppStore extends Store {
     this._healthCheck();
   }
 
+  @computed get cacheSize() {
+    return prettyBytes(this.getAppCacheSizeRequest.execute().result || 0);
+  }
+
   // Actions
   @action _notify({ title, options, notificationId, serviceId = null }) {
+    if (this.stores.settings.all.isAppMuted) return;
+
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
       if (serviceId) {
@@ -160,6 +192,11 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
+
+        if (!isMac) {
+          const mainWindow = remote.getCurrentWindow();
+          mainWindow.restore();
+        }
       }
     };
   }
@@ -217,7 +254,9 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({ isMuted }) {
+  @action _muteApp({ isMuted, overrideSystemMute = true }) {
+    this.isSystemMuteOverriden = overrideSystemMute;
+
     this.actions.settings.update({
       settings: {
         isAppMuted: isMuted,
@@ -227,6 +266,23 @@ export default class AppStore extends Store {
 
   @action _toggleMuteApp() {
     this._muteApp({ isMuted: !this.stores.settings.all.isAppMuted });
+  }
+
+  @action async _clearAllCache() {
+    this.isClearingAllCache = true;
+    const clearAppCache = this.clearAppCacheRequest.execute();
+    const allServiceIds = await getServiceIdsFromPartitions();
+    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
+
+    await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
+
+    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({ serviceId: s.id })));
+
+    await clearAppCache._promise;
+
+    this.getAppCacheSizeRequest.execute();
+
+    this.isClearingAllCache = false;
   }
 
   // Reactions
@@ -245,8 +301,10 @@ export default class AppStore extends Store {
   _setLocale() {
     const locale = this.stores.settings.all.locale;
 
-    if (locale && locale !== this.locale) {
+    if (locale && Object.prototype.hasOwnProperty.call(locales, locale) && locale !== this.locale) {
       this.locale = locale;
+    } else if (!locale) {
+      this.locale = this._getDefaultLocale();
     }
   }
 
@@ -271,6 +329,10 @@ export default class AppStore extends Store {
       locale = defaultLocale;
     }
 
+    if (!locale) {
+      locale = DEFAULT_APP_SETTINGS.fallbackLocale;
+    }
+
     return locale;
   }
 
@@ -293,6 +355,14 @@ export default class AppStore extends Store {
       if (this.miner) this.miner.setIdleThrottle();
     } else {
       if (this.miner) this.miner.setActiveThrottle(); // eslint-disable-line
+    }
+  }
+
+  _muteAppHandler() {
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
+    if (!showMessageBadgesEvenWhenMuted) {
+      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
     }
   }
 
@@ -325,7 +395,23 @@ export default class AppStore extends Store {
     return autoLauncher.isEnabled() || false;
   }
 
+  _reactivateServices(retryCount = 0) {
+    if (!this.isOnline) {
+      console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
+      setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
+    } else {
+      console.debug('reactivateServices: reload all services');
+      this.actions.service.reloadAll();
+    }
+  }
+
   _systemDND() {
-    this.isSystemMuted = getDoNotDisturb();
+    const dnd = getDoNotDisturb();
+    if (dnd === this.stores.settings.all.isAppMuted || !this.isSystemMuteOverriden) {
+      this.actions.app.muteApp({
+        isMuted: dnd,
+        overrideSystemMute: false,
+      });
+    }
   }
 }

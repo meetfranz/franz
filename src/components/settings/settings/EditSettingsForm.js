@@ -40,6 +40,18 @@ const messages = defineMessages({
     id: 'settings.app.translationHelp',
     defaultMessage: '!!!Help us to translate Franz into your language.',
   },
+  subheadlineCache: {
+    id: 'settings.app.subheadlineCache',
+    defaultMessage: '!!!Cache',
+  },
+  cacheInfo: {
+    id: 'settings.app.cacheInfo',
+    defaultMessage: '!!!Franz cache is currently using {size} of disk space.',
+  },
+  buttonClearAllCache: {
+    id: 'settings.app.buttonClearAllCache',
+    defaultMessage: '!!!Clear cache',
+  },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
     defaultMessage: '!!!Check for updates',
@@ -64,10 +76,6 @@ const messages = defineMessages({
     id: 'settings.app.currentVersion',
     defaultMessage: '!!!Current version:',
   },
-  restartRequired: {
-    id: 'settings.app.restartRequired',
-    defaultMessage: '!!!Changes require restart',
-  },
 });
 
 @observer
@@ -81,6 +89,9 @@ export default class EditSettingsForm extends Component {
     isUpdateAvailable: PropTypes.bool.isRequired,
     noUpdateAvailable: PropTypes.bool.isRequired,
     updateIsReadyToInstall: PropTypes.bool.isRequired,
+    isClearingAllCache: PropTypes.bool.isRequired,
+    onClearAllCache: PropTypes.func.isRequired,
+    cacheSize: PropTypes.string.isRequired,
   };
 
   static contextTypes = {
@@ -107,6 +118,9 @@ export default class EditSettingsForm extends Component {
       isUpdateAvailable,
       noUpdateAvailable,
       updateIsReadyToInstall,
+      isClearingAllCache,
+      onClearAllCache,
+      cacheSize,
     } = this.props;
     const { intl } = this.context;
 
@@ -142,6 +156,7 @@ export default class EditSettingsForm extends Component {
             {/* Appearance */}
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
+            <Toggle field={form.$('showMessageBadgeWhenMuted')} />
 
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
@@ -157,8 +172,26 @@ export default class EditSettingsForm extends Component {
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
             <Toggle field={form.$('enableSpellchecking')} />
-            <p className="settings__help">{intl.formatMessage(messages.restartRequired)}</p>
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}
+            <div className="settings__settings-group">
+              <h3>
+                {intl.formatMessage(messages.subheadlineCache)}
+              </h3>
+              <p>
+                {intl.formatMessage(messages.cacheInfo, {
+                  size: cacheSize,
+                })}
+              </p>
+              <p>
+                <Button
+                  buttonType="secondary"
+                  label={intl.formatMessage(messages.buttonClearAllCache)}
+                  onClick={onClearAllCache}
+                  disabled={isClearingAllCache}
+                  loaded={!isClearingAllCache}
+                />
+              </p>
+            </div>
 
             {/* Updates */}
             <h2 id="updates">{intl.formatMessage(messages.headlineUpdates)}</h2>
@@ -169,6 +202,7 @@ export default class EditSettingsForm extends Component {
               />
             ) : (
               <Button
+                buttonType="secondary"
                 label={intl.formatMessage(updateButtonLabelMessage)}
                 onClick={checkForUpdates}
                 disabled={isCheckingForUpdates || isUpdateAvailable}

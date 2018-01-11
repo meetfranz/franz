@@ -111,6 +111,26 @@
     &::-webkit-scrollbar-thumb:window-inactive {
     	background: none;
     }
+    
+    .service-flex-grid {
+      display: flex;
+    }
+
+    .service-name {
+      flex: 1px;
+    }
+
+    .service-icon {
+      width: 140px;
+      float: right;
+      margin-top: 30px;
+      margin-left: 40px;
+
+      label {
+        font-weight: bold;
+        letter-spacing: -0.1px;
+      }
+    }
   }
 
   .settings__close {
@@ -129,30 +149,28 @@
     }
   }
 
-  .settings__search-header {
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    border-radius: $theme-border-radius;
-    transition: background $theme-transition-time;
-    @extend %headline;
-    font-size: 22px;
-
-    &:hover {
-      background: darken($theme-gray-lighter, 5%);
-    }
-
-    input {
-      padding-left: 10px;
-      background: none;
-      border: 0;
-      flex: 1;
-      @extend %headline;
-    }
+  .search-input {
+    margin-bottom: 30px;
   }
 
-  .settings__options {
-    margin-top: 30px;
+  &__options {
+    margin-top: 20px;
+    flex: 1;
+  }
+
+  &__settings-group {
+    margin-top: 10px;
+
+    h3 {
+      font-weight: bold;
+      margin: 25px 0 15px;
+      color: $theme-gray-light;
+      letter-spacing: -0.1px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
   }
 
   .settings__message {
@@ -173,10 +191,6 @@
     margin: -10px 0 20px 55px;;
     font-size: 12px;
     color: $theme-gray-light;
-
-    &:last-of-type {
-      margin-bottom: 30px;
-    }
   }
 
   .settings__controls {
@@ -281,6 +295,10 @@
       margin-left: auto;
     }
 
+    .franz-form__button {
+      white-space: nowrap;
+    }
+
     div {
       height: auto;
     }
@@ -308,12 +326,6 @@
     }
   }
 
-  // @include element(add-service-teaser) {
-  //   height: auto;
-  //   margin-top: 20px;
-  //   display: block;
-  //   text-align: center;
-  // }
   .emoji {
     display: block;
     font-size: 40px;

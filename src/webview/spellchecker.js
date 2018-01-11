@@ -1,30 +1,63 @@
-import { SpellCheckHandler, ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
+import { SpellCheckHandler } from 'electron-spellchecker';
 
 import { isMac } from '../environment';
 
 export default class Spellchecker {
-  isEnabled = false;
-  spellchecker = null;
+  isInitialized = false;
+  handler = null;
+  initRetries = 0;
+  DOMCheckInterval = null;
 
-  enable() {
-    this.spellchecker = new SpellCheckHandler();
-    if (!isMac) {
-      this.spellchecker.attachToInput();
-      this.spellchecker.switchLanguage(navigator.language);
-    }
-
-    const contextMenuBuilder = new ContextMenuBuilder(this.spellchecker);
-
-    new ContextMenuListener((info) => { // eslint-disable-line
-      contextMenuBuilder.showPopupMenu(info);
-    });
+  get inputs() {
+    return document.querySelectorAll('input[type="text"], [contenteditable="true"], textarea');
   }
 
-  // TODO: this does not work yet, needs more testing
-  // switchLanguage(language) {
-  //   if (language !== 'auto') {
-  //     this.spellchecker.switchLanguage(language);
-  //   }
-  // }
+  initialize() {
+    this.handler = new SpellCheckHandler();
+
+    if (!isMac) {
+      this.attach();
+    } else {
+      this.isInitialized = true;
+    }
+  }
+
+  attach() {
+    let initFailed = false;
+
+    if (this.initRetries > 3) {
+      console.error('Could not initialize spellchecker');
+      return;
+    }
+
+    try {
+      this.handler.attachToInput();
+      this.handler.switchLanguage(navigator.language);
+    } catch (err) {
+      initFailed = true;
+      this.initRetries = +1;
+      setTimeout(() => { this.attach(); console.warn('Spellchecker init failed, trying again in 5s'); }, 5000);
+    }
+
+    if (!initFailed) {
+      this.isInitialized = true;
+    }
+  }
+
+  toggleSpellchecker(enable = false) {
+    this.inputs.forEach((input) => {
+      input.setAttribute('spellcheck', enable);
+    });
+
+    this.intervalHandler(enable);
+  }
+
+  intervalHandler(enable) {
+    clearInterval(this.DOMCheckInterval);
+
+    if (enable) {
+      this.DOMCheckInterval = setInterval(() => this.toggleSpellchecker(enable), 30000);
+    }
+  }
 }
 

@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, extendObservable } from 'mobx';
 import { DEFAULT_APP_SETTINGS } from '../config';
 
 export default class Settings {
@@ -8,6 +8,7 @@ export default class Settings {
   @observable enableSystemTray = DEFAULT_APP_SETTINGS.enableSystemTray;
   @observable minimizeToSystemTray = DEFAULT_APP_SETTINGS.minimizeToSystemTray;
   @observable showDisabledServices = DEFAULT_APP_SETTINGS.showDisabledServices;
+  @observable showMessageBadgeWhenMuted = DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted;
   @observable enableSpellchecking = DEFAULT_APP_SETTINGS.enableSpellchecking;
   @observable locale = DEFAULT_APP_SETTINGS.locale;
   @observable beta = DEFAULT_APP_SETTINGS.beta;
@@ -15,5 +16,9 @@ export default class Settings {
 
   constructor(data) {
     Object.assign(this, data);
+  }
+
+  update(data) {
+    extendObservable(this, data);
   }
 }

@@ -9,8 +9,6 @@ matrix:
 language: node_js
 
 before_script:
-- yarn add global gulp-cli@1.2.2
-- yarn add global gulpjs/gulp#4.0
 - yarn add global node-sass
 - yarn install
 
@@ -19,7 +17,7 @@ script:
 - travis_wait yarn build
 
 node_js:
-- '7'
+- '8'
 
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev; fi

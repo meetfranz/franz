@@ -65,6 +65,7 @@ export default class ServiceWebview extends Component {
 
     const webviewClasses = classnames({
       services__webview: true,
+      'services__webview-wrapper': true,
       'is-active': service.isActive,
       'services__webview--force-repaint': this.state.forceRepaint,
     });
@@ -105,7 +106,6 @@ export default class ServiceWebview extends Component {
             onUpdateTargetUrl={this.updateTargetUrl}
             useragent={service.userAgent}
             muted={isAppMuted || service.isMuted}
-            disablewebsecurity
             allowpopups
           />
         )}

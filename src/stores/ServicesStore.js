@@ -16,6 +16,7 @@ export default class ServicesStore extends Store {
   @observable updateServiceRequest = new Request(this.api.services, 'update');
   @observable reorderServicesRequest = new Request(this.api.services, 'reorder');
   @observable deleteServiceRequest = new Request(this.api.services, 'delete');
+  @observable clearCacheRequest = new Request(this.api.services, 'clearCache');
 
   @observable filterNeedle = null;
 
@@ -31,6 +32,7 @@ export default class ServicesStore extends Store {
     this.actions.service.createFromLegacyService.listen(this._createFromLegacyService.bind(this));
     this.actions.service.updateService.listen(this._updateService.bind(this));
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
+    this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
     this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
@@ -172,9 +174,29 @@ export default class ServicesStore extends Store {
     const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
     const request = this.updateServiceRequest.execute(serviceId, data);
 
+    const newData = serviceData;
+    if (serviceData.iconFile) {
+      await request._promise;
+
+      newData.iconUrl = request.result.data.iconUrl;
+      newData.hasCustomUploadedIcon = true;
+    }
+
     this.allServicesRequest.patch((result) => {
       if (!result) return;
-      Object.assign(result.find(c => c.id === serviceId), serviceData);
+
+      // patch custom icon deletion
+      if (data.customIcon === 'delete') {
+        newData.iconUrl = '';
+        newData.hasCustomUploadedIcon = false;
+      }
+
+      // patch custom icon url
+      if (data.customIconUrl) {
+        newData.iconUrl = data.customIconUrl;
+      }
+
+      Object.assign(result.find(c => c.id === serviceId), newData);
     });
 
     await request._promise;
@@ -203,6 +225,13 @@ export default class ServicesStore extends Store {
     this.actionStatus = request.result.status;
 
     gaEvent('Service', 'delete', service.recipe.id);
+  }
+
+  @action async _clearCache({ serviceId }) {
+    this.clearCacheRequest.reset();
+    const request = this.clearCacheRequest.execute(serviceId);
+    await request._promise;
+    gaEvent('Service', 'clear cache');
   }
 
   @action _setActive({ serviceId }) {
@@ -297,7 +326,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound || service.isMuted) {
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.isAppMuted) {
         Object.assign(options, {
           silent: true,
         });
@@ -316,7 +345,7 @@ export default class ServicesStore extends Store {
       }
     } else if (channel === 'avatar') {
       const url = args[0];
-      if (service.customIconUrl !== url) {
+      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
         service.customIconUrl = url;
 
         this.actions.service.updateService({
@@ -327,6 +356,10 @@ export default class ServicesStore extends Store {
           redirect: false,
         });
       }
+    } else if (channel === 'new-window') {
+      const url = args[0];
+
+      this.actions.app.openExternalUrl({ url });
     }
   }
 
@@ -368,7 +401,7 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
     service.resetMessageCount();
 
-    service.webview.reload();
+    service.webview.loadURL(service.url);
   }
 
   @action _reloadActive() {
@@ -488,19 +521,27 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
-    const unreadDirectMessageCount = this.enabled
+    const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
+    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+
+    const unreadDirectMessageCount = this.allDisplayed
+      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
       .map(s => s.unreadDirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
-    const unreadIndirectMessageCount = this.enabled
-      .filter(s => s.isIndirectMessageBadgeEnabled)
+    const unreadIndirectMessageCount = this.allDisplayed
+      .filter(s => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
       .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
-    this.actions.app.setBadge({
-      unreadDirectMessageCount,
-      unreadIndirectMessageCount,
-    });
+    // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
+    if (showMessageBadgesEvenWhenMuted) {
+      console.log('set badge', unreadDirectMessageCount, unreadIndirectMessageCount);
+      this.actions.app.setBadge({
+        unreadDirectMessageCount,
+        unreadIndirectMessageCount,
+      });
+    }
   }
 
   _logoutReaction() {

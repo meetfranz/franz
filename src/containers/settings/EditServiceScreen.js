@@ -26,6 +26,10 @@ const messages = defineMessages({
     id: 'settings.service.form.enableNotification',
     defaultMessage: '!!!Enable Notifications',
   },
+  enableBadge: {
+    id: 'settings.service.form.enableBadge',
+    defaultMessage: '!!!Show unread message badges',
+  },
   enableAudio: {
     id: 'settings.service.form.enableAudio',
     defaultMessage: '!!!Enable audio',
@@ -41,6 +45,10 @@ const messages = defineMessages({
   indirectMessages: {
     id: 'settings.service.form.indirectMessages',
     defaultMessage: '!!!Show message badge for all new messages',
+  },
+  icon: {
+    id: 'settings.service.form.icon',
+    defaultMessage: '!!!Custom icon',
   },
 });
 
@@ -88,10 +96,21 @@ export default class EditServiceScreen extends Component {
           value: service.isNotificationEnabled,
           default: true,
         },
+        isBadgeEnabled: {
+          label: intl.formatMessage(messages.enableBadge),
+          value: service.isBadgeEnabled,
+          default: true,
+        },
         isMuted: {
           label: intl.formatMessage(messages.enableAudio),
           value: !service.isMuted,
           default: true,
+        },
+        customIcon: {
+          label: intl.formatMessage(messages.icon),
+          value: service.hasCustomUploadedIcon ? service.icon : false,
+          default: null,
+          type: 'file',
         },
       },
     };
@@ -118,9 +137,20 @@ export default class EditServiceScreen extends Component {
       });
     }
 
+    // More fine grained and use case specific validation rules
     if (recipe.hasTeamId && recipe.hasCustomUrl) {
       config.fields.team.validate = [oneRequired(['team', 'customUrl'])];
       config.fields.customUrl.validate = [url, oneRequired(['team', 'customUrl'])];
+    }
+
+    // If a service can be hosted and has a teamId or customUrl
+    if (recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl)) {
+      if (config.fields.team) {
+        config.fields.team.validate = [];
+      }
+      if (config.fields.customUrl) {
+        config.fields.customUrl.validate = [url];
+      }
     }
 
     if (recipe.hasIndirectMessages) {
@@ -177,6 +207,12 @@ export default class EditServiceScreen extends Component {
 
     if (isLoading) {
       return (<div>Loading...</div>);
+    }
+
+    if (!recipe) {
+      return (
+        <div>something went wrong</div>
+      );
     }
 
     const form = this.prepareForm(recipe, service);

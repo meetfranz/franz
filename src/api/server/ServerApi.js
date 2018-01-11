@@ -12,6 +12,8 @@ import NewsModel from '../../models/News';
 import UserModel from '../../models/User';
 import OrderModel from '../../models/Order';
 
+import { sleep } from '../../helpers/async-helpers';
+
 import { API } from '../../environment';
 
 import {
@@ -19,6 +21,10 @@ import {
   getDevRecipeDirectory,
   loadRecipeConfig,
 } from '../../helpers/recipe-helpers';
+
+import {
+  removeServicePartitionDirectory,
+} from '../../helpers/service-helpers.js';
 
 module.paths.unshift(
   getDevRecipeDirectory(),
@@ -125,6 +131,19 @@ export default class ServerApi {
     return user;
   }
 
+  async deleteAccount() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, this._prepareAuthRequest({
+      method: 'DELETE',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    console.debug('ServerApi::deleteAccount resolves', data);
+    return data;
+  }
+
   // Services
   async getServices() {
     const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/services`, this._prepareAuthRequest({
@@ -152,25 +171,63 @@ export default class ServerApi {
       throw request;
     }
     const serviceData = await request.json();
+
+    if (data.iconFile) {
+      const iconData = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
+
+      serviceData.data = iconData;
+    }
+
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
 
     console.debug('ServerApi::createService resolves', service);
     return service;
   }
 
-  async updateService(recipeId, data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${recipeId}`, this._prepareAuthRequest({
+  async updateService(serviceId, rawData) {
+    const data = rawData;
+
+    if (data.iconFile) {
+      await this.uploadServiceIcon(serviceId, data.iconFile);
+    }
+
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${serviceId}`, this._prepareAuthRequest({
       method: 'PUT',
       body: JSON.stringify(data),
     }));
+
     if (!request.ok) {
       throw request;
     }
+
     const serviceData = await request.json();
+
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
 
     console.debug('ServerApi::updateService resolves', service);
     return service;
+  }
+
+  async uploadServiceIcon(serviceId, icon) {
+    const formData = new FormData();
+    formData.append('icon', icon);
+
+    const requestData = this._prepareAuthRequest({
+      method: 'PUT',
+      body: formData,
+    });
+
+    delete requestData.headers['Content-Type'];
+
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${serviceId}`, requestData);
+
+    if (!request.ok) {
+      throw request;
+    }
+
+    const serviceData = await request.json();
+
+    return serviceData.data;
   }
 
   async reorderService(data) {
@@ -194,6 +251,8 @@ export default class ServerApi {
       throw request;
     }
     const data = await request.json();
+
+    removeServicePartitionDirectory(id, true);
 
     console.debug('ServerApi::deleteService resolves', data);
     return data;
@@ -290,18 +349,25 @@ export default class ServerApi {
 
       fs.ensureDirSync(recipeTempDirectory);
       const res = await fetch(packageUrl);
+      console.debug('Recipe downloaded', recipeId);
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
 
-      tar.x({
+      await sleep(10);
+
+      await tar.x({
         file: archivePath,
         cwd: recipeTempDirectory,
-        sync: true,
+        preservePaths: true,
+        unlink: true,
+        preserveOwner: false,
+        onwarn: x => console.log('warn', recipeId, x),
       });
+
+      await sleep(10);
 
       const { id } = fs.readJsonSync(path.join(recipeTempDirectory, 'package.json'));
       const recipeDirectory = path.join(recipesDirectory, id);
-
       fs.copySync(recipeTempDirectory, recipeDirectory);
       fs.remove(recipeTempDirectory);
       fs.remove(path.join(recipesDirectory, recipeId, 'recipe.tar.gz'));

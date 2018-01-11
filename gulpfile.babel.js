@@ -110,7 +110,9 @@ export function watch() {
 }
 
 export function webserver() {
-  gulp.src(paths.dest)
+  gulp.src([
+    paths.dest,
+  ])
     .pipe(server({
       livereload: true,
     }));

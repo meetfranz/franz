@@ -58,17 +58,25 @@
     }
 
     &__featured-services {
-      margin-top: 150px;
       text-align: center;
-      margin-top: 80px;
+      width: 480px;
+      margin: 80px auto 0 auto;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      background: #FFF;
+      border-radius: 6px;
+      padding: 20px 20px 5px;
     }
 
     &__featured-service {
       width: 35px;
-      margin-right: 30px;
+      height: 35px;
+      margin: 0 10px 15px;
+      transition: 0.5s filter, 0.5s opacity;
 
-      &:last-of-type {
-        margin-right: 0;
+      img {
+        width: 35px;
       }
     }
   }

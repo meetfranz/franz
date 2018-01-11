@@ -73,13 +73,11 @@ export default class AppLayoutContainer extends Component {
       );
     }
 
-    const isMuted = settings.all.isAppMuted || app.isSystemMuted;
-
     const sidebar = (
       <Sidebar
         services={services.allDisplayed}
         setActive={setActive}
-        isAppMuted={isMuted}
+        isAppMuted={settings.all.isAppMuted}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}
@@ -89,6 +87,8 @@ export default class AppLayoutContainer extends Component {
         deleteService={deleteService}
         updateService={updateService}
         toggleMuteApp={toggleMuteApp}
+        showMessageBadgeWhenMutedSetting={settings.all.showMessageBadgeWhenMuted}
+        showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
       />
     );
 
@@ -99,7 +99,7 @@ export default class AppLayoutContainer extends Component {
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
-        isAppMuted={isMuted}
+        isAppMuted={settings.all.isAppMuted}
         update={updateService}
       />
     );
