@@ -153,7 +153,7 @@ class TabItem extends Component {
           'has-custom-icon': service.hasCustomIcon,
           'is-disabled': !service.isEnabled,
         })}
-        onClick={clickHandler}
+        onMouseDown={clickHandler}
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}
         data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
       >
