@@ -37,44 +37,34 @@ export default class SubscriptionFormScreen extends Component {
       skipAction,
     } = this.props;
 
-    if (plan !== 'mining') {
-      const interval = plan;
+    const interval = plan;
 
-      const { id } = stores.payment.plan[interval];
-      actions.payment.createHostedPage({
-        planId: id,
-      });
+    const { id } = stores.payment.plan[interval];
+    actions.payment.createHostedPage({
+      planId: id,
+    });
 
-      const hostedPage = await stores.payment.createHostedPageRequest;
-      const url = `file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPage.url)}`;
+    const hostedPage = await stores.payment.createHostedPageRequest;
+    const url = `file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPage.url)}`;
 
-      if (hostedPage.url) {
-        const paymentWindow = new BrowserWindow({
-          parent: remote.getCurrentWindow(),
-          modal: true,
-          title: '🔒 Franz Supporter License',
-          width: 600,
-          height: window.innerHeight - 100,
-          maxWidth: 600,
-          minWidth: 600,
-          webPreferences: {
-            nodeIntegration: true,
-          },
-        });
-        paymentWindow.loadURL(url);
-
-        paymentWindow.on('closed', () => {
-          onCloseWindow();
-        });
-      }
-    } else {
-      actions.user.update({
-        userData: {
-          isMiner: true,
+    if (hostedPage.url) {
+      const paymentWindow = new BrowserWindow({
+        parent: remote.getCurrentWindow(),
+        modal: true,
+        title: '🔒 Franz Supporter License',
+        width: 600,
+        height: window.innerHeight - 100,
+        maxWidth: 600,
+        minWidth: 600,
+        webPreferences: {
+          nodeIntegration: true,
         },
       });
+      paymentWindow.loadURL(url);
 
-      skipAction();
+      paymentWindow.on('closed', () => {
+        onCloseWindow();
+      });
     }
   }
 

@@ -3,7 +3,6 @@ import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
-import idleTimer from '@paulcbetts/system-idle-time';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 
@@ -13,7 +12,6 @@ import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
-import Miner from '../lib/Miner';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
@@ -46,11 +44,6 @@ export default class AppStore extends Store {
 
   @observable locale = defaultLocale;
 
-  @observable idleTime = 0;
-
-  miner = null;
-  @observable minerHashrate = 0.0;
-
   @observable isSystemMuteOverridden = false;
 
   @observable isClearingAllCache = false;
@@ -74,8 +67,6 @@ export default class AppStore extends Store {
     this.registerReactions([
       this._offlineCheck.bind(this),
       this._setLocale.bind(this),
-      this._handleMiner.bind(this),
-      this._handleMinerThrottle.bind(this),
       this._muteAppHandler.bind(this),
     ]);
   }
@@ -334,28 +325,6 @@ export default class AppStore extends Store {
     }
 
     return locale;
-  }
-
-  _handleMiner() {
-    if (!this.stores.user.isLoggedIn) return;
-
-    if (this.stores.user.data.isMiner) {
-      this.miner = new Miner('cVO1jVkBWuIJkyqlcEHRTScAfQwaEmuH');
-      this.miner.start(({ hashesPerSecond }) => {
-        this.minerHashrate = hashesPerSecond;
-      });
-    } else if (this.miner) {
-      this.miner.stop();
-      this.miner = 0;
-    }
-  }
-
-  _handleMinerThrottle() {
-    if (this.idleTime > 300000) {
-      if (this.miner) this.miner.setIdleThrottle();
-    } else {
-      if (this.miner) this.miner.setActiveThrottle(); // eslint-disable-line
-    }
   }
 
   _muteAppHandler() {
