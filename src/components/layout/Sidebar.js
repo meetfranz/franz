@@ -50,6 +50,10 @@ export default class Sidebar extends Component {
     this.setState({ tooltipEnabled: false });
   }
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+
   render() {
     const { openSettings, toggleMuteApp, isAppMuted } = this.props;
     const { intl } = this.context;
