@@ -34,7 +34,6 @@ export default class SubscriptionFormScreen extends Component {
       actions,
       stores,
       onCloseWindow,
-      skipAction,
     } = this.props;
 
     const interval = plan;
