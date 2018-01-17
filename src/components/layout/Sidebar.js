@@ -42,16 +42,16 @@ export default class Sidebar extends Component {
     tooltipEnabled: true,
   };
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+
   enableToolTip() {
     this.setState({ tooltipEnabled: true });
   }
 
   disableToolTip() {
     this.setState({ tooltipEnabled: false });
-  }
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
   }
 
   render() {
