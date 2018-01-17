@@ -34,8 +34,4 @@ export default class User {
     this.isSubscriptionOwner = data.isSubscriptionOwner || this.isSubscriptionOwner;
     this.isMiner = data.isMiner || this.isMiner;
   }
-
-  // @computed get isPremium() {
-  //
-  // }
 }
