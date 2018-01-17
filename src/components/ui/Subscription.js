@@ -84,7 +84,6 @@ export default class SubscriptionForm extends Component {
     skipAction: PropTypes.func,
     skipButtonLabel: PropTypes.string,
     hideInfo: PropTypes.bool.isRequired,
-    openExternalUrl: PropTypes.func.isRequired,
   };
 
   static defaultProps ={
@@ -146,7 +145,6 @@ export default class SubscriptionForm extends Component {
       skipAction,
       skipButtonLabel,
       hideInfo,
-      openExternalUrl,
     } = this.props;
     const { intl } = this.context;
 

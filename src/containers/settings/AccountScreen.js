@@ -59,7 +59,7 @@ export default class AccountScreen extends Component {
   }
 
   render() {
-    const { user, payment, app } = this.props.stores;
+    const { user, payment } = this.props.stores;
     const { openExternalUrl } = this.props.actions.app;
     const { user: userActions } = this.props.actions;
 

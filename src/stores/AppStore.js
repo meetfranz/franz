@@ -127,6 +127,7 @@ export default class AppStore extends Store {
     // Reload all services after a healthy nap
     // Alternative solution for powerMonitor as the resume event is not fired
     // More information: https://github.com/electron/electron/issues/1615
+    const TIMEOUT = 5000;
     let lastTime = (new Date()).getTime();
     setInterval(() => {
       const currentTime = (new Date()).getTime();
