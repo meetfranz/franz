@@ -15,9 +15,17 @@ const messages = defineMessages({
     id: 'settings.services.headline',
     defaultMessage: '!!!Your services',
   },
+  searchService: {
+    id: 'settings.searchService',
+    defaultMessage: '!!!Search service',
+  },
   noServicesAdded: {
     id: 'settings.services.noServicesAdded',
     defaultMessage: '!!!You haven\'t added any services yet.',
+  },
+  noServiceFound: {
+    id: 'settings.recipes.nothingFound',
+    defaultMessage: '!!!Sorry, but no service matched your search term.',
   },
   discoverServices: {
     id: 'settings.services.discoverServices',
@@ -53,7 +61,13 @@ export default class ServicesDashboard extends Component {
     servicesRequestFailed: PropTypes.bool.isRequired,
     retryServicesRequest: PropTypes.func.isRequired,
     status: MobxPropTypes.arrayOrObservableArray.isRequired,
+    searchNeedle: PropTypes.string,
   };
+
+  static defaultProps = {
+    searchNeedle: '',
+  }
+
   static contextTypes = {
     intl: intlShape,
   };
@@ -69,20 +83,24 @@ export default class ServicesDashboard extends Component {
       servicesRequestFailed,
       retryServicesRequest,
       status,
+      searchNeedle,
     } = this.props;
     const { intl } = this.context;
 
     return (
       <div className="settings__main">
         <div className="settings__header">
-          <SearchInput
-            className="settings__search-header"
-            defaultValue={intl.formatMessage(messages.headline)}
-            onChange={needle => filterServices({ needle })}
-            onReset={() => resetFilter()}
-          />
+          <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
+          {!isLoading && (
+            <SearchInput
+              placeholder={intl.formatMessage(messages.searchService)}
+              onChange={needle => filterServices({ needle })}
+              onReset={() => resetFilter()}
+              autoFocus
+            />
+          )}
           {!isLoading && servicesRequestFailed && (
             <div>
               <Infobox
@@ -121,7 +139,7 @@ export default class ServicesDashboard extends Component {
             </Appear>
           )}
 
-          {!isLoading && services.length === 0 && (
+          {!isLoading && services.length === 0 && !searchNeedle && (
             <div className="align-middle settings__empty-state">
               <p className="settings__empty-text">
                 <span className="emoji">
@@ -130,6 +148,16 @@ export default class ServicesDashboard extends Component {
                 {intl.formatMessage(messages.noServicesAdded)}
               </p>
               <Link to="/settings/recipes" className="button">{intl.formatMessage(messages.discoverServices)}</Link>
+            </div>
+          )}
+          {!isLoading && services.length === 0 && searchNeedle && (
+            <div className="align-middle settings__empty-state">
+              <p className="settings__empty-text">
+                <span className="emoji">
+                  <img src="./assets/images/emoji/dontknow.png" alt="" />
+                </span>
+                {intl.formatMessage(messages.noServiceFound)}
+              </p>
             </div>
           )}
           {isLoading ? (

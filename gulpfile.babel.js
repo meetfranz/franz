@@ -112,8 +112,6 @@ export function watch() {
 export function webserver() {
   gulp.src([
     paths.dest,
-    `!${paths.dest}/electron/**`,
-    `!${paths.dest}/webview/**`,
   ])
     .pipe(server({
       livereload: true,

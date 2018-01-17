@@ -1,9 +1,10 @@
 import { remote, ipcRenderer, shell } from 'electron';
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
+import prettyBytes from 'pretty-bytes';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -12,7 +13,10 @@ import { isMac } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 
-const { app, powerMonitor } = remote;
+import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+
+const { app } = remote;
+
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
@@ -28,6 +32,8 @@ export default class AppStore extends Store {
   };
 
   @observable healthCheckRequest = new Request(this.api.app, 'health');
+  @observable getAppCacheSizeRequest = new Request(this.api.local, 'getAppCacheSize');
+  @observable clearAppCacheRequest = new Request(this.api.local, 'clearAppCache');
 
   @observable autoLaunchOnStart = true;
 
@@ -39,6 +45,8 @@ export default class AppStore extends Store {
   @observable locale = defaultLocale;
 
   @observable isSystemMuteOverridden = false;
+
+  @observable isClearingAllCache = false;
 
   constructor(...args) {
     super(...args);
@@ -54,6 +62,7 @@ export default class AppStore extends Store {
     this.actions.app.healthCheck.listen(this._healthCheck.bind(this));
     this.actions.app.muteApp.listen(this._muteApp.bind(this));
     this.actions.app.toggleMuteApp.listen(this._toggleMuteApp.bind(this));
+    this.actions.app.clearAllCache.listen(this._clearAllCache.bind(this));
 
     this.registerReactions([
       this._offlineCheck.bind(this),
@@ -116,9 +125,16 @@ export default class AppStore extends Store {
     });
 
     // Reload all services after a healthy nap
-    powerMonitor.on('resume', () => {
-      setTimeout(window.location.reload, 5000);
-    });
+    // Alternative solution for powerMonitor as the resume event is not fired
+    // More information: https://github.com/electron/electron/issues/1615
+    let lastTime = (new Date()).getTime();
+    setInterval(() => {
+      const currentTime = (new Date()).getTime();
+      if (currentTime > (lastTime + TIMEOUT + 2000)) {
+        this._reactivateServices();
+      }
+      lastTime = currentTime;
+    }, TIMEOUT);
 
     // Set active the next service
     key(
@@ -141,6 +157,10 @@ export default class AppStore extends Store {
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
+  }
+
+  @computed get cacheSize() {
+    return prettyBytes(this.getAppCacheSizeRequest.execute().result || 0);
   }
 
   // Actions
@@ -233,6 +253,23 @@ export default class AppStore extends Store {
     this._muteApp({ isMuted: !this.stores.settings.all.isAppMuted });
   }
 
+  @action async _clearAllCache() {
+    this.isClearingAllCache = true;
+    const clearAppCache = this.clearAppCacheRequest.execute();
+    const allServiceIds = await getServiceIdsFromPartitions();
+    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
+
+    await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
+
+    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({ serviceId: s.id })));
+
+    await clearAppCache._promise;
+
+    this.getAppCacheSizeRequest.execute();
+
+    this.isClearingAllCache = false;
+  }
+
   // Reactions
   _offlineCheck() {
     if (!this.isOnline) {
@@ -319,6 +356,16 @@ export default class AppStore extends Store {
 
   async _checkAutoStart() {
     return autoLauncher.isEnabled() || false;
+  }
+
+  _reactivateServices(retryCount = 0) {
+    if (!this.isOnline) {
+      console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
+      setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
+    } else {
+      console.debug('reactivateServices: reload all services');
+      this.actions.service.reloadAll();
+    }
   }
 
   _systemDND() {

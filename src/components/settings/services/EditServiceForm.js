@@ -13,6 +13,7 @@ import Tabs, { TabItem } from '../../ui/Tabs';
 import Input from '../../ui/Input';
 import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
+import ImageUpload from '../../ui/ImageUpload';
 
 const messages = defineMessages({
   saveService: {
@@ -77,11 +78,19 @@ const messages = defineMessages({
   },
   headlineBadges: {
     id: 'settings.service.form.headlineBadges',
-    defaultMessage: '!!!Unread message dadges',
+    defaultMessage: '!!!Unread message badges',
   },
   headlineGeneral: {
     id: 'settings.service.form.headlineGeneral',
     defaultMessage: '!!!General',
+  },
+  iconDelete: {
+    id: 'settings.service.form.iconDelete',
+    defaultMessage: '!!!Delete',
+  },
+  iconUpload: {
+    id: 'settings.service.form.iconUpload',
+    defaultMessage: '!!!Drop your image, or click here',
   },
 });
 
@@ -125,6 +134,11 @@ export default class EditServiceForm extends Component {
       onSuccess: async (form) => {
         const values = form.values();
         let isValid = true;
+
+        const files = form.$('customIcon').files;
+        if (files) {
+          values.iconFile = files[0];
+        }
 
         if (recipe.validateUrl && values.customUrl) {
           this.setState({ isValidatingCustomUrl: true });
@@ -217,7 +231,9 @@ export default class EditServiceForm extends Component {
         </div>
         <div className="settings__body">
           <form onSubmit={e => this.submit(e)} id="form">
-            <Input field={form.$('name')} focus />
+            <div className="service-name">
+              <Input field={form.$('name')} focus />
+            </div>
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (
               <Tabs
                 active={activeTabIndex}
@@ -261,32 +277,41 @@ export default class EditServiceForm extends Component {
                 )}
               </Tabs>
             )}
-            <div className="settings__options">
-              <div className="settings__settings-group">
-                <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
-                <Toggle field={form.$('isNotificationEnabled')} />
-                <Toggle field={form.$('isMuted')} />
-                <p className="settings__help">
-                  {intl.formatMessage(messages.isMutedInfo)}
-                </p>
-              </div>
+            <div className="service-flex-grid">
+              <div className="settings__options">
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
+                  <Toggle field={form.$('isNotificationEnabled')} />
+                  <Toggle field={form.$('isMuted')} />
+                  <p className="settings__help">
+                    {intl.formatMessage(messages.isMutedInfo)}
+                  </p>
+                </div>
 
-              <div className="settings__settings-group">
-                <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
-                <Toggle field={form.$('isBadgeEnabled')} />
-                {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
-                  <div>
-                    <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
-                    <p className="settings__help">
-                      {intl.formatMessage(messages.indirectMessageInfo)}
-                    </p>
-                  </div>
-                )}
-              </div>
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
+                  <Toggle field={form.$('isBadgeEnabled')} />
+                  {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
+                    <div>
+                      <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
+                      <p className="settings__help">
+                        {intl.formatMessage(messages.indirectMessageInfo)}
+                      </p>
+                    </div>
+                  )}
+                </div>
 
-              <div className="settings__settings-group">
-                <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
-                <Toggle field={form.$('isEnabled')} />
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
+                  <Toggle field={form.$('isEnabled')} />
+                </div>
+              </div>
+              <div className="service-icon">
+                <ImageUpload
+                  field={form.$('customIcon')}
+                  textDelete={intl.formatMessage(messages.iconDelete)}
+                  textUpload={intl.formatMessage(messages.iconUpload)}
+                />
               </div>
             </div>
             {recipe.message && (
