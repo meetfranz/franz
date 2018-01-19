@@ -60,7 +60,7 @@ export default class Password extends Component {
       email: {
         label: this.context.intl.formatMessage(messages.emailLabel),
         value: '',
-        validators: [required, email],
+        validate: [required, email],
       },
     },
   }, this.context.intl);

@@ -53,7 +53,7 @@ export default class Invite extends Component {
         email: {
           label: this.context.intl.formatMessage(messages.emailLabel),
           // value: '',
-          validators: [email],
+          validate: [email],
           placeholder: this.context.intl.formatMessage(messages.emailLabel),
         },
       })],

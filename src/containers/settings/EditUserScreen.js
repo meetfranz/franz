@@ -81,23 +81,23 @@ export default class EditUserScreen extends Component {
           label: intl.formatMessage(messages.firstname),
           placeholder: intl.formatMessage(messages.firstname),
           value: user.firstname,
-          validators: [required],
+          validate: [required],
         },
         lastname: {
           label: intl.formatMessage(messages.lastname),
           placeholder: intl.formatMessage(messages.lastname),
           value: user.lastname,
-          validators: [required],
+          validate: [required],
         },
         email: {
           label: intl.formatMessage(messages.email),
           placeholder: intl.formatMessage(messages.email),
           value: user.email,
-          validators: [required, email],
+          validate: [required, email],
         },
         accountType: {
           value: user.accountType,
-          validators: [required],
+          validate: [required],
           label: intl.formatMessage(messages.accountType.label),
           options: [{
             value: 'individual',
@@ -118,12 +118,12 @@ export default class EditUserScreen extends Component {
         oldPassword: {
           label: intl.formatMessage(messages.currentPassword),
           type: 'password',
-          validators: [minLength(6)],
+          validate: [minLength(6)],
         },
         newPassword: {
           label: intl.formatMessage(messages.newPassword),
           type: 'password',
-          validators: [minLength(6)],
+          validate: [minLength(6)],
         },
       },
     };

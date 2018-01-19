@@ -121,7 +121,7 @@ export default class EditServiceScreen extends Component {
           label: intl.formatMessage(messages.team),
           placeholder: intl.formatMessage(messages.team),
           value: service.team,
-          validators: [required],
+          validate: [required],
         },
       });
     }
@@ -132,7 +132,7 @@ export default class EditServiceScreen extends Component {
           label: intl.formatMessage(messages.customUrl),
           placeholder: 'https://',
           value: service.customUrl,
-          validators: [required, url],
+          validate: [required, url],
         },
       });
     }

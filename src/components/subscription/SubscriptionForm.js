@@ -108,7 +108,7 @@ export default class SubscriptionForm extends Component {
       fields: {
         paymentTier: {
           value: 'year',
-          validators: [required],
+          validate: [required],
           options: [{
             value: 'month',
             label: `€ ${Object.hasOwnProperty.call(this.props.plan, 'month')
