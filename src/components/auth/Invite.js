@@ -45,17 +45,17 @@ export default class Invite extends Component {
   form = new Form({
     fields: {
       invite: [...Array(3).fill({
-        name: {
-          label: this.context.intl.formatMessage(messages.nameLabel),
-          // value: '',
-          placeholder: this.context.intl.formatMessage(messages.nameLabel),
-        },
-        email: {
-          label: this.context.intl.formatMessage(messages.emailLabel),
-          // value: '',
-          validate: [email],
-          placeholder: this.context.intl.formatMessage(messages.emailLabel),
-        },
+        fields: {
+          name: {
+            label: this.context.intl.formatMessage(messages.nameLabel),
+            placeholder: this.context.intl.formatMessage(messages.nameLabel),
+          },
+          email: {
+            label: this.context.intl.formatMessage(messages.emailLabel),
+            placeholder: this.context.intl.formatMessage(messages.emailLabel),
+            validators: [email],
+          }
+        }
       })],
     },
   }, this.context.intl);
