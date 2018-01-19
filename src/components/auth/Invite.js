@@ -30,6 +30,10 @@ const messages = defineMessages({
     id: 'invite.skip.label',
     defaultMessage: '!!!I want to do this later',
   },
+  noEmailAddresses: {
+    id: 'invite.error.noEmails',
+    defaultMessage: '!!!At least one email address is required',
+  }
 });
 
 @observer
@@ -64,6 +68,16 @@ export default class Invite extends Component {
     e.preventDefault();
     this.form.submit({
       onSuccess: (form) => {
+
+        const atLeastOneEmailAddress = form.$('invite')
+          .map(invite => {return invite.$('email').value})
+          .some(email => email.trim() !== '')
+        
+        if (!atLeastOneEmailAddress) {
+          form.invalidate('no-email-addresses')
+          return
+        }
+  
         this.props.onSubmit({ invites: form.values().invite });
       },
       onError: () => {},
@@ -97,6 +111,11 @@ export default class Invite extends Component {
               </div>
             </div>
           ))}
+          {form.error === 'no-email-addresses' && (
+            <p className="franz-form__error invite-form__error">
+              {intl.formatMessage(messages.noEmailAddresses)}
+            </p>
+          )}
           <Button
             type="submit"
             className="auth__button"

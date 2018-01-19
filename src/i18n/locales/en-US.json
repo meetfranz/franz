@@ -45,6 +45,7 @@
   "invite.name.label": "Name",
   "invite.email.label": "Email address",
   "invite.skip.label": "I want to do this later",
+  "invite.error.noEmails": "At least one email address is required",
   "subscription.submit.label": "I want to support the development of Franz",
   "subscription.paymentSessionError": "Could not initialize payment form",
   "subscription.includedFeatures": "Paid Franz Premium Supporter Account includes",
