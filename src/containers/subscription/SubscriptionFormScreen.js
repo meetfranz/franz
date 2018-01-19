@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 
 import PaymentStore from '../../stores/PaymentStore';
 
-import SubscriptionForm from '../../components/subscription/Subscription';
+import SubscriptionForm from '../../components/subscription/SubscriptionForm';
 
 const { BrowserWindow } = remote;
 
