@@ -74,6 +74,10 @@ export default class Invite extends Component {
     const { form } = this;
     const { intl } = this.context;
 
+    const atLeastOneEmailAddress = form.$('invite')
+      .map(invite => {return invite.$('email').value})
+      .some(email => email.trim() !== '')
+
     return (
       <div className="auth__container auth__container--signup">
         <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
@@ -96,6 +100,7 @@ export default class Invite extends Component {
           <Button
             type="submit"
             className="auth__button"
+            disabled={!atLeastOneEmailAddress}
             label={intl.formatMessage(messages.submitButtonLabel)}
           />
           <Link
