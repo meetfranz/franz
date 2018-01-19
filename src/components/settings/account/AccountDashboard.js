@@ -9,7 +9,7 @@ import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
 import Infobox from '../../ui/Infobox';
 import Link from '../../ui/Link';
-import SubscriptionForm from '../../../containers/ui/SubscriptionFormScreen';
+import SubscriptionForm from '../../../containers/subscription/SubscriptionFormScreen';
 
 const messages = defineMessages({
   headline: {
