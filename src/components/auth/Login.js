@@ -76,12 +76,12 @@ export default class Login extends Component {
       email: {
         label: this.context.intl.formatMessage(messages.emailLabel),
         value: '',
-        validate: [required, email],
+        validators: [required, email],
       },
       password: {
         label: this.context.intl.formatMessage(messages.passwordLabel),
         value: '',
-        validate: [required],
+        validators: [required],
         type: 'password',
       },
     },
