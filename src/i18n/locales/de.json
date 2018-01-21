@@ -45,6 +45,7 @@
    "services.getStarted" : "Loslegen",
    "services.welcome" : "Willkommen bei Franz.",
    "settings.account.account.editButton" : "Konto bearbeiten",
+   "settings.account.account.inviteButton" : "Freunde einladen",
    "settings.account.accountType.basic" : "Basis Konto",
    "settings.account.accountType.premium" : "Premium-Supporter Konto",
    "settings.account.buttonSave" : "Profil aktualisieren",

@@ -165,6 +165,8 @@ export default class UserStore extends Store {
 
     this.inviteRequest.execute(data);
 
+    console.log(this.stores.router.location )
+
     // we do not wait for a server response before redirecting the user
     this.stores.router.push('/');
 
