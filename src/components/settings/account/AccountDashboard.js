@@ -118,6 +118,7 @@ export default class AccountDashboard extends Component {
       deleteAccount,
       isLoadingDeleteAccount,
       isDeleteAccountSuccessful,
+      pathname,
     } = this.props;
     const { intl } = this.context;
 
@@ -189,7 +190,8 @@ export default class AccountDashboard extends Component {
                         <Link
                           to={{
                             pathname: '/auth/signup/invite',
-                            state: { fromSettings: true }
+                            query: { from: pathname },
+                            // state: { "from": 'hi' } // is not being passed to route
                           }}
                           className="button account__invite-button">
                           {intl.formatMessage(messages.accountInviteButton)}

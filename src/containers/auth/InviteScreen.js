@@ -11,13 +11,15 @@ export default class InviteScreen extends Component {
   }
 
   render() {
-    const { actions } = this.props;
-
-    console.log(this.props.location.state)
+    const { 
+      actions,
+      location
+    } = this.props;
 
     return (
       <Invite
         onSubmit={actions.user.invite}
+        from={location.query.from}
       />
     );
   }

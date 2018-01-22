@@ -64,7 +64,10 @@ export default class Invite extends Component {
     e.preventDefault();
     this.form.submit({
       onSuccess: (form) => {
-        this.props.onSubmit({ invites: form.values().invite });
+        this.props.onSubmit({ 
+          invites: form.values().invite,
+          from: this.props.from
+        });
       },
       onError: () => {},
     });
@@ -73,6 +76,7 @@ export default class Invite extends Component {
   render() {
     const { form } = this;
     const { intl } = this.context;
+    const { from } = this.props;
 
     return (
       <div className="auth__container auth__container--signup">
@@ -99,7 +103,7 @@ export default class Invite extends Component {
             label={intl.formatMessage(messages.submitButtonLabel)}
           />
           <Link
-            to="/"
+            to={ !!from ? from : '/'}
             className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
           >
             {intl.formatMessage(messages.skipButtonLabel)}

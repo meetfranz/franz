@@ -83,6 +83,7 @@ export default class AccountScreen extends Component {
         deleteAccount={userActions.delete}
         isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
         isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
+        pathname={this.props.location.pathname}
       />
     );
   }
