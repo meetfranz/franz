@@ -10,7 +10,7 @@ export default class User {
   @observable emailIsConfirmed = true; // better assume it's confirmed to avoid noise
   @observable subscription = {};
   @observable isSubscriptionOwner = false;
-  @observable isPremium = false;
+  @observable isPremium = true;
   @observable beta = false;
   @observable donor = {};
   @observable isDonor = false;

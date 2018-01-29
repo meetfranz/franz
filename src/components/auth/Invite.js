@@ -30,6 +30,10 @@ const messages = defineMessages({
     id: 'invite.skip.label',
     defaultMessage: '!!!I want to do this later',
   },
+  noEmailAddresses: {
+    id: 'invite.error.noEmails',
+    defaultMessage: '!!!At least one email address is required',
+  }
 });
 
 @observer
@@ -45,17 +49,17 @@ export default class Invite extends Component {
   form = new Form({
     fields: {
       invite: [...Array(3).fill({
-        name: {
-          label: this.context.intl.formatMessage(messages.nameLabel),
-          // value: '',
-          placeholder: this.context.intl.formatMessage(messages.nameLabel),
-        },
-        email: {
-          label: this.context.intl.formatMessage(messages.emailLabel),
-          // value: '',
-          validate: [email],
-          placeholder: this.context.intl.formatMessage(messages.emailLabel),
-        },
+        fields: {
+          name: {
+            label: this.context.intl.formatMessage(messages.nameLabel),
+            placeholder: this.context.intl.formatMessage(messages.nameLabel),
+          },
+          email: {
+            label: this.context.intl.formatMessage(messages.emailLabel),
+            placeholder: this.context.intl.formatMessage(messages.emailLabel),
+            validators: [email],
+          }
+        }
       })],
     },
   }, this.context.intl);
@@ -64,10 +68,22 @@ export default class Invite extends Component {
     e.preventDefault();
     this.form.submit({
       onSuccess: (form) => {
+
         this.props.onSubmit({ 
           invites: form.values().invite,
           from: this.props.from
         });
+
+        const atLeastOneEmailAddress = form.$('invite')
+          .map(invite => {return invite.$('email').value})
+          .some(email => email.trim() !== '')
+        
+        if (!atLeastOneEmailAddress) {
+          form.invalidate('no-email-addresses')
+          return
+        }
+  
+        this.props.onSubmit({ invites: form.values().invite });
       },
       onError: () => {},
     });
@@ -77,6 +93,10 @@ export default class Invite extends Component {
     const { form } = this;
     const { intl } = this.context;
     const { from } = this.props;
+
+    const atLeastOneEmailAddress = form.$('invite')
+      .map(invite => {return invite.$('email').value})
+      .some(email => email.trim() !== '')
 
     return (
       <div className="auth__container auth__container--signup">
@@ -97,9 +117,15 @@ export default class Invite extends Component {
               </div>
             </div>
           ))}
+          {form.error === 'no-email-addresses' && (
+            <p className="franz-form__error invite-form__error">
+              {intl.formatMessage(messages.noEmailAddresses)}
+            </p>
+          )}
           <Button
             type="submit"
             className="auth__button"
+            disabled={!atLeastOneEmailAddress}
             label={intl.formatMessage(messages.submitButtonLabel)}
           />
           <Link
