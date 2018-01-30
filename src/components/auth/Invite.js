@@ -93,36 +93,36 @@ export default class Invite extends Component {
     });
 
     return (
-        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
-          {!embed && (<img
-            src="./assets/images/logo.svg"
-            className="auth__logo"
-            alt=""
-          />)}
-          <h1 className={embed && 'invite__embed'}>
-            {intl.formatMessage(messages.headline)}
-          </h1>
-          {form.$('invite').map(invite => (
-            <div className="grid" key={invite.key}>
-              <div className="grid__row">
-                <Input field={invite.$('name')} showLabel={false} />
-                <Input field={invite.$('email')} showLabel={false} />
-              </div>
+      <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+        {!embed && (<img
+          src="./assets/images/logo.svg"
+          className="auth__logo"
+          alt=""
+        />)}
+        <h1 className={embed && 'invite__embed'}>
+          {intl.formatMessage(messages.headline)}
+        </h1>
+        {form.$('invite').map(invite => (
+          <div className="grid" key={invite.key}>
+            <div className="grid__row">
+              <Input field={invite.$('name')} showLabel={false} />
+              <Input field={invite.$('email')} showLabel={false} />
             </div>
-          ))}
-          <Button
-            type="submit"
-            className={sendButtonClassName}
-            disabled={!atLeastOneEmailAddress}
-            label={intl.formatMessage(messages.submitButtonLabel)}
-          />
-          {!embed && (<Link
-            to={from || '/'}
-            className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
-          >
-            {intl.formatMessage(messages.skipButtonLabel)}
-          </Link>)}
-        </form>
+          </div>
+        ))}
+        <Button
+          type="submit"
+          className={sendButtonClassName}
+          disabled={!atLeastOneEmailAddress}
+          label={intl.formatMessage(messages.submitButtonLabel)}
+        />
+        {!embed && (<Link
+          to={from || '/'}
+          className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
+        >
+          {intl.formatMessage(messages.skipButtonLabel)}
+        </Link>)}
+      </form>
     );
   }
 }
