@@ -7,7 +7,7 @@ import { gaPage } from '../../lib/analytics';
 @inject('stores', 'actions') @observer
 export default class InviteScreen extends Component {
   componentDidMount() {
-    gaPage('Auth/Invite');
+    gaPage('Settings/Invite');
   }
 
   render() {
@@ -17,12 +17,18 @@ export default class InviteScreen extends Component {
     } = this.props;
 
     return (
-      <div className="auth__container auth__container--signup">
-        <Invite
-          onSubmit={actions.user.invite}
-          from={location.query.from}
-          embed={false}
-        />
+      <div className="settings__main">
+        <div className="settings__header">
+          {/* <h1>{intl.formatMessage(messages.headline)}</h1> */}
+          <h1>Invite Friends</h1>
+        </div>
+        <div className="settings__body invite__form">
+          <Invite
+            onSubmit={actions.user.invite}
+            from={location.query.from}
+            embed={location.query.embed}
+          />
+        </div>
       </div>
     );
   }

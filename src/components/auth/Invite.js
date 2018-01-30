@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import { Link } from 'react-router';
+import classnames from 'classnames';
 
 import Form from '../../lib/Form';
 import { email } from '../../helpers/validation-helpers';
@@ -37,10 +38,12 @@ export default class Invite extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     from: PropTypes.string,
+    embed: PropTypes.bool,
   };
 
   static defaultProps = {
     from: '/',
+    embed: false,
   };
 
   static contextTypes = {
@@ -78,21 +81,25 @@ export default class Invite extends Component {
   render() {
     const { form } = this;
     const { intl } = this.context;
-    const { from } = this.props;
+    const { from, embed } = this.props;
 
     const atLeastOneEmailAddress = form.$('invite')
       .map(invite => invite.$('email').value)
       .some(emailValue => emailValue.trim() !== '');
 
+    const sendButtonClassName = classnames({
+      auth__button: true,
+      'invite__embed--button': embed,
+    });
+
     return (
-      <div className="auth__container auth__container--signup">
         <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
-          <img
+          {!embed && (<img
             src="./assets/images/logo.svg"
             className="auth__logo"
             alt=""
-          />
-          <h1>
+          />)}
+          <h1 className={embed && 'invite__embed'}>
             {intl.formatMessage(messages.headline)}
           </h1>
           {form.$('invite').map(invite => (
@@ -105,18 +112,17 @@ export default class Invite extends Component {
           ))}
           <Button
             type="submit"
-            className="auth__button"
+            className={sendButtonClassName}
             disabled={!atLeastOneEmailAddress}
             label={intl.formatMessage(messages.submitButtonLabel)}
           />
-          <Link
+          {!embed && (<Link
             to={from || '/'}
             className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
           >
             {intl.formatMessage(messages.skipButtonLabel)}
-          </Link>
+          </Link>)}
         </form>
-      </div>
     );
   }
 }
