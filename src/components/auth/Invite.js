@@ -45,16 +45,16 @@ export default class Invite extends Component {
   form = new Form({
     fields: {
       invite: [...Array(3).fill({
-        name: {
-          label: this.context.intl.formatMessage(messages.nameLabel),
-          // value: '',
-          placeholder: this.context.intl.formatMessage(messages.nameLabel),
-        },
-        email: {
-          label: this.context.intl.formatMessage(messages.emailLabel),
-          // value: '',
-          validators: [email],
-          placeholder: this.context.intl.formatMessage(messages.emailLabel),
+        fields: {
+          name: {
+            label: this.context.intl.formatMessage(messages.nameLabel),
+            placeholder: this.context.intl.formatMessage(messages.nameLabel),
+          },
+          email: {
+            label: this.context.intl.formatMessage(messages.emailLabel),
+            placeholder: this.context.intl.formatMessage(messages.emailLabel),
+            validators: [email],
+          },
         },
       })],
     },
@@ -73,6 +73,10 @@ export default class Invite extends Component {
   render() {
     const { form } = this;
     const { intl } = this.context;
+
+    const atLeastOneEmailAddress = form.$('invite')
+      .map(invite => invite.$('email').value)
+      .some(emailValue => emailValue.trim() !== '');
 
     return (
       <div className="auth__container auth__container--signup">
@@ -96,6 +100,7 @@ export default class Invite extends Component {
           <Button
             type="submit"
             className="auth__button"
+            disabled={!atLeastOneEmailAddress}
             label={intl.formatMessage(messages.submitButtonLabel)}
           />
           <Link
