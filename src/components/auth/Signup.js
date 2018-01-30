@@ -82,7 +82,7 @@ export default class Signup extends Component {
     fields: {
       accountType: {
         value: 'individual',
-        validate: [required],
+        validators: [required],
         options: [{
           value: 'individual',
           label: 'Individual',
@@ -97,17 +97,17 @@ export default class Signup extends Component {
       firstname: {
         label: this.context.intl.formatMessage(messages.firstnameLabel),
         value: '',
-        validate: [required],
+        validators: [required],
       },
       lastname: {
         label: this.context.intl.formatMessage(messages.lastnameLabel),
         value: '',
-        validate: [required],
+        validators: [required],
       },
       email: {
         label: this.context.intl.formatMessage(messages.emailLabel),
         value: '',
-        validate: [required, email],
+        validators: [required, email],
       },
       organization: {
         label: this.context.intl.formatMessage(messages.companyLabel),
@@ -116,7 +116,7 @@ export default class Signup extends Component {
       password: {
         label: this.context.intl.formatMessage(messages.passwordLabel),
         value: '',
-        validate: [required, minLength(6)],
+        validators: [required, minLength(6)],
         type: 'password',
       },
     },
