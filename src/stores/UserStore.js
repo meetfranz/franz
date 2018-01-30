@@ -166,8 +166,10 @@ export default class UserStore extends Store {
 
     this.inviteRequest.execute(data);
 
+    console.log(from)
+
     // we do not wait for a server response before redirecting the user
-    this.stores.router.push(from || '/');
+    this.stores.router.push(from + '?success=true' || '/');
 
     gaEvent('User', 'inviteUsers');
   }

@@ -3,9 +3,21 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import Invite from '../../components/auth/Invite';
 import { gaPage } from '../../lib/analytics';
+import { defineMessages, intlShape } from 'react-intl';
+
+const messages = defineMessages({
+  headline: {
+    id: 'settings.invite.headline',
+    defaultMessage: '!!!Invite Friends',
+  },
+});
 
 @inject('stores', 'actions') @observer
 export default class InviteScreen extends Component {
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   componentDidMount() {
     gaPage('Settings/Invite');
   }
@@ -19,14 +31,14 @@ export default class InviteScreen extends Component {
     return (
       <div className="settings__main">
         <div className="settings__header">
-          {/* <h1>{intl.formatMessage(messages.headline)}</h1> */}
-          <h1>Invite Friends</h1>
+          <h1>{this.context.intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body invite__form">
           <Invite
             onSubmit={actions.user.invite}
             from={location.query.from}
-            embed={location.query.embed}
+            embed={true}
+            success={location.query.success}
           />
         </div>
       </div>

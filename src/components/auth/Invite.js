@@ -5,6 +5,8 @@ import { defineMessages, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 
+import Infobox from '../ui/Infobox';
+import Appear from '../ui/effects/Appear';
 import Form from '../../lib/Form';
 import { email } from '../../helpers/validation-helpers';
 import Input from '../ui/Input';
@@ -70,9 +72,17 @@ export default class Invite extends Component {
 
   submit(e) {
     e.preventDefault();
+    
+    const from = this.props.from;
+    
     this.form.submit({
       onSuccess: (form) => {
-        this.props.onSubmit({ invites: form.values().invite });
+        this.props.onSubmit({
+          invites: form.values().invite,
+          from
+        });
+        this.form.clear()
+        this.form.$('invite').$('0').focus()
       },
       onError: () => {},
     });
@@ -81,7 +91,7 @@ export default class Invite extends Component {
   render() {
     const { form } = this;
     const { intl } = this.context;
-    const { from, embed } = this.props;
+    const { from, embed, success } = this.props;
 
     const atLeastOneEmailAddress = form.$('invite')
       .map(invite => invite.$('email').value)
@@ -92,7 +102,20 @@ export default class Invite extends Component {
       'invite__embed--button': embed,
     });
 
+    console.log(success)
+
     return (
+      <div>
+        {(success && <Appear>
+          <Infobox
+            type="success"
+            icon="checkbox-marked-circle-outline"
+            dismissable
+          >
+            Great Success!
+          </Infobox>
+        </Appear>)}
+
       <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
         {!embed && (<img
           src="./assets/images/logo.svg"
@@ -123,6 +146,7 @@ export default class Invite extends Component {
           {intl.formatMessage(messages.skipButtonLabel)}
         </Link>)}
       </form>
+      </div>
     );
   }
 }
