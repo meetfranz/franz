@@ -54,8 +54,8 @@ export default class Invite extends Component {
             label: this.context.intl.formatMessage(messages.emailLabel),
             placeholder: this.context.intl.formatMessage(messages.emailLabel),
             validators: [email],
-          }
-        }
+          },
+        },
       })],
     },
   }, this.context.intl);
@@ -75,8 +75,8 @@ export default class Invite extends Component {
     const { intl } = this.context;
 
     const atLeastOneEmailAddress = form.$('invite')
-      .map(invite => {return invite.$('email').value})
-      .some(email => email.trim() !== '')
+      .map(invite => invite.$('email').value)
+      .some(emailValue => emailValue.trim() !== '');
 
     return (
       <div className="auth__container auth__container--signup">
