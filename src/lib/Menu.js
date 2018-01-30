@@ -75,6 +75,11 @@ const template = [
       {
         role: 'close',
       },
+      {
+        label: 'Quit',
+        accelerator: 'CmdOrCtrl+Q',
+        click() { app.quit(); },
+      },
     ],
   },
   {
