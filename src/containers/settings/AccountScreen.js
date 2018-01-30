@@ -107,4 +107,7 @@ AccountScreen.wrappedComponent.propTypes = {
       delete: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
 };

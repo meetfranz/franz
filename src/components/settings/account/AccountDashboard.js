@@ -49,10 +49,9 @@ const messages = defineMessages({
     defaultMessage: '!!!Edit Account',
   },
   accountInviteButton: {
-    id: "settings.account.account.inviteButton",
+    id: 'settings.account.account.inviteButton',
     defaultMessage: '!!!Invite Friends',
   },
-
   invoiceDownload: {
     id: 'settings.account.invoiceDownload',
     defaultMessage: '!!!Download',
@@ -96,6 +95,7 @@ export default class AccountDashboard extends Component {
     deleteAccount: PropTypes.func.isRequired,
     isLoadingDeleteAccount: PropTypes.bool.isRequired,
     isDeleteAccountSuccessful: PropTypes.bool.isRequired,
+    pathname: PropTypes.string.isRequired,
   };
 
   static contextTypes = {
@@ -193,12 +193,12 @@ export default class AccountDashboard extends Component {
                             query: { from: pathname },
                             // state: { "from": 'hi' } // is not being passed to route
                           }}
-                          className="button account__invite-button">
+                          className="button account__invite-button"
+                        >
                           {intl.formatMessage(messages.accountInviteButton)}
-                        </Link>  
+                        </Link>
                       </div>
                     </div>
-                    
                     {user.emailValidated}
                   </div>
                 </div>

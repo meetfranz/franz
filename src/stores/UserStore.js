@@ -2,6 +2,7 @@ import { observable, computed, action } from 'mobx';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 
+import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
@@ -166,7 +167,7 @@ export default class UserStore extends Store {
     this.inviteRequest.execute(data);
 
     // we do not wait for a server response before redirecting the user
-    this.stores.router.push(!!from ? from : '/');
+    this.stores.router.push(from || '/');
 
     gaEvent('User', 'inviteUsers');
   }

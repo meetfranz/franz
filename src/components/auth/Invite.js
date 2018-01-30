@@ -30,16 +30,17 @@ const messages = defineMessages({
     id: 'invite.skip.label',
     defaultMessage: '!!!I want to do this later',
   },
-  noEmailAddresses: {
-    id: 'invite.error.noEmails',
-    defaultMessage: '!!!At least one email address is required',
-  }
 });
 
 @observer
 export default class Invite extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    from: PropTypes.string,
+  };
+
+  static defaultProps = {
+    from: '/',
   };
 
   static contextTypes = {
@@ -58,8 +59,8 @@ export default class Invite extends Component {
             label: this.context.intl.formatMessage(messages.emailLabel),
             placeholder: this.context.intl.formatMessage(messages.emailLabel),
             validators: [email],
-          }
-        }
+          },
+        },
       })],
     },
   }, this.context.intl);
@@ -68,21 +69,6 @@ export default class Invite extends Component {
     e.preventDefault();
     this.form.submit({
       onSuccess: (form) => {
-
-        this.props.onSubmit({ 
-          invites: form.values().invite,
-          from: this.props.from
-        });
-
-        const atLeastOneEmailAddress = form.$('invite')
-          .map(invite => {return invite.$('email').value})
-          .some(email => email.trim() !== '')
-        
-        if (!atLeastOneEmailAddress) {
-          form.invalidate('no-email-addresses')
-          return
-        }
-  
         this.props.onSubmit({ invites: form.values().invite });
       },
       onError: () => {},
@@ -95,8 +81,8 @@ export default class Invite extends Component {
     const { from } = this.props;
 
     const atLeastOneEmailAddress = form.$('invite')
-      .map(invite => {return invite.$('email').value})
-      .some(email => email.trim() !== '')
+      .map(invite => invite.$('email').value)
+      .some(emailValue => emailValue.trim() !== '');
 
     return (
       <div className="auth__container auth__container--signup">
@@ -117,11 +103,6 @@ export default class Invite extends Component {
               </div>
             </div>
           ))}
-          {form.error === 'no-email-addresses' && (
-            <p className="franz-form__error invite-form__error">
-              {intl.formatMessage(messages.noEmailAddresses)}
-            </p>
-          )}
           <Button
             type="submit"
             className="auth__button"
@@ -129,7 +110,7 @@ export default class Invite extends Component {
             label={intl.formatMessage(messages.submitButtonLabel)}
           />
           <Link
-            to={ !!from ? from : '/'}
+            to={from || '/'}
             className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
           >
             {intl.formatMessage(messages.skipButtonLabel)}

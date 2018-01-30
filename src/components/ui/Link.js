@@ -64,7 +64,7 @@ Link.wrappedComponent.propTypes = {
   ]).isRequired,
   to: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
   ]).isRequired,
   className: PropTypes.string,
   activeClassName: PropTypes.string,

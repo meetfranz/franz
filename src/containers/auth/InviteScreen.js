@@ -11,9 +11,9 @@ export default class InviteScreen extends Component {
   }
 
   render() {
-    const { 
+    const {
       actions,
-      location
+      location,
     } = this.props;
 
     return (
@@ -30,5 +30,10 @@ InviteScreen.wrappedComponent.propTypes = {
     user: PropTypes.shape({
       invite: PropTypes.func.isRequired,
     }).isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    query: PropTypes.shape({
+      from: PropTypes.string,
+    }),
   }).isRequired,
 };
