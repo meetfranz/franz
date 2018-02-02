@@ -13,7 +13,7 @@ export function email({ field }) {
     isValid = true;
   }
 
-  return [isValid, `${field.label} is not a valid email address`];
+  return [isValid, `${field.label} not valid`];
 }
 
 export function url({ field }) {
