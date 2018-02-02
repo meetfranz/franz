@@ -163,8 +163,7 @@ export default class UserStore extends Store {
     gaEvent('User', 'retrievePassword');
   }
 
-  // TODO: REFACTOR from -> fromRoute
-  @action async _invite({ invites, from }) {
+  @action async _invite({ invites }) {
     const data = invites.filter(invite => invite.email !== '');
 
     const response = await this.inviteRequest.execute(data)._promise;

@@ -33,6 +33,10 @@ const messages = defineMessages({
     id: 'invite.skip.label',
     defaultMessage: '!!!I want to do this later',
   },
+  inviteSuccessInfo: {
+    id: 'invite.successInfo',
+    defaultMessage: '!!!Invitations sent successfully',
+  }
 });
 
 @observer
@@ -52,11 +56,11 @@ export default class Invite extends Component {
     intl: intlShape,
   };
 
-  state = { showSuccessMessage: false };
+  state = { showSuccessInfo: false };
 
   handlers = {
     onChange: (field) => {
-      this.setState({ showSuccessMessage: false })
+      this.setState({ showSuccessInfo: false })
     }
   };
 
@@ -83,20 +87,15 @@ export default class Invite extends Component {
 
   submit(e) {
     e.preventDefault();
-    
-    const from = this.props.from;
-    
+        
     this.form.submit({
       onSuccess: (form) => {
-        this.props.onSubmit({
-          invites: form.values().invite,
-          from
-        });
+        this.props.onSubmit({ invites: form.values().invite });
 
         this.form.clear()
         // this.form.$('invite.0.name').focus() // path accepted but does not focus ;(
         document.querySelector('input:first-child').focus()
-        this.setState({ showSuccessMessage: true })
+        this.setState({ showSuccessInfo: true })
       },
       onError: () => {},
     });
@@ -105,7 +104,7 @@ export default class Invite extends Component {
   render() {
     const { form } = this;
     const { intl } = this.context;
-    const { from, embed, success, isInviteSuccessful } = this.props;
+    const { embed, isInviteSuccessful, isLoadingInvite } = this.props;
 
     const atLeastOneEmailAddress = form.$('invite')
       .map(invite => invite.$('email').value)
@@ -118,13 +117,13 @@ export default class Invite extends Component {
 
     return (
       <div>
-        {this.state.showSuccessMessage && isInviteSuccessful && (<Appear>
+        {this.state.showSuccessInfo && isInviteSuccessful && (<Appear>
           <Infobox
             type="success"
             icon="checkbox-marked-circle-outline"
             dismissable
           >
-            Great Success!
+            {intl.formatMessage(messages.inviteSuccessInfo)}
           </Infobox>
         </Appear>)}
 
@@ -150,9 +149,10 @@ export default class Invite extends Component {
           className={sendButtonClassName}
           disabled={!atLeastOneEmailAddress}
           label={intl.formatMessage(messages.submitButtonLabel)}
+          loaded={!isLoadingInvite}
         />
         {!embed && (<Link
-          to={from || '/'}
+          to="/"
           className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
         >
           {intl.formatMessage(messages.skipButtonLabel)}

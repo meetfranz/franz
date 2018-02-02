@@ -31,9 +31,6 @@ export default class InviteScreen extends Component {
     const { actions, location } = this.props;
     const { user } = this.props.stores;
 
-    const isLoadingInvite = user.inviteRequest.isExecuting;
-    const isInviteSuccessful = user.inviteRequest.wasExecuted && !user.inviteRequest.isError;
-
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -42,12 +39,9 @@ export default class InviteScreen extends Component {
         <div className="settings__body invite__form">
           <Invite
             onSubmit={actions.user.invite}
-            // status={user.actionStatus} // not needed
             isLoadingInvite={user.inviteRequest.isExecuting}
             isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}        
-            from={location.query.from}
             embed={true}
-            success={location.query.success}
           />
         </div>
       </div>
@@ -60,10 +54,5 @@ InviteScreen.wrappedComponent.propTypes = {
     user: PropTypes.shape({
       invite: PropTypes.func.isRequired,
     }).isRequired,
-  }).isRequired,
-  location: PropTypes.shape({
-    query: PropTypes.shape({
-      from: PropTypes.string,
-    }),
   }).isRequired,
 };

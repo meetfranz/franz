@@ -37,8 +37,6 @@ export default class Link extends Component {
 
     const match = matchRoute(filter, router.location.pathname);
 
-    console.log(filter, strictFilter, router.location.pathname, router.location.search, match)
-
     const linkClasses = classnames({
       [`${className}`]: true,
       [`${activeClassName}`]: match,

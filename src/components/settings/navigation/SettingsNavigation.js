@@ -75,7 +75,7 @@ export default class SettingsNavigation extends Component {
           {intl.formatMessage(messages.settings)}
         </Link>
         <Link
-          to="/settings/invite?from=/settings/invite"
+          to="/settings/invite"
           className="settings-navigation__link"
           activeClassName="is-active"
         >
