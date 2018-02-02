@@ -52,6 +52,14 @@ export default class Invite extends Component {
     intl: intlShape,
   };
 
+  state = { showSuccessMessage: false };
+
+  handlers = {
+    onChange: (field) => {
+      this.setState({ showSuccessMessage: false })
+    }
+  };
+
   form = new Form({
     fields: {
       invite: [...Array(3).fill({
@@ -59,10 +67,13 @@ export default class Invite extends Component {
           name: {
             label: this.context.intl.formatMessage(messages.nameLabel),
             placeholder: this.context.intl.formatMessage(messages.nameLabel),
+            handlers: this.handlers,
+            // related: ['invite.0.email'], // path accepted but does not work
           },
           email: {
             label: this.context.intl.formatMessage(messages.emailLabel),
             placeholder: this.context.intl.formatMessage(messages.emailLabel),
+            handlers: this.handlers,
             validators: [email],
           },
         },
@@ -81,8 +92,11 @@ export default class Invite extends Component {
           invites: form.values().invite,
           from
         });
+
         this.form.clear()
-        this.form.$('invite').$('0').focus()
+        // this.form.$('invite.0.name').focus() // path accepted but does not focus ;(
+        document.querySelector('input:first-child').focus()
+        this.setState({ showSuccessMessage: true })
       },
       onError: () => {},
     });
@@ -91,7 +105,7 @@ export default class Invite extends Component {
   render() {
     const { form } = this;
     const { intl } = this.context;
-    const { from, embed, success } = this.props;
+    const { from, embed, success, isInviteSuccessful } = this.props;
 
     const atLeastOneEmailAddress = form.$('invite')
       .map(invite => invite.$('email').value)
@@ -102,11 +116,9 @@ export default class Invite extends Component {
       'invite__embed--button': embed,
     });
 
-    console.log(success)
-
     return (
       <div>
-        {(success && <Appear>
+        {this.state.showSuccessMessage && isInviteSuccessful && (<Appear>
           <Infobox
             type="success"
             icon="checkbox-marked-circle-outline"

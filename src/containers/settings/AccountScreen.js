@@ -61,7 +61,7 @@ export default class AccountScreen extends Component {
   render() {
     const { user, payment } = this.props.stores;
     const { openExternalUrl } = this.props.actions.app;
-    const { user: userActions } = this.props.actions;
+    const { user: userActions } = this.props.actions; // @adlk: :+1 what's the opposite of git blame?
 
     const isLoadingUserInfo = user.getUserInfoRequest.isExecuting;
     const isLoadingOrdersInfo = payment.ordersDataRequest.isExecuting;

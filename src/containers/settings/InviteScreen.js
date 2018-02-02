@@ -22,11 +22,17 @@ export default class InviteScreen extends Component {
     gaPage('Settings/Invite');
   }
 
+
+  componentWillUnmount () {
+    this.props.stores.user.inviteRequest.reset()
+  }
+
   render() {
-    const {
-      actions,
-      location,
-    } = this.props;
+    const { actions, location } = this.props;
+    const { user } = this.props.stores;
+
+    const isLoadingInvite = user.inviteRequest.isExecuting;
+    const isInviteSuccessful = user.inviteRequest.wasExecuted && !user.inviteRequest.isError;
 
     return (
       <div className="settings__main">
@@ -36,6 +42,9 @@ export default class InviteScreen extends Component {
         <div className="settings__body invite__form">
           <Invite
             onSubmit={actions.user.invite}
+            // status={user.actionStatus} // not needed
+            isLoadingInvite={user.inviteRequest.isExecuting}
+            isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}        
             from={location.query.from}
             embed={true}
             success={location.query.success}
