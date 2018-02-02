@@ -44,12 +44,14 @@ export default class Invite extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     embed: PropTypes.bool,
-    isInviteSuccessful: PropTypes.bool.isRequired,
-    isLoadingInvite: PropTypes.bool.isRequired,
+    isInviteSuccessful: PropTypes.bool,
+    isLoadingInvite: PropTypes.bool,
   };
 
   static defaultProps = {
     embed: false,
+    isInviteSuccessful: false,
+    isLoadingInvite: false,
   };
 
   static contextTypes = {
