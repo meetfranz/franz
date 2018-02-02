@@ -36,19 +36,19 @@ const messages = defineMessages({
   inviteSuccessInfo: {
     id: 'invite.successInfo',
     defaultMessage: '!!!Invitations sent successfully',
-  }
+  },
 });
 
 @observer
 export default class Invite extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    from: PropTypes.string,
     embed: PropTypes.bool,
+    isInviteSuccessful: PropTypes.bool.isRequired,
+    isLoadingInvite: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
-    from: '/',
     embed: false,
   };
 
@@ -59,9 +59,9 @@ export default class Invite extends Component {
   state = { showSuccessInfo: false };
 
   handlers = {
-    onChange: (field) => {
-      this.setState({ showSuccessInfo: false })
-    }
+    onChange: () => {
+      this.setState({ showSuccessInfo: false });
+    },
   };
 
   form = new Form({
@@ -87,15 +87,15 @@ export default class Invite extends Component {
 
   submit(e) {
     e.preventDefault();
-        
+
     this.form.submit({
       onSuccess: (form) => {
         this.props.onSubmit({ invites: form.values().invite });
 
-        this.form.clear()
-        // this.form.$('invite.0.name').focus() // path accepted but does not focus ;(
-        document.querySelector('input:first-child').focus()
-        this.setState({ showSuccessInfo: true })
+        this.form.clear();
+        // this.form.$('invite.0.name').focus(); // path accepted but does not focus ;(
+        document.querySelector('input:first-child').focus();
+        this.setState({ showSuccessInfo: true });
       },
       onError: () => {},
     });
@@ -127,37 +127,37 @@ export default class Invite extends Component {
           </Infobox>
         </Appear>)}
 
-      <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
-        {!embed && (<img
-          src="./assets/images/logo.svg"
-          className="auth__logo"
-          alt=""
-        />)}
-        <h1 className={embed && 'invite__embed'}>
-          {intl.formatMessage(messages.headline)}
-        </h1>
-        {form.$('invite').map(invite => (
-          <div className="grid" key={invite.key}>
-            <div className="grid__row">
-              <Input field={invite.$('name')} showLabel={false} />
-              <Input field={invite.$('email')} showLabel={false} />
+        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+          {!embed && (<img
+            src="./assets/images/logo.svg"
+            className="auth__logo"
+            alt=""
+          />)}
+          <h1 className={embed && 'invite__embed'}>
+            {intl.formatMessage(messages.headline)}
+          </h1>
+          {form.$('invite').map(invite => (
+            <div className="grid" key={invite.key}>
+              <div className="grid__row">
+                <Input field={invite.$('name')} showLabel={false} />
+                <Input field={invite.$('email')} showLabel={false} />
+              </div>
             </div>
-          </div>
-        ))}
-        <Button
-          type="submit"
-          className={sendButtonClassName}
-          disabled={!atLeastOneEmailAddress}
-          label={intl.formatMessage(messages.submitButtonLabel)}
-          loaded={!isLoadingInvite}
-        />
-        {!embed && (<Link
-          to="/"
-          className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
-        >
-          {intl.formatMessage(messages.skipButtonLabel)}
-        </Link>)}
-      </form>
+          ))}
+          <Button
+            type="submit"
+            className={sendButtonClassName}
+            disabled={!atLeastOneEmailAddress}
+            label={intl.formatMessage(messages.submitButtonLabel)}
+            loaded={!isLoadingInvite}
+          />
+          {!embed && (<Link
+            to="/"
+            className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
+          >
+            {intl.formatMessage(messages.skipButtonLabel)}
+          </Link>)}
+        </form>
       </div>
     );
   }

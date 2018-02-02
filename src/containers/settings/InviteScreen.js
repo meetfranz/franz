@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
+import { defineMessages, intlShape } from 'react-intl';
+
 import Invite from '../../components/auth/Invite';
 import { gaPage } from '../../lib/analytics';
-import { defineMessages, intlShape } from 'react-intl';
 
 const messages = defineMessages({
   headline: {
@@ -22,13 +23,12 @@ export default class InviteScreen extends Component {
     gaPage('Settings/Invite');
   }
 
-
-  componentWillUnmount () {
-    this.props.stores.user.inviteRequest.reset()
+  componentWillUnmount() {
+    this.props.stores.user.inviteRequest.reset();
   }
 
   render() {
-    const { actions, location } = this.props;
+    const { actions } = this.props;
     const { user } = this.props.stores;
 
     return (
@@ -40,8 +40,8 @@ export default class InviteScreen extends Component {
           <Invite
             onSubmit={actions.user.invite}
             isLoadingInvite={user.inviteRequest.isExecuting}
-            isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}        
-            embed={true}
+            isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}
+            embed
           />
         </div>
       </div>
@@ -53,6 +53,11 @@ InviteScreen.wrappedComponent.propTypes = {
   actions: PropTypes.shape({
     user: PropTypes.shape({
       invite: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
+  stores: PropTypes.shape({
+    user: PropTypes.shape({
+      inviteRequest: PropTypes.object,
     }).isRequired,
   }).isRequired,
 };

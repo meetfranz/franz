@@ -8,8 +8,6 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 
-import { matchPath } from 'react-router'
-
 // TODO: split stores into UserStore and AuthStore
 export default class UserStore extends Store {
   BASE_ROUTE = '/auth';
@@ -168,7 +166,7 @@ export default class UserStore extends Store {
 
     const response = await this.inviteRequest.execute(data)._promise;
 
-    this.actionStatus = response.status || []
+    this.actionStatus = response.status || [];
 
     // we do not wait for a server response before redirecting the user ONLY DURING SIGNUP
     if (this.stores.router.location.pathname.includes(this.INVITE_ROUTE)) {
