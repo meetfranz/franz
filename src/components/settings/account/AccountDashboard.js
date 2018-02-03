@@ -180,25 +180,9 @@ export default class AccountDashboard extends Component {
                         <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
                       )}
                     </div>
-                    <div className="grid">
-                      <div className="grid__row">
-                        <Link to="/settings/user/edit" className="button account__edit-button">
-                          {intl.formatMessage(messages.accountEditButton)}
-                        </Link>
-                      </div>
-                      <div className="grid__row">
-                        <Link
-                          to={{
-                            pathname: '/auth/signup/invite',
-                            query: { from: pathname },
-                            // state: { "from": 'hi' } // is not being passed to route
-                          }}
-                          className="button account__invite-button"
-                        >
-                          {intl.formatMessage(messages.accountInviteButton)}
-                        </Link>
-                      </div>
-                    </div>
+                    <Link to="/settings/user/edit" className="button account__edit-button">
+                      {intl.formatMessage(messages.accountEditButton)}
+                    </Link>
                     {user.emailValidated}
                   </div>
                 </div>
