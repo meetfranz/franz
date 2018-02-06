@@ -41,22 +41,20 @@ export default class Import extends Component {
     intl: intlShape,
   };
 
-  prepareForm() {
-    const { services } = this.props;
-
-    const config = {
+    config = {
       fields: {
-        import: [...services.filter(s => s.recipe).map(s => ({
-          add: {
-            default: true,
-            options: s,
+        import: [...this.props.services.filter(s => s.recipe).map(s => ({
+          fields: {
+            add: {
+              default: true,
+              options: s,
+            },
           },
         }))],
       },
     };
 
-    return new Form(config, this.context.intl);
-  }
+    form = new Form(this.config, this.context.intl);
 
   submit(e) {
     const { services } = this.props;
@@ -74,7 +72,9 @@ export default class Import extends Component {
   }
 
   render() {
-    this.form = this.prepareForm();
+    // if (this.form === undefined) {
+    //   this.form = this.prepareForm();
+    // }
     const { intl } = this.context;
     const { services, isSubmitting, inviteRoute } = this.props;
 
