@@ -95,7 +95,6 @@ export default class AccountDashboard extends Component {
     deleteAccount: PropTypes.func.isRequired,
     isLoadingDeleteAccount: PropTypes.bool.isRequired,
     isDeleteAccountSuccessful: PropTypes.bool.isRequired,
-    pathname: PropTypes.string.isRequired,
   };
 
   static contextTypes = {
@@ -118,7 +117,6 @@ export default class AccountDashboard extends Component {
       deleteAccount,
       isLoadingDeleteAccount,
       isDeleteAccountSuccessful,
-      pathname,
     } = this.props;
     const { intl } = this.context;
 
