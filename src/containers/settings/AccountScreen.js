@@ -61,7 +61,7 @@ export default class AccountScreen extends Component {
   render() {
     const { user, payment } = this.props.stores;
     const { openExternalUrl } = this.props.actions.app;
-    const { user: userActions } = this.props.actions; // @adlk: :+1 what's the opposite of git blame?
+    const { user: userActions } = this.props.actions;
 
     const isLoadingUserInfo = user.getUserInfoRequest.isExecuting;
     const isLoadingOrdersInfo = payment.ordersDataRequest.isExecuting;
@@ -83,7 +83,6 @@ export default class AccountScreen extends Component {
         deleteAccount={userActions.delete}
         isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
         isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
-        pathname={this.props.location.pathname}
       />
     );
   }
@@ -106,8 +105,5 @@ AccountScreen.wrappedComponent.propTypes = {
       update: PropTypes.func.isRequired,
       delete: PropTypes.func.isRequired,
     }).isRequired,
-  }).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
   }).isRequired,
 };

@@ -11,16 +11,12 @@ export default class InviteScreen extends Component {
   }
 
   render() {
-    const {
-      actions,
-      location,
-    } = this.props;
+    const { actions } = this.props;
 
     return (
       <div className="auth__container auth__container--signup">
         <Invite
           onSubmit={actions.user.invite}
-          from={location.query.from}
           embed={false}
         />
       </div>
@@ -33,10 +29,5 @@ InviteScreen.wrappedComponent.propTypes = {
     user: PropTypes.shape({
       invite: PropTypes.func.isRequired,
     }).isRequired,
-  }).isRequired,
-  location: PropTypes.shape({
-    query: PropTypes.shape({
-      from: PropTypes.string,
-    }),
   }).isRequired,
 };

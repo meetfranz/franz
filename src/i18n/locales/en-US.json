@@ -77,7 +77,6 @@
   "settings.account.accountType.basic": "Basic Account",
   "settings.account.accountType.premium": "Premium Supporter Account",
   "settings.account.account.editButton": "Edit account",
-  "settings.account.account.inviteButton" : "Invite friends",
   "settings.account.invoiceDownload": "Download",
   "settings.account.userInfoRequestFailed": "Could not load user information",
   "settings.account.tryReloadUserInfoRequest": "Try again",

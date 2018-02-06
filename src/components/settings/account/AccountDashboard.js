@@ -48,10 +48,6 @@ const messages = defineMessages({
     id: 'settings.account.account.editButton',
     defaultMessage: '!!!Edit Account',
   },
-  accountInviteButton: {
-    id: 'settings.account.account.inviteButton',
-    defaultMessage: '!!!Invite Friends',
-  },
   invoiceDownload: {
     id: 'settings.account.invoiceDownload',
     defaultMessage: '!!!Download',
@@ -178,7 +174,7 @@ export default class AccountDashboard extends Component {
                         <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
                       )}
                     </div>
-                    <Link to="/settings/user/edit" className="button account__edit-button">
+                    <Link to="/settings/user/edit" className="button">
                       {intl.formatMessage(messages.accountEditButton)}
                     </Link>
                     {user.emailValidated}

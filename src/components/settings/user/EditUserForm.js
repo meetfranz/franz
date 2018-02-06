@@ -135,7 +135,7 @@ export default class EditServiceForm extends Component {
             <Button
               type="submit"
               label={intl.formatMessage(messages.buttonSave)}
-              htmlForm="form" // why is form attribute escaped in JSX?? couldn't find any info on that, did you mean "htmlFor"?
+              htmlForm="form"
             />
           )}
         </div>
