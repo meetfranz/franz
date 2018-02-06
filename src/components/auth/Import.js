@@ -41,20 +41,20 @@ export default class Import extends Component {
     intl: intlShape,
   };
 
-    config = {
-      fields: {
-        import: [...this.props.services.filter(s => s.recipe).map(s => ({
-          fields: {
-            add: {
-              default: true,
-              options: s,
-            },
+  config = {
+    fields: {
+      import: [...this.props.services.filter(s => s.recipe).map(s => ({
+        fields: {
+          add: {
+            default: true,
+            options: s,
           },
-        }))],
-      },
-    };
+        },
+      }))],
+    },
+  };
 
-    form = new Form(this.config, this.context.intl);
+  form = new Form(this.config, this.context.intl);
 
   submit(e) {
     const { services } = this.props;
