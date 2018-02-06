@@ -177,6 +177,7 @@ export default class AccountDashboard extends Component {
                     <Link to="/settings/user/edit" className="button">
                       {intl.formatMessage(messages.accountEditButton)}
                     </Link>
+
                     {user.emailValidated}
                   </div>
                 </div>
