@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
 
 import Invite from '../../components/auth/Invite';
 import { gaPage } from '../../lib/analytics';
 
-const messages = defineMessages({
-  headline: {
-    id: 'settings.invite.headline',
-    defaultMessage: '!!!Invite Friends',
-  },
-});
-
 @inject('stores', 'actions') @observer
 export default class InviteScreen extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   componentDidMount() {
     gaPage('Settings/Invite');
   }
@@ -32,19 +20,12 @@ export default class InviteScreen extends Component {
     const { user } = this.props.stores;
 
     return (
-      <div className="settings__main">
-        <div className="settings__header">
-          <h1>{this.context.intl.formatMessage(messages.headline)}</h1>
-        </div>
-        <div className="settings__body invite__form">
-          <Invite
-            onSubmit={actions.user.invite}
-            isLoadingInvite={user.inviteRequest.isExecuting}
-            isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}
-            embed
-          />
-        </div>
-      </div>
+      <Invite
+        onSubmit={actions.user.invite}
+        isLoadingInvite={user.inviteRequest.isExecuting}
+        isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}
+        embed
+      />
     );
   }
 }

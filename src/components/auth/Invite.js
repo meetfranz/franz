@@ -13,6 +13,10 @@ import Input from '../ui/Input';
 import Button from '../ui/Button';
 
 const messages = defineMessages({
+  settingsHeadline: {
+    id: 'settings.invite.headline',
+    defaultMessage: '!!!Invite Friends',
+  },
   headline: {
     id: 'invite.headline.friends',
     defaultMessage: '!!!Invite 3 of your friends or colleagues',
@@ -117,17 +121,19 @@ export default class Invite extends Component {
       'invite__embed--button': embed,
     });
 
-    return (
+    const renderForm = (
       <div>
-        {this.state.showSuccessInfo && isInviteSuccessful && (<Appear>
-          <Infobox
-            type="success"
-            icon="checkbox-marked-circle-outline"
-            dismissable
-          >
-            {intl.formatMessage(messages.inviteSuccessInfo)}
-          </Infobox>
-        </Appear>)}
+        {this.state.showSuccessInfo && isInviteSuccessful && (
+          <Appear>
+            <Infobox
+              type="success"
+              icon="checkbox-marked-circle-outline"
+              dismissable
+            >
+              {intl.formatMessage(messages.inviteSuccessInfo)}
+            </Infobox>
+          </Appear>
+        )}
 
         <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
           {!embed && (<img
@@ -160,6 +166,17 @@ export default class Invite extends Component {
             {intl.formatMessage(messages.skipButtonLabel)}
           </Link>)}
         </form>
+      </div>
+    );
+
+    return (
+      <div className={!embed ? 'auth__container auth__container--signup' : 'settings__main'}>
+        {embed && (
+          <div className="settings__header">
+            <h1>{this.context.intl.formatMessage(messages.settingsHeadline)}</h1>
+          </div>
+        )}
+        {!embed ? <div>{renderForm}</div> : <div className="settings__body invite__form">{renderForm}</div>}
       </div>
     );
   }

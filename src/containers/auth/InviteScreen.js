@@ -14,12 +14,10 @@ export default class InviteScreen extends Component {
     const { actions } = this.props;
 
     return (
-      <div className="auth__container auth__container--signup">
-        <Invite
-          onSubmit={actions.user.invite}
-          embed={false}
-        />
-      </div>
+      <Invite
+        onSubmit={actions.user.invite}
+        embed={false}
+      />
     );
   }
 }
