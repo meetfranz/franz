@@ -35,7 +35,7 @@ import ImportScreen from './containers/auth/ImportScreen';
 import PricingScreen from './containers/auth/PricingScreen';
 import InviteScreen from './containers/auth/InviteScreen';
 import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
-import SubscriptionPopupScreen from './containers/ui/SubscriptionPopupScreen';
+import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 
 // Add Polyfills
 smoothScroll.polyfill();
