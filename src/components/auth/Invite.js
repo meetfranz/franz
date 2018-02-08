@@ -64,32 +64,38 @@ export default class Invite extends Component {
 
   state = { showSuccessInfo: false };
 
-  handlers = {
-    onChange: () => {
-      this.setState({ showSuccessInfo: false });
-    },
-  };
+  componentWillMount() {
+    const handlers = {
+      onChange: () => {
+        this.setState({ showSuccessInfo: false });
+      },
+    };
 
-  form = new Form({
-    fields: {
-      invite: [...Array(3).fill({
-        fields: {
-          name: {
-            label: this.context.intl.formatMessage(messages.nameLabel),
-            placeholder: this.context.intl.formatMessage(messages.nameLabel),
-            handlers: this.handlers,
-            // related: ['invite.0.email'], // path accepted but does not work
+    this.form = new Form({
+      fields: {
+        invite: [...Array(3).fill({
+          fields: {
+            name: {
+              label: this.context.intl.formatMessage(messages.nameLabel),
+              placeholder: this.context.intl.formatMessage(messages.nameLabel),
+              handlers,
+              // related: ['invite.0.email'], // path accepted but does not work
+            },
+            email: {
+              label: this.context.intl.formatMessage(messages.emailLabel),
+              placeholder: this.context.intl.formatMessage(messages.emailLabel),
+              handlers,
+              validators: [email],
+            },
           },
-          email: {
-            label: this.context.intl.formatMessage(messages.emailLabel),
-            placeholder: this.context.intl.formatMessage(messages.emailLabel),
-            handlers: this.handlers,
-            validators: [email],
-          },
-        },
-      })],
-    },
-  }, this.context.intl);
+        })],
+      },
+    }, this.context.intl);
+  }
+
+  componentDidMount() {
+    document.querySelector('input:first-child').focus();
+  }
 
   submit(e) {
     e.preventDefault();
