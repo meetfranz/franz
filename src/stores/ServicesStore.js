@@ -590,8 +590,8 @@ export default class ServicesStore extends Store {
 
     if (service) {
       if (service.timer !== null) {
-        clearTimeout(service.timer)
-      }  
+        clearTimeout(service.timer);
+      }
 
       const loop = () => {
         if (!service.webview) return;
