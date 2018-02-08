@@ -54,7 +54,7 @@ export default class Import extends Component {
         }))],
       },
     };
-  
+
     this.form = new Form(config, this.context.intl);
   }
 
