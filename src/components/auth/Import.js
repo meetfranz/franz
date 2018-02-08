@@ -74,9 +74,6 @@ export default class Import extends Component {
   }
 
   render() {
-    // if (this.form === undefined) {
-    //   this.form = this.prepareForm();
-    // }
     const { intl } = this.context;
     const { services, isSubmitting, inviteRoute } = this.props;
 
