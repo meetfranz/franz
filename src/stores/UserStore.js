@@ -161,13 +161,17 @@ export default class UserStore extends Store {
     gaEvent('User', 'retrievePassword');
   }
 
-  @action _invite({ invites }) {
+  @action async _invite({ invites }) {
     const data = invites.filter(invite => invite.email !== '');
 
-    this.inviteRequest.execute(data);
+    const response = await this.inviteRequest.execute(data)._promise;
 
-    // we do not wait for a server response before redirecting the user
-    this.stores.router.push('/');
+    this.actionStatus = response.status || [];
+
+    // we do not wait for a server response before redirecting the user ONLY DURING SIGNUP
+    if (this.stores.router.location.pathname.includes(this.INVITE_ROUTE)) {
+      this.stores.router.push('/');
+    }
 
     gaEvent('User', 'inviteUsers');
   }

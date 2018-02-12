@@ -21,6 +21,10 @@ const messages = defineMessages({
     id: 'settings.navigation.settings',
     defaultMessage: '!!!Settings',
   },
+  inviteFriends: {
+    id: 'settings.navigation.inviteFriends',
+    defaultMessage: '!!!Invite Friends',
+  },
   logout: {
     id: 'settings.navigation.logout',
     defaultMessage: '!!!Logout',
@@ -69,6 +73,13 @@ export default class SettingsNavigation extends Component {
           activeClassName="is-active"
         >
           {intl.formatMessage(messages.settings)}
+        </Link>
+        <Link
+          to="/settings/invite"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+        >
+          {intl.formatMessage(messages.inviteFriends)}
         </Link>
         <span className="settings-navigation__expander" />
         <Link
