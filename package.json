@@ -21,7 +21,8 @@
     "rebuild": "node_modules/.bin/electron-rebuild",
     "precommit": "yarn lint",
     "commit": "git-cz",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
   "author": "Stefan Malzner <stefan@adlk.io>",
@@ -93,7 +94,6 @@
     "electron": "^1.7.12",
     "electron-builder": "19.15.1",
     "electron-packager": "^8.7.0",
-    "electron-rebuild": "^1.6.0",
     "eslint": "^4.7.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-loader": "^1.9.0",

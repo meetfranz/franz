@@ -10,6 +10,7 @@ version: 5.0.0.{build}
 
 install:
   - ps: Install-Product node 8
+  - mkdir .\build
   - yarn cache clean
   - yarn install
 
