@@ -12,4 +12,10 @@
     background: $theme-brand-primary;
     color: #FFF;
   }
+
+  &.badge--success {
+    background: $theme-brand-success;
+    color: #FFF;
+  }
+
 }

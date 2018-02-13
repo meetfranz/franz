@@ -44,6 +44,10 @@ const messages = defineMessages({
     id: 'settings.account.accountType.premium',
     defaultMessage: '!!!Premium Supporter Account',
   },
+  accountTypeEnterprise: {
+    id: 'settings.account.accountType.enterprise',
+    defaultMessage: '!!!Enterprise Account',
+  },
   accountEditButton: {
     id: 'settings.account.account.editButton',
     defaultMessage: '!!!Edit Account',
@@ -167,17 +171,21 @@ export default class AccountDashboard extends Component {
                       </h2>
                       {user.organization && `${user.organization}, `}
                       {user.email}<br />
-                      {!user.isPremium && (
+                      {!user.isEnterprise && !user.isPremium && (
                         <span className="badge badge">{intl.formatMessage(messages.accountTypeBasic)}</span>
                       )}
                       {user.isPremium && (
                         <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
                       )}
+                      {user.isEnterprise && (
+                        <span className="badge badge--success">{intl.formatMessage(messages.accountTypeEnterprise)}</span>
+                      )}
                     </div>
-                    <Link to="/settings/user/edit" className="button">
-                      {intl.formatMessage(messages.accountEditButton)}
-                    </Link>
-
+                    {!user.isSSO && (
+                      <Link to="/settings/user/edit" className="button">
+                        {intl.formatMessage(messages.accountEditButton)}
+                      </Link>
+                    )}
                     {user.emailValidated}
                   </div>
                 </div>
@@ -230,6 +238,33 @@ export default class AccountDashboard extends Component {
                 )
               )}
 
+              {user.isEnterprise && (
+                <div className="account">
+                  <div className="account__box">
+                    <h2>{user.company.name}</h2>
+                    <p>
+                      Technical contact:&nbsp;
+                      <Link
+                        className="link"
+                        target="_blank"
+                        to={`mailto:${user.company.contact.technical}?subject=Franz`}
+                      >
+                        {user.company.contact.technical}
+                      </Link>
+                      <br />
+                      General contact:&nbsp;
+                      <Link
+                        className="link"
+                        target="_blank"
+                        to={`mailto:${user.company.contact.default}?subject=Franz`}
+                      >
+                        {user.company.contact.default}
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {user.isMiner && (
                 <div className="account franz-form">
                   <div className="account__box account__box">
@@ -244,7 +279,7 @@ export default class AccountDashboard extends Component {
                 </div>
               )}
 
-              {!user.isPremium && (
+              {!user.isEnterprise && !user.isPremium && (
                 isLoadingPlans ? (
                   <Loader />
                 ) : (
@@ -259,28 +294,29 @@ export default class AccountDashboard extends Component {
                 )
               )}
 
-              <div className="account franz-form">
-                <div className="account__box">
-                  <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
-                  {!isDeleteAccountSuccessful && (
-                    <div className="account__subscription">
-                      <p>{intl.formatMessage(messages.deleteInfo)}</p>
-                      <Button
-                        label={intl.formatMessage(messages.deleteAccount)}
-                        buttonType="danger"
-                        onClick={() => deleteAccount()}
-                        loaded={!isLoadingDeleteAccount}
-                      />
-                    </div>
-                  )}
-                  {isDeleteAccountSuccessful && (
-                    <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
-                  )}
+              {!user.isEnterprise && (
+                <div className="account franz-form">
+                  <div className="account__box">
+                    <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
+                    {!isDeleteAccountSuccessful && (
+                      <div className="account__subscription">
+                        <p>{intl.formatMessage(messages.deleteInfo)}</p>
+                        <Button
+                          label={intl.formatMessage(messages.deleteAccount)}
+                          buttonType="danger"
+                          onClick={() => deleteAccount()}
+                          loaded={!isLoadingDeleteAccount}
+                        />
+                      </div>
+                    )}
+                    {isDeleteAccountSuccessful && (
+                      <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
-
         </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
       </div>

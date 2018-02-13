@@ -46,6 +46,7 @@ export default class EditServiceForm extends Component {
     form: PropTypes.instanceOf(Form).isRequired,
     onSubmit: PropTypes.func.isRequired,
     isSaving: PropTypes.bool.isRequired,
+    isEnterprise: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -72,6 +73,7 @@ export default class EditServiceForm extends Component {
       // user,
       status,
       form,
+      isEnterprise,
       isSaving,
     } = this.props;
     const { intl } = this.context;
@@ -105,8 +107,10 @@ export default class EditServiceForm extends Component {
               <Input field={form.$('lastname')} />
             </div>
             <Input field={form.$('email')} />
-            <Radio field={form.$('accountType')} />
-            {form.$('accountType').value === 'company' && (
+            {!isEnterprise && (
+              <Radio field={form.$('accountType')} />
+            )}
+            {!isEnterprise && form.$('accountType').value === 'company' && (
               <Input field={form.$('organization')} />
             )}
             <h2>{intl.formatMessage(messages.headlinePassword)}</h2>

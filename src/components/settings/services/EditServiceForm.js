@@ -324,7 +324,7 @@ export default class EditServiceForm extends Component {
         </div>
         <div className="settings__controls">
           {/* Delete Button */}
-          {action === 'edit' && deleteButton}
+          {action === 'edit' && user.clientSettings.userCanManageServices && deleteButton}
 
           {/* Save Button */}
           {isSaving || isValidatingCustomUrl ? (

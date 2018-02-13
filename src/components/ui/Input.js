@@ -97,6 +97,7 @@ export default class Input extends Component {
             onBlur={field.onBlur}
             onFocus={field.onFocus}
             ref={(element) => { this.inputElement = element; }}
+            disabled={field.disabled}
           />
           {suffix && (
             <span className="franz-form__input-suffix">{suffix}</span>

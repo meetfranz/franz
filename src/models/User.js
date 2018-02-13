@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 
 export default class User {
   id = null;
@@ -15,6 +15,17 @@ export default class User {
   @observable donor = {};
   @observable isDonor = false;
   @observable isMiner = false;
+  @observable isSSO = false;
+  @observable clientSettings = {
+    userCanManageServices: true,
+  };
+  @observable company = {
+    name: 'Happle Apps',
+    contact: {
+      technical: 'technical@company.com',
+      default: 'default@company.com',
+    },
+  };
 
   constructor(data) {
     if (!data.id) {
@@ -33,5 +44,13 @@ export default class User {
     this.isDonor = data.isDonor || this.isDonor;
     this.isSubscriptionOwner = data.isSubscriptionOwner || this.isSubscriptionOwner;
     this.isMiner = data.isMiner || this.isMiner;
+    this.isSSO = data.isSSO || this.isSSO;
+    this.clientSettings = data.clientSettings || this.clientSettings;
+    this.company = data.company || this.company;
+  }
+
+  @computed get isEnterprise() {
+    // return false
+    return this.company.name !== undefined;
   }
 }

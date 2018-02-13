@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape } from 'react-intl';
+import { inject, observer } from 'mobx-react';
 
 import Link from '../../ui/Link';
 
@@ -31,6 +32,7 @@ const messages = defineMessages({
   },
 });
 
+@inject('stores') @observer
 export default class SettingsNavigation extends Component {
   static propTypes = {
     serviceCount: PropTypes.number.isRequired,
@@ -42,17 +44,20 @@ export default class SettingsNavigation extends Component {
 
   render() {
     const { serviceCount } = this.props;
+    const { data: user } = this.props.stores.user;
     const { intl } = this.context;
 
     return (
       <div className="settings-navigation">
-        <Link
-          to="/settings/recipes"
-          className="settings-navigation__link"
-          activeClassName="is-active"
-        >
-          {intl.formatMessage(messages.availableServices)}
-        </Link>
+        {user.clientSettings && user.clientSettings.userCanManageServices && (
+          <Link
+            to="/settings/recipes"
+            className="settings-navigation__link"
+            activeClassName="is-active"
+          >
+            {intl.formatMessage(messages.availableServices)}
+          </Link>
+        )}
         <Link
           to="/settings/services"
           className="settings-navigation__link"
@@ -92,3 +97,12 @@ export default class SettingsNavigation extends Component {
     );
   }
 }
+
+SettingsNavigation.wrappedComponent.propTypes = {
+  stores: PropTypes.shape({
+    user: PropTypes.shape({
+      data: PropTypes.object.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+

@@ -77,7 +77,7 @@ export default class EditServiceScreen extends Component {
     }
   }
 
-  prepareForm(recipe, service) {
+  prepareForm(recipe, service, userCanManageService) {
     const { intl } = this.context;
     const config = {
       fields: {
@@ -118,6 +118,7 @@ export default class EditServiceScreen extends Component {
     if (recipe.hasTeamId) {
       Object.assign(config.fields, {
         team: {
+          disabled: !userCanManageService,
           label: intl.formatMessage(messages.team),
           placeholder: intl.formatMessage(messages.team),
           value: service.team,
@@ -129,6 +130,7 @@ export default class EditServiceScreen extends Component {
     if (recipe.hasCustomUrl) {
       Object.assign(config.fields, {
         customUrl: {
+          disabled: !userCanManageService,
           label: intl.formatMessage(messages.customUrl),
           placeholder: 'https://',
           value: service.customUrl,
@@ -215,7 +217,7 @@ export default class EditServiceScreen extends Component {
       );
     }
 
-    const form = this.prepareForm(recipe, service);
+    const form = this.prepareForm(recipe, service, user.data.clientSettings.userCanManageServices);
 
     return (
       <EditServiceForm
