@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { action, computed, observable, extendObservable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';

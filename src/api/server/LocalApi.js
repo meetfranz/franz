@@ -1,5 +1,4 @@
 import { remote } from 'electron';
-import localStorage from 'mobx-localstorage';
 import du from 'du';
 
 import { getServicePartitionsDirectory } from '../../helpers/service-helpers.js';
