@@ -1,18 +1,12 @@
 import { ipcRenderer } from 'electron';
-import { action, computed, observable } from 'mobx';
+import { action, computed } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';
-import Request from './lib/Request';
-import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 import SettingsModel from '../models/Settings';
 
 export default class SettingsStore extends Store {
-  @observable allSettingsRequest = new CachedRequest(this.api.local, 'getSettings');
-  @observable updateSettingsRequest = new Request(this.api.local, 'updateSettings');
-  @observable removeSettingsKeyRequest = new Request(this.api.local, 'removeKey');
-
   constructor(...args) {
     super(...args);
 
@@ -22,7 +16,6 @@ export default class SettingsStore extends Store {
   }
 
   setup() {
-    this.allSettingsRequest.execute();
     this._shareSettingsWithMainProcess();
   }
 
