@@ -1,7 +1,7 @@
 name: pats-franz
 version: "5.0.0"
-summary: test
-description: test2
+summary: Messaging app for various clients.
+description: Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
 
 grade: stable
 confinement: devmode
