@@ -342,10 +342,7 @@ export default class AppStore extends Store {
   async _autoStart() {
     this.autoLaunchOnStart = await this._checkAutoStart();
 
-    console.log('### settings appstarts', this.stores.settings.all.appStarts);
-
     if (!this.stores.settings.all.appStarts) {
-      console.log('launch Franz on start');
       this.actions.app.launchOnStartup({
         enable: true,
       });
