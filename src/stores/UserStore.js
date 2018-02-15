@@ -226,7 +226,6 @@ export default class UserStore extends Store {
 
   // This is a mobx autorun which forces the user to login if not authenticated
   _requireAuthenticatedUser = () => {
-    console.log('requireAuthenticatedUser');
     if (this.isTokenExpired) {
       this._logout();
     }

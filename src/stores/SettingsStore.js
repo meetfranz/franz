@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron';
 import { action, computed, observable, extendObservable } from 'mobx';
+import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -26,19 +27,12 @@ export default class SettingsStore extends Store {
   }
 
   @computed get all() {
-    console.log('get all settings');
-    return new SettingsModel(this.allSettingsRequest.result);
+    return new SettingsModel(localStorage.getItem('app') || {});
   }
 
   @action async _update({ settings }) {
-    await this.updateSettingsRequest.execute(settings)._promise;
-    // await this.allSettingsRequest.patch((result) => {
-    //   if (!result) return;
-    //   console.log(result.runInBackground, settings.runInBackground);
-    //   extendObservable(result, settings);
-    //   console.log(result.runInBackground);
-    //   // result.update(settings);
-    // });
+    const appSettings = this.all;
+    localStorage.setItem('app', Object.assign(appSettings, settings));
 
     // We need a little hack to wait until everything is patched
     setTimeout(() => this._shareSettingsWithMainProcess(), 0);
@@ -47,8 +41,11 @@ export default class SettingsStore extends Store {
   }
 
   @action async _remove({ key }) {
-    await this.removeSettingsKeyRequest.execute(key);
-    await this.allSettingsRequest.invalidate({ immediately: true });
+    const appSettings = this.all;
+    if (Object.hasOwnProperty.call(appSettings, key)) {
+      delete appSettings[key];
+      localStorage.setItem('app', appSettings);
+    }
 
     this._shareSettingsWithMainProcess();
   }
