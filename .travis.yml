@@ -19,6 +19,8 @@ before_install:
   libxss-dev libxkbfile-dev; fi
 cache: yarn
 after_success:
+- openssl aes-256-cbc -K $encrypted_558c6f1896ed_key -iv $encrypted_558c6f1896ed_iv
+  -in .snapcraft/travis_snapcraft.cfg -out .snapcraft/snapcraft.cfg -d
 - openssl aes-256-cbc -K $encrypted_440d7f9a3c38_key -iv $encrypted_440d7f9a3c38_iv
   -in .snapcraft/travis_snapcraft.cfg -out .snapcraft/snapcraft.cfg -d
 sudo: required
