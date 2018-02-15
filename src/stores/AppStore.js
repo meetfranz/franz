@@ -181,7 +181,7 @@ export default class AppStore extends Store {
 
         if (!isMac) {
           const mainWindow = remote.getCurrentWindow();
-          mainWindow.restore();
+          mainWindow.show();
         }
       }
     };
