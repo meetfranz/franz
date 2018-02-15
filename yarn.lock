@@ -4270,6 +4270,10 @@ mksnapshot@^0.3.0:
     fs-extra "0.26.7"
     request "^2.79.0"
 
+mobx-localstorage@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/mobx-localstorage/-/mobx-localstorage-0.1.7.tgz#c0c64366769f390ca4a333f41912eae00cd4a9de"
+
 mobx-react-form@^1.32.2:
   version "1.32.2"
   resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.32.2.tgz#5610dd0e4fab006acf2daf1becbedecad182a5a0"

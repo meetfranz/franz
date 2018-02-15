@@ -26,15 +26,19 @@ export default class SettingsStore extends Store {
   }
 
   @computed get all() {
+    console.log('get all settings');
     return new SettingsModel(this.allSettingsRequest.result);
   }
 
   @action async _update({ settings }) {
     await this.updateSettingsRequest.execute(settings)._promise;
-    await this.allSettingsRequest.patch((result) => {
-      if (!result) return;
-      extendObservable(result, settings);
-    });
+    // await this.allSettingsRequest.patch((result) => {
+    //   if (!result) return;
+    //   console.log(result.runInBackground, settings.runInBackground);
+    //   extendObservable(result, settings);
+    //   console.log(result.runInBackground);
+    //   // result.update(settings);
+    // });
 
     // We need a little hack to wait until everything is patched
     setTimeout(() => this._shareSettingsWithMainProcess(), 0);
