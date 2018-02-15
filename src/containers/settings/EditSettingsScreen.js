@@ -10,7 +10,7 @@ import Form from '../../lib/Form';
 import { APP_LOCALES } from '../../i18n/languages';
 import { gaPage } from '../../lib/analytics';
 import { DEFAULT_APP_SETTINGS } from '../../config';
-
+import { isMac } from '../../environment';
 
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
 
@@ -34,6 +34,14 @@ const messages = defineMessages({
   minimizeToSystemTray: {
     id: 'settings.app.form.minimizeToSystemTray',
     defaultMessage: '!!!Minimize Franz to system tray',
+  },
+  enableMenuBar: {
+    id: 'settings.app.form.enableMenuBar',
+    defaultMessage: '!!!Show Franz in Menu Bar',
+  },
+  hideDockIcon: {
+    id: 'settings.app.form.hideDockIcon',
+    defaultMessage: '!!!Hide Franz Dock icon',
   },
   language: {
     id: 'settings.app.form.language',
@@ -88,6 +96,7 @@ export default class EditSettingsScreen extends Component {
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        hideDockIcon: settingsData.hideDockIcon,
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
@@ -145,7 +154,7 @@ export default class EditSettingsScreen extends Component {
           default: DEFAULT_APP_SETTINGS.runInBackground,
         },
         enableSystemTray: {
-          label: intl.formatMessage(messages.enableSystemTray),
+          label: intl.formatMessage(isMac ? messages.enableMenuBar : messages.enableSystemTray),
           value: settings.all.enableSystemTray,
           default: DEFAULT_APP_SETTINGS.enableSystemTray,
         },
@@ -153,6 +162,11 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.minimizeToSystemTray),
           value: settings.all.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+        },
+        hideDockIcon: {
+          label: intl.formatMessage(messages.hideDockIcon),
+          value: settings.all.hideDockIcon,
+          default: DEFAULT_APP_SETTINGS.hideDockIcon,
         },
         showDisabledServices: {
           label: intl.formatMessage(messages.showDisabledServices),

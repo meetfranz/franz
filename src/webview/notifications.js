@@ -1,5 +1,7 @@
-const { ipcRenderer } = require('electron');
+const { remote, ipcRenderer } = require('electron');
 const uuidV1 = require('uuid/v1');
+
+const { app } = remote;
 
 class Notification {
   static permission = 'granted';
@@ -16,6 +18,8 @@ class Notification {
     }));
 
     ipcRenderer.once(`notification-onclick:${this.notificationId}`, () => {
+      app.mainWindow.show();
+
       if (typeof this.onclick === 'function') {
         this.onclick();
       }

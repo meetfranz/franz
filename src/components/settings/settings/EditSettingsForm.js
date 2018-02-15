@@ -8,6 +8,7 @@ import Form from '../../../lib/Form';
 import Button from '../../ui/Button';
 import Toggle from '../../ui/Toggle';
 import Select from '../../ui/Select';
+import Appear from '../../ui/effects/Appear';
 
 import { FRANZ_TRANSLATION } from '../../../config';
 
@@ -149,6 +150,13 @@ export default class EditSettingsForm extends Component {
             <Toggle field={form.$('autoLaunchOnStart')} />
             <Toggle field={form.$('runInBackground')} />
             <Toggle field={form.$('enableSystemTray')} />
+            {process.platform === 'darwin' && form.$('enableSystemTray').value && (
+              <Appear>
+                <div className="settings__toggle--nested">
+                  <Toggle field={form.$('hideDockIcon')} />
+                </div>
+              </Appear>
+            )}
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
             )}

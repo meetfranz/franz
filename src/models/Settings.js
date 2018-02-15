@@ -7,6 +7,7 @@ export default class Settings {
   @observable runInBackground = DEFAULT_APP_SETTINGS.runInBackground;
   @observable enableSystemTray = DEFAULT_APP_SETTINGS.enableSystemTray;
   @observable minimizeToSystemTray = DEFAULT_APP_SETTINGS.minimizeToSystemTray;
+  @observable hideDockIcon = DEFAULT_APP_SETTINGS.hideDockIcon;
   @observable showDisabledServices = DEFAULT_APP_SETTINGS.showDisabledServices;
   @observable showMessageBadgeWhenMuted = DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted;
   @observable enableSpellchecking = DEFAULT_APP_SETTINGS.enableSpellchecking;
