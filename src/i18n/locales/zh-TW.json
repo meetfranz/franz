@@ -68,7 +68,7 @@
    "settings.account.successInfo" : "您的更變已經被儲存",
    "settings.account.tryReloadUserInfoRequest" : "再試一次",
    "settings.account.userInfoRequestFailed" : "無法載入使用者資訊。",
-   "settings.app.buttonClearAllCache" : "Clear cache",
+   "settings.app.buttonClearAllCache" : "清除快取",
    "settings.app.buttonInstallUpdate" : "重新啟動並安裝更新",
    "settings.app.buttonSearchForUpdate" : "檢查更新",
    "settings.app.cacheInfo" : "Franz cache is currently using {size} of disk space.",
