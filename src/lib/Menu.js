@@ -22,10 +22,14 @@ const template = [
         role: 'cut',
       },
       {
-        role: 'copy',
+        label: 'Copy',
+        accelerator: 'Cmd+C',
+        selector: 'copy:',
       },
       {
-        role: 'paste',
+        label: 'Paste',
+        accelerator: 'Cmd+V',
+        selector: 'paste:',
       },
       {
         role: 'pasteandmatchstyle',
