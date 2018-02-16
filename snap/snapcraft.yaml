@@ -21,6 +21,9 @@ parts:
     plugin: dump
     source: ./out/franz_5.0.0-beta.15_amd64.deb
     source-type: deb
+    build-packages:
+      - execstack
+    prepare: execstack --clear-execstack opt/Franz/franz
     after: [desktop-glib-only]
     stage-packages:
       - libappindicator1
