@@ -146,10 +146,10 @@ export default class EditServiceScreen extends Component {
     // If a service can be hosted and has a teamId or customUrl
     if (recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl)) {
       if (config.fields.team) {
-        config.fields.team.validate = [];
+        config.fields.team.validators = [];
       }
       if (config.fields.customUrl) {
-        config.fields.customUrl.validate = [url];
+        config.fields.customUrl.validators = [url];
       }
     }
 
