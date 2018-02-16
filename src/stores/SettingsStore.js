@@ -1,17 +1,12 @@
 import { ipcRenderer } from 'electron';
-import { action, computed, observable, extendObservable } from 'mobx';
+import { action, computed } from 'mobx';
+import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';
-import Request from './lib/Request';
-import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 import SettingsModel from '../models/Settings';
 
 export default class SettingsStore extends Store {
-  @observable allSettingsRequest = new CachedRequest(this.api.local, 'getSettings');
-  @observable updateSettingsRequest = new Request(this.api.local, 'updateSettings');
-  @observable removeSettingsKeyRequest = new Request(this.api.local, 'removeKey');
-
   constructor(...args) {
     super(...args);
 
@@ -21,20 +16,16 @@ export default class SettingsStore extends Store {
   }
 
   setup() {
-    this.allSettingsRequest.execute();
     this._shareSettingsWithMainProcess();
   }
 
   @computed get all() {
-    return new SettingsModel(this.allSettingsRequest.result);
+    return new SettingsModel(localStorage.getItem('app') || {});
   }
 
   @action async _update({ settings }) {
-    await this.updateSettingsRequest.execute(settings)._promise;
-    await this.allSettingsRequest.patch((result) => {
-      if (!result) return;
-      extendObservable(result, settings);
-    });
+    const appSettings = this.all;
+    localStorage.setItem('app', Object.assign(appSettings, settings));
 
     // We need a little hack to wait until everything is patched
     setTimeout(() => this._shareSettingsWithMainProcess(), 0);
@@ -43,8 +34,11 @@ export default class SettingsStore extends Store {
   }
 
   @action async _remove({ key }) {
-    await this.removeSettingsKeyRequest.execute(key);
-    await this.allSettingsRequest.invalidate({ immediately: true });
+    const appSettings = this.all;
+    if (Object.hasOwnProperty.call(appSettings, key)) {
+      delete appSettings[key];
+      localStorage.setItem('app', appSettings);
+    }
 
     this._shareSettingsWithMainProcess();
   }

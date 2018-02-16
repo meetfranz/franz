@@ -331,10 +331,7 @@ export default class AppStore extends Store {
   }
 
   // Helpers
-  async _appStartsCounter() {
-    // we need to wait until the settings request is resolved
-    await this.stores.settings.allSettingsRequest;
-
+  _appStartsCounter() {
     this.actions.settings.update({
       settings: {
         appStarts: (this.stores.settings.all.appStarts || 0) + 1,
@@ -345,10 +342,7 @@ export default class AppStore extends Store {
   async _autoStart() {
     this.autoLaunchOnStart = await this._checkAutoStart();
 
-    // we need to wait until the settings request is resolved
-    await this.stores.settings.allSettingsRequest;
-
-    if (!this.stores.settings.all.appStarts) {
+    if (this.stores.settings.all.appStarts === 1) {
       this.actions.app.launchOnStartup({
         enable: true,
       });
