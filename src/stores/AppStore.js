@@ -342,7 +342,7 @@ export default class AppStore extends Store {
   async _autoStart() {
     this.autoLaunchOnStart = await this._checkAutoStart();
 
-    if (!this.stores.settings.all.appStarts) {
+    if (this.stores.settings.all.appStarts === 1) {
       this.actions.app.launchOnStartup({
         enable: true,
       });
