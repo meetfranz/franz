@@ -30,3 +30,4 @@ parts:
       - libxkbfile-dev
       - libgconf2-4
       - libnss3
+      - zlib1g-dev
