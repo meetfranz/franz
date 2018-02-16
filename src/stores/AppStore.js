@@ -364,8 +364,8 @@ export default class AppStore extends Store {
       console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
       setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
     } else {
-      console.debug('reactivateServices: reload all services');
-      this.actions.service.reloadAll();
+      console.debug('reactivateServices: reload Franz');
+      window.location.reload();
     }
   }
 
