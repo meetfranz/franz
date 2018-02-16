@@ -22,7 +22,9 @@ const template = [
         role: 'cut',
       },
       {
-        role: 'copy',
+        label: 'Copy',
+        accelerator: 'Cmd+C',
+        selector: 'copy:',
       },
       {
         role: 'paste',
@@ -69,6 +71,13 @@ const template = [
   {
     role: 'window',
     submenu: [
+      {
+        label: 'Show Main Window',
+        click() { app.mainWindow.show(); },
+      },
+      {
+        type: 'separator',
+      },
       {
         role: 'minimize',
       },
@@ -125,10 +134,15 @@ export default class FranzMenu {
 
     tpl[1].submenu.push({
       role: 'toggledevtools',
+      click: () => {
+        app.mainWindow.show();
+      },
     }, {
       label: 'Toggle Service Developer Tools',
       accelerator: 'CmdOrCtrl+Shift+Alt+i',
       click: () => {
+        app.mainWindow.show();
+
         this.actions.service.openDevToolsForActiveService();
       },
     });
@@ -138,6 +152,8 @@ export default class FranzMenu {
       id: 'reloadService',
       accelerator: 'CmdOrCtrl+R',
       click: () => {
+        app.mainWindow.show();
+
         if (this.stores.user.isLoggedIn
           && this.stores.services.enabled.length > 0) {
           this.actions.service.reloadActive();
@@ -149,6 +165,8 @@ export default class FranzMenu {
       label: 'Reload Franz',
       accelerator: 'CmdOrCtrl+Shift+R',
       click: () => {
+        app.mainWindow.show();
+
         window.location.reload();
       },
     });
@@ -167,6 +185,8 @@ export default class FranzMenu {
             label: 'Settings',
             accelerator: 'CmdOrCtrl+,',
             click: () => {
+              app.mainWindow.show();
+
               this.actions.ui.openSettings({ path: 'app' });
             },
           },
@@ -234,6 +254,8 @@ export default class FranzMenu {
       label: 'Add new Service',
       accelerator: 'CmdOrCtrl+N',
       click: () => {
+        app.mainWindow.show();
+
         this.actions.ui.openSettings({ path: 'recipes' });
       },
     }, {
@@ -258,6 +280,8 @@ export default class FranzMenu {
         type: 'radio',
         checked: service.isActive,
         click: () => {
+          app.mainWindow.show();
+
           this.actions.service.setActive({ serviceId: service.id });
         },
       }));

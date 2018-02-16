@@ -229,6 +229,10 @@
     }
   }
 
+  .settings__toggle--nested {
+    padding-left: 40px; /* alternatively 20px or 60px */
+  }
+
   .account {
     height: auto;
     // padding: 20px;

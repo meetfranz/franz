@@ -10,6 +10,7 @@ export const DEFAULT_APP_SETTINGS = {
   runInBackground: true,
   enableSystemTray: true,
   minimizeToSystemTray: false,
+  hideDockIcon: false,
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,

@@ -4,7 +4,7 @@ import path from 'path';
 
 import windowStateKeeper from 'electron-window-state';
 
-import { isDevMode, isWindows } from './environment';
+import { isDevMode, isWindows, isMac } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -110,6 +110,10 @@ const createWindow = () => {
       if (isWindows && settings.get('minimizeToSystemTray')) {
         mainWindow.setSkipTaskbar(true);
       }
+
+      if (isMac && settings.get('enableSystemTray') && settings.get('hideDockIcon')) {
+        app.dock.hide();
+      }
     } else {
       app.quit();
     }
@@ -147,6 +151,9 @@ const createWindow = () => {
   });
 
   mainWindow.on('show', () => {
+    if (isMac && settings.get('enableSystemTray') && settings.get('hideDockIcon')) {
+      app.dock.show();
+    }
     mainWindow.setSkipTaskbar(false);
   });
 
