@@ -4,26 +4,34 @@ summary: Messaging app for various clients.
 description: Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
 
 grade: stable
-confinement: devmode
+confinement: strict
 
 apps:
   pats-franz:
-    command: desktop-launch $SNAP/opt/Franz/franz
-    #desktop: usr/share/applications/franz.desktop
+    command: desktop-launch $SNAP/out/linux-unpacked/franz
+    desktop: out/pats-franz.desktop
     plugs:
      - browser-support
      - network
      - unity7
      - gsettings
+     - home
 
 parts:
   pats-franz:
-    plugin: dump
-    source: ./out/franz_5.0.0-beta.15_amd64.deb
-    source-type: deb
-    build-packages:
-      - execstack
-    prepare: execstack --clear-execstack opt/Franz/franz
+    plugin: nodejs
+    node-engine: "9.5.0"
+    #node-package-manager: "yarn"
+    # build-snap is a custom command set in package.json
+    # it uses again a custom electron-builder-snap.yml file
+    # this avoids that unecessary tasks are executed (appimage, .deb creation)
+    npm-run: [build-snap]
+    install: |
+      mkdir $SNAPCRAFT_PART_INSTALL/out/
+      cp -r out/* $SNAPCRAFT_PART_INSTALL/out/
+      cp pats-franz.desktop $SNAPCRAFT_PART_INSTALL/out/
+    filesets:
+      out: [out/*]
     after: [desktop-glib-only]
     stage-packages:
       - libappindicator1
@@ -34,3 +42,22 @@ parts:
       - libgconf2-4
       - libnss3
       - zlib1g-dev
+
+#parts:
+#  pats-franz:
+#    plugin: dump
+#    source: ./out/franz_5.0.0-beta.15_amd64.deb
+#    source-type: deb
+#    build-packages:
+#      - execstack
+#    prepare: execstack --clear-execstack opt/Franz/franz
+#    after: [desktop-glib-only]
+#    stage-packages:
+#      - libappindicator1
+#      - libx11-dev
+#      - libxext-dev
+#      - libxss-dev
+#      - libxkbfile-dev
+#      - libgconf2-4
+#      - libnss3
+#      - zlib1g-dev
