@@ -27,7 +27,9 @@ const template = [
         selector: 'copy:',
       },
       {
-        role: 'paste',
+        label: 'Paste',
+        accelerator: 'Cmd+V',
+        selector: 'paste:',
       },
       {
         role: 'pasteandmatchstyle',

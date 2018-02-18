@@ -1,6 +1,7 @@
 import { observable, computed, action } from 'mobx';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
+import localStorage from 'mobx-localstorage';
 
 import { isDevMode } from '../environment';
 import Store from './lib/Store';
@@ -99,7 +100,7 @@ export default class UserStore extends Store {
 
   // Data
   @computed get isLoggedIn() {
-    return this.authToken !== null && this.authToken !== undefined;
+    return Boolean(localStorage.getItem('authToken'));
   }
 
   // @computed get isTokenValid() {
