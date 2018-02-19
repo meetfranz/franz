@@ -1,6 +1,6 @@
 <!--- Provide a general summary of the issue in the Title above -->
 
-<!-- This repository is only for the Franz client. Please use this form ( https://goo.gl/forms/zbwlx3VFvAo2oink2q ) for service requests or check out the guide ( https://github.com/meetfranz/plugins ) to create your own service integration. -->
+<!-- This repository is only for the Franz client. Please use this form ( https://bitly.com/franz-service-request ) for service requests or check out the guide ( https://github.com/meetfranz/plugins ) to create your own service integration. -->
 
 <!--- If you want to propose a feature, use this template: https://raw.githubusercontent.com/meetfranz/franz/master/.github/FEATURE_PROPOSAL_TEMPLATE.md -->
 

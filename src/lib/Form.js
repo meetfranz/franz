@@ -21,8 +21,9 @@ export default class DefaultForm extends Form {
 
   options() {
     return {
-      validateOnInit: false,
-      // validateOnBlur: true,
+      validateOnInit: false, // default: true
+      // validateOnBlur: true, // default: true
+      // validateOnChange: true // default: false
       // // validationDebounceWait: {
       // //   trailing: true,
       // // },

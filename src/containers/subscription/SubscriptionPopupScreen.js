@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
-import SubscriptionPopup from '../../components/ui/SubscriptionPopup';
+import SubscriptionPopup from '../../components/subscription/SubscriptionPopup';
 
 
 @inject('stores', 'actions') @observer

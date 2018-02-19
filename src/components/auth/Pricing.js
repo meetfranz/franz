@@ -7,7 +7,7 @@ import { defineMessages, intlShape } from 'react-intl';
 // import Button from '../ui/Button';
 import Loader from '../ui/Loader';
 import Appear from '../ui/effects/Appear';
-import SubscriptionForm from '../../containers/ui/SubscriptionFormScreen';
+import SubscriptionForm from '../../containers/subscription/SubscriptionFormScreen';
 
 const messages = defineMessages({
   headline: {

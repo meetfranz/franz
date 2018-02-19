@@ -27,6 +27,7 @@ import EditServiceScreen from './containers/settings/EditServiceScreen';
 import AccountScreen from './containers/settings/AccountScreen';
 import EditUserScreen from './containers/settings/EditUserScreen';
 import EditSettingsScreen from './containers/settings/EditSettingsScreen';
+import InviteSettingsScreen from './containers/settings/InviteScreen';
 import WelcomeScreen from './containers/auth/WelcomeScreen';
 import LoginScreen from './containers/auth/LoginScreen';
 import PasswordScreen from './containers/auth/PasswordScreen';
@@ -35,7 +36,7 @@ import ImportScreen from './containers/auth/ImportScreen';
 import PricingScreen from './containers/auth/PricingScreen';
 import InviteScreen from './containers/auth/InviteScreen';
 import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
-import SubscriptionPopupScreen from './containers/ui/SubscriptionPopupScreen';
+import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -74,6 +75,7 @@ window.addEventListener('load', () => {
                   <Route path="/settings/user" component={AccountScreen} />
                   <Route path="/settings/user/edit" component={EditUserScreen} />
                   <Route path="/settings/app" component={EditSettingsScreen} />
+                  <Route path="/settings/invite" component={InviteSettingsScreen} />
                 </Route>
               </Route>
               <Route path="/auth" component={AuthLayoutContainer}>

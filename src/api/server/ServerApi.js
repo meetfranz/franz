@@ -3,6 +3,7 @@ import path from 'path';
 import tar from 'tar';
 import fs from 'fs-extra';
 import { remote } from 'electron';
+import localStorage from 'mobx-localstorage';
 
 import ServiceModel from '../../models/Service';
 import RecipePreviewModel from '../../models/RecipePreview';
@@ -173,9 +174,9 @@ export default class ServerApi {
     const serviceData = await request.json();
 
     if (data.iconFile) {
-      const iconUrl = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
+      const iconData = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
 
-      serviceData.data.iconUrl = iconUrl;
+      serviceData.data = iconData;
     }
 
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
@@ -227,7 +228,7 @@ export default class ServerApi {
 
     const serviceData = await request.json();
 
-    return serviceData.data.iconUrl;
+    return serviceData.data;
   }
 
   async reorderService(data) {

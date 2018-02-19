@@ -1,7 +1,9 @@
 import { observable, computed, action } from 'mobx';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
+import localStorage from 'mobx-localstorage';
 
+import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
@@ -98,7 +100,7 @@ export default class UserStore extends Store {
 
   // Data
   @computed get isLoggedIn() {
-    return this.authToken !== null && this.authToken !== undefined;
+    return Boolean(localStorage.getItem('authToken'));
   }
 
   // @computed get isTokenValid() {
@@ -160,13 +162,17 @@ export default class UserStore extends Store {
     gaEvent('User', 'retrievePassword');
   }
 
-  @action _invite({ invites }) {
+  @action async _invite({ invites }) {
     const data = invites.filter(invite => invite.email !== '');
 
-    this.inviteRequest.execute(data);
+    const response = await this.inviteRequest.execute(data)._promise;
 
-    // we do not wait for a server response before redirecting the user
-    this.stores.router.push('/');
+    this.actionStatus = response.status || [];
+
+    // we do not wait for a server response before redirecting the user ONLY DURING SIGNUP
+    if (this.stores.router.location.pathname.includes(this.INVITE_ROUTE)) {
+      this.stores.router.push('/');
+    }
 
     gaEvent('User', 'inviteUsers');
   }
@@ -237,7 +243,9 @@ export default class UserStore extends Store {
       && currentRoute.includes(this.BASE_ROUTE)
       && (this.hasCompletedSignup
         || this.hasCompletedSignup === null)) {
-      this.stores.router.push('/');
+      if (!isDevMode) {
+        this.stores.router.push('/');
+      }
     }
   };
 
