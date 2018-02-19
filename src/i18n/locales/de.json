@@ -12,7 +12,7 @@
    "infobar.servicesUpdated" : "Deine Dienste wurden aktualisiert.",
    "infobar.updateAvailable" : "Eine neue Version von Franz ist verfügbar.",
    "invite.email.label" : "E-Mail Adresse",
-   "invite.headline.friends" : "3 Freunde oder Kollegen einladen",
+   "invite.headline.friends" : "Lade 3 Freunde ein",
    "invite.name.label" : "Name",
    "invite.skip.label" : "Ich möchte das später tun",
    "invite.submit.label" : "Einladungen schicken",
@@ -203,7 +203,7 @@
    "tabs.item.enableNotification" : "Benachrichtigungen aktivieren",
    "tabs.item.enableService" : "Dienst aktivieren",
    "tabs.item.reload" : "Neuladen",
-   "welcome.loginButton" : "An deinem Konto anmelden",
+   "welcome.loginButton" : "Bei Franz einloggen",
    "welcome.signupButton" : "Kostenloses Konto erstellen",
    "welcome.slogan" : "Kommunikation, die für dich funktioniert"
 }
