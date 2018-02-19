@@ -3,6 +3,7 @@ import path from 'path';
 import tar from 'tar';
 import fs from 'fs-extra';
 import { remote } from 'electron';
+import localStorage from 'mobx-localstorage';
 
 import ServiceModel from '../../models/Service';
 import RecipePreviewModel from '../../models/RecipePreview';

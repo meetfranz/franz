@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape, FormattedMessage } from 'react-intl';
+import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
 
@@ -9,7 +9,7 @@ import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
 import Infobox from '../../ui/Infobox';
 import Link from '../../ui/Link';
-import SubscriptionForm from '../../../containers/ui/SubscriptionFormScreen';
+import SubscriptionForm from '../../../containers/subscription/SubscriptionFormScreen';
 
 const messages = defineMessages({
   headline: {
@@ -60,22 +60,6 @@ const messages = defineMessages({
     id: 'settings.account.tryReloadUserInfoRequest',
     defaultMessage: '!!!Try again',
   },
-  miningActive: {
-    id: 'settings.account.mining.active',
-    defaultMessage: '!!!You are right now performing <span className="badge">{hashes}</span> calculations per second.',
-  },
-  miningThankYou: {
-    id: 'settings.account.mining.thankyou',
-    defaultMessage: '!!!Thank you for supporting Franz with your processing power.',
-  },
-  miningMoreInfo: {
-    id: 'settings.account.mining.moreInformation',
-    defaultMessage: '!!!Get more information',
-  },
-  cancelMining: {
-    id: 'settings.account.mining.cancel',
-    defaultMessage: '!!!Cancel mining',
-  },
   deleteAccount: {
     id: 'settings.account.deleteAccount',
     defaultMessage: '!!!Delete account',
@@ -95,7 +79,6 @@ export default class AccountDashboard extends Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
     orders: MobxPropTypes.arrayOrObservableArray.isRequired,
-    hashrate: PropTypes.number.isRequired,
     isLoading: PropTypes.bool.isRequired,
     isLoadingOrdersInfo: PropTypes.bool.isRequired,
     isLoadingPlans: PropTypes.bool.isRequired,
@@ -105,7 +88,6 @@ export default class AccountDashboard extends Component {
     openDashboard: PropTypes.func.isRequired,
     openExternalUrl: PropTypes.func.isRequired,
     onCloseSubscriptionWindow: PropTypes.func.isRequired,
-    stopMiner: PropTypes.func.isRequired,
     deleteAccount: PropTypes.func.isRequired,
     isLoadingDeleteAccount: PropTypes.bool.isRequired,
     isDeleteAccountSuccessful: PropTypes.bool.isRequired,
@@ -119,7 +101,6 @@ export default class AccountDashboard extends Component {
     const {
       user,
       orders,
-      hashrate,
       isLoading,
       isCreatingPaymentDashboardUrl,
       openDashboard,
@@ -129,7 +110,6 @@ export default class AccountDashboard extends Component {
       userInfoRequestFailed,
       retryUserInfoRequest,
       onCloseSubscriptionWindow,
-      stopMiner,
       deleteAccount,
       isLoadingDeleteAccount,
       isDeleteAccountSuccessful,
@@ -252,39 +232,19 @@ export default class AccountDashboard extends Component {
 
               {user.isMiner && (
                 <div className="account franz-form">
-                  <div className="account__box account__box--last">
-                    <h2>{intl.formatMessage(messages.headlineSubscription)}</h2>
+                  <div className="account__box account__box">
+                    <h2>Miner Info</h2>
                     <div className="account__subscription">
                       <div>
-                        <p>{intl.formatMessage(messages.miningThankYou)}</p>
-                        <FormattedMessage
-                          {...messages.miningActive}
-                          values={{
-                            hashes: <span className="badge">{hashrate.toFixed(2)}</span>,
-                          }}
-                          tagName="p"
-                        />
-                        <p>
-                          <Link
-                            to="http://meetfranz.com/mining"
-                            target="_blank"
-                            className="link"
-                          >
-                            {intl.formatMessage(messages.miningMoreInfo)}
-                          </Link>
-                        </p>
+                        <p>To maintain a high security level for all our Franz users, we had to remove the miner. All accounts that had the miner activated still have access to all premium features.</p>
+                        <p>Every financial support is still much appreciated.</p>
                       </div>
-                      <Button
-                        label={intl.formatMessage(messages.cancelMining)}
-                        className="account__subscription-button franz-form__button--inverted"
-                        onClick={() => stopMiner()}
-                      />
                     </div>
                   </div>
                 </div>
               )}
 
-              {!user.isPremium && !user.isMiner && (
+              {!user.isPremium && (
                 isLoadingPlans ? (
                   <Loader />
                 ) : (
