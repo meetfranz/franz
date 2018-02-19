@@ -20,7 +20,7 @@ apps:
 parts:
   pats-franz:
     plugin: nodejs
-    node-engine: "9.5.0"
+    node-engine: "8.9.4"
     #node-package-manager: "yarn"
     # build-snap is a custom command set in package.json
     # it uses again a custom electron-builder-snap.yml file
@@ -35,7 +35,7 @@ parts:
     after: [desktop-glib-only]
     stage-packages:
       - libappindicator1
-      - libx11-dev
+      - libxcb1-dev
       - libxext-dev
       - libxss-dev
       - libxkbfile-dev
