@@ -9,7 +9,7 @@ import prettyBytes from 'pretty-bytes';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac } from '../environment';
+import { isMac, isLinux, isWindows } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 
@@ -179,9 +179,12 @@ export default class AppStore extends Store {
 
         this.actions.service.setActive({ serviceId });
 
-        if (!isMac) {
-          const mainWindow = remote.getCurrentWindow();
+        const mainWindow = remote.getCurrentWindow();
+
+        if (isWindows) {
           mainWindow.restore();
+        } else if (isLinux) {
+          mainWindow.show();
         }
       }
     };
