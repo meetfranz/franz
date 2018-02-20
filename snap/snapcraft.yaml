@@ -43,6 +43,7 @@ parts:
       - libnss3
       - zlib1g-dev
       - libxtst-dev
+      - libasound-dev
 
 #parts:
 #  pats-franz:

@@ -12,7 +12,7 @@ linux:
   executableName: franz
   synopsis: "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more."
   description: "Franz is your messaging app / former Emperor of Austria and combines chat & messaging services into one application. Franz currently supports Slack, WhatsApp, WeChat, HipChat, Facebook Messenger, Telegram, Google Hangouts, GroupMe, Skype and many more. You can download Franz for free for Mac & Windows."
-  arget:
+  target:
       - target: deb
 nsis:
   perMachine: false
