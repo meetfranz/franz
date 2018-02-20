@@ -42,6 +42,7 @@ parts:
       - libgconf2-4
       - libnss3
       - zlib1g-dev
+      - libxtst-dev
 
 #parts:
 #  pats-franz:
