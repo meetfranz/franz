@@ -124,8 +124,12 @@ export default class FranzMenu {
     autorun(this._build.bind(this));
   }
 
+  get template() {
+    return toJS(this.tpl);
+  }
+
   _build() {
-    const tpl = toJS(this.tpl);
+    const tpl = this.template;
 
     tpl[1].submenu.push({
       role: 'toggledevtools',
