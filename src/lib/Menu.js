@@ -124,7 +124,7 @@ export default class FranzMenu {
     autorun(this._build.bind(this));
   }
 
-  get template() {
+  @computed get template() {
     return toJS(this.tpl);
   }
 

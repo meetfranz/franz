@@ -89,9 +89,7 @@ export default class AppLayout extends Component {
     return (
       <div>
         <div className="app">
-          <TitleBar menu={window.franz.menu.template}>
-            <link rel="stylesheet" type="text/css" href={require.resolve('electron-react-titlebar/assets/style.css')} />
-          </TitleBar>
+          <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />
           <div className="app__content">
             {sidebar}
             <div className="app__service">
