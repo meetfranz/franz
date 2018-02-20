@@ -25,7 +25,7 @@ parts:
     # build-snap is a custom command set in package.json
     # it uses again a custom electron-builder-snap.yml file
     # this avoids that unecessary tasks are executed (appimage, .deb creation)
-    npm-run: [build-snap]
+    npm-run: [build]
     install: |
       mkdir $SNAPCRAFT_PART_INSTALL/out/
       cp -r out/* $SNAPCRAFT_PART_INSTALL/out/
