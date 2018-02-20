@@ -9,7 +9,8 @@
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
             "env": {
-                "NODE_ENV": "development"
+                "NODE_ENV": "development",
+                "FRANZ_PLATFORM": "win32"
             }
         },
         {
