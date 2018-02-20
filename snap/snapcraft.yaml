@@ -35,7 +35,7 @@ parts:
     after: [desktop-glib-only]
     stage-packages:
       - libappindicator1
-      - libxcb1-dev
+      - libx11-xcb-dev
       - libxext-dev
       - libxss-dev
       - libxkbfile-dev
