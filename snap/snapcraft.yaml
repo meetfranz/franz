@@ -1,4 +1,4 @@
-name: pats-franz
+name: Franz
 version: "5.0.0"
 summary: Messaging app for various clients.
 description: Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
@@ -7,9 +7,9 @@ grade: stable
 confinement: strict
 
 apps:
-  pats-franz:
+  Franz:
     command: desktop-launch $SNAP/out/linux-unpacked/franz
-    desktop: out/pats-franz.desktop
+    desktop: out/Franz.desktop
     plugs:
      - browser-support
      - network
@@ -18,13 +18,9 @@ apps:
      - home
 
 parts:
-  pats-franz:
+  Franz:
     plugin: nodejs
     node-engine: "8.9.4"
-    #node-package-manager: "yarn"
-    # build-snap is a custom command set in package.json
-    # it uses again a custom electron-builder-snap.yml file
-    # this avoids that unecessary tasks are executed (appimage, .deb creation)
     npm-run: [build]
     build-packages:
       - execstack
@@ -49,22 +45,3 @@ parts:
       - zlib1g-dev
       - libxtst-dev
       - libasound-dev
-
-#parts:
-#  pats-franz:
-#    plugin: dump
-#    source: ./out/franz_5.0.0-beta.15_amd64.deb
-#    source-type: deb
-#    build-packages:
-#      - execstack
-#    prepare: execstack --clear-execstack opt/Franz/franz
-#    after: [desktop-glib-only]
-#    stage-packages:
-#      - libappindicator1
-#      - libx11-dev
-#      - libxext-dev
-#      - libxss-dev
-#      - libxkbfile-dev
-#      - libgconf2-4
-#      - libnss3
-#      - zlib1g-dev

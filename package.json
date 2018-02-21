@@ -18,7 +18,6 @@
     "sign": "gulp sign",
     "prebuild": "gulp build",
     "build": "node_modules/.bin/electron-builder --publish onTag",
-    "build-snap": "node_modules/.bin/electron-builder --config electron-builder-snap.yml --publish onTag",
     "rebuild": "node_modules/.bin/electron-rebuild",
     "precommit": "yarn lint",
     "commit": "git-cz",
