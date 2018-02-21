@@ -6,7 +6,6 @@ import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
 import globalMessages from '../../i18n/globalMessages';
-import Menu from '../../lib/Menu';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };

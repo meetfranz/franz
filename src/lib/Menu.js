@@ -116,6 +116,7 @@ const template = [
 
 export default class FranzMenu {
   @observable tpl = template;
+  @observable template = null;
 
   constructor(stores, actions) {
     this.stores = stores;
@@ -124,12 +125,12 @@ export default class FranzMenu {
     autorun(this._build.bind(this));
   }
 
-  @computed get template() {
-    return toJS(this.tpl);
+  get template() {
+    return this.template;
   }
 
   _build() {
-    const tpl = this.template;
+    const tpl = toJS(this.tpl);
 
     tpl[1].submenu.push({
       role: 'toggledevtools',
@@ -252,6 +253,7 @@ export default class FranzMenu {
       tpl[isMac ? 3 : 2].submenu = toJS(this.serviceTpl);
     }
 
+    this.template = tpl;
     const menu = Menu.buildFromTemplate(tpl);
     Menu.setApplicationMenu(menu);
   }
