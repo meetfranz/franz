@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=5.0.0
-Type=Application
-Name=pats-franz
-Comment=Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
-Exec=pats-franz
-Icon=${SNAP}/meta/gui/icon.png
-MimeType=image/x-foo;
