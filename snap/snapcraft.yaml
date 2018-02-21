@@ -26,10 +26,13 @@ parts:
     # it uses again a custom electron-builder-snap.yml file
     # this avoids that unecessary tasks are executed (appimage, .deb creation)
     npm-run: [build]
+    build-packages:
+      - execstack
     install: |
       mkdir $SNAPCRAFT_PART_INSTALL/out/
       cp -r out/* $SNAPCRAFT_PART_INSTALL/out/
       cp pats-franz.desktop $SNAPCRAFT_PART_INSTALL/out/
+      execstack --clear-execstack out/linux-unpacked/franz
     filesets:
       out: [out/*]
     after: [desktop-glib-only]
