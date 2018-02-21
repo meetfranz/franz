@@ -32,7 +32,9 @@ parts:
       mkdir $SNAPCRAFT_PART_INSTALL/out/
       cp -r out/* $SNAPCRAFT_PART_INSTALL/out/
       cp pats-franz.desktop $SNAPCRAFT_PART_INSTALL/out/
-      execstack --clear-execstack out/linux-unpacked/franz
+      execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/out/linux-unpacked/franz
+      execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/lib/node_modules/franz/node_modules/electron/dist/electron
+      execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/lib/node_modules/franz/out/linux-unpacked/franz
     filesets:
       out: [out/*]
     after: [desktop-glib-only]
