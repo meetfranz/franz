@@ -72,7 +72,7 @@ const createWindow = () => {
     height: mainWindowState.height,
     minWidth: 600,
     minHeight: 500,
-    titleBarStyle: process.env.FRANZ_PLATFORM || process.platform === 'win32' ? '' : 'hidden',
+    titleBarStyle: process.env.OS_PLATFORM || process.platform === 'win32' ? '' : 'hidden',
     frame: false,
     backgroundColor: '#3498db',
     autoHideMenuBar: true,

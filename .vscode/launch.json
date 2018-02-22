@@ -10,7 +10,7 @@
             "protocol": "inspector",
             "env": {
                 "NODE_ENV": "development",
-                "FRANZ_PLATFORM": "win32"
+                "OS_PLATFORM": "win32"
             }
         },
         {

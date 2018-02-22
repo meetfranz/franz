@@ -126,7 +126,7 @@ export default class FranzMenu {
   }
 
   get template() {
-    return this.currentTemplate;
+    return this.currentTemplate.toJS();
   }
 
   _build() {
