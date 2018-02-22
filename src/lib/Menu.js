@@ -23,12 +23,12 @@ const template = [
       },
       {
         label: 'Copy',
-        accelerator: 'Cmd+C',
+        accelerator: 'CmdOrCtrl+C',
         selector: 'copy:',
       },
       {
         label: 'Paste',
-        accelerator: 'Cmd+V',
+        accelerator: 'CmdOrCtrl+V',
         selector: 'paste:',
       },
       {
