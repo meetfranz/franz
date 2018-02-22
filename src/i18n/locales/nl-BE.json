@@ -37,7 +37,7 @@
    "pricing.link.skipPayment" : "Ik wil de ontwikkeling van Franz niet ondersteunen.",
    "pricing.submit.label" : "Ik wil de ontwikkeling van Franz ondersteunen",
    "pricing.support.label" : "Selecteer je ondersteuningsplan",
-   "service.crashHandler.action" : "Reload {name}",
+   "service.crashHandler.action" : "{naam} herladen",
    "service.crashHandler.autoReload" : "Trying to automatically restore {name} in {seconds} seconds",
    "service.crashHandler.headline" : "Oh no!",
    "service.crashHandler.text" : "{name} has caused an error.",
