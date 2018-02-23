@@ -14,6 +14,7 @@ export const isWindows = platform === 'win32';
 export const isLinux = platform === 'linux';
 
 export const ctrlKey = isMac ? '⌘' : 'Ctrl';
+export const cmdKey = isMac ? 'Cmd' : 'Ctrl';
 
 let api;
 if (!isDevMode || (isDevMode && useLiveAPI)) {

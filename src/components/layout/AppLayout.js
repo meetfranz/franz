@@ -7,6 +7,8 @@ import { TitleBar } from 'electron-react-titlebar';
 import InfoBar from '../ui/InfoBar';
 import globalMessages from '../../i18n/globalMessages';
 
+import { isMac } from '../../environment';
+
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
 }
@@ -88,7 +90,7 @@ export default class AppLayout extends Component {
     return (
       <div>
         <div className="app">
-          <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />
+          {!isMac && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
           <div className="app__content">
             {sidebar}
             <div className="app__service">
