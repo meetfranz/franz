@@ -1,3 +1,27 @@
+<a name="5.0.0-beta.16"></a>
+# [5.0.0-beta.16](https://github.com/meetfranz/franz/compare/v5.0.0-beta.15...v5.0.0-beta.16) (2018-02-23)
+
+### General
+* **App:** Update Electron version to 1.7.12 (fixes critical security vulnerability CVE-2018–1000006 ) ([c67d7d1](https://github.com/meetfranz/franz/commit/c67d7d1))
+
+### Features
+* **App:** Invite Friends in Settings ([ab33c44](https://github.com/meetfranz/franz/commit/ab33c44))
+
+### Bug Fixes
+
+* **App:** Fix memory leak in recipe polling loop ([c99848f](https://github.com/meetfranz/franz/commit/c99848f))
+* **App:** Fix validation for side-by-side teamId & customURL ([bd51150](https://github.com/meetfranz/franz/commit/bd51150))
+* **App:** Reload Franz instead of all services one by one on sleep resume ([4e5f7af](https://github.com/meetfranz/franz/commit/4e5f7af))
+* **App:** Fix toggle buttons shown during import ([1220e2c](https://github.com/meetfranz/franz/commit/1220e2c))
+fix(App): Bugfix Fix memory leak in recipe polling loop
+* **App:** Fix invite screen [object Object] values ([81c4e99](https://github.com/meetfranz/franz/commit/81c4e99))
+* **App:** Fix Franz-wide form validation ([7618f51](https://github.com/meetfranz/franz/commit/7618f51))
+* **App:** Fix service tooltips not initialized properly ([8765b8f](https://github.com/meetfranz/franz/commit/8765b8f))
+* **Linux:** Invert tray icon color & add border for bright UI's ([0de9c60](https://github.com/meetfranz/franz/commit/0de9c60))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 <a name="5.0.0-beta.15"></a>
 # [5.0.0-beta.15](https://github.com/meetfranz/franz/compare/v5.0.0-beta.14...v5.0.0-beta.15) (2018-01-10)
 

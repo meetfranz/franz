@@ -46,7 +46,7 @@ export default class Login extends Component {
           </div>
         </div>
         <div className="welcome__buttons">
-          <Link to={signupRoute} className="button">
+          <Link to={signupRoute} className="button button__inverted">
             {intl.formatMessage(messages.signupButton)}
           </Link>
           <Link to={loginRoute} className="button">

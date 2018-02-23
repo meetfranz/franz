@@ -2,7 +2,6 @@ import { observable, extendObservable } from 'mobx';
 import { DEFAULT_APP_SETTINGS } from '../config';
 
 export default class Settings {
-  @observable autoLaunchOnStart = DEFAULT_APP_SETTINGS.autoLaunchOnStart;
   @observable autoLaunchInBackground = DEFAULT_APP_SETTINGS.autoLaunchInBackground;
   @observable runInBackground = DEFAULT_APP_SETTINGS.runInBackground;
   @observable enableSystemTray = DEFAULT_APP_SETTINGS.enableSystemTray;

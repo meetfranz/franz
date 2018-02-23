@@ -536,7 +536,6 @@ export default class ServicesStore extends Store {
 
     // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
     if (showMessageBadgesEvenWhenMuted) {
-      console.log('set badge', unreadDirectMessageCount, unreadIndirectMessageCount);
       this.actions.app.setBadge({
         unreadDirectMessageCount,
         unreadIndirectMessageCount,
@@ -589,12 +588,16 @@ export default class ServicesStore extends Store {
     const delay = 1000;
 
     if (service) {
+      if (service.timer !== null) {
+        clearTimeout(service.timer);
+      }
+
       const loop = () => {
         if (!service.webview) return;
 
         service.webview.send('poll');
 
-        setTimeout(loop, delay);
+        service.timer = setTimeout(loop, delay);
       };
 
       loop();

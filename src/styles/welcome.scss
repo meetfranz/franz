@@ -55,6 +55,15 @@
         background: #FFF;
         color: $theme-brand-primary;
       }
+
+      &__inverted {
+        background: #FFF;
+        color: $theme-brand-primary;
+      }
+      &__inverted:hover {
+        background: none;
+        color: #FFF;
+      }
     }
 
     &__featured-services {
