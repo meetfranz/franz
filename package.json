@@ -13,7 +13,7 @@
     "start": "electron ./build",
     "start:local": "cross-env LOCAL_API=1 yarn start",
     "start:live": "cross-env LIVE_API=1 yarn start",
-    "dev": "cross-env NODE_ENV=development FRANZ_PLATFORM=win32 gulp dev",
+    "dev": "cross-env NODE_ENV=development gulp dev",
     "lint": "eslint src",
     "sign": "gulp sign",
     "prebuild": "gulp build",
