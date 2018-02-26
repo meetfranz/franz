@@ -259,6 +259,21 @@ export default class ServerApi {
     return data;
   }
 
+  // Features
+  async getDefaultFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/default`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    const features = data;
+    console.debug('ServerApi::getDefaultFeatures resolves', features);
+    return features;
+  }
+
   // Recipes
   async getInstalledRecipes() {
     const recipesDirectory = getRecipeDirectory();
