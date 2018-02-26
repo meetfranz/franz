@@ -1,4 +1,4 @@
-import { app, Tray, Menu, systemPreferences } from 'electron';
+import { app, Tray, Menu, systemPreferences, nativeImage } from 'electron';
 import path from 'path';
 
 const FILE_EXTENSION = process.platform === 'win32' ? 'ico' : 'png';
@@ -78,8 +78,8 @@ export default class TrayIcon {
       platform = `${platform}-dark`;
     }
 
-    return path.join(
-      __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`,
+    return nativeImage.createFromPath(path.join(
+      __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`),
     );
   }
 }

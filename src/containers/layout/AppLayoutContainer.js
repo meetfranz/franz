@@ -26,6 +26,7 @@ export default class AppLayoutContainer extends Component {
   render() {
     const {
       app,
+      features,
       services,
       ui,
       news,
@@ -64,10 +65,13 @@ export default class AppLayoutContainer extends Component {
 
     const { children } = this.props;
 
+    const isLoadingFeatures = features.featuresRequest.isExecuting
+      && features.featuresRequest.isExecutingFirstTime;
+
     const isLoadingServices = services.allServicesRequest.isExecuting
       && services.allServicesRequest.isExecutingFirstTime;
 
-    if (isLoadingServices) {
+    if (isLoadingFeatures || isLoadingServices) {
       return (
         <AppLoader />
       );

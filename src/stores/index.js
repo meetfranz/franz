@@ -1,5 +1,6 @@
 import AppStore from './AppStore';
 import UserStore from './UserStore';
+import FeaturesStore from './FeaturesStore';
 import SettingsStore from './SettingsStore';
 import ServicesStore from './ServicesStore';
 import RecipesStore from './RecipesStore';
@@ -16,6 +17,7 @@ export default (api, actions, router) => {
     router,
     app: new AppStore(stores, api, actions),
     user: new UserStore(stores, api, actions),
+    features: new FeaturesStore(stores, api, actions),
     settings: new SettingsStore(stores, api, actions),
     services: new ServicesStore(stores, api, actions),
     recipes: new RecipesStore(stores, api, actions),

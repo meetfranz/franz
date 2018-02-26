@@ -3,6 +3,7 @@ import path from 'path';
 import tar from 'tar';
 import fs from 'fs-extra';
 import { remote } from 'electron';
+import localStorage from 'mobx-localstorage';
 
 import ServiceModel from '../../models/Service';
 import RecipePreviewModel from '../../models/RecipePreview';
@@ -256,6 +257,35 @@ export default class ServerApi {
 
     console.debug('ServerApi::deleteService resolves', data);
     return data;
+  }
+
+  // Features
+  async getBaseFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/base`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    const features = data;
+    console.debug('ServerApi::getBaseFeatures resolves', features);
+    return features;
+  }
+
+  async getFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    const features = data;
+    console.debug('ServerApi::getFeatures resolves', features);
+    return features;
   }
 
   // Recipes
