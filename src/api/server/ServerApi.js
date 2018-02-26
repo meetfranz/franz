@@ -260,8 +260,8 @@ export default class ServerApi {
   }
 
   // Features
-  async getDefaultFeatures() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/default`, this._prepareAuthRequest({
+  async getBaseFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/base`, this._prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -270,7 +270,21 @@ export default class ServerApi {
     const data = await request.json();
 
     const features = data;
-    console.debug('ServerApi::getDefaultFeatures resolves', features);
+    console.debug('ServerApi::getBaseFeatures resolves', features);
+    return features;
+  }
+
+  async getFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    const features = data;
+    console.debug('ServerApi::getFeatures resolves', features);
     return features;
   }
 

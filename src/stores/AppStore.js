@@ -158,9 +158,6 @@ export default class AppStore extends Store {
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
-
-    const defaults = this.stores.features.defaults;
-    console.log(defaults)
   }
 
   @computed get cacheSize() {
