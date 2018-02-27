@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import AppStore from '../../stores/AppStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
+import FeaturesStore from '../../stores/FeaturesStore';
 import UIStore from '../../stores/UIStore';
 import NewsStore from '../../stores/NewsStore';
 import SettingsStore from '../../stores/SettingsStore';
@@ -66,7 +67,7 @@ export default class AppLayoutContainer extends Component {
     const { children } = this.props;
 
     const isLoadingFeatures = features.featuresRequest.isExecuting
-      && features.featuresRequest.isExecutingFirstTime;
+      && !features.featuresRequest.wasExecuted;
 
     const isLoadingServices = services.allServicesRequest.isExecuting
       && services.allServicesRequest.isExecutingFirstTime;
@@ -134,6 +135,7 @@ export default class AppLayoutContainer extends Component {
 AppLayoutContainer.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     services: PropTypes.instanceOf(ServicesStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     app: PropTypes.instanceOf(AppStore).isRequired,
     ui: PropTypes.instanceOf(UIStore).isRequired,

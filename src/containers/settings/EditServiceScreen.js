@@ -6,6 +6,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import UserStore from '../../stores/UserStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
+import FeaturesStore from '../../stores/FeaturesStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
@@ -77,7 +78,7 @@ export default class EditServiceScreen extends Component {
     }
   }
 
-  prepareForm(recipe, service, userCanManageService) {
+  prepareForm(recipe, service, userCanManageServices) {
     const { intl } = this.context;
     const config = {
       fields: {
@@ -118,7 +119,7 @@ export default class EditServiceScreen extends Component {
     if (recipe.hasTeamId) {
       Object.assign(config.fields, {
         team: {
-          disabled: !userCanManageService,
+          disabled: !userCanManageServices,
           label: intl.formatMessage(messages.team),
           placeholder: intl.formatMessage(messages.team),
           value: service.team,
@@ -130,7 +131,7 @@ export default class EditServiceScreen extends Component {
     if (recipe.hasCustomUrl) {
       Object.assign(config.fields, {
         customUrl: {
-          disabled: !userCanManageService,
+          disabled: !userCanManageServices,
           label: intl.formatMessage(messages.customUrl),
           placeholder: 'https://',
           value: service.customUrl,
@@ -182,7 +183,7 @@ export default class EditServiceScreen extends Component {
   }
 
   render() {
-    const { recipes, services, user } = this.props.stores;
+    const { recipes, services, user, features } = this.props.stores;
     const { action } = this.props.router.params;
 
     let recipe;
@@ -217,7 +218,8 @@ export default class EditServiceScreen extends Component {
       );
     }
 
-    const form = this.prepareForm(recipe, service, user.data.clientSettings.userCanManageServices);
+    const userCanManageServices = features.features.userCanManageServices;
+    const form = this.prepareForm(recipe, service, userCanManageServices);
 
     return (
       <EditServiceForm
@@ -225,6 +227,7 @@ export default class EditServiceScreen extends Component {
         recipe={recipe}
         service={service}
         user={user.data}
+        userCanManageServices={userCanManageServices}
         form={form}
         status={services.actionStatus}
         isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
@@ -241,6 +244,7 @@ EditServiceScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     services: PropTypes.instanceOf(ServicesStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
   }).isRequired,
   router: PropTypes.shape({
     params: PropTypes.shape({

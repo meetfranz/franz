@@ -44,12 +44,12 @@ export default class SettingsNavigation extends Component {
 
   render() {
     const { serviceCount } = this.props;
-    const { data: user } = this.props.stores.user;
+    const { features } = this.props.stores.features;
     const { intl } = this.context;
 
     return (
       <div className="settings-navigation">
-        {user.clientSettings && user.clientSettings.userCanManageServices && (
+        {features.userCanManageServices && (
           <Link
             to="/settings/recipes"
             className="settings-navigation__link"
@@ -100,8 +100,8 @@ export default class SettingsNavigation extends Component {
 
 SettingsNavigation.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
-    user: PropTypes.shape({
-      data: PropTypes.object.isRequired,
+    features: PropTypes.shape({
+      features: PropTypes.object.isRequired,
     }).isRequired,
   }).isRequired,
 };

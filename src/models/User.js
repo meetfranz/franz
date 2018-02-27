@@ -16,9 +16,6 @@ export default class User {
   @observable isDonor = false;
   @observable isMiner = false;
   @observable isSSO = false;
-  @observable clientSettings = {
-    userCanManageServices: true,
-  };
   @observable company = {
     name: 'Happle Apps',
     contact: {
@@ -45,7 +42,6 @@ export default class User {
     this.isSubscriptionOwner = data.isSubscriptionOwner || this.isSubscriptionOwner;
     this.isMiner = data.isMiner || this.isMiner;
     this.isSSO = data.isSSO || this.isSSO;
-    this.clientSettings = data.clientSettings || this.clientSettings;
     this.company = data.company || this.company;
   }
 

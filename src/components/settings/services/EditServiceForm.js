@@ -107,6 +107,7 @@ export default class EditServiceForm extends Component {
       return null;
     },
     user: PropTypes.instanceOf(User).isRequired,
+    userCanManageServices: PropTypes.bool.isRequired,
     action: PropTypes.string.isRequired,
     form: PropTypes.instanceOf(Form).isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -169,6 +170,7 @@ export default class EditServiceForm extends Component {
       service,
       action,
       user,
+      userCanManageServices,
       form,
       isSaving,
       isDeleting,
@@ -324,7 +326,7 @@ export default class EditServiceForm extends Component {
         </div>
         <div className="settings__controls">
           {/* Delete Button */}
-          {action === 'edit' && user.clientSettings.userCanManageServices && deleteButton}
+          {action === 'edit' && userCanManageServices && deleteButton}
 
           {/* Save Button */}
           {isSaving || isValidatingCustomUrl ? (
