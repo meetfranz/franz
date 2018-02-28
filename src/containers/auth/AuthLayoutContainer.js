@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AppStore from '../../stores/AppStore';
 import GlobalErrorStore from '../../stores/GlobalErrorStore';
+import AppLoader from '../../components/ui/AppLoader';
 
 import { oneOrManyChildElements } from '../../prop-types';
 
@@ -19,6 +20,17 @@ export default class AuthLayoutContainer extends Component {
 
   render() {
     const { stores, actions, children, location } = this.props;
+    const { features } = stores;
+
+    const isLoadingBaseFeatures = features.baseFeaturesRequest.isExecuting
+      && !features.baseFeaturesRequest.wasExecuted;
+
+    if (isLoadingBaseFeatures) {
+      return (
+        <AppLoader />
+      );
+    }
+
     return (
       <AuthLayout
         error={stores.globalError.response}
