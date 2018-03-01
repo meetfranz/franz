@@ -199,5 +199,6 @@
   "service.crashHandler.action": "Reload {name}",
   "service.crashHandler.autoReload": "Trying to automatically restore {name} in {seconds} seconds",
   "service.disabledHandler.headline": "{name} is disabled",
-  "service.disabledHandler.action": "Enable {name}"
+  "service.disabledHandler.action": "Enable {name}",
+  "menu.edit": "Edit"
 }

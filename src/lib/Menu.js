@@ -1,13 +1,21 @@
 import { remote, shell } from 'electron';
 import { autorun, computed, observable, toJS } from 'mobx';
+import { defineMessages } from 'react-intl';
 
 import { isMac } from '../environment';
 
 const { app, Menu, dialog } = remote;
 
-const template = [
+const menuItems = defineMessages({
+  edit: {
+    id: 'menu.edit',
+    defaultMessage: '!!!Edit',  
+  },
+});
+
+const _makeTemplate = intl => [
   {
-    label: 'Edit',
+    label: intl.formatMessage(menuItems.edit),
     submenu: [
       {
         role: 'undo',
@@ -115,8 +123,6 @@ const template = [
 ];
 
 export default class FranzMenu {
-  @observable tpl = template;
-
   constructor(stores, actions) {
     this.stores = stores;
     this.actions = actions;
@@ -124,8 +130,19 @@ export default class FranzMenu {
     autorun(this._build.bind(this));
   }
 
+  rebuild() {
+    this._build();
+  }
+
   _build() {
-    const tpl = toJS(this.tpl);
+    // console.log(window.franz);
+    const serviceTpl = Object.assign([], this.serviceTpl); // need to clone object so we don't modify computed (cached) object
+
+    if (window.franz === undefined) {
+      return;
+    }
+
+    const tpl = _makeTemplate(window.franz.intl);
 
     tpl[1].submenu.push({
       role: 'toggledevtools',
@@ -232,8 +249,6 @@ export default class FranzMenu {
       });
     }
 
-    const serviceTpl = this.serviceTpl;
-
     serviceTpl.unshift({
       label: 'Add new Service',
       accelerator: 'CmdOrCtrl+N',
@@ -245,7 +260,7 @@ export default class FranzMenu {
     });
 
     if (serviceTpl.length > 0) {
-      tpl[isMac ? 3 : 2].submenu = toJS(this.serviceTpl);
+      tpl[isMac ? 3 : 2].submenu = serviceTpl;
     }
 
     const menu = Menu.buildFromTemplate(tpl);
