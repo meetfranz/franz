@@ -1,5 +1,5 @@
 import { remote, shell } from 'electron';
-import { autorun, computed, observable, toJS } from 'mobx';
+import { autorun, computed } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac } from '../environment';
@@ -9,7 +9,7 @@ const { app, Menu, dialog } = remote;
 const menuItems = defineMessages({
   edit: {
     id: 'menu.edit',
-    defaultMessage: '!!!Edit',  
+    defaultMessage: '!!!Edit',
   },
 });
 
