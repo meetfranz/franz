@@ -11,6 +11,174 @@ const menuItems = defineMessages({
     id: 'menu.edit',
     defaultMessage: '!!!Edit',
   },
+  undo: {
+    id: 'menu.edit.undo',
+    defaultMessage: '!!!Undo',
+  },
+  redo: {
+    id: 'menu.edit.redo',
+    defaultMessage: '!!!Redo',
+  },
+  cut: {
+    id: 'menu.edit.cut',
+    defaultMessage: '!!!Cut',
+  },
+  copy: {
+    id: 'menu.edit.copy',
+    defaultMessage: '!!!Copy',
+  },
+  paste: {
+    id: 'menu.edit.paste',
+    defaultMessage: '!!!Paste',
+  },
+  pasteAndMatchStyle: {
+    id: 'menu.edit.pasteAndMatchStyle',
+    defaultMessage: '!!!Paste And Match Style',
+  },
+  delete: {
+    id: 'menu.edit.delete',
+    defaultMessage: '!!!Delete',
+  },
+  selectAll: {
+    id: 'menu.edit.selectAll',
+    defaultMessage: '!!!Select All',
+  },
+  speech: {
+    id: 'menu.edit.speech',
+    defaultMessage: '!!!Speech',
+  },
+  startSpeaking: {
+    id: 'menu.edit.startSpeaking',
+    defaultMessage: '!!!Start Speaking',
+  },
+  stopSpeaking: {
+    id: 'menu.edit.stopSpeaking',
+    defaultMessage: '!!!Stop Speaking',
+  },
+  startDictation: {
+    id: 'menu.edit.startDictation',
+    defaultMessage: '!!!Start Dictation',
+  },
+  emojiSymbols: {
+    id: 'menu.edit.emojiSymbols',
+    defaultMessage: '!!!Emoji & Symbols',
+  },
+  resetZoom: {
+    id: 'menu.view.resetZoom',
+    defaultMessage: '!!!Actual Size',
+  },
+  zoomIn: {
+    id: 'menu.view.zoomIn',
+    defaultMessage: '!!!Zoom In',
+  },
+  zoomOut: {
+    id: 'menu.view.zoomOut',
+    defaultMessage: '!!!Zoom Out',
+  },
+  enterFullScreen: {
+    id: 'menu.view.enterFullScreen',
+    defaultMessage: '!!!Enter Full Screen',
+  },
+  exitFullScreen: {
+    id: 'menu.view.exitFullScreen',
+    defaultMessage: '!!!Exit Full Screen',
+  },
+  toggleFullScreen: {
+    id: 'menu.view.toggleFullScreen',
+    defaultMessage: '!!!Toggle Full Screen',
+  },
+  toggleDevTools: {
+    id: 'menu.view.toggleDevTools',
+    defaultMessage: '!!!Toggle Developer Tools',
+  },
+  toggleServiceDevTools: {
+    id: 'menu.view.toggleServiceDevTools',
+    defaultMessage: '!!!Toggle Service Developer Tools',
+  },
+  reloadService: {
+    id: 'menu.view.reloadService',
+    defaultMessage: '!!!Reload Service',
+  },
+  reloadFranz: {
+    id: 'menu.view.reloadFranz',
+    defaultMessage: '!!!Reload Franz',
+  },
+  minimize: {
+    id: 'menu.window.minimize',
+    defaultMessage: '!!!Minimize',
+  },
+  close: {
+    id: 'menu.window.close',
+    defaultMessage: '!!!Close',
+  },
+  learnMore: {
+    id: 'menu.help.learnMore',
+    defaultMessage: '!!!Learn More',
+  },
+  changelog: {
+    id: 'menu.help.changelog',
+    defaultMessage: '!!!Changelog',
+  },
+  support: {
+    id: 'menu.help.support',
+    defaultMessage: '!!!Support',
+  },
+  tos: {
+    id: 'menu.help.tos',
+    defaultMessage: '!!!Terms of Service',
+  },
+  privacy: {
+    id: 'menu.help.privacy',
+    defaultMessage: '!!!Privacy Statement',
+  },
+  file: {
+    id: 'menu.file',
+    defaultMessage: '!!!File',
+  },
+  view: {
+    id: 'menu.view',
+    defaultMessage: '!!!View',
+  },
+  services: {
+    id: 'menu.services',
+    defaultMessage: '!!!Services',
+  },
+  window: {
+    id: 'menu.window',
+    defaultMessage: '!!!Window',
+  },
+  help: {
+    id: 'menu.help',
+    defaultMessage: '!!!Help',
+  },
+  about: {
+    id: 'menu.app.about',
+    defaultMessage: '!!!About Franz',
+  },
+  settings: {
+    id: 'menu.app.settings',
+    defaultMessage: '!!!Settings',
+  },
+  hide: {
+    id: 'menu.app.hide',
+    defaultMessage: '!!!Hide',
+  },
+  hideOthers: {
+    id: 'menu.app.hideOthers',
+    defaultMessage: '!!!Hide Others',
+  },
+  unhide: {
+    id: 'menu.app.unhide',
+    defaultMessage: '!!!Unhide',
+  },
+  quit: {
+    id: 'menu.app.quit',
+    defaultMessage: '!!!Quit',
+  },
+  addNewService: {
+    id: 'menu.services.addNewService',
+    defaultMessage: '!!!Add New Service...',
+  },
 });
 
 function getActiveWebview() {
@@ -22,104 +190,123 @@ const _templateFactory = intl => [
     label: intl.formatMessage(menuItems.edit),
     submenu: [
       {
+        label: intl.formatMessage(menuItems.undo),
         role: 'undo',
       },
       {
+        label: intl.formatMessage(menuItems.redo),
         role: 'redo',
       },
       {
         type: 'separator',
       },
       {
-        role: 'cut',
+        label: intl.formatMessage(menuItems.cut),
+        accelerator: 'Cmd+X',
+        selector: 'cut:',
       },
       {
-        label: 'Copy',
-        accelerator: 'CmdOrCtrl+C',
+        label: intl.formatMessage(menuItems.copy),
+        accelerator: 'Cmd+C',
         selector: 'copy:',
       },
       {
-        label: 'Paste',
-        accelerator: 'CmdOrCtrl+V',
+        label: intl.formatMessage(menuItems.paste),
+        accelerator: 'Cmd+V',
         selector: 'paste:',
       },
       {
-        role: 'pasteandmatchstyle',
+        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
+        accelerator: 'Cmd+Shift+V',
+        selector: 'pasteAndMatchStyle:',
       },
       {
+        label: intl.formatMessage(menuItems.delete),
         role: 'delete',
       },
       {
-        role: 'selectall',
+        label: intl.formatMessage(menuItems.selectAll),
+        accelerator: 'Cmd+A',
+        selector: 'selectAll:',
       },
     ],
   },
   {
-    label: 'View',
+    label: intl.formatMessage(menuItems.view),
     submenu: [
       {
         type: 'separator',
       },
       {
+        label: intl.formatMessage(menuItems.resetZoom),
         role: 'resetzoom',
       },
       {
+        label: intl.formatMessage(menuItems.zoomIn),
+        // accelerator: 'Cmd+=',
         role: 'zoomin',
-        accelerator: 'CommandOrControl+=',
       },
       {
+        label: intl.formatMessage(menuItems.zoomOut),
         role: 'zoomout',
       },
       {
         type: 'separator',
       },
       {
+        label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
+          ? intl.formatMessage(menuItems.exitFullScreen)
+          : intl.formatMessage(menuItems.enterFullScreen),
         role: 'togglefullscreen',
       },
     ],
   },
   {
-    label: 'Services',
+    label: intl.formatMessage(menuItems.services),
     submenu: [],
   },
   {
+    label: intl.formatMessage(menuItems.window),
     role: 'window',
     submenu: [
       {
+        label: intl.formatMessage(menuItems.minimize),
         role: 'minimize',
       },
       {
+        label: intl.formatMessage(menuItems.close),
         role: 'close',
       },
     ],
   },
   {
+    label: intl.formatMessage(menuItems.help),
     role: 'help',
     submenu: [
       {
-        label: 'Learn More',
+        label: intl.formatMessage(menuItems.learnMore),
         click() { shell.openExternal('http://meetfranz.com'); },
       },
       {
-        label: 'Changelog',
+        label: intl.formatMessage(menuItems.changelog),
         click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
       },
       {
         type: 'separator',
       },
       {
-        label: 'Support',
+        label: intl.formatMessage(menuItems.support),
         click() { shell.openExternal('http://meetfranz.com/support'); },
       },
       {
         type: 'separator',
       },
       {
-        label: 'Terms of Service',
+        label: intl.formatMessage(menuItems.tos),
         click() { shell.openExternal('https://meetfranz.com/terms'); },
       },
       {
-        label: 'Privacy Statement',
+        label: intl.formatMessage(menuItems.privacy),
         click() { shell.openExternal('https://meetfranz.com/privacy'); },
       },
     ],
@@ -128,17 +315,17 @@ const _templateFactory = intl => [
 
 const _titleBarTemplateFactory = intl => [
   {
-    label: 'Edit',
+    label: intl.formatMessage(menuItems.edit),
     submenu: [
       {
-        label: 'Undo',
+        label: intl.formatMessage(menuItems.undo),
         accelerator: `${ctrlKey}+Z`,
         click() {
           getActiveWebview().undo();
         },
       },
       {
-        label: 'Redo',
+        label: intl.formatMessage(menuItems.redo),
         accelerator: `${ctrlKey}+Y`,
         click() {
           getActiveWebview().redo();
@@ -148,41 +335,41 @@ const _titleBarTemplateFactory = intl => [
         type: 'separator',
       },
       {
-        label: 'Cut',
+        label: intl.formatMessage(menuItems.cut),
         accelerator: `${ctrlKey}+X`,
         click() {
           getActiveWebview().cut();
         },
       },
       {
-        label: 'Copy',
+        label: intl.formatMessage(menuItems.copy),
         accelerator: `${ctrlKey}+C`,
         click() {
           getActiveWebview().copy();
         },
       },
       {
-        label: 'Paste',
+        label: intl.formatMessage(menuItems.paste),
         accelerator: `${ctrlKey}+V`,
         click() {
           getActiveWebview().paste();
         },
       },
       {
-        label: 'Paste and Match Style',
+        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: `${ctrlKey}+Shift+V`,
         click() {
           getActiveWebview().pasteAndMatchStyle();
         },
       },
       {
-        label: 'Delete',
+        label: intl.formatMessage(menuItems.delete),
         click() {
           getActiveWebview().delete();
         },
       },
       {
-        label: 'Select All',
+        label: intl.formatMessage(menuItems.selectAll),
         accelerator: `${ctrlKey}+A`,
         click() {
           getActiveWebview().selectAll();
@@ -191,21 +378,21 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: 'View',
+    label: intl.formatMessage(menuItems.view),
     submenu: [
       {
         type: 'separator',
       },
       {
-        label: 'Reset Zoom',
+        label: intl.formatMessage(menuItems.resetZoom),
         accelerator: `${ctrlKey}+0`,
         click() {
           getActiveWebview().setZoomLevel(0);
         },
       },
       {
-        label: 'Zoom in',
-        accelerator: `${ctrlKey}+=`,
+        label: intl.formatMessage(menuItems.zoomIn),
+        accelerator: `${ctrlKey}+Plus`,
         click() {
           getActiveWebview().getZoomLevel((zoomLevel) => {
             getActiveWebview().setZoomLevel(zoomLevel === 5 ? zoomLevel : zoomLevel + 1);
@@ -213,7 +400,7 @@ const _titleBarTemplateFactory = intl => [
         },
       },
       {
-        label: 'Zoom out',
+        label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${ctrlKey}+-`,
         click() {
           getActiveWebview().getZoomLevel((zoomLevel) => {
@@ -221,24 +408,36 @@ const _titleBarTemplateFactory = intl => [
           });
         },
       },
+      {
+        type: 'separator',
+      },
+      {
+        label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
+          ? intl.formatMessage(menuItems.exitFullScreen)
+          : intl.formatMessage(menuItems.enterFullScreen),
+        accelerator: `${ctrlKey}+F`,
+        click(menuItem, browserWindow) {
+          browserWindow.setFullScreen(!browserWindow.isFullScreen());
+        },
+      },
     ],
   },
   {
-    label: 'Services',
+    label: intl.formatMessage(menuItems.services),
     submenu: [],
   },
   {
-    label: 'Window',
+    label: intl.formatMessage(menuItems.window),
     submenu: [
       {
-        label: 'Minimize',
+        label: intl.formatMessage(menuItems.minimize),
         accelerator: 'Alt+M',
         click(menuItem, browserWindow) {
           browserWindow.minimize();
         },
       },
       {
-        label: 'Close',
+        label: intl.formatMessage(menuItems.close),
         accelerator: 'Alt+W',
         click(menuItem, browserWindow) {
           browserWindow.close();
@@ -250,29 +449,29 @@ const _titleBarTemplateFactory = intl => [
     label: '?',
     submenu: [
       {
-        label: 'Learn More',
+        label: intl.formatMessage(menuItems.learnMore),
         click() { shell.openExternal('http://meetfranz.com'); },
       },
       {
-        label: 'Changelog',
+        label: intl.formatMessage(menuItems.changelog),
         click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
       },
       {
         type: 'separator',
       },
       {
-        label: 'Support',
+        label: intl.formatMessage(menuItems.support),
         click() { shell.openExternal('http://meetfranz.com/support'); },
       },
       {
         type: 'separator',
       },
       {
-        label: 'Terms of Service',
+        label: intl.formatMessage(menuItems.tos),
         click() { shell.openExternal('https://meetfranz.com/terms'); },
       },
       {
-        label: 'Privacy Statement',
+        label: intl.formatMessage(menuItems.privacy),
         click() { shell.openExternal('https://meetfranz.com/privacy'); },
       },
     ],
@@ -311,13 +510,13 @@ export default class FranzMenu {
     tpl[1].submenu.push({
       type: 'separator',
     }, {
-      label: 'Toggle Developer Tools',
+      label: intl.formatMessage(menuItems.toggleDevTools),
       accelerator: `${cmdKey}+Alt+I`,
       click: (menuItem, browserWindow) => {
         browserWindow.webContents.toggleDevTools();
       },
     }, {
-      label: 'Open Service Developer Tools',
+      label: intl.formatMessage(menuItems.toggleServiceDevTools),
       accelerator: `${cmdKey}+Shift+Alt+I`,
       click: () => {
         this.actions.service.openDevToolsForActiveService();
@@ -325,8 +524,8 @@ export default class FranzMenu {
     });
 
     tpl[1].submenu.unshift({
-      label: 'Reload Service',
-      id: 'reloadService',
+      label: intl.formatMessage(menuItems.reloadService),
+      id: 'reloadService', // TODO: needed?
       accelerator: `${cmdKey}+R`,
       click: () => {
         if (this.stores.user.isLoggedIn
@@ -337,7 +536,7 @@ export default class FranzMenu {
         }
       },
     }, {
-      label: 'Reload Franz',
+      label: intl.formatMessage(menuItems.reloadFranz),
       accelerator: `${cmdKey}+Shift+R`,
       click: () => {
         window.location.reload();
@@ -345,16 +544,17 @@ export default class FranzMenu {
     });
 
     tpl.unshift({
-      label: isMac ? app.getName() : 'File',
+      label: isMac ? app.getName() : intl.formatMessage(menuItems.file),
       submenu: [
         {
+          label: intl.formatMessage(menuItems.about),
           role: 'about',
         },
         {
           type: 'separator',
         },
         {
-          label: 'Settings',
+          label: intl.formatMessage(menuItems.settings),
           accelerator: 'CmdOrCtrl+,',
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
@@ -364,6 +564,7 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
+          label: intl.formatMessage(menuItems.services),
           role: 'services',
           submenu: [],
         },
@@ -371,25 +572,29 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
+          label: intl.formatMessage(menuItems.hide),
           role: 'hide',
         },
         {
+          label: intl.formatMessage(menuItems.hideOthers),
           role: 'hideothers',
         },
         {
+          label: intl.formatMessage(menuItems.unhide),
           role: 'unhide',
         },
         {
           type: 'separator',
         },
         {
+          label: intl.formatMessage(menuItems.quit),
           role: 'quit',
         },
       ],
     });
 
     const about = {
-      label: 'About Franz',
+      label: intl.formatMessage(menuItems.about),
       click: () => {
         dialog.showMessageBox({
           type: 'info',
@@ -407,12 +612,14 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: 'Speech',
+          label: intl.formatMessage(menuItems.speech),
           submenu: [
             {
+              label: intl.formatMessage(menuItems.startSpeaking),
               role: 'startspeaking',
             },
             {
+              label: intl.formatMessage(menuItems.stopSpeaking),
               role: 'stopspeaking',
             },
           ],
@@ -425,7 +632,7 @@ export default class FranzMenu {
     } else {
       tpl[0].submenu = [
         {
-          label: 'Preferences...',
+          label: intl.formatMessage(menuItems.settings),
           accelerator: 'Ctrl+P',
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
@@ -435,7 +642,7 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: 'Quit',
+          label: intl.formatMessage(menuItems.quit),
           accelerator: 'Alt+F4',
           click: () => {
             app.quit();
@@ -449,7 +656,7 @@ export default class FranzMenu {
     }
 
     serviceTpl.unshift({
-      label: 'Add new Service',
+      label: intl.formatMessage(menuItems.addNewService),
       accelerator: `${cmdKey}+N`,
       click: () => {
         this.actions.ui.openSettings({ path: 'recipes' });
