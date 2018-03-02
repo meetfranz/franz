@@ -6,13 +6,21 @@ html {
 
 .app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  .app__content {
+    display: flex;
+  }
 
   .app__service {
     display: flex;
     flex: 1;
     flex-direction: column;
   }
+}
+
+.electron-app-title-bar {
+  z-index: 99999999;
 }
 
 .window-draggable {
