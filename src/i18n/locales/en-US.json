@@ -200,5 +200,9 @@
   "service.crashHandler.autoReload": "Trying to automatically restore {name} in {seconds} seconds",
   "service.disabledHandler.headline": "{name} is disabled",
   "service.disabledHandler.action": "Enable {name}",
-  "menu.edit": "Edit"
+  "menu.edit": "Edit",
+  "validation.required": "{field} is required",
+  "validation.email": "{field} is not valid",
+  "validation.url": "{field} is not a valid URL",
+  "validation.minLength": "{field} should be at least {length} characters long"
 }
