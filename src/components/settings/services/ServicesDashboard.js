@@ -9,6 +9,9 @@ import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
 import ServiceItem from './ServiceItem';
 import Appear from '../../ui/effects/Appear';
+import Input from '../../ui/Input';
+import Button from '../../ui/Button';
+import EditInPlace from '../../ui/EditInPlace';
 
 const messages = defineMessages({
   headline: {
@@ -75,6 +78,7 @@ export default class ServicesDashboard extends Component {
   render() {
     const {
       services,
+      serviceGroups,
       isLoading,
       toggleService,
       filterServices,
@@ -84,6 +88,8 @@ export default class ServicesDashboard extends Component {
       retryServicesRequest,
       status,
       searchNeedle,
+      createServiceGroup,
+      deleteServiceGroup,
     } = this.props;
     const { intl } = this.context;
 
@@ -173,9 +179,27 @@ export default class ServicesDashboard extends Component {
                     goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
                   />
                 ))}
+                {serviceGroups.map(serviceGroup => (
+                  <div key={serviceGroup.id}>
+                    <span className="service-group--name">{serviceGroup.name}</span>
+                    <span
+                      onClick={() => deleteServiceGroup(serviceGroup.id)}
+                      className="mdi mdi-delete"
+                    />
+                  </div>
+                ))}
               </tbody>
             </table>
           )}
+          {/* <Button
+            label="Create"
+            className=""
+            onClick={createServiceGroup}
+          /> */}
+          <EditInPlace
+            onSave={createServiceGroup}
+            placeholder="New Group"
+          />
         </div>
       </div>
     );

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 import defineActions from './lib/actions';
 import service from './service';
+import serviceGroup from './serviceGroup';
 import recipe from './recipe';
 import recipePreview from './recipePreview';
 import ui from './ui';
@@ -14,6 +15,7 @@ import requests from './requests';
 
 const actions = Object.assign({}, {
   service,
+  serviceGroup,
   recipe,
   recipePreview,
   ui,

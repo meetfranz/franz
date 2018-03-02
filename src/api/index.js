@@ -1,5 +1,6 @@
 import AppApi from './AppApi';
 import ServicesApi from './ServicesApi';
+import ServiceGroupsApi from './ServiceGroupsApi';
 import RecipePreviewsApi from './RecipePreviewsApi';
 import RecipesApi from './RecipesApi';
 import UserApi from './UserApi';
@@ -10,6 +11,7 @@ import NewsApi from './NewsApi';
 export default (server, local) => ({
   app: new AppApi(server, local),
   services: new ServicesApi(server, local),
+  serviceGroups: new ServiceGroupsApi(server, local),
   recipePreviews: new RecipePreviewsApi(server, local),
   recipes: new RecipesApi(server, local),
   user: new UserApi(server, local),

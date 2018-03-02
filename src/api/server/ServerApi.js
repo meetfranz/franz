@@ -6,6 +6,7 @@ import { remote } from 'electron';
 import localStorage from 'mobx-localstorage';
 
 import ServiceModel from '../../models/Service';
+import ServiceGroupModel from '../../models/ServiceGroup';
 import RecipePreviewModel from '../../models/RecipePreview';
 import RecipeModel from '../../models/Recipe';
 import PlanModel from '../../models/Plan';
@@ -256,6 +257,83 @@ export default class ServerApi {
     removeServicePartitionDirectory(id, true);
 
     console.debug('ServerApi::deleteService resolves', data);
+    return data;
+  }
+
+  // Service Groups
+  async getServiceGroups() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/servicegroups`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+
+    const data = await request.json();
+
+    const serviceGroups = data.filter(serviceGroup => serviceGroup !== null)
+      .map(serviceGroup => new ServiceGroupModel(serviceGroup));
+    console.debug('ServerApi::getServiceGroups resolves', serviceGroups);
+    return serviceGroups;
+  }
+
+  async createServiceGroup(data) {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/servicegroup`, this._prepareAuthRequest({
+      method: 'POST',
+      body: JSON.stringify(data),
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const serviceGroupData = await request.json();
+
+    const serviceGroup = Object.assign(serviceGroupData, { data: new ServiceGroupModel(serviceGroupData.data) });
+    console.debug('ServerApi::createServiceGroup resolves', serviceGroup);
+    return serviceGroup;
+  }
+
+  async updateServiceGroup(serviceId, rawData) {
+    const data = rawData;
+
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/servicegroup/${serviceId}`, this._prepareAuthRequest({
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }));
+
+    if (!request.ok) {
+      throw request;
+    }
+
+    const serviceData = await request.json();
+
+    const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
+
+    console.debug('ServerApi::updateServiceGroup resolves', service);
+    return service;
+  }
+
+  async reorderServiceGroup(data) {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/servicegroup/reorder`, this._prepareAuthRequest({
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const serviceData = await request.json();
+    console.debug('ServerApi::reorderServiceGroup resolves', serviceData);
+    return serviceData;
+  }
+
+  async deleteServiceGroup(id) {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/servicegroup/${id}`, this._prepareAuthRequest({
+      method: 'DELETE',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+    console.debug('ServerApi::deleteServiceGroup resolves', data);
     return data;
   }
 

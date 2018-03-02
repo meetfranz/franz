@@ -6,12 +6,19 @@ import { RouterStore } from 'mobx-react-router';
 // import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import UserStore from '../../stores/UserStore';
 import ServiceStore from '../../stores/ServicesStore';
+import ServiceGroupsStore from '../../stores/ServiceGroupsStore';
 import { gaPage } from '../../lib/analytics';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
 
 @inject('stores', 'actions') @observer
 export default class ServicesScreen extends Component {
+  constructor() {
+    super();
+    this.createServiceGroup = this.createServiceGroup.bind(this);
+    this.deleteServiceGroup = this.deleteServiceGroup.bind(this);
+  }
+
   componentDidMount() {
     gaPage('Settings/Service Dashboard');
   }
@@ -26,8 +33,22 @@ export default class ServicesScreen extends Component {
     this.props.stores.services.resetFilter();
   }
 
+  createServiceGroup(name) {
+    this.props.actions.serviceGroup.createServiceGroup({
+      serviceGroupData: {
+        name,
+      },
+    });
+  }
+
+  deleteServiceGroup(serviceGroupId) {
+    this.props.actions.serviceGroup.deleteServiceGroup({
+      serviceGroupId,
+    });
+  }
+
   render() {
-    const { user, services, router } = this.props.stores;
+    const { user, services, serviceGroups, router } = this.props.stores;
     const {
       toggleService,
       filter,
@@ -40,10 +61,13 @@ export default class ServicesScreen extends Component {
       allServices = services.filtered;
     }
 
+    const allServiceGroups = serviceGroups.all;
+
     return (
       <ServicesDashboard
         user={user.data}
         services={allServices}
+        serviceGroups={allServiceGroups}
         status={services.actionStatus}
         deleteService={() => this.deleteService()}
         toggleService={toggleService}
@@ -54,6 +78,8 @@ export default class ServicesScreen extends Component {
         servicesRequestFailed={services.allServicesRequest.wasExecuted && services.allServicesRequest.isError}
         retryServicesRequest={() => services.allServicesRequest.reload()}
         searchNeedle={services.filterNeedle}
+        createServiceGroup={this.createServiceGroup}
+        deleteServiceGroup={this.deleteServiceGroup}
       />
     );
   }
@@ -63,6 +89,7 @@ ServicesScreen.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     user: PropTypes.instanceOf(UserStore).isRequired,
     services: PropTypes.instanceOf(ServiceStore).isRequired,
+    serviceGroups: PropTypes.instanceOf(ServiceGroupsStore).isRequired,
     router: PropTypes.instanceOf(RouterStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
