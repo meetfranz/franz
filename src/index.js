@@ -75,7 +75,6 @@ const createWindow = () => {
     titleBarStyle: isMac ? 'hidden' : '',
     frame: false,
     backgroundColor: '#3498db',
-    autoHideMenuBar: true,
   });
 
   // Initialize System Tray
