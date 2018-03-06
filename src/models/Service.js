@@ -29,6 +29,8 @@ export default class Service {
   @observable hasCustomUploadedIcon = false;
   @observable hasCrashed = false;
 
+  @observable groupId = '';
+
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
@@ -41,6 +43,7 @@ export default class Service {
     }
 
     this.id = data.id || this.id;
+    this.groupId = data.groupId || this.groupId;
     this.name = data.name || this.name;
     this.team = data.team || this.team;
     this.customUrl = data.customUrl || this.customUrl;

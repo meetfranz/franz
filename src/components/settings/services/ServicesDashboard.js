@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toJS } from 'mobx';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
+
+// import { sortableContainer } from '../react-sortable-multiple-hoc';
 
 import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
@@ -12,6 +15,9 @@ import Appear from '../../ui/effects/Appear';
 import Input from '../../ui/Input';
 import Button from '../../ui/Button';
 import EditInPlace from '../../ui/EditInPlace';
+import SortableComponent from './SortableComponent';
+
+// console.log(sortableContainer)
 
 const messages = defineMessages({
   headline: {
@@ -92,6 +98,13 @@ export default class ServicesDashboard extends Component {
       deleteServiceGroup,
     } = this.props;
     const { intl } = this.context;
+
+    const groups = [
+      {
+        name: 'Private',
+        items: services,
+      },
+    ];
 
     return (
       <div className="settings__main">
@@ -179,15 +192,6 @@ export default class ServicesDashboard extends Component {
                     goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
                   />
                 ))}
-                {serviceGroups.map(serviceGroup => (
-                  <div key={serviceGroup.id}>
-                    <span className="service-group--name">{serviceGroup.name}</span>
-                    <span
-                      onClick={() => deleteServiceGroup(serviceGroup.id)}
-                      className="mdi mdi-delete"
-                    />
-                  </div>
-                ))}
               </tbody>
             </table>
           )}
@@ -196,10 +200,22 @@ export default class ServicesDashboard extends Component {
             className=""
             onClick={createServiceGroup}
           /> */}
+          <div>
+            {serviceGroups.map(serviceGroup => (
+              <div key={serviceGroup.id}>
+                <span className="service-group--name">{serviceGroup.name}</span>
+                <span
+                  onClick={() => deleteServiceGroup(serviceGroup.id)}
+                  className="mdi mdi-delete"
+                />
+              </div>
+            ))}
+          </div>
           <EditInPlace
             onSave={createServiceGroup}
             placeholder="New Group"
           />
+          <SortableComponent items={services} />
         </div>
       </div>
     );
