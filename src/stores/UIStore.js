@@ -1,6 +1,8 @@
 import { action, observable, computed } from 'mobx';
+import _ from 'lodash';
 
 import Store from './lib/Store';
+import ServiceGroup from '../models/ServiceGroup';
 
 export default class UIStore extends Store {
   @observable showServicesUpdatedInfoBar = false;
@@ -36,5 +38,35 @@ export default class UIStore extends Store {
       visibility = !this.showServicesUpdatedInfoBar;
     }
     this.showServicesUpdatedInfoBar = visibility;
+  }
+
+  @computed get serviceGroupStructure() {
+    // const serviceGroups = this.stores.serviceGroups.all;
+    const services = this.stores.services.all;
+
+    const groupServiceMapping = {};
+    services.forEach((service) => {
+      if (groupServiceMapping[service.groupId] === undefined) {
+        let group = this.stores.serviceGroups.one(service.groupId);
+        if (group === undefined) {
+          group = new ServiceGroup({ name: 'Uncategorized' });
+        }
+        // console.log(group)
+        groupServiceMapping[service.groupId] = {
+          group,
+          services: [],
+        };
+      }
+      groupServiceMapping[service.groupId].services.push(service);
+    });
+    const groups = _.values(groupServiceMapping);
+    // console.log(groups)
+
+
+    // serviceGroups.forEach((serviceGroup) => {
+    //   groups.push(serviceGroup);
+    // });
+
+    return groups;
   }
 }

@@ -85,6 +85,7 @@ export default class ServicesDashboard extends Component {
     const {
       services,
       serviceGroups,
+      reorder,
       isLoading,
       toggleService,
       filterServices,
@@ -98,13 +99,6 @@ export default class ServicesDashboard extends Component {
       deleteServiceGroup,
     } = this.props;
     const { intl } = this.context;
-
-    const groups = [
-      {
-        name: 'Private',
-        items: services,
-      },
-    ];
 
     return (
       <div className="settings__main">
@@ -201,11 +195,11 @@ export default class ServicesDashboard extends Component {
             onClick={createServiceGroup}
           /> */}
           <div>
-            {serviceGroups.map(serviceGroup => (
-              <div key={serviceGroup.id}>
-                <span className="service-group--name">{serviceGroup.name}</span>
+            {serviceGroups.map(serviceGroup => (serviceGroup.group &&
+              <div key={serviceGroup.group.id}>
+                <span className="service-group--name">{serviceGroup.group.name}</span>
                 <span
-                  onClick={() => deleteServiceGroup(serviceGroup.id)}
+                  onClick={() => deleteServiceGroup(serviceGroup.group.id)}
                   className="mdi mdi-delete"
                 />
               </div>
@@ -215,7 +209,11 @@ export default class ServicesDashboard extends Component {
             onSave={createServiceGroup}
             placeholder="New Group"
           />
-          <SortableComponent items={services} />
+          <SortableComponent
+            // items={toJS(services)}
+            groups={serviceGroups}
+            reorder={reorder}
+          />
         </div>
       </div>
     );

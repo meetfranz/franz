@@ -14,6 +14,8 @@ export default class ServiceGroup {
   @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
 
+  @observable services = [];
+
   constructor(data) {
     if (!data) {
       console.error('Service config not valid');

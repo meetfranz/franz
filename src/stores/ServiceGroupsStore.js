@@ -26,24 +26,10 @@ export default class ServiceGroupsStore extends Store {
     this.actions.serviceGroup.createServiceGroup.listen(this._createServiceGroup.bind(this));
     this.actions.serviceGroup.updateServiceGroup.listen(this._updateServiceGroup.bind(this));
     this.actions.serviceGroup.deleteServiceGroup.listen(this._deleteServiceGroup.bind(this));
-    this.actions.serviceGroup.setUnreadMessageCount.listen(this._setUnreadMessageCount.bind(this));
-    this.actions.service.openWindow.listen(this._openWindow.bind(this));
-    this.actions.service.filter.listen(this._filter.bind(this));
-    this.actions.service.resetFilter.listen(this._resetFilter.bind(this));
-    this.actions.service.resetStatus.listen(this._resetStatus.bind(this));
-    this.actions.service.reload.listen(this._reload.bind(this));
-    this.actions.service.reloadActive.listen(this._reloadActive.bind(this));
-    this.actions.service.reloadAll.listen(this._reloadAll.bind(this));
-    this.actions.service.reloadUpdatedServices.listen(this._reloadUpdatedServices.bind(this));
-    this.actions.service.reorder.listen(this._reorder.bind(this));
-    this.actions.service.toggleNotifications.listen(this._toggleNotifications.bind(this));
-    this.actions.service.toggleAudio.listen(this._toggleAudio.bind(this));
-    this.actions.service.openDevTools.listen(this._openDevTools.bind(this));
-    this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
+    // this.actions.serviceGroup.reorder.listen(this._reorder.bind(this));
 
     this.registerReactions([
     ]);
-
   }
 
   @computed get all() {
@@ -88,22 +74,7 @@ export default class ServiceGroupsStore extends Store {
   }
 
   one(id) {
-    return this.all.find(service => service.id === id);
-  }
-
-  async _showAddServiceInterface({ recipeId }) {
-    const recipesStore = this.stores.recipes;
-
-    if (recipesStore.isInstalled(recipeId)) {
-      console.debug('Recipe is installed');
-      this._redirectToAddServiceRoute(recipeId);
-    } else {
-      console.warn('Recipe is not installed');
-      // We access the RecipeStore action directly
-      // returns Promise instead of action
-      await this.stores.recipes._install({ recipeId });
-      this._redirectToAddServiceRoute(recipeId);
-    }
+    return this.all.find(serviceGroup => serviceGroup.id === id);
   }
 
   // Actions
@@ -213,19 +184,6 @@ export default class ServiceGroupsStore extends Store {
 
     service.unreadDirectMessageCount = count.direct;
     service.unreadIndirectMessageCount = count.indirect;
-  }
-
-  @action _setWebviewReference({ serviceId, webview }) {
-    const service = this.one(serviceId);
-
-    service.webview = webview;
-
-    if (!service.isAttached) {
-      service.initializeWebViewEvents(this);
-      service.initializeWebViewListener();
-    }
-
-    service.isAttached = true;
   }
 
   @action _focusService({ serviceId }) {

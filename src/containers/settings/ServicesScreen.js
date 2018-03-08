@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import { RouterStore } from 'mobx-react-router';
 
@@ -7,6 +8,7 @@ import { RouterStore } from 'mobx-react-router';
 import UserStore from '../../stores/UserStore';
 import ServiceStore from '../../stores/ServicesStore';
 import ServiceGroupsStore from '../../stores/ServiceGroupsStore';
+import ServiceGroup from '../../models/ServiceGroup';
 import { gaPage } from '../../lib/analytics';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
@@ -48,7 +50,7 @@ export default class ServicesScreen extends Component {
   }
 
   render() {
-    const { user, services, serviceGroups, router } = this.props.stores;
+    const { user, services, serviceGroups, ui, router } = this.props.stores;
     const {
       toggleService,
       filter,
@@ -61,13 +63,43 @@ export default class ServicesScreen extends Component {
       allServices = services.filtered;
     }
 
-    const allServiceGroups = serviceGroups.all;
+    // create Uncategorized service group in ServiceGroupsStore
+
+    const noServiceGroup = {
+      name: 'Uncategorized',
+      services: [],
+    };
+    // const allServiceGroups = serviceGroups.all;
+    // allServices.forEach((service) => {
+    //   const serviceGroup = serviceGroups.one(service.groupId);
+    //   if (!serviceGroup) {
+    //     noServiceGroup.services.push(service);
+    //     return;
+    //   }
+    //   serviceGroup.services.push(service);
+    // });
+    // allServiceGroups.unshift(noServiceGroup);
+
+    // const groupServiceMapping = {};
+    // allServices.forEach((service) => {
+    //   if (groupServiceMapping[service.groupId] === undefined) {
+    //     groupServiceMapping[service.groupId] = {
+    //       group: serviceGroups.one(service.groupId),
+    //       services: [],
+    //     };
+    //   }
+    //   groupServiceMapping[service.groupId].services.push(service);
+    // });
+    // const groups = [];
+    // for (group in groupServiceMapping) {
+    //   groups.push(groupServiceMapping[group])
+    // }
 
     return (
       <ServicesDashboard
         user={user.data}
         services={allServices}
-        serviceGroups={allServiceGroups}
+        serviceGroups={ui.serviceGroupStructure}
         status={services.actionStatus}
         deleteService={() => this.deleteService()}
         toggleService={toggleService}
@@ -80,6 +112,7 @@ export default class ServicesScreen extends Component {
         searchNeedle={services.filterNeedle}
         createServiceGroup={this.createServiceGroup}
         deleteServiceGroup={this.deleteServiceGroup}
+        reorder={this.props.actions.service.reorder}
       />
     );
   }
