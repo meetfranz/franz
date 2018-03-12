@@ -65,10 +65,10 @@ export default class ServicesScreen extends Component {
 
     // create Uncategorized service group in ServiceGroupsStore
 
-    const noServiceGroup = {
-      name: 'Uncategorized',
-      services: [],
-    };
+    // const noServiceGroup = {
+    //   name: 'Uncategorized',
+    //   services: [],
+    // };
     // const allServiceGroups = serviceGroups.all;
     // allServices.forEach((service) => {
     //   const serviceGroup = serviceGroups.one(service.groupId);
@@ -112,7 +112,7 @@ export default class ServicesScreen extends Component {
         searchNeedle={services.filterNeedle}
         createServiceGroup={this.createServiceGroup}
         deleteServiceGroup={this.deleteServiceGroup}
-        reorder={this.props.actions.service.reorder}
+        // reorder={this.props.actions.ui.reorderServiceStructure}
       />
     );
   }

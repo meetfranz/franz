@@ -195,7 +195,7 @@ export default class ServicesDashboard extends Component {
             onClick={createServiceGroup}
           /> */}
           <div>
-            {serviceGroups.map(serviceGroup => (serviceGroup.group &&
+            {/* {serviceGroups.map(serviceGroup => (serviceGroup.group &&
               <div key={serviceGroup.group.id}>
                 <span className="service-group--name">{serviceGroup.group.name}</span>
                 <span
@@ -203,7 +203,7 @@ export default class ServicesDashboard extends Component {
                   className="mdi mdi-delete"
                 />
               </div>
-            ))}
+            ))} */}
           </div>
           <EditInPlace
             onSave={createServiceGroup}
@@ -212,7 +212,7 @@ export default class ServicesDashboard extends Component {
           <SortableComponent
             // items={toJS(services)}
             groups={serviceGroups}
-            reorder={reorder}
+            // reorder={reorder}
           />
         </div>
       </div>

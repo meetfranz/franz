@@ -14,6 +14,7 @@ export default class UIStore extends Store {
     this.actions.ui.openSettings.listen(this._openSettings.bind(this));
     this.actions.ui.closeSettings.listen(this._closeSettings.bind(this));
     this.actions.ui.toggleServiceUpdatedInfoBar.listen(this._toggleServiceUpdatedInfoBar.bind(this));
+    // this.actions.ui.reorderServiceStructure.listen(this._reorderServiceStructure.bind(this));
   }
 
   @computed get showMessageBadgesEvenWhenMuted() {
@@ -44,22 +45,29 @@ export default class UIStore extends Store {
     // const serviceGroups = this.stores.serviceGroups.all;
     const services = this.stores.services.all;
 
-    const groupServiceMapping = {};
+    const groups = [];
     services.forEach((service) => {
-      if (groupServiceMapping[service.groupId] === undefined) {
-        let group = this.stores.serviceGroups.one(service.groupId);
-        if (group === undefined) {
-          group = new ServiceGroup({ name: 'Uncategorized' });
-        }
-        // console.log(group)
-        groupServiceMapping[service.groupId] = {
-          group,
-          services: [],
+      // console.log(service.order, service.groupId);
+      if (service.groupId === undefined || service.groupId === '') {
+        groups[service.order] = {
+          type: 'root',
+          group: new ServiceGroup({ name: 'Uncategorized' }),
+          services: [service],
         };
+        return;
       }
-      groupServiceMapping[service.groupId].services.push(service);
+
+      const group = this.stores.serviceGroups.one(service.groupId);
+      if (group === undefined) {
+        return;
+      }
+      group.services[service.order] = service;
+      groups[group.order] = {
+        type: 'group',
+        group,
+        services: group.services,
+      };
     });
-    const groups = _.values(groupServiceMapping);
     // console.log(groups)
 
 
@@ -69,4 +77,17 @@ export default class UIStore extends Store {
 
     return groups;
   }
+
+  // _reorderServiceStructure({ newListIndex, newIndex, items }) {
+  //   const structure = this.serviceGroupStructure;
+  //   console.log(this.serviceGroupStructure);
+
+  //   switch (structure[newListIndex].type) {
+  //     case 'root':
+  //       break;
+  //     case 'group':
+  //       break;
+  //     default:
+  //   }
+  // }
 }
