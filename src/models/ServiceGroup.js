@@ -14,7 +14,7 @@ export default class ServiceGroup {
   @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
 
-  @observable services = [];
+  services = [];
 
   constructor(data) {
     if (!data) {

@@ -35,9 +35,9 @@ const SortableListServices = sortableContainer(({ items }) =>
 );
 
 const SortableGroup = sortableElement(props => (props.item.group || null) &&
-  <div>
+  <div style={{border: '1px solid grey', marginBottom: '10px'}}>
     <div>
-      <span style={{ marginLeft: '50px' }}>{props.item.group.name}</span>
+      <span style={{ marginLeft: '50px', fontWeight: 'bold' }}>{props.item.group.name}</span>
     </div>
     <SortableListServices
       {...props} // onMultipleSortEnd
@@ -98,14 +98,17 @@ export default class SortableComponent extends Component {
     const structure = this.props.groups; //Object.assign([], toJS(this.props.groups));
 
     items.forEach((item, i) => {
-      const source = structure[item.listId];
+      const oldListIndex = item.listId;
+      const oldIndex = item.id;
+
+      const source = structure[oldListIndex];
       const destination = structure[newListIndex];
 
-      const service = source.services[item.id];
+      const service = source.services[oldIndex];
       // console.log(service.name)
-      source.services.splice(item.id, 1); // remove service from source group
+      source.services.splice(oldIndex, 1); // remove service from source group
       if (source.type === 'root') {
-        structure.splice(item.listId, 1);
+        structure.splice(oldListIndex, 1);
       }
 
       switch (destination.type) {
@@ -118,7 +121,7 @@ export default class SortableComponent extends Component {
           });
           break;
         case 'group':
-          service.groupId = destination.group.groupId;
+          service.groupId = destination.group.id;
           destination.services.splice(newIndex, 0, service);
           break;
         default:
@@ -132,11 +135,13 @@ export default class SortableComponent extends Component {
       switch (group.type) {
         case 'root':
           group.services[0].order = index;
+          console.log(group.services[0].name, group.services[0].order, group.services[0].groupId)
           break;
         case 'group':
           group.group.order = index;
           group.services.forEach((service, index) => {
             service.order = index;
+            console.log(service.name, service.order, service.groupId)
           });
           break;
         default:

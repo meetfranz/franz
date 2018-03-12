@@ -42,8 +42,12 @@ export default class UIStore extends Store {
   }
 
   @computed get serviceGroupStructure() {
-    // const serviceGroups = this.stores.serviceGroups.all;
+    const serviceGroups = this.stores.serviceGroups.all;
     const services = this.stores.services.all;
+
+    serviceGroups.forEach((serviceGroup) => {
+      serviceGroup.services = [];
+    });
 
     const groups = [];
     services.forEach((service) => {
@@ -59,6 +63,7 @@ export default class UIStore extends Store {
 
       const group = this.stores.serviceGroups.one(service.groupId);
       if (group === undefined) {
+        console.warn('no group associated with id', service.groupId);
         return;
       }
       group.services[service.order] = service;
