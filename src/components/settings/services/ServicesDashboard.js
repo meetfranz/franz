@@ -212,7 +212,7 @@ export default class ServicesDashboard extends Component {
           <SortableComponent
             // items={toJS(services)}
             groups={serviceGroups}
-            // reorder={reorder}
+            reorder={reorder}
           />
         </div>
       </div>

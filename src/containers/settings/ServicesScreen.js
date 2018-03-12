@@ -100,6 +100,7 @@ export default class ServicesScreen extends Component {
         user={user.data}
         services={allServices}
         serviceGroups={ui.serviceGroupStructure}
+        reorder={this.props.actions.ui.reorderServiceStructure}
         status={services.actionStatus}
         deleteService={() => this.deleteService()}
         toggleService={toggleService}
@@ -112,7 +113,6 @@ export default class ServicesScreen extends Component {
         searchNeedle={services.filterNeedle}
         createServiceGroup={this.createServiceGroup}
         deleteServiceGroup={this.deleteServiceGroup}
-        // reorder={this.props.actions.ui.reorderServiceStructure}
       />
     );
   }

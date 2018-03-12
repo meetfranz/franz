@@ -8,5 +8,7 @@ export default {
   toggleServiceUpdatedInfoBar: {
     visible: PropTypes.bool,
   },
-  // reorderServiceStructure: {},
+  reorderServiceStructure: {
+    structure: PropTypes.array.isRequired,
+  },
 };

@@ -14,7 +14,7 @@ export default class UIStore extends Store {
     this.actions.ui.openSettings.listen(this._openSettings.bind(this));
     this.actions.ui.closeSettings.listen(this._closeSettings.bind(this));
     this.actions.ui.toggleServiceUpdatedInfoBar.listen(this._toggleServiceUpdatedInfoBar.bind(this));
-    // this.actions.ui.reorderServiceStructure.listen(this._reorderServiceStructure.bind(this));
+    this.actions.ui.reorderServiceStructure.listen(this._reorderServiceStructure.bind(this));
   }
 
   @computed get showMessageBadgesEvenWhenMuted() {
@@ -89,16 +89,23 @@ export default class UIStore extends Store {
     return groups;
   }
 
-  // _reorderServiceStructure({ newListIndex, newIndex, items }) {
-  //   const structure = this.serviceGroupStructure;
-  //   console.log(this.serviceGroupStructure);
-
-  //   switch (structure[newListIndex].type) {
-  //     case 'root':
-  //       break;
-  //     case 'group':
-  //       break;
-  //     default:
-  //   }
-  // }
+  @action _reorderServiceStructure({ structure }) {
+    console.log(JSON.stringify(structure[0]))
+    structure.forEach((group, index) => {
+      switch (group.type) {
+        case 'root':
+          group.services[0].order = index;
+          console.log(group.services[0].name, group.services[0].order, group.services[0].groupId)
+          break;
+        case 'group':
+          group.group.order = index;
+          group.services.forEach((service, index) => {
+            service.order = index;
+            console.log(service.name, service.order, service.groupId)
+          });
+          break;
+        default:
+      }
+    });
+  }
 }

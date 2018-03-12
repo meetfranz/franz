@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { sortableContainer, sortableElement, arrayMove, DragLayer } from 'react-sortable-multiple-hoc';
-import { toJS } from 'mobx';
 
 import ServiceGroup from '../../../models/ServiceGroup';
 import Service from '../../../models/Service';
@@ -69,26 +68,9 @@ const SortableListGroups = sortableContainer(({ items, onSortItemsEnd }) => {
 
 export default class SortableComponent extends Component {
   onSortEnd = ({ oldIndex, newIndex }) => {
-    let structure = this.props.groups;
-    structure = arrayMove(structure, oldIndex, newIndex);
-    console.log('GROUP MOVE', oldIndex, newIndex)
-    console.log(structure)
-    structure.forEach((group, index) => {
-      switch (group.type) {
-        case 'root':
-          group.services[0].order = index;
-          console.log(group.services[0].name, group.services[0].order, group.services[0].groupId)
-          break;
-        case 'group':
-          group.group.order = index;
-          group.services.forEach((service, index) => {
-            service.order = index;
-            console.log(service.name, service.order, service.groupId)
-          });
-          break;
-        default:
-      }
-    });
+    const structure = arrayMove(this.props.groups, oldIndex, newIndex);
+    console.log(structure);
+    this.props.reorder({ structure });
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
@@ -131,23 +113,7 @@ export default class SortableComponent extends Component {
     // console.log('STRUCTURE', structure)
 
     // reorder data model
-    structure.forEach((group, index) => {
-      switch (group.type) {
-        case 'root':
-          group.services[0].order = index;
-          console.log(group.services[0].name, group.services[0].order, group.services[0].groupId)
-          break;
-        case 'group':
-          group.group.order = index;
-          group.services.forEach((service, index) => {
-            service.order = index;
-            console.log(service.name, service.order, service.groupId)
-          });
-          break;
-        default:
-      }
-    });
-
+    this.props.reorder({ structure });
     // console.log(structure)
     // console.timeEnd()
   }
