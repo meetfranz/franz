@@ -35,7 +35,7 @@ const SortableListServices = sortableContainer(({ items }) =>
 );
 
 const SortableGroup = sortableElement(props => (props.item.group || null) &&
-  <div style={{border: '1px solid grey', marginBottom: '10px'}}>
+  <div style={{ border: '1px solid grey', marginBottom: '10px' }}>
     <div>
       <span style={{ marginLeft: '50px', fontWeight: 'bold' }}>{props.item.group.name}</span>
     </div>
@@ -52,7 +52,6 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
 );
 
 const SortableListGroups = sortableContainer(({ items, onSortItemsEnd }) => {
-  // console.log(onSortEnd);
   return (
     <div>
       {items.map((group, index) => (group &&
@@ -73,22 +72,6 @@ export default class SortableComponent extends Component {
     // arrayMove(this.props.groups, oldIndex, newIndex);
     console.log('GROUP MOVE', oldIndex, newIndex)
     // console.log(data)
-  }
-
-  onSortItemsEndxx = ({ newListIndex, newIndex, items }) => {
-    const structure = this.props.groups;
-
-    console.log(items[0].listId, items[0].id, newListIndex, newIndex, structure)
-
-    items.forEach((item, i) => {
-      const source = structure[item.listId];
-      const destination = structure[newListIndex];
-
-      console.log(source, destination)
-
-      const service = source.services[item.id];
-      source.services.splice(item.id, 1); // remove service from source group      
-    });
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {

@@ -73,13 +73,19 @@ export default class UIStore extends Store {
         services: group.services,
       };
     });
-    // console.log(groups)
 
-
-    // serviceGroups.forEach((serviceGroup) => {
-    //   groups.push(serviceGroup);
-    // });
-
+    // add empty groups
+    serviceGroups.forEach((serviceGroup) => {
+      // console.log(serviceGroup.name, serviceGroup.services.length)
+      if (serviceGroup.services.length === 0) {
+        groups[serviceGroup.order] = {
+          type: 'group',
+          group: serviceGroup,
+          services: [],
+        };
+      }
+    });
+    
     return groups;
   }
 
