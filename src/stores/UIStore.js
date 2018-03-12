@@ -74,7 +74,7 @@ export default class UIStore extends Store {
       };
     });
 
-    // add empty groups
+    // add empty groups (no services yet)
     serviceGroups.forEach((serviceGroup) => {
       // console.log(serviceGroup.name, serviceGroup.services.length)
       if (serviceGroup.services.length === 0) {
@@ -85,23 +85,51 @@ export default class UIStore extends Store {
         };
       }
     });
-    
-    return groups;
+
+    const paddedGroups = [];
+    if (groups[0] && groups[0].type === 'group') {
+      paddedGroups.push({
+        type: 'root',
+        group: new ServiceGroup({ name: 'Uncategorized' }),
+        services: [],
+      });
+    }
+    groups.forEach((group, index) => {
+      paddedGroups.push(group);
+      if (group.type === 'group' &&
+        ((groups[index + 1] && groups[index + 1].type === 'group') ||
+        !groups[index + 1])) {
+        paddedGroups.push({
+          type: 'root',
+          group: new ServiceGroup({ name: 'Uncategorized' }),
+          services: [],
+        });
+      }
+    });
+
+    return paddedGroups;
   }
 
   @action _reorderServiceStructure({ structure }) {
-    console.log(JSON.stringify(structure[0]))
-    structure.forEach((group, index) => {
+    const groups = [];
+    // remove empty (padding) 'root' groups
+    structure.forEach((group) => {
+      if (group && group.type === 'root' && group.services && group.services.length === 0) {
+        return;
+      }
+      groups.push(group);
+    });
+    groups.forEach((group, index) => {
       switch (group.type) {
         case 'root':
           group.services[0].order = index;
-          console.log(group.services[0].name, group.services[0].order, group.services[0].groupId)
+          // console.log(group.services[0].name, group.services[0].order, group.services[0].groupId)
           break;
         case 'group':
           group.group.order = index;
           group.services.forEach((service, index) => {
             service.order = index;
-            console.log(service.name, service.order, service.groupId)
+            // console.log(service.name, service.order, service.groupId)
           });
           break;
         default:
