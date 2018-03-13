@@ -425,28 +425,21 @@ export default class ServicesStore extends Store {
     this.actions.ui.toggleServiceUpdatedInfoBar({ visible: false });
   }
 
-  @action _reorder({ oldIndex, newIndex }) {
-    const showDisabledServices = this.stores.settings.all.showDisabledServices;
-    const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
-    const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
-
-    this.all.splice(newEnabledSortIndex, 0, this.all.splice(oldEnabledSortIndex, 1)[0]);
-
+  @action _reorder() {
     const services = {};
-    this.all.forEach((s, index) => {
-      services[this.all[index].id] = index;
+    this.all.forEach((s) => {
+      services[s.id] = s.order;
     });
-
     this.reorderServicesRequest.execute(services);
-    this.allServicesRequest.patch((data) => {
-      data.forEach((s) => {
-        const service = s;
+    // this.allServicesRequest.patch((data) => {
+    //   data.forEach((s) => {
+    //     const service = s;
 
-        service.order = services[s.id];
-      });
-    });
+    //     service.order = services[s.id];
+    //   });
+    // });
 
-    this._reorderAnalytics();
+    // this._reorderAnalytics();
   }
 
   @action _toggleNotifications({ serviceId }) {

@@ -128,6 +128,7 @@ export default class UIStore extends Store {
         default:
       }
     });
+    this.actions.service.reorder();
   }
 
   _removePadding(structure) {

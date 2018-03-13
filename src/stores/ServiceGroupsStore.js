@@ -96,30 +96,10 @@ export default class ServiceGroupsStore extends Store {
 
   @action async _updateServiceGroup({ serviceGroupId, serviceGroupData, redirect }) {
     const service = this.one(serviceId);
-    const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
     const request = this.updateServiceRequest.execute(serviceId, data);
-
-    const newData = serviceData;
-    if (serviceData.iconFile) {
-      await request._promise;
-
-      newData.iconUrl = request.result.data.iconUrl;
-      newData.hasCustomUploadedIcon = true;
-    }
 
     this.allServicesRequest.patch((result) => {
       if (!result) return;
-
-      // patch custom icon deletion
-      if (data.customIcon === 'delete') {
-        newData.iconUrl = '';
-        newData.hasCustomUploadedIcon = false;
-      }
-
-      // patch custom icon url
-      if (data.customIconUrl) {
-        newData.iconUrl = data.customIconUrl;
-      }
 
       Object.assign(result.find(c => c.id === serviceId), newData);
     });
