@@ -111,14 +111,7 @@ export default class UIStore extends Store {
   }
 
   @action _reorderServiceStructure({ structure }) {
-    const groups = [];
-    // remove empty (padding) 'root' groups
-    structure.forEach((group) => {
-      if (group && group.type === 'root' && group.services && group.services.length === 0) {
-        return;
-      }
-      groups.push(group);
-    });
+    const groups = this._removePadding(structure);
     groups.forEach((group, index) => {
       switch (group.type) {
         case 'root':
@@ -135,5 +128,17 @@ export default class UIStore extends Store {
         default:
       }
     });
+  }
+
+  _removePadding(structure) {
+    const groups = [];
+    // remove empty (padding) 'root' groups
+    structure.forEach((group) => {
+      if (group && group.type === 'root' && group.services && group.services.length === 0) {
+        return;
+      }
+      groups.push(group);
+    });
+    return groups;
   }
 }

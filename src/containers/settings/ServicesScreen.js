@@ -39,6 +39,7 @@ export default class ServicesScreen extends Component {
     this.props.actions.serviceGroup.createServiceGroup({
       serviceGroupData: {
         name,
+        order: this.props.stores.ui._removePadding(this.props.stores.ui.serviceGroupStructure).length + 1,
       },
     });
   }
