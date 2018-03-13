@@ -129,6 +129,7 @@ export default class UIStore extends Store {
       }
     });
     this.actions.service.reorder();
+    this.actions.serviceGroup.reorder();
   }
 
   _removePadding(structure) {
@@ -141,5 +142,9 @@ export default class UIStore extends Store {
       groups.push(group);
     });
     return groups;
+  }
+
+  get nextServiceGroupOrder() {
+    return this._removePadding(this.serviceGroupStructure).length
   }
 }

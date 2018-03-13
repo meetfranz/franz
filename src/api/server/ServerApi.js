@@ -320,9 +320,9 @@ export default class ServerApi {
     if (!request.ok) {
       throw request;
     }
-    const serviceData = await request.json();
-    console.debug('ServerApi::reorderServiceGroup resolves', serviceData);
-    return serviceData;
+    const serviceGroupData = await request.json();
+    console.debug('ServerApi::reorderServiceGroup resolves', serviceGroupData);
+    return serviceGroupData;
   }
 
   async deleteServiceGroup(id) {

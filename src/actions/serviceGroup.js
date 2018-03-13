@@ -14,4 +14,5 @@ export default {
     serviceGroupId: PropTypes.string.isRequired,
     redirect: PropTypes.string,
   },
+  reorder: {},
 };
