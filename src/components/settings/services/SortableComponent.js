@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { sortableContainer, sortableElement, arrayMove, DragLayer } from 'react-sortable-multiple-hoc';
 
 import ServiceGroup from '../../../models/ServiceGroup';
-import Service from '../../../models/Service';
 
 import ServiceItem from './ServiceItem';
 
@@ -74,12 +73,11 @@ export default class SortableComponent extends Component {
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
-    // console.time()
     console.log(newListIndex, newIndex, items)
     
     const structure = this.props.groups; //Object.assign([], toJS(this.props.groups));
 
-    items.forEach((item, i) => {
+    items.forEach((item) => {
       const oldListIndex = item.listId;
       const oldIndex = item.id;
 
@@ -87,16 +85,16 @@ export default class SortableComponent extends Component {
       const destination = structure[newListIndex];
 
       const service = source.services[oldIndex];
-      // console.log(service.name)
       source.services.splice(oldIndex, 1); // remove service from source group
       if (source.type === 'root') {
         structure.splice(oldListIndex, 1);
+        // newListIndex = oldListIndex < newListIndex ? newListIndex - 1 : newListIndex;
       }
 
       switch (destination.type) {
         case 'root':
           service.groupId = '';
-          structure.splice(newIndex ? newListIndex + 1 : newListIndex, 0, {
+          structure.splice(newIndex ? newListIndex + 1 : newListIndex, 0, { // WRONG??
             type: 'root',
             group: new ServiceGroup({ name: 'Uncat' }),
             services: [service],
@@ -110,28 +108,9 @@ export default class SortableComponent extends Component {
       }
     });
 
-    // console.log('STRUCTURE', structure)
-
     // reorder data model
     this.props.reorder({ structure });
-    // console.log(structure)
-    // console.timeEnd()
   }
-
-  groups = [
-    {
-      group: { id: 'group-0', name: 'Group 0' },
-      items: [{ id: 'service-0', name: 'Service 0' }],
-    },
-    {
-      group: { id: 'group-1', name: 'Group 1' },
-      items: [{ id: 'service-1', name: 'Service 1' }, { id: 'service-2', name: 'Service 2' }],
-    },
-    {
-      group: { id: 'group-2', name: 'Group 2' },
-      items: [{ id: 'service-3', name: 'Service 3' }],
-    },
-  ];  
 
   render() {
     console.log('RERENDER', this.props.groups)
