@@ -1,5 +1,13 @@
 @import './config.scss';
 
+.services__group {
+  border: 1px solid grey;
+
+  .services__group-header {
+    font-weight: bold;
+  }
+}
+
 .service-table {
   width: 100%;
 

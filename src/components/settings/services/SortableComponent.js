@@ -10,13 +10,17 @@ const dragLayer = new DragLayer();
 const SortableService = sortableElement(({item}) => {
   // console.log(item.id)
   return (
-    // <ServiceItem
-    //   key={item.id}
-    //   service={item}
-    //   // toggleAction={() => toggleService({ serviceId: service.id })}
-    //   // goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
-    // />
-    <div key={item.id}>{item.name}</div>
+    <table className="service-table">
+      <tbody>
+        <ServiceItem
+          key={item.id}
+          service={item}
+          // toggleAction={() => toggleService({ serviceId: service.id })}
+          // goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
+        />
+      </tbody>
+    </table>
+    // <div key={item.id}>{item.name}</div>
   );
 });
 
@@ -33,10 +37,12 @@ const SortableListServices = sortableContainer(({ items }) =>
 );
 
 const SortableGroup = sortableElement(props => (props.item.group || null) &&
-  <div style={{ border: '1px solid grey', marginBottom: '10px' }}>
-    <div>
-      <span style={{ marginLeft: '50px', fontWeight: 'bold' }}>{props.item.group.name}</span>
-    </div>
+  <div className={props.item.type === 'group' ? 'services__group' : ''}>
+    {props.item.type === 'group' &&
+      <div className="services__group-header">
+        <span>{props.item.group.name}</span>
+      </div>
+    }
     <SortableListServices
       {...props} // onMultipleSortEnd
       items={props.item.services}
@@ -45,6 +51,7 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       helperClass={'selected__service'}
       isMultiple
       helperCollision={{ top: 0, bottom: 0 }}
+      lockAxis="y"
     />
   </div>,
 );
@@ -122,6 +129,7 @@ export default class SortableComponent extends Component {
           onSortEnd={this.onSortEnd}
           onSortItemsEnd={this.onSortItemsEnd}
           helperClass={'selected__group'}
+          lockAxis="y"
         />
       </div>
     );
