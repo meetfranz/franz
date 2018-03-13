@@ -428,7 +428,10 @@ export default class ServicesStore extends Store {
   @action _reorder() {
     const services = {};
     this.all.forEach((s) => {
-      services[s.id] = s.order;
+      services[s.id] = {
+        order: s.order,
+        groupId: s.groupId,
+      };
     });
     this.reorderServicesRequest.execute(services);
     // this.allServicesRequest.patch((data) => {
