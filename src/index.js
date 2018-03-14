@@ -19,6 +19,7 @@ let willQuitApp = false;
 
 // Ensure that the recipe directory exists
 fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
+fs.ensureFileSync(path.join(app.getPath('userData'), 'window-state.json'));
 
 // Set App ID for Windows
 if (isWindows) {
