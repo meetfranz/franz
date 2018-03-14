@@ -130,6 +130,10 @@ export default class SortableComponent extends Component {
       const oldListIndex = item.listId;
       const oldIndex = item.id;
 
+      if (oldListIndex === newListIndex && oldIndex === newIndex) {
+        return;
+      }
+
       const source = structure[oldListIndex];
       const destination = structure[newListIndex];
 
