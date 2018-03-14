@@ -177,18 +177,26 @@ export default class ServicesDashboard extends Component {
           {isLoading ? (
             <Loader />
           ) : (
-            <table className="service-table">
-              <tbody>
-                {services.map(service => (
-                  <ServiceItem
-                    key={service.id}
-                    service={service}
-                    toggleAction={() => toggleService({ serviceId: service.id })}
-                    goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <SortableComponent
+              // items={toJS(services)}
+              groups={serviceGroups}
+              reorder={reorder}
+              updateServiceGroup={updateServiceGroup}
+              deleteServiceGroup={deleteServiceGroup}
+              goTo={goTo}
+            />
+            // <table className="service-table">
+            //   <tbody>
+            //     {services.map(service => (
+            //       <ServiceItem
+            //         key={service.id}
+            //         service={service}
+            //         toggleAction={() => toggleService({ serviceId: service.id })}
+            //         goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
+            //       />
+            //     ))}
+            //   </tbody>
+            // </table>
           )}
           {/* <Button
             label="Create"
@@ -209,13 +217,6 @@ export default class ServicesDashboard extends Component {
           <EditInPlace
             onSave={createServiceGroup}
             placeholder="New Group"
-          />
-          <SortableComponent
-            // items={toJS(services)}
-            groups={serviceGroups}
-            reorder={reorder}
-            updateServiceGroup={updateServiceGroup}
-            deleteServiceGroup={deleteServiceGroup}
           />
         </div>
       </div>

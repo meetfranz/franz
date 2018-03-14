@@ -9,7 +9,7 @@ import EditInPlace from '../../ui/EditInPlace';
 
 const dragLayer = new DragLayer();
 
-const SortableService = sortableElement(({item}) => {
+const SortableService = sortableElement(({ item, goTo }) => {
   // console.log(item.id)
   return (
     <table className="service-table">
@@ -18,7 +18,7 @@ const SortableService = sortableElement(({item}) => {
           key={item.id}
           service={item}
           // toggleAction={() => toggleService({ serviceId: service.id })}
-          // goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
+          goToServiceForm={() => goTo(`/settings/services/edit/${item.id}`)}
         />
       </tbody>
     </table>
@@ -26,13 +26,14 @@ const SortableService = sortableElement(({item}) => {
   );
 });
 
-const SortableListServices = sortableContainer(({ items }) =>
+const SortableListServices = sortableContainer(({ items, goTo }) =>
   <div>
     {items.map((service, index) => (
       <SortableService
         key={service.id}
         index={index}
         item={service}
+        goTo={goTo}        
       />
     ))}
   </div>,
@@ -44,12 +45,12 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       <div className="services__group-header">
         <InlineEdit
           text={props.item.group.name}
-          paramName={`group-header-${props.index}`}
-          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.index}`]); 
-          console.log(props.item.group.name)}}
+          paramName={`group-header-${props.id}`}
+          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]); 
+          console.log(props.id)}}
         />
         <span
-          onClick={() => props.onDeleteGroup(props.index)}
+          onClick={() => props.onDeleteGroup(props.id)}
           className="mdi mdi-delete"
         />
 
@@ -64,11 +65,12 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       isMultiple
       helperCollision={{ top: 0, bottom: 0 }}
       lockAxis="y"
+      goTo={props.goTo}
     />
   </div>,
 );
 
-const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteGroup, updateServiceGroup, deleteServiceGroup }) => {
+const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteGroup, updateServiceGroup, deleteServiceGroup, goTo }) => {
   return (
     <div>
       {items.map((group, index) => (group &&
@@ -81,6 +83,7 @@ const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteG
           onDeleteGroup={onDeleteGroup}
           updateServiceGroup={updateServiceGroup}
           deleteServiceGroup={deleteServiceGroup}
+          goTo={goTo}
         />
       ))}
     </div>);
@@ -88,10 +91,9 @@ const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteG
 
 export default class SortableComponent extends Component {
   onDeleteGroup = (index) => {
-    console.log(index)
     const structure = this.props.groups;
     const group = structure[index];
-    // structure.splice(index, 1);
+    structure.splice(index, 1);
     group.services.forEach((service, i) => {
       service.groupId = '';
       structure.splice(index + i, 0, {
@@ -100,6 +102,8 @@ export default class SortableComponent extends Component {
         services: [service],
       });
     });
+    this.props.deleteServiceGroup(group.group.id);
+    this.props.reorder({ structure });
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -130,7 +134,7 @@ export default class SortableComponent extends Component {
       switch (destination.type) {
         case 'root':
           service.groupId = '';
-          structure.splice(newIndex ? newListIndex + 1 : newListIndex, 0, { // WRONG??
+          structure.splice(newIndex ? newListIndex : newListIndex, 0, { // WRONG??
             type: 'root',
             group: new ServiceGroup({ name: 'Uncat' }),
             services: [service],
@@ -163,6 +167,7 @@ export default class SortableComponent extends Component {
           onDeleteGroup={this.onDeleteGroup}
           updateServiceGroup={this.props.updateServiceGroup}
           deleteServiceGroup={this.props.deleteServiceGroup}
+          goTo={this.props.goTo}
         />
       </div>
     );

@@ -55,18 +55,18 @@ export default class ServicesScreen extends Component {
   }
 
   deleteServiceGroup(serviceGroupId) {
-    this.props.stores.services.all.forEach((service) => {
-      // console.log(service.name, service.groupId)
-      if (service.groupId === serviceGroupId) {
-        service.groupId = '';
-      }
-    });
-    this.props.actions.ui.reorderServiceStructure({
-      structure: this.props.stores.ui.serviceGroupStructure,
-    });
-    // this.props.actions.serviceGroup.deleteServiceGroup({
-    //   serviceGroupId,
+    // this.props.stores.services.all.forEach((service) => {
+    //   // console.log(service.name, service.groupId)
+    //   if (service.groupId === serviceGroupId) {
+    //     service.groupId = '';
+    //   }
     // });
+    // this.props.actions.ui.reorderServiceStructure({
+    //   structure: this.props.stores.ui.serviceGroupStructure,
+    // });
+    this.props.actions.serviceGroup.deleteServiceGroup({
+      serviceGroupId,
+    });
   }
 
   render() {
@@ -82,38 +82,6 @@ export default class ServicesScreen extends Component {
     if (services.filterNeedle !== null) {
       allServices = services.filtered;
     }
-
-    // create Uncategorized service group in ServiceGroupsStore
-
-    // const noServiceGroup = {
-    //   name: 'Uncategorized',
-    //   services: [],
-    // };
-    // const allServiceGroups = serviceGroups.all;
-    // allServices.forEach((service) => {
-    //   const serviceGroup = serviceGroups.one(service.groupId);
-    //   if (!serviceGroup) {
-    //     noServiceGroup.services.push(service);
-    //     return;
-    //   }
-    //   serviceGroup.services.push(service);
-    // });
-    // allServiceGroups.unshift(noServiceGroup);
-
-    // const groupServiceMapping = {};
-    // allServices.forEach((service) => {
-    //   if (groupServiceMapping[service.groupId] === undefined) {
-    //     groupServiceMapping[service.groupId] = {
-    //       group: serviceGroups.one(service.groupId),
-    //       services: [],
-    //     };
-    //   }
-    //   groupServiceMapping[service.groupId].services.push(service);
-    // });
-    // const groups = [];
-    // for (group in groupServiceMapping) {
-    //   groups.push(groupServiceMapping[group])
-    // }
 
     return (
       <ServicesDashboard
