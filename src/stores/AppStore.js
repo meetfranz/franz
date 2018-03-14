@@ -98,6 +98,10 @@ export default class AppStore extends Store {
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
+
+        if (isMac) {
+          app.dock.bounce();
+        }
       }
 
       if (data.available !== undefined && !data.available) {
