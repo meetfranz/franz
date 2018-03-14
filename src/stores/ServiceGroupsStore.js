@@ -65,14 +65,13 @@ export default class ServiceGroupsStore extends Store {
   }
 
   @action async _updateServiceGroup({ serviceGroupId, serviceGroupData, redirect }) {
-    const service = this.one(serviceId);
-    const request = this.updateServiceRequest.execute(serviceId, data);
+    const request = this.updateServiceGroupRequest.execute(serviceGroupId, serviceGroupData);
 
-    this.allServicesRequest.patch((result) => {
-      if (!result) return;
+    // this.allServiceGroupsRequest.patch((result) => {
+    //   if (!result) return;
 
-      Object.assign(result.find(c => c.id === serviceId), newData);
-    });
+    //   Object.assign(result.find(c => c.id === serviceGroupId), serviceGroupData);
+    // });
 
     await request._promise;
     this.actionStatus = request.result.status;

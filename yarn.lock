@@ -8205,6 +8205,10 @@ react-dropzone@^4.2.1:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
 
+react-edit-inline@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-edit-inline/-/react-edit-inline-1.0.8.tgz#d144670b5217b5adc6c5bcb6976fc6b257f09b72"
+
 react-electron-web-view@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-electron-web-view/-/react-electron-web-view-2.0.1.tgz#984b7bbbeb77e35bcca921dc50120fc8f2b0f27d"
@@ -8287,7 +8291,7 @@ react-sortable-hoc@^0.6.7:
 
 react-sortable-multiple-hoc@haraldox/react-sortable-multiple-hoc:
   version "0.1.0"
-  resolved "https://codeload.github.com/haraldox/react-sortable-multiple-hoc/tar.gz/083f4dcf2fe5fe994e3e75cca527e9dda68c6583"
+  resolved "https://codeload.github.com/haraldox/react-sortable-multiple-hoc/tar.gz/a9db7a3e1a7c1b2bd7f876ac2b6dfc0164874584"
   dependencies:
     autoprefixer "7.1.1"
     babel-eslint "7.2.3"

@@ -71,10 +71,7 @@ export default {
   },
   resetFilter: {},
   resetStatus: {},
-  reorder: {
-    oldIndex: PropTypes.number.isRequired,
-    newIndex: PropTypes.number.isRequired,
-  },
+  reorder: {},
   toggleNotifications: {
     serviceId: PropTypes.string.isRequired,
   },

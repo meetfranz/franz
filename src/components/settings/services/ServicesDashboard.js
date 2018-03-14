@@ -96,6 +96,7 @@ export default class ServicesDashboard extends Component {
       status,
       searchNeedle,
       createServiceGroup,
+      updateServiceGroup,
       deleteServiceGroup,
     } = this.props;
     const { intl } = this.context;
@@ -213,6 +214,8 @@ export default class ServicesDashboard extends Component {
             // items={toJS(services)}
             groups={serviceGroups}
             reorder={reorder}
+            updateServiceGroup={updateServiceGroup}
+            deleteServiceGroup={deleteServiceGroup}
           />
         </div>
       </div>

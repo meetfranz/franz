@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { sortableContainer, sortableElement, arrayMove, DragLayer } from 'react-sortable-multiple-hoc';
+import InlineEdit from 'react-edit-inline';
 
 import ServiceGroup from '../../../models/ServiceGroup';
 
 import ServiceItem from './ServiceItem';
+import EditInPlace from '../../ui/EditInPlace';
 
 const dragLayer = new DragLayer();
 
@@ -40,7 +42,17 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
   <div className={props.item.type === 'group' ? 'services__group' : ''}>
     {props.item.type === 'group' &&
       <div className="services__group-header">
-        <span>{props.item.group.name}</span>
+        <InlineEdit
+          text={props.item.group.name}
+          paramName={`group-header-${props.index}`}
+          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.index}`]); 
+          console.log(props.item.group.name)}}
+        />
+        <span
+          onClick={() => props.onDeleteGroup(props.index)}
+          className="mdi mdi-delete"
+        />
+
       </div>
     }
     <SortableListServices
@@ -56,7 +68,7 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
   </div>,
 );
 
-const SortableListGroups = sortableContainer(({ items, onSortItemsEnd }) => {
+const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteGroup, updateServiceGroup, deleteServiceGroup }) => {
   return (
     <div>
       {items.map((group, index) => (group &&
@@ -66,13 +78,30 @@ const SortableListGroups = sortableContainer(({ items, onSortItemsEnd }) => {
           item={group}
           id={index}
           onMultipleSortEnd={onSortItemsEnd}
-          // onSortEnd={onSortEnd}
+          onDeleteGroup={onDeleteGroup}
+          updateServiceGroup={updateServiceGroup}
+          deleteServiceGroup={deleteServiceGroup}
         />
       ))}
     </div>);
 });
 
 export default class SortableComponent extends Component {
+  onDeleteGroup = (index) => {
+    console.log(index)
+    const structure = this.props.groups;
+    const group = structure[index];
+    // structure.splice(index, 1);
+    group.services.forEach((service, i) => {
+      service.groupId = '';
+      structure.splice(index + i, 0, {
+        type: 'root',
+        group: new ServiceGroup({ name: 'Uncat' }),
+        services: [service],
+      });
+    });
+  }
+
   onSortEnd = ({ oldIndex, newIndex }) => {
     const structure = arrayMove(this.props.groups, oldIndex, newIndex);
     console.log(structure);
@@ -130,6 +159,10 @@ export default class SortableComponent extends Component {
           onSortItemsEnd={this.onSortItemsEnd}
           helperClass={'selected__group'}
           lockAxis="y"
+          pressDelay={150}
+          onDeleteGroup={this.onDeleteGroup}
+          updateServiceGroup={this.props.updateServiceGroup}
+          deleteServiceGroup={this.props.deleteServiceGroup}
         />
       </div>
     );

@@ -18,6 +18,7 @@ export default class ServicesScreen extends Component {
   constructor() {
     super();
     this.createServiceGroup = this.createServiceGroup.bind(this);
+    this.updateServiceGroup = this.updateServiceGroup.bind(this);
     this.deleteServiceGroup = this.deleteServiceGroup.bind(this);
   }
 
@@ -44,10 +45,28 @@ export default class ServicesScreen extends Component {
     });
   }
 
-  deleteServiceGroup(serviceGroupId) {
-    this.props.actions.serviceGroup.deleteServiceGroup({
+  updateServiceGroup(serviceGroupId, name) {
+    this.props.actions.serviceGroup.updateServiceGroup({
       serviceGroupId,
+      serviceGroupData: {
+        name,
+      },
     });
+  }
+
+  deleteServiceGroup(serviceGroupId) {
+    this.props.stores.services.all.forEach((service) => {
+      // console.log(service.name, service.groupId)
+      if (service.groupId === serviceGroupId) {
+        service.groupId = '';
+      }
+    });
+    this.props.actions.ui.reorderServiceStructure({
+      structure: this.props.stores.ui.serviceGroupStructure,
+    });
+    // this.props.actions.serviceGroup.deleteServiceGroup({
+    //   serviceGroupId,
+    // });
   }
 
   render() {
@@ -113,6 +132,7 @@ export default class ServicesScreen extends Component {
         retryServicesRequest={() => services.allServicesRequest.reload()}
         searchNeedle={services.filterNeedle}
         createServiceGroup={this.createServiceGroup}
+        updateServiceGroup={this.updateServiceGroup}
         deleteServiceGroup={this.deleteServiceGroup}
       />
     );

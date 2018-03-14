@@ -33,9 +33,10 @@ export default class EditInPlace extends Component {
 
     this.state = {
       value: props.value,
-      closed: true,
+      disabled: true,
     };
 
+    this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.reset = this.reset.bind(this);
@@ -47,6 +48,10 @@ export default class EditInPlace extends Component {
     if (autoFocus) {
       this.input.focus();
     }
+  }
+
+  onBlur(e) {
+    this.setState({ disabled: true });
   }
 
   onChange(e) {
@@ -87,7 +92,10 @@ export default class EditInPlace extends Component {
           className,
           'edit-in-place',
         ])}
-        // onClick={() => this.setState({ closed: false })}
+        onClick={() => {
+          this.setState({ disabled: false });
+          this.input.focus();
+        }}
       >
         <label
           htmlFor={name}
@@ -98,7 +106,7 @@ export default class EditInPlace extends Component {
           type="text"
           placeholder={placeholder}
           value={value}
-          // disabled={this.state.closed}
+          disabled={this.state.disabled}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           onBlur={this.onBlur}
