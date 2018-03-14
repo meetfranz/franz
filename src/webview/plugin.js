@@ -30,7 +30,6 @@ new ContextMenuListener((info) => { // eslint-disable-line
 });
 
 ipcRenderer.on('settings-update', (e, data) => {
-  console.log('settings-update', data);
   spellchecker.toggleSpellchecker(data.enableSpellchecking);
 });
 
