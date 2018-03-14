@@ -244,7 +244,7 @@ export default class AppStore extends Store {
   }
 
   @action _muteApp({ isMuted, overrideSystemMute = true }) {
-    this.isSystemMuteOverriden = overrideSystemMute;
+    this.isSystemMuteOverridden = overrideSystemMute;
 
     this.actions.settings.update({
       settings: {
@@ -368,7 +368,7 @@ export default class AppStore extends Store {
 
   _systemDND() {
     const dnd = getDoNotDisturb();
-    if (dnd === this.stores.settings.all.isAppMuted || !this.isSystemMuteOverriden) {
+    if (dnd !== this.stores.settings.all.isAppMuted && !this.isSystemMuteOverridden) {
       this.actions.app.muteApp({
         isMuted: dnd,
         overrideSystemMute: false,
