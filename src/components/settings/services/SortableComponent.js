@@ -18,7 +18,7 @@ const SortableService = sortableElement(({ item, goTo }) => {
           key={item.id}
           service={item}
           // toggleAction={() => toggleService({ serviceId: service.id })}
-          goToServiceForm={() => goTo(`/settings/services/edit/${item.id}`)}
+          goToServiceForm={() => goTo(`/settings/services/edit/${item.id}`)}     
         />
       </tbody>
     </table>
@@ -26,14 +26,14 @@ const SortableService = sortableElement(({ item, goTo }) => {
   );
 });
 
-const SortableListServices = sortableContainer(({ items, goTo }) =>
+const SortableListServices = sortableContainer(({ items, goTo, shouldCancel }) =>
   <div>
     {items.map((service, index) => (
       <SortableService
         key={service.id}
         index={index}
         item={service}
-        goTo={goTo}        
+        goTo={goTo}
       />
     ))}
   </div>,
@@ -65,12 +65,20 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       isMultiple
       helperCollision={{ top: 0, bottom: 0 }}
       lockAxis="y"
-      goTo={props.goTo}
+      goTo={props.goTo} 
     />
   </div>,
 );
 
-const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteGroup, updateServiceGroup, deleteServiceGroup, goTo }) => {
+const SortableListGroups = sortableContainer(({
+  items,
+  onSortItemsEnd,
+  onDeleteGroup,
+  updateServiceGroup,
+  deleteServiceGroup,
+  goTo,
+  shouldCancel,
+}) => {
   return (
     <div>
       {items.map((group, index) => (group &&
@@ -84,6 +92,7 @@ const SortableListGroups = sortableContainer(({ items, onSortItemsEnd, onDeleteG
           updateServiceGroup={updateServiceGroup}
           deleteServiceGroup={deleteServiceGroup}
           goTo={goTo}
+          shouldCancelStart={shouldCancel}
         />
       ))}
     </div>);
@@ -168,6 +177,8 @@ export default class SortableComponent extends Component {
           updateServiceGroup={this.props.updateServiceGroup}
           deleteServiceGroup={this.props.deleteServiceGroup}
           goTo={this.props.goTo}
+          shouldCancel={this.props.shouldCancelStart}
+          shouldCancelStart={this.props.shouldCancelStart}
         />
       </div>
     );

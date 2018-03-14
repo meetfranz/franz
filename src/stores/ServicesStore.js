@@ -88,7 +88,11 @@ export default class ServicesStore extends Store {
   }
 
   @computed get filtered() {
-    return this.all.filter(service => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
+    if (this.filterNeedle !== null) {
+      return this.all.filter(service => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
+    }
+
+    return this.all;
   }
 
   @computed get active() {

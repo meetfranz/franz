@@ -43,7 +43,7 @@ export default class UIStore extends Store {
 
   @computed get serviceGroupStructure() {
     const serviceGroups = this.stores.serviceGroups.all;
-    const services = this.stores.services.all;
+    const services = this.stores.services.filtered;
 
     serviceGroups.forEach((serviceGroup) => {
       serviceGroup.services = [];
@@ -77,7 +77,7 @@ export default class UIStore extends Store {
     // add empty groups (no services yet)
     serviceGroups.forEach((serviceGroup) => {
       // console.log(serviceGroup.name, serviceGroup.services.length)
-      if (serviceGroup.services.length === 0) {
+      if (serviceGroup.services.length === 0 && this.stores.services.filterNeedle === null) {
         groups[serviceGroup.order] = {
           type: 'group',
           group: serviceGroup,

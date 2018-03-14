@@ -178,12 +178,12 @@ export default class ServicesDashboard extends Component {
             <Loader />
           ) : (
             <SortableComponent
-              // items={toJS(services)}
               groups={serviceGroups}
               reorder={reorder}
               updateServiceGroup={updateServiceGroup}
               deleteServiceGroup={deleteServiceGroup}
               goTo={goTo}
+              shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
             />
             // <table className="service-table">
             //   <tbody>
