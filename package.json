@@ -62,6 +62,7 @@
     "react-addons-css-transition-group": "^15.4.2",
     "react-dom": "^15.4.1",
     "react-dropzone": "^4.2.1",
+    "react-edit-inline": "^1.0.8",
     "react-electron-web-view": "^2.0.1",
     "react-intl": "^2.3.0",
     "react-loader": "^2.4.0",
