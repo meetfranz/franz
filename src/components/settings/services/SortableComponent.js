@@ -124,7 +124,7 @@ export default class SortableComponent extends Component {
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
     console.log(newListIndex, newIndex, items)
     
-    const structure = this.props.groups; //Object.assign([], toJS(this.props.groups));
+    const structure = this.props.groups;
 
     items.forEach((item) => {
       const oldListIndex = item.listId;
@@ -141,13 +141,12 @@ export default class SortableComponent extends Component {
       source.services.splice(oldIndex, 1); // remove service from source group
       if (source.type === 'root') {
         structure.splice(oldListIndex, 1);
-        // newListIndex = oldListIndex < newListIndex ? newListIndex - 1 : newListIndex;
       }
 
       switch (destination.type) {
         case 'root':
           service.groupId = '';
-          structure.splice(newIndex ? newListIndex : newListIndex, 0, { // WRONG??
+          structure.splice(newIndex > 0 ? newListIndex + (source.type === 'root' ? 0 : 1) : newListIndex, 0, {
             type: 'root',
             group: new ServiceGroup({ name: 'Uncat' }),
             services: [service],
