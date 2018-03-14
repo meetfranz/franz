@@ -366,7 +366,7 @@ export default class AppStore extends Store {
       setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
     } else {
       console.debug('reactivateServices: reload Franz');
-      window.location.reload();
+      // window.location.reload();
     }
   }
 
