@@ -1,6 +1,31 @@
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  required: {
+    id: 'validation.required',
+    defaultMessage: '!!!Field is required',
+  },
+  email: {
+    id: 'validation.email',
+    defaultMessage: '!!!Email not valid',
+  },
+  url: {
+    id: 'validation.url',
+    defaultMessage: '!!!Not a valid URL',
+  },
+  minLength: {
+    id: 'validation.minLength',
+    defaultMessage: '!!!Too few characters',
+  },
+  oneRequired: {
+    id: 'validation.oneRequired',
+    defaultMessage: '!!!At least one is required',
+  },
+});
+
 export function required({ field }) {
   const isValid = (field.value.trim() !== '');
-  return [isValid, `${field.label} is required`];
+  return [isValid, window.franz.intl.formatMessage(messages.required, { field: field.label })];
 }
 
 export function email({ field }) {
@@ -13,7 +38,7 @@ export function email({ field }) {
     isValid = true;
   }
 
-  return [isValid, `${field.label} not valid`];
+  return [isValid, window.franz.intl.formatMessage(messages.email, { field: field.label })];
 }
 
 export function url({ field }) {
@@ -27,7 +52,7 @@ export function url({ field }) {
     isValid = true;
   }
 
-  return [isValid, `${field.label} is not a valid url`];
+  return [isValid, window.franz.intl.formatMessage(messages.url, { field: field.label })];
 }
 
 export function minLength(length) {
@@ -36,13 +61,13 @@ export function minLength(length) {
     if (field.touched) {
       isValid = field.value.length >= length;
     }
-    return [isValid, `${field.label} should be at least ${length} characters long.`];
+    return [isValid, window.franz.intl.formatMessage(messages.minLength, { field: field.label, length })];
   };
 }
 
 export function oneRequired(targets) {
   return ({ field, form }) => {
     const invalidFields = targets.filter(target => form.$(target).value === '');
-    return [targets.length !== invalidFields.length, `${field.label} is required`];
+    return [targets.length !== invalidFields.length, window.franz.intl.formatMessage(messages.required, { field: field.label })];
   };
 }

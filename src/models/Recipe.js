@@ -32,8 +32,12 @@ export default class Recipe {
       throw Error(`Recipe '${data.name}' requires Id`);
     }
 
-    if (!semver.valid(data.version)) {
-      throw Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
+    try {
+      if (!semver.valid(data.version)) {
+        throw Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
+      }
+    } catch (e) {
+      console.warn(e.message);
     }
 
     this.id = data.id || this.id;

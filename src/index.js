@@ -4,7 +4,7 @@ import path from 'path';
 
 import windowStateKeeper from 'electron-window-state';
 
-import { isDevMode, isWindows } from './environment';
+import { isDevMode, isMac, isWindows } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -18,8 +18,8 @@ let mainWindow;
 let willQuitApp = false;
 
 // Ensure that the recipe directory exists
-fs.ensureDir(path.join(app.getPath('userData'), 'recipes'));
 fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
+fs.ensureFileSync(path.join(app.getPath('userData'), 'window-state.json'));
 
 // Set App ID for Windows
 if (isWindows) {
@@ -72,9 +72,9 @@ const createWindow = () => {
     height: mainWindowState.height,
     minWidth: 600,
     minHeight: 500,
-    titleBarStyle: 'hidden',
+    titleBarStyle: isMac ? 'hidden' : '',
+    frame: false,
     backgroundColor: '#3498db',
-    autoHideMenuBar: true,
   });
 
   // Initialize System Tray
