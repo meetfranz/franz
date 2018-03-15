@@ -46,11 +46,10 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
         <InlineEdit
           text={props.item.group.name}
           paramName={`group-header-${props.id}`}
-          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]); 
-          console.log(props.id)}}
+          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]);}}
         />
         <span
-          onClick={() => props.onDeleteGroup(props.id)}
+          onClick={(e) => { e.preventDefault(); props.onDeleteGroup(props.id); }}
           className="mdi mdi-delete"
         />
 
@@ -60,7 +59,7 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       {...props} // onMultipleSortEnd
       items={props.item.services}
       dragLayer={dragLayer}
-      distance={3}
+      // distance={3}
       helperClass={'selected__service'}
       isMultiple
       helperCollision={{ top: 0, bottom: 0 }}
@@ -175,7 +174,7 @@ export default class SortableComponent extends Component {
           onSortItemsEnd={this.onSortItemsEnd}
           helperClass={'selected__group'}
           lockAxis="y"
-          pressDelay={150}
+          // pressDelay={100}
           onDeleteGroup={this.onDeleteGroup}
           updateServiceGroup={this.props.updateServiceGroup}
           deleteServiceGroup={this.props.deleteServiceGroup}
