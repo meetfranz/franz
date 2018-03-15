@@ -4,6 +4,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
+import { sortableHandle } from 'react-sortable-multiple-hoc';
 
 import ServiceModel from '../../../models/Service';
 
@@ -21,6 +22,8 @@ const messages = defineMessages({
     defaultMessage: '!!!All sounds are muted',
   },
 });
+
+const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 
 @observer
 export default class ServiceItem extends Component {
@@ -99,6 +102,9 @@ export default class ServiceItem extends Component {
             />
           )}
           <ReactTooltip place="top" type="dark" effect="solid" />
+        </td>
+        <td className="service-table__drag-handle">
+          <DragHandle />
         </td>
       </tr>
     );

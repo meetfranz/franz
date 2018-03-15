@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { sortableContainer, sortableElement, arrayMove, DragLayer } from 'react-sortable-multiple-hoc';
+import { sortableContainer, sortableElement, arrayMove, DragLayer, sortableHandle } from 'react-sortable-multiple-hoc';
 import InlineEdit from 'react-edit-inline';
 
 import ServiceGroup from '../../../models/ServiceGroup';
-
 import ServiceItem from './ServiceItem';
-import EditInPlace from '../../ui/EditInPlace';
 
 const dragLayer = new DragLayer();
 
+const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
+
 const SortableService = sortableElement(({ item, goTo }) => {
-  // console.log(item.id)
   return (
     <table className="service-table">
       <tbody>
@@ -34,6 +33,7 @@ const SortableListServices = sortableContainer(({ items, goTo, shouldCancel }) =
         index={index}
         item={service}
         goTo={goTo}
+        useDragHandle
       />
     ))}
   </div>,
@@ -43,6 +43,7 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
   <div className={props.item.type === 'group' ? 'services__group' : ''}>
     {props.item.type === 'group' &&
       <div className="services__group-header">
+        <DragHandle />
         <InlineEdit
           text={props.item.group.name}
           paramName={`group-header-${props.id}`}
@@ -64,7 +65,8 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       isMultiple
       helperCollision={{ top: 0, bottom: 0 }}
       lockAxis="y"
-      goTo={props.goTo} 
+      goTo={props.goTo}
+      useDragHandle
     />
   </div>,
 );
@@ -92,6 +94,7 @@ const SortableListGroups = sortableContainer(({
           deleteServiceGroup={deleteServiceGroup}
           goTo={goTo}
           shouldCancelStart={shouldCancel}
+          useDragHandle
         />
       ))}
     </div>);
@@ -181,6 +184,7 @@ export default class SortableComponent extends Component {
           goTo={this.props.goTo}
           shouldCancel={this.props.shouldCancelStart}
           shouldCancelStart={this.props.shouldCancelStart}
+          useDragHandle
         />
       </div>
     );

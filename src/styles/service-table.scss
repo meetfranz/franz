@@ -47,6 +47,10 @@
     }
   }
 
+  .service-table__drag-handle {
+    width: 10px;
+  }
+
   .service-table__row {
     border-bottom: 1px solid $theme-gray-lightest;
 
