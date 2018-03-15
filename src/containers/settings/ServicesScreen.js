@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import { RouterStore } from 'mobx-react-router';
 
@@ -8,7 +7,7 @@ import { RouterStore } from 'mobx-react-router';
 import UserStore from '../../stores/UserStore';
 import ServiceStore from '../../stores/ServicesStore';
 import ServiceGroupsStore from '../../stores/ServiceGroupsStore';
-import ServiceGroup from '../../models/ServiceGroup';
+import UIStore from '../../stores/UIStore';
 import { gaPage } from '../../lib/analytics';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
@@ -55,22 +54,13 @@ export default class ServicesScreen extends Component {
   }
 
   deleteServiceGroup(serviceGroupId) {
-    // this.props.stores.services.all.forEach((service) => {
-    //   // console.log(service.name, service.groupId)
-    //   if (service.groupId === serviceGroupId) {
-    //     service.groupId = '';
-    //   }
-    // });
-    // this.props.actions.ui.reorderServiceStructure({
-    //   structure: this.props.stores.ui.serviceGroupStructure,
-    // });
     this.props.actions.serviceGroup.deleteServiceGroup({
       serviceGroupId,
     });
   }
 
   render() {
-    const { user, services, serviceGroups, ui, router } = this.props.stores;
+    const { user, services, ui, router } = this.props.stores;
     const {
       toggleService,
       filter,
@@ -113,6 +103,7 @@ ServicesScreen.wrappedComponent.propTypes = {
     services: PropTypes.instanceOf(ServiceStore).isRequired,
     serviceGroups: PropTypes.instanceOf(ServiceGroupsStore).isRequired,
     router: PropTypes.instanceOf(RouterStore).isRequired,
+    ui: PropTypes.instanceOf(UIStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     service: PropTypes.shape({
@@ -123,5 +114,13 @@ ServicesScreen.wrappedComponent.propTypes = {
       resetFilter: PropTypes.func.isRequired,
       resetStatus: PropTypes.func.isRequired,
     }).isRequired,
+    serviceGroup: PropTypes.shape({
+      createServiceGroup: PropTypes.func.isRequired,
+      updateServiceGroup: PropTypes.func.isRequired,
+      deleteServiceGroup: PropTypes.func.isRequired,
+    }),
+    ui: PropTypes.shape({
+      reorderServiceStructure: PropTypes.func.isRequired,
+    }),
   }).isRequired,
 };

@@ -50,7 +50,7 @@ export default class EditInPlace extends Component {
     }
   }
 
-  onBlur(e) {
+  onBlur() {
     this.setState({ disabled: true });
   }
 
@@ -74,7 +74,7 @@ export default class EditInPlace extends Component {
   }
 
   reset() {
-    const { onReset } = this.props; 
+    const { onReset } = this.props;
     this.setState({ value: '' });
 
     onReset();
@@ -106,7 +106,7 @@ export default class EditInPlace extends Component {
           type="text"
           placeholder={placeholder}
           value={value}
-          disabled={this.state.disabled}
+          // disabled={this.state.disabled}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           onBlur={this.onBlur}

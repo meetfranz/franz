@@ -304,12 +304,9 @@ export default class ServerApi {
       throw request;
     }
 
-    const serviceData = await request.json();
-
-    const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
-
-    console.debug('ServerApi::updateServiceGroup resolves', service);
-    return service;
+    const serviceGroupData = await request.json();
+    console.debug('ServerApi::updateServiceGroup resolves', serviceGroupData);
+    return serviceGroupData;
   }
 
   async reorderServiceGroup(data) {

@@ -1,5 +1,4 @@
 import { action, observable, computed } from 'mobx';
-import _ from 'lodash';
 
 import Store from './lib/Store';
 import ServiceGroup from '../models/ServiceGroup';
@@ -29,7 +28,7 @@ export default class UIStore extends Store {
     this.stores.router.push(settingsPath);
   }
 
-  @action _closeSettings(): void {
+  @action _closeSettings() {
     this.stores.router.push('/');
   }
 
@@ -45,7 +44,8 @@ export default class UIStore extends Store {
     const serviceGroups = this.stores.serviceGroups.all;
     const services = this.stores.services.filtered;
 
-    serviceGroups.forEach((serviceGroup) => {
+    serviceGroups.forEach((sg) => {
+      const serviceGroup = sg;
       serviceGroup.services = [];
     });
 
@@ -63,7 +63,7 @@ export default class UIStore extends Store {
 
       const group = this.stores.serviceGroups.one(service.groupId);
       if (group === undefined) {
-        console.warn('no group associated with id', service.groupId);
+        // console.warn('no group associated with id', service.groupId);
         return;
       }
       group.services[service.order] = service;
@@ -112,7 +112,8 @@ export default class UIStore extends Store {
 
   @action _reorderServiceStructure({ structure }) {
     const groups = this._removePadding(structure);
-    groups.forEach((group, index) => {
+    groups.forEach((g, index) => {
+      const group = g;
       switch (group.type) {
         case 'root':
           group.services[0].order = index;
@@ -120,8 +121,9 @@ export default class UIStore extends Store {
           break;
         case 'group':
           group.group.order = index;
-          group.services.forEach((service, index) => {
-            service.order = index;
+          group.services.forEach((s, i) => {
+            const service = s;
+            service.order = i;
             // console.log(service.name, service.order, service.groupId)
           });
           break;
@@ -145,6 +147,6 @@ export default class UIStore extends Store {
   }
 
   get nextServiceGroupOrder() {
-    return this._removePadding(this.serviceGroupStructure).length
+    return this._removePadding(this.serviceGroupStructure).length;
   }
 }

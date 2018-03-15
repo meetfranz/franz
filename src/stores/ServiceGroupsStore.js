@@ -7,7 +7,6 @@ import { debounce, remove } from 'lodash';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
-import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent } from '../lib/analytics';
 
 export default class ServiceGroupsStore extends Store {
@@ -36,7 +35,7 @@ export default class ServiceGroupsStore extends Store {
     if (this.stores.user.isLoggedIn) {
       const serviceGroups = this.allServiceGroupsRequest.execute().result;
       if (serviceGroups) {
-        return observable(serviceGroups);//.slice().slice().sort((a, b) => a.order - b.order));
+        return observable(serviceGroups);
       }
     }
 
@@ -64,22 +63,17 @@ export default class ServiceGroupsStore extends Store {
     }
   }
 
-  @action async _updateServiceGroup({ serviceGroupId, serviceGroupData, redirect }) {
+  @action async _updateServiceGroup({ serviceGroupId, serviceGroupData }) {
     const request = this.updateServiceGroupRequest.execute(serviceGroupId, serviceGroupData);
 
-    // this.allServiceGroupsRequest.patch((result) => {
-    //   if (!result) return;
+    this.allServiceGroupsRequest.patch((result) => {
+      if (!result) return;
 
-    //   Object.assign(result.find(c => c.id === serviceGroupId), serviceGroupData);
-    // });
+      Object.assign(result.find(c => c.id === serviceGroupId), serviceGroupData);
+    });
 
     await request._promise;
     this.actionStatus = request.result.status;
-
-    if (redirect) {
-      this.stores.router.push('/settings/services');
-      gaEvent('Service', 'update', service.recipe.id);
-    }
   }
 
   @action async _deleteServiceGroup({ serviceGroupId, redirect }) {
@@ -106,14 +100,14 @@ export default class ServiceGroupsStore extends Store {
     });
     this.reorderServiceGroupsRequest.execute(serviceGroups);
     // this.allServiceGroupsRequest.patch((data) => {
-    //   data.forEach((s) => {
-    //     const service = s;
+    //   data.forEach((sg) => {
+    //     const serviceGroup = sg;
 
-    //     service.order = services[s.id];
+    //     serviceGroup.order = serviceGroups[serviceGroup.id];
     //   });
     // });
 
-    // this._reorderAnalytics();
+    this._reorderAnalytics();
   }
 
   @action _setUnreadMessageCount({ serviceId, count }) {
@@ -181,5 +175,4 @@ export default class ServiceGroupsStore extends Store {
   _reorderAnalytics = debounce(() => {
     gaEvent('Service Group', 'order');
   }, 5000);
-
 }

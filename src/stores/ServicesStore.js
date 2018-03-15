@@ -446,7 +446,7 @@ export default class ServicesStore extends Store {
     //   });
     // });
 
-    // this._reorderAnalytics();
+    this._reorderAnalytics();
   }
 
   @action _toggleNotifications({ serviceId }) {

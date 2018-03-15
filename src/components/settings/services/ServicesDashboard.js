@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { toJS } from 'mobx';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
@@ -10,10 +9,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
-import ServiceItem from './ServiceItem';
 import Appear from '../../ui/effects/Appear';
-import Input from '../../ui/Input';
-import Button from '../../ui/Button';
 import EditInPlace from '../../ui/EditInPlace';
 import SortableComponent from './SortableComponent';
 
@@ -62,8 +58,9 @@ const messages = defineMessages({
 export default class ServicesDashboard extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
+    serviceGroups: MobxPropTypes.arrayOrObservableArray.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    toggleService: PropTypes.func.isRequired,
+    // toggleService: PropTypes.func.isRequired,
     filterServices: PropTypes.func.isRequired,
     resetFilter: PropTypes.func.isRequired,
     goTo: PropTypes.func.isRequired,
@@ -71,6 +68,10 @@ export default class ServicesDashboard extends Component {
     retryServicesRequest: PropTypes.func.isRequired,
     status: MobxPropTypes.arrayOrObservableArray.isRequired,
     searchNeedle: PropTypes.string,
+    reorder: PropTypes.func.isRequired,
+    createServiceGroup: PropTypes.func.isRequired,
+    updateServiceGroup: PropTypes.func.isRequired,
+    deleteServiceGroup: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -87,7 +88,7 @@ export default class ServicesDashboard extends Component {
       serviceGroups,
       reorder,
       isLoading,
-      toggleService,
+      // toggleService,
       filterServices,
       resetFilter,
       goTo,
@@ -185,35 +186,7 @@ export default class ServicesDashboard extends Component {
               goTo={goTo}
               shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
             />
-            // <table className="service-table">
-            //   <tbody>
-            //     {services.map(service => (
-            //       <ServiceItem
-            //         key={service.id}
-            //         service={service}
-            //         toggleAction={() => toggleService({ serviceId: service.id })}
-            //         goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
-            //       />
-            //     ))}
-            //   </tbody>
-            // </table>
           )}
-          {/* <Button
-            label="Create"
-            className=""
-            onClick={createServiceGroup}
-          /> */}
-          <div>
-            {/* {serviceGroups.map(serviceGroup => (serviceGroup.group &&
-              <div key={serviceGroup.group.id}>
-                <span className="service-group--name">{serviceGroup.group.name}</span>
-                <span
-                  onClick={() => deleteServiceGroup(serviceGroup.group.id)}
-                  className="mdi mdi-delete"
-                />
-              </div>
-            ))} */}
-          </div>
           <EditInPlace
             onSave={createServiceGroup}
             placeholder="New Group"

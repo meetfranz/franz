@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { sortableContainer, sortableElement, arrayMove, DragLayer, sortableHandle } from 'react-sortable-multiple-hoc';
 import InlineEdit from 'react-edit-inline';
+import { defineMessages, intlShape } from 'react-intl';
+
 
 import ServiceGroup from '../../../models/ServiceGroup';
 import ServiceItem from './ServiceItem';
+
+const messages = defineMessages({
+  groupPlaceholder: {
+    id: 'settings.services.groupPlaceholder',
+    defaultMessage: '!!!Drag Service here',
+  },
+});
 
 const dragLayer = new DragLayer();
 
 const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 
-const SortableService = sortableElement(({ item, goTo }) => {
-  return (
-    <table className="service-table">
-      <tbody>
-        <ServiceItem
-          key={item.id}
-          service={item}
-          // toggleAction={() => toggleService({ serviceId: service.id })}
-          goToServiceForm={() => goTo(`/settings/services/edit/${item.id}`)}     
-        />
-      </tbody>
-    </table>
-    // <div key={item.id}>{item.name}</div>
-  );
-});
+const SortableService = sortableElement(({ item, goTo }) =>
+  <table className="service-table">
+    <tbody>
+      <ServiceItem
+        key={item.id}
+        service={item}
+        // toggleAction={() => toggleService({ serviceId: service.id })}
+        goToServiceForm={() => goTo(`/settings/services/edit/${item.id}`)}
+      />
+    </tbody>
+  </table>,
+  // <div key={item.id}>{item.name}</div>
+);
 
-const SortableListServices = sortableContainer(({ items, goTo, shouldCancel }) =>
+const SortableListServices = sortableContainer(({ items, goTo }) =>
   <div>
     {items.map((service, index) => (
       <SortableService
@@ -47,7 +55,7 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
         <InlineEdit
           text={props.item.group.name}
           paramName={`group-header-${props.id}`}
-          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]);}}
+          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]); }}
         />
         <span
           onClick={(e) => { e.preventDefault(); props.onDeleteGroup(props.id); }}
@@ -68,6 +76,11 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       goTo={props.goTo}
       useDragHandle
     />
+    {props.item.type === 'group' &&
+      <div>
+        <span className="mdi mdi-cursor-move">{props.intl.formatMessage(messages.groupPlaceholder)}</span>
+      </div>
+    }
   </div>,
 );
 
@@ -79,33 +92,48 @@ const SortableListGroups = sortableContainer(({
   deleteServiceGroup,
   goTo,
   shouldCancel,
-}) => {
-  return (
-    <div>
-      {items.map((group, index) => (group &&
-        <SortableGroup
-          key={'group-' + index}
-          index={index}
-          item={group}
-          id={index}
-          onMultipleSortEnd={onSortItemsEnd}
-          onDeleteGroup={onDeleteGroup}
-          updateServiceGroup={updateServiceGroup}
-          deleteServiceGroup={deleteServiceGroup}
-          goTo={goTo}
-          shouldCancelStart={shouldCancel}
-          useDragHandle
-        />
-      ))}
-    </div>);
-});
+  intl,
+}) =>
+  <div>
+    {items.map((group, index) => (group &&
+      <SortableGroup
+        key={`group-${index}`} // eslint-disable-line react/no-array-index-key
+        index={index}
+        item={group}
+        id={index}
+        onMultipleSortEnd={onSortItemsEnd}
+        onDeleteGroup={onDeleteGroup}
+        updateServiceGroup={updateServiceGroup}
+        deleteServiceGroup={deleteServiceGroup}
+        goTo={goTo}
+        shouldCancelStart={shouldCancel}
+        useDragHandle
+        intl={intl}
+      />
+    ))}
+  </div>);
 
 export default class SortableComponent extends Component {
+  static propTypes = {
+    reorder: PropTypes.func.isRequired,
+    updateServiceGroup: PropTypes.func.isRequired,
+    deleteServiceGroup: PropTypes.func.isRequired,
+    goTo: PropTypes.func.isRequired,
+    groups: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+    shouldCancelStart: PropTypes.func.isRequired,
+  };
+
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   onDeleteGroup = (index) => {
     const structure = this.props.groups;
     const group = structure[index];
     structure.splice(index, 1);
-    group.services.forEach((service, i) => {
+    group.services.forEach((s, i) => {
+      const service = s;
+
       service.groupId = '';
       structure.splice(index + i, 0, {
         type: 'root',
@@ -118,14 +146,11 @@ export default class SortableComponent extends Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const structure = arrayMove(this.props.groups, oldIndex, newIndex);
-    console.log(structure);
-    this.props.reorder({ structure });
+    this.props.reorder({ structure: arrayMove(this.props.groups, oldIndex, newIndex) });
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
-    console.log(newListIndex, newIndex, items)
-    
+    // console.log(newListIndex, newIndex, items)
     const structure = this.props.groups;
 
     items.forEach((item) => {
@@ -167,7 +192,8 @@ export default class SortableComponent extends Component {
   }
 
   render() {
-    console.log('RERENDER', this.props.groups)
+    // console.log('RERENDER', this.props.groups)
+    const { intl } = this.context;
 
     return (
       <div>
@@ -185,6 +211,7 @@ export default class SortableComponent extends Component {
           shouldCancel={this.props.shouldCancelStart}
           shouldCancelStart={this.props.shouldCancelStart}
           useDragHandle
+          intl={intl}
         />
       </div>
     );

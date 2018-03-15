@@ -29,7 +29,7 @@ const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 export default class ServiceItem extends Component {
   static propTypes = {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
-    // goToServiceForm: PropTypes.func.isRequired,
+    goToServiceForm: PropTypes.func.isRequired,
   };
   static contextTypes = {
     intl: intlShape,
