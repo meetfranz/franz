@@ -33,6 +33,7 @@ export default class Button extends Component {
     const {
       label,
       className,
+      style,
       disabled,
       onClick,
       type,
@@ -48,6 +49,7 @@ export default class Button extends Component {
         [`${className}`]: className,
       }),
       type,
+      style,
     };
 
     if (disabled) {

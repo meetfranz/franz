@@ -4,8 +4,10 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import uuidv1 from 'uuid/v1';
 
+import Button from './Button';
+
 @observer
-export default class EditInPlace extends Component {
+export default class InputBox extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
@@ -15,6 +17,7 @@ export default class EditInPlace extends Component {
     onSave: PropTypes.func,
     name: PropTypes.string,
     autoFocus: PropTypes.bool,
+    label: PropTypes.string,
   };
 
   static defaultProps = {
@@ -26,6 +29,7 @@ export default class EditInPlace extends Component {
     onReset: () => null,
     onSave: () => null,
     autoFocus: false,
+    label: '',
   }
 
   constructor(props) {
@@ -39,6 +43,7 @@ export default class EditInPlace extends Component {
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onSave = this.onSave.bind(this);
     this.reset = this.reset.bind(this);
   }
 
@@ -65,12 +70,18 @@ export default class EditInPlace extends Component {
   onKeyDown(e) {
     if (e.key === 'Enter' && e.shiftKey === false) {
       e.preventDefault();
-      const value = this.state.value;
-      if (value.trim() !== '') {
-        this.props.onSave(value);
-      }
-      this.reset();
+      this.onSave();
     }
+  }
+
+  onSave() {
+    const { onSave } = this.props;
+    const { value } = this.state;
+
+    if (value.trim() !== '') {
+      onSave(value);
+    }
+    this.reset();
   }
 
   reset() {
@@ -83,7 +94,7 @@ export default class EditInPlace extends Component {
   input = null;
 
   render() {
-    const { className, name, placeholder } = this.props;
+    const { className, name, placeholder, label } = this.props;
     const { value } = this.state;
 
     return (
@@ -97,10 +108,6 @@ export default class EditInPlace extends Component {
           this.input.focus();
         }}
       >
-        <label
-          htmlFor={name}
-          className="mdi mdi-plus"
-        />
         <input
           name={name}
           type="text"
@@ -111,6 +118,11 @@ export default class EditInPlace extends Component {
           onKeyDown={this.onKeyDown}
           onBlur={this.onBlur}
           ref={(ref) => { this.input = ref; }}
+        />
+        <Button
+          style={{ display: 'inline' }}
+          label={label}
+          onClick={this.onSave}
         />
       </div>
     );

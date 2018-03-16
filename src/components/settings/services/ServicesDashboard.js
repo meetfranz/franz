@@ -8,7 +8,7 @@ import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
 import Appear from '../../ui/effects/Appear';
-import EditInPlace from '../../ui/EditInPlace';
+import InputBox from '../../ui/InputBox';
 import SortableComponent from './SortableComponent';
 
 const messages = defineMessages({
@@ -183,9 +183,10 @@ export default class ServicesDashboard extends Component {
               shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
             />
           )}
-          <EditInPlace
+          <InputBox
             onSave={createServiceGroup}
             placeholder="New Group"
+            label="Add"
           />
         </div>
       </div>
