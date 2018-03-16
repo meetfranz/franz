@@ -4,16 +4,12 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
 
-// import { sortableContainer } from '../react-sortable-multiple-hoc';
-
 import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
 import Appear from '../../ui/effects/Appear';
 import EditInPlace from '../../ui/EditInPlace';
 import SortableComponent from './SortableComponent';
-
-// console.log(sortableContainer)
 
 const messages = defineMessages({
   headline: {

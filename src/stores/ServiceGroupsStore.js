@@ -1,8 +1,5 @@
-// import { remote } from 'electron';
 import { action, computed, observable } from 'mobx';
 import { debounce, remove } from 'lodash';
-// import path from 'path';
-// import fs from 'fs-extra';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -110,68 +107,7 @@ export default class ServiceGroupsStore extends Store {
     this._reorderAnalytics();
   }
 
-  @action _setUnreadMessageCount({ serviceId, count }) {
-    const service = this.one(serviceId);
-
-    service.unreadDirectMessageCount = count.direct;
-    service.unreadIndirectMessageCount = count.indirect;
-  }
-
-  @action _toggleNotifications({ serviceId }) {
-    const service = this.one(serviceId);
-
-    this.actions.service.updateService({
-      serviceId,
-      serviceData: {
-        isNotificationEnabled: !service.isNotificationEnabled,
-      },
-      redirect: false,
-    });
-  }
-
-  @action _toggleAudio({ serviceId }) {
-    const service = this.one(serviceId);
-
-    service.isNotificationEnabled = !service.isNotificationEnabled;
-
-    this.actions.service.updateService({
-      serviceId,
-      serviceData: {
-        isMuted: !service.isMuted,
-      },
-      redirect: false,
-    });
-  }
-
-  _getUnreadMessageCountReaction() {
-    const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
-
-    const unreadDirectMessageCount = this.allDisplayed
-      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
-      .map(s => s.unreadDirectMessageCount)
-      .reduce((a, b) => a + b, 0);
-
-    const unreadIndirectMessageCount = this.allDisplayed
-      .filter(s => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
-      .map(s => s.unreadIndirectMessageCount)
-      .reduce((a, b) => a + b, 0);
-
-    // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
-    if (showMessageBadgesEvenWhenMuted) {
-      this.actions.app.setBadge({
-        unreadDirectMessageCount,
-        unreadIndirectMessageCount,
-      });
-    }
-  }
-
   // Helper
-  _redirectToAddServiceRoute(recipeId) {
-    const route = `/settings/services/add/${recipeId}`;
-    this.stores.router.push(route);
-  }
-
   _reorderAnalytics = debounce(() => {
     gaEvent('Service Group', 'order');
   }, 5000);
