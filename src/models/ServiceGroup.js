@@ -1,4 +1,4 @@
-import { observable, autorun } from 'mobx';
+import { observable } from 'mobx';
 
 export default class ServiceGroup {
   id = '';

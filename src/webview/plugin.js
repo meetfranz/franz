@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const originalWindowOpen = window.open;
 
 window.open = (url, frameName, features) => {
-  // We need to differentiate if the link should be opened in a popup or in the systems default browser 
+  // We need to differentiate if the link should be opened in a popup or in the systems default browser
   if (!frameName && !features) {
     return ipcRenderer.sendToHost('new-window', url);
   }
