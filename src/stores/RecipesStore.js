@@ -5,6 +5,8 @@ import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
 import { matchRoute } from '../helpers/routing-helpers';
 
+const debug = require('debug')('RecipeStore');
+
 export default class RecipesStore extends Store {
   @observable allRecipesRequest = new CachedRequest(this.api.recipes, 'all');
   @observable installRecipeRequest = new Request(this.api.recipes, 'install');
@@ -34,7 +36,7 @@ export default class RecipesStore extends Store {
         return activeRecipe;
       }
 
-      console.warn('Recipe not installed');
+      debug(`Recipe ${match.id} not installed`);
     }
 
     return null;
@@ -54,10 +56,8 @@ export default class RecipesStore extends Store {
 
   // Actions
   @action async _install({ recipeId }) {
-    // console.log(this.installRecipeRequest._promise);
     const recipe = await this.installRecipeRequest.execute(recipeId)._promise;
     await this.allRecipesRequest.invalidate({ immediately: true })._promise;
-    // console.log(this.installRecipeRequest._promise);
 
     return recipe;
   }
@@ -67,7 +67,7 @@ export default class RecipesStore extends Store {
     const recipes = {};
 
     // Hackfix, reference this.all to fetch services
-    console.debug(`Check Recipe updates for ${this.all.map(recipe => recipe.id)}`);
+    debug(`Check Recipe updates for ${this.all.map(recipe => recipe.id)}`);
 
     recipeIds.forEach((r) => {
       const recipe = this.one(r);

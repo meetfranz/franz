@@ -2,6 +2,8 @@ import { action, computed, observable } from 'mobx';
 
 import Store from './lib/Store';
 
+const debug = require('debug')('RequestsStore');
+
 export default class RequestStore extends Store {
   @observable userInfoRequest;
   @observable servicesRequest;
@@ -52,7 +54,7 @@ export default class RequestStore extends Store {
         }
 
         this._autoRetry();
-        console.debug(`Retry required requests delayed in ${(delay) / 1000}s`);
+        debug(`Retry required requests delayed in ${(delay) / 1000}s`);
       }, delay);
     }
   }
