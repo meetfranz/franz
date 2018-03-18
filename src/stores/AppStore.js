@@ -128,19 +128,6 @@ export default class AppStore extends Store {
       this.stores.router.push(data.url);
     });
 
-    // Reload all services after a healthy nap
-    // Alternative solution for powerMonitor as the resume event is not fired
-    // More information: https://github.com/electron/electron/issues/1615
-    const TIMEOUT = 5000;
-    let lastTime = (new Date()).getTime();
-    setInterval(() => {
-      const currentTime = (new Date()).getTime();
-      if (currentTime > (lastTime + TIMEOUT + 2000)) {
-        this._reactivateServices();
-      }
-      lastTime = currentTime;
-    }, TIMEOUT);
-
     // Set active the next service
     key(
       '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
@@ -358,16 +345,6 @@ export default class AppStore extends Store {
 
   async _checkAutoStart() {
     return autoLauncher.isEnabled() || false;
-  }
-
-  _reactivateServices(retryCount = 0) {
-    if (!this.isOnline) {
-      console.debug('reactivateServices: computer is offline, trying again in 5s, retries:', retryCount);
-      setTimeout(() => this._reactivateServices(retryCount + 1), 5000);
-    } else {
-      console.debug('reactivateServices: reload Franz');
-      window.location.reload();
-    }
   }
 
   _systemDND() {
