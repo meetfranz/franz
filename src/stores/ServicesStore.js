@@ -87,6 +87,12 @@ export default class ServicesStore extends Store {
     return this.stores.settings.all.showDisabledServices ? this.all : this.enabled;
   }
 
+  // This is just used to avoid unnecessary rerendering of resource-heavy webviews 
+  @computed get allDisplayedUnordered() {
+    const services = this.allServicesRequest.execute().result || [];
+    return this.stores.settings.all.showDisabledServices ? services : services.filter(service => service.isEnabled);
+  }
+
   @computed get filtered() {
     return this.all.filter(service => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
   }

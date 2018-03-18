@@ -94,7 +94,7 @@ export default class AppLayoutContainer extends Component {
 
     const servicesContainer = (
       <Services
-        services={services.allDisplayed}
+        services={services.allDisplayedUnordered}
         handleIPCMessage={handleIPCMessage}
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
