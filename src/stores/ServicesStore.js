@@ -10,6 +10,8 @@ import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent } from '../lib/analytics';
 
+const debug = require('debug')('ServiceStore');
+
 export default class ServicesStore extends Store {
   @observable allServicesRequest = new CachedRequest(this.api.services, 'all');
   @observable createServiceRequest = new Request(this.api.services, 'create');
@@ -109,7 +111,7 @@ export default class ServicesStore extends Store {
         return activeService;
       }
 
-      console.warn('Service not available');
+      debug('Service not available');
     }
 
     return null;
@@ -123,10 +125,10 @@ export default class ServicesStore extends Store {
     const recipesStore = this.stores.recipes;
 
     if (recipesStore.isInstalled(recipeId)) {
-      console.debug('Recipe is installed');
+      debug(`Recipe ${recipeId} is installed`);
       this._redirectToAddServiceRoute(recipeId);
     } else {
-      console.warn('Recipe is not installed');
+      debug(`Recipe ${recipeId} is not installed`);
       // We access the RecipeStore action directly
       // returns Promise instead of action
       await this.stores.recipes._install({ recipeId });
@@ -493,7 +495,7 @@ export default class ServicesStore extends Store {
     if (service) {
       service.webview.openDevTools();
     } else {
-      console.warn('No service is active');
+      debug('No service is active');
     }
   }
 
