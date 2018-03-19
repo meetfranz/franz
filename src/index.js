@@ -4,7 +4,7 @@ import path from 'path';
 
 import windowStateKeeper from 'electron-window-state';
 
-import { isDevMode, isMac, isWindows } from './environment';
+import { isDevMode, isMac, isWindows, isLinux } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -48,11 +48,11 @@ if (isSecondInstance) {
   app.exit();
 }
 
-// Lets disable Hardware Acceleration until we have a better solution
-// to deal with the high-perf-gpu requirement of some services
-
-// Disabled to test tweetdeck glitches
-// app.disableHardwareAcceleration();
+// Fix Unity indicator issue
+// https://github.com/electron/electron/issues/9046
+if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1) {
+  process.env.XDG_CURRENT_DESKTOP = 'Unity'
+}
 
 // Initialize Settings
 const settings = new Settings();
@@ -73,7 +73,7 @@ const createWindow = () => {
     minWidth: 600,
     minHeight: 500,
     titleBarStyle: isMac ? 'hidden' : '',
-    frame: false,
+    frame: isLinux,
     backgroundColor: '#3498db',
   });
 
