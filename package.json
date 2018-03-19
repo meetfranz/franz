@@ -33,6 +33,7 @@
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
+    "debug-electron": "^0.0.4",
     "du": "^0.1.0",
     "electron-fetch": "^1.1.0",
     "electron-react-titlebar": "^0.7.1",

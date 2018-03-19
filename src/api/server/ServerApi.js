@@ -28,6 +28,8 @@ import {
   removeServicePartitionDirectory,
 } from '../../helpers/service-helpers.js';
 
+const debug = require('debug')('ServerApi');
+
 module.paths.unshift(
   getDevRecipeDirectory(),
   getRecipeDirectory(),
@@ -56,7 +58,7 @@ export default class ServerApi {
     }
     const u = await request.json();
 
-    console.debug('ServerApi::login resolves', u);
+    debug('ServerApi::login resolves', u);
     return u.token;
   }
 
@@ -70,7 +72,7 @@ export default class ServerApi {
     }
     const u = await request.json();
 
-    console.debug('ServerApi::signup resolves', u);
+    debug('ServerApi::signup resolves', u);
     return u.token;
   }
 
@@ -83,7 +85,7 @@ export default class ServerApi {
       throw request;
     }
 
-    console.debug('ServerApi::inviteUser');
+    debug('ServerApi::inviteUser');
     return true;
   }
 
@@ -99,7 +101,7 @@ export default class ServerApi {
     }
     const r = await request.json();
 
-    console.debug('ServerApi::retrievePassword');
+    debug('ServerApi::retrievePassword');
     return r;
   }
 
@@ -113,7 +115,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const user = new UserModel(data);
-    console.debug('ServerApi::userInfo resolves', user);
+    debug('ServerApi::userInfo resolves', user);
 
     return user;
   }
@@ -129,7 +131,7 @@ export default class ServerApi {
     const updatedData = await request.json();
 
     const user = Object.assign(updatedData, { data: new UserModel(updatedData.data) });
-    console.debug('ServerApi::updateUserInfo resolves', user);
+    debug('ServerApi::updateUserInfo resolves', user);
     return user;
   }
 
@@ -142,7 +144,7 @@ export default class ServerApi {
     }
     const data = await request.json();
 
-    console.debug('ServerApi::deleteAccount resolves', data);
+    debug('ServerApi::deleteAccount resolves', data);
     return data;
   }
 
@@ -158,7 +160,7 @@ export default class ServerApi {
 
     let services = await this._mapServiceModels(data);
     services = services.filter(service => service !== null);
-    console.debug('ServerApi::getServices resolves', services);
+    debug('ServerApi::getServices resolves', services);
     return services;
   }
 
@@ -182,7 +184,7 @@ export default class ServerApi {
 
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
 
-    console.debug('ServerApi::createService resolves', service);
+    debug('ServerApi::createService resolves', service);
     return service;
   }
 
@@ -206,7 +208,7 @@ export default class ServerApi {
 
     const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
 
-    console.debug('ServerApi::updateService resolves', service);
+    debug('ServerApi::updateService resolves', service);
     return service;
   }
 
@@ -241,7 +243,7 @@ export default class ServerApi {
       throw request;
     }
     const serviceData = await request.json();
-    console.debug('ServerApi::reorderService resolves', serviceData);
+    debug('ServerApi::reorderService resolves', serviceData);
     return serviceData;
   }
 
@@ -256,7 +258,7 @@ export default class ServerApi {
 
     removeServicePartitionDirectory(id, true);
 
-    console.debug('ServerApi::deleteService resolves', data);
+    debug('ServerApi::deleteService resolves', data);
     return data;
   }
 
@@ -352,7 +354,7 @@ export default class ServerApi {
 
     this.recipes = this.recipes.concat(this._getDevRecipes());
 
-    console.debug('StubServerApi::getInstalledRecipes resolves', this.recipes);
+    debug('StubServerApi::getInstalledRecipes resolves', this.recipes);
     return this.recipes;
   }
 
@@ -365,7 +367,7 @@ export default class ServerApi {
       throw request;
     }
     const recipes = await request.json();
-    console.debug('ServerApi::getRecipeUpdates resolves', recipes);
+    debug('ServerApi::getRecipeUpdates resolves', recipes);
     return recipes;
   }
 
@@ -380,7 +382,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const recipePreviews = this._mapRecipePreviewModel(data);
-    console.debug('ServerApi::getRecipes resolves', recipePreviews);
+    debug('ServerApi::getRecipes resolves', recipePreviews);
 
     return recipePreviews;
   }
@@ -397,7 +399,7 @@ export default class ServerApi {
     // data = this._addLocalRecipesToPreviews(data);
 
     const recipePreviews = this._mapRecipePreviewModel(data);
-    console.debug('ServerApi::getFeaturedRecipes resolves', recipePreviews);
+    debug('ServerApi::getFeaturedRecipes resolves', recipePreviews);
     return recipePreviews;
   }
 
@@ -411,7 +413,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const recipePreviews = this._mapRecipePreviewModel(data);
-    console.debug('ServerApi::searchRecipePreviews resolves', recipePreviews);
+    debug('ServerApi::searchRecipePreviews resolves', recipePreviews);
     return recipePreviews;
   }
 
@@ -425,7 +427,7 @@ export default class ServerApi {
 
       fs.ensureDirSync(recipeTempDirectory);
       const res = await fetch(packageUrl);
-      console.debug('Recipe downloaded', recipeId);
+      debug('Recipe downloaded', recipeId);
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
 
@@ -467,7 +469,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const plan = new PlanModel(data);
-    console.debug('ServerApi::getPlans resolves', plan);
+    debug('ServerApi::getPlans resolves', plan);
     return plan;
   }
 
@@ -483,7 +485,7 @@ export default class ServerApi {
     }
     const data = await request.json();
 
-    console.debug('ServerApi::getHostedPage resolves', data);
+    debug('ServerApi::getHostedPage resolves', data);
     return data;
   }
 
@@ -496,7 +498,7 @@ export default class ServerApi {
     }
     const data = await request.json();
 
-    console.debug('ServerApi::getPaymentDashboardUrl resolves', data);
+    debug('ServerApi::getPaymentDashboardUrl resolves', data);
     return data;
   }
 
@@ -509,7 +511,7 @@ export default class ServerApi {
     }
     const data = await request.json();
     const orders = this._mapOrderModels(data);
-    console.debug('ServerApi::getSubscriptionOrders resolves', orders);
+    debug('ServerApi::getSubscriptionOrders resolves', orders);
     return orders;
   }
 
@@ -526,7 +528,7 @@ export default class ServerApi {
     }
     const data = await request.json();
     const news = this._mapNewsModels(data);
-    console.debug('ServerApi::getLatestNews resolves', news);
+    debug('ServerApi::getLatestNews resolves', news);
     return news;
   }
 
@@ -540,7 +542,7 @@ export default class ServerApi {
       throw request;
     }
 
-    console.debug('ServerApi::hideNews resolves', id);
+    debug('ServerApi::hideNews resolves', id);
   }
 
   // Health Check
@@ -551,7 +553,7 @@ export default class ServerApi {
     if (!request.ok) {
       throw request;
     }
-    console.debug('ServerApi::healthCheck resolves');
+    debug('ServerApi::healthCheck resolves');
   }
 
   async getLegacyServices() {
@@ -577,7 +579,7 @@ export default class ServerApi {
           return service;
         }));
 
-        console.debug('ServerApi::getLegacyServices resolves', services);
+        debug('ServerApi::getLegacyServices resolves', services);
         return services;
       }
     } catch (err) {
@@ -610,7 +612,7 @@ export default class ServerApi {
 
       return new ServiceModel(service, recipe);
     } catch (e) {
-      console.debug(e);
+      debug(e);
       return null;
     }
   }
@@ -628,7 +630,7 @@ export default class ServerApi {
 
           await this.getRecipePackage(recipeId);
 
-          console.debug('Rerun ServerAPI::getInstalledRecipes');
+          debug('Rerun ServerAPI::getInstalledRecipes');
           await this.getInstalledRecipes();
 
           recipe = this.recipes.find(r => r.id === recipeId);
@@ -728,7 +730,7 @@ export default class ServerApi {
 
       return recipes;
     } catch (err) {
-      console.debug('Could not load dev recipes');
+      debug('Could not load dev recipes');
       return false;
     }
   }

@@ -75,6 +75,7 @@ export default class AppLayoutContainer extends Component {
 
     const sidebar = (
       <Sidebar
+        groups={ui.serviceGroupStructure}
         services={services.allDisplayed}
         setActive={setActive}
         isAppMuted={settings.all.isAppMuted}

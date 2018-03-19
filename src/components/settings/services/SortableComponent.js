@@ -150,6 +150,7 @@ export default class SortableComponent extends Component {
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
+    // console.time('onSortItemsEnd')
     // console.log(newListIndex, newIndex, items)
     const structure = this.props.groups;
 
@@ -189,6 +190,7 @@ export default class SortableComponent extends Component {
 
     // reorder data model
     this.props.reorder({ structure });
+    // console.timeEnd('onSortItemsEnd')
   }
 
   render() {

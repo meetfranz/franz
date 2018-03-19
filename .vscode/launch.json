@@ -10,6 +10,7 @@
             "protocol": "inspector",
             "env": {
                 "NODE_ENV": "development",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -21,6 +22,7 @@
             "protocol": "inspector",    
             "env": {
                 "LIVE_API": "1",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -32,6 +34,7 @@
             "protocol": "inspector",
             "env": {
                 "LOCAL_API": "1",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -43,7 +46,8 @@
             "protocol": "inspector",
             "env": {
                 "NODE_ENV": "development",
-                "OS_PLATFORM": "win32"
+                "OS_PLATFORM": "win32",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -55,7 +59,8 @@
             "protocol": "inspector",    
             "env": {
                 "LIVE_API": "1",
-                "OS_PLATFORM": "win32"
+                "OS_PLATFORM": "win32",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -67,7 +72,8 @@
             "protocol": "inspector",
             "env": {
                 "LOCAL_API": "1",
-                "OS_PLATFORM": "win32"
+                "OS_PLATFORM": "win32",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         }
     ]

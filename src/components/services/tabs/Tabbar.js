@@ -58,6 +58,7 @@ export default class TabBar extends Component {
 
   render() {
     const {
+      groups,
       services,
       setActive,
       openSettings,
@@ -73,6 +74,7 @@ export default class TabBar extends Component {
     return (
       <div>
         <TabBarSortableList
+          groups={groups}
           services={services}
           setActive={setActive}
           onSortEnd={this.onSortEnd}

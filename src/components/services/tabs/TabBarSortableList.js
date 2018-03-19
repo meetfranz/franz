@@ -23,6 +23,7 @@ class TabBarSortableList extends Component {
 
   render() {
     const {
+      groups,
       services,
       setActive,
       reload,
