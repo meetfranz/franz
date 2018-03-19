@@ -95,7 +95,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "del": "^2.2.2",
     "dotenv": "^4.0.0",
-    "electron": "^1.7.12",
+    "electron": "1.8.4",
     "electron-builder": "19.15.1",
     "electron-packager": "^8.7.0",
     "electron-rebuild": "^1.6.0",
