@@ -6,7 +6,6 @@ import { defineMessages, intlShape } from 'react-intl';
 
 
 import ServiceGroup from '../../../models/ServiceGroup';
-import ServiceItem from './ServiceItem';
 
 const messages = defineMessages({
   groupPlaceholder: {
@@ -19,17 +18,10 @@ const dragLayer = new DragLayer();
 
 const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 
-const SortableService = sortableElement(({ item, goTo }) =>
-  <table className="service-table">
-    <tbody>
-      <ServiceItem
-        key={item.id}
-        service={item}
-        // toggleAction={() => toggleService({ serviceId: service.id })}
-        goToServiceForm={() => goTo(`/settings/services/edit/${item.id}`)}
-      />
-    </tbody>
-  </table>,
+let serviceItem = null;
+
+const SortableService = sortableElement(({ item, goTo }) => // props are undefined during drag except for item
+  serviceItem({ service: item, goTo }),
   // <div key={item.id}>{item.name}</div>
 );
 
@@ -127,6 +119,12 @@ export default class SortableComponent extends Component {
     intl: intlShape,
   };
 
+  constructor(props) {
+    super(props);
+
+    serviceItem = props.serviceItem;
+  }
+
   onDeleteGroup = (index) => {
     const structure = this.props.groups;
     const group = structure[index];
@@ -212,7 +210,7 @@ export default class SortableComponent extends Component {
           goTo={this.props.goTo}
           shouldCancel={this.props.shouldCancelStart}
           shouldCancelStart={this.props.shouldCancelStart}
-          useDragHandle
+          useDragHandle={this.props.useDragHandle}
           intl={intl}
         />
       </div>

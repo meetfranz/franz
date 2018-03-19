@@ -9,6 +9,9 @@ import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
 import Appear from '../../ui/effects/Appear';
 import InputBox from '../../ui/InputBox';
+
+import Service from '../../../models/Service';
+import ServiceItem from './ServiceItem';
 import SortableComponent from './SortableComponent';
 
 const messages = defineMessages({
@@ -49,6 +52,23 @@ const messages = defineMessages({
     defaultMessage: '!!!Service has been deleted',
   },
 });
+
+const serviceItem = ({ service, goTo }) =>
+  <table className="service-table">
+    <tbody>
+      <ServiceItem
+        // key={item.id}
+        service={service}
+        // toggleAction={() => toggleService({ serviceId: service.id })}
+        goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
+      />
+    </tbody>
+  </table>;
+serviceItem.propTypes = {
+  service: PropTypes.instanceOf(Service).isRequired,
+  goTo: PropTypes.func.isRequired,
+};
+
 
 @observer
 export default class ServicesDashboard extends Component {
@@ -181,6 +201,8 @@ export default class ServicesDashboard extends Component {
               deleteServiceGroup={deleteServiceGroup}
               goTo={goTo}
               shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
+              serviceItem={serviceItem}
+              useDragHandle
             />
           )}
           <InputBox
