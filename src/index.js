@@ -73,7 +73,7 @@ const createWindow = () => {
     minWidth: 600,
     minHeight: 500,
     titleBarStyle: isMac ? 'hidden' : '',
-    frame: isLinux ? true : false,
+    frame: isLinux,
     backgroundColor: '#3498db',
   });
 
