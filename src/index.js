@@ -51,7 +51,7 @@ if (isSecondInstance) {
 // Fix Unity indicator issue
 // https://github.com/electron/electron/issues/9046
 if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1) {
-  process.env.XDG_CURRENT_DESKTOP = 'Unity'
+  process.env.XDG_CURRENT_DESKTOP = 'Unity';
 }
 
 // Initialize Settings
