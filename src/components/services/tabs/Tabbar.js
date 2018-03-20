@@ -1,10 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 
-import TabBarSortableList from './TabBarSortableList';
+import SortableComponent from '../../settings/services/SortableComponent';
+import TabItem from './TabItem';
+// import TabBarSortableList from './TabBarSortableList';
 
-@observer
+const tabItem = ({
+  item: service,
+  index,
+  setActive,
+  reload,
+  toggleNotifications,
+  toggleAudio,
+  deleteService,
+  openSettings,
+  showMessageBadgeWhenMutedSetting,
+  showMessageBadgesEvenWhenMuted,
+}) =>
+  <TabItem
+    key={service.id}
+    clickHandler={() => setActive({ serviceId: service.id })}
+    service={service}
+    index={index}
+    shortcutIndex={index + 1}
+    reload={() => reload({ serviceId: service.id })}
+    toggleNotifications={() => toggleNotifications({ serviceId: service.id })}
+    toggleAudio={() => toggleAudio({ serviceId: service.id })}
+    deleteService={() => deleteService({ serviceId: service.id })}
+    disableService={() => this.disableService({ serviceId: service.id })}
+    enableService={() => this.enableService({ serviceId: service.id })}
+    openSettings={openSettings}
+    showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
+    showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
+  />;
+
+@inject('stores', 'actions') @observer // TODO: move to container
 export default class TabBar extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
@@ -73,7 +104,7 @@ export default class TabBar extends Component {
 
     return (
       <div>
-        <TabBarSortableList
+        {/* <TabBarSortableList
           groups={groups}
           services={services}
           setActive={setActive}
@@ -93,6 +124,16 @@ export default class TabBar extends Component {
           helperClass="is-reordering"
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
+        /> */}
+        <SortableComponent
+          {...this.props}
+          groups={groups}
+          reorder={this.props.actions.ui.reorderServiceStructure}
+          // updateServiceGroup={updateServiceGroup}
+          // deleteServiceGroup={deleteServiceGroup}
+          // goTo={goTo}
+          // shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
+          serviceItem={tabItem}
         />
       </div>
     );

@@ -148,7 +148,7 @@ class TabItem extends Component {
     }
 
     return (
-      <li
+      <div
         className={classnames({
           'tab-item': true,
           'is-active': service.isActive,
@@ -165,9 +165,9 @@ class TabItem extends Component {
           alt=""
         />
         {notificationBadge}
-      </li>
+      </div>
     );
   }
 }
 
-export default SortableElement(TabItem);
+export default TabItem;
