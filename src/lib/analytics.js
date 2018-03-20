@@ -2,6 +2,8 @@ import { remote } from 'electron';
 import { GA_ID } from '../config';
 // import { isDevMode } from '../environment';
 
+const debug = require('debug')('Analytics');
+
 const { app } = remote;
 
 /* eslint-disable */
@@ -28,13 +30,13 @@ ga('send', 'App');
 export function gaPage(page) {
   ga('send', 'pageview', page);
 
-  console.debug('GA track page', page);
+  debug('GA track page', page);
 }
 
 export function gaEvent(category, action, label) {
   ga('send', 'event', category, action, label);
 
-  console.debug('GA track page', category, action);
+  debug('GA track page', category, action);
 }
 
 setTimeout(() => {

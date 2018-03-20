@@ -11,10 +11,15 @@
   <div class="dev-warning">DEV MODE</div>
   <div id="root"></div>
   <script>
-    document.querySelector('body').classList.add(process.platform);
+    document.querySelector('body').classList.add(process.env.OS_PLATFORM ? process.env.OS_PLATFORM : process.platform);
 
     const { isDevMode } = require('./environment');
     if (isDevMode) {
+      const debugging = require('debug');
+      debugging.enable(process.env.DEBUG);
+      
+      const debug = debugging('Index');
+
       document.querySelector('body').classList.add('isDevMode');
 
       (function() {
@@ -25,7 +30,7 @@
         document.body.appendChild(s);
 
         s.onload = () => {
-          console.log('livereload loaded');
+          debug('livereload loaded');
           const originalReloadBehaviour = window._onLiveReloadFileChanged;
 
           window._onLiveReloadFileChanged = (file) => {
@@ -33,10 +38,10 @@
               originalReloadBehaviour(file);
             } else {              
               if (file.path.includes('/build/webview/')) {
-                console.log('Livereload: Reloading all webvies');
+                debug('Livereload: Reloading all webvies');
                 const webviews = document.querySelectorAll('webview').forEach(webview => webview.reload());
               } else {
-                console.log('Livereload: skip reload as only main process files have changed');
+                debug('Livereload: skip reload as only main process files have changed');
               }
             }
           }

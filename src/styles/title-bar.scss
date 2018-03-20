@@ -1,0 +1,50 @@
+#electron-app-title-bar {
+  background: $theme-gray-lightest;
+  border-bottom: 0;
+  box-shadow: 0px 0 8px rgba(#000, 0.1);
+
+  span {
+    line-height: normal;
+  }
+
+  div {
+    height: auto;
+  }
+
+  .toolbar-dropdown {
+    &.open {
+      box-shadow: 0px 0 8px rgba(#000, 0.1);
+    }
+
+    &:not(.open) {
+      .menu-item .menu-label {
+        opacity: 1;
+      }
+
+      &>.toolbar-button > button:hover {
+        background: $theme-brand-primary;
+      }
+    }
+  }
+
+  .list-item {
+    .menu-item {
+      margin: 4px;
+      border-radius: $theme-border-radius-small;
+    }
+    &.selected {
+      // background: $theme-brand-primary;
+      background: none;
+
+      .menu-item {
+        background: $theme-brand-primary;
+      }
+    }
+  }
+
+  .menu-pane {
+    box-shadow: 0px 0 10px rgba(#000, 0.5);
+    border-bottom-left-radius: $theme-border-radius-small;
+    border-bottom-right-radius: $theme-border-radius-small;
+  }
+}
