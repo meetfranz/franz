@@ -41,42 +41,19 @@ const SortableListServices = sortableContainer((props) => {
   </div>);
 });
 
-const SortableGroup = sortableElement(props => (props.item.group || null) &&
-  <div className={props.item.type === 'group' ? 'services__group' : ''}>
-    {props.item.type === 'group' &&
-      <div className="services__group-header">
-        <DragHandle />
-        <InlineEdit
-          text={props.item.group.name}
-          paramName={`group-header-${props.id}`}
-          change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]); }}
-        />
-        <span
-          onClick={(e) => { e.preventDefault(); props.onDeleteGroup(props.id); }}
-          className="mdi mdi-delete"
-        />
-
-      </div>
-    }
-    <SortableListServices
-      {...props} // onMultipleSortEnd
-      items={props.item.services}
-      dragLayer={dragLayer}
-      // distance={3}
-      helperClass={'selected__service'}
-      isMultiple
-      helperCollision={{ top: 0, bottom: 0 }}
-      lockAxis="y"
-      // goTo={props.goTo}
-      // useDragHandle
-    />
-    {props.item.type === 'group' &&
-      <div>
-        <span className="mdi mdi-cursor-move">{props.intl.formatMessage(messages.groupPlaceholder)}</span>
-      </div>
-    }
-  </div>,
-);
+const SortableGroup = sortableElement(props => props.groupComponent(props,
+  <SortableListServices
+    {...props} // onMultipleSortEnd
+    items={props.item.services}
+    dragLayer={dragLayer}
+    // distance={3}
+    helperClass={'selected__service'}
+    isMultiple
+    helperCollision={{ top: 0, bottom: 0 }}
+    lockAxis="y"
+    // goTo={props.goTo}
+    // useDragHandle
+  />));
 
 const SortableListGroups = sortableContainer(props =>
   <div>
@@ -202,6 +179,7 @@ export default class SortableComponent extends Component {
           useDragHandle={this.props.useDragHandle}
           intl={intl}
           serviceItem={this.props.serviceItem}
+          groupComponent={this.props.groupComponent}
         />
       </div>
     );

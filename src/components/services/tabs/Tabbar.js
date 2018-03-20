@@ -35,6 +35,15 @@ const tabItem = ({
     showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
   />;
 
+const groupComponent = (props, services) => (props.item.group || null) &&
+  <div className={props.item.type === 'group' ? 'services__group' : ''}>
+    {props.item.type === 'group' &&
+      <div className="services__group-header">{props.item.group.name}</div>
+    }
+    {services}
+  </div>;
+
+
 @inject('stores', 'actions') @observer // TODO: move to container
 export default class TabBar extends Component {
   static propTypes = {
@@ -134,6 +143,7 @@ export default class TabBar extends Component {
           // goTo={goTo}
           // shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
           serviceItem={tabItem}
+          groupComponent={groupComponent}
         />
       </div>
     );
