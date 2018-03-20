@@ -60,12 +60,5 @@ Join the Franz community on [Slack](http://slack.franz.im) and get in touch with
 You can find all the Information at the [Plugins repository](https://github.com/meetfranz/plugins).
 For questions feel free to ask in the [community Slack](http://slack.franz.im)
 
-## Next steps
-- [ ] Create acceptance tests
-- [ ] Create Linux build
-- [ ] 5.0 stable release
-- [ ] Developer Documentation
-- [ ] Add translations
-
 ## License
 Franz 5 is open-source licensed under the Apache-2.0 License.
