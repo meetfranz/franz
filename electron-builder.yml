@@ -18,7 +18,11 @@ dmg:
 
 win:
   icon: ./build-helpers/images/icon.ico
-  target: nsis
+  target:
+    target: nsis
+    arch:
+    - x64
+    - ia32
 
 linux:
   icon: ./build-helpers/images/icons
