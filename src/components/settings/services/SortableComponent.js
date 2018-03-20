@@ -18,26 +18,28 @@ const dragLayer = new DragLayer();
 
 const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 
-let serviceItem = null;
-
-const SortableService = sortableElement(({ item, goTo }) => // props are undefined during drag except for item
-  serviceItem({ service: item, goTo }),
+const SortableService = sortableElement((props) => {// props are undefined during drag except for item
+  // console.log(props)
+  return props.serviceItem(props);
   // <div key={item.id}>{item.name}</div>
+},
 );
 
-const SortableListServices = sortableContainer(({ items, goTo }) =>
-  <div>
-    {items.map((service, index) => (
+const SortableListServices = sortableContainer((props) => {
+  // console.log(props);
+  return (<div>
+    {props.items.map((service, index) => (
       <SortableService
+        {...props}
         key={service.id}
         index={index}
         item={service}
-        goTo={goTo}
-        useDragHandle
+        // goTo={goTo}
+        // useDragHandle
       />
     ))}
-  </div>,
-);
+  </div>);
+});
 
 const SortableGroup = sortableElement(props => (props.item.group || null) &&
   <div className={props.item.type === 'group' ? 'services__group' : ''}>
@@ -65,8 +67,8 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
       isMultiple
       helperCollision={{ top: 0, bottom: 0 }}
       lockAxis="y"
-      goTo={props.goTo}
-      useDragHandle
+      // goTo={props.goTo}
+      // useDragHandle
     />
     {props.item.type === 'group' &&
       <div>
@@ -76,31 +78,23 @@ const SortableGroup = sortableElement(props => (props.item.group || null) &&
   </div>,
 );
 
-const SortableListGroups = sortableContainer(({
-  items,
-  onSortItemsEnd,
-  onDeleteGroup,
-  updateServiceGroup,
-  deleteServiceGroup,
-  goTo,
-  shouldCancel,
-  intl,
-}) =>
+const SortableListGroups = sortableContainer(props =>
   <div>
-    {items.map((group, index) => (group &&
+    {props.items.map((group, index) => (group &&
       <SortableGroup
+        {...props}
         key={`group-${index}`} // eslint-disable-line react/no-array-index-key
         index={index}
         item={group}
         id={index}
-        onMultipleSortEnd={onSortItemsEnd}
-        onDeleteGroup={onDeleteGroup}
-        updateServiceGroup={updateServiceGroup}
-        deleteServiceGroup={deleteServiceGroup}
-        goTo={goTo}
-        shouldCancelStart={shouldCancel}
-        useDragHandle
-        intl={intl}
+        onMultipleSortEnd={props.onSortItemsEnd}
+        onDeleteGroup={props.onDeleteGroup}
+        updateServiceGroup={props.updateServiceGroup}
+        deleteServiceGroup={props.deleteServiceGroup}
+        // goTo={goTo}
+        shouldCancelStart={props.shouldCancel}
+        // useDragHandle
+        intl={props.intl}
       />
     ))}
   </div>);
@@ -110,7 +104,7 @@ export default class SortableComponent extends Component {
     reorder: PropTypes.func.isRequired,
     updateServiceGroup: PropTypes.func.isRequired,
     deleteServiceGroup: PropTypes.func.isRequired,
-    goTo: PropTypes.func.isRequired,
+    // goTo: PropTypes.func.isRequired,
     groups: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
     shouldCancelStart: PropTypes.func.isRequired,
   };
@@ -118,12 +112,6 @@ export default class SortableComponent extends Component {
   static contextTypes = {
     intl: intlShape,
   };
-
-  constructor(props) {
-    super(props);
-
-    serviceItem = props.serviceItem;
-  }
 
   onDeleteGroup = (index) => {
     const structure = this.props.groups;
@@ -198,6 +186,7 @@ export default class SortableComponent extends Component {
     return (
       <div>
         <SortableListGroups
+          {...this.props}
           items={this.props.groups}
           onSortEnd={this.onSortEnd}
           onSortItemsEnd={this.onSortItemsEnd}
@@ -207,11 +196,12 @@ export default class SortableComponent extends Component {
           onDeleteGroup={this.onDeleteGroup}
           updateServiceGroup={this.props.updateServiceGroup}
           deleteServiceGroup={this.props.deleteServiceGroup}
-          goTo={this.props.goTo}
+          // goTo={this.props.goTo}
           shouldCancel={this.props.shouldCancelStart}
           shouldCancelStart={this.props.shouldCancelStart}
           useDragHandle={this.props.useDragHandle}
           intl={intl}
+          serviceItem={this.props.serviceItem}
         />
       </div>
     );

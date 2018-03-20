@@ -53,7 +53,7 @@ const messages = defineMessages({
   },
 });
 
-const serviceItem = ({ service, goTo }) =>
+const serviceItem = ({ item: service, goTo }) =>
   <table className="service-table">
     <tbody>
       <ServiceItem
@@ -65,7 +65,7 @@ const serviceItem = ({ service, goTo }) =>
     </tbody>
   </table>;
 serviceItem.propTypes = {
-  service: PropTypes.instanceOf(Service).isRequired,
+  item: PropTypes.instanceOf(Service).isRequired,
   goTo: PropTypes.func.isRequired,
 };
 
