@@ -138,6 +138,7 @@ export default class TabBar extends Component {
           {...this.props}
           groups={groups}
           reorder={this.props.actions.ui.reorderServiceStructure}
+          distance={20}
           // updateServiceGroup={updateServiceGroup}
           // deleteServiceGroup={deleteServiceGroup}
           // goTo={goTo}

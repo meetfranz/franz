@@ -35,7 +35,7 @@ const SortableListServices = sortableContainer((props) => {
         index={index}
         item={service}
         // goTo={goTo}
-        // useDragHandle
+        useDragHandle={props.useDragHandleProp}
       />
     ))}
   </div>);
@@ -46,17 +46,17 @@ const SortableGroup = sortableElement(props => props.groupComponent(props,
     {...props} // onMultipleSortEnd
     items={props.item.services}
     dragLayer={dragLayer}
-    // distance={3}
+    distance={props.distanceProp}
     helperClass={'selected__service'}
     isMultiple
     helperCollision={{ top: 0, bottom: 0 }}
     lockAxis="y"
     // goTo={props.goTo}
-    // useDragHandle
+    useDragHandle={props.useDragHandleProp}
   />));
 
-const SortableListGroups = sortableContainer(props =>
-  <div>
+const SortableListGroups = sortableContainer((props) => {
+  return (<div>
     {props.items.map((group, index) => (group &&
       <SortableGroup
         {...props}
@@ -69,12 +69,13 @@ const SortableListGroups = sortableContainer(props =>
         updateServiceGroup={props.updateServiceGroup}
         deleteServiceGroup={props.deleteServiceGroup}
         // goTo={goTo}
-        shouldCancelStart={props.shouldCancel}
-        // useDragHandle
+        shouldCancelStart={props.shouldCancelStartProp}
+        useDragHandle={props.useDragHandleProp}
         intl={props.intl}
-      />
-    ))}
+      />),
+    )}
   </div>);
+});
 
 export default class SortableComponent extends Component {
   static propTypes = {
@@ -169,14 +170,16 @@ export default class SortableComponent extends Component {
           onSortItemsEnd={this.onSortItemsEnd}
           helperClass={'selected__group'}
           lockAxis="y"
+          distance={0}
+          distanceProp={this.props.distance}
           // pressDelay={100}
           onDeleteGroup={this.onDeleteGroup}
           updateServiceGroup={this.props.updateServiceGroup}
           deleteServiceGroup={this.props.deleteServiceGroup}
           // goTo={this.props.goTo}
-          shouldCancel={this.props.shouldCancelStart}
-          shouldCancelStart={this.props.shouldCancelStart}
-          useDragHandle={this.props.useDragHandle}
+          shouldCancelStartProp={this.props.shouldCancelStart}
+          // shouldCancelStart={this.props.shouldCancelStart}
+          useDragHandleProp={this.props.useDragHandle}
           intl={intl}
           serviceItem={this.props.serviceItem}
           groupComponent={this.props.groupComponent}
