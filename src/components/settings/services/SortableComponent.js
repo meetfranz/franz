@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { sortableContainer, sortableElement, arrayMove, DragLayer, sortableHandle } from 'react-sortable-multiple-hoc';
-import InlineEdit from 'react-edit-inline';
-import { defineMessages, intlShape } from 'react-intl';
-
+import { sortableContainer, sortableElement, arrayMove, DragLayer } from 'react-sortable-multiple-hoc';
+import { intlShape } from 'react-intl';
 
 import ServiceGroup from '../../../models/ServiceGroup';
 
-const messages = defineMessages({
-  groupPlaceholder: {
-    id: 'settings.services.groupPlaceholder',
-    defaultMessage: '!!!Drag Service here',
-  },
-});
-
 const dragLayer = new DragLayer();
-
-const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 
 const SortableService = sortableElement((props) => {// props are undefined during drag except for item
   // console.log(props)
@@ -43,6 +32,7 @@ const SortableListServices = sortableContainer((props) => {
 
 const SortableGroup = sortableElement(props =>
   <props.groupComponent
+    {...props}
     item={props.item}
     services={
       <SortableListServices

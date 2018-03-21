@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
-import InlineEdit from 'react-edit-inline';
-import { sortableHandle } from 'react-sortable-multiple-hoc';
 
 import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
@@ -14,6 +12,7 @@ import InputBox from '../../ui/InputBox';
 
 import Service from '../../../models/Service';
 import ServiceItem from './ServiceItem';
+import ServiceGroupComponent from './ServiceGroupComponent';
 import SortableComponent from './SortableComponent';
 
 const messages = defineMessages({
@@ -71,33 +70,7 @@ serviceItem.propTypes = {
   goTo: PropTypes.func.isRequired,
 };
 
-const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
-
-const groupComponent = (props, services) => (props.item.group || null) &&
-<div className={props.item.type === 'group' ? 'services__group' : ''}>
-  {props.item.type === 'group' &&
-    <div className="services__group-header">
-      <DragHandle />
-      <InlineEdit
-        text={props.item.group.name}
-        paramName={`group-header-${props.id}`}
-        change={(param) => { props.updateServiceGroup(props.item.group.id, param[`group-header-${props.id}`]); }}
-      />
-      <span
-        onClick={(e) => { e.preventDefault(); props.onDeleteGroup(props.id); }}
-        className="mdi mdi-delete"
-      />
-
-    </div>
-  }
-  {services}
-  {props.item.type === 'group' &&
-    <div>groupPlaceholder
-      {/* <span className="mdi mdi-cursor-move">{props.intl.formatMessage(messages.groupPlaceholder)}</span> */}
-    </div>
-  }
-</div>;
-
+const groupComponent = ServiceGroupComponent;
 
 @observer
 export default class ServicesDashboard extends Component {
@@ -233,6 +206,7 @@ export default class ServicesDashboard extends Component {
               serviceItem={serviceItem}
               groupComponent={groupComponent}
               useDragHandle
+              useDragHandleGroup
             />
           )}
           <InputBox
