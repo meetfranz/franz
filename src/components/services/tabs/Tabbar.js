@@ -4,6 +4,7 @@ import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 
 import SortableComponent from '../../settings/services/SortableComponent';
 import TabItem from './TabItem';
+import TabGroupComponent from './TabGroupComponent';
 // import TabBarSortableList from './TabBarSortableList';
 
 const tabItem = ({
@@ -35,13 +36,7 @@ const tabItem = ({
     showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
   />;
 
-const groupComponent = (props, services) => (props.item.group || null) &&
-  <div className={props.item.type === 'group' ? 'services__group' : ''}>
-    {props.item.type === 'group' &&
-      <div className="services__group-header">{props.item.group.name}</div>
-    }
-    {services}
-  </div>;
+const groupComponent = TabGroupComponent;
 
 
 @inject('stores', 'actions') @observer // TODO: move to container
@@ -138,13 +133,14 @@ export default class TabBar extends Component {
           {...this.props}
           groups={groups}
           reorder={this.props.actions.ui.reorderServiceStructure}
-          distance={20}
+          distance={1}
           // updateServiceGroup={updateServiceGroup}
           // deleteServiceGroup={deleteServiceGroup}
           // goTo={goTo}
           // shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
           serviceItem={tabItem}
           groupComponent={groupComponent}
+          useDragHandleGroup
         />
       </div>
     );
