@@ -3,7 +3,7 @@
 
 ### General
 
-* **App:** Various performance improvments
+* **App:** Various performance improvements
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 
