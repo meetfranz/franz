@@ -13,15 +13,28 @@ const messages = defineMessages({
 const DragHandle = sortableHandle(() => <span className="mdi mdi-menu" />);
 
 export default class ServiceGroupComponent extends Component {
-  state = {
-    editing: false,
-  };
+  constructor(props) {
+    super(props);
+    this.dataChanged = this.dataChanged.bind(this);
+    this.state = {
+      editing: false,
+      title: props.item.group.name,
+    };
+  }
+
+  dataChanged(data) {
+    const value = data[`group-header-${this.props.id}`];
+    this.props.updateServiceGroup(this.props.item.group.id, value);
+    this.setState({
+      editing: false,
+      title: value,
+    });
+  }
 
   render() {
     const {
       item,
       id,
-      updateServiceGroup,
       onDeleteGroup,
       services,
       intl
@@ -35,7 +48,7 @@ export default class ServiceGroupComponent extends Component {
             <InlineEdit
               text={item.group.name}
               paramName={`group-header-${id}`}
-              change={(param) => { updateServiceGroup(item.group.id, param[`group-header-${id}`]); }}
+              change={this.dataChanged}
               editing={this.state.editing}
             />
             <span
