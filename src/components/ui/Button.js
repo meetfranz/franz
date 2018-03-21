@@ -8,7 +8,6 @@ import classnames from 'classnames';
 export default class Button extends Component {
   static propTypes = {
     className: PropTypes.string,
-    style: PropTypes.string,
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,

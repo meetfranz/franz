@@ -77,11 +77,8 @@ const SortableListGroups = sortableContainer((props) => {
 export default class SortableComponent extends Component {
   static propTypes = {
     reorder: PropTypes.func.isRequired,
-    updateServiceGroup: PropTypes.func.isRequired,
-    deleteServiceGroup: PropTypes.func.isRequired,
-    // goTo: PropTypes.func.isRequired,
     groups: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-    shouldCancelStart: PropTypes.func.isRequired,
+    // shouldCancelStart: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
