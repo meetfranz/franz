@@ -12,8 +12,9 @@ export default class TabGroupComponent extends Component {
     const {
       item,
       services,
+      sorting
     } = this.props;
-
+// console.log(sorting)
     return (item.group || null) &&
       <div className={item.type === 'group' ? 'services__group' : ''}>
         {item.type === 'group' &&

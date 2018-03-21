@@ -58,6 +58,7 @@ const SortableGroup = sortableElement(props =>
         useDragHandle={props.useDragHandleProp}
       />
     }
+    sorting={props.sorting}
   />,
 );
 
@@ -97,6 +98,10 @@ export default class SortableComponent extends Component {
     intl: intlShape,
   };
 
+  state = {
+    sorting: false,
+  };
+
   onDeleteGroup = (index) => {
     const structure = this.props.groups;
     const group = structure[index];
@@ -116,6 +121,7 @@ export default class SortableComponent extends Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState({ sorting: false });
     this.props.reorder({ structure: arrayMove(this.props.groups, oldIndex, newIndex) });
   }
 
@@ -172,6 +178,8 @@ export default class SortableComponent extends Component {
         <SortableListGroups
           {...this.props}
           items={this.props.groups}
+          onSortStart={() => this.setState({ sorting: true })}
+          sorting={this.state.sorting}
           onSortEnd={this.onSortEnd}
           onSortItemsEnd={this.onSortItemsEnd}
           helperClass={'selected__group'}
