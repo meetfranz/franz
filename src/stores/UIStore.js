@@ -86,6 +86,7 @@ export default class UIStore extends Store {
       }
     });
 
+    // pad groups with root-level placeholder groups
     const paddedGroups = [];
     if (groups[0] && groups[0].type === 'group') {
       paddedGroups.push({
