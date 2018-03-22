@@ -57,7 +57,8 @@ const SortableListGroups = sortableContainer((props) => {
     {props.items.map((group, index) => (group &&
       <SortableGroup
         {...props}
-        key={`group-${index}`} // eslint-disable-line react/no-array-index-key
+        // key={`group-${index}`} // eslint-disable-line react/no-array-index-key
+        key={group.group.id}
         index={index}
         item={group}
         id={index}

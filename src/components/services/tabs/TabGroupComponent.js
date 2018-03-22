@@ -28,7 +28,8 @@ export default class TabGroupComponent extends Component {
         }
         <div
           className="services__group-services"
-          style={this.state.collapsed ? { height: 0, overflow: 'hidden' } : { height: 'auto', overflow: 'auto' }}
+          // style={this.state.collapsed ? { height: 0, overflow: 'hidden' } : { height: 'auto', overflow: 'auto' }}
+          style={this.state.collapsed ? { display: 'none' } : { display: 'block' }}
         >
           {services}
         </div>

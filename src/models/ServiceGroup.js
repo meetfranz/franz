@@ -1,7 +1,8 @@
 import { observable } from 'mobx';
+import uuidv1 from 'uuid/v1';
 
 export default class ServiceGroup {
-  id = '';
+  id = uuidv1();
 
   @observable name = '';
   @observable order = 99;
