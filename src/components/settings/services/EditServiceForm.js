@@ -14,6 +14,7 @@ import Input from '../../ui/Input';
 import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
 import ImageUpload from '../../ui/ImageUpload';
+import Select from '../../ui/Select';
 
 const messages = defineMessages({
   saveService: {
@@ -71,6 +72,10 @@ const messages = defineMessages({
   isMutedInfo: {
     id: 'settings.service.form.isMutedInfo',
     defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
+  },
+  headlineGroup: {
+    id: 'settings.service.form.headlineGroup',
+    defaultMessage: '!!!Group',
   },
   headlineNotifications: {
     id: 'settings.service.form.headlineNotifications',
@@ -279,6 +284,11 @@ export default class EditServiceForm extends Component {
             )}
             <div className="service-flex-grid">
               <div className="settings__options">
+                <div className="settings__settings-group">
+                  <h3>{intl.formatMessage(messages.headlineGroup)}</h3>
+                  <Select field={form.$('groupId')} showLabel={false} />
+                </div>
+
                 <div className="settings__settings-group">
                   <h3>{intl.formatMessage(messages.headlineNotifications)}</h3>
                   <Toggle field={form.$('isNotificationEnabled')} />

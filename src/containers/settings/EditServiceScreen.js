@@ -50,6 +50,10 @@ const messages = defineMessages({
     id: 'settings.service.form.icon',
     defaultMessage: '!!!Custom icon',
   },
+  group: {
+    id: 'settings.service.form.group',
+    defaultMessage: '!!!Group',
+  },
 });
 
 @inject('stores', 'actions') @observer
@@ -79,6 +83,31 @@ export default class EditServiceScreen extends Component {
 
   prepareForm(recipe, service) {
     const { intl } = this.context;
+
+    const serviceGroupOptions = [];
+    serviceGroupOptions.push({
+      value: '',
+      label: 'None',
+    });
+    serviceGroupOptions.push({
+      disabled: true,
+      label: '──────────────────',
+    });
+    const serviceGroups = this.props.stores.serviceGroups.all;
+    serviceGroups.forEach((serviceGroup) => {
+      serviceGroupOptions.push({
+        value: serviceGroup.id,
+        label: serviceGroup.name,
+      });
+    });
+    serviceGroupOptions.push({
+      disabled: true,
+      label: '──────────────────',
+    });
+    serviceGroupOptions.push({
+      label: 'New Group...',
+    });
+
     const config = {
       fields: {
         name: {
@@ -111,6 +140,12 @@ export default class EditServiceScreen extends Component {
           value: service.hasCustomUploadedIcon ? service.icon : false,
           default: null,
           type: 'file',
+        },
+        groupId: {
+          label: intl.formatMessage(messages.group),
+          value: service.groupId,
+          options: serviceGroupOptions,
+          default: '',
         },
       },
     };

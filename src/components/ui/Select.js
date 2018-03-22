@@ -51,6 +51,7 @@ export default class Select extends Component {
             <option
               key={type.value}
               value={type.value}
+              disabled={type.disabled}
               // selected={field.value === }
             >
               {type.label}
