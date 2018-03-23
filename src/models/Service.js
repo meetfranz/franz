@@ -25,6 +25,7 @@ export default class Service {
   @observable isNotificationEnabled = true;
   @observable isBadgeEnabled = true;
   @observable isIndirectMessageBadgeEnabled = true;
+  @observable isNotificationBringsToForegroundEnabled = false;
   @observable iconUrl = '';
   @observable hasCustomUploadedIcon = false;
   @observable hasCrashed = false;
@@ -55,6 +56,9 @@ export default class Service {
 
     this.isNotificationEnabled = data.isNotificationEnabled !== undefined
       ? data.isNotificationEnabled : this.isNotificationEnabled;
+
+    this.isNotificationBringsToForegroundEnabled = data.isNotificationBringsToForegroundEnabled !== undefined
+      ? data.isNotificationBringsToForegroundEnabled : this.isNotificationBringsToForegroundEnabled;
 
     this.isBadgeEnabled = data.isBadgeEnabled !== undefined
       ? data.isBadgeEnabled : this.isBadgeEnabled;

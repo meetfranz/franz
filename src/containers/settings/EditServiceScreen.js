@@ -26,6 +26,10 @@ const messages = defineMessages({
     id: 'settings.service.form.enableNotification',
     defaultMessage: '!!!Enable Notifications',
   },
+  enableBringToForeground: {
+    id: 'settings.service.form.enableBringToForeground',
+    defaultMessage: '!!!Notification brings Franz to foreground',
+  },
   enableBadge: {
     id: 'settings.service.form.enableBadge',
     defaultMessage: '!!!Show unread message badges',
@@ -95,6 +99,11 @@ export default class EditServiceScreen extends Component {
           label: intl.formatMessage(messages.enableNotification),
           value: service.isNotificationEnabled,
           default: true,
+        },
+        isNotificationBringsToForegroundEnabled: {
+          label: intl.formatMessage(messages.enableBringToForeground),
+          value: service.isNotificationBringsToForegroundEnabled,
+          default: false,
         },
         isBadgeEnabled: {
           label: intl.formatMessage(messages.enableBadge),

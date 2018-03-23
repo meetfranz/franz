@@ -165,6 +165,7 @@
    "settings.service.form.editServiceHeadline" : "Upravit {name}",
    "settings.service.form.enableAudio" : "Zapnout zvuk",
    "settings.service.form.enableBadge" : "Ukázat odznaky nepřečtených zpráv",
+   "settings.service.form.enableBringToForeground" : "Upozornění přenese okno Franze do popředí",
    "settings.service.form.enableNotification" : "Povolit upozornění",
    "settings.service.form.enableService" : "Povolit službu",
    "settings.service.form.headlineBadges" : "Odznaky nepřečtených zpráv",

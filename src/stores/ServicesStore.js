@@ -89,7 +89,7 @@ export default class ServicesStore extends Store {
     return this.stores.settings.all.showDisabledServices ? this.all : this.enabled;
   }
 
-  // This is just used to avoid unnecessary rerendering of resource-heavy webviews 
+  // This is just used to avoid unnecessary rerendering of resource-heavy webviews
   @computed get allDisplayedUnordered() {
     const services = this.allServicesRequest.execute().result || [];
     return this.stores.settings.all.showDisabledServices ? services : services.filter(service => service.isEnabled);
@@ -337,6 +337,11 @@ export default class ServicesStore extends Store {
       if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.isAppMuted) {
         Object.assign(options, {
           silent: true,
+        });
+      }
+      if (service.isNotificationBringsToForegroundEnabled){
+        Object.assign(options, {
+          bringToForeground: true,
         });
       }
 

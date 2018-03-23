@@ -159,6 +159,22 @@ export default class AppStore extends Store {
   @action _notify({ title, options, notificationId, serviceId = null }) {
     if (this.stores.settings.all.isAppMuted) return;
 
+    if (options.bringToForeground) {
+      // focus the service from the notification
+      this.actions.service.setActive({serviceId});
+
+      // show window but do not steal focus
+      const mainWindow = remote.getCurrentWindow();
+      mainWindow.showInactive();
+      // show on top of others until focused
+      if (!mainWindow.isAlwaysOnTop()) {
+        mainWindow.setAlwaysOnTop(true);
+        mainWindow.once("focus", () => {
+          mainWindow.setAlwaysOnTop(false);
+        })
+      }
+    }
+
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
       if (serviceId) {

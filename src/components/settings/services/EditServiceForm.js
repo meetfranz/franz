@@ -286,6 +286,7 @@ export default class EditServiceForm extends Component {
                   <p className="settings__help">
                     {intl.formatMessage(messages.isMutedInfo)}
                   </p>
+                  <Toggle field={form.$('isNotificationBringsToForegroundEnabled')} />
                 </div>
 
                 <div className="settings__settings-group">
