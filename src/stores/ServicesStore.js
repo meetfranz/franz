@@ -339,7 +339,7 @@ export default class ServicesStore extends Store {
           silent: true,
         });
       }
-      if (service.isNotificationBringsToForegroundEnabled){
+      if (service.isNotificationBringsToForegroundEnabled) {
         Object.assign(options, {
           bringToForeground: true,
         });

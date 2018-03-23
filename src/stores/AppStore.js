@@ -161,7 +161,7 @@ export default class AppStore extends Store {
 
     if (options.bringToForeground) {
       // focus the service from the notification
-      this.actions.service.setActive({serviceId});
+      this.actions.service.setActive({ serviceId });
 
       // show window but do not steal focus
       const mainWindow = remote.getCurrentWindow();
@@ -169,9 +169,9 @@ export default class AppStore extends Store {
       // show on top of others until focused
       if (!mainWindow.isAlwaysOnTop()) {
         mainWindow.setAlwaysOnTop(true);
-        mainWindow.once("focus", () => {
+        mainWindow.once('focus', () => {
           mainWindow.setAlwaysOnTop(false);
-        })
+        });
       }
     }
 
