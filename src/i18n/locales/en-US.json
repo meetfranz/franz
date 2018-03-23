@@ -118,7 +118,6 @@
   "settings.service.form.name": "Name",
   "settings.service.form.enableService": "Enable service",
   "settings.service.form.enableNotification": "Enable notifications",
-  "settings.service.form.enableBringToForeground" : "Notification brings Franz to foreground",
   "settings.service.form.enableBadge": "Show unread message badges",
   "settings.service.form.team": "Team",
   "settings.service.form.customUrl": "Custom server",
