@@ -52,6 +52,18 @@ const messages = defineMessages({
     id: 'settings.service.form.icon',
     defaultMessage: '!!!Custom icon',
   },
+  groupNone: {
+    id: 'settings.service.form.group.none',
+    defaultMessage: '!!!None',
+  },
+  newGroup: {
+    id: 'settings.service.form.group.newGroup',
+    defaultMessage: '!!!New Group...',
+  },
+  groupName: {
+    id: 'settings.service.form.group.groupName',
+    defaultMessage: '!!!Group Name',
+  },
 });
 
 @inject('stores', 'actions') @observer
@@ -102,12 +114,12 @@ export default class EditServiceScreen extends Component {
     const serviceGroupOptions = [];
     serviceGroupOptions.push({
       value: '',
-      label: 'None',
+      label: intl.formatMessage(messages.groupNone),
     });
     serviceGroupOptions.push({
       value: 'separator-top',
       disabled: true,
-      label: '──────────────────',
+      label: '───────────',
     });
     const serviceGroups = this.props.stores.serviceGroups.all;
     serviceGroups.forEach((serviceGroup) => {
@@ -116,20 +128,15 @@ export default class EditServiceScreen extends Component {
         label: serviceGroup.name,
       });
     });
-    if (serviceGroups.length === 0) {
+    if (serviceGroups.length > 0) {
       serviceGroupOptions.push({
-        value: 'no-groups-defined',
+        value: 'separator-bottom',
         disabled: true,
-        label: 'No groups defined yet',
+        label: '───────────',
       });
     }
     serviceGroupOptions.push({
-      value: 'separator-bottom',      
-      disabled: true,
-      label: '──────────────────',
-    });
-    serviceGroupOptions.push({
-      label: 'New Group...',
+      label: intl.formatMessage(messages.newGroup),
       value: 'new-group',
     });
 
@@ -172,7 +179,7 @@ export default class EditServiceScreen extends Component {
           default: '',
         },
         groupName: {
-          placeholder: 'Group Name',
+          placeholder: intl.formatMessage(messages.groupName),
         },
       },
     };
