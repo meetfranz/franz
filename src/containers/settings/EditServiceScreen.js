@@ -116,6 +116,13 @@ export default class EditServiceScreen extends Component {
         label: serviceGroup.name,
       });
     });
+    if (serviceGroups.length === 0) {
+      serviceGroupOptions.push({
+        value: 'no-groups-defined',
+        disabled: true,
+        label: 'No groups defined yet',
+      });
+    }
     serviceGroupOptions.push({
       value: 'separator-bottom',      
       disabled: true,

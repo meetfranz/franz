@@ -150,7 +150,7 @@ export default class ServicesStore extends Store {
       data.order = this.stores.ui.nextServiceGroupOrder;
     } else {
       const serviceGroup = this.stores.serviceGroups.one(data.groupId);
-      console.log(serviceGroup.services.length)
+      // console.log(serviceGroup.services.length)
       data.order = serviceGroup.services.length;
     }
 
