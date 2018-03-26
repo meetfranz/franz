@@ -431,14 +431,14 @@ const _titleBarTemplateFactory = intl => [
     submenu: [
       {
         label: intl.formatMessage(menuItems.minimize),
-        accelerator: 'Alt+M',
+        accelerator: 'Ctrl+M',
         click(menuItem, browserWindow) {
           browserWindow.minimize();
         },
       },
       {
         label: intl.formatMessage(menuItems.close),
-        accelerator: 'Alt+W',
+        accelerator: 'Ctrl+W',
         click(menuItem, browserWindow) {
           browserWindow.close();
         },
@@ -643,10 +643,7 @@ export default class FranzMenu {
         },
         {
           label: intl.formatMessage(menuItems.quit),
-          accelerator: 'Alt+F4',
-          click: () => {
-            app.quit();
-          },
+          role: 'quit',
         },
       ];
 
