@@ -415,7 +415,7 @@ const _titleBarTemplateFactory = intl => [
         label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
           ? intl.formatMessage(menuItems.exitFullScreen)
           : intl.formatMessage(menuItems.enterFullScreen),
-        accelerator: `${ctrlKey}+F`,
+        accelerator: 'F11',
         click(menuItem, browserWindow) {
           browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
