@@ -81,7 +81,7 @@ export default class EditServiceScreen extends Component {
         },
       });
       const response = await serviceGroups.createServiceGroupRequest._promise;
-      console.log(response)
+      // console.log(response)
       // TODO: check for createServiceGroupRequest properties?
       serviceData.groupId = response.data.id;
 

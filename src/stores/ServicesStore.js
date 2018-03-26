@@ -144,7 +144,7 @@ export default class ServicesStore extends Store {
   @action async _createService({ recipeId, serviceData, redirect = true }) {
     const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
-    console.log(data.groupId)
+    // console.log(data.groupId)
 
     if (data.groupId === '') {
       data.order = this.stores.ui.nextServiceGroupOrder;
@@ -549,6 +549,7 @@ export default class ServicesStore extends Store {
     }
   }
 
+  // TODO: REFACTOR to AppStore
   _getUnreadMessageCountReaction() {
     const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
@@ -570,6 +571,21 @@ export default class ServicesStore extends Store {
         unreadIndirectMessageCount,
       });
     }
+
+    const serviceGroups = this.stores.serviceGroups.all;
+    serviceGroups.forEach((sg) => {
+      const serviceGroup = sg;
+
+      serviceGroup.unreadDirectMessageCount = serviceGroup.services
+        .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
+        .map(s => s.unreadDirectMessageCount)
+        .reduce((a, b) => a + b, 0);
+
+      serviceGroup.unreadIndirectMessageCount = serviceGroup.services
+        .filter(s => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
+        .map(s => s.unreadIndirectMessageCount)
+        .reduce((a, b) => a + b, 0);
+    });
   }
 
   _logoutReaction() {

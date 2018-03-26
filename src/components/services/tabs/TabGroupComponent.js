@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { sortableHandle } from 'react-sortable-multiple-hoc';
+import { observer } from 'mobx-react';
 
 const DragHandle = sortableHandle(props => <span>{props.title}</span>);
 
+@observer
 export default class TabGroupComponent extends Component {
   state = {
     collapsed: false,
@@ -12,8 +14,28 @@ export default class TabGroupComponent extends Component {
     const {
       item,
       services,
-      sorting
+      sorting,
+      showMessageBadgeWhenMutedSetting,
+      showMessageBadgesEvenWhenMuted,
     } = this.props;
+
+    let notificationBadge = null;
+    if (showMessageBadgeWhenMutedSetting && showMessageBadgesEvenWhenMuted) {
+      notificationBadge = (
+        <span>
+          {item.group.unreadDirectMessageCount > 0 && (
+            <span className="tab-item__message-count">
+              {item.group.unreadDirectMessageCount}
+            </span>
+          )}
+          {item.group.unreadIndirectMessageCount > 0
+            && item.group.unreadDirectMessageCount === 0
+            && // service.isIndirectMessageBadgeEnabled && // TODO: loop through group services beforehand
+            <span className="tab-item__message-count is-indirect">•</span>
+          }
+        </span>
+      );
+    }
 
     return (item.group || null) &&
       <div className={item.type === 'group' ? 'services__group' : ''}>
@@ -24,6 +46,7 @@ export default class TabGroupComponent extends Component {
               onClick={() => this.setState({ collapsed: !this.state.collapsed })}
             />
             <DragHandle title={item.group.name} />
+            {this.state.collapsed && <span>{notificationBadge}</span>}
           </div>
         }
         <div

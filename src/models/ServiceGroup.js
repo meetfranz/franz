@@ -7,6 +7,9 @@ export default class ServiceGroup {
   @observable name = '';
   @observable order = 99;
 
+  @observable unreadDirectMessageCount = 0;
+  @observable unreadIndirectMessageCount = 0;
+
   services = [];
 
   constructor(data) {
