@@ -154,6 +154,8 @@ export default class ServicesStore extends Store {
       data.order = serviceGroup.services.length;
     }
 
+    this.actions.ui.reorderServiceStructure(this.stores.ui.serviceGroupStructure);
+
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
     this.allServicesRequest.patch((result) => {
@@ -204,6 +206,8 @@ export default class ServicesStore extends Store {
         data.order = serviceGroup.services.length;
       }
     }
+
+    this.actions.ui.reorderServiceStructure({ structure: this.stores.ui.serviceGroupStructure });
 
     const request = this.updateServiceRequest.execute(serviceId, data);
 
