@@ -2,18 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { RouterStore } from 'mobx-react-router';
+import { defineMessages, intlShape } from 'react-intl';
 
 // import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import UserStore from '../../stores/UserStore';
 import ServiceStore from '../../stores/ServicesStore';
 import ServiceGroupsStore from '../../stores/ServiceGroupsStore';
 import UIStore from '../../stores/UIStore';
+import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
 
+const messages = defineMessages({
+  groupName: {
+    id: 'settings.services.newGroup',
+    defaultMessage: '!!!New Group',
+  },
+});
+
 @inject('stores', 'actions') @observer
 export default class ServicesScreen extends Component {
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   constructor() {
     super();
     this.createServiceGroup = this.createServiceGroup.bind(this);
@@ -28,6 +41,18 @@ export default class ServicesScreen extends Component {
   componentWillUnmount() {
     this.props.actions.service.resetFilter();
     this.props.actions.service.resetStatus();
+  }
+
+  prepareForm() {
+    const { intl } = this.context;
+
+    return new Form({
+      fields: {
+        groupName: {
+          placeholder: intl.formatMessage(messages.groupName),
+        },
+      },
+    });
   }
 
   deleteService() {
@@ -73,6 +98,8 @@ export default class ServicesScreen extends Component {
       allServices = services.filtered;
     }
 
+    const newGroupForm = this.prepareForm();
+
     return (
       <ServicesDashboard
         user={user.data}
@@ -92,6 +119,7 @@ export default class ServicesScreen extends Component {
         createServiceGroup={this.createServiceGroup}
         updateServiceGroup={this.updateServiceGroup}
         deleteServiceGroup={this.deleteServiceGroup}
+        newGroupForm={newGroupForm}
       />
     );
   }

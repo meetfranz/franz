@@ -146,6 +146,7 @@
   "settings.services.updatedInfo": "Your changes have been saved",
   "settings.services.deletedInfo": "Service has been deleted",
   "settings.services.groupPlaceholder": "Drag Service here",
+  "settings.services.newGroup": "New Group",
   "settings.app.headline": "Settings",
   "settings.app.headlineGeneral": "General",
   "settings.app.headlineLanguage": "Language",

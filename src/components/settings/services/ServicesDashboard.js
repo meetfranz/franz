@@ -8,7 +8,8 @@ import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
 import Appear from '../../ui/effects/Appear';
-import InputBox from '../../ui/InputBox';
+import Input from '../../ui/Input';
+import Button from '../../ui/Button';
 
 import Service from '../../../models/Service';
 import ServiceItem from './ServiceItem';
@@ -100,6 +101,14 @@ export default class ServicesDashboard extends Component {
     intl: intlShape,
   };
 
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.newGroupForm.submit({
+      onSuccess: form => this.props.createServiceGroup(form.$('groupName').value),
+      onError: error => console.log(error),
+    });
+  }
+
   render() {
     const {
       services,
@@ -114,9 +123,9 @@ export default class ServicesDashboard extends Component {
       retryServicesRequest,
       status,
       searchNeedle,
-      createServiceGroup,
       updateServiceGroup,
       deleteServiceGroup,
+      newGroupForm,
     } = this.props;
     const { intl } = this.context;
 
@@ -209,11 +218,19 @@ export default class ServicesDashboard extends Component {
               useDragHandleGroup
             />
           )}
-          <InputBox
-            onSave={createServiceGroup}
-            placeholder="New Group"
-            label="Add"
-          />
+          <div className="service-group--form">
+            <form onSubmit={e => this.onSubmit(e)} id="form">
+              <Input
+                field={newGroupForm.$('groupName')}
+                showLabel={false}
+              />
+              <Button
+                type="submit"
+                label="Add"
+                htmlForm="form"
+              />
+            </form>
+          </div>
         </div>
       </div>
     );
