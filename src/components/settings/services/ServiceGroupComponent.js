@@ -63,7 +63,7 @@ export default class ServiceGroupComponent extends Component {
           </div>
         }
         {services}
-        {item.type === 'group' &&
+        {item.type === 'group' && item.group.services.length === 0 &&
           <div>
             <span className="mdi mdi-cursor-move">{intl.formatMessage(messages.groupPlaceholder)}</span>
           </div>

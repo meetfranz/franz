@@ -45,7 +45,7 @@ export default class ServiceGroupsStore extends Store {
 
   // Actions
   @action async _createServiceGroup({ serviceGroupData, redirect }) {
-    console.log(serviceGroupData)
+    // console.log(serviceGroupData)
     const response = await this.createServiceGroupRequest.execute(serviceGroupData)._promise;
 
     this.allServiceGroupsRequest.patch((result) => {
