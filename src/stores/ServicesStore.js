@@ -143,6 +143,17 @@ export default class ServicesStore extends Store {
   // Actions
   @action async _createService({ recipeId, serviceData, redirect = true }) {
     const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+
+    console.log(data.groupId)
+
+    if (data.groupId === '') {
+      data.order = this.stores.ui.nextServiceGroupOrder;
+    } else {
+      const serviceGroup = this.stores.serviceGroups.one(data.groupId);
+      console.log(serviceGroup.services.length)
+      data.order = serviceGroup.services.length;
+    }
+
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
     this.allServicesRequest.patch((result) => {
@@ -184,6 +195,16 @@ export default class ServicesStore extends Store {
   @action async _updateService({ serviceId, serviceData, redirect = true }) {
     const service = this.one(serviceId);
     const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
+
+    if (service.groupId !== data.groupId) { // group ID changed
+      if (data.groupId === '') {
+        data.order = this.stores.ui.nextServiceGroupOrder;
+      } else {
+        const serviceGroup = this.stores.serviceGroups.one(data.groupId);
+        data.order = serviceGroup.services.length;
+      }
+    }
+
     const request = this.updateServiceRequest.execute(serviceId, data);
 
     const newData = serviceData;

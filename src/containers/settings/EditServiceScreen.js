@@ -9,6 +9,8 @@ import ServicesStore from '../../stores/ServicesStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
+import { sleep } from '../../helpers/async-helpers';
+
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
 import { required, url, oneRequired } from '../../helpers/validation-helpers';
@@ -50,10 +52,6 @@ const messages = defineMessages({
     id: 'settings.service.form.icon',
     defaultMessage: '!!!Custom icon',
   },
-  group: {
-    id: 'settings.service.form.group',
-    defaultMessage: '!!!Group',
-  },
 });
 
 @inject('stores', 'actions') @observer
@@ -66,13 +64,30 @@ export default class EditServiceScreen extends Component {
     gaPage('Settings/Service/Edit');
   }
 
-  onSubmit(data) {
+  async onSubmit(data) {
     const { action } = this.props.router.params;
-    const { recipes, services } = this.props.stores;
+    const { recipes, services, serviceGroups, ui } = this.props.stores;
     const { createService, updateService } = this.props.actions.service;
+    const { createServiceGroup } = this.props.actions.serviceGroup;
 
     const serviceData = data;
     serviceData.isMuted = !serviceData.isMuted;
+
+    if (serviceData.groupId === 'new-group') {
+      createServiceGroup({
+        serviceGroupData: {
+          name: serviceData.groupName,
+          order: ui.nextServiceGroupOrder,
+        },
+      });
+      const response = await serviceGroups.createServiceGroupRequest._promise;
+      console.log(response)
+      // TODO: check for createServiceGroupRequest properties?
+      serviceData.groupId = response.data.id;
+
+      await sleep(10); // need to wait for service group to be patched in
+      // console.log(serviceGroups.one(response.data.id))
+    }
 
     if (action === 'edit') {
       updateService({ serviceId: services.activeSettings.id, serviceData });
@@ -90,6 +105,7 @@ export default class EditServiceScreen extends Component {
       label: 'None',
     });
     serviceGroupOptions.push({
+      value: 'separator-top',
       disabled: true,
       label: '──────────────────',
     });
@@ -101,11 +117,13 @@ export default class EditServiceScreen extends Component {
       });
     });
     serviceGroupOptions.push({
+      value: 'separator-bottom',      
       disabled: true,
       label: '──────────────────',
     });
     serviceGroupOptions.push({
       label: 'New Group...',
+      value: 'new-group',
     });
 
     const config = {
@@ -142,10 +160,12 @@ export default class EditServiceScreen extends Component {
           type: 'file',
         },
         groupId: {
-          label: intl.formatMessage(messages.group),
           value: service.groupId,
           options: serviceGroupOptions,
           default: '',
+        },
+        groupName: {
+          placeholder: 'Group Name',
         },
       },
     };
@@ -264,6 +284,8 @@ export default class EditServiceScreen extends Component {
         isDeleting={services.deleteServiceRequest.isExecuting}
         onSubmit={d => this.onSubmit(d)}
         onDelete={() => this.deleteService()}
+        createServiceGroup={this.props.actions.serviceGroup.createServiceGroup}
+        nextServiceGroupOrder={this.props.stores.ui.nextServiceGroupOrder}
       />
     );
   }

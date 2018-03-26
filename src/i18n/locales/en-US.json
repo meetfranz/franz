@@ -124,6 +124,7 @@
   "settings.service.form.indirectMessages": "Show message badge for all new messages",
   "settings.service.form.enableAudio": "Enable audio",
   "settings.service.form.isMutedInfo": "When disabled, all notification sounds and audio playback are muted",
+  "settings.service.form.headlineGroup": "Group",
   "settings.service.form.headlineNotifications": "Notifications",
   "settings.service.form.headlineBadges": "Unread message badges",
   "settings.service.form.headlineGeneral": "General",

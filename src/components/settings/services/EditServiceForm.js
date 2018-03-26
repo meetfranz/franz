@@ -145,6 +145,15 @@ export default class EditServiceForm extends Component {
           values.iconFile = files[0];
         }
 
+//         if (form.$('groupId').value === 'new-group') {
+//           values.groupId = await this.props.createServiceGroup({
+//             serviceGroupData: {
+//               name: form.$('groupName').value,
+//               order: this.props.nextServiceGroupOrder,
+//             },
+//           });
+//         }
+// console.log(values.groupId)
         if (recipe.validateUrl && values.customUrl) {
           this.setState({ isValidatingCustomUrl: true });
           try {
@@ -287,6 +296,9 @@ export default class EditServiceForm extends Component {
                 <div className="settings__settings-group">
                   <h3>{intl.formatMessage(messages.headlineGroup)}</h3>
                   <Select field={form.$('groupId')} showLabel={false} />
+                  {form.$('groupId').value === 'new-group' && (
+                    <Input field={form.$('groupName')} showLabel={false} focus />
+                  )}
                 </div>
 
                 <div className="settings__settings-group">

@@ -45,6 +45,7 @@ export default class ServiceGroupsStore extends Store {
 
   // Actions
   @action async _createServiceGroup({ serviceGroupData, redirect }) {
+    console.log(serviceGroupData)
     const response = await this.createServiceGroupRequest.execute(serviceGroupData)._promise;
 
     this.allServiceGroupsRequest.patch((result) => {
@@ -56,8 +57,9 @@ export default class ServiceGroupsStore extends Store {
 
     if (redirect) {
       this.stores.router.push('/settings/services');
-      gaEvent('Service Group', 'create');
     }
+
+    gaEvent('Service Group', 'create');
   }
 
   @action async _updateServiceGroup({ serviceGroupId, serviceGroupData }) {
@@ -71,6 +73,8 @@ export default class ServiceGroupsStore extends Store {
 
     await request._promise;
     this.actionStatus = request.result.status;
+
+    gaEvent('Service Group', 'update');    
   }
 
   @action async _deleteServiceGroup({ serviceGroupId, redirect }) {
