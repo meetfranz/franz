@@ -4,8 +4,8 @@ import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 
 import SortableComponent from '../../settings/services/SortableComponent';
 import TabItem from './TabItem';
+import TabBarSortableList from './TabBarSortableList';
 import TabGroupComponent from './TabGroupComponent';
-// import TabBarSortableList from './TabBarSortableList';
 
 const tabItem = ({
   item: service,
@@ -93,6 +93,7 @@ export default class TabBar extends Component {
 
   render() {
     const {
+      isPremium,
       groups,
       services,
       setActive,
@@ -108,7 +109,7 @@ export default class TabBar extends Component {
 
     return (
       <div>
-        {/* <TabBarSortableList
+        {!isPremium && <TabBarSortableList
           groups={groups}
           services={services}
           setActive={setActive}
@@ -128,20 +129,16 @@ export default class TabBar extends Component {
           helperClass="is-reordering"
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
-        /> */}
-        <SortableComponent
+        />}
+        {isPremium && <SortableComponent
           {...this.props}
           groups={groups}
           reorder={this.props.actions.ui.reorderServiceStructure}
           distance={1}
-          // updateServiceGroup={updateServiceGroup}
-          // deleteServiceGroup={deleteServiceGroup}
-          // goTo={goTo}
-          // shouldCancelStart={() => searchNeedle !== null && searchNeedle !== ''}
           serviceItem={tabItem}
           groupComponent={groupComponent}
           useDragHandleGroup
-        />
+        />}
       </div>
     );
   }

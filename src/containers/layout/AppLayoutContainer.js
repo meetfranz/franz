@@ -32,6 +32,7 @@ export default class AppLayoutContainer extends Component {
       settings,
       globalError,
       requests,
+      user,
     } = this.props.stores;
 
     const {
@@ -75,6 +76,7 @@ export default class AppLayoutContainer extends Component {
 
     const sidebar = (
       <Sidebar
+        isPremium={user.data.isPremium}
         groups={ui.serviceGroupStructure}
         services={services.allDisplayed}
         setActive={setActive}
