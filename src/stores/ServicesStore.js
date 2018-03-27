@@ -146,15 +146,16 @@ export default class ServicesStore extends Store {
 
     // console.log(data.groupId)
 
-    if (data.groupId === '') {
-      data.order = this.stores.ui.nextServiceGroupOrder;
-    } else {
-      const serviceGroup = this.stores.serviceGroups.one(data.groupId);
-      // console.log(serviceGroup.services.length)
-      data.order = serviceGroup.services.length;
+    if (data.groupId !== undefined) {
+      if (data.groupId === '') {
+        data.order = this.stores.ui.nextServiceGroupOrder;
+      } else {
+        const serviceGroup = this.stores.serviceGroups.one(data.groupId);
+        // console.log(serviceGroup.services.length)
+        data.order = serviceGroup.services.length;
+      }
+      this.actions.ui.reorderServiceStructure({ structure: this.stores.ui.serviceGroupStructure });
     }
-
-    this.actions.ui.reorderServiceStructure(this.stores.ui.serviceGroupStructure);
 
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
@@ -198,16 +199,15 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
     const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
 
-    if (service.groupId !== data.groupId) { // group ID changed
+    if (data.groupId !== undefined && service.groupId !== data.groupId) { // group ID changed
       if (data.groupId === '') {
         data.order = this.stores.ui.nextServiceGroupOrder;
       } else {
         const serviceGroup = this.stores.serviceGroups.one(data.groupId);
         data.order = serviceGroup.services.length;
       }
+      this.actions.ui.reorderServiceStructure({ structure: this.stores.ui.serviceGroupStructure });
     }
-
-    this.actions.ui.reorderServiceStructure({ structure: this.stores.ui.serviceGroupStructure });
 
     const request = this.updateServiceRequest.execute(serviceId, data);
 

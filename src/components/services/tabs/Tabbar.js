@@ -4,7 +4,6 @@ import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 
 import SortableComponent from '../../settings/services/SortableComponent';
 import TabItem from './TabItem';
-import TabBarSortableList from './TabBarSortableList';
 import TabGroupComponent from './TabGroupComponent';
 
 const tabItem = ({
@@ -15,6 +14,8 @@ const tabItem = ({
   toggleNotifications,
   toggleAudio,
   deleteService,
+  disableService,
+  enableService,
   openSettings,
   showMessageBadgeWhenMutedSetting,
   showMessageBadgesEvenWhenMuted,
@@ -29,25 +30,20 @@ const tabItem = ({
     toggleNotifications={() => toggleNotifications({ serviceId: service.id })}
     toggleAudio={() => toggleAudio({ serviceId: service.id })}
     deleteService={() => deleteService({ serviceId: service.id })}
-    disableService={() => this.disableService({ serviceId: service.id })}
-    enableService={() => this.enableService({ serviceId: service.id })}
+    disableService={() => disableService({ serviceId: service.id })}
+    enableService={() => enableService({ serviceId: service.id })}
     openSettings={openSettings}
     showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
     showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
   />;
 
-const groupComponent = TabGroupComponent;
-
-
 @inject('stores', 'actions') @observer // TODO: move to container
 export default class TabBar extends Component {
   static propTypes = {
-    services: MobxPropTypes.arrayOrObservableArray.isRequired,
     setActive: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     enableToolTip: PropTypes.func.isRequired,
     disableToolTip: PropTypes.func.isRequired,
-    reorder: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     toggleNotifications: PropTypes.func.isRequired,
     toggleAudio: PropTypes.func.isRequired,
@@ -57,17 +53,13 @@ export default class TabBar extends Component {
     showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   }
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
+  onSortEnd = () => {
     const {
       enableToolTip,
-      reorder,
     } = this.props;
 
     enableToolTip();
-    reorder({ oldIndex, newIndex });
   };
-
-  shouldPreventSorting = event => event.target.tagName !== 'LI';
 
   toggleService = ({ serviceId, isEnabled }) => {
     const { updateService } = this.props;
@@ -93,9 +85,7 @@ export default class TabBar extends Component {
 
   render() {
     const {
-      isPremium,
       groups,
-      services,
       setActive,
       openSettings,
       disableToolTip,
@@ -109,13 +99,18 @@ export default class TabBar extends Component {
 
     return (
       <div>
-        {/* {!isPremium && <TabBarSortableList
+        {<SortableComponent
+          {...this.props}
           groups={groups}
-          services={services}
+          reorder={this.props.actions.ui.reorderServiceStructure}
+          distance={1}
+          serviceItem={tabItem}
+          groupComponent={TabGroupComponent}
+          useDragHandleGroup
+
           setActive={setActive}
           onSortEnd={this.onSortEnd}
           onSortStart={disableToolTip}
-          shouldCancelStart={this.shouldPreventSorting}
           reload={reload}
           toggleNotifications={toggleNotifications}
           toggleAudio={toggleAudio}
@@ -123,21 +118,8 @@ export default class TabBar extends Component {
           disableService={args => this.disableService(args)}
           enableService={args => this.enableService(args)}
           openSettings={openSettings}
-          distance={20}
-          axis="y"
-          lockAxis="y"
-          helperClass="is-reordering"
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
-        />} */}
-        {<SortableComponent
-          {...this.props}
-          groups={groups}
-          reorder={this.props.actions.ui.reorderServiceStructure}
-          distance={1}
-          serviceItem={tabItem}
-          groupComponent={groupComponent}
-          useDragHandleGroup
         />}
       </div>
     );
