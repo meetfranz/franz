@@ -46,6 +46,7 @@ export default class Select extends Component {
           id={field.id}
           defaultValue={field.value}
           className="franz-form__select"
+          disabled={field.disabled}
         >
           {field.options.map(type => (
             <option

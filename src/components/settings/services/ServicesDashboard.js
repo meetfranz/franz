@@ -111,6 +111,7 @@ export default class ServicesDashboard extends Component {
 
   render() {
     const {
+      user,
       services,
       serviceGroups,
       reorder,
@@ -218,7 +219,7 @@ export default class ServicesDashboard extends Component {
               useDragHandleGroup
             />
           )}
-          <div className="service-group--form">
+          {user.isPremium && <div className="service-group--form">
             <form onSubmit={e => this.onSubmit(e)} id="form">
               <Input
                 field={newGroupForm.$('groupName')}
@@ -230,7 +231,7 @@ export default class ServicesDashboard extends Component {
                 htmlForm="form"
               />
             </form>
-          </div>
+          </div>}
         </div>
       </div>
     );

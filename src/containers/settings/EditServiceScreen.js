@@ -177,6 +177,7 @@ export default class EditServiceScreen extends Component {
           value: service.groupId,
           options: serviceGroupOptions,
           default: '',
+          disabled: !this.props.stores.user.data.isPremium,
         },
         groupName: {
           placeholder: intl.formatMessage(messages.groupName),
