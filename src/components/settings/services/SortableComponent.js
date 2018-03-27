@@ -91,7 +91,10 @@ export default class SortableComponent extends Component {
   onSortStart = () => {
     this.setState({ sorting: true });
 
-    this.props.onSortStart();
+    if (typeof this.props.onSortStart === 'function') {
+      this.props.onSortStart();
+    }
+    
   }
 
   onDeleteGroup = (index) => {
@@ -116,7 +119,9 @@ export default class SortableComponent extends Component {
     this.setState({ sorting: false });
     this.props.reorder({ structure: arrayMove(this.props.groups, oldIndex, newIndex) });
 
-    this.props.onSortEnd();
+    if (typeof this.props.onSortEnd === 'function') {
+      this.props.onSortEnd();
+    }
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
@@ -162,7 +167,9 @@ export default class SortableComponent extends Component {
     this.props.reorder({ structure });
     // console.timeEnd('onSortItemsEnd')
 
-    this.props.onSortItemsEnd();
+    if (typeof this.props.onSortItemsEnd === 'function') {
+      this.props.onSortItemsEnd();
+    }
   }
 
   render() {

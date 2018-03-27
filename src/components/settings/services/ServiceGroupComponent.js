@@ -46,7 +46,7 @@ export default class ServiceGroupComponent extends Component {
           <div className="services__group-header">
             <DragHandle />
             <InlineEdit
-              text={item.group.name}
+              text={this.state.title}
               paramName={`group-header-${id}`}
               change={this.dataChanged}
               editing={this.state.editing}
