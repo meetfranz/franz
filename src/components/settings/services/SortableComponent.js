@@ -44,8 +44,8 @@ const SortableGroup = sortableElement(props =>
         isMultiple
         helperCollision={{ top: 0, bottom: 0 }}
         lockAxis="y"
-        // goTo={props.goTo}
         useDragHandle={props.useDragHandleProp}
+        // onSortStart={props.onSortItemsStart}
       />
     }
     sorting={props.sorting}
@@ -65,7 +65,6 @@ const SortableListGroups = sortableContainer((props) => {
         onDeleteGroup={props.onDeleteGroup}
         updateServiceGroup={props.updateServiceGroup}
         deleteServiceGroup={props.deleteServiceGroup}
-        // goTo={goTo}
         shouldCancelStart={props.shouldCancelStartProp}
         useDragHandle={props.useDragHandleProp}
         intl={props.intl}
@@ -89,6 +88,12 @@ export default class SortableComponent extends Component {
     sorting: false,
   };
 
+  onSortStart = () => {
+    this.setState({ sorting: true });
+
+    this.props.onSortStart();
+  }
+
   onDeleteGroup = (index) => {
     const structure = this.props.groups;
     const group = structure[index];
@@ -110,6 +115,8 @@ export default class SortableComponent extends Component {
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.setState({ sorting: false });
     this.props.reorder({ structure: arrayMove(this.props.groups, oldIndex, newIndex) });
+
+    this.props.onSortEnd();
   }
 
   onSortItemsEnd = ({ newListIndex, newIndex, items }) => {
@@ -154,6 +161,8 @@ export default class SortableComponent extends Component {
     // reorder data model
     this.props.reorder({ structure });
     // console.timeEnd('onSortItemsEnd')
+
+    this.props.onSortItemsEnd();
   }
 
   render() {
@@ -165,7 +174,7 @@ export default class SortableComponent extends Component {
         <SortableListGroups
           {...this.props}
           items={this.props.groups}
-          onSortStart={() => this.setState({ sorting: true })}
+          onSortStart={this.onSortStart}
           sorting={this.state.sorting}
           onSortEnd={this.onSortEnd}
           onSortItemsEnd={this.onSortItemsEnd}
@@ -173,13 +182,10 @@ export default class SortableComponent extends Component {
           lockAxis="y"
           distance={0}
           distanceProp={this.props.distance}
-          // pressDelay={150}
           onDeleteGroup={this.onDeleteGroup}
           updateServiceGroup={this.props.updateServiceGroup}
           deleteServiceGroup={this.props.deleteServiceGroup}
-          // goTo={this.props.goTo}
           shouldCancelStartProp={this.props.shouldCancelStart}
-          // shouldCancelStart={this.props.shouldCancelStart}
           useDragHandle={this.props.useDragHandleGroup}
           useDragHandleProp={this.props.useDragHandle}
           intl={intl}

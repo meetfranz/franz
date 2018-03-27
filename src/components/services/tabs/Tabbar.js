@@ -55,14 +55,6 @@ export default class TabBar extends Component {
     showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   }
 
-  onSortEnd = () => {
-    const {
-      enableToolTip,
-    } = this.props;
-
-    enableToolTip();
-  };
-
   toggleService = ({ serviceId, isEnabled }) => {
     const { updateService } = this.props;
 
@@ -91,6 +83,7 @@ export default class TabBar extends Component {
       setActive,
       openSettings,
       disableToolTip,
+      enableToolTip,
       reload,
       toggleNotifications,
       toggleAudio,
@@ -111,8 +104,10 @@ export default class TabBar extends Component {
           useDragHandleGroup
 
           setActive={setActive}
-          onSortEnd={this.onSortEnd}
+          onSortEnd={enableToolTip}
           onSortStart={disableToolTip}
+          onSortItemsEnd={enableToolTip}
+          onSortItemsStart={disableToolTip}
           reload={reload}
           toggleNotifications={toggleNotifications}
           toggleAudio={toggleAudio}
