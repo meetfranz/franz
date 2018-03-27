@@ -109,7 +109,7 @@ export default class TabBar extends Component {
 
     return (
       <div>
-        {!isPremium && <TabBarSortableList
+        {/* {!isPremium && <TabBarSortableList
           groups={groups}
           services={services}
           setActive={setActive}
@@ -129,8 +129,8 @@ export default class TabBar extends Component {
           helperClass="is-reordering"
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
-        />}
-        {isPremium && <SortableComponent
+        />} */}
+        {<SortableComponent
           {...this.props}
           groups={groups}
           reorder={this.props.actions.ui.reorderServiceStructure}

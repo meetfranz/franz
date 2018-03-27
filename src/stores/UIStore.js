@@ -41,6 +41,13 @@ export default class UIStore extends Store {
   }
 
   @computed get serviceGroupStructure() {
+    if (this.stores.user.data.isPremium) {
+      return this.groupStructure;
+    }
+    return this.flatServiceStructure;
+  }
+
+  @computed get groupStructure() {
     const serviceGroups = this.stores.serviceGroups.all;
     const services = this.stores.services.filtered;
 
@@ -109,6 +116,21 @@ export default class UIStore extends Store {
     });
 
     return paddedGroups;
+  }
+
+  @computed get flatServiceStructure() {
+    const services = this.stores.services.filtered;
+    const groups = [];
+
+    services.forEach((service) => {
+      groups.push({
+        type: 'root',
+        group: new ServiceGroup({ name: 'Uncategorized' }),
+        services: [service],
+      });
+    });
+
+    return groups;
   }
 
   @action _reorderServiceStructure({ structure }) {
