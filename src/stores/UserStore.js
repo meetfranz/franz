@@ -9,6 +9,8 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 
+const debug = require('debug')('UserStore');
+
 // TODO: split stores into UserStore and AuthStore
 export default class UserStore extends Store {
   BASE_ROUTE = '/auth';
@@ -67,6 +69,11 @@ export default class UserStore extends Store {
       this._requireAuthenticatedUser,
       this._getUserData.bind(this),
     ]);
+  }
+
+  setup() {
+    // Data migration
+    this._migrateUserLocale();
   }
 
   // Routes
@@ -290,6 +297,19 @@ export default class UserStore extends Store {
     } else {
       this.authToken = null;
       this.id = null;
+    }
+  }
+
+  async _migrateUserLocale() {
+    await this.getUserInfoRequest._promise;
+
+    if (!this.data.locale) {
+      debug('Migrate "locale" to user data');
+      this.actions.user.update({
+        userData: {
+          locale: this.stores.app.locale,
+        },
+      });
     }
   }
 }

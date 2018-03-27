@@ -91,15 +91,13 @@ export default class EditSettingsScreen extends Component {
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
-        // spellcheckingLanguage: settingsData.spellcheckingLanguage,
-        locale: settingsData.locale,
-        beta: settingsData.beta,
       },
     });
 
     user.update({
       userData: {
         beta: settingsData.beta,
+        locale: settingsData.locale,
       },
     });
   }
@@ -169,12 +167,6 @@ export default class EditSettingsScreen extends Component {
           value: settings.all.enableSpellchecking,
           default: DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
-        // spellcheckingLanguage: {
-        //   label: intl.formatMessage(messages.spellcheckingLanguage),
-        //   value: settings.all.spellcheckingLanguage,
-        //   options: spellcheckerLocales,
-        //   default: DEFAULT_APP_SETTINGS.spellcheckingLanguage,
-        // },
         locale: {
           label: intl.formatMessage(messages.language),
           value: app.locale,

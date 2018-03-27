@@ -15,6 +15,8 @@ import { gaEvent } from '../lib/analytics';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
+const debug = require('debug')('AppStore');
+
 const { app } = remote;
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
@@ -279,13 +281,15 @@ export default class AppStore extends Store {
   }
 
   _setLocale() {
-    const locale = this.stores.settings.all.locale;
+    const { locale } = this.stores.user.data;
 
     if (locale && Object.prototype.hasOwnProperty.call(locales, locale) && locale !== this.locale) {
       this.locale = locale;
     } else if (!locale) {
       this.locale = this._getDefaultLocale();
     }
+
+    debug(`Set locale to "${this.locale}"`);
   }
 
   _getDefaultLocale() {
