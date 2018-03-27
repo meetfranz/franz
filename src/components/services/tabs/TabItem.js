@@ -75,7 +75,6 @@ class TabItem extends Component {
     const {
       service,
       clickHandler,
-      shortcutIndex,
       reload,
       toggleNotifications,
       toggleAudio,
@@ -85,6 +84,7 @@ class TabItem extends Component {
       openSettings,
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
+      serviceOrder,
     } = this.props;
     const { intl } = this.context;
 
@@ -147,6 +147,8 @@ class TabItem extends Component {
       );
     }
 
+    const order = serviceOrder[service.id] + 1;
+
     return (
       <div
         className={classnames({
@@ -157,7 +159,7 @@ class TabItem extends Component {
         })}
         onClick={clickHandler}
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}
-        data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
+        data-tip={`${service.name} ${order <= 9 ? `(${ctrlKey}+${order})` : ''}`}
       >
         <img
           src={service.icon}

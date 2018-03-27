@@ -676,20 +676,26 @@ export default class FranzMenu {
 
   @computed get serviceTpl() {
     const services = this.stores.services.allDisplayed;
+    const serviceOrder = this.stores.ui.serviceOrder;
+    
+    const serviceTpl = [];
 
     if (this.stores.user.isLoggedIn) {
-      return services.map((service, i) => ({
-        label: this._getServiceName(service),
-        accelerator: i <= 9 ? `${cmdKey}+${i + 1}` : null,
-        type: 'radio',
-        checked: service.isActive,
-        click: () => {
-          this.actions.service.setActive({ serviceId: service.id });
-        },
-      }));
+      services.forEach((service) => {
+        const order = serviceOrder[service.id];
+        serviceTpl[order] = {
+          label: this._getServiceName(service),
+          accelerator: order < 9 ? `${cmdKey}+${order + 1}` : null,
+          type: 'radio',
+          checked: service.isActive,
+          click: () => {
+            this.actions.service.setActive({ serviceId: service.id });
+          },
+        };
+      });
     }
 
-    return [];
+    return serviceTpl;
   }
 
   _getServiceName(service) {

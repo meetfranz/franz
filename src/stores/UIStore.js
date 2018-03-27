@@ -169,7 +169,28 @@ export default class UIStore extends Store {
     return groups;
   }
 
+  // TODO: add @computed?
   get nextServiceGroupOrder() {
     return this._removePadding(this.serviceGroupStructure).length;
+  }
+
+  @computed get serviceOrder() {
+    const metaGroups = this._removePadding(this.serviceGroupStructure);
+
+    const serviceOrder = {};
+    let index = 0;
+    metaGroups.forEach((metaGroup) => {
+      if (metaGroup.type === 'root') {
+        serviceOrder[metaGroup.services[0].id] = index;
+        index += 1;
+      } else if (metaGroup.type === 'group') {
+        metaGroup.services.forEach((service) => {
+          serviceOrder[service.id] = index;
+          index += 1;
+        });
+      }
+    });
+
+    return serviceOrder;
   }
 }

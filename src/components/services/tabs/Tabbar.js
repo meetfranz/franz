@@ -19,6 +19,7 @@ const tabItem = ({
   openSettings,
   showMessageBadgeWhenMutedSetting,
   showMessageBadgesEvenWhenMuted,
+  serviceOrder,
 }) =>
   <TabItem
     key={service.id}
@@ -35,6 +36,7 @@ const tabItem = ({
     openSettings={openSettings}
     showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
     showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
+    serviceOrder={serviceOrder}
   />;
 
 @inject('stores', 'actions') @observer // TODO: move to container
@@ -120,6 +122,7 @@ export default class TabBar extends Component {
           openSettings={openSettings}
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
+          serviceOrder={this.props.stores.ui.serviceOrder}
         />}
       </div>
     );
