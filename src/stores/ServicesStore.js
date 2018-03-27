@@ -86,13 +86,13 @@ export default class ServicesStore extends Store {
   }
 
   @computed get allDisplayed() {
-    return this.stores.settings.all.showDisabledServices ? this.all : this.enabled;
+    return this.stores.settings.all.service.showDisabledServices ? this.all : this.enabled;
   }
 
   // This is just used to avoid unnecessary rerendering of resource-heavy webviews 
   @computed get allDisplayedUnordered() {
     const services = this.allServicesRequest.execute().result || [];
-    return this.stores.settings.all.showDisabledServices ? services : services.filter(service => service.isEnabled);
+    return this.stores.settings.all.service.showDisabledServices ? services : services.filter(service => service.isEnabled);
   }
 
   @computed get filtered() {
@@ -334,7 +334,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.isAppMuted) {
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
         Object.assign(options, {
           silent: true,
         });
@@ -434,7 +434,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _reorder({ oldIndex, newIndex }) {
-    const showDisabledServices = this.stores.settings.all.showDisabledServices;
+    const showDisabledServices = this.stores.settings.all.service.showDisabledServices;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
 
@@ -512,7 +512,8 @@ export default class ServicesStore extends Store {
 
     if (service) {
       this.actions.settings.update({
-        settings: {
+        type: 'service',
+        data: {
           activeService: service.id,
         },
       });
@@ -520,7 +521,7 @@ export default class ServicesStore extends Store {
   }
 
   _mapActiveServiceToServiceModelReaction() {
-    const { activeService } = this.stores.settings.all;
+    const { activeService } = this.stores.settings.all.service;
     if (this.allDisplayed.length) {
       this.allDisplayed.map(service => Object.assign(service, {
         isActive: activeService ? activeService === service.id : this.allDisplayed[0].id === service.id,
@@ -529,7 +530,7 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
-    const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
+    const showMessageBadgeWhenMuted = this.stores.settings.all.app.showMessageBadgeWhenMuted;
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
 
     const unreadDirectMessageCount = this.allDisplayed

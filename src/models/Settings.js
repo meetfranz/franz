@@ -2,19 +2,38 @@ import { observable, extendObservable } from 'mobx';
 import { DEFAULT_APP_SETTINGS } from '../config';
 
 export default class Settings {
-  @observable autoLaunchInBackground = DEFAULT_APP_SETTINGS.autoLaunchInBackground;
-  @observable runInBackground = DEFAULT_APP_SETTINGS.runInBackground;
-  @observable enableSystemTray = DEFAULT_APP_SETTINGS.enableSystemTray;
-  @observable minimizeToSystemTray = DEFAULT_APP_SETTINGS.minimizeToSystemTray;
-  @observable showDisabledServices = DEFAULT_APP_SETTINGS.showDisabledServices;
-  @observable showMessageBadgeWhenMuted = DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted;
-  @observable enableSpellchecking = DEFAULT_APP_SETTINGS.enableSpellchecking;
-  @observable locale = DEFAULT_APP_SETTINGS.locale;
-  @observable beta = DEFAULT_APP_SETTINGS.beta;
-  @observable isAppMuted = DEFAULT_APP_SETTINGS.isAppMuted;
+  @observable app = {
+    autoLaunchInBackground: DEFAULT_APP_SETTINGS.autoLaunchInBackground,
+    runInBackground: DEFAULT_APP_SETTINGS.runInBackground,
+    enableSystemTray: DEFAULT_APP_SETTINGS.enableSystemTray,
+    minimizeToSystemTray: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+    isAppMuted: DEFAULT_APP_SETTINGS.isAppMuted,
+    showMessageBadgeWhenMuted: DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted,
+    showDisabledServices: DEFAULT_APP_SETTINGS.showDisabledServices,
+    enableSpellchecking: DEFAULT_APP_SETTINGS.enableSpellchecking,
+    locale: DEFAULT_APP_SETTINGS.locale,
+    beta: DEFAULT_APP_SETTINGS.beta,
 
-  constructor(data) {
-    Object.assign(this, data);
+  }
+
+  @observable service = {
+    activeService: DEFAULT_APP_SETTINGS.autoLaunchInBackground,
+  }
+
+  @observable group = {
+    collapsed: [],
+    disabled: [],
+  }
+
+  @observable stats = {
+    appStarts: 0,
+  }
+
+  constructor({ app, service, group, stats }) {
+    Object.assign(this.app, app);
+    Object.assign(this.service, service);
+    Object.assign(this.group, group);
+    Object.assign(this.stats, stats);
   }
 
   update(data) {
