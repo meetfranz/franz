@@ -86,13 +86,13 @@ export default class ServicesStore extends Store {
   }
 
   @computed get allDisplayed() {
-    return this.stores.settings.all.service.showDisabledServices ? this.all : this.enabled;
+    return this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
   }
 
   // This is just used to avoid unnecessary rerendering of resource-heavy webviews 
   @computed get allDisplayedUnordered() {
     const services = this.allServicesRequest.execute().result || [];
-    return this.stores.settings.all.service.showDisabledServices ? services : services.filter(service => service.isEnabled);
+    return this.stores.settings.all.app.showDisabledServices ? services : services.filter(service => service.isEnabled);
   }
 
   @computed get filtered() {
@@ -434,7 +434,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _reorder({ oldIndex, newIndex }) {
-    const showDisabledServices = this.stores.settings.all.service.showDisabledServices;
+    const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
 
@@ -554,7 +554,10 @@ export default class ServicesStore extends Store {
 
   _logoutReaction() {
     if (!this.stores.user.isLoggedIn) {
-      this.actions.settings.remove({ key: 'activeService' });
+      this.actions.settings.remove({
+        type: 'service',
+        key: 'activeService',
+      });
       this.allServicesRequest.invalidate().reset();
     }
   }
@@ -562,7 +565,7 @@ export default class ServicesStore extends Store {
   _shareSettingsWithServiceProcess() {
     this.actions.service.sendIPCMessageToAllServices({
       channel: 'settings-update',
-      args: this.stores.settings.all,
+      args: this.stores.settings.all.app,
     });
   }
 
