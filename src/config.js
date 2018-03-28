@@ -21,6 +21,7 @@ export const DEFAULT_APP_SETTINGS = {
   fallbackLocale: 'en-US',
   beta: false,
   isAppMuted: false,
+  enableGPUAcceleration: true,
 };
 
 export const FRANZ_SERVICE_REQUEST = 'http://bit.ly/franz-service-request';

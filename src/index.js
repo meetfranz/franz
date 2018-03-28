@@ -12,6 +12,8 @@ import handleDeepLink from './electron/deepLinking';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
+const debug = require('debug')('App');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -56,6 +58,12 @@ if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESK
 
 // Initialize Settings
 const settings = new Settings();
+
+// Disable GPU acceleration
+if (!settings.get('enableGPUAcceleration')) {
+  debug('Disable GPU Acceleration');
+  app.disableHardwareAcceleration();
+}
 
 const createWindow = () => {
   // Remember window size

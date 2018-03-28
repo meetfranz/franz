@@ -51,6 +51,10 @@ const messages = defineMessages({
     id: 'settings.app.form.enableSpellchecking',
     defaultMessage: '!!!Enable spell checking',
   },
+  enableGPUAcceleration: {
+    id: 'settings.app.form.enableGPUAcceleration',
+    defaultMessage: '!!!Enable GPU Acceleration',
+  },
   spellcheckingLanguage: {
     id: 'settings.app.form.spellcheckingLanguage',
     defaultMessage: '!!!Language for spell checking',
@@ -85,6 +89,7 @@ export default class EditSettingsScreen extends Component {
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
@@ -154,6 +159,11 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.enableSpellchecking),
           value: settings.all.app.enableSpellchecking,
           default: DEFAULT_APP_SETTINGS.enableSpellchecking,
+        },
+        enableGPUAcceleration: {
+          label: intl.formatMessage(messages.enableGPUAcceleration),
+          value: settings.all.app.enableGPUAcceleration,
+          default: DEFAULT_APP_SETTINGS.enableGPUAcceleration,
         },
         locale: {
           label: intl.formatMessage(messages.language),
