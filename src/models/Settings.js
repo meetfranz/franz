@@ -5,7 +5,7 @@ export default class Settings {
   @observable app = DEFAULT_APP_SETTINGS
 
   @observable service = {
-    activeService: DEFAULT_APP_SETTINGS.autoLaunchInBackground,
+    activeService: '',
   }
 
   @observable group = {
