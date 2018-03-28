@@ -21,22 +21,27 @@ export default class SettingsStore extends Store {
     this.actions.settings.remove.listen(this._remove.bind(this));
   }
 
+  setup() {
+    this._migrate();
+  }
+
   @computed get all() {
     return new SettingsModel({
       app: this.appSettingsRequest.execute().result || {},
       service: localStorage.getItem('service') || {},
       group: localStorage.getItem('group') || {},
       stats: localStorage.getItem('stats') || {},
+      migration: localStorage.getItem('migration') || {},
     });
   }
 
   @action async _update({ type, data }) {
-    debug('Update settings', type, data, this.all);
     const appSettings = this.all;
     if (type !== 'app') {
+      debug('Update settings', type, data, this.all);
       localStorage.setItem(type, Object.assign(appSettings[type], data));
     } else {
-      debug('Store app settings on file system', type, data);
+      debug('Update settings on file system', type, data);
       this.updateAppSettingsRequest.execute(data);
 
       this.appSettingsRequest.patch((result) => {
@@ -46,18 +51,64 @@ export default class SettingsStore extends Store {
     }
   }
 
-  @action async _remove({ key }) {
-    const appSettings = this.all;
+  @action async _remove({ type, key }) {
+    if (type === 'app') return; // app keys can't be deleted
+
+    const appSettings = this.all[type];
     if (Object.hasOwnProperty.call(appSettings, key)) {
       delete appSettings[key];
-      localStorage.setItem('app', appSettings);
-    }
 
-    this._shareSettingsWithMainProcess();
+      this.actions.settings.update({
+        type,
+        data: appSettings,
+      });
+    }
   }
 
   // Reactions
   _shareSettingsWithMainProcess() {
     ipcRenderer.send('settings', this.all);
+  }
+
+  // Helper
+  _migrate() {
+    const legacySettings = localStorage.getItem('app');
+
+    if (!this.all.migration['5.0.0-beta.17-settings']) {
+      this.actions.settings.update({
+        type: 'app',
+        data: {
+          autoLaunchInBackground: legacySettings.autoLaunchInBackground,
+          runInBackground: legacySettings.runInBackground,
+          enableSystemTray: legacySettings.enableSystemTray,
+          minimizeToSystemTray: legacySettings.minimizeToSystemTray,
+          isAppMuted: legacySettings.isAppMuted,
+          enableGPUAcceleration: legacySettings.enableGPUAcceleration,
+          showMessageBadgeWhenMuted: legacySettings.showMessageBadgeWhenMuted,
+          showDisabledServices: legacySettings.showDisabledServices,
+          enableSpellchecking: legacySettings.enableSpellchecking,
+          locale: legacySettings.locale,
+          beta: legacySettings.beta,
+        },
+      });
+
+      this.actions.settings.update({
+        type: 'service',
+        data: {
+          activeService: legacySettings.activeService,
+        },
+      });
+
+      this.actions.settings.update({
+        type: 'migration',
+        data: {
+          '5.0.0-beta.17-settings': true,
+        },
+      });
+
+      localStorage.removeItem('app');
+
+      debug('Migrated settings to split stores');
+    }
   }
 }

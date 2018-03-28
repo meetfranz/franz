@@ -29,11 +29,14 @@ export default class Settings {
     appStarts: 0,
   }
 
-  constructor({ app, service, group, stats }) {
+  @observable migration = {}
+
+  constructor({ app, service, group, stats, migration }) {
     Object.assign(this.app, app);
     Object.assign(this.service, service);
     Object.assign(this.group, group);
     Object.assign(this.stats, stats);
+    Object.assign(this.migration, migration);
   }
 
   update(data) {
