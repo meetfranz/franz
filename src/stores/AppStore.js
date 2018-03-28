@@ -282,7 +282,11 @@ export default class AppStore extends Store {
   }
 
   _setLocale() {
-    const { locale } = this.stores.user.data;
+    let locale;
+    if (this.stores.user.isLoggedIn) {
+      locale = this.stores.user.data.locale;
+    }
+
 
     if (locale && Object.prototype.hasOwnProperty.call(locales, locale) && locale !== this.locale) {
       this.locale = locale;
