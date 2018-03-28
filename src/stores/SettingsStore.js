@@ -1,4 +1,3 @@
-import { ipcRenderer } from 'electron';
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
@@ -63,11 +62,6 @@ export default class SettingsStore extends Store {
         data: appSettings,
       });
     }
-  }
-
-  // Reactions
-  _shareSettingsWithMainProcess() {
-    ipcRenderer.send('settings', this.all);
   }
 
   // Helper
