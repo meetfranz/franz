@@ -1,8 +1,5 @@
-// import { remote } from 'electron';
-import { action, computed, observable } from 'mobx';
+import { action, reaction, computed, observable } from 'mobx';
 import { debounce, remove } from 'lodash';
-// import path from 'path';
-// import fs from 'fs-extra';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -63,11 +60,18 @@ export default class ServicesStore extends Store {
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
-      this._shareSettingsWithServiceProcess.bind(this),
     ]);
 
     // Just bind this
     this._initializeServiceRecipeInWebview.bind(this);
+  }
+
+  setup() {
+    // Single key reactions
+    reaction(
+      () => this.stores.settings.all.app.enableSpellchecking,
+      () => this._shareSettingsWithServiceProcess(),
+    );
   }
 
   @computed get all() {
