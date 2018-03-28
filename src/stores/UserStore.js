@@ -263,8 +263,10 @@ export default class UserStore extends Store {
 
       // We need to set the beta flag for the SettingsStore
       this.actions.settings.update({
-        settings: {
+        type: 'app',
+        data: {
           beta: data.beta,
+          locale: data.locale,
         },
       });
     }
