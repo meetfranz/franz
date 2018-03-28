@@ -30,6 +30,7 @@ export default class Service {
   @observable hasCrashed = false;
 
   @observable groupId = '';
+  group = null;
 
   constructor(data, recipe) {
     if (!data) {
@@ -78,6 +79,7 @@ export default class Service {
         this.unreadDirectMessageCount = 0;
         this.unreadIndirectMessageCount = 0;
       }
+      // this.group =
     });
   }
 

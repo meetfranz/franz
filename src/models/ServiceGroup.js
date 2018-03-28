@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, autorun } from 'mobx';
 import uuidv1 from 'uuid/v1';
 
 export default class ServiceGroup {
@@ -21,8 +21,23 @@ export default class ServiceGroup {
 
     this.id = data.id || this.id;
     this.name = data.name || this.name;
+    this.isEnabled = data.isEnabled !== undefined ? data.isEnabled : this.isEnabled;
 
-    this.order = data.order !== undefined
-      ? data.order : this.order;
+    this.order = data.order !== undefined ? data.order : this.order;
+
+    autorun(() => {
+      console.log('AUTORUN', this.isEnabled, this.services.length)
+      if (!this.isEnabled) {
+        this.services.forEach((s) => {
+          const service = s;
+          service.isEnabled = false;
+        });
+      } else {
+        this.services.forEach((s) => {
+          const service = s;
+          service.isEnabled = true;
+        });
+      }
+    });
   }
 }

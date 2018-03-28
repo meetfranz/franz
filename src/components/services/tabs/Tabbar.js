@@ -94,14 +94,10 @@ export default class TabBar extends Component {
   }
 
   disableServiceGroup({ serviceGroupId }) {
-    const serviceGroup = this.props.serviceGroups.one(serviceGroupId);
-    serviceGroup.services.forEach(service => this.disableService({ serviceId: service.id }));
     this.toggleServiceGroup({ serviceGroupId, isEnabled: false });
   }
 
   enableServiceGroup({ serviceGroupId }) {
-    const serviceGroup = this.props.serviceGroups.one(serviceGroupId);
-    serviceGroup.services.forEach(service => this.enableService({ serviceId: service.id }));
     this.toggleServiceGroup({ serviceGroupId, isEnabled: true });
   }
 
