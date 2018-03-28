@@ -43,6 +43,7 @@ const messages = defineMessages({
 @observer
 export default class AppLayout extends Component {
   static propTypes = {
+    isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
     services: PropTypes.element.isRequired,
     children: PropTypes.element,
@@ -69,6 +70,7 @@ export default class AppLayout extends Component {
 
   render() {
     const {
+      isFullScreen,
       sidebar,
       services,
       children,
@@ -90,7 +92,7 @@ export default class AppLayout extends Component {
     return (
       <div>
         <div className="app">
-          {isWindows && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
+          {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
           <div className="app__content">
             {sidebar}
             <div className="app__service">

@@ -17,6 +17,8 @@ import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '..
 
 const { app } = remote;
 
+const mainWindow = remote.getCurrentWindow();
+
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
@@ -47,6 +49,8 @@ export default class AppStore extends Store {
   @observable isSystemMuteOverridden = false;
 
   @observable isClearingAllCache = false;
+
+  @observable isFullScreen = mainWindow.isFullScreen();
 
   constructor(...args) {
     super(...args);
@@ -79,6 +83,10 @@ export default class AppStore extends Store {
     // Online/Offline handling
     window.addEventListener('online', () => { this.isOnline = true; });
     window.addEventListener('offline', () => { this.isOnline = false; });
+
+    mainWindow.on('enter-full-screen', () => { this.isFullScreen = true; });
+    mainWindow.on('leave-full-screen', () => { this.isFullScreen = false; });
+
 
     this.isOnline = navigator.onLine;
 
@@ -169,8 +177,6 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
-
-        const mainWindow = remote.getCurrentWindow();
 
         if (isWindows) {
           mainWindow.restore();

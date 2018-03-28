@@ -106,6 +106,7 @@ export default class AppLayoutContainer extends Component {
 
     return (
       <AppLayout
+        isFullScreen={app.isFullScreen}
         isOnline={app.isOnline}
         showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
         appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
