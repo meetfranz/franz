@@ -65,11 +65,6 @@ export default class SettingsStore extends Store {
     }
   }
 
-  // Reactions
-  _shareSettingsWithMainProcess() {
-    ipcRenderer.send('settings', this.all);
-  }
-
   // Helper
   _migrate() {
     const legacySettings = localStorage.getItem('app');
