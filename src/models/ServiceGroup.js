@@ -6,6 +6,7 @@ export default class ServiceGroup {
 
   @observable name = '';
   @observable order = 99;
+  @observable isEnabled = true;
 
   @observable unreadDirectMessageCount = 0;
   @observable unreadIndirectMessageCount = 0;

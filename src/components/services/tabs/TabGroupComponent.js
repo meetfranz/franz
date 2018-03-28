@@ -1,11 +1,30 @@
+import { remote } from 'electron';
 import React, { Component } from 'react';
 import { sortableHandle } from 'react-sortable-multiple-hoc';
 import { observer } from 'mobx-react';
+import { defineMessages, intlShape } from 'react-intl';  
+
+const { Menu } = remote;
 
 const DragHandle = sortableHandle(props => <span>{props.title}</span>);
 
+const messages = defineMessages({
+  disableGroup: {
+    id: 'tabs.group.disable',
+    defaultMessage: '!!!Disable Group',
+  },
+  enableGroup: {
+    id: 'tabs.group.enable',
+    defaultMessage: '!!!Enable Group',
+  },
+});
+
 @observer
 export default class TabGroupComponent extends Component {
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   state = {
     collapsed: false,
   };
@@ -17,7 +36,19 @@ export default class TabGroupComponent extends Component {
       sorting,
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
+      disableServiceGroup,
+      enableServiceGroup,
     } = this.props;
+    const { intl } = this.context;
+
+    const menuTemplate = [{
+      label: intl.formatMessage(item.group.isEnabled ? messages.disableGroup : messages.enableGroup),
+      click: () => (item.group.isEnabled ?
+        disableServiceGroup({ serviceGroupId: item.group.id }) :
+        enableServiceGroup({ serviceGroupId: item.group.id })),
+    }];
+    const menu = Menu.buildFromTemplate(menuTemplate);
+
 
     let notificationBadge = null;
     if (showMessageBadgeWhenMutedSetting && showMessageBadgesEvenWhenMuted) {
@@ -40,7 +71,10 @@ export default class TabGroupComponent extends Component {
     return (item.group || null) &&
       <div className={item.type === 'group' ? 'services__group' : ''}>
         {item.type === 'group' &&
-          <div className="services__group-header">
+          <div
+            className="services__group-header"
+            onContextMenu={() => menu.popup(remote.getCurrentWindow())}
+          >
             <span
               className={this.state.collapsed ? 'mdi mdi-chevron-right' : 'mdi mdi-chevron-down'}
               onClick={() => this.setState({ collapsed: !this.state.collapsed })}

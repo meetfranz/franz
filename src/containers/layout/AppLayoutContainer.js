@@ -27,6 +27,7 @@ export default class AppLayoutContainer extends Component {
     const {
       app,
       services,
+      serviceGroups,
       ui,
       news,
       settings,
@@ -48,6 +49,10 @@ export default class AppLayoutContainer extends Component {
       deleteService,
       updateService,
     } = this.props.actions.service;
+
+    const {
+      updateServiceGroup,
+    } = this.props.actions.serviceGroup;
 
     const { hide } = this.props.actions.news;
 
@@ -79,6 +84,7 @@ export default class AppLayoutContainer extends Component {
         isPremium={user.data.isPremium}
         groups={ui.serviceGroupStructure}
         services={services.allDisplayed}
+        serviceGroups={serviceGroups}
         setActive={setActive}
         isAppMuted={settings.all.isAppMuted}
         openSettings={openSettings}
@@ -89,6 +95,7 @@ export default class AppLayoutContainer extends Component {
         toggleAudio={toggleAudio}
         deleteService={deleteService}
         updateService={updateService}
+        updateServiceGroup={updateServiceGroup}
         toggleMuteApp={toggleMuteApp}
         showMessageBadgeWhenMutedSetting={settings.all.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}

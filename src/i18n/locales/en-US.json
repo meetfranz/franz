@@ -200,6 +200,8 @@
   "tabs.item.disableService": "Disable service",
   "tabs.item.enableService": "Enable service",
   "tabs.item.deleteService": "Delete service",
+  "tabs.group.disable": "Disable Group",
+  "tabs.group.enable": "Enable Group",
   "service.crashHandler.headline": "Oh no!",
   "service.crashHandler.text": "{name} has caused an error.",
   "service.crashHandler.action": "Reload {name}",

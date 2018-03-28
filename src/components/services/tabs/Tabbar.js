@@ -6,6 +6,8 @@ import SortableComponent from '../../settings/services/SortableComponent';
 import TabItem from './TabItem';
 import TabGroupComponent from './TabGroupComponent';
 
+import { sleep } from '../../../helpers/async-helpers';
+
 const tabItem = ({
   item: service,
   index,
@@ -77,6 +79,32 @@ export default class TabBar extends Component {
     this.toggleService({ serviceId, isEnabled: true });
   }
 
+  toggleServiceGroup = ({ serviceGroupId, isEnabled }) => {
+    const { updateServiceGroup } = this.props;
+
+    if (serviceGroupId) {
+      updateServiceGroup({
+        serviceGroupId,
+        serviceGroupData: {
+          isEnabled,
+        },
+        redirect: false,
+      });
+    }
+  }
+
+  disableServiceGroup({ serviceGroupId }) {
+    const serviceGroup = this.props.serviceGroups.one(serviceGroupId);
+    serviceGroup.services.forEach(service => this.disableService({ serviceId: service.id }));
+    this.toggleServiceGroup({ serviceGroupId, isEnabled: false });
+  }
+
+  enableServiceGroup({ serviceGroupId }) {
+    const serviceGroup = this.props.serviceGroups.one(serviceGroupId);
+    serviceGroup.services.forEach(service => this.enableService({ serviceId: service.id }));
+    this.toggleServiceGroup({ serviceGroupId, isEnabled: true });
+  }
+
   render() {
     const {
       groups,
@@ -114,6 +142,8 @@ export default class TabBar extends Component {
           deleteService={deleteService}
           disableService={args => this.disableService(args)}
           enableService={args => this.enableService(args)}
+          disableServiceGroup={args => this.disableServiceGroup(args)}
+          enableServiceGroup={args => this.enableServiceGroup(args)}
           openSettings={openSettings}
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
