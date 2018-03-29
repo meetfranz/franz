@@ -4,6 +4,14 @@ export default class LocalApi {
     this.local = local;
   }
 
+  getAppSettings() {
+    return this.local.getAppSettings();
+  }
+
+  updateAppSettings(data) {
+    return this.local.updateAppSettings(data);
+  }
+
   getAppCacheSize() {
     return this.local.getAppCacheSize();
   }

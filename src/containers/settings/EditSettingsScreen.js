@@ -55,10 +55,6 @@ const messages = defineMessages({
     id: 'settings.app.form.spellcheckingLanguage',
     defaultMessage: '!!!Language for spell checking',
   },
-  // spellcheckingAutomaticDetection: {
-  //   id: 'settings.app.form.spellcheckingAutomaticDetection',
-  //   defaultMessage: '!!!Detect language automatically',
-  // },
   beta: {
     id: 'settings.app.form.beta',
     defaultMessage: '!!!Include beta versions',
@@ -84,22 +80,23 @@ export default class EditSettingsScreen extends Component {
     });
 
     settings.update({
-      settings: {
+      type: 'app',
+      data: {
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
-        // spellcheckingLanguage: settingsData.spellcheckingLanguage,
-        locale: settingsData.locale,
-        beta: settingsData.beta,
+        beta: settingsData.beta, // we need this info in the main process as well
+        locale: settingsData.locale, // we need this info in the main process as well
       },
     });
 
     user.update({
       userData: {
         beta: settingsData.beta,
+        locale: settingsData.locale,
       },
     });
   }
@@ -116,17 +113,6 @@ export default class EditSettingsScreen extends Component {
       });
     });
 
-    // const spellcheckerLocales = [{
-    //   value: 'auto',
-    //   label: intl.formatMessage(messages.spellcheckingAutomaticDetection),
-    // }];
-    // Object.keys(SPELLCHECKER_LOCALES).forEach((key) => {
-    //   spellcheckerLocales.push({
-    //     value: key,
-    //     label: SPELLCHECKER_LOCALES[key],
-    //   });
-    // });
-
     const config = {
       fields: {
         autoLaunchOnStart: {
@@ -141,40 +127,34 @@ export default class EditSettingsScreen extends Component {
         },
         runInBackground: {
           label: intl.formatMessage(messages.runInBackground),
-          value: settings.all.runInBackground,
+          value: settings.all.app.runInBackground,
           default: DEFAULT_APP_SETTINGS.runInBackground,
         },
         enableSystemTray: {
           label: intl.formatMessage(messages.enableSystemTray),
-          value: settings.all.enableSystemTray,
+          value: settings.all.app.enableSystemTray,
           default: DEFAULT_APP_SETTINGS.enableSystemTray,
         },
         minimizeToSystemTray: {
           label: intl.formatMessage(messages.minimizeToSystemTray),
-          value: settings.all.minimizeToSystemTray,
+          value: settings.all.app.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
         },
         showDisabledServices: {
           label: intl.formatMessage(messages.showDisabledServices),
-          value: settings.all.showDisabledServices,
+          value: settings.all.app.showDisabledServices,
           default: DEFAULT_APP_SETTINGS.showDisabledServices,
         },
         showMessageBadgeWhenMuted: {
           label: intl.formatMessage(messages.showMessageBadgeWhenMuted),
-          value: settings.all.showMessageBadgeWhenMuted,
+          value: settings.all.app.showMessageBadgeWhenMuted,
           default: DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted,
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
-          value: settings.all.enableSpellchecking,
+          value: settings.all.app.enableSpellchecking,
           default: DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
-        // spellcheckingLanguage: {
-        //   label: intl.formatMessage(messages.spellcheckingLanguage),
-        //   value: settings.all.spellcheckingLanguage,
-        //   options: spellcheckerLocales,
-        //   default: DEFAULT_APP_SETTINGS.spellcheckingLanguage,
-        // },
         locale: {
           label: intl.formatMessage(messages.language),
           value: app.locale,

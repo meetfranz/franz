@@ -1,8 +1,5 @@
-// import { remote } from 'electron';
-import { action, computed, observable } from 'mobx';
+import { action, reaction, computed, observable } from 'mobx';
 import { debounce, remove } from 'lodash';
-// import path from 'path';
-// import fs from 'fs-extra';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -63,11 +60,18 @@ export default class ServicesStore extends Store {
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
-      this._shareSettingsWithServiceProcess.bind(this),
     ]);
 
     // Just bind this
     this._initializeServiceRecipeInWebview.bind(this);
+  }
+
+  setup() {
+    // Single key reactions
+    reaction(
+      () => this.stores.settings.all.app.enableSpellchecking,
+      () => this._shareSettingsWithServiceProcess(),
+    );
   }
 
   @computed get all() {
@@ -86,13 +90,13 @@ export default class ServicesStore extends Store {
   }
 
   @computed get allDisplayed() {
-    return this.stores.settings.all.showDisabledServices ? this.all : this.enabled;
+    return this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
   }
 
   // This is just used to avoid unnecessary rerendering of resource-heavy webviews 
   @computed get allDisplayedUnordered() {
     const services = this.allServicesRequest.execute().result || [];
-    return this.stores.settings.all.showDisabledServices ? services : services.filter(service => service.isEnabled);
+    return this.stores.settings.all.app.showDisabledServices ? services : services.filter(service => service.isEnabled);
   }
 
   @computed get filtered() {
@@ -363,7 +367,7 @@ export default class ServicesStore extends Store {
       });
     } else if (channel === 'notification') {
       const options = args[0].options;
-      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.isAppMuted) {
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
         Object.assign(options, {
           silent: true,
         });
@@ -537,7 +541,8 @@ export default class ServicesStore extends Store {
 
     if (service) {
       this.actions.settings.update({
-        settings: {
+        type: 'service',
+        data: {
           activeService: service.id,
         },
       });
@@ -545,7 +550,7 @@ export default class ServicesStore extends Store {
   }
 
   _mapActiveServiceToServiceModelReaction() {
-    const { activeService } = this.stores.settings.all;
+    const { activeService } = this.stores.settings.all.service;
     if (this.allDisplayed.length) {
       this.allDisplayed.map(service => Object.assign(service, {
         isActive: activeService ? activeService === service.id : this.allDisplayed[0].id === service.id,
@@ -555,7 +560,7 @@ export default class ServicesStore extends Store {
 
   // TODO: REFACTOR to AppStore
   _getUnreadMessageCountReaction() {
-    const showMessageBadgeWhenMuted = this.stores.settings.all.showMessageBadgeWhenMuted;
+    const showMessageBadgeWhenMuted = this.stores.settings.all.app.showMessageBadgeWhenMuted;
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
 
     const unreadDirectMessageCount = this.allDisplayed
@@ -594,7 +599,10 @@ export default class ServicesStore extends Store {
 
   _logoutReaction() {
     if (!this.stores.user.isLoggedIn) {
-      this.actions.settings.remove({ key: 'activeService' });
+      this.actions.settings.remove({
+        type: 'service',
+        key: 'activeService',
+      });
       this.allServicesRequest.invalidate().reset();
     }
   }
@@ -602,7 +610,7 @@ export default class ServicesStore extends Store {
   _shareSettingsWithServiceProcess() {
     this.actions.service.sendIPCMessageToAllServices({
       channel: 'settings-update',
-      args: this.stores.settings.all,
+      args: this.stores.settings.all.app,
     });
   }
 

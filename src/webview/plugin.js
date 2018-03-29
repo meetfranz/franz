@@ -8,6 +8,8 @@ import RecipeWebview from './lib/RecipeWebview';
 import Spellchecker from './spellchecker';
 import './notifications';
 
+const debug = require('debug')('Plugin');
+
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
   // Delete module from cache
@@ -15,8 +17,9 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   try {
     // eslint-disable-next-line
     require(modulePath)(new RecipeWebview(), data);
+    debug('Initialize Recipe');
   } catch (err) {
-    console.error(err);
+    debug('Recipe initialization failed', err);
   }
 });
 
@@ -31,6 +34,7 @@ new ContextMenuListener((info) => { // eslint-disable-line
 
 ipcRenderer.on('settings-update', (e, data) => {
   spellchecker.toggleSpellchecker(data.enableSpellchecking);
+  debug('Settings update received', data);
 });
 
 // initSpellche
