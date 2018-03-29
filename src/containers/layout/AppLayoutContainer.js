@@ -23,6 +23,22 @@ export default class AppLayoutContainer extends Component {
     children: null,
   };
 
+  updateCollapsedState = (serviceGroupId, collapsedState) => {
+    let currentState = this.props.stores.settings.all.group.collapsed;
+    if (collapsedState) {
+      currentState.push(serviceGroupId);
+    } else {
+      currentState = currentState.filter(id => id !== serviceGroupId);
+    }
+    this.props.actions.settings.update({
+      type: 'group',
+      data: {
+        collapsed: currentState,
+      },
+    });
+    console.log(this.props.stores.settings.all.group.collapsed)
+  }
+
   render() {
     const {
       app,
@@ -35,6 +51,8 @@ export default class AppLayoutContainer extends Component {
       requests,
       user,
     } = this.props.stores;
+
+    const { collapsed } = settings.all.group;
 
     const {
       setActive,
@@ -68,8 +86,6 @@ export default class AppLayoutContainer extends Component {
       closeSettings,
     } = this.props.actions.ui;
 
-    const { update } = this.props.actions.settings;
-
     const { children } = this.props;
 
     const isLoadingServices = services.allServicesRequest.isExecuting
@@ -87,7 +103,8 @@ export default class AppLayoutContainer extends Component {
         groups={ui.serviceGroupStructure}
         services={services.allDisplayed}
         serviceGroups={serviceGroups}
-        updateSettings={update}
+        collapsedState={collapsed}
+        updateCollapsedState={this.updateCollapsedState}
         setActive={setActive}
         isAppMuted={settings.all.app.isAppMuted}
         openSettings={openSettings}

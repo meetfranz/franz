@@ -33,12 +33,6 @@ export default class TabGroupComponent extends Component {
 
   }
 
-  toggleCollapsed() {
-    const collapsedState = !this.state.collapsed;
-    this.setState({ collapsed: collapsedState });
-    this.props.updateSettings();
-  }
-
   render() {
     const {
       item,
@@ -48,6 +42,8 @@ export default class TabGroupComponent extends Component {
       showMessageBadgesEvenWhenMuted,
       disableServiceGroup,
       enableServiceGroup,
+      collapsedState,
+      updateCollapsedState,
     } = this.props;
     const { intl } = this.context;
 
@@ -78,6 +74,8 @@ export default class TabGroupComponent extends Component {
       );
     }
 
+    const collapsed = collapsedState.includes(item.group.id);
+
     return (item.group || null) &&
       <div className={item.type === 'group' ? 'services__group' : ''}>
         {item.type === 'group' &&
@@ -86,17 +84,17 @@ export default class TabGroupComponent extends Component {
             onContextMenu={() => menu.popup(remote.getCurrentWindow())}
           >
             <span
-              className={this.state.collapsed ? 'mdi mdi-chevron-right' : 'mdi mdi-chevron-down'}
-              onClick={() => this.toggleCollapsed()}
+              className={collapsed ? 'mdi mdi-chevron-right' : 'mdi mdi-chevron-down'}
+              onClick={() => updateCollapsedState(item.group.id, !collapsed)}
             />
             <DragHandle title={item.group.name} />
-            {this.state.collapsed && <span>{notificationBadge}</span>}
+            {collapsed && <span>{notificationBadge}</span>}
           </div>
         }
         <div
           className="services__group-services"
           // style={this.state.collapsed ? { height: 0, overflow: 'hidden' } : { height: 'auto', overflow: 'auto' }}
-          style={this.state.collapsed ? { display: 'none' } : { display: 'block' }}
+          style={collapsed ? { display: 'none' } : { display: 'block' }}
         >
           {services}
         </div>

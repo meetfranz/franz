@@ -114,7 +114,8 @@ export default class TabBar extends Component {
       deleteService,
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
-      updateSettings,
+      collapsedState,
+      updateCollapsedState,
     } = this.props;
 
     return (
@@ -145,7 +146,8 @@ export default class TabBar extends Component {
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
           serviceOrder={this.props.stores.ui.serviceOrder}
-          updateSettings={updateSettings}
+          collapsedState={collapsedState}
+          updateCollapsedState={updateCollapsedState}
         />}
       </div>
     );

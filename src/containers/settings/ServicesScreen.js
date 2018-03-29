@@ -79,6 +79,15 @@ export default class ServicesScreen extends Component {
   }
 
   deleteServiceGroup(serviceGroupId) {
+    const collapsedGroups = this.props.stores.settings.all.group.collapsed;
+    if (collapsedGroups.includes(serviceGroupId)) {
+      this.props.actions.settings.update({
+        type: 'group',
+        data: {
+          collapsed: collapsedGroups.filter(id => id !== serviceGroupId),
+        },
+      });
+    }
     this.props.actions.serviceGroup.deleteServiceGroup({
       serviceGroupId,
     });
