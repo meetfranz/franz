@@ -29,6 +29,16 @@ export default class TabGroupComponent extends Component {
     collapsed: false,
   };
 
+  componentWillMount() {
+
+  }
+
+  toggleCollapsed() {
+    const collapsedState = !this.state.collapsed;
+    this.setState({ collapsed: collapsedState });
+    this.props.updateSettings();
+  }
+
   render() {
     const {
       item,
@@ -77,7 +87,7 @@ export default class TabGroupComponent extends Component {
           >
             <span
               className={this.state.collapsed ? 'mdi mdi-chevron-right' : 'mdi mdi-chevron-down'}
-              onClick={() => this.setState({ collapsed: !this.state.collapsed })}
+              onClick={() => this.toggleCollapsed()}
             />
             <DragHandle title={item.group.name} />
             {this.state.collapsed && <span>{notificationBadge}</span>}

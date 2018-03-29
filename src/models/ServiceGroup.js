@@ -26,7 +26,7 @@ export default class ServiceGroup {
     this.order = data.order !== undefined ? data.order : this.order;
 
     autorun(() => {
-      console.log('AUTORUN', this.isEnabled, this.services.length)
+      // console.log('AUTORUN', this.isEnabled, this.services.length)
       if (!this.isEnabled) {
         this.services.forEach((s) => {
           const service = s;

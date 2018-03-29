@@ -68,6 +68,8 @@ export default class AppLayoutContainer extends Component {
       closeSettings,
     } = this.props.actions.ui;
 
+    const { update } = this.props.actions.settings;
+
     const { children } = this.props;
 
     const isLoadingServices = services.allServicesRequest.isExecuting
@@ -85,6 +87,7 @@ export default class AppLayoutContainer extends Component {
         groups={ui.serviceGroupStructure}
         services={services.allDisplayed}
         serviceGroups={serviceGroups}
+        updateSettings={update}
         setActive={setActive}
         isAppMuted={settings.all.isAppMuted}
         openSettings={openSettings}
