@@ -24,20 +24,5 @@ export default class ServiceGroup {
     this.isEnabled = data.isEnabled !== undefined ? data.isEnabled : this.isEnabled;
 
     this.order = data.order !== undefined ? data.order : this.order;
-
-    autorun(() => {
-      // console.log('AUTORUN', this.isEnabled, this.services.length)
-      if (!this.isEnabled) {
-        this.services.forEach((s) => {
-          const service = s;
-          service.isEnabled = false;
-        });
-      } else {
-        this.services.forEach((s) => {
-          const service = s;
-          service.isEnabled = true;
-        });
-      }
-    });
   }
 }

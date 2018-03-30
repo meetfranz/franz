@@ -36,7 +36,6 @@ export default class AppLayoutContainer extends Component {
         collapsed: currentState,
       },
     });
-    console.log(this.props.stores.settings.all.group.collapsed)
   }
 
   render() {

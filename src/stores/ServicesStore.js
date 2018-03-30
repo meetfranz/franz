@@ -55,6 +55,7 @@ export default class ServicesStore extends Store {
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
 
     this.registerReactions([
+      this._disableServices.bind(this),
       this._focusServiceReaction.bind(this),
       this._getUnreadMessageCountReaction.bind(this),
       this._mapActiveServiceToServiceModelReaction.bind(this),
@@ -529,6 +530,16 @@ export default class ServicesStore extends Store {
   }
 
   // Reactions
+  _disableServices() {
+    // console.log('REACTION')
+    const disabledServices = this.stores.settings.all.service.disabled;
+    this.all.forEach((s) => {
+      const service = s;
+      service.isEnabled = !disabledServices.includes(service.id);
+      return service;
+    });
+  }
+
   _focusServiceReaction() {
     const service = this.active;
     if (service) {
@@ -614,6 +625,7 @@ export default class ServicesStore extends Store {
     });
   }
 
+  // Helper
   _cleanUpTeamIdAndCustomUrl(recipeId, data) {
     const serviceData = data;
     const recipe = this.stores.recipes.one(recipeId);
@@ -625,7 +637,6 @@ export default class ServicesStore extends Store {
     return serviceData;
   }
 
-  // Helper
   _redirectToAddServiceRoute(recipeId) {
     const route = `/settings/services/add/${recipeId}`;
     this.stores.router.push(route);

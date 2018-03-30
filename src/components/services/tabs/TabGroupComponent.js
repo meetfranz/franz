@@ -47,12 +47,18 @@ export default class TabGroupComponent extends Component {
     } = this.props;
     const { intl } = this.context;
 
-    const menuTemplate = [{
-      label: intl.formatMessage(item.group.isEnabled ? messages.disableGroup : messages.enableGroup),
-      click: () => (item.group.isEnabled ?
-        disableServiceGroup({ serviceGroupId: item.group.id }) :
-        enableServiceGroup({ serviceGroupId: item.group.id })),
-    }];
+    const menuTemplate = [
+      {
+        label: intl.formatMessage(messages.disableGroup),
+        enabled: item.group.services.some(service => service.isEnabled === true),
+        click: () => disableServiceGroup({ serviceGroupId: item.group.id }),
+      },
+      {
+        label: intl.formatMessage(messages.enableGroup),
+        enabled: item.group.services.some(service => service.isEnabled === false),
+        click: () => enableServiceGroup({ serviceGroupId: item.group.id }),
+      },
+    ];
     const menu = Menu.buildFromTemplate(menuTemplate);
 
 

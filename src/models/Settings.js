@@ -6,6 +6,7 @@ export default class Settings {
 
   @observable service = {
     activeService: '',
+    disabled: [],
   }
 
   @observable group = {

@@ -54,8 +54,8 @@ export default class Service {
     this.order = data.order !== undefined
       ? data.order : this.order;
 
-    this.isEnabled = data.isEnabled !== undefined
-      ? data.isEnabled : this.isEnabled;
+    // this.isEnabled = data.isEnabled !== undefined
+    //   ? data.isEnabled : this.isEnabled;
 
     this.isNotificationEnabled = data.isNotificationEnabled !== undefined
       ? data.isNotificationEnabled : this.isNotificationEnabled;
@@ -79,7 +79,6 @@ export default class Service {
         this.unreadDirectMessageCount = 0;
         this.unreadIndirectMessageCount = 0;
       }
-      // this.group =
     });
   }
 

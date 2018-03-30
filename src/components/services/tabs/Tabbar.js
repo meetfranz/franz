@@ -58,17 +58,23 @@ export default class TabBar extends Component {
   }
 
   toggleService = ({ serviceId, isEnabled }) => {
-    const { updateService } = this.props;
-
-    if (serviceId) {
-      updateService({
-        serviceId,
-        serviceData: {
-          isEnabled,
-        },
-        redirect: false,
-      });
+    if (!serviceId) {
+      return;
     }
+
+    let disabledServices = this.props.stores.settings.all.service.disabled;
+    if (isEnabled) {
+      disabledServices = disabledServices.filter(id => id !== serviceId);
+    } else {
+      disabledServices.push(serviceId);
+    }
+
+    this.props.actions.settings.update({
+      type: 'service',
+      data: {
+        disabled: disabledServices,
+      },
+    });
   }
 
   disableService({ serviceId }) {
@@ -80,17 +86,12 @@ export default class TabBar extends Component {
   }
 
   toggleServiceGroup = ({ serviceGroupId, isEnabled }) => {
-    const { updateServiceGroup } = this.props;
-
-    if (serviceGroupId) {
-      updateServiceGroup({
-        serviceGroupId,
-        serviceGroupData: {
-          isEnabled,
-        },
-        redirect: false,
-      });
+    if (!serviceGroupId) {
+      return;
     }
+
+    const serviceGroup = this.props.stores.serviceGroups.one(serviceGroupId);
+    serviceGroup.services.forEach(service => this.toggleService({ serviceId: service.id, isEnabled }));
   }
 
   disableServiceGroup({ serviceGroupId }) {
