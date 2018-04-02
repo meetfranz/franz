@@ -167,6 +167,10 @@ export default class ServicesStore extends Store {
     this.allServicesRequest.patch((result) => {
       if (!result) return;
       result.push(response.data);
+      this.actions.service.toggleService({
+        serviceId: response.data.id,
+        isEnabled: response.data.isEnabled,
+      });
     });
 
     this.actionStatus = response.status || [];

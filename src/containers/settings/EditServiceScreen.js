@@ -101,13 +101,13 @@ export default class EditServiceScreen extends Component {
       // console.log(serviceGroups.one(response.data.id))
     }
 
-    this.props.actions.service.toggleService({
-      serviceId: services.activeSettings.id,
-      isEnabled: serviceData.isEnabled,
-    });
-
     if (action === 'edit') {
-      updateService({ serviceId: services.activeSettings.id, serviceData });
+      const serviceId = services.activeSettings.id;
+      this.props.actions.service.toggleService({
+        serviceId,
+        isEnabled: serviceData.isEnabled,
+      });
+      updateService({ serviceId, serviceData });
     } else {
       createService({ recipeId: recipes.active.id, serviceData });
     }
