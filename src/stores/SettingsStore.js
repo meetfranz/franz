@@ -1,12 +1,17 @@
-import { ipcRenderer } from 'electron';
-import { action, computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';
-import { gaEvent } from '../lib/analytics';
 import SettingsModel from '../models/Settings';
+import Request from './lib/Request';
+import CachedRequest from './lib/CachedRequest';
+
+const debug = require('debug')('SettingsStore');
 
 export default class SettingsStore extends Store {
+  @observable appSettingsRequest = new CachedRequest(this.api.local, 'getAppSettings');
+  @observable updateAppSettingsRequest = new Request(this.api.local, 'updateAppSettings');
+
   constructor(...args) {
     super(...args);
 
@@ -16,35 +21,88 @@ export default class SettingsStore extends Store {
   }
 
   setup() {
-    this._shareSettingsWithMainProcess();
+    this._migrate();
   }
 
   @computed get all() {
-    return new SettingsModel(localStorage.getItem('app') || {});
+    return new SettingsModel({
+      app: this.appSettingsRequest.execute().result || {},
+      service: localStorage.getItem('service') || {},
+      group: localStorage.getItem('group') || {},
+      stats: localStorage.getItem('stats') || {},
+      migration: localStorage.getItem('migration') || {},
+    });
   }
 
-  @action async _update({ settings }) {
+  @action async _update({ type, data }) {
     const appSettings = this.all;
-    localStorage.setItem('app', Object.assign(appSettings, settings));
+    if (type !== 'app') {
+      debug('Update settings', type, data, this.all);
+      localStorage.setItem(type, Object.assign(appSettings[type], data));
+    } else {
+      debug('Update settings on file system', type, data);
+      this.updateAppSettingsRequest.execute(data);
 
-    // We need a little hack to wait until everything is patched
-    setTimeout(() => this._shareSettingsWithMainProcess(), 0);
-
-    gaEvent('Settings', 'update');
+      this.appSettingsRequest.patch((result) => {
+        if (!result) return;
+        Object.assign(result, data);
+      });
+    }
   }
 
-  @action async _remove({ key }) {
-    const appSettings = this.all;
+  @action async _remove({ type, key }) {
+    if (type === 'app') return; // app keys can't be deleted
+
+    const appSettings = this.all[type];
     if (Object.hasOwnProperty.call(appSettings, key)) {
       delete appSettings[key];
-      localStorage.setItem('app', appSettings);
-    }
 
-    this._shareSettingsWithMainProcess();
+      this.actions.settings.update({
+        type,
+        data: appSettings,
+      });
+    }
   }
 
-  // Reactions
-  _shareSettingsWithMainProcess() {
-    ipcRenderer.send('settings', this.all);
+  // Helper
+  _migrate() {
+    const legacySettings = localStorage.getItem('app');
+
+    if (!this.all.migration['5.0.0-beta.17-settings']) {
+      this.actions.settings.update({
+        type: 'app',
+        data: {
+          autoLaunchInBackground: legacySettings.autoLaunchInBackground,
+          runInBackground: legacySettings.runInBackground,
+          enableSystemTray: legacySettings.enableSystemTray,
+          minimizeToSystemTray: legacySettings.minimizeToSystemTray,
+          isAppMuted: legacySettings.isAppMuted,
+          enableGPUAcceleration: legacySettings.enableGPUAcceleration,
+          showMessageBadgeWhenMuted: legacySettings.showMessageBadgeWhenMuted,
+          showDisabledServices: legacySettings.showDisabledServices,
+          enableSpellchecking: legacySettings.enableSpellchecking,
+          locale: legacySettings.locale,
+          beta: legacySettings.beta,
+        },
+      });
+
+      this.actions.settings.update({
+        type: 'service',
+        data: {
+          activeService: legacySettings.activeService,
+        },
+      });
+
+      this.actions.settings.update({
+        type: 'migration',
+        data: {
+          '5.0.0-beta.17-settings': true,
+        },
+      });
+
+      localStorage.removeItem('app');
+
+      debug('Migrated settings to split stores');
+    }
   }
 }

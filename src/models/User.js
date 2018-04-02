@@ -15,6 +15,7 @@ export default class User {
   @observable donor = {};
   @observable isDonor = false;
   @observable isMiner = false;
+  @observable locale = false;
 
   constructor(data) {
     if (!data.id) {
@@ -33,5 +34,6 @@ export default class User {
     this.isDonor = data.isDonor || this.isDonor;
     this.isSubscriptionOwner = data.isSubscriptionOwner || this.isSubscriptionOwner;
     this.isMiner = data.isMiner || this.isMiner;
+    this.locale = data.locale || this.locale;
   }
 }

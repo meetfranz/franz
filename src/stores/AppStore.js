@@ -15,6 +15,8 @@ import { gaEvent } from '../lib/analytics';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
+const debug = require('debug')('AppStore');
+
 const { app } = remote;
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
@@ -157,7 +159,7 @@ export default class AppStore extends Store {
 
   // Actions
   @action _notify({ title, options, notificationId, serviceId = null }) {
-    if (this.stores.settings.all.isAppMuted) return;
+    if (this.stores.settings.all.app.isAppMuted) return;
 
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
@@ -238,14 +240,15 @@ export default class AppStore extends Store {
     this.isSystemMuteOverridden = overrideSystemMute;
 
     this.actions.settings.update({
-      settings: {
+      type: 'app',
+      data: {
         isAppMuted: isMuted,
       },
     });
   }
 
   @action _toggleMuteApp() {
-    this._muteApp({ isMuted: !this.stores.settings.all.isAppMuted });
+    this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
   }
 
   @action async _clearAllCache() {
@@ -279,13 +282,19 @@ export default class AppStore extends Store {
   }
 
   _setLocale() {
-    const locale = this.stores.settings.all.locale;
+    let locale;
+    if (this.stores.user.isLoggedIn) {
+      locale = this.stores.user.data.locale;
+    }
+
 
     if (locale && Object.prototype.hasOwnProperty.call(locales, locale) && locale !== this.locale) {
       this.locale = locale;
     } else if (!locale) {
       this.locale = this._getDefaultLocale();
     }
+
+    debug(`Set locale to "${this.locale}"`);
   }
 
   _getDefaultLocale() {
@@ -327,8 +336,9 @@ export default class AppStore extends Store {
   // Helpers
   _appStartsCounter() {
     this.actions.settings.update({
-      settings: {
-        appStarts: (this.stores.settings.all.appStarts || 0) + 1,
+      type: 'stats',
+      data: {
+        appStarts: (this.stores.settings.all.stats.appStarts || 0) + 1,
       },
     });
   }
@@ -336,7 +346,8 @@ export default class AppStore extends Store {
   async _autoStart() {
     this.autoLaunchOnStart = await this._checkAutoStart();
 
-    if (this.stores.settings.all.appStarts === 1) {
+    if (this.stores.settings.all.stats.appStarts === 1) {
+      debug('Set app to launch on start');
       this.actions.app.launchOnStartup({
         enable: true,
       });
@@ -349,7 +360,7 @@ export default class AppStore extends Store {
 
   _systemDND() {
     const dnd = getDoNotDisturb();
-    if (dnd !== this.stores.settings.all.isAppMuted && !this.isSystemMuteOverridden) {
+    if (dnd !== this.stores.settings.all.app.isAppMuted && !this.isSystemMuteOverridden) {
       this.actions.app.muteApp({
         isMuted: dnd,
         overrideSystemMute: false,
