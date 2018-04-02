@@ -176,15 +176,22 @@ export default class UIStore extends Store {
 
   @computed get serviceOrder() {
     const metaGroups = this._removePadding(this.serviceGroupStructure);
+    const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
 
     const serviceOrder = {};
     let index = 0;
     metaGroups.forEach((metaGroup) => {
       if (metaGroup.type === 'root') {
+        if (!showDisabledServices && !metaGroup.services[0].isEnabled) {
+          return;
+        }
         serviceOrder[metaGroup.services[0].id] = index;
         index += 1;
       } else if (metaGroup.type === 'group') {
         metaGroup.services.forEach((service) => {
+          if (!showDisabledServices && !service.isEnabled) {
+            return;
+          }
           serviceOrder[service.id] = index;
           index += 1;
         });

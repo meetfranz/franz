@@ -84,6 +84,7 @@ class TabItem extends Component {
       openSettings,
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
+      showDisabledServices,
       serviceOrder,
     } = this.props;
     const { intl } = this.context;
@@ -149,7 +150,7 @@ class TabItem extends Component {
 
     const order = serviceOrder[service.id] + 1;
 
-    return (
+    return ((service.isEnabled || showDisabledServices) &&
       <div
         className={classnames({
           'tab-item': true,

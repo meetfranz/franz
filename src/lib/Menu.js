@@ -677,7 +677,7 @@ export default class FranzMenu {
   @computed get serviceTpl() {
     const services = this.stores.services.allDisplayed;
     const serviceOrder = this.stores.ui.serviceOrder;
-    
+
     const serviceTpl = [];
 
     if (this.stores.user.isLoggedIn) {

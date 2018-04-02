@@ -21,6 +21,7 @@ const tabItem = ({
   openSettings,
   showMessageBadgeWhenMutedSetting,
   showMessageBadgesEvenWhenMuted,
+  showDisabledServices,
   serviceOrder,
 }) =>
   <TabItem
@@ -38,6 +39,7 @@ const tabItem = ({
     openSettings={openSettings}
     showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
     showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
+    showDisabledServices={showDisabledServices}
     serviceOrder={serviceOrder}
   />;
 
@@ -115,6 +117,7 @@ export default class TabBar extends Component {
       deleteService,
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
+      showDisabledServices,
       collapsedState,
       updateCollapsedState,
     } = this.props;
@@ -146,6 +149,7 @@ export default class TabBar extends Component {
           openSettings={openSettings}
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
+          showDisabledServices={showDisabledServices}
           serviceOrder={this.props.stores.ui.serviceOrder}
           collapsedState={collapsedState}
           updateCollapsedState={updateCollapsedState}
