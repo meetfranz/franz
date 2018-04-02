@@ -53,7 +53,7 @@ const SortableGroup = sortableElement(props =>
 );
 
 const SortableListGroups = sortableContainer((props) => {
-  return (<div>
+  return (<div className="sortable__tabbar__groups">
     {props.items.map((group, index) => (group &&
       <SortableGroup
         {...props}
@@ -94,7 +94,7 @@ export default class SortableComponent extends Component {
     if (typeof this.props.onSortStart === 'function') {
       this.props.onSortStart();
     }
-    
+
   }
 
   onDeleteGroup = (index) => {
@@ -177,7 +177,7 @@ export default class SortableComponent extends Component {
     const { intl } = this.context;
 
     return (
-      <div>
+      <div className="sortable__tabbar">
         <SortableListGroups
           {...this.props}
           items={this.props.groups}

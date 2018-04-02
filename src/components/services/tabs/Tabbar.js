@@ -107,7 +107,7 @@ export default class TabBar extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="tabbar">
         {<SortableComponent
           {...this.props}
           groups={groups}

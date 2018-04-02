@@ -1,5 +1,9 @@
 @import './config.scss';
 
+.sortable__tabbar__groups {
+  height: auto;
+}
+
 .tabs {
   display: flex;
   // flex: 1;
