@@ -345,10 +345,20 @@ export default class ServicesStore extends Store {
     }
   }
 
-  @action _toggleService({ serviceId }) {
-    const service = this.one(serviceId);
+  @action _toggleService({ serviceId, isEnabled }) {
+    let disabledServices = this.stores.settings.all.service.disabled;
+    if (isEnabled) {
+      disabledServices = disabledServices.filter(id => id !== serviceId);
+    } else {
+      disabledServices.push(serviceId);
+    }
 
-    service.isEnabled = !service.isEnabled;
+    this.actions.settings.update({
+      type: 'service',
+      data: {
+        disabled: disabledServices,
+      },
+    });
   }
 
   @action _handleIPCMessage({ serviceId, channel, args }) {

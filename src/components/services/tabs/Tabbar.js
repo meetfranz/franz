@@ -60,23 +60,7 @@ export default class TabBar extends Component {
   }
 
   toggleService = ({ serviceId, isEnabled }) => {
-    if (!serviceId) {
-      return;
-    }
-
-    let disabledServices = this.props.stores.settings.all.service.disabled;
-    if (isEnabled) {
-      disabledServices = disabledServices.filter(id => id !== serviceId);
-    } else {
-      disabledServices.push(serviceId);
-    }
-
-    this.props.actions.settings.update({
-      type: 'service',
-      data: {
-        disabled: disabledServices,
-      },
-    });
+    this.props.actions.service.toggleService({ serviceId, isEnabled });
   }
 
   disableService({ serviceId }) {

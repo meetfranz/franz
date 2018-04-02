@@ -42,6 +42,7 @@ export default {
   focusActiveService: {},
   toggleService: {
     serviceId: PropTypes.string.isRequired,
+    isEnabled: PropTypes.bool.isRequired,
   },
   handleIPCMessage: {
     serviceId: PropTypes.string.isRequired,
