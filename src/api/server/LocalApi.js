@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import du from 'du';
 
 import { getServicePartitionsDirectory } from '../../helpers/service-helpers.js';
@@ -8,6 +8,23 @@ const debug = require('debug')('LocalApi');
 const { session } = remote;
 
 export default class LocalApi {
+  // Settings
+  getAppSettings() {
+    return new Promise((resolve) => {
+      ipcRenderer.once('appSettings', (event, data) => {
+        debug('LocalApi::getAppSettings resolves', data);
+        resolve(data);
+      });
+
+      ipcRenderer.send('getAppSettings');
+    });
+  }
+
+  async updateAppSettings(data) {
+    debug('LocalApi::updateAppSettings resolves', data);
+    ipcRenderer.send('updateAppSettings', data);
+  }
+
   // Services
   async getAppCacheSize() {
     const partitionsDir = getServicePartitionsDirectory();
