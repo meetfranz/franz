@@ -1,8 +1,35 @@
+<a name="5.0.0-beta.17"></a>
+# [5.0.0-beta.17](https://github.com/meetfranz/franz/compare/v5.0.0-beta.16...v5.0.0-beta.17) (2018-03-20)
+
+### General
+
+* **App:** Various performance improvments
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+### Features
+
+* **Windows:** Replace window frame with custom menu bar ([9af5fd0](https://github.com/meetfranz/franz/commit/9af5fd0))
+* **Electron:** Update electron to 1.8.4 ([b9c6616](https://github.com/meetfranz/franz/commit/b9c6616))
+* **Mac:** Add dock bounce when new update is available ([47885bb](https://github.com/meetfranz/franz/commit/47885bb))
+* **Services:** Improve performance when reordering services ([82e832c](https://github.com/meetfranz/franz/commit/82e832c))
+* **Translations:** Add option to translate error messages and system menus ([82e832c](https://github.com/meetfranz/franz/commit/82e832c))
+
+### Bug Fixes
+
+* **App:** Fix app reload when coming back from sleep ([dd9f447](https://github.com/meetfranz/franz/commit/dd9f447))
+* **App:** Fix issue with app not showing services when recipe has invalid version (e.g. mailbox.org) ([dd9f447](https://github.com/meetfranz/franz/commit/dd9f447))
+* **Linux:** Fix missing/flickering ubuntu tray icon ([592f00a](https://github.com/meetfranz/franz/commit/592f00a))
+* **Service Tabs:** Remove "delete service" context menu when not in development mode ([3a5c3f0](https://github.com/meetfranz/franz/commit/3a5c3f0))
+* **Windows:** Improve app window handling ([dd9f447](https://github.com/meetfranz/franz/commit/dd9f447))
+
+
 <a name="5.0.0-beta.16"></a>
 # [5.0.0-beta.16](https://github.com/meetfranz/franz/compare/v5.0.0-beta.15...v5.0.0-beta.16) (2018-02-23)
 
 ### General
 * **App:** Update Electron version to 1.7.12 (fixes critical security vulnerability CVE-2018–1000006 ) ([c67d7d1](https://github.com/meetfranz/franz/commit/c67d7d1))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 ### Features
 * **App:** Invite Friends in Settings ([ab33c44](https://github.com/meetfranz/franz/commit/ab33c44))
@@ -18,13 +45,15 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 * **App:** Fix Franz-wide form validation ([7618f51](https://github.com/meetfranz/franz/commit/7618f51))
 * **App:** Fix service tooltips not initialized properly ([8765b8f](https://github.com/meetfranz/franz/commit/8765b8f))
 * **Linux:** Invert tray icon color & add border for bright UI's ([0de9c60](https://github.com/meetfranz/franz/commit/0de9c60))
-* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 
 
 <a name="5.0.0-beta.15"></a>
 # [5.0.0-beta.15](https://github.com/meetfranz/franz/compare/v5.0.0-beta.14...v5.0.0-beta.15) (2018-01-10)
 
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 ### Features
 
@@ -37,7 +66,6 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 * **Services:** Improve handling of external links ([e2d6edf](https://github.com/meetfranz/franz/commit/e2d6edf))
 * **Services:** Improve user experience of service search ([7e784c6](https://github.com/meetfranz/franz/commit/7e784c6))
 * **Account:** Enable a user to delete their own account ([1f3df73](https://github.com/meetfranz/franz/commit/1f3df73))
-* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 
 
