@@ -20,7 +20,9 @@ export default class SettingsStore extends Store {
     this.actions.settings.remove.listen(this._remove.bind(this));
   }
 
-  setup() {
+  async setup() {
+    // We need to wait until `appSettingsRequest` has been executed once, otherwise we can't patch the result. If we don't wait we'd run into an issue with mobx not reacting to changes of previously not existing keys
+    await this.appSettingsRequest._promise;
     this._migrate();
   }
 
