@@ -83,8 +83,6 @@ export default class SettingsStore extends Store {
           showMessageBadgeWhenMuted: legacySettings.showMessageBadgeWhenMuted,
           showDisabledServices: legacySettings.showDisabledServices,
           enableSpellchecking: legacySettings.enableSpellchecking,
-          locale: legacySettings.locale,
-          beta: legacySettings.beta,
         },
       });
 
