@@ -4,11 +4,12 @@
 ### General
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
+### Features
+
+* **App:** Add option to enable/disable hardware acceleration ([f720d30](https://github.com/meetfranz/franz/commit/f720d30))
+
 ### Bug Fixes
 
-* **Linux:** Fix missing ubuntu tray icon ([592f00a](https://github.com/meetfranz/franz/commit/592f00a))
-* **Service Tabs:** Remove "delete service" context menu when not in development mode ([3a5c3f0](https://github.com/meetfranz/franz/commit/3a5c3f0))
-* **Windows:** Fix shortcut to toggle fullscreen ([1bbf966](https://github.com/meetfranz/franz/commit/1bbf966))
 * **Windows:** Fix shortcuts for closing, minimizing, quitting and toggling fullscreen ([f720d30](https://github.com/meetfranz/franz/commit/f720d30))
 * **Windows:** Hide title bar when in fullscreen ([655a6ed](https://github.com/meetfranz/franz/commit/655a6ed))
 
