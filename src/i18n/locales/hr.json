@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Otvori u pozadini",
    "settings.app.form.autoLaunchOnStart" : "Pokreni Franz sa sistemom",
    "settings.app.form.beta" : "Obuhvati i beta verzije",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Prikaži Franz u traci izbornika",
    "settings.app.form.enableSpellchecking" : "Omogući provjeru pravopisa",
    "settings.app.form.enableSystemTray" : "Prikaži aplikaciju u sustavskoj traci",

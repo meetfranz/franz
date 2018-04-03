@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Άνοιγμα στο παρασκήνιο",
    "settings.app.form.autoLaunchOnStart" : "Εκκίνηση του Franz κατά την εκκίνηση του συστήματος",
    "settings.app.form.beta" : "Συμπεριλάβετε εκδόσεις beta",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Show Franz in Menu Bar",
    "settings.app.form.enableSpellchecking" : "Ενεργοποίηση ορθογραφικού ελέγχου",
    "settings.app.form.enableSystemTray" : "Εμφάνιση του Franz στη γραμμή ειδοποιήσεων",

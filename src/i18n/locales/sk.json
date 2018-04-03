@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Otvoriť na pozadí",
    "settings.app.form.autoLaunchOnStart" : "Spustiť Franz pri štarte",
    "settings.app.form.beta" : "Vrátane beta verzií",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Zobraz Franz v Menu bare",
    "settings.app.form.enableSpellchecking" : "Povoliť zvýraznenie preklepov",
    "settings.app.form.enableSystemTray" : "Zobrazovať Franz v systémovej lište",

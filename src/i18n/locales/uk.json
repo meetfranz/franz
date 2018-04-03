@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Відкрити у фоновому режимі",
    "settings.app.form.autoLaunchOnStart" : "Запускати Franz на початку",
    "settings.app.form.beta" : "Включити бета-версії",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Відображати Franz в панелі головного меню",
    "settings.app.form.enableSpellchecking" : "Увімкнути перевірку орфографії",
    "settings.app.form.enableSystemTray" : "Показувати Franz у системному лотку",

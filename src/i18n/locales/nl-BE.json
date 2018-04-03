@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Open op de achtergrond",
    "settings.app.form.autoLaunchOnStart" : "Lanceer Franz bij opstarten",
    "settings.app.form.beta" : "Inclusief bèta versies",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Show Franz in Menu Bar",
    "settings.app.form.enableSpellchecking" : "Enable spell checking",
    "settings.app.form.enableSystemTray" : "Toon Franz in de systeembalk",

@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Abrir em segundo plano",
    "settings.app.form.autoLaunchOnStart" : "Iniciar o Franz com o início de sessão",
    "settings.app.form.beta" : "Incluir versões instáveis (beta)",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Mostrar Franz na Barra de Menu",
    "settings.app.form.enableSpellchecking" : "Ativar verificação ortográfica",
    "settings.app.form.enableSystemTray" : "Mostrar o Franz na barra do sistema",

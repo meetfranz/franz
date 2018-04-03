@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "在背景開啟",
    "settings.app.form.autoLaunchOnStart" : "開機時啟動Franz",
    "settings.app.form.beta" : "包含測試版",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Show Franz in Menu Bar",
    "settings.app.form.enableSpellchecking" : "啟用拼字檢查",
    "settings.app.form.enableSystemTray" : "顯示Franz在系統列",
