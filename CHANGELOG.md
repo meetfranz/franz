@@ -1,3 +1,19 @@
+<a name="5.0.0-beta.18"></a>
+# [5.0.0-beta.18](https://github.com/meetfranz/franz/compare/v5.0.0-beta.16...v5.0.0-beta.18) (2018-04-03)
+
+### General
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+### Features
+
+* **App:** Add option to enable/disable hardware acceleration ([f720d30](https://github.com/meetfranz/franz/commit/f720d30))
+
+### Bug Fixes
+
+* **Windows:** Fix shortcuts for closing, minimizing, quitting and toggling fullscreen ([f720d30](https://github.com/meetfranz/franz/commit/f720d30))
+* **Windows:** Hide title bar when in fullscreen ([655a6ed](https://github.com/meetfranz/franz/commit/655a6ed))
+
+
 <a name="5.0.0-beta.17"></a>
 # [5.0.0-beta.17](https://github.com/meetfranz/franz/compare/v5.0.0-beta.16...v5.0.0-beta.17) (2018-03-20)
 

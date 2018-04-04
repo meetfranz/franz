@@ -32,8 +32,7 @@
       margin: 4px;
       border-radius: $theme-border-radius-small;
     }
-    &.selected {
-      // background: $theme-brand-primary;
+    &.selected, &.selected:focus {
       background: none;
 
       .menu-item {

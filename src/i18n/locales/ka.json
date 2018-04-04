@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "გახსენით ფონზე",
    "settings.app.form.autoLaunchOnStart" : "გაეშვას Franz სისტემის ჩატვირთვისას",
    "settings.app.form.beta" : "ჩართეთ ბეტა ვერსიები",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Show Franz in Menu Bar",
    "settings.app.form.enableSpellchecking" : "Enable spell checking",
    "settings.app.form.enableSystemTray" : "აჩვენეთ Franz სისტემის უჯრაში",

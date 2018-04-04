@@ -20,7 +20,7 @@ before_build:
   - yarn lint
 
 build_script:
-  - yarn build --x64 --ia32
+  - yarn build
 
 notifications:
   - provider: Slack

@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Megnyitás háttérben",
    "settings.app.form.autoLaunchOnStart" : "Franz betöltése indításkor",
    "settings.app.form.beta" : "Béta verziók keresése",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Show Franz in Menu Bar",
    "settings.app.form.enableSpellchecking" : "Helyesírás-ellenőrzés engedélyezése",
    "settings.app.form.enableSystemTray" : "Franz mutatása a tálcán",

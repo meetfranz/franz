@@ -116,6 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Buka di latar belakang",
    "settings.app.form.autoLaunchOnStart" : "Jalankan Franz saat komputer dimulai",
    "settings.app.form.beta" : "Sertakan versi beta",
+   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableMenuBar" : "Tampilkan Franz di Bilah Menu",
    "settings.app.form.enableSpellchecking" : "Aktifkan pemeriksaan ejaan",
    "settings.app.form.enableSystemTray" : "Tampilkan Franz di baki sistem",

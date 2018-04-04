@@ -415,7 +415,7 @@ const _titleBarTemplateFactory = intl => [
         label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
           ? intl.formatMessage(menuItems.exitFullScreen)
           : intl.formatMessage(menuItems.enterFullScreen),
-        accelerator: `${ctrlKey}+F`,
+        accelerator: 'F11',
         click(menuItem, browserWindow) {
           browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
@@ -431,14 +431,14 @@ const _titleBarTemplateFactory = intl => [
     submenu: [
       {
         label: intl.formatMessage(menuItems.minimize),
-        accelerator: 'Alt+M',
+        accelerator: 'Ctrl+M',
         click(menuItem, browserWindow) {
           browserWindow.minimize();
         },
       },
       {
         label: intl.formatMessage(menuItems.close),
-        accelerator: 'Alt+W',
+        accelerator: 'Ctrl+W',
         click(menuItem, browserWindow) {
           browserWindow.close();
         },
@@ -450,7 +450,7 @@ const _titleBarTemplateFactory = intl => [
     submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
-        click() { shell.openExternal('http://meetfranz.com'); },
+        click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
         label: intl.formatMessage(menuItems.changelog),
@@ -461,7 +461,7 @@ const _titleBarTemplateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.support),
-        click() { shell.openExternal('http://meetfranz.com/support'); },
+        click() { shell.openExternal('https://meetfranz.com/support'); },
       },
       {
         type: 'separator',
@@ -643,10 +643,7 @@ export default class FranzMenu {
         },
         {
           label: intl.formatMessage(menuItems.quit),
-          accelerator: 'Alt+F4',
-          click: () => {
-            app.quit();
-          },
+          role: 'quit',
         },
       ];
 
