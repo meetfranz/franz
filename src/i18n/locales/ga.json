@@ -116,7 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Oscail sa chúlra",
    "settings.app.form.autoLaunchOnStart" : "Láinseáil Franz ón tús",
    "settings.app.form.beta" : "Cuir leagain béite san áireamh",
-   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
+   "settings.app.form.enableGPUAcceleration" : "Cumasaigh luasghéarú APG",
    "settings.app.form.enableMenuBar" : "Taispeáin Franz sa bharra roghchláir",
    "settings.app.form.enableSpellchecking" : "Cumasaigh seiceáil litrithe",
    "settings.app.form.enableSystemTray" : "Taispeáin Franz i dtráidire an chórais",

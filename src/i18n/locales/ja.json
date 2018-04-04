@@ -116,7 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "バックグラウンドで開く",
    "settings.app.form.autoLaunchOnStart" : "システム起動時にFranzを開く",
    "settings.app.form.beta" : "Betaバージョンを含める",
-   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
+   "settings.app.form.enableGPUAcceleration" : "GPUアクセラレーションを有効にする",
    "settings.app.form.enableMenuBar" : "メニューバーにFranzを表示する",
    "settings.app.form.enableSpellchecking" : "スペルチェックを有効にする",
    "settings.app.form.enableSystemTray" : "Franzをシステムトレイに表示する",

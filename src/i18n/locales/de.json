@@ -116,7 +116,7 @@
    "settings.app.form.autoLaunchInBackground" : "Im Hintergrund öffnen",
    "settings.app.form.autoLaunchOnStart" : "Franz beim Systemstart ausführen",
    "settings.app.form.beta" : "Beta-Versionen einbeziehen",
-   "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
+   "settings.app.form.enableGPUAcceleration" : "Hardwarebeschleunigung aktivieren",
    "settings.app.form.enableMenuBar" : "Franz in Menüleiste anzeigen",
    "settings.app.form.enableSpellchecking" : "Rechtschreibprüfung aktivieren",
    "settings.app.form.enableSystemTray" : "Franz in der Systemleiste anzeigen",
