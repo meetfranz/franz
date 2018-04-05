@@ -1,0 +1,47 @@
+name: Franz
+version: "5.0.0"
+summary: Messaging app for various clients.
+description: Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
+
+grade: stable
+confinement: strict
+
+apps:
+  Franz:
+    command: desktop-launch $SNAP/out/linux-unpacked/franz
+    desktop: out/Franz.desktop
+    plugs:
+     - browser-support
+     - network
+     - unity7
+     - gsettings
+     - home
+
+parts:
+  Franz:
+    plugin: nodejs
+    node-engine: "8.9.4"
+    npm-run: [build]
+    build-packages:
+      - execstack
+    install: |
+      mkdir $SNAPCRAFT_PART_INSTALL/out/
+      cp -r out/* $SNAPCRAFT_PART_INSTALL/out/
+      cp pats-franz.desktop $SNAPCRAFT_PART_INSTALL/out/
+      execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/out/linux-unpacked/franz
+      execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/lib/node_modules/franz/node_modules/electron/dist/electron
+      execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/lib/node_modules/franz/out/linux-unpacked/franz
+    filesets:
+      out: [out/*]
+    after: [desktop-glib-only]
+    stage-packages:
+      - libappindicator1
+      - libx11-xcb-dev
+      - libxext-dev
+      - libxss-dev
+      - libxkbfile-dev
+      - libgconf2-4
+      - libnss3
+      - zlib1g-dev
+      - libxtst-dev
+      - libasound-dev

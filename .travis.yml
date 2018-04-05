@@ -43,6 +43,20 @@ deploy:
   on:
     all_branches: true
 
+after_success:
+  - openssl aes-256-cbc -K $encrypted_558c6f1896ed_key -iv $encrypted_558c6f1896ed_iv
+    -in .snapcraft/travis_snapcraft.cfg -out .snapcraft/snapcraft.cfg -d
+sudo: required
+services:
+  - docker
+deploy:
+  on:
+    branch: master
+  provider: script
+  script: docker run -v $(pwd):$(pwd) -t snapcore/snapcraft sh -c "apt update -qq
+    && cd $(pwd) && snapcraft && snapcraft push *.snap --release edge"
+  skip_cleanup: true
+
 env:
   global:
   - secure: fddJzSmNYVX024jnhnFXEuAK1spEYi3y3RZdWaBtjQnzoObAxkcRW263JNpXQy+b7egnp2hSy8FvlQU+L967911F5Y70Pe3An4oI72hnS3DL4Njp2Dw5PwviwMA+X2ddWhzK4+k/JU6r8jBv1FGQ6ZjwSeaO/t8UKOsE8wDBFLRhnHqoR7QbM7zmKjzh/1oofunGbHsPOHmN4f7jBwSuSFTZltEENcQg3ZP++0NHU8UJdlpfqZOkro8v4AJMngAHeHlNtjwaAHdVv+6+kkwc4E/0Cy6YNyyBkbzipyngNY3GwnwzmNzvsfICD1TGklksjBlMQq7ld7eCiaYRNvyHVEmXJ17qlq7HhxkYgNy32hPRwb5Cv6o4M4tv8qS8UUk4W1RvBJ5fcmfZGQwGXPyQ/m85RJtrNfbYtr84jYcprTnSeji/9PuZv0f87dxELYm3DYmNUa1cgJqEdLUsEd0bMwUYNLnCSfu4ea2zxwir6LSBtJJCbGKxX87s5IOTrHkrWDe+PWd52v+UjQks7MBRlJnntTWo69Yy+ayXV1TnGVOHA5znHvPOvFlAF+y8tLGd4AGvehK1SAkf0+idmc9Q9xKk0QypT3ibjJui4D50p7sSajkzz3P2pUqOS/9HmjMfPMPN+Nl+48GU0CvB2aBGhdmp9vu54VaFzUaAGNGj4WI=
