@@ -83,6 +83,7 @@ const createWindow = () => {
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
     backgroundColor: '#3498db',
+    icon: path.join(__dirname, '/assets/images/tray/linux/tray.png'),
   });
 
   // Initialize System Tray
