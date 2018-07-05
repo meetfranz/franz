@@ -161,6 +161,7 @@ export default class EditSettingsForm extends Component {
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
             <Toggle field={form.$('showMessageBadgeWhenMuted')} />
+            <Toggle field={form.$('darkMode')} />
 
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>

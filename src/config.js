@@ -17,6 +17,7 @@ export const DEFAULT_APP_SETTINGS = {
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
+  darkMode: false,
   locale: '',
   fallbackLocale: 'en-US',
   beta: false,

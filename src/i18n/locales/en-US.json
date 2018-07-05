@@ -158,6 +158,7 @@
   "settings.app.form.autoLaunchOnStart": "Launch Franz on start",
   "settings.app.form.autoLaunchInBackground": "Open in background",
   "settings.app.form.enableSystemTray": "Show Franz in system tray",
+  "settings.app.form.darkMode": "Join the Dark Side",
   "settings.app.form.minimizeToSystemTray": "Minimize Franz to system tray",
   "settings.app.form.enableMenuBar": "Show Franz in Menu Bar",
   "settings.app.form.hideDockIcon": "Hide Franz icon in Dock",

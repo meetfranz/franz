@@ -32,6 +32,7 @@ export default class AppLayoutContainer extends Component {
       settings,
       globalError,
       requests,
+      darkMode,
     } = this.props.stores;
 
     const {
@@ -121,6 +122,7 @@ export default class AppLayoutContainer extends Component {
         areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
         retryRequiredRequests={retryRequiredRequests}
         areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
+        darkMode={settings.all.app.darkMode}
       >
         {React.Children.count(children) > 0 ? children : null}
       </AppLayout>

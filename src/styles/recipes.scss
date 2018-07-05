@@ -1,16 +1,22 @@
 @import './config.scss';
 
+.theme__dark .recipe-teaser {
+  background-color: $dark-theme-gray-dark;
+
+  &:hover { background-color: $dark-theme-gray; }
+}
+
 .recipes {
   .recipes__list {
+    align-content: flex-start;
     display: flex;
     flex-flow: row wrap;
-    align-content: flex-start;
-    min-height: 70%;
     height: auto;
+    min-height: 70%;
 
     &.recipes__list--disabled {
-      opacity: 0.3;
       filter: grayscale(100%);
+      opacity: .3;
       pointer-events: none;
     }
   }
@@ -19,58 +25,48 @@
     height: auto;
     margin-bottom: 35px;
 
-    .badge {
-      margin-right: 10px;
-    }
+    .badge { margin-right: 10px; }
 
     &.recipes__navigation--disabled {
-      opacity: 0.3;
       filter: grayscale(100%);
+      opacity: .3;
       pointer-events: none;
     }
   }
 
-  &__service-request {
-    float: right;
-  }
+  &__service-request { float: right; }
 }
 
 .recipe-teaser {
-  position: relative;
-  width: calc(25% - 20px);
+  background-color: $theme-gray-lightest;
+  border-radius: $theme-border-radius;
   height: 120px;
   margin: 0 20px 20px 0;
-  border-radius: $theme-border-radius;
-  background-color: $theme-gray-lightest;
-  transition: background $theme-transition-time;
   overflow: hidden;
+  position: relative;
+  transition: background $theme-transition-time;
+  width: calc(25% - 20px);
 
-  &:hover {
-    background-color: $theme-gray-lighter;
-  }
+  &:hover { background-color: $theme-gray-lighter; }
 
   .recipe-teaser__icon {
-    width: 50px;
     margin-bottom: 10px;
+    width: 50px;
   }
 
-  .recipe-teaser__label {
-    display: block;
-  }
+  .recipe-teaser__label { display: block; }
 
-  h2 {
-    z-index: 10;
-  }
+  h2 { z-index: 10; }
 
   &__dev-badge {
-    position: absolute;
-    top: 5px;
-    right: -13px;
-    width: 50px;
     background: $theme-brand-warning;
+    box-shadow: 0 0 4px rgba(black, .2);
     color: #FFF;
     font-size: 10px;
+    position: absolute;
+    right: -13px;
+    top: 5px;
     transform: rotateZ(45deg);
-    box-shadow: 0 0 4px rgba(black, 0.2);
+    width: 50px;
   }
 }

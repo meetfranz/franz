@@ -1,22 +1,37 @@
-$theme-brand-primary: #3498db;
-$theme-brand-success: #5cb85c;
-$theme-brand-info: #5bc0de;
-$theme-brand-warning: #FF9F00;
-$theme-brand-danger: #d9534f;
+$theme-brand-primary:        #3498db;
+$theme-brand-success:        #5cb85c;
+$theme-brand-info:           #5bc0de;
+$theme-brand-warning:        #FF9F00;
+$theme-brand-danger:         #d9534f;
 
-$theme-gray-dark: #373a3c;
-$theme-gray: #55595c;
-$theme-gray-light: #818a91;
-$theme-gray-lighter: #eceeef;
-$theme-gray-lightest: #f7f7f9;
+$theme-gray-dark:            #373a3c;
+$theme-gray:                 #55595c;
+$theme-gray-light:           #818a91;
+$theme-gray-lighter:         #eceeef;
+$theme-gray-lightest:        #f7f7f9;
 
-$theme-border-radius: 6px;
-$theme-border-radius-small: 3px;
+$theme-border-radius:        6px;
+$theme-border-radius-small:  3px;
 
-$theme-sidebar-width: 68px;
+$theme-sidebar-width:        68px;
 
-$theme-text-color: $theme-gray-dark;
+$theme-text-color:           $theme-gray-dark;
 
-$theme-transition-time: 0.5s;
+$theme-transition-time:      .5s;
 
-$theme-inset-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+$theme-inset-shadow:         inset 0 2px 5px rgba(0, 0, 0, .03);
+
+// Dark Theme
+$dark-theme-black:           #1A1A1A;
+
+$dark-theme-gray-darkest:    #1E1E1E;
+$dark-theme-gray-darker:     #2D2F31;
+$dark-theme-gray-dark:       #383A3B;
+
+$dark-theme-gray:            #47494B;
+
+$dark-theme-gray-light:      #515355;
+$dark-theme-gray-lighter:    #686A6C;
+$dark-theme-gray-lightest:   #A0A2A3;
+
+$dark-theme-gray-smoke:      #CED0D1;

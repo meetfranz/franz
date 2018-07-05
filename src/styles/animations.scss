@@ -1,49 +1,41 @@
 // FadeIn
-.fadeIn-appear {
-  opacity: 0.01;
-}
+.fadeIn-appear { opacity: .01; }
 
 .fadeIn-appear.fadeIn-appear-active {
   opacity: 1;
-  transition: opacity 0.5s ease-out;
+  transition: opacity .5s ease-out;
 }
 
 .fadeIn-enter {
-  opacity: 0.01;
-  transition: opacity 0.5s ease-out;
+  opacity: .01;
+  transition: opacity .5s ease-out;
 }
 
-.fadeIn-leave {
-  opacity: 1;
-}
+.fadeIn-leave { opacity: 1; }
 
 .fadeIn-leave.fadeIn-leave-active {
-  opacity: 0.01;
+  opacity: .01;
   transition: opacity 300ms ease-in;
 }
 
 // FadeIn Fast
-.fadeIn-fast-appear {
-  opacity: 0.01;
-}
+.fadeIn-fast-appear { opacity: .01; }
 
 .fadeIn-fast-appear.fadeIn-fast-appear-active {
   opacity: 1;
-  transition: opacity 0.25s ease-out;
+  transition: opacity .25s ease-out;
 }
 
 .fadeIn-fast-enter {
-  opacity: 0.01;
-  transition: opacity 0.25s ease-out;
+  opacity: .01;
+  transition: opacity .25s ease-out;
 }
 
-.fadeIn-fast-leave {
-  opacity: 1;
-}
+.fadeIn-fast-leave { opacity: 1; }
 
 .fadeIn-fast-leave.fadeIn-fast-leave-active {
-  opacity: 0.01;
-  transition: opacity 0.25s ease-in;
+  opacity: .01;
+  transition: opacity .25s ease-in;
 }
 
 // Slide down
@@ -54,37 +46,35 @@
 
 .slideDown-appear.slideDown-appear-active {
   max-height: 500px;
-  transition: max-height 0.5s ease-out;
+  transition: max-height .5s ease-out;
 }
 
 .slideDown-enter {
   max-height: 0;
-  transition: max-height 0.5s ease-out;
+  transition: max-height .5s ease-out;
 }
 
 // Slide up
 .slideUp-appear {
-  transform: translateY(20px);
   opacity: 0;
+  transform: translateY(20px);
 }
 
 .slideUp-appear.slideUp-appear-active {
-  transform: translateY(0px);
   opacity: 1;
-  transition: all 0.3s ease-out;
+  transform: translateY(0px);
+  transition: all .3s ease-out;
 }
 
 .slideUp-enter {
-  transform: translateY(20px);
   opacity: 0;
-  transition: all 0.3s ease-out;
+  transform: translateY(20px);
+  transition: all .3s ease-out;
 }
 
-.slideUp-leave {
-  opacity: 1;
-}
+.slideUp-leave { opacity: 1; }
 
 .slideUp-leave.slideUp-leave-active {
-  opacity: 0.01;
+  opacity: .01;
   transition: opacity 300ms ease-in;
 }

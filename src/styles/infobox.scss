@@ -1,20 +1,16 @@
 @import './config.scss';
 
 .infobox {
-  height: auto;
-  padding: 15px 20px;
-  margin-bottom: 30px;
+  align-items: center;
   border-radius: $theme-border-radius-small;
   display: flex;
-  align-items: center;
+  height: auto;
+  margin-bottom: 30px;
+  padding: 15px 20px;
 
-  a {
-    color: #FFF;
-  }
+  a { color: #FFF; }
 
-  .infobox__content {
-    flex: 1;
-  }
+  .infobox__content { flex: 1; }
 
   &.infobox--success {
     background: $theme-brand-success;
@@ -36,26 +32,24 @@
     color: #FFF;
   }
 
-  .mdi {
-    margin-right: 10px;
-  }
+  .mdi { margin-right: 10px; }
 
   .infobox__cta {
-    color: #FFF;
-    padding: 3px 8px;
-    border-radius: $theme-border-radius-small;
     border-color: #FFF;
-    border-width: 2px;
+    border-radius: $theme-border-radius-small;
     border-style: solid;
+    border-width: 2px;
+    color: #FFF;
     margin-left: 15px;
+    padding: 3px 8px;
 
     .loader {
+      display: inline-block;
+      height: 12px;
+      margin-right: 5px;
       position: relative;
       width: 20px;
-      height: 12px;
       z-index: 9999;
-      display: inline-block;
-      margin-right: 5px;
     }
   }
 

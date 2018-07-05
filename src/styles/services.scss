@@ -1,30 +1,46 @@
 @import './config.scss';
 
-.services {
-  flex: 1;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  background: #FFF;
-  order: 5;
+.theme__dark .services {
+  background: $dark-theme-gray-darkest;
 
-  .services__webview-wrapper {
-    background: $theme-gray-lighter;
+  .services__webview-wrapper { background: $dark-theme-gray-darkest; }
+
+  .services__webview,
+  .services__info-layer {
+    webview { background: $dark-theme-gray-darkest; }
   }
 
-  .services__webview, 
+  .services__no-service,
   .services__info-layer {
-    position: absolute;
-    width: 100%;
-    top: 0;
+    background: $dark-theme-gray-darkest;
+
+    h1 { color: $dark-theme-gray-lightest; }
+  }
+}
+
+.services {
+  background: #FFF;
+  flex: 1;
+  height: 100%;
+  order: 5;
+  overflow: hidden;
+  position: relative;
+
+  .services__webview-wrapper { background: $theme-gray-lighter; }
+
+  .services__webview,
+  .services__info-layer {
     left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
     z-index: 0;
 
     webview {
-      display: inline-flex;
-      width: 0px;
-      height: 0px;
       background: $theme-gray-lighter;
+      display: inline-flex;
+      height: 0;
+      width: 0;
     }
 
     &.is-active {
@@ -32,36 +48,30 @@
 
       webview {
         flex: 0 1;
-        width: 100%;
         height: 100%;
+        width: 100%;
       }
     }
 
-    &--force-repaint {
-      webview {
-        z-index: 5;
-      }
-    }
+    &--force-repaint webview { z-index: 5; }
   }
 
-  .services__no-service, 
+  .services__no-service,
   .services__info-layer {
+    align-items: center;
+    background: $theme-gray-lighter;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     text-align: center;
-    background: $theme-gray-lighter;
 
     h1 {
-      margin: 25px 0 40px;
       color: $theme-gray-dark;
+      margin: 25px 0 40px;
     }
 
     a.button,
-    button {
-      margin: 40px 0 20px;
-    }
+    button { margin: 40px 0 20px; }
   }
 
   .services__info-layer {
