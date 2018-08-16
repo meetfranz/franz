@@ -62,7 +62,7 @@ const messages = defineMessages({
   },
   updateStatusSearching: {
     id: 'settings.app.updateStatusSearching',
-    defaultMessage: '!!!Is searching for update',
+    defaultMessage: '!!!Searching for updates...',
   },
   updateStatusAvailable: {
     id: 'settings.app.updateStatusAvailable',

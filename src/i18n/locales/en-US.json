@@ -149,7 +149,7 @@
   "settings.app.headlineAdvanced": "Advanced",
   "settings.app.buttonSearchForUpdate": "Check for updates",
   "settings.app.buttonInstallUpdate": "Restart & install update",
-  "settings.app.updateStatusSearching": "Is searching for update",
+  "settings.app.updateStatusSearching": "Searching for updates...",
   "settings.app.updateStatusAvailable": "Update available, downloading...",
   "settings.app.updateStatusUpToDate": "You are using the latest version of Franz",
   "settings.app.subheadlineCache": "Cache",
