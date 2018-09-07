@@ -1959,7 +1959,7 @@ electron-download@^4.0.0:
     semver "^5.3.0"
     sumchecker "^2.0.1"
 
-electron-fetch@^1.1.0:
+electron-fetch@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/electron-fetch/-/electron-fetch-1.1.0.tgz#74b0ea547fe149620d38596a84fb104d34218e31"
   dependencies:

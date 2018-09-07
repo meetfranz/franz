@@ -35,7 +35,7 @@
     "classnames": "^2.2.5",
     "debug-electron": "^0.0.4",
     "du": "^0.1.0",
-    "electron-fetch": "^1.1.0",
+    "electron-fetch": "~1.1.0",
     "electron-react-titlebar": "^0.7.1",
     "electron-spellchecker": "^1.1.2",
     "electron-updater": "^2.4.3",
