@@ -677,7 +677,7 @@ export default class FranzMenu {
     if (this.stores.user.isLoggedIn) {
       return services.map((service, i) => ({
         label: this._getServiceName(service),
-        accelerator: i <= 9 ? `${cmdKey}+${i + 1}` : null,
+        accelerator: i < 9 ? `${cmdKey}+${i + 1}` : i == 10 ? `${cmdKey}+0` : null,
         type: 'radio',
         checked: service.isActive,
         click: () => {
