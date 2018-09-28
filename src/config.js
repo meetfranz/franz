@@ -9,6 +9,12 @@ export const DEV_API = 'https://dev.franzinfra.com';
 export const LIVE_API = 'https://api.franzinfra.com';
 export const GA_ID = 'UA-74126766-6';
 
+export const APP_THEMES = {
+  'theme-regular': 'Regular',
+  'theme-dark': 'Dark',
+  'theme-transparent-dark': 'Transparent dark',
+};
+
 export const DEFAULT_APP_SETTINGS = {
   autoLaunchInBackground: false,
   runInBackground: true,
@@ -16,6 +22,7 @@ export const DEFAULT_APP_SETTINGS = {
   minimizeToSystemTray: false,
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
+  theme: 'theme-regular',
   enableSpellchecking: true,
   locale: '',
   fallbackLocale: 'en-US',

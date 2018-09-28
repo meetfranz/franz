@@ -1,15 +1,15 @@
 import { remote } from 'electron';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
+
+import { FRANZ_TRANSLATION } from '../../../config';
 
 import Form from '../../../lib/Form';
 import Button from '../../ui/Button';
-import Toggle from '../../ui/Toggle';
 import Select from '../../ui/Select';
-
-import { FRANZ_TRANSLATION } from '../../../config';
+import Toggle from '../../ui/Toggle';
 
 const messages = defineMessages({
   headline: {
@@ -79,6 +79,10 @@ const messages = defineMessages({
   enableGPUAccelerationInfo: {
     id: 'settings.app.restartRequired',
     defaultMessage: '!!!Changes require restart',
+  },
+  theme: {
+    id: 'settings.app.headlineAppTheme',
+    defaultMessage: '!!!Pick Franz theme',
   },
 });
 
@@ -161,6 +165,10 @@ export default class EditSettingsForm extends Component {
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
             <Toggle field={form.$('showMessageBadgeWhenMuted')} />
+
+            {/* Theme */}
+            <h2 id="theme">{intl.formatMessage(messages.theme)}</h2>
+            <Select field={form.$('theme')} showLabel={false} />
 
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>

@@ -8,4 +8,5 @@ export default {
   toggleServiceUpdatedInfoBar: {
     visible: PropTypes.bool,
   },
+  changeTheme: {},
 };

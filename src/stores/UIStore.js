@@ -12,6 +12,7 @@ export default class UIStore extends Store {
     this.actions.ui.openSettings.listen(this._openSettings.bind(this));
     this.actions.ui.closeSettings.listen(this._closeSettings.bind(this));
     this.actions.ui.toggleServiceUpdatedInfoBar.listen(this._toggleServiceUpdatedInfoBar.bind(this));
+    this.actions.ui.changeTheme.listen(this._changeTheme.bind(this));
   }
 
   @computed get showMessageBadgesEvenWhenMuted() {
@@ -36,5 +37,24 @@ export default class UIStore extends Store {
       visibility = !this.showServicesUpdatedInfoBar;
     }
     this.showServicesUpdatedInfoBar = visibility;
+  }
+
+  @action _changeTheme(themeName) {
+    const currentClassList = document.body.classList;
+    if (themeName && !currentClassList.contains(themeName)) {
+      let name = themeName;
+      if (!themeName.startsWith('theme-')) {
+        name = `theme-${themeName}`;
+      }
+      [...currentClassList].forEach((c) => {
+        if (c && c.startsWith('theme-')) {
+          document.body.classList.remove(c);
+        }
+      });
+      if (name === 'theme-regular') {
+        return;
+      }
+      document.body.classList.add(name);
+    }
   }
 }

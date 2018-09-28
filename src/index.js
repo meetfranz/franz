@@ -82,7 +82,7 @@ const createWindow = () => {
     minHeight: 500,
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
-    backgroundColor: '#3498db',
+    show: false,
   });
 
   // Initialize System Tray

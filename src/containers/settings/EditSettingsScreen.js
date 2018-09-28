@@ -9,7 +9,7 @@ import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
 import { APP_LOCALES } from '../../i18n/languages';
 import { gaPage } from '../../lib/analytics';
-import { DEFAULT_APP_SETTINGS } from '../../config';
+import { APP_THEMES, DEFAULT_APP_SETTINGS } from '../../config';
 
 
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
@@ -46,6 +46,10 @@ const messages = defineMessages({
   showMessageBadgeWhenMuted: {
     id: 'settings.app.form.showMessagesBadgesWhenMuted',
     defaultMessage: '!!!Show unread message badge when notifications are disabled',
+  },
+  theme: {
+    id: 'settings.app.form.theme',
+    defaultMessage: '!!!Pick Franz theme',
   },
   enableSpellchecking: {
     id: 'settings.app.form.enableSpellchecking',
@@ -92,6 +96,7 @@ export default class EditSettingsScreen extends Component {
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
+        theme: settingsData.theme,
         enableSpellchecking: settingsData.enableSpellchecking,
         beta: settingsData.beta, // we need this info in the main process as well
         locale: settingsData.locale, // we need this info in the main process as well
@@ -115,6 +120,13 @@ export default class EditSettingsScreen extends Component {
       locales.push({
         value: key,
         label: APP_LOCALES[key],
+      });
+    });
+    const themes = [];
+    Object.keys(APP_THEMES).sort(Intl.Collator().compare).forEach((key) => {
+      themes.push({
+        value: key,
+        label: APP_THEMES[key],
       });
     });
 
@@ -154,6 +166,12 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.showMessageBadgeWhenMuted),
           value: settings.all.app.showMessageBadgeWhenMuted,
           default: DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted,
+        },
+        theme: {
+          label: intl.formatMessage(messages.theme),
+          value: settings.all.app.theme,
+          options: themes,
+          default: DEFAULT_APP_SETTINGS.theme,
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
