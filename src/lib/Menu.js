@@ -644,6 +644,10 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(menuItems.quit),
           role: 'quit',
+          accelerator: 'Alt+F4',
+          click: () => {
+            app.quit();
+          },
         },
       ];
 

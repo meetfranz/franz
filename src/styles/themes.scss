@@ -18,6 +18,28 @@ $theme-transparent-dark: (
   theme-gray-lightest: transparentize(#2d2d2d, .5)
 );
 
+/* TODO out */
+body {
+  background-size: cover;
+  background-image: url('../assets/images/galaxy2.jpg');
+  &.transparent-dark .auth {
+    .auth__layout>div>span {
+      justify-content: flex-start;
+    }
+    .welcome {
+      margin-left: 10%;
+    }
+    .auth__container {
+      margin: 40px auto 0 10%;
+    }
+  }
+  .services,
+  .services .services__webview-wrapper,
+  .services .services__webview-wrapper webview{
+    background: transparent;
+  }
+}
+
 $all-themes: (
   theme-dark: $theme-dark,
   theme-transparent-dark: $theme-transparent-dark

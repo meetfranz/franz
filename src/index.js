@@ -82,6 +82,7 @@ const createWindow = () => {
     minHeight: 500,
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
+    backgroundColor: '#3498db',
     show: false,
   });
 
@@ -132,6 +133,10 @@ const createWindow = () => {
       mainWindow.setSkipTaskbar(true);
       trayIcon.show();
     }
+  });
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
   });
 
   mainWindow.on('maximize', () => {
