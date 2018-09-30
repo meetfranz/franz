@@ -51,6 +51,10 @@ const messages = defineMessages({
     id: 'settings.app.form.theme',
     defaultMessage: '!!!Pick Franz theme',
   },
+  appBackground: {
+    id: 'settings.app.headlineBackground',
+    defaultMessage: '!!!Add app background',
+  },
   enableSpellchecking: {
     id: 'settings.app.form.enableSpellchecking',
     defaultMessage: '!!!Enable spell checking',
@@ -97,6 +101,7 @@ export default class EditSettingsScreen extends Component {
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         theme: settingsData.theme,
+        appBackground: settingsData.appBackground || DEFAULT_APP_SETTINGS.appBackground,
         enableSpellchecking: settingsData.enableSpellchecking,
         beta: settingsData.beta, // we need this info in the main process as well
         locale: settingsData.locale, // we need this info in the main process as well
@@ -173,6 +178,11 @@ export default class EditSettingsScreen extends Component {
           options: themes,
           default: DEFAULT_APP_SETTINGS.theme,
         },
+        appBackground: {
+          label: intl.formatMessage(messages.appBackground),
+          value: settings.all.app.appBackground,
+          default: DEFAULT_APP_SETTINGS.appBackground,
+        },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
           value: settings.all.app.enableSpellchecking,
@@ -216,6 +226,7 @@ export default class EditSettingsScreen extends Component {
 
     return (
       <EditSettingsForm
+        actions={this.props.actions.settings}
         form={form}
         checkForUpdates={checkForUpdates}
         installUpdate={installUpdate}

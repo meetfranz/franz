@@ -23,6 +23,7 @@ export const DEFAULT_APP_SETTINGS = {
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
   theme: 'theme-regular',
+  appBackground: './assets/images/galaxy2.jpg',
   enableSpellchecking: true,
   locale: '',
   fallbackLocale: 'en-US',

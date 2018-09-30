@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import uuidv1 from 'uuid/v1';
 import { debounce } from 'lodash';
+import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import uuidv1 from 'uuid/v1';
 
 @observer
 export default class SearchInput extends Component {
@@ -17,6 +17,7 @@ export default class SearchInput extends Component {
     throttle: PropTypes.bool,
     throttleDelay: PropTypes.number,
     autoFocus: PropTypes.bool,
+    showLabels: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -29,7 +30,8 @@ export default class SearchInput extends Component {
     onChange: () => null,
     onReset: () => null,
     autoFocus: false,
-  }
+    showLabels: true,
+  };
 
   constructor(props) {
     super(props);
@@ -78,7 +80,7 @@ export default class SearchInput extends Component {
   input = null;
 
   render() {
-    const { className, name, placeholder } = this.props;
+    const { className, name, showLabels, placeholder } = this.props;
     const { value } = this.state;
 
     return (
@@ -88,10 +90,12 @@ export default class SearchInput extends Component {
           'search-input',
         ])}
       >
-        <label
-          htmlFor={name}
-          className="mdi mdi-magnify"
-        />
+        {showLabels && (
+          <label
+            htmlFor={name}
+            className="mdi mdi-magnify"
+          />
+        )}
         <input
           name={name}
           type="text"
@@ -100,7 +104,7 @@ export default class SearchInput extends Component {
           onChange={e => this.onChange(e)}
           ref={(ref) => { this.input = ref; }}
         />
-        {value.length > 0 && (
+        {showLabels && value.length > 0 && (
           <span
             className="mdi mdi-close-circle-outline"
             onClick={() => this.reset()}

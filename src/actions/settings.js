@@ -9,4 +9,6 @@ export default {
     type: PropTypes.string.isRequired,
     key: PropTypes.string.isRequired,
   },
+  setBackground: {},
+  resetBackground: {},
 };

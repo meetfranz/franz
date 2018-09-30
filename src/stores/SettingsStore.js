@@ -1,10 +1,11 @@
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
+import { DEFAULT_APP_SETTINGS } from '../config';
+import SettingsModel from '../models/Settings';
+import CachedRequest from './lib/CachedRequest';
+import Request from './lib/Request';
 
 import Store from './lib/Store';
-import SettingsModel from '../models/Settings';
-import Request from './lib/Request';
-import CachedRequest from './lib/CachedRequest';
 
 const debug = require('debug')('SettingsStore');
 
@@ -18,6 +19,8 @@ export default class SettingsStore extends Store {
     // Register action handlers
     this.actions.settings.update.listen(this._update.bind(this));
     this.actions.settings.remove.listen(this._remove.bind(this));
+    this.actions.settings.setBackground.listen(this._setBackground.bind(this));
+    this.actions.settings.resetBackground.listen(this._resetBackground.bind(this));
   }
 
   async setup() {
@@ -53,6 +56,18 @@ export default class SettingsStore extends Store {
     }
   }
 
+  @action _setBackground(background) {
+    if (background && typeof background === 'string') {
+      document.body.style.backgroundImage = `url("${background}")`;
+      this._update({ type: 'app', data: { backgrounds: window.bcgs, appBackground: background } });
+    }
+  }
+
+  @action _resetBackground() {
+    document.body.style.backgroundImage = '';
+    this._update({ type: 'app', data: { backgrounds: window.bcgs, appBackground: DEFAULT_APP_SETTINGS.appBackground } });
+  }
+
   @action async _remove({ type, key }) {
     if (type === 'app') return; // app keys can't be deleted
 
@@ -86,6 +101,7 @@ export default class SettingsStore extends Store {
           enableGPUAcceleration: legacySettings.enableGPUAcceleration,
           showMessageBadgeWhenMuted: legacySettings.showMessageBadgeWhenMuted,
           theme: legacySettings.theme,
+          appBackground: legacySettings.appBackground,
           showDisabledServices: legacySettings.showDisabledServices,
           enableSpellchecking: legacySettings.enableSpellchecking,
         },

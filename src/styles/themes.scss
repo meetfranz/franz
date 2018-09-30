@@ -19,7 +19,7 @@ $theme-transparent-dark: (
 );
 
 /* TODO out */
-body {
+body.theme-transparent-dark {
   background-size: cover;
   background-image: url('../assets/images/galaxy2.jpg');
   &.transparent-dark .auth {
@@ -38,6 +38,22 @@ body {
   .services .services__webview-wrapper webview{
     background: transparent;
   }
+}
+.add-bg-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  button {
+    flex: 1;
+  }
+  button:not(:first-child) {
+    margin-left: 16px;
+  }
+}
+.bcgs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 $all-themes: (

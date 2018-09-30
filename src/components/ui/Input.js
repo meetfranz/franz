@@ -32,7 +32,7 @@ export default class Input extends Component {
   state = {
     showPassword: false,
     passwordScore: 0,
-  }
+  };
 
   componentDidMount() {
     if (this.props.focus) {
@@ -45,7 +45,7 @@ export default class Input extends Component {
 
     field.onChange(e);
 
-    if (scorePassword) {
+    if (field.type === 'password' && scorePassword) {
       this.setState({ passwordScore: scorePasswordFunc(field.value) });
     }
   }
