@@ -159,7 +159,7 @@ class TabItem extends Component {
         })}
         onClick={clickHandler}
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}
-        data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
+        data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : shortcutIndex == 10 ? `(${ctrlKey}+0)` : ''}`}
       >
         <img
           src={service.icon}
