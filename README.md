@@ -1,3 +1,17 @@
+**This is my fork of Franz 5. Created mainly to add dark theme and later transparent and background image.**
+---
+
+
+### Transparent theme instructions
+Transparent theme works best with transparent services (apps). I added transparent themes for only those apps I use. 
+At the moment: Slack, Gmail, Messenger, Slack, Telegram, GoogleCalendar. If you wish some  other you can create issue with a request.
+
+To use transparent services it's best to clone whole repository to franz directory. Detailed instruction [here](https://github.com/MikeDabrowski/franz-transparent-recipes)
+
+
+---
+
+
 **This repository is only for Franz 5 and later, previous versions are no longer maintained.**
 ---
 
