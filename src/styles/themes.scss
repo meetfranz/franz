@@ -1,0 +1,210 @@
+$theme-dark: (
+  theme-black: black,
+  theme-white: white,
+  theme-gray-dark: #b5bec4,
+  theme-gray: #989ea3,
+  theme-gray-light: #646b70,
+  theme-gray-lighter: #373a3c,
+  theme-gray-lightest: #2d2d2d
+);
+
+$theme-transparent-dark: (
+  theme-black: black,
+  theme-white: white,
+  theme-gray-dark: transparentize(#b5bec4, .5),
+  theme-gray: transparentize(#989ea3, .5),
+  theme-gray-light: transparentize(#646b70, .5),
+  theme-gray-lighter: transparentize(#373a3c, .5),
+  theme-gray-lightest: transparentize(#2d2d2d, .5)
+);
+
+/* TODO out */
+body.theme-transparent-dark {
+  background-size: cover;
+  background-image: url('../assets/images/galaxy2.jpg');
+  &.transparent-dark .auth {
+    .auth__layout>div>span {
+      justify-content: flex-start;
+    }
+    .welcome {
+      margin-left: 10%;
+    }
+    .auth__container {
+      margin: 40px auto 0 10%;
+    }
+  }
+  .services,
+  .services .services__webview-wrapper,
+  .services .services__webview-wrapper webview{
+    background: transparent;
+  }
+}
+.add-bg-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  button {
+    flex: 1;
+  }
+  button:not(:first-child) {
+    margin-left: 16px;
+  }
+}
+.bcgs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+$all-themes: (
+  theme-dark: $theme-dark,
+  theme-transparent-dark: $theme-transparent-dark
+) !default;
+
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+@function get-color($theme-name, $color-name) {
+  @return map-get(map-get($all-themes,$theme-name), $color-name);
+}
+
+@mixin set-theme($theme-name) {
+  .#{$theme-name} {
+    #electron-app-title-bar {
+      background: get-color($theme-name, 'theme-gray-lightest');
+      .toolbar-dropdown:not(.open)>.toolbar-button > button:hover {
+          background: get-color($theme-name, 'theme-gray-lighter');
+      }
+      .list-item {
+        &.selected, &.selected:focus .menu-item {
+          .menu-item {
+            background: get-color($theme-name, 'theme-gray-lighter');
+          }
+        }
+      }
+      .menu-pane hr {
+        border-color: get-color($theme-name, 'theme-gray-lighter');
+      }
+      .toolbar-dropdown.open > .toolbar-button > button {
+        background-color: get-color($theme-name, 'theme-gray-lighter');
+        color: get-color($theme-name, 'theme-white');
+      }
+      #app-menu-bar #foldout-container .foldout .menu-pane,
+      .list .ReactVirtualized__Grid {
+        background: get-color($theme-name, 'theme-gray-lightest');
+        color: get-color($theme-name, 'theme-gray');
+      }
+      .list svg path {
+        fill: get-color($theme-name, 'theme-gray');
+      }
+    }
+    .sidebar {
+      background: get-color($theme-name, 'theme-gray-lightest');
+      .tab-item.is-active {
+        background: get-color($theme-name, 'theme-gray-lighter');
+      }
+    }
+    .settings-wrapper {
+      .settings {
+        background: get-color($theme-name, 'theme-gray-lighter');
+        color: get-color($theme-name, 'theme-white');
+        .recipe-teaser {
+          background: get-color($theme-name, 'theme-gray-lightest');
+          color: get-color($theme-name, 'theme-white');
+        }
+        .account {
+          .account__box {
+            background: get-color($theme-name, 'theme-gray-lightest');
+            .franz-form__radio {
+              color: get-color($theme-name, 'theme-white');
+            }
+            .franz-form__radio.is-selected {
+              background: $theme-brand-primary;
+            }
+          }
+        }
+        .settings__controls {
+          background: get-color($theme-name, 'theme-gray-lighter');
+        }
+        .settings-navigation {
+          background: get-color($theme-name, 'theme-gray-lightest');
+          a {
+            color: get-color($theme-name, 'theme-gray');
+          }
+          .settings-navigation__link.is-active {
+            background: get-color($theme-name, 'theme-gray-lighter');
+            color: get-color($theme-name, 'theme-white');
+          }
+          .settings-navigation__link:hover {
+            background: get-color($theme-name, 'theme-gray-light');
+            color: get-color($theme-name, 'theme-white');
+          }
+        }
+        .account, .settings-navigation a {
+          .badge {
+            background: $theme-brand-primary;
+            color: get-color($theme-name, 'theme-white');
+          }
+        }
+        .settings__header, button.settings__close {
+          background: get-color($theme-name, 'theme-gray-lightest');
+        }
+        .settings__body select {
+          background: get-color($theme-name, 'theme-gray-lightest');
+          border-color: get-color($theme-name, 'theme-gray-light');
+          color: get-color($theme-name, 'theme-white');
+        }
+        button.settings__close {
+          border-color: get-color($theme-name, 'theme-gray-lighter');
+        }
+        table.service-table .service-table__row {
+          border-color: get-color($theme-name, 'theme-gray-light');
+          &:hover {
+            background: get-color($theme-name, 'theme-gray-lightest');
+          }
+        }
+      }
+    }
+    .auth {
+      @if $theme-name == 'theme-transparent-dark' {
+        background: transparent;
+      } @else {
+        background: get-color($theme-name, 'theme-gray-lightest');
+      }
+      .auth__layout>div>span {
+        display: flex;
+        justify-content: center;
+      }
+      .welcome {
+        background: transparentize(get-color($theme-name, 'theme-black'), 0.5);
+        padding: 16px;
+        border-radius: 8px;
+        .welcome__featured-services {
+          background: transparentize(get-color($theme-name, 'theme-white'), 0.8);;
+        }
+      }
+      .auth__container {
+        background: transparentize(get-color($theme-name, 'theme-black'),0.5);
+        .franz-form .franz-form__label, h1{
+          color: get-color($theme-name, 'theme-white');
+        }
+      }
+      .auth__links {
+        background: transparent;
+        border-top: 1px solid get-color($theme-name, 'theme-gray-light');
+        height: auto;
+        a {
+          color: get-color($theme-name, 'theme-white');
+        }
+      }
+    }
+  }
+}
+
+@each $theme in map-keys($all-themes) {
+  @include set-theme($theme);
+}

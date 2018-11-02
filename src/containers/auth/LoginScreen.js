@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import Login from '../../components/auth/Login';
 import UserStore from '../../stores/UserStore';
-import { gaPage } from '../../lib/analytics';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
@@ -12,10 +11,6 @@ export default class LoginScreen extends Component {
   static propTypes = {
     error: globalErrorPropType.isRequired,
   };
-
-  componentDidMount() {
-    gaPage('Auth/Login');
-  }
 
   render() {
     const { actions, stores, error } = this.props;

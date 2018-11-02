@@ -1,3 +1,20 @@
+# [5.0.0-beta.19](https://github.com/meetfranz/franz/compare/v5.0.0-beta.18...v5.0.0-beta.19) (2018-11-02)
+
+
+### Bug Fixes
+
+* **App:** Allow hidden directories in franz recipes directory ([90d495f](https://github.com/meetfranz/franz/commit/90d495f))
+* **App:** Fix broken quit button and shortcut + body theme ([3e9eac5](https://github.com/meetfranz/franz/commit/3e9eac5))
+
+
+### Features
+
+* **App:** Add themes picker and two basic themes ([99612e8](https://github.com/meetfranz/franz/commit/99612e8))
+* **App:** Remove Google Analytics ([a1bc702](https://github.com/meetfranz/franz/commit/a1bc702))
+* **App:** Set background image UI ([ac1ace3](https://github.com/meetfranz/franz/commit/ac1ace3))
+
+
+
 <a name="5.0.0-beta.18"></a>
 # [5.0.0-beta.18](https://github.com/meetfranz/franz/compare/v5.0.0-beta.16...v5.0.0-beta.18) (2018-04-03)
 

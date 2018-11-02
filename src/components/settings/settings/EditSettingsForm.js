@@ -1,15 +1,16 @@
 import { remote } from 'electron';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
+
+import { FRANZ_TRANSLATION } from '../../../config';
 
 import Form from '../../../lib/Form';
 import Button from '../../ui/Button';
-import Toggle from '../../ui/Toggle';
+import Input from '../../ui/Input';
 import Select from '../../ui/Select';
-
-import { FRANZ_TRANSLATION } from '../../../config';
+import Toggle from '../../ui/Toggle';
 
 const messages = defineMessages({
   headline: {
@@ -80,11 +81,28 @@ const messages = defineMessages({
     id: 'settings.app.restartRequired',
     defaultMessage: '!!!Changes require restart',
   },
+  theme: {
+    id: 'settings.app.headlineAppTheme',
+    defaultMessage: '!!!Pick Franz theme',
+  },
+  appBackground: {
+    id: 'settings.app.headlineBackground',
+    defaultMessage: '!!!Add app background',
+  },
+  setBackground: {
+    id: 'settings.app.setBackground',
+    defaultMessage: '!!!Set background',
+  },
+  resetBackground: {
+    id: 'settings.app.resetBackground',
+    defaultMessage: '!!!Reset background',
+  },
 });
 
 @observer
 export default class EditSettingsForm extends Component {
   static propTypes = {
+    actions: PropTypes.any.isRequired,
     checkForUpdates: PropTypes.func.isRequired,
     installUpdate: PropTypes.func.isRequired,
     form: PropTypes.instanceOf(Form).isRequired,
@@ -102,6 +120,23 @@ export default class EditSettingsForm extends Component {
     intl: intlShape,
   };
 
+  compareCurrentBg(newBg) {
+    if (!newBg) {
+      return false;
+    }
+    const current = window.getComputedStyle(document.body)
+      .backgroundImage
+      .replace('url("', '')
+      .replace('")', '');
+    if (!current || current === 'none') {
+      return false;
+    }
+    if (newBg.startsWith('./')) {
+      return current.includes(newBg.substring(1));
+    }
+    return newBg !== current;
+  }
+
   submit(e) {
     e.preventDefault();
     this.props.form.submit({
@@ -115,6 +150,7 @@ export default class EditSettingsForm extends Component {
 
   render() {
     const {
+      actions,
       checkForUpdates,
       installUpdate,
       form,
@@ -127,6 +163,7 @@ export default class EditSettingsForm extends Component {
       cacheSize,
     } = this.props;
     const { intl } = this.context;
+    const { setBackground, resetBackground } = actions;
 
     let updateButtonLabelMessage = messages.buttonSearchForUpdate;
     if (isCheckingForUpdates) {
@@ -161,6 +198,30 @@ export default class EditSettingsForm extends Component {
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
             <Toggle field={form.$('showMessageBadgeWhenMuted')} />
+
+            {/* Theme */}
+            <h2 id="theme">{intl.formatMessage(messages.theme)}</h2>
+            <Select field={form.$('theme')} showLabel={false} />
+
+            {/* Backgrounds */}
+            <h2 id="theme">{intl.formatMessage(messages.appBackground)}</h2>
+            <div className={'add-bg-row'}>
+              <Input field={form.$('appBackground')} showLabel={false} />
+            </div>
+            <div className={'add-bg-row'}>
+              <Button
+                buttonType="success"
+                label={intl.formatMessage(messages.setBackground)}
+                onClick={() => setBackground(form.values().appBackground)}
+                disabled={!form.values().appBackground}
+              />
+              <Button
+                buttonType="danger"
+                label={intl.formatMessage(messages.resetBackground)}
+                onClick={() => resetBackground(form.values().appBackground)}
+                disabled={this.compareCurrentBg(form.values().appBackground)}
+              />
+            </div>
 
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>

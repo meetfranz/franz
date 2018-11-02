@@ -7,7 +7,6 @@ import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
 import EditUserForm from '../../components/settings/user/EditUserForm';
 import { required, email, minLength } from '../../helpers/validation-helpers';
-import { gaPage } from '../../lib/analytics';
 
 const messages = defineMessages({
   firstname: {
@@ -55,10 +54,6 @@ export default class EditUserScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Account/Edit');
-  }
 
   componentWillUnmount() {
     this.props.actions.user.resetStatus();

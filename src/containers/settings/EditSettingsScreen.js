@@ -8,8 +8,7 @@ import SettingsStore from '../../stores/SettingsStore';
 import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
 import { APP_LOCALES } from '../../i18n/languages';
-import { gaPage } from '../../lib/analytics';
-import { DEFAULT_APP_SETTINGS } from '../../config';
+import { APP_THEMES, DEFAULT_APP_SETTINGS } from '../../config';
 
 
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
@@ -47,6 +46,14 @@ const messages = defineMessages({
     id: 'settings.app.form.showMessagesBadgesWhenMuted',
     defaultMessage: '!!!Show unread message badge when notifications are disabled',
   },
+  theme: {
+    id: 'settings.app.form.theme',
+    defaultMessage: '!!!Pick Franz theme',
+  },
+  appBackground: {
+    id: 'settings.app.headlineBackground',
+    defaultMessage: '!!!Add app background',
+  },
   enableSpellchecking: {
     id: 'settings.app.form.enableSpellchecking',
     defaultMessage: '!!!Enable spell checking',
@@ -71,10 +78,6 @@ export default class EditSettingsScreen extends Component {
     intl: intlShape,
   };
 
-  componentDidMount() {
-    gaPage('Settings/App');
-  }
-
   onSubmit(settingsData) {
     const { app, settings, user } = this.props.actions;
 
@@ -92,6 +95,8 @@ export default class EditSettingsScreen extends Component {
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
+        theme: settingsData.theme,
+        appBackground: settingsData.appBackground || DEFAULT_APP_SETTINGS.appBackground,
         enableSpellchecking: settingsData.enableSpellchecking,
         beta: settingsData.beta, // we need this info in the main process as well
         locale: settingsData.locale, // we need this info in the main process as well
@@ -115,6 +120,13 @@ export default class EditSettingsScreen extends Component {
       locales.push({
         value: key,
         label: APP_LOCALES[key],
+      });
+    });
+    const themes = [];
+    Object.keys(APP_THEMES).sort(Intl.Collator().compare).forEach((key) => {
+      themes.push({
+        value: key,
+        label: APP_THEMES[key],
       });
     });
 
@@ -154,6 +166,17 @@ export default class EditSettingsScreen extends Component {
           label: intl.formatMessage(messages.showMessageBadgeWhenMuted),
           value: settings.all.app.showMessageBadgeWhenMuted,
           default: DEFAULT_APP_SETTINGS.showMessageBadgeWhenMuted,
+        },
+        theme: {
+          label: intl.formatMessage(messages.theme),
+          value: settings.all.app.theme,
+          options: themes,
+          default: DEFAULT_APP_SETTINGS.theme,
+        },
+        appBackground: {
+          label: intl.formatMessage(messages.appBackground),
+          value: settings.all.app.appBackground,
+          default: DEFAULT_APP_SETTINGS.appBackground,
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
@@ -198,6 +221,7 @@ export default class EditSettingsScreen extends Component {
 
     return (
       <EditSettingsForm
+        actions={this.props.actions.settings}
         form={form}
         checkForUpdates={checkForUpdates}
         installUpdate={installUpdate}

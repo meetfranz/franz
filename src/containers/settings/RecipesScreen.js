@@ -7,7 +7,6 @@ import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import RecipeStore from '../../stores/RecipesStore';
 import ServiceStore from '../../stores/ServicesStore';
 import UserStore from '../../stores/UserStore';
-import { gaPage } from '../../lib/analytics';
 
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
 
@@ -31,20 +30,15 @@ export default class RecipesScreen extends Component {
   };
 
   componentDidMount() {
-    gaPage('Settings/Recipe Dashboard/Featured');
-
     autorun(() => {
       const { filter } = this.props.params;
       const { currentFilter } = this.state;
 
       if (filter === 'all' && currentFilter !== 'all') {
-        gaPage('Settings/Recipe Dashboard/All');
         this.setState({ currentFilter: 'all' });
       } else if (filter === 'featured' && currentFilter !== 'featured') {
-        gaPage('Settings/Recipe Dashboard/Featured');
         this.setState({ currentFilter: 'featured' });
       } else if (filter === 'dev' && currentFilter !== 'dev') {
-        gaPage('Settings/Recipe Dashboard/Dev');
         this.setState({ currentFilter: 'dev' });
       }
     });

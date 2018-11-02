@@ -5,7 +5,6 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent } from '../lib/analytics';
 
 const debug = require('debug')('ServiceStore');
 
@@ -154,7 +153,6 @@ export default class ServicesStore extends Store {
 
     if (redirect) {
       this.stores.router.push('/settings/recipes');
-      gaEvent('Service', 'create', recipeId);
     }
   }
 
@@ -216,7 +214,6 @@ export default class ServicesStore extends Store {
 
     if (redirect) {
       this.stores.router.push('/settings/services');
-      gaEvent('Service', 'update', service.recipe.id);
     }
   }
 
@@ -231,19 +228,14 @@ export default class ServicesStore extends Store {
       remove(result, c => c.id === serviceId);
     });
 
-    const service = this.one(serviceId);
-
     await request._promise;
     this.actionStatus = request.result.status;
-
-    gaEvent('Service', 'delete', service.recipe.id);
   }
 
   @action async _clearCache({ serviceId }) {
     this.clearCacheRequest.reset();
     const request = this.clearCacheRequest.execute(serviceId);
     await request._promise;
-    gaEvent('Service', 'clear cache');
   }
 
   @action _setActive({ serviceId }) {
@@ -457,8 +449,6 @@ export default class ServicesStore extends Store {
         service.order = services[s.id];
       });
     });
-
-    this._reorderAnalytics();
   }
 
   @action _toggleNotifications({ serviceId }) {
@@ -619,10 +609,6 @@ export default class ServicesStore extends Store {
       loop();
     }
   }
-
-  _reorderAnalytics = debounce(() => {
-    gaEvent('Service', 'order');
-  }, 5000);
 
   _wrapIndex(index, delta, size) {
     return (((index + delta) % size) + size) % size;

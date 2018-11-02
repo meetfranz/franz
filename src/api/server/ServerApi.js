@@ -269,6 +269,7 @@ export default class ServerApi {
         fs.statSync(path.join(recipesDirectory, file)).isDirectory()
         && file !== 'temp'
         && file !== 'dev'
+        && !file.startsWith('.')
       ));
 
     this.recipes = paths.map((id) => {
