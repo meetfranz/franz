@@ -11,7 +11,6 @@ import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac, isLinux, isWindows } from '../environment';
 import locales from '../i18n/translations';
-import { gaEvent } from '../lib/analytics';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
@@ -216,7 +215,6 @@ export default class AppStore extends Store {
       console.warn(err);
     }
 
-    gaEvent('App', enable ? 'enable autostart' : 'disable autostart');
   }
 
   @action _openExternalUrl({ url }) {

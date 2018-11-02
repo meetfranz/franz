@@ -8,7 +8,6 @@ import SettingsStore from '../../stores/SettingsStore';
 import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
 import { APP_LOCALES } from '../../i18n/languages';
-import { gaPage } from '../../lib/analytics';
 import { APP_THEMES, DEFAULT_APP_SETTINGS } from '../../config';
 
 
@@ -78,10 +77,6 @@ export default class EditSettingsScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaPage('Settings/App');
-  }
 
   onSubmit(settingsData) {
     const { app, settings, user } = this.props.actions;

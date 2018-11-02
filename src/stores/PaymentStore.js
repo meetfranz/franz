@@ -1,9 +1,8 @@
-import { action, observable, computed } from 'mobx';
-
-import Store from './lib/Store';
+import { action, computed, observable } from 'mobx';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
-import { gaEvent } from '../lib/analytics';
+
+import Store from './lib/Store';
 
 export default class PaymentStore extends Store {
   @observable plansRequest = new CachedRequest(this.api.payment, 'plans');
@@ -30,18 +29,10 @@ export default class PaymentStore extends Store {
   }
 
   @action _createHostedPage({ planId }) {
-    const request = this.createHostedPageRequest.execute(planId);
-
-    gaEvent('Payment', 'createHostedPage', planId);
-
-    return request;
+    return this.createHostedPageRequest.execute(planId);
   }
 
   @action _createDashboardUrl() {
-    const request = this.createDashboardUrlRequest.execute();
-
-    gaEvent('Payment', 'createDashboardUrl');
-
-    return request;
+    return this.createDashboardUrlRequest.execute();
   }
 }

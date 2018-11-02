@@ -6,7 +6,6 @@ import { inject, observer } from 'mobx-react';
 import PaymentStore from '../../stores/PaymentStore';
 import UserStore from '../../stores/UserStore';
 import AppStore from '../../stores/AppStore';
-import { gaPage } from '../../lib/analytics';
 
 import AccountDashboard from '../../components/settings/account/AccountDashboard';
 
@@ -14,9 +13,6 @@ const { BrowserWindow } = remote;
 
 @inject('stores', 'actions') @observer
 export default class AccountScreen extends Component {
-  componentDidMount() {
-    gaPage('Settings/Account Dashboard');
-  }
 
   onCloseWindow() {
     const { user, payment } = this.props.stores;

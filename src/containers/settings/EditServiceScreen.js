@@ -7,7 +7,6 @@ import UserStore from '../../stores/UserStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
 import Form from '../../lib/Form';
-import { gaPage } from '../../lib/analytics';
 
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
@@ -57,10 +56,6 @@ export default class EditServiceScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Service/Edit');
-  }
 
   onSubmit(data) {
     const { action } = this.props.router.params;
