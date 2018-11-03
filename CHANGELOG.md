@@ -1,3 +1,12 @@
+# [5.0.0-beta.21](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.20...v5.0.0-beta.21) (2018-11-03)
+
+
+### Bug Fixes
+
+* **App:** Slack not changing theme ([c3695ce](https://github.com/MikeDabrowski/franz/commit/c3695ce)), closes [#4](https://github.com/MikeDabrowski/franz/issues/4)
+
+
+
 # [5.0.0-beta.20](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.19...v5.0.0-beta.20) (2018-11-03)
 
 
