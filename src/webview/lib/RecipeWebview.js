@@ -3,18 +3,22 @@ const { ipcRenderer } = require('electron');
 const fs = require('fs-extra');
 
 class RecipeWebview {
-  constructor() {
+  constructor(options = {}) {
     this.countCache = {
       direct: 0,
       indirect: 0,
     };
 
+    if (options.startTheme) {
+      this.changeTheme(options.startTheme);
+    }
+
     ipcRenderer.on('poll', () => {
       this.loopFunc();
     });
 
-    ipcRenderer.on('change-theme', (eventEmitter, { newTheme }) => {
-      this.changeTheme(newTheme);
+    ipcRenderer.on('change-theme', (ee, { themeName }) => {
+      this.changeTheme(themeName);
     });
   }
 

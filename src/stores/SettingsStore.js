@@ -17,6 +17,7 @@ export default class SettingsStore extends Store {
     super(...args);
 
     // Register action handlers
+    this.actions.settings.appSettings = () => this._getAppSettings();
     this.actions.settings.update.listen(this._update.bind(this));
     this.actions.settings.remove.listen(this._remove.bind(this));
     this.actions.settings.setBackground.listen(this._setBackground.bind(this));
@@ -37,6 +38,10 @@ export default class SettingsStore extends Store {
       stats: localStorage.getItem('stats') || {},
       migration: localStorage.getItem('migration') || {},
     });
+  }
+
+  @action async _getAppSettings() {
+    return this.appSettingsRequest.execute().result;
   }
 
   @action async _update({ type, data }) {

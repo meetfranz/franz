@@ -1,5 +1,5 @@
 import { action, reaction, computed, observable } from 'mobx';
-import { debounce, remove } from 'lodash';
+import { remove } from 'lodash';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -587,10 +587,14 @@ export default class ServicesStore extends Store {
 
   _initializeServiceRecipeInWebview(serviceId) {
     const service = this.one(serviceId);
-
-    if (service.webview) {
-      service.webview.send('initializeRecipe', service);
-    }
+    this.actions.settings.appSettings()
+      .then(({ theme }) => {
+        if (service.webview) {
+          service.startTheme = theme;
+          service.webview.send('initializeRecipe', service);
+        }
+      })
+      .catch(console.error);
   }
 
   _initRecipePolling(serviceId) {
