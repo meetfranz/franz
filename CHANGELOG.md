@@ -1,3 +1,18 @@
+# [5.0.0-beta.22](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.21...v5.0.0-beta.22) (2018-11-03)
+
+
+### Bug Fixes
+
+* **App:** Fix body closing tag ([e1ff03f](https://github.com/MikeDabrowski/franz/commit/e1ff03f))
+* **App:** Slack not loading csses properly ([222bb42](https://github.com/MikeDabrowski/franz/commit/222bb42))
+
+
+### Features
+
+* **App:** Load selected theme on app start ([4520eb0](https://github.com/MikeDabrowski/franz/commit/4520eb0))
+
+
+
 # [5.0.0-beta.21](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.20...v5.0.0-beta.21) (2018-11-03)
 
 
