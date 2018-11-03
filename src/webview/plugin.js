@@ -40,7 +40,31 @@ ipcRenderer.on('settings-update', (e, data) => {
 // initSpellche
 
 document.addEventListener('DOMContentLoaded', () => {
+  const changeTheme = (themeName) => {
+    const currentClassList = document.body.classList;
+    if (themeName && !currentClassList.contains(themeName)) {
+      let name = themeName;
+      if (!themeName.startsWith('theme-')) {
+        name = `theme-${themeName}`;
+      }
+      [...currentClassList].forEach((c) => {
+        if (c && c.startsWith('theme-')) {
+          document.body.classList.remove(c);
+        }
+      });
+      if (name === 'theme-regular') {
+        return;
+      }
+      document.body.classList.add(name);
+    }
+  };
+
   ipcRenderer.sendToHost('hello');
+
+  ipcRenderer.on('change-theme', (ee, { themeName }) => {
+    console.log('plugin.js theme-changer', themeName);
+    changeTheme(themeName);
+  });
 }, false);
 
 // Patching window.open

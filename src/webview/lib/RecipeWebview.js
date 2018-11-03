@@ -13,7 +13,7 @@ class RecipeWebview {
       this.loopFunc();
     });
 
-    ipcRenderer.on('change-theme', (eventEmitter, newTheme) => {
+    ipcRenderer.on('change-theme', (eventEmitter, { newTheme }) => {
       this.changeTheme(newTheme);
     });
   }

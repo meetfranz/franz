@@ -479,12 +479,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _changeServicesTheme(newTheme) {
-    const services = this.all;
-    services.forEach((service) => {
-      if (service.webview) {
-        service.webview.send('change-theme', newTheme);
-      }
-    });
+    this._sendIPCMessageToAllServices({ channel: 'change-theme', args: { themeName: newTheme } });
   }
 
   @action _openDevTools({ serviceId }) {
