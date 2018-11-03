@@ -38,7 +38,7 @@
               originalReloadBehaviour(file);
             } else {              
               if (file.path.includes('/build/webview/')) {
-                debug('Livereload: Reloading all webvies');
+                debug('Livereload: Reloading all webviews');
                 const webviews = document.querySelectorAll('webview').forEach(webview => webview.reload());
               } else {
                 debug('Livereload: skip reload as only main process files have changed');
@@ -49,5 +49,5 @@
       })();
     }
   </script>
-</body
+</body>
 </html>
