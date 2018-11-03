@@ -76,3 +76,8 @@ For questions feel free to ask in the [community Slack](http://slack.franz.im)
 
 ## License
 Franz 5 is open-source licensed under the Apache-2.0 License.
+
+## Bump Version
+1. bump in package.json
+2. changelog
+3. commit both files
