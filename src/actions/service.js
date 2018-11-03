@@ -85,4 +85,5 @@ export default {
     serviceId: PropTypes.string.isRequired,
   },
   openDevToolsForActiveService: {},
+  changeServicesTheme: {},
 };

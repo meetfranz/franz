@@ -52,6 +52,7 @@ export default class ServicesStore extends Store {
     this.actions.service.toggleAudio.listen(this._toggleAudio.bind(this));
     this.actions.service.openDevTools.listen(this._openDevTools.bind(this));
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
+    this.actions.service.changeServicesTheme.listen(this._changeServicesTheme.bind(this));
 
     this.registerReactions([
       this._focusServiceReaction.bind(this),
@@ -474,6 +475,15 @@ export default class ServicesStore extends Store {
         isMuted: !service.isMuted,
       },
       redirect: false,
+    });
+  }
+
+  @action _changeServicesTheme(newTheme) {
+    const services = this.all;
+    services.forEach((service) => {
+      if (service.webview) {
+        service.webview.send('change-theme', newTheme);
+      }
     });
   }
 

@@ -51,6 +51,7 @@ export default class UIStore extends Store {
           document.body.classList.remove(c);
         }
       });
+      this.actions.service.changeServicesTheme(themeName);
       if (name === 'theme-regular') {
         return;
       }
