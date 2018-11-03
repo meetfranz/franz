@@ -3,16 +3,43 @@ const { ipcRenderer } = require('electron');
 const fs = require('fs-extra');
 
 class RecipeWebview {
-  constructor() {
+  constructor(options = {}) {
     this.countCache = {
       direct: 0,
       indirect: 0,
     };
 
+    if (options.startTheme) {
+      this.changeTheme(options.startTheme);
+    }
+
     ipcRenderer.on('poll', () => {
       this.loopFunc();
     });
+
+    ipcRenderer.on('change-theme', (ee, { themeName }) => {
+      this.changeTheme(themeName);
+    });
   }
+
+  changeTheme = (themeName) => {
+    const currentClassList = document.body.classList;
+    if (themeName && !currentClassList.contains(themeName)) {
+      let name = themeName;
+      if (!themeName.startsWith('theme-')) {
+        name = `theme-${themeName}`;
+      }
+      [...currentClassList].forEach((c) => {
+        if (c && c.startsWith('theme-')) {
+          document.body.classList.remove(c);
+        }
+      });
+      if (name === 'theme-regular') {
+        return;
+      }
+      document.body.classList.add(name);
+    }
+  };
 
   loopFunc = () => null;
 

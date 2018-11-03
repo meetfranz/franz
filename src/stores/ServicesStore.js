@@ -1,5 +1,5 @@
 import { action, reaction, computed, observable } from 'mobx';
-import { debounce, remove } from 'lodash';
+import { remove } from 'lodash';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -479,12 +479,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _changeServicesTheme(newTheme) {
-    const services = this.all;
-    services.forEach((service) => {
-      if (service.webview) {
-        service.webview.send('change-theme', newTheme);
-      }
-    });
+    this._sendIPCMessageToAllServices({ channel: 'change-theme', args: { themeName: newTheme } });
   }
 
   @action _openDevTools({ serviceId }) {
@@ -592,10 +587,14 @@ export default class ServicesStore extends Store {
 
   _initializeServiceRecipeInWebview(serviceId) {
     const service = this.one(serviceId);
-
-    if (service.webview) {
-      service.webview.send('initializeRecipe', service);
-    }
+    this.actions.settings.appSettings()
+      .then(({ theme }) => {
+        if (service.webview) {
+          service.startTheme = theme;
+          service.webview.send('initializeRecipe', service);
+        }
+      })
+      .catch(console.error);
   }
 
   _initRecipePolling(serviceId) {
