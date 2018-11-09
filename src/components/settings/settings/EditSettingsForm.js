@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 
-import { FRANZ_TRANSLATION } from '../../../config';
+import { DEFAULT_APP_SETTINGS, FRANZ_TRANSLATION } from '../../../config';
 
 import Form from '../../../lib/Form';
 import Button from '../../ui/Button';
@@ -124,17 +124,8 @@ export default class EditSettingsForm extends Component {
     if (!newBg) {
       return false;
     }
-    const current = window.getComputedStyle(document.body)
-      .backgroundImage
-      .replace('url("', '')
-      .replace('")', '');
-    if (!current || current === 'none') {
-      return false;
-    }
-    if (newBg.startsWith('./')) {
-      return current.includes(newBg.substring(1));
-    }
-    return newBg !== current;
+
+    return newBg === DEFAULT_APP_SETTINGS.appBackground;
   }
 
   submit(e) {
