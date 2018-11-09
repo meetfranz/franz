@@ -1,3 +1,13 @@
+# [5.0.0-beta.23](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.22...v5.0.0-beta.23) (2018-11-09)
+
+
+### Bug Fixes
+
+* **App:** Fix background reset button ([c45ecad](https://github.com/MikeDabrowski/franz/commit/c45ecad))
+* **App:** Fix loading background on Franz's start ([5e1d7c1](https://github.com/MikeDabrowski/franz/commit/5e1d7c1))
+
+
+
 # [5.0.0-beta.22](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.21...v5.0.0-beta.22) (2018-11-03)
 
 

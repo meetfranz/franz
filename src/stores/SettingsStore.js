@@ -64,13 +64,13 @@ export default class SettingsStore extends Store {
   @action _setBackground(background) {
     if (background && typeof background === 'string') {
       document.body.style.backgroundImage = `url("${background}")`;
-      this._update({ type: 'app', data: { backgrounds: window.bcgs, appBackground: background } });
+      this._update({ type: 'app', data: { appBackground: background } });
     }
   }
 
   @action _resetBackground() {
     document.body.style.backgroundImage = '';
-    this._update({ type: 'app', data: { backgrounds: window.bcgs, appBackground: DEFAULT_APP_SETTINGS.appBackground } });
+    this._update({ type: 'app', data: { appBackground: DEFAULT_APP_SETTINGS.appBackground } });
   }
 
   @action async _remove({ type, key }) {
