@@ -1,22 +1,22 @@
-import { remote, ipcRenderer, shell } from 'electron';
-import { action, computed, observable } from 'mobx';
-import moment from 'moment';
-import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
+import { ipcRenderer, remote, shell } from 'electron';
+import key from 'keymaster';
+import { action, computed, observable } from 'mobx';
+import moment from 'moment';
 import prettyBytes from 'pretty-bytes';
-
-import Store from './lib/Store';
-import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac, isLinux, isWindows } from '../environment';
-import locales from '../i18n/translations';
+import { isLinux, isMac, isWindows } from '../environment';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+import locales from '../i18n/translations';
+import Request from './lib/Request';
+
+import Store from './lib/Store';
 
 const debug = require('debug')('AppStore');
 
-const { app } = remote;
+const {app} = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -82,11 +82,19 @@ export default class AppStore extends Store {
     window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
-    window.addEventListener('online', () => { this.isOnline = true; });
-    window.addEventListener('offline', () => { this.isOnline = false; });
+    window.addEventListener('online', () => {
+      this.isOnline = true;
+    });
+    window.addEventListener('offline', () => {
+      this.isOnline = false;
+    });
 
-    mainWindow.on('enter-full-screen', () => { this.isFullScreen = true; });
-    mainWindow.on('leave-full-screen', () => { this.isFullScreen = false; });
+    mainWindow.on('enter-full-screen', () => {
+      this.isFullScreen = true;
+    });
+    mainWindow.on('leave-full-screen', () => {
+      this.isFullScreen = false;
+    });
 
 
     this.isOnline = navigator.onLine;
@@ -94,6 +102,8 @@ export default class AppStore extends Store {
     // Check if Franz should launch on start
     // Needs to be delayed a bit
     this._autoStart();
+
+    this._setBackground();
 
     // Check if system is muted
     // There are no events to subscribe so we need to poll everey 5s
@@ -131,7 +141,7 @@ export default class AppStore extends Store {
 
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
-      const { url } = data;
+      const {url} = data;
       if (!url) return;
 
       this.stores.router.push(data.url);
@@ -165,7 +175,7 @@ export default class AppStore extends Store {
   }
 
   // Actions
-  @action _notify({ title, options, notificationId, serviceId = null }) {
+  @action _notify({title, options, notificationId, serviceId = null}) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
     const notification = new window.Notification(title, options);
@@ -177,7 +187,7 @@ export default class AppStore extends Store {
           serviceId,
         });
 
-        this.actions.service.setActive({ serviceId });
+        this.actions.service.setActive({serviceId});
 
         if (isWindows) {
           mainWindow.restore();
@@ -188,7 +198,7 @@ export default class AppStore extends Store {
     };
   }
 
-  @action _setBadge({ unreadDirectMessageCount, unreadIndirectMessageCount }) {
+  @action _setBadge({unreadDirectMessageCount, unreadIndirectMessageCount}) {
     let indicator = unreadDirectMessageCount;
 
     if (indicator === 0 && unreadIndirectMessageCount !== 0) {
@@ -199,10 +209,10 @@ export default class AppStore extends Store {
       indicator = parseInt(indicator, 10);
     }
 
-    ipcRenderer.send('updateAppIndicator', { indicator });
+    ipcRenderer.send('updateAppIndicator', {indicator});
   }
 
-  @action _launchOnStartup({ enable }) {
+  @action _launchOnStartup({enable}) {
     this.autoLaunchOnStart = enable;
 
     try {
@@ -217,19 +227,19 @@ export default class AppStore extends Store {
 
   }
 
-  @action _openExternalUrl({ url }) {
+  @action _openExternalUrl({url}) {
     shell.openExternal(url);
   }
 
   @action _checkForUpdates() {
     this.updateStatus = this.updateStatusTypes.CHECKING;
-    ipcRenderer.send('autoUpdate', { action: 'check' });
+    ipcRenderer.send('autoUpdate', {action: 'check'});
 
     this.actions.recipe.update();
   }
 
   @action _installUpdate() {
-    ipcRenderer.send('autoUpdate', { action: 'install' });
+    ipcRenderer.send('autoUpdate', {action: 'install'});
   }
 
   @action _resetUpdateStatus() {
@@ -240,7 +250,7 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({ isMuted, overrideSystemMute = true }) {
+  @action _muteApp({isMuted, overrideSystemMute = true}) {
     this.isSystemMuteOverridden = overrideSystemMute;
 
     this.actions.settings.update({
@@ -252,18 +262,20 @@ export default class AppStore extends Store {
   }
 
   @action _toggleMuteApp() {
-    this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
+    this._muteApp({isMuted: !this.stores.settings.all.app.isAppMuted});
   }
 
-  @action async _clearAllCache() {
+  @action
+  async _clearAllCache() {
     this.isClearingAllCache = true;
     const clearAppCache = this.clearAppCacheRequest.execute();
     const allServiceIds = await getServiceIdsFromPartitions();
-    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
+    const allOrphanedServiceIds = allServiceIds.filter(
+      id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
 
     await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
 
-    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({ serviceId: s.id })));
+    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({serviceId: s.id})));
 
     await clearAppCache._promise;
 
@@ -277,7 +289,8 @@ export default class AppStore extends Store {
     if (!this.isOnline) {
       this.timeOfflineStart = moment();
     } else {
-      const deltaTime = moment().diff(this.timeOfflineStart);
+      const deltaTime = moment()
+        .diff(this.timeOfflineStart);
 
       if (deltaTime > 30 * 60 * 1000) {
         this.actions.service.reloadAll();
@@ -305,13 +318,14 @@ export default class AppStore extends Store {
     let locale = app.getLocale();
     if (locales[locale] === undefined) {
       let localeFuzzy;
-      Object.keys(locales).forEach((localStr) => {
-        if (locales && Object.hasOwnProperty.call(locales, localStr)) {
-          if (locale.substring(0, 2) === localStr.substring(0, 2)) {
-            localeFuzzy = localStr;
+      Object.keys(locales)
+        .forEach((localStr) => {
+          if (locales && Object.hasOwnProperty.call(locales, localStr)) {
+            if (locale.substring(0, 2) === localStr.substring(0, 2)) {
+              localeFuzzy = localStr;
+            }
           }
-        }
-      });
+        });
 
       if (localeFuzzy !== undefined) {
         locale = localeFuzzy;
@@ -333,7 +347,7 @@ export default class AppStore extends Store {
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
 
     if (!showMessageBadgesEvenWhenMuted) {
-      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
+      this.actions.app.setBadge({unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0});
     }
   }
 
@@ -356,6 +370,13 @@ export default class AppStore extends Store {
         enable: true,
       });
     }
+  }
+
+  async _setBackground() {
+    this.autoLaunchOnStart = await this._checkAutoStart();
+
+    const bg = this.stores.settings.all.app.appBackground;
+    this.actions.settings.setBackground(bg);
   }
 
   async _checkAutoStart() {
