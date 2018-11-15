@@ -285,7 +285,7 @@ const _templateFactory = intl => [
     submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
-        click() { shell.openExternal('http://meetfranz.com'); },
+        click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
         label: intl.formatMessage(menuItems.changelog),
@@ -296,7 +296,7 @@ const _templateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.support),
-        click() { shell.openExternal('http://meetfranz.com/support'); },
+        click() { shell.openExternal('https://meetfranz.com/support'); },
       },
       {
         type: 'separator',

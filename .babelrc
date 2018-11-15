@@ -1,19 +1,14 @@
 {
   "presets": [
-    [
-      "babel-preset-env",
-      {
-        "targets": {
-          "electron": "1.7.2"
-        }
-      }
-    ],
-    "babel-preset-react"
+    "@babel/env",
+    "@babel/react"
   ],
   "plugins": [
-    "transform-decorators-legacy",
-    "transform-flow-strip-types",
-    "transform-class-properties",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/proposal-export-default-from",
+    ["@babel/proposal-class-properties", { "loose": true }],
+    "@babel/proposal-throw-expressions",
+    "@babel/syntax-dynamic-import"
   ],
   "sourceMaps": "inline"
 }

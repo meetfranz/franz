@@ -1,11 +1,11 @@
 // @flow
 
 export default class Plan {
-  month: {
+  month = {
     id: '',
     price: 0,
   }
-  year: {
+  year = {
     id: '',
     price: 0,
   }

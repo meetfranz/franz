@@ -7,7 +7,7 @@ export default class Service {
   recipe = '';
   webview = null;
   timer = null;
-  events: {};
+  events = {};
 
   isAttached = false;
 
