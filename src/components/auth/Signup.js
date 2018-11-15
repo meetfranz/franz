@@ -187,7 +187,7 @@ export default class Signup extends Component {
               {intl.formatMessage(messages.legalInfo)}
               <br />
               <Link
-                to="http://meetfranz.com/terms"
+                to="https://meetfranz.com/terms"
                 target="_blank"
                 className="link"
               >
@@ -195,7 +195,7 @@ export default class Signup extends Component {
               </Link>
               &nbsp;&amp;&nbsp;
               <Link
-                to="http://meetfranz.com/privacy"
+                to="https://meetfranz.com/privacy"
                 target="_blank"
                 className="link"
               >

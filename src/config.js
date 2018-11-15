@@ -24,7 +24,7 @@ export const DEFAULT_APP_SETTINGS = {
   enableGPUAcceleration: true,
 };
 
-export const FRANZ_SERVICE_REQUEST = 'http://bit.ly/franz-service-request';
-export const FRANZ_TRANSLATION = 'http://bit.ly/franz-translate';
+export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-service-request';
+export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 
 export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config', 'settings.json');
