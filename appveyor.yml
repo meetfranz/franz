@@ -10,17 +10,16 @@ version: 5.0.0.{build}
 
 install:
   - ps: Install-Product node 8
-  - yarn cache clean
-  - yarn install
+  - npm ci
 
-# cache:
-#  - "%LOCALAPPDATA%\\Yarn"
+cache:
+ - '%APPDATA%\npm-cache'
 
 before_build:
-  - yarn lint
+  - npm run lint
 
 build_script:
-  - yarn build
+  - npm run build
 
 notifications:
   - provider: Slack

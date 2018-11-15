@@ -9,12 +9,12 @@ matrix:
 language: node_js
 
 before_script:
-- yarn add global node-sass
-- yarn install
+- npm install node-sass -g
+- npm ci
 
 script:
-- yarn lint
-- travis_wait yarn build
+- npm run lint
+- travis_wait npm run build
 
 node_js:
 - '8'
@@ -22,7 +22,7 @@ node_js:
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt install libx11-dev libxext-dev libxss-dev libxkbfile-dev; fi
 
-cache: yarn
+cache: npm
 
 notifications:
   email: false
