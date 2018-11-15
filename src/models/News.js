@@ -1,10 +1,10 @@
 // @flow
 
 export default class News {
-  id: string = '';
-  message: string = '';
-  type: string = 'primary';
-  sticky: bool = false;
+  id = '';
+  message = '';
+  type = 'primary';
+  sticky = false;
 
   constructor(data) {
     if (!data.id) {
