@@ -89,10 +89,7 @@ export default class SettingsStore extends Store {
 
   // Helper
   _migrate() {
-    const legacySettings = localStorage.getItem('app');
-    if (!legacySettings) {
-      return;
-    }
+    const legacySettings = localStorage.getItem('app') || {};
 
     if (!this.all.migration['5.0.0-beta.17-settings']) {
       this.actions.settings.update({

@@ -1,5 +1,4 @@
 import { action, computed, observable } from 'mobx';
-import { debounce } from 'lodash';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';

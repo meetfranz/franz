@@ -5,7 +5,6 @@ import Invite from '../../components/auth/Invite';
 
 @inject('stores', 'actions') @observer
 export default class InviteScreen extends Component {
-
   render() {
     const { actions } = this.props;
 

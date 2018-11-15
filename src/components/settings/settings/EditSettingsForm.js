@@ -102,7 +102,10 @@ const messages = defineMessages({
 @observer
 export default class EditSettingsForm extends Component {
   static propTypes = {
-    actions: PropTypes.any.isRequired,
+    actions: PropTypes.shape({
+      setBackground: PropTypes.func.isRequired,
+      resetBackground: PropTypes.func.isRequired,
+    }).isRequired,
     checkForUpdates: PropTypes.func.isRequired,
     installUpdate: PropTypes.func.isRequired,
     form: PropTypes.instanceOf(Form).isRequired,

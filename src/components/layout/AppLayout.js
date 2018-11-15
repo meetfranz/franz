@@ -8,6 +8,7 @@ import InfoBar from '../ui/InfoBar';
 import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
+/* eslint-disable react/no-danger */
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };

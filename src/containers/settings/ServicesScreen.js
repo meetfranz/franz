@@ -11,7 +11,6 @@ import ServicesDashboard from '../../components/settings/services/ServicesDashbo
 
 @inject('stores', 'actions') @observer
 export default class ServicesScreen extends Component {
-
   componentWillUnmount() {
     this.props.actions.service.resetFilter();
     this.props.actions.service.resetStatus();

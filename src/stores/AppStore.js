@@ -16,7 +16,7 @@ import Store from './lib/Store';
 
 const debug = require('debug')('AppStore');
 
-const {app} = remote;
+const { app } = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -141,7 +141,7 @@ export default class AppStore extends Store {
 
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
-      const {url} = data;
+      const { url } = data;
       if (!url) return;
 
       this.stores.router.push(data.url);
@@ -175,7 +175,7 @@ export default class AppStore extends Store {
   }
 
   // Actions
-  @action _notify({title, options, notificationId, serviceId = null}) {
+  @action _notify({ title, options, notificationId, serviceId = null }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
     const notification = new window.Notification(title, options);
@@ -187,7 +187,7 @@ export default class AppStore extends Store {
           serviceId,
         });
 
-        this.actions.service.setActive({serviceId});
+        this.actions.service.setActive({ serviceId });
 
         if (isWindows) {
           mainWindow.restore();
@@ -198,7 +198,7 @@ export default class AppStore extends Store {
     };
   }
 
-  @action _setBadge({unreadDirectMessageCount, unreadIndirectMessageCount}) {
+  @action _setBadge({ unreadDirectMessageCount, unreadIndirectMessageCount }) {
     let indicator = unreadDirectMessageCount;
 
     if (indicator === 0 && unreadIndirectMessageCount !== 0) {
@@ -209,10 +209,10 @@ export default class AppStore extends Store {
       indicator = parseInt(indicator, 10);
     }
 
-    ipcRenderer.send('updateAppIndicator', {indicator});
+    ipcRenderer.send('updateAppIndicator', { indicator });
   }
 
-  @action _launchOnStartup({enable}) {
+  @action _launchOnStartup({ enable }) {
     this.autoLaunchOnStart = enable;
 
     try {
@@ -224,22 +224,21 @@ export default class AppStore extends Store {
     } catch (err) {
       console.warn(err);
     }
-
   }
 
-  @action _openExternalUrl({url}) {
+  @action _openExternalUrl({ url }) {
     shell.openExternal(url);
   }
 
   @action _checkForUpdates() {
     this.updateStatus = this.updateStatusTypes.CHECKING;
-    ipcRenderer.send('autoUpdate', {action: 'check'});
+    ipcRenderer.send('autoUpdate', { action: 'check' });
 
     this.actions.recipe.update();
   }
 
   @action _installUpdate() {
-    ipcRenderer.send('autoUpdate', {action: 'install'});
+    ipcRenderer.send('autoUpdate', { action: 'install' });
   }
 
   @action _resetUpdateStatus() {
@@ -250,7 +249,7 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({isMuted, overrideSystemMute = true}) {
+  @action _muteApp({ isMuted, overrideSystemMute = true }) {
     this.isSystemMuteOverridden = overrideSystemMute;
 
     this.actions.settings.update({
@@ -262,7 +261,7 @@ export default class AppStore extends Store {
   }
 
   @action _toggleMuteApp() {
-    this._muteApp({isMuted: !this.stores.settings.all.app.isAppMuted});
+    this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
   }
 
   @action
@@ -275,7 +274,7 @@ export default class AppStore extends Store {
 
     await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
 
-    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({serviceId: s.id})));
+    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({ serviceId: s.id })));
 
     await clearAppCache._promise;
 
@@ -347,7 +346,7 @@ export default class AppStore extends Store {
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
 
     if (!showMessageBadgesEvenWhenMuted) {
-      this.actions.app.setBadge({unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0});
+      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
     }
   }
 

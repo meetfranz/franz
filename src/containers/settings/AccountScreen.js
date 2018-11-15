@@ -13,7 +13,6 @@ const { BrowserWindow } = remote;
 
 @inject('stores', 'actions') @observer
 export default class AccountScreen extends Component {
-
   onCloseWindow() {
     const { user, payment } = this.props.stores;
     user.getUserInfoRequest.invalidate({ immediately: true });
