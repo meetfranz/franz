@@ -17,7 +17,7 @@ export default class Settings {
   }
 
   set(settings) {
-    this.store = this._merge(this.store, settings);
+    this.store = this._merge(settings);
 
     this._writeFile();
   }
@@ -31,7 +31,7 @@ export default class Settings {
   }
 
   _merge(settings) {
-    return Object.assign(DEFAULT_APP_SETTINGS, settings);
+    return Object.assign(DEFAULT_APP_SETTINGS, this.store, settings);
   }
 
   _hydrate() {
