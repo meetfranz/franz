@@ -5,8 +5,7 @@ import classnames from 'classnames';
 import uuidv1 from 'uuid/v1';
 import { debounce } from 'lodash';
 
-@observer
-export default class SearchInput extends Component {
+export default @observer class SearchInput extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,

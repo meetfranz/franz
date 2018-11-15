@@ -10,8 +10,7 @@ import { gaPage } from '../../lib/analytics';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
 
-@inject('stores', 'actions') @observer
-export default class ServicesScreen extends Component {
+export default @inject('stores', 'actions') @observer class ServicesScreen extends Component {
   componentDidMount() {
     gaPage('Settings/Service Dashboard');
   }

@@ -10,8 +10,7 @@ import InfoBar from '../ui/InfoBar';
 import { oneOrManyChildElements, globalError as globalErrorPropType } from '../../prop-types';
 import globalMessages from '../../i18n/globalMessages';
 
-@observer
-export default class AuthLayout extends Component {
+export default @observer class AuthLayout extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
     pathname: PropTypes.string.isRequired,

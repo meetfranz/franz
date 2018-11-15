@@ -16,8 +16,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class ServiceDisabled extends Component {
+export default @observer class ServiceDisabled extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     enable: PropTypes.func.isRequired,

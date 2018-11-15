@@ -25,8 +25,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class ServiceError extends Component {
+export default @observer class ServiceError extends Component {
   static contextTypes = {
     intl: intlShape,
   };

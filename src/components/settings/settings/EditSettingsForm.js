@@ -82,8 +82,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class EditSettingsForm extends Component {
+export default @observer class EditSettingsForm extends Component {
   static propTypes = {
     checkForUpdates: PropTypes.func.isRequired,
     installUpdate: PropTypes.func.isRequired,

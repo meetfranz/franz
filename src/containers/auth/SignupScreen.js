@@ -8,8 +8,7 @@ import { gaPage } from '../../lib/analytics';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
-@inject('stores', 'actions') @observer
-export default class SignupScreen extends Component {
+export default @inject('stores', 'actions') @observer class SignupScreen extends Component {
   static propTypes = {
     error: globalErrorPropType.isRequired,
   };

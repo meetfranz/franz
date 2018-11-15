@@ -5,8 +5,7 @@ import Password from '../../components/auth/Password';
 import UserStore from '../../stores/UserStore';
 import { gaPage } from '../../lib/analytics';
 
-@inject('stores', 'actions') @observer
-export default class PasswordScreen extends Component {
+export default @inject('stores', 'actions') @observer class PasswordScreen extends Component {
   componentDidMount() {
     gaPage('Auth/Password Retrieve');
   }
