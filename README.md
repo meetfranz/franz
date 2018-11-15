@@ -20,34 +20,23 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 #### Install Linux OS dependencies
 [Guide: Linux distribution specific dependencies](docs/linux.md)
 
-#### Install yarn
-##### MacOS
-```bash
-$ brew install yarn
-```
-##### Windows
-[Download installer](https://yarnpkg.com/latest.msi)
-
-##### Linux
-[Install Yarn on Linux](https://yarnpkg.com/lang/en/docs/install/)
-
 #### Fix native modules to match current electron node version
 ```bash
-$ yarn run rebuild
+$ npm run rebuild
 ```
 
 ### Run Franz Development App
 Run these two commands __simultaneously__ in different console tabs.
 
 ```bash
-$ yarn run dev
-$ yarn start
+$ npm run dev
+$ npm run start
 ```
 Be aware that the development database will be reset regularly.
 
 ## Packaging
 ```bash
-$ yarn build
+$ npm run build
 ```
 
 ## How can I support the project?

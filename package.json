@@ -11,8 +11,8 @@
   "private": true,
   "scripts": {
     "start": "electron ./build",
-    "start:local": "cross-env LOCAL_API=1 yarn start",
-    "start:live": "cross-env LIVE_API=1 yarn start",
+    "start:local": "cross-env LOCAL_API=1 npm start",
+    "start:live": "cross-env LIVE_API=1 npm start",
     "dev": "cross-env NODE_ENV=development gulp dev",
     "lint": "eslint src",
     "sign": "gulp sign",
@@ -113,5 +113,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "browserslist": [
+    "Chrome 66"
+  ]
 }
