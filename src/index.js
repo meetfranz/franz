@@ -19,6 +19,11 @@ const debug = require('debug')('App');
 let mainWindow;
 let willQuitApp = false;
 
+// DEV MODE: Save user data into FranzDev
+if (isDevMode) {
+  app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
+}
+
 // Ensure that the recipe directory exists
 fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
 fs.ensureFileSync(path.join(app.getPath('userData'), 'window-state.json'));
