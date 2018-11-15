@@ -7,18 +7,11 @@ $toggle-button-size: 22px;
 .theme__dark .franz-form .franz-form__toggle-wrapper .franz-form__toggle {
   background: $dark-theme-gray;
   border-radius: $toggle-size / 2;
-  width: $toggle-width * .85;
 
   .franz-form__toggle-button {
     background: $dark-theme-gray-lighter;
     box-shadow: 0 1px 4px rgba($dark-theme-black, .3);
-    height: $toggle-size - 2;
-    left: 1px;
-    top: 1px;
-    width: $toggle-size - 2;
   }
-
-  &.is-active .franz-form__toggle-button { left: $toggle-width * .85 - $toggle-size - 3; }
 }
 
 .franz-form .franz-form__toggle-wrapper {
@@ -38,17 +31,17 @@ $toggle-button-size: 22px;
       background: $theme-gray-light;
       border-radius: 100%;
       box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
-      height: $toggle-button-size;
-      left: 0;
+      height: $toggle-size - 2;
+      left: 1px;
+      top: 1px;
       position: absolute;
-      top: -($toggle-button-size - $toggle-size) / 2;
       transition: all .5s;
-      width: $toggle-button-size;
+      width: $toggle-size - 2;
     }
 
     &.is-active .franz-form__toggle-button {
       background: $theme-brand-primary;
-      left: $toggle-width - $toggle-button-size;
+      left: $toggle-width - $toggle-size - 3;;
     }
 
     input { display: none; }
