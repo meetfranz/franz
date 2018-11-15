@@ -88,7 +88,7 @@ export default class EditSettingsScreen extends Component {
     });
 
     settings.update({
-      type: "app",
+      type: 'app',
       data: {
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
@@ -99,7 +99,7 @@ export default class EditSettingsScreen extends Component {
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
         beta: settingsData.beta, // we need this info in the main process as well
-        locale: settingsData.locale // we need this info in the main process as well
+        locale: settingsData.locale, // we need this info in the main process as well
       },
     });
 
