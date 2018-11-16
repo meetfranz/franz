@@ -1,4 +1,4 @@
-import { systemPreferences } from 'electron';
+import { remote } from 'electron';
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
@@ -7,6 +7,7 @@ import SettingsModel from '../models/Settings';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 
+const { systemPreferences } = remote;
 const debug = require('debug')('SettingsStore');
 
 export default class SettingsStore extends Store {

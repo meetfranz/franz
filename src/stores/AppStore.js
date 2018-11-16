@@ -1,4 +1,4 @@
-import { remote, ipcRenderer, shell, systemPreferences } from 'electron';
+import { remote, ipcRenderer, shell } from 'electron';
 import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
@@ -17,7 +17,7 @@ import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '..
 
 const debug = require('debug')('AppStore');
 
-const { app } = remote;
+const { app, systemPreferences } = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
