@@ -116,10 +116,5 @@
   },
   "browserslist": [
     "Chrome 66"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint"
-    }
-  }
+  ]
 }
