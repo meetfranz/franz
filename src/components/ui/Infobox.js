@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Loader from 'react-loader';
 
-@observer
-export default class Infobox extends Component {
+export default @observer class Infobox extends Component {
   static propTypes = {
     children: PropTypes.any.isRequired, // eslint-disable-line
     icon: PropTypes.string,

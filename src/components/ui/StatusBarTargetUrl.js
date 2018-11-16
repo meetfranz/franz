@@ -5,8 +5,7 @@ import classnames from 'classnames';
 
 import Appear from '../ui/effects/Appear';
 
-@observer
-export default class StatusBarTargetUrl extends Component {
+export default @observer class StatusBarTargetUrl extends Component {
   static propTypes = {
     className: PropTypes.string,
     text: PropTypes.string,

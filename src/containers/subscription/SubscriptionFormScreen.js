@@ -9,8 +9,7 @@ import SubscriptionForm from '../../components/subscription/SubscriptionForm';
 
 const { BrowserWindow } = remote;
 
-@inject('stores', 'actions') @observer
-export default class SubscriptionFormScreen extends Component {
+export default @inject('stores', 'actions') @observer class SubscriptionFormScreen extends Component {
   static propTypes = {
     onCloseWindow: PropTypes.func,
     content: PropTypes.oneOrManyChildElements,

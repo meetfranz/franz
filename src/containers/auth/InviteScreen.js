@@ -4,8 +4,7 @@ import { inject, observer } from 'mobx-react';
 import Invite from '../../components/auth/Invite';
 import { gaPage } from '../../lib/analytics';
 
-@inject('stores', 'actions') @observer
-export default class InviteScreen extends Component {
+export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
   componentDidMount() {
     gaPage('Auth/Invite');
   }

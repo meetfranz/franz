@@ -94,8 +94,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class EditServiceForm extends Component {
+export default @observer class EditServiceForm extends Component {
   static propTypes = {
     recipe: PropTypes.instanceOf(Recipe).isRequired,
     service(props, propName) {

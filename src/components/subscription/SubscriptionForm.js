@@ -71,8 +71,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class SubscriptionForm extends Component {
+export default @observer class SubscriptionForm extends Component {
   static propTypes = {
     plan: MobxPropTypes.objectOrObservableObject.isRequired,
     isLoading: PropTypes.bool.isRequired,
