@@ -31,7 +31,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       settings,
       globalError,
       requests,
-      darkMode,
     } = this.props.stores;
 
     const {

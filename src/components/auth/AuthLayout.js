@@ -19,7 +19,7 @@ export default @observer class AuthLayout extends Component {
     isAPIHealthy: PropTypes.bool.isRequired,
     retryHealthCheck: PropTypes.func.isRequired,
     isHealthCheckLoading: PropTypes.bool.isRequired,
-    darkMode: PropTypes.bool.isRequired
+    darkMode: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -35,12 +35,12 @@ export default @observer class AuthLayout extends Component {
       isAPIHealthy,
       retryHealthCheck,
       isHealthCheckLoading,
-      darkMode
+      darkMode,
     } = this.props;
     const { intl } = this.context;
 
     return (
-      <div className={"auth" + (darkMode ? 'theme__dark' : '')}>
+      <div className={`auth${darkMode ? ' theme__dark' : ''}`}>
         {!isOnline && (
           <InfoBar
             type="warning"
