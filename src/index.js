@@ -120,7 +120,7 @@ const createWindow = () => {
         mainWindow.hide();
       }
 
-      if (isWindows && settings.get('minimizeToSystemTray')) {
+      if (isWindows) {
         mainWindow.setSkipTaskbar(true);
       }
     } else {
