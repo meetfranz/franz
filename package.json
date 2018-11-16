@@ -19,7 +19,6 @@
     "prebuild": "gulp build",
     "build": "node_modules/.bin/electron-builder --publish onTag",
     "rebuild": "node_modules/.bin/electron-rebuild",
-    "precommit": "npm lint",
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
@@ -107,7 +106,9 @@
     "gulp-sass": "^4.0.2",
     "gulp-sass-variables": "^1.1.1",
     "gulp-server-livereload": "^1.9.2",
-    "node-sass": "^4.7.2"
+    "husky": "^1.1.4",
+    "node-sass": "^4.7.2",
+    "prettier": "1.15.2"
   },
   "config": {
     "commitizen": {
@@ -116,5 +117,10 @@
   },
   "browserslist": [
     "Chrome 66"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
 }
