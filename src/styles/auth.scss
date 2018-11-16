@@ -16,11 +16,11 @@
   .auth__links {
     background: $dark-theme-gray-dark;
 
-    a { color: $dark-theme-gray-lighter; }
+    a { color: $dark-theme-text-color; }
   }
 
   .legal {
-    color: $dark-theme-gray-lighter;
+    color: $dark-theme-text-color;
 
     a { color: $dark-theme-gray-lightest; }
   }

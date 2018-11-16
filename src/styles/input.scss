@@ -2,7 +2,7 @@
 @import './mixins.scss';
 
 .theme__dark .franz-form {
-  .franz-form__label { color: $dark-theme-gray-lightest; }
+  .franz-form__label { color: $dark-theme-text-color; }
 
   .franz-form__input-wrapper {
     background: $dark-theme-gray-dark;
@@ -10,9 +10,9 @@
   }
 
   .franz-form__input {
-    color: $dark-theme-gray-lighter;
+    color: $dark-theme-gray-lightest;
 
-    &::placeholder { color: $dark-theme-gray-light; }
+    &::placeholder { color: $dark-theme-gray-lighter; }
   }
 
   .franz-form__input-prefix,

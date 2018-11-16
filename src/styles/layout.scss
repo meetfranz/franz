@@ -9,12 +9,12 @@ html { overflow: hidden; }
     color: $theme-text-color;
 
     .sidebar__add-service {
-      color: $dark-theme-gray-lightest;
+      color: $dark-theme-gray-lighter;
       background: $dark-theme-gray;
     }
 
     .sidebar__button {
-      color: $dark-theme-gray-lightest;
+      color: $dark-theme-gray-lighter;
       font-size: 22px;
 
       &:hover,

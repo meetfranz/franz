@@ -3,14 +3,14 @@
 
 .theme__dark .franz-form__button {
   background: $theme-brand-primary;
-  color: $dark-theme-gray-smoke;
+  color: $dark-theme-text-color;
 
   &:hover { background: darken($theme-brand-primary, 5%); }
   &:active { background: lighten($theme-brand-primary, 5%); }
 
   &.franz-form__button--secondary {
     background: $dark-theme-gray-lighter;
-    color: $dark-theme-gray-smoke;
+    color: $dark-theme-text-color;
 
     &:hover { background: darken($dark-theme-gray-lightest, 5%); }
     &:active { background: lighten($dark-theme-gray-lightest, 5%); }
@@ -36,9 +36,11 @@
 
     &:hover {
       background: darken($theme-brand-primary, 5%);
-      color: $dark-theme-gray-smoke;
+      color: $dark-theme-text-color;
     }
   }
+
+  &:disabled { opacity: .5; }
 }
 
 .franz-form__button {
