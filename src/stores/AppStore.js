@@ -5,6 +5,7 @@ import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
+import isDarkMode from '@adlk/mojave-isdarkmode';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -50,6 +51,8 @@ export default class AppStore extends Store {
 
   @observable isSystemMuteOverridden = false;
 
+  @observable isSystemDarkModeEnabled = false;
+
   @observable isClearingAllCache = false;
 
   @observable isFullScreen = mainWindow.isFullScreen();
@@ -77,7 +80,7 @@ export default class AppStore extends Store {
     ]);
   }
 
-  setup() {
+  async setup() {
     this._appStartsCounter();
     // Focus the active service
     window.addEventListener('focus', this.actions.service.focusActiveService);
@@ -159,6 +162,8 @@ export default class AppStore extends Store {
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
+
+    this.isSystemDarkModeEnabled = await isDarkMode();
   }
 
   @computed get cacheSize() {
