@@ -27,7 +27,6 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@adlk/mojave-isdarkmode": "^1.0.1",
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "@meetfranz/electron-notification-state": "^1.0.0",

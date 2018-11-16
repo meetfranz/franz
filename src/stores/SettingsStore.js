@@ -1,6 +1,6 @@
+import { systemPreferences } from 'electron';
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
-import isDarkMode from '@adlk/mojave-isdarkmode';
 
 import Store from './lib/Store';
 import SettingsModel from '../models/Settings';
@@ -111,7 +111,7 @@ export default class SettingsStore extends Store {
       this.actions.settings.update({
         type: 'app',
         data: {
-          darkMode: await isDarkMode(),
+          darkMode: systemPreferences.isDarkMode(),
         },
       });
 

@@ -1,11 +1,10 @@
-import { remote, ipcRenderer, shell } from 'electron';
+import { remote, ipcRenderer, shell, systemPreferences } from 'electron';
 import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
-import isDarkMode from '@adlk/mojave-isdarkmode';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -80,7 +79,7 @@ export default class AppStore extends Store {
     ]);
   }
 
-  async setup() {
+  setup() {
     this._appStartsCounter();
     // Focus the active service
     window.addEventListener('focus', this.actions.service.focusActiveService);
@@ -163,7 +162,7 @@ export default class AppStore extends Store {
 
     this._healthCheck();
 
-    this.isSystemDarkModeEnabled = await isDarkMode();
+    this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
   }
 
   @computed get cacheSize() {
