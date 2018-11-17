@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import Invite from '../../components/auth/Invite';
 
-@inject('stores', 'actions') @observer
-export default class InviteScreen extends Component {
+export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
+  componentDidMount() {
+    gaPage('Auth/Invite');
+  }
+
   render() {
     const { actions } = this.props;
 

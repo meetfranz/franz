@@ -41,8 +41,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class AppLayout extends Component {
+export default @observer class AppLayout extends Component {
   static propTypes = {
     isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,

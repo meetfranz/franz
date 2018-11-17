@@ -16,8 +16,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Login extends Component {
+export default @observer class Login extends Component {
   static propTypes = {
     loginRoute: PropTypes.string.isRequired,
     signupRoute: PropTypes.string.isRequired,

@@ -17,8 +17,7 @@ import Sidebar from '../../components/layout/Sidebar';
 import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
-@inject('stores', 'actions') @observer
-export default class AppLayoutContainer extends Component {
+export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
     children: null,
   };

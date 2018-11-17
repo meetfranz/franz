@@ -28,8 +28,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Import extends Component {
+export default @observer class Import extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     onSubmit: PropTypes.func.isRequired,

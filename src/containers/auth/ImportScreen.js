@@ -4,8 +4,11 @@ import { inject, observer } from 'mobx-react';
 import Import from '../../components/auth/Import';
 import UserStore from '../../stores/UserStore';
 
-@inject('stores', 'actions') @observer
-export default class ImportScreen extends Component {
+export default @inject('stores', 'actions') @observer class ImportScreen extends Component {
+  componentDidMount() {
+    gaPage('Auth/Import');
+  }
+
   render() {
     const { actions, stores } = this.props;
 

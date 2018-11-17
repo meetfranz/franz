@@ -9,8 +9,7 @@ import PaymentStore from '../../stores/PaymentStore';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
-@inject('stores', 'actions') @observer
-export default class PricingScreen extends Component {
+export default @inject('stores', 'actions') @observer class PricingScreen extends Component {
   static propTypes = {
     error: globalErrorPropType.isRequired,
   };

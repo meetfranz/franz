@@ -10,8 +10,7 @@ import UserStore from '../../stores/UserStore';
 
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
 
-@inject('stores', 'actions') @observer
-export default class RecipesScreen extends Component {
+export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {
     params: PropTypes.shape({
       filter: PropTypes.string,

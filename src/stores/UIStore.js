@@ -27,7 +27,7 @@ export default class UIStore extends Store {
     this.stores.router.push(settingsPath);
   }
 
-  @action _closeSettings(): void {
+  @action _closeSettings() {
     this.stores.router.push('/');
   }
 

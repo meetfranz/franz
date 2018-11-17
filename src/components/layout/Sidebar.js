@@ -26,8 +26,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Sidebar extends Component {
+export default @observer class Sidebar extends Component {
   static propTypes = {
     openSettings: PropTypes.func.isRequired,
     toggleMuteApp: PropTypes.func.isRequired,

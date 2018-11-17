@@ -33,4 +33,4 @@ As a basic rule, before filing issues, feature requests or anything else. Take a
 * When only changing documentation, include `[ci skip]` in the commit description
 
 ### Javascript
-* Please use `es-lint` and the defined rules to maintain a consistent style  
+* Please use `es-lint` and the defined rules to maintain a consistent style

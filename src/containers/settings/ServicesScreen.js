@@ -9,8 +9,11 @@ import ServiceStore from '../../stores/ServicesStore';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
 
-@inject('stores', 'actions') @observer
-export default class ServicesScreen extends Component {
+export default @inject('stores', 'actions') @observer class ServicesScreen extends Component {
+  componentDidMount() {
+    gaPage('Settings/Service Dashboard');
+  }
+
   componentWillUnmount() {
     this.props.actions.service.resetFilter();
     this.props.actions.service.resetStatus();

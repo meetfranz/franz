@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import uuidv1 from 'uuid/v1';
 
-@observer
-export default class SearchInput extends Component {
+export default @observer class SearchInput extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,

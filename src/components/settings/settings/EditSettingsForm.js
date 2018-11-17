@@ -99,8 +99,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class EditSettingsForm extends Component {
+export default @observer class EditSettingsForm extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       setBackground: PropTypes.func.isRequired,

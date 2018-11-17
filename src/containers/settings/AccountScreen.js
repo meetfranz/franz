@@ -11,8 +11,11 @@ import AccountDashboard from '../../components/settings/account/AccountDashboard
 
 const { BrowserWindow } = remote;
 
-@inject('stores', 'actions') @observer
-export default class AccountScreen extends Component {
+export default @inject('stores', 'actions') @observer class AccountScreen extends Component {
+  componentDidMount() {
+    gaPage('Settings/Account Dashboard');
+  }
+
   onCloseWindow() {
     const { user, payment } = this.props.stores;
     user.getUserInfoRequest.invalidate({ immediately: true });

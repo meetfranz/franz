@@ -7,8 +7,7 @@ import { oneOrManyChildElements } from './prop-types';
 import translations from './i18n/translations';
 import UserStore from './stores/UserStore';
 
-@inject('stores') @observer
-export default class I18N extends Component {
+export default @inject('stores') @observer class I18N extends Component {
   componentDidUpdate() {
     window.franz.menu.rebuild();
   }

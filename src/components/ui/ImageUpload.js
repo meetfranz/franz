@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Field } from 'mobx-react-form';
-// import Loader from 'react-loader';
 import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
 
-@observer
-export default class ImageUpload extends Component {
+export default @observer class ImageUpload extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,

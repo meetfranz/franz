@@ -8,8 +8,7 @@ import GlobalErrorStore from '../../stores/GlobalErrorStore';
 
 import { oneOrManyChildElements } from '../../prop-types';
 
-@inject('stores', 'actions') @observer
-export default class AuthLayoutContainer extends Component {
+export default @inject('stores', 'actions') @observer class AuthLayoutContainer extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
     location: PropTypes.shape({

@@ -6,8 +6,11 @@ import Welcome from '../../components/auth/Welcome';
 import UserStore from '../../stores/UserStore';
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 
-@inject('stores', 'actions') @observer
-export default class LoginScreen extends Component {
+export default @inject('stores', 'actions') @observer class LoginScreen extends Component {
+  componentDidMount() {
+    gaPage('Auth/Welcome');
+  }
+
   render() {
     const { user, recipePreviews } = this.props.stores;
 

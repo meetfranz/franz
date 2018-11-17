@@ -141,10 +141,10 @@ class TabItem extends Component {
           {service.unreadIndirectMessageCount > 0
             && service.unreadDirectMessageCount === 0
             && service.isIndirectMessageBadgeEnabled && (
-              <span className="tab-item__message-count is-indirect">
+            <span className="tab-item__message-count is-indirect">
                 •
-              </span>
-            )}
+            </span>
+          )}
         </span>
       );
     }

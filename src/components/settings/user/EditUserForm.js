@@ -39,8 +39,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class EditServiceForm extends Component {
+export default @observer class EditServiceForm extends Component {
   static propTypes = {
     status: MobxPropTypes.observableArray.isRequired,
     form: PropTypes.instanceOf(Form).isRequired,
