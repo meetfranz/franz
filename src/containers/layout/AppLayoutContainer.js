@@ -120,6 +120,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
         retryRequiredRequests={retryRequiredRequests}
         areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
+        darkMode={settings.all.app.darkMode}
       >
         {React.Children.count(children) > 0 ? children : null}
       </AppLayout>

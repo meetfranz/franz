@@ -39,6 +39,10 @@ const messages = defineMessages({
     id: 'settings.app.form.language',
     defaultMessage: '!!!Language',
   },
+  darkMode: {
+    id: 'settings.app.form.darkMode',
+    defaultMessage: '!!!Dark Mode',
+  },
   showDisabledServices: {
     id: 'settings.app.form.showDisabledServices',
     defaultMessage: '!!!Display disabled services tabs',
@@ -90,6 +94,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
+        darkMode: settingsData.darkMode,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
         beta: settingsData.beta, // we need this info in the main process as well
@@ -158,6 +163,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.enableSpellchecking),
           value: settings.all.app.enableSpellchecking,
           default: DEFAULT_APP_SETTINGS.enableSpellchecking,
+        },
+        darkMode: {
+          label: intl.formatMessage(messages.darkMode),
+          value: settings.all.app.darkMode,
+          default: DEFAULT_APP_SETTINGS.darkMode,
         },
         enableGPUAcceleration: {
           label: intl.formatMessage(messages.enableGPUAcceleration),

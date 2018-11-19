@@ -17,7 +17,7 @@ import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '..
 
 const debug = require('debug')('AppStore');
 
-const { app } = remote;
+const { app, systemPreferences } = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -49,6 +49,8 @@ export default class AppStore extends Store {
   @observable locale = defaultLocale;
 
   @observable isSystemMuteOverridden = false;
+
+  @observable isSystemDarkModeEnabled = false;
 
   @observable isClearingAllCache = false;
 
@@ -159,6 +161,8 @@ export default class AppStore extends Store {
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
+
+    this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
   }
 
   @computed get cacheSize() {

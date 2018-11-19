@@ -1,34 +1,39 @@
 @import './config.scss';
 
-.franz-form {
-  .franz-form__radio-wrapper {
-    display: flex;
+.theme__dark .franz-form .franz-form__radio {
+  border: 1px solid $dark-theme-gray-lighter;
+  color: $dark-theme-gray-lightest;
+
+  &.is-selected {
+    background: $dark-theme-gray-lighter;
+    border: 1px solid $dark-theme-gray-lighter;
+    color: $dark-theme-gray-smoke;
   }
+}
+
+
+.franz-form {
+  .franz-form__radio-wrapper { display: flex; }
 
   .franz-form__radio {
-    // background: $theme-gray-lightest;
     border: 2px solid $theme-gray-lighter;
-    color: $theme-gray;
-    padding: 11px;
-    margin-right: 20px;
-    text-align: center;
     border-radius: $theme-border-radius-small;
-    flex: 1;
     box-shadow: $theme-inset-shadow;
+    color: $theme-gray;
+    flex: 1;
+    margin-right: 20px;
+    padding: 11px;
+    text-align: center;
     transition: background $theme-transition-time;
 
-    &:last-of-type {
-      margin-right: 0;
-    }
+    &:last-of-type { margin-right: 0; }
 
     &.is-selected {
-      border: 2px solid $theme-brand-primary;
       background: #FFF;
+      border: 2px solid $theme-brand-primary;
       color: $theme-brand-primary;
     }
 
-    input {
-      display: none;
-    }
+    input { display: none; }
   }
 }

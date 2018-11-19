@@ -26,6 +26,8 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
         isAPIHealthy={!stores.app.healthCheckRequest.isError}
         retryHealthCheck={actions.app.healthCheck}
         isHealthCheckLoading={stores.app.healthCheckRequest.isExecuting}
+        isFullScreen={stores.app.isFullscreen}
+        darkMode={stores.app.isSystemDarkModeEnabled}
       >
         {children}
       </AuthLayout>

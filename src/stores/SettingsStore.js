@@ -1,3 +1,4 @@
+import { remote } from 'electron';
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
@@ -6,6 +7,7 @@ import SettingsModel from '../models/Settings';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 
+const { systemPreferences } = remote;
 const debug = require('debug')('SettingsStore');
 
 export default class SettingsStore extends Store {
@@ -23,7 +25,7 @@ export default class SettingsStore extends Store {
   async setup() {
     // We need to wait until `appSettingsRequest` has been executed once, otherwise we can't patch the result. If we don't wait we'd run into an issue with mobx not reacting to changes of previously not existing keys
     await this.appSettingsRequest._promise;
-    this._migrate();
+    await this._migrate();
   }
 
   @computed get all() {
@@ -67,7 +69,7 @@ export default class SettingsStore extends Store {
   }
 
   // Helper
-  _migrate() {
+  async _migrate() {
     const legacySettings = localStorage.getItem('app') || {};
 
     if (!this.all.migration['5.0.0-beta.17-settings']) {
@@ -103,6 +105,27 @@ export default class SettingsStore extends Store {
       localStorage.removeItem('app');
 
       debug('Migrated settings to split stores');
+    }
+
+    // Enable dark mode once
+    if (!this.all.migration['5.0.0-beta.19-settings']) {
+      this.actions.settings.update({
+        type: 'app',
+        data: {
+          darkMode: systemPreferences.isDarkMode(),
+        },
+      });
+
+      this.actions.settings.update({
+        type: 'migration',
+        data: {
+          '5.0.0-beta.19-settings': true,
+        },
+      });
+
+      localStorage.removeItem('app');
+
+      debug('Set up dark mode');
     }
   }
 }

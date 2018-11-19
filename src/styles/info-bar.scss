@@ -1,83 +1,68 @@
 @import './config.scss';
 
 .info-bar {
-  width: 100%;
-  height: 50px;
-  background: $theme-brand-primary;
-  display: flex;
   align-items: center;
+  background: $theme-brand-primary;
+  box-shadow: 0 0 8px rgba(black, .2);
+  display: flex;
+  height: 50px;
   justify-content: center;
   padding: 0 20px;
   position: relative;
-  // bottom: 0;
+  width: 100%;
   z-index: 100;
-  box-shadow: 0 0 8px rgba(black, 0.2);
 
   .info-bar__content {
     height: auto;
 
-    .mdi {
-      margin-right: 5px;
-    }
+    .mdi { margin-right: 5px; }
   }
 
   .info-bar__close {
+    color: #FFF;
     position: absolute;
     right: 10px;
-    color: #FFF;
   }
 
   .info-bar__cta {
-    color: #FFF;
-    padding: 3px 8px;
-    border-radius: $theme-border-radius-small;
     border-color: #FFF;
-    border-width: 2px;
+    border-radius: $theme-border-radius-small;
     border-style: solid;
+    border-width: 2px;
+    color: #FFF;
     margin-left: 15px;
+    padding: 3px 8px;
 
     .loader {
+      display: inline-block;
+      height: 12px;
+      margin-right: 5px;
       position: relative;
       width: 20px;
-      height: 12px;
       z-index: 9999;
-      display: inline-block;
-      margin-right: 5px;
     }
   }
 
-  a {
-    // text-decoration: underline;
-  }
-
-  &.info-bar--bottom {
-    order: 10;
-  }
+  &.info-bar--bottom { order: 10; }
 
   &.info-bar--primary {
     background: $theme-brand-primary;
     color: #FFF;
 
-    a {
-      color: #FFF;
-    }
+    a { color: #FFF; }
   }
 
   &.info-bar--warning {
     background: $theme-brand-warning;
     color: #FFF;
 
-    a {
-      color: #FFF;
-    }
+    a { color: #FFF; }
   }
 
   &.info-bar--danger {
     background: $theme-brand-danger;
     color: #FFF;
 
-    a {
-      color: #FFF;
-    }
+    a { color: #FFF; }
   }
 }
