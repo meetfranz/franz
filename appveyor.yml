@@ -9,9 +9,11 @@ environment:
 version: 5.0.0.{build}
 
 install:
-  - ps: Install-Module nvm
-  - ps: Install-NodeVersion
-  - ps: npm ci
+  - ps: $version = Get-Content .\.nvmrc -Raw 
+  - ps: Install-Product node $version
+  - npm ci
+  - node --version
+  - npm --version
 
 cache:
  - '%APPDATA%\npm-cache'

@@ -121,7 +121,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run reformat-files"
+      "pre-push": "npm run lint && npm run reformat-files"
     }
   }
 }
