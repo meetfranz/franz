@@ -3,7 +3,6 @@
 .theme__dark .tab-item {
   &.is-active {
     background: $dark-theme-gray;
-    border-left: 0;
 
     .tab-item__icon { margin-left: -4px; }
   }
