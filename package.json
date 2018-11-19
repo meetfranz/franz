@@ -10,6 +10,7 @@
   "repository": "https://github.com/meetfranz/franz.git",
   "private": true,
   "scripts": {
+    "prestart": "npm run rebuild",
     "start": "electron ./build",
     "start:local": "cross-env LOCAL_API=1 npm start",
     "start:live": "cross-env LIVE_API=1 npm start",
