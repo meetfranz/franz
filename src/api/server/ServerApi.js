@@ -35,7 +35,7 @@ module.paths.unshift(
 );
 
 const { app } = remote;
-const { default: fetch } = remote.require('electron-fetch');
+const fetch = remote.require('electron-fetch');
 
 const SERVER_URL = API;
 const API_VERSION = 'v1';
