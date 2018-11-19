@@ -22,9 +22,6 @@ script:
 - npm run lint
 - travis_wait npm run build
 
-node_js:
-- '8'
-
 cache: npm
 
 notifications:

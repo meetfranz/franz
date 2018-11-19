@@ -9,8 +9,9 @@ environment:
 version: 5.0.0.{build}
 
 install:
-  - ps: Install-Product node 8
-  - npm ci
+  - ps: Install-Module nvm
+  - ps: Install-NodeVersion
+  - ps: npm ci
 
 cache:
  - '%APPDATA%\npm-cache'
