@@ -11,8 +11,8 @@
     background: $dark-theme-gray-lighter;
     color: $dark-theme-text-color;
 
-    &:hover { background: darken($dark-theme-gray-lightest, 5%); }
-    &:active { background: lighten($dark-theme-gray-lightest, 5%); }
+    &:hover { background: lighten($dark-theme-gray-lighter, 10%); }
+    &:active { background: lighten($dark-theme-gray-lighter, 20%); }
   }
 
   &.franz-form__button--danger {
