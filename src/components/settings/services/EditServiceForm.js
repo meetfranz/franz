@@ -341,7 +341,7 @@ export default @observer class EditServiceForm extends Component {
               type="submit"
               label={intl.formatMessage(messages.saveService)}
               htmlForm="form"
-              disabled={form.isPristine && requiresUserInput}
+              disabled={action !== 'edit' && form.isPristine && requiresUserInput}
             />
           )}
         </div>
