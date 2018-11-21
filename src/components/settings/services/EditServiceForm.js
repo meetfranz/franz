@@ -201,6 +201,8 @@ export default @observer class EditServiceForm extends Component {
       activeTabIndex = 2;
     }
 
+    const requiresUserInput = !recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl);
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -339,6 +341,7 @@ export default @observer class EditServiceForm extends Component {
               type="submit"
               label={intl.formatMessage(messages.saveService)}
               htmlForm="form"
+              disabled={form.isPristine && requiresUserInput}
             />
           )}
         </div>
