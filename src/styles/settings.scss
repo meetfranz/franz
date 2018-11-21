@@ -68,7 +68,10 @@
       }
     }
 
-    .premium-info { background: lighten($theme-brand-primary, 40%); }
+    .premium-info { 
+      background: $dark-theme-gray-darker;
+      border: 2px solid $theme-brand-primary;
+    }
     .legal { color: $theme-gray-light; }
   }
 
