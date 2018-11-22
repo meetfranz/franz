@@ -94,8 +94,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class EditServiceForm extends Component {
+export default @observer class EditServiceForm extends Component {
   static propTypes = {
     recipe: PropTypes.instanceOf(Recipe).isRequired,
     service(props, propName) {
@@ -204,6 +203,8 @@ export default class EditServiceForm extends Component {
       activeTabIndex = 2;
     }
 
+    const requiresUserInput = !recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl);
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -305,6 +306,7 @@ export default class EditServiceForm extends Component {
 
                 <div className="settings__settings-group">
                   <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
+                  <Toggle field={form.$('isDarkModeEnabled')} />
                   <Toggle field={form.$('isEnabled')} />
                 </div>
               </div>
@@ -342,6 +344,7 @@ export default class EditServiceForm extends Component {
               type="submit"
               label={intl.formatMessage(messages.saveService)}
               htmlForm="form"
+              disabled={action !== 'edit' && form.isPristine && requiresUserInput}
             />
           )}
         </div>

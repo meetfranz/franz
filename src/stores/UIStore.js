@@ -17,7 +17,7 @@ export default class UIStore extends Store {
   @computed get showMessageBadgesEvenWhenMuted() {
     const settings = this.stores.settings.all;
 
-    return (settings.isAppMuted && settings.showMessageBadgeWhenMuted) || !settings.isAppMuted;
+    return (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted) || !settings.isAppMuted;
   }
 
   // Actions
@@ -26,7 +26,7 @@ export default class UIStore extends Store {
     this.stores.router.push(settingsPath);
   }
 
-  @action _closeSettings(): void {
+  @action _closeSettings() {
     this.stores.router.push('/');
   }
 

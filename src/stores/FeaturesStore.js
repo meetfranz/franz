@@ -4,7 +4,7 @@ import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 
 export default class FeaturesStore extends Store {
-  @observable baseFeaturesRequest = new CachedRequest(this.api.features, 'base');
+  @observable defaultFeaturesRequest = new CachedRequest(this.api.features, 'default');
   @observable featuresRequest = new CachedRequest(this.api.features, 'features');
 
   setup() {
@@ -19,7 +19,7 @@ export default class FeaturesStore extends Store {
       return this.featuresRequest.execute().result || {};
     }
 
-    return this.baseFeaturesRequest.execute().result || {};
+    return this.defaultFeaturesRequest.execute().result || {};
   }
 
   _debugFeatures() {
@@ -30,7 +30,7 @@ export default class FeaturesStore extends Store {
     if (this.stores.user.isLoggedIn) {
       this.featuresRequest.invalidate({ immediately: true });
     } else {
-      this.baseFeaturesRequest.invalidate({ immediately: true });
+      this.defaultFeaturesRequest.invalidate({ immediately: true });
     }
   }
 }

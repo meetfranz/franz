@@ -50,8 +50,7 @@ const messages = defineMessages({
   },
 });
 
-@inject('stores', 'actions') @observer
-export default class EditUserScreen extends Component {
+export default @inject('stores', 'actions') @observer class EditUserScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };

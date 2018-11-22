@@ -3,10 +3,10 @@ import gulp from 'gulp';
 import babel from 'gulp-babel';
 import sass from 'gulp-sass';
 import server from 'gulp-server-livereload';
-import del from 'del';
 import { exec } from 'child_process';
 import dotenv from 'dotenv';
 import sassVariables from 'gulp-sass-variables';
+import { removeSync } from 'fs-extra';
 
 import config from './package.json';
 
@@ -49,7 +49,12 @@ function _shell(cmd, cb) {
   });
 }
 
-const clean = () => del([paths.tmp, paths.dest]);
+const clean = (done) => {
+  removeSync(paths.tmp);
+  removeSync(paths.dest);
+
+  done();
+};
 export { clean };
 
 export function mvSrc() {

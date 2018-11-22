@@ -9,9 +9,7 @@ import { oneOrManyChildElements } from '../../prop-types';
 import { matchRoute } from '../../helpers/routing-helpers';
 
 // TODO: create container component for this component
-
-@inject('stores') @observer
-export default class Link extends Component {
+export default @inject('stores') @observer class Link extends Component {
   onClick(e) {
     if (this.props.target === '_blank') {
       e.preventDefault();

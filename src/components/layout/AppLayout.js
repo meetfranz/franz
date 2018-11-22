@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
+import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
 import globalMessages from '../../i18n/globalMessages';
+
+import { isWindows } from '../../environment';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -37,9 +40,9 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class AppLayout extends Component {
+export default @observer class AppLayout extends Component {
   static propTypes = {
+    isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
     services: PropTypes.element.isRequired,
     children: PropTypes.element,
@@ -54,6 +57,7 @@ export default class AppLayout extends Component {
     areRequiredRequestsSuccessful: PropTypes.bool.isRequired,
     retryRequiredRequests: PropTypes.func.isRequired,
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
+    darkMode: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -66,6 +70,7 @@ export default class AppLayout extends Component {
 
   render() {
     const {
+      isFullScreen,
       sidebar,
       services,
       children,
@@ -80,71 +85,75 @@ export default class AppLayout extends Component {
       areRequiredRequestsSuccessful,
       retryRequiredRequests,
       areRequiredRequestsLoading,
+      darkMode,
     } = this.props;
 
     const { intl } = this.context;
 
     return (
-      <div>
+      <div className={(darkMode ? 'theme__dark' : '')}>
         <div className="app">
-          {sidebar}
-          <div className="app__service">
-            {news.length > 0 && news.map(item => (
-              <InfoBar
-                key={item.id}
-                position="top"
-                type={item.type}
-                sticky={item.sticky}
-                onHide={() => removeNewsItem({ newsId: item.id })}
-              >
-                <span dangerouslySetInnerHTML={createMarkup(item.message)} />
-              </InfoBar>
-            ))}
-            {!isOnline && (
-              <InfoBar
-                type="danger"
-              >
-                <span className="mdi mdi-flash" />
-                {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
-              </InfoBar>
-            )}
-            {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
-              <InfoBar
-                type="danger"
-                ctaLabel="Try again"
-                ctaLoading={areRequiredRequestsLoading}
-                sticky
-                onClick={retryRequiredRequests}
-              >
-                <span className="mdi mdi-flash" />
-                {intl.formatMessage(messages.requiredRequestsFailed)}
-              </InfoBar>
-            )}
-            {showServicesUpdatedInfoBar && (
-              <InfoBar
-                type="primary"
-                ctaLabel={intl.formatMessage(messages.buttonReloadServices)}
-                onClick={reloadServicesAfterUpdate}
-                sticky
-              >
-                <span className="mdi mdi-power-plug" />
-                {intl.formatMessage(messages.servicesUpdated)}
-              </InfoBar>
-            )}
-            {appUpdateIsDownloaded && (
-              <InfoBar
-                type="primary"
-                ctaLabel={intl.formatMessage(messages.buttonInstallUpdate)}
-                onClick={installAppUpdate}
-                sticky
-              >
-                <span className="mdi mdi-information" />
-                {intl.formatMessage(messages.updateAvailable)} <a href="https://meetfranz.com/changelog" target="_blank">
-                  <u>{intl.formatMessage(messages.changelog)}</u>
-                </a>
-              </InfoBar>
-            )}
-            {services}
+          {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
+          <div className="app__content">
+            {sidebar}
+            <div className="app__service">
+              {news.length > 0 && news.map(item => (
+                <InfoBar
+                  key={item.id}
+                  position="top"
+                  type={item.type}
+                  sticky={item.sticky}
+                  onHide={() => removeNewsItem({ newsId: item.id })}
+                >
+                  <span dangerouslySetInnerHTML={createMarkup(item.message)} />
+                </InfoBar>
+              ))}
+              {!isOnline && (
+                <InfoBar
+                  type="danger"
+                >
+                  <span className="mdi mdi-flash" />
+                  {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
+                </InfoBar>
+              )}
+              {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
+                <InfoBar
+                  type="danger"
+                  ctaLabel="Try again"
+                  ctaLoading={areRequiredRequestsLoading}
+                  sticky
+                  onClick={retryRequiredRequests}
+                >
+                  <span className="mdi mdi-flash" />
+                  {intl.formatMessage(messages.requiredRequestsFailed)}
+                </InfoBar>
+              )}
+              {showServicesUpdatedInfoBar && (
+                <InfoBar
+                  type="primary"
+                  ctaLabel={intl.formatMessage(messages.buttonReloadServices)}
+                  onClick={reloadServicesAfterUpdate}
+                  sticky
+                >
+                  <span className="mdi mdi-power-plug" />
+                  {intl.formatMessage(messages.servicesUpdated)}
+                </InfoBar>
+              )}
+              {appUpdateIsDownloaded && (
+                <InfoBar
+                  type="primary"
+                  ctaLabel={intl.formatMessage(messages.buttonInstallUpdate)}
+                  onClick={installAppUpdate}
+                  sticky
+                >
+                  <span className="mdi mdi-information" />
+                  {intl.formatMessage(messages.updateAvailable)} <a href="https://meetfranz.com/changelog" target="_blank">
+                    <u>{intl.formatMessage(messages.changelog)}</u>
+                  </a>
+                </InfoBar>
+              )}
+              {services}
+            </div>
           </div>
         </div>
         {children}

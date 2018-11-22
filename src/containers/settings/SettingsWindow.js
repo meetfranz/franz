@@ -7,8 +7,7 @@ import ServicesStore from '../../stores/ServicesStore';
 import Layout from '../../components/settings/SettingsLayout';
 import Navigation from '../../components/settings/navigation/SettingsNavigation';
 
-@inject('stores', 'actions') @observer
-export default class SettingsContainer extends Component {
+export default @inject('stores', 'actions') @observer class SettingsContainer extends Component {
   render() {
     const { children, stores } = this.props;
     const { closeSettings } = this.props.actions.ui;

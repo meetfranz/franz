@@ -76,10 +76,13 @@ const messages = defineMessages({
     id: 'settings.app.currentVersion',
     defaultMessage: '!!!Current version:',
   },
+  enableGPUAccelerationInfo: {
+    id: 'settings.app.restartRequired',
+    defaultMessage: '!!!Changes require restart',
+  },
 });
 
-@observer
-export default class EditSettingsForm extends Component {
+export default @observer class EditSettingsForm extends Component {
   static propTypes = {
     checkForUpdates: PropTypes.func.isRequired,
     installUpdate: PropTypes.func.isRequired,
@@ -157,6 +160,7 @@ export default class EditSettingsForm extends Component {
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />
             <Toggle field={form.$('showMessageBadgeWhenMuted')} />
+            <Toggle field={form.$('darkMode')} />
 
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
@@ -172,6 +176,8 @@ export default class EditSettingsForm extends Component {
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
             <Toggle field={form.$('enableSpellchecking')} />
+            <Toggle field={form.$('enableGPUAcceleration')} />
+            <p className="settings__help">{intl.formatMessage(messages.enableGPUAccelerationInfo)}</p>
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}
             <div className="settings__settings-group">
               <h3>

@@ -7,13 +7,19 @@ import { oneOrManyChildElements } from './prop-types';
 import translations from './i18n/translations';
 import UserStore from './stores/UserStore';
 
-@inject('stores') @observer
-export default class I18N extends Component {
+export default @inject('stores') @observer class I18N extends Component {
+  componentDidUpdate() {
+    window.franz.menu.rebuild();
+  }
+
   render() {
     const { stores, children } = this.props;
     const { locale } = stores.app;
     return (
-      <IntlProvider {...{ locale, key: locale, messages: translations[locale] }}>
+      <IntlProvider
+        {...{ locale, key: locale, messages: translations[locale] }}
+        ref={(intlProvider) => { window.franz.intl = intlProvider ? intlProvider.getChildContext().intl : null; }}
+      >
         {children}
       </IntlProvider>
     );

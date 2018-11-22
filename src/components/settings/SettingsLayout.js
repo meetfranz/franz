@@ -5,8 +5,7 @@ import { observer } from 'mobx-react';
 import { oneOrManyChildElements } from '../../prop-types';
 import Appear from '../ui/effects/Appear';
 
-@observer
-export default class SettingsLayout extends Component {
+export default @observer class SettingsLayout extends Component {
   static propTypes = {
     navigation: PropTypes.element.isRequired,
     children: oneOrManyChildElements.isRequired,

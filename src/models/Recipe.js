@@ -1,5 +1,7 @@
 import emailParser from 'address-rfc2822';
 import semver from 'semver';
+import fs from 'fs-extra';
+import path from 'path';
 
 export default class Recipe {
   id = '';
@@ -32,8 +34,12 @@ export default class Recipe {
       throw Error(`Recipe '${data.name}' requires Id`);
     }
 
-    if (!semver.valid(data.version)) {
-      throw Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
+    try {
+      if (!semver.valid(data.version)) {
+        throw Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
+      }
+    } catch (e) {
+      console.warn(e.message);
     }
 
     this.id = data.id || this.id;
@@ -68,5 +74,9 @@ export default class Recipe {
     }
 
     return [];
+  }
+
+  get hasDarkMode() {
+    return fs.pathExistsSync(path.join(this.path, 'darkmode.css'));
   }
 }

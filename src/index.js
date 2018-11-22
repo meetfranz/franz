@@ -4,7 +4,7 @@ import path from 'path';
 
 import windowStateKeeper from 'electron-window-state';
 
-import { isDevMode, isWindows } from './environment';
+import { isDevMode, isMac, isWindows, isLinux } from './environment';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -12,14 +12,21 @@ import handleDeepLink from './electron/deepLinking';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
+const debug = require('debug')('Franz:App');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let willQuitApp = false;
 
+// DEV MODE: Save user data into FranzDev
+if (isDevMode) {
+  app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
+}
+
 // Ensure that the recipe directory exists
-fs.ensureDir(path.join(app.getPath('userData'), 'recipes'));
 fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
+fs.ensureFileSync(path.join(app.getPath('userData'), 'window-state.json'));
 
 // Set App ID for Windows
 if (isWindows) {
@@ -48,14 +55,20 @@ if (isSecondInstance) {
   app.exit();
 }
 
-// Lets disable Hardware Acceleration until we have a better solution
-// to deal with the high-perf-gpu requirement of some services
-
-// Disabled to test tweetdeck glitches
-// app.disableHardwareAcceleration();
+// Fix Unity indicator issue
+// https://github.com/electron/electron/issues/9046
+if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1) {
+  process.env.XDG_CURRENT_DESKTOP = 'Unity';
+}
 
 // Initialize Settings
 const settings = new Settings();
+
+// Disable GPU acceleration
+if (!settings.get('enableGPUAcceleration')) {
+  debug('Disable GPU Acceleration');
+  app.disableHardwareAcceleration();
+}
 
 const createWindow = () => {
   // Remember window size
@@ -72,9 +85,9 @@ const createWindow = () => {
     height: mainWindowState.height,
     minWidth: 600,
     minHeight: 500,
-    titleBarStyle: 'hidden',
-    backgroundColor: '#3498db',
-    autoHideMenuBar: true,
+    titleBarStyle: isMac ? 'hidden' : '',
+    frame: isLinux,
+    backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
   });
 
   // Initialize System Tray
@@ -107,7 +120,7 @@ const createWindow = () => {
         mainWindow.hide();
       }
 
-      if (isWindows && settings.get('minimizeToSystemTray')) {
+      if (isWindows) {
         mainWindow.setSkipTaskbar(true);
       }
     } else {

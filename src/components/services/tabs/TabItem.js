@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
 
 import ServiceModel from '../../../models/Service';
-import { ctrlKey } from '../../../environment';
+import { isDevMode, ctrlKey } from '../../../environment';
 
 const { Menu } = remote;
 
@@ -119,10 +119,14 @@ class TabItem extends Component {
       click: () => (service.isEnabled ? disableService() : enableService()),
     }, {
       type: 'separator',
-    }, {
-      label: intl.formatMessage(messages.deleteService),
-      click: () => deleteService(),
     }];
+
+    if (isDevMode) {
+      menuTemplate.push({
+        label: intl.formatMessage(messages.deleteService),
+        click: () => deleteService(),
+      });
+    }
     const menu = Menu.buildFromTemplate(menuTemplate);
 
     let notificationBadge = null;
@@ -137,10 +141,10 @@ class TabItem extends Component {
           {service.unreadIndirectMessageCount > 0
             && service.unreadDirectMessageCount === 0
             && service.isIndirectMessageBadgeEnabled && (
-              <span className="tab-item__message-count is-indirect">
+            <span className="tab-item__message-count is-indirect">
                 •
-              </span>
-            )}
+            </span>
+          )}
         </span>
       );
     }

@@ -78,8 +78,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class AccountDashboard extends Component {
+export default @observer class AccountDashboard extends Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
     orders: MobxPropTypes.arrayOrObservableArray.isRequired,

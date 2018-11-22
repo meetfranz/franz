@@ -3,8 +3,8 @@ export default class FeaturesApi {
     this.server = server;
   }
 
-  base() {
-    return this.server.getBaseFeatures();
+  default() {
+    return this.server.getDefaultFeatures();
   }
 
   features() {

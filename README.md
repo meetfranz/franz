@@ -5,7 +5,7 @@
 
 # Franz 5 (beta)
 [![Build status Windows](https://ci.appveyor.com/api/projects/status/9yman4ye19x4274o/branch/master?svg=true)](https://ci.appveyor.com/project/adlk/franz/branch/master)
- [![Build Status Mac](https://travis-ci.org/meetfranz/franz.svg?branch=master)](https://travis-ci.org/meetfranz/franz) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](http://meetfranz.com/payment.html)
+ [![Build Status Mac](https://travis-ci.org/meetfranz/franz.svg?branch=master)](https://travis-ci.org/meetfranz/franz) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://meetfranz.com/payment.html)
 
 Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.
 
@@ -20,34 +20,23 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 #### Install Linux OS dependencies
 [Guide: Linux distribution specific dependencies](docs/linux.md)
 
-#### Install yarn
-##### MacOS
-```bash
-$ brew install yarn
-```
-##### Windows
-[Download installer](https://yarnpkg.com/latest.msi)
-
-##### Linux
-[Install Yarn on Linux](https://yarnpkg.com/lang/en/docs/install/)
-
 #### Fix native modules to match current electron node version
 ```bash
-$ yarn run rebuild
+$ npm run rebuild
 ```
 
 ### Run Franz Development App
 Run these two commands __simultaneously__ in different console tabs.
 
 ```bash
-$ yarn run dev
-$ yarn start
+$ npm run dev
+$ npm run start
 ```
 Be aware that the development database will be reset regularly.
 
 ## Packaging
 ```bash
-$ yarn build
+$ npm run build
 ```
 
 ## How can I support the project?
@@ -59,13 +48,6 @@ Join the Franz community on [Slack](http://slack.franz.im) and get in touch with
 ## Create your own plugins/recipes
 You can find all the Information at the [Plugins repository](https://github.com/meetfranz/plugins).
 For questions feel free to ask in the [community Slack](http://slack.franz.im)
-
-## Next steps
-- [ ] Create acceptance tests
-- [ ] Create Linux build
-- [ ] 5.0 stable release
-- [ ] Developer Documentation
-- [ ] Add translations
 
 ## License
 Franz 5 is open-source licensed under the Apache-2.0 License.

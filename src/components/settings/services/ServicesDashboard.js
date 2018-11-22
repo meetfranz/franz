@@ -49,8 +49,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class ServicesDashboard extends Component {
+export default @observer class ServicesDashboard extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     isLoading: PropTypes.bool.isRequired,

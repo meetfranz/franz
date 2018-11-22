@@ -16,63 +16,62 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
+  border: 0;
+  font: inherit;
+  font-size: 100%;
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol, ul {
-  list-style: none;
-}
-blockquote, q {
+footer, header, hgroup, menu, nav, section { display: block; }
+
+ol,
+ul { list-style: none; }
+
+blockquote,
+q {
   quotes: none;
+
+  &::before,
+  &::after {
+    content: '';
+    content: none;
+  }
 }
-blockquote:before, blockquote:after, q:before, q:after {
-  content: '';
-  content: none;
-}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* Buttons should not have any special style applied by default */
 button {
   background: none;
   border: none;
   padding: 0;
-}
 
-button:focus {
-  outline: 0;
+  &:focus { outline: 0; }
+  .theme__dark & { color: $dark-theme-gray-smoke; }
 }
 
 html {
-  /* base for rem / 1rem = 10px */
 	font-size: 62.5%;
   font-family: 'Open Sans';
 }
 
 body {
-  /* default font size = 14px */
-  font-size: 1.4rem;
   color: $theme-gray-dark;
+  font-size: 1.4rem;
+  line-height: 1;
+
+  .theme__dark { color: $dark-theme-gray-smoke; }
 }
 
 * {
-  -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  font-size: 1.4rem;
   font-family: 'Open Sans';
+  font-size: 1.4rem;
+  -webkit-font-smoothing: antialiased;
   -webkit-user-select: none;
 }
 
@@ -82,14 +81,6 @@ html, body, div {
   box-sizing: border-box;
 }
 
-*:focus {
-  outline: none;
-}
-
-img {
-  pointer-events: none;
-}
-
-a {
-  cursor: default;
-}
+*:focus { outline: none; }
+img { pointer-events: none; }
+a { cursor: default; }

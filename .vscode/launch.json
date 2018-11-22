@@ -9,7 +9,8 @@
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
             "env": {
-                "NODE_ENV": "development"
+                "NODE_ENV": "development",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -18,9 +19,10 @@
             "name": "Franz – Live API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
-            "protocol": "inspector",
+            "protocol": "inspector",    
             "env": {
-                "LIVE_API": "1"
+                "LIVE_API": "1",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
         {
@@ -31,7 +33,47 @@
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
             "env": {
-                "LOCAL_API": "1"
+                "LOCAL_API": "1",
+                "DEBUG": "*,-engine.io*,-socket.io*"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "(Win Sim) Franz - Test API",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "program": "${workspaceFolder}/build/index.js",
+            "protocol": "inspector",
+            "env": {
+                "NODE_ENV": "development",
+                "OS_PLATFORM": "win32",
+                "DEBUG": "*,-engine.io*,-socket.io*"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "(Win Sim) Franz – Live API",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "program": "${workspaceFolder}/build/index.js",
+            "protocol": "inspector",    
+            "env": {
+                "LIVE_API": "1",
+                "OS_PLATFORM": "win32",
+                "DEBUG": "*,-engine.io*,-socket.io*"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "(Win Sim) Franz – Local API",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "program": "${workspaceFolder}/build/index.js",
+            "protocol": "inspector",
+            "env": {
+                "LOCAL_API": "1",
+                "OS_PLATFORM": "win32",
+                "DEBUG": "*,-engine.io*,-socket.io*"
             }
         }
     ]

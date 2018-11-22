@@ -1,27 +1,46 @@
-import { observable } from 'mobx';
+import { observable, toJS } from 'mobx';
+import { pathExistsSync, outputJsonSync, readJsonSync } from 'fs-extra';
 
-import { DEFAULT_APP_SETTINGS } from '../config';
+import { SETTINGS_PATH, DEFAULT_APP_SETTINGS } from '../config';
+
+const debug = require('debug')('Franz:Settings');
 
 export default class Settings {
-  @observable store = {
-    autoLaunchOnStart: DEFAULT_APP_SETTINGS.autoLaunchOnStart,
-    autoLaunchInBackground: DEFAULT_APP_SETTINGS.autoLaunchInBackground,
-    runInBackground: DEFAULT_APP_SETTINGS.runInBackground,
-    enableSystemTray: DEFAULT_APP_SETTINGS.enableSystemTray,
-    minimizeToSystemTray: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
-    locale: DEFAULT_APP_SETTINGS.locale,
-    beta: DEFAULT_APP_SETTINGS.beta,
-  };
+  @observable store = DEFAULT_APP_SETTINGS;
 
-  set(settings) {
-    this.store = Object.assign(this.store, settings);
+  constructor() {
+    if (!pathExistsSync(SETTINGS_PATH)) {
+      this._writeFile();
+    } else {
+      this._hydrate();
+    }
   }
 
-  all() {
+  set(settings) {
+    this.store = this._merge(settings);
+
+    this._writeFile();
+  }
+
+  get all() {
     return this.store;
   }
 
   get(key) {
     return this.store[key];
+  }
+
+  _merge(settings) {
+    return Object.assign(DEFAULT_APP_SETTINGS, this.store, settings);
+  }
+
+  _hydrate() {
+    this.store = this._merge(readJsonSync(SETTINGS_PATH));
+    debug('Hydrate store', toJS(this.store));
+  }
+
+  _writeFile() {
+    outputJsonSync(SETTINGS_PATH, this.store);
+    debug('Write settings file', toJS(this.store));
   }
 }

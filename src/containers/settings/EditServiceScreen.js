@@ -7,6 +7,7 @@ import UserStore from '../../stores/UserStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
 import FeaturesStore from '../../stores/FeaturesStore';
+import SettingsStore from '../../stores/SettingsStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
@@ -51,10 +52,13 @@ const messages = defineMessages({
     id: 'settings.service.form.icon',
     defaultMessage: '!!!Custom icon',
   },
+  enableDarkMode: {
+    id: 'settings.service.form.enableDarkMode',
+    defaultMessage: '!!!Enable Dark Mode',
+  },
 });
 
-@inject('stores', 'actions') @observer
-export default class EditServiceScreen extends Component {
+export default @inject('stores', 'actions') @observer class EditServiceScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
@@ -112,6 +116,11 @@ export default class EditServiceScreen extends Component {
           value: service.hasCustomUploadedIcon ? service.icon : false,
           default: null,
           type: 'file',
+        },
+        isDarkModeEnabled: {
+          label: intl.formatMessage(messages.enableDarkMode),
+          value: service.isDarkModeEnabled,
+          default: this.props.stores.settings.all.app.darkMode,
         },
       },
     };
@@ -245,6 +254,7 @@ EditServiceScreen.wrappedComponent.propTypes = {
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     services: PropTypes.instanceOf(ServicesStore).isRequired,
     features: PropTypes.instanceOf(FeaturesStore).isRequired,
+    settings: PropTypes.instanceOf(SettingsStore).isRequired,
   }).isRequired,
   router: PropTypes.shape({
     params: PropTypes.shape({

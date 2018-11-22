@@ -7,8 +7,7 @@ import Loader from 'react-loader';
 // import { oneOrManyChildElements } from '../../prop-types';
 import Appear from '../ui/effects/Appear';
 
-@observer
-export default class InfoBar extends Component {
+export default @observer class InfoBar extends Component {
   static propTypes = {
     // eslint-disable-next-line
     children: PropTypes.any.isRequired,

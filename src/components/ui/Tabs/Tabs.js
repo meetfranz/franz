@@ -5,8 +5,7 @@ import classnames from 'classnames';
 
 import { oneOrManyChildElements } from '../../../prop-types';
 
-@observer
-export default class Tab extends Component {
+export default @observer class Tab extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
     active: PropTypes.number,

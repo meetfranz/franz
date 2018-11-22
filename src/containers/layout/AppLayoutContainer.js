@@ -18,8 +18,7 @@ import Sidebar from '../../components/layout/Sidebar';
 import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
-@inject('stores', 'actions') @observer
-export default class AppLayoutContainer extends Component {
+export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
     children: null,
   };
@@ -82,7 +81,7 @@ export default class AppLayoutContainer extends Component {
       <Sidebar
         services={services.allDisplayed}
         setActive={setActive}
-        isAppMuted={settings.all.isAppMuted}
+        isAppMuted={settings.all.app.isAppMuted}
         openSettings={openSettings}
         closeSettings={closeSettings}
         reorder={reorder}
@@ -92,25 +91,26 @@ export default class AppLayoutContainer extends Component {
         deleteService={deleteService}
         updateService={updateService}
         toggleMuteApp={toggleMuteApp}
-        showMessageBadgeWhenMutedSetting={settings.all.showMessageBadgeWhenMuted}
+        showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
       />
     );
 
     const servicesContainer = (
       <Services
-        services={services.allDisplayed}
+        services={services.allDisplayedUnordered}
         handleIPCMessage={handleIPCMessage}
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
-        isAppMuted={settings.all.isAppMuted}
+        isAppMuted={settings.all.app.isAppMuted}
         update={updateService}
       />
     );
 
     return (
       <AppLayout
+        isFullScreen={app.isFullScreen}
         isOnline={app.isOnline}
         showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
         appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
@@ -125,6 +125,7 @@ export default class AppLayoutContainer extends Component {
         areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
         retryRequiredRequests={retryRequiredRequests}
         areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
+        darkMode={settings.all.app.darkMode}
       >
         {React.Children.count(children) > 0 ? children : null}
       </AppLayout>
