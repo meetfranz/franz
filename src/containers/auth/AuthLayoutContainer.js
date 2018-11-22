@@ -18,6 +18,7 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
 
   render() {
     const { stores, actions, children, location } = this.props;
+
     return (
       <AuthLayout
         error={stores.globalError.response}
@@ -26,7 +27,7 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
         isAPIHealthy={!stores.app.healthCheckRequest.isError}
         retryHealthCheck={actions.app.healthCheck}
         isHealthCheckLoading={stores.app.healthCheckRequest.isExecuting}
-        isFullScreen={stores.app.isFullscreen}
+        isFullScreen={stores.app.isFullScreen}
         darkMode={stores.app.isSystemDarkModeEnabled}
       >
         {children}
