@@ -130,6 +130,7 @@
   "settings.service.form.icon": "Custom icon",
   "settings.service.form.iconDelete": "Delete",
   "settings.service.form.iconUpload": "Drop your image, or click here",
+  "settings.service.form.enableDarkMode": "Enable Dark Mode",
   "settings.service.error.headline": "Error",
   "settings.service.error.goBack": "Back to services",
   "settings.service.error.message": "Could not load service recipe.",

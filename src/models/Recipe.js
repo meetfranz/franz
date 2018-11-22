@@ -1,5 +1,7 @@
 import emailParser from 'address-rfc2822';
 import semver from 'semver';
+import fs from 'fs-extra';
+import path from 'path';
 
 export default class Recipe {
   id = '';
@@ -72,5 +74,9 @@ export default class Recipe {
     }
 
     return [];
+  }
+
+  get hasDarkMode() {
+    return fs.pathExistsSync(path.join(this.path, 'darkmode.css'));
   }
 }

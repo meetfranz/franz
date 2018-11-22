@@ -6,9 +6,13 @@ import { isDevMode } from '../environment';
 import RecipeWebview from './lib/RecipeWebview';
 
 import Spellchecker from './spellchecker';
+import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
 import './notifications';
 
 const debug = require('debug')('Franz:Plugin');
+
+window.franzSettings = {};
+let serviceData;
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -17,7 +21,14 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   try {
     // eslint-disable-next-line
     require(modulePath)(new RecipeWebview(), data);
-    debug('Initialize Recipe');
+    debug('Initialize Recipe', data);
+
+    serviceData = data;
+
+    if (data.isDarkModeEnabled) {
+      injectDarkModeStyle(data.recipe.path);
+      debug('Add dark theme styles');
+    }
   } catch (err) {
     debug('Recipe initialization failed', err);
   }
@@ -33,11 +44,27 @@ new ContextMenuListener((info) => { // eslint-disable-line
 });
 
 ipcRenderer.on('settings-update', (e, data) => {
-  spellchecker.toggleSpellchecker(data.enableSpellchecking);
   debug('Settings update received', data);
+
+  spellchecker.toggleSpellchecker(data.enableSpellchecking);
+  window.franzSettings = data;
 });
 
-// initSpellche
+ipcRenderer.on('service-settings-update', (e, data) => {
+  debug('Service settings update received', data);
+
+  if (data.isDarkModeEnabled && !isDarkModeStyleInjected()) {
+    injectDarkModeStyle(serviceData.recipe.path);
+
+    debug('Enable service dark mode');
+  } else if (!data.isDarkModeEnabled && isDarkModeStyleInjected()) {
+    removeDarkModeStyle();
+
+    debug('Disable service dark mode');
+  }
+});
+
+// initSpellchecker
 
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');

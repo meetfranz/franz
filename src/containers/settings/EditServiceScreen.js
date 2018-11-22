@@ -6,6 +6,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import UserStore from '../../stores/UserStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
+import SettingsStore from '../../stores/SettingsStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
@@ -49,6 +50,10 @@ const messages = defineMessages({
   icon: {
     id: 'settings.service.form.icon',
     defaultMessage: '!!!Custom icon',
+  },
+  enableDarkMode: {
+    id: 'settings.service.form.enableDarkMode',
+    defaultMessage: '!!!Enable Dark Mode',
   },
 });
 
@@ -110,6 +115,11 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
           value: service.hasCustomUploadedIcon ? service.icon : false,
           default: null,
           type: 'file',
+        },
+        isDarkModeEnabled: {
+          label: intl.formatMessage(messages.enableDarkMode),
+          value: service.isDarkModeEnabled,
+          default: this.props.stores.settings.all.app.darkMode,
         },
       },
     };
@@ -238,6 +248,7 @@ EditServiceScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     services: PropTypes.instanceOf(ServicesStore).isRequired,
+    settings: PropTypes.instanceOf(SettingsStore).isRequired,
   }).isRequired,
   router: PropTypes.shape({
     params: PropTypes.shape({

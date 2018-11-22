@@ -214,6 +214,14 @@ export default class ServicesStore extends Store {
     await request._promise;
     this.actionStatus = request.result.status;
 
+    if (service.isEnabled) {
+      this._sendIPCMessage({
+        serviceId,
+        channel: 'service-settings-update',
+        args: newData,
+      });
+    }
+
     if (redirect) {
       this.stores.router.push('/settings/services');
       gaEvent('Service', 'update', service.recipe.id);

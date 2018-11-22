@@ -28,6 +28,7 @@ export default class Service {
   @observable iconUrl = '';
   @observable hasCustomUploadedIcon = false;
   @observable hasCrashed = false;
+  @observable isDarkModeEnabled = false;
 
   constructor(data, recipe) {
     if (!data) {
@@ -63,6 +64,8 @@ export default class Service {
       ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
 
     this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
+
+    this.isDarkModeEnabled = data.isDarkModeEnabled !== undefined ? data.isDarkModeEnabled : this.isDarkModeEnabled;
 
     this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
 
