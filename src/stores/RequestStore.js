@@ -2,7 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 import Store from './lib/Store';
 
-const debug = require('debug')('RequestsStore');
+const debug = require('debug')('Franz:RequestsStore');
 
 export default class RequestStore extends Store {
   @observable userInfoRequest;

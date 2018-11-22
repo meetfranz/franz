@@ -8,7 +8,7 @@ import RecipeWebview from './lib/RecipeWebview';
 import Spellchecker from './spellchecker';
 import './notifications';
 
-const debug = require('debug')('Plugin');
+const debug = require('debug')('Franz:Plugin');
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');

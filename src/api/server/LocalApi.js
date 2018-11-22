@@ -3,7 +3,7 @@ import du from 'du';
 
 import { getServicePartitionsDirectory } from '../../helpers/service-helpers.js';
 
-const debug = require('debug')('LocalApi');
+const debug = require('debug')('Franz:LocalApi');
 
 const { session } = remote;
 

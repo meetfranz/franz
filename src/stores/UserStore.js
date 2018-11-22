@@ -9,7 +9,7 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 
-const debug = require('debug')('UserStore');
+const debug = require('debug')('Franz:UserStore');
 
 // TODO: split stores into UserStore and AuthStore
 export default class UserStore extends Store {

@@ -8,7 +8,7 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 
 const { systemPreferences } = remote;
-const debug = require('debug')('SettingsStore');
+const debug = require('debug')('Franz:SettingsStore');
 
 export default class SettingsStore extends Store {
   @observable appSettingsRequest = new CachedRequest(this.api.local, 'getAppSettings');

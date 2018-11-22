@@ -15,7 +15,7 @@ import { gaEvent } from '../lib/analytics';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
-const debug = require('debug')('AppStore');
+const debug = require('debug')('Franz:AppStore');
 
 const { app, systemPreferences } = remote;
 

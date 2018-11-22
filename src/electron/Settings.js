@@ -3,7 +3,7 @@ import { pathExistsSync, outputJsonSync, readJsonSync } from 'fs-extra';
 
 import { SETTINGS_PATH, DEFAULT_APP_SETTINGS } from '../config';
 
-const debug = require('debug')('Settings');
+const debug = require('debug')('Franz:Settings');
 
 export default class Settings {
   @observable store = DEFAULT_APP_SETTINGS;
