@@ -11,7 +11,7 @@
   "private": true,
   "scripts": {
     "prestart": "npm run rebuild",
-    "start": "DEBUG=Franz:* electron ./build",
+    "start": "electron ./build",
     "start:local": "cross-env LOCAL_API=1 npm start",
     "start:live": "cross-env LIVE_API=1 npm start",
     "dev": "cross-env NODE_ENV=development gulp dev",
@@ -67,6 +67,7 @@
     "react-dropzone": "^4.2.1",
     "react-electron-web-view": "^2.0.1",
     "react-intl": "^2.3.0",
+    "react-jss": "8.6.1",
     "react-loader": "^2.4.0",
     "react-router": "^3.0.2",
     "react-router-transition": "^0.1.1",
@@ -108,7 +109,9 @@
     "gulp-sass": "^4.0.2",
     "gulp-sass-variables": "^1.1.1",
     "gulp-server-livereload": "^1.9.2",
+    "hex-rgb": "3.0.0",
     "husky": "^1.1.4",
+    "kebab-case": "1.0.0",
     "node-sass": "^4.7.2",
     "prettier": "1.15.2"
   },

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
+import { ThemeProvider } from 'react-jss';
 
 import AppStore from '../../stores/AppStore';
 import RecipesStore from '../../stores/RecipesStore';
@@ -109,26 +110,28 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
     );
 
     return (
-      <AppLayout
-        isFullScreen={app.isFullScreen}
-        isOnline={app.isOnline}
-        showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
-        appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
-        sidebar={sidebar}
-        services={servicesContainer}
-        news={news.latest}
-        removeNewsItem={hide}
-        reloadServicesAfterUpdate={reloadUpdatedServices}
-        installAppUpdate={installUpdate}
-        globalError={globalError.error}
-        showRequiredRequestsError={requests.showRequiredRequestsError}
-        areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
-        retryRequiredRequests={retryRequiredRequests}
-        areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
-        darkMode={settings.all.app.darkMode}
-      >
-        {React.Children.count(children) > 0 ? children : null}
-      </AppLayout>
+      <ThemeProvider theme={ui.theme}>
+        <AppLayout
+          isFullScreen={app.isFullScreen}
+          isOnline={app.isOnline}
+          showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
+          appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
+          sidebar={sidebar}
+          services={servicesContainer}
+          news={news.latest}
+          removeNewsItem={hide}
+          reloadServicesAfterUpdate={reloadUpdatedServices}
+          installAppUpdate={installUpdate}
+          globalError={globalError.error}
+          showRequiredRequestsError={requests.showRequiredRequestsError}
+          areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
+          retryRequiredRequests={retryRequiredRequests}
+          areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
+          darkMode={settings.all.app.darkMode}
+        >
+          {React.Children.count(children) > 0 ? children : null}
+        </AppLayout>
+      </ThemeProvider>
     );
   }
 }

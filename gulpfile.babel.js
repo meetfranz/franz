@@ -7,10 +7,19 @@ import { exec } from 'child_process';
 import dotenv from 'dotenv';
 import sassVariables from 'gulp-sass-variables';
 import { removeSync } from 'fs-extra';
+import kebabCase from 'kebab-case';
+import hexRgb from 'hex-rgb';
 
 import config from './package.json';
 
+import * as rawStyleConfig from './src/theme/default/legacy.js';
+
 dotenv.config();
+
+const styleConfig = Object.keys(rawStyleConfig).map((key) => {
+  const isHex = /^#[0-9A-F]{6}$/i.test(rawStyleConfig[key]);
+  return ({ [`$raw_${kebabCase(key)}`]: isHex ? hexRgb(rawStyleConfig[key], { format: 'array' }).splice(0, 3).join(',') : rawStyleConfig[key] });
+});
 
 const paths = {
   src: 'src',
@@ -83,9 +92,9 @@ export function html() {
 
 export function styles() {
   return gulp.src(paths.styles.src)
-    .pipe(sassVariables({
+    .pipe(sassVariables(Object.assign({
       $env: process.env.NODE_ENV === 'development' ? 'development' : 'production',
-    }))
+    }, ...styleConfig)))
     .pipe(sass({
       includePaths: [
         './node_modules',

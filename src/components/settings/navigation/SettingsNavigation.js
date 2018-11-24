@@ -32,8 +32,7 @@ const messages = defineMessages({
   },
 });
 
-@inject('stores') @observer
-export default class SettingsNavigation extends Component {
+export default @inject('stores') @observer class SettingsNavigation extends Component {
   static propTypes = {
     serviceCount: PropTypes.number.isRequired,
   };
