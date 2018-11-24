@@ -5,6 +5,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
+import { component as DelayApp } from '../../features/delayApp';
 import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
@@ -58,6 +59,7 @@ export default @observer class AppLayout extends Component {
     retryRequiredRequests: PropTypes.func.isRequired,
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
+    isDelayAppScreenVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -86,6 +88,7 @@ export default @observer class AppLayout extends Component {
       retryRequiredRequests,
       areRequiredRequestsLoading,
       darkMode,
+      isDelayAppScreenVisible,
     } = this.props;
 
     const { intl } = this.context;
@@ -152,6 +155,7 @@ export default @observer class AppLayout extends Component {
                   </a>
                 </InfoBar>
               )}
+              {isDelayAppScreenVisible && (<DelayApp />)}
               {services}
             </div>
           </div>

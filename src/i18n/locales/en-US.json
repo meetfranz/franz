@@ -249,5 +249,8 @@
   "validation.required": "{field} is required",
   "validation.email": "{field} is not valid",
   "validation.url": "{field} is not a valid URL",
-  "validation.minLength": "{field} should be at least {length} characters long"
+  "validation.minLength": "{field} should be at least {length} characters long",
+  "feature.delayApp.headline": "Please purchase a Franz Supporter License to skip waiting",
+  "feature.delayApp.action": "Get a Franz Supporter License",
+  "feature.delayApp.text": "Franz will continue in {seconds} seconds."
 }

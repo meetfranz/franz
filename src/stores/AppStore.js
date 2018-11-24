@@ -12,6 +12,7 @@ import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac, isLinux, isWindows } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
+import { onVisibilityChange } from '../helpers/visibility-helper';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
@@ -55,6 +56,8 @@ export default class AppStore extends Store {
   @observable isClearingAllCache = false;
 
   @observable isFullScreen = mainWindow.isFullScreen();
+
+  @observable isFocused = true;
 
   constructor(...args) {
     super(...args);
@@ -163,6 +166,17 @@ export default class AppStore extends Store {
     this._healthCheck();
 
     this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
+
+    onVisibilityChange((isVisible) => {
+      this.isFocused = isVisible;
+      // debug('Last focus', moment().diff(this.timeLastFocusStart));
+
+      // if (isVisible) {
+      //   this.timeLastFocusStart = moment();
+      // }
+
+      debug('Window is visible/focused', isVisible);
+    });
   }
 
   @computed get cacheSize() {
