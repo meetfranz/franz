@@ -63,5 +63,5 @@ export default function init(stores) {
   );
 }
 
-export const component = DelayAppComponent;
+export const Component = DelayAppComponent;
 

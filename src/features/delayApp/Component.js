@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('actions') @observer @injectSheet(styles) class DelayApp extends Component {
+export default @inject('actions') @injectSheet(styles) @observer class DelayApp extends Component {
   static propTypes = {
     // eslint-disable-next-line
     classes: PropTypes.object.isRequired,
@@ -39,8 +39,6 @@ export default @inject('actions') @observer @injectSheet(styles) class DelayApp 
   }
 
   componentDidMount() {
-    // const { reload } = this.props;
-
     this.countdownInterval = setInterval(() => {
       this.setState({
         countdown: this.state.countdown - this.countdownIntervalTimeout,
@@ -51,6 +49,10 @@ export default @inject('actions') @observer @injectSheet(styles) class DelayApp 
         clearInterval(this.countdownInterval);
       }
     }, this.countdownIntervalTimeout);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.countdownInterval);
   }
 
   countdownInterval = null;

@@ -5,7 +5,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
-import { component as DelayApp } from '../../features/delayApp';
+import { Component as DelayApp } from '../../features/delayApp';
 import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
