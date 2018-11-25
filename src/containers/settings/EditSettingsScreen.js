@@ -10,6 +10,7 @@ import Form from '../../lib/Form';
 import { APP_LOCALES } from '../../i18n/languages';
 import { gaPage } from '../../lib/analytics';
 import { DEFAULT_APP_SETTINGS } from '../../config';
+import { config as spellcheckerConfig } from '../../features/spellchecker';
 
 
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
@@ -161,8 +162,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
-          value: settings.all.app.enableSpellchecking,
-          default: DEFAULT_APP_SETTINGS.enableSpellchecking,
+          value: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremiumFeature ? false : settings.all.app.enableSpellchecking,
+          default: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremiumFeature ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
         darkMode: {
           label: intl.formatMessage(messages.darkMode),
@@ -218,6 +219,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         cacheSize={cacheSize}
         isClearingAllCache={isClearingAllCache}
         onClearAllCache={clearAllCache}
+        isPremiumUser={this.props.stores.user.data.isPremium}
+        isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
       />
     );
   }

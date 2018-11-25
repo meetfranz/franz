@@ -36,25 +36,24 @@ const messages = defineMessages({
     defaultMessage: '!!!The Franz Premium Supporter Account includes',
   },
   features: {
-    unlimitedServices: {
-      id: 'subscription.features.unlimitedServices',
-      defaultMessage: '!!!Add unlimited services',
-    },
     onpremise: {
-      id: 'subscription.features.onpremise',
-      defaultMessage: '!!!Add on-premise/hosted services like HipChat',
-    },
-    customServices: {
-      id: 'subscription.features.customServices',
-      defaultMessage: '!!!Add your custom services',
+      id: 'subscription.features.onpremise.mattermost',
+      defaultMessage: '!!!Add on-premise/hosted services like Mattermost',
     },
     encryptedSync: {
       id: 'subscription.features.encryptedSync',
       defaultMessage: '!!!Encrypted session synchronization',
+    noInterruptions: {
+      id: 'subscription.features.noInterruptions',
+      defaultMessage: '!!!No app delays & nagging to upgrade license',
     },
     vpn: {
       id: 'subscription.features.vpn',
       defaultMessage: '!!!Proxy & VPN support',
+    },
+    spellchecker: {
+      id: 'subscription.features.spellchecker',
+      defaultMessage: '!!!Support for Spellchecker',
     },
     ads: {
       id: 'subscription.features.ads',
@@ -170,16 +169,10 @@ export default @observer class SubscriptionForm extends Component {
                 <ul className="subscription__premium-features">
                   <li>{intl.formatMessage(messages.features.onpremise)}</li>
                   <li>
-                    {intl.formatMessage(messages.features.encryptedSync)}
-                    <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
+                    {intl.formatMessage(messages.features.noInterruptions)}
                   </li>
                   <li>
-                    {intl.formatMessage(messages.features.customServices)}
-                    <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
-                  </li>
-                  <li>
-                    {intl.formatMessage(messages.features.vpn)}
-                    <span className="badge">{intl.formatMessage(messages.features.comingSoon)}</span>
+                    {intl.formatMessage(messages.features.spellchecker)}
                   </li>
                   <li>
                     {intl.formatMessage(messages.features.ads)}

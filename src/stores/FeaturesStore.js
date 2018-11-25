@@ -4,6 +4,7 @@ import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 
 import delayApp from '../features/delayApp';
+import spellchecker from '../features/spellchecker';
 
 export default class FeaturesStore extends Store {
   @observable defaultFeaturesRequest = new CachedRequest(this.api.features, 'default');
@@ -36,5 +37,6 @@ export default class FeaturesStore extends Store {
 
   _enableFeatures() {
     delayApp(this.stores, this.actions);
+    spellchecker(this.stores, this.actions);
   }
 }

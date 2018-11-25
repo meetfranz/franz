@@ -23,6 +23,7 @@ export const DEFAULT_APP_SETTINGS = {
   beta: false,
   isAppMuted: false,
   enableGPUAcceleration: true,
+  serviceLimit: 5,
 };
 
 export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-service-request';

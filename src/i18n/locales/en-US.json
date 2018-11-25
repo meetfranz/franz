@@ -50,10 +50,12 @@
   "subscription.paymentSessionError": "Could not initialize payment form",
   "subscription.includedFeatures": "Paid Franz Premium Supporter Account includes",
   "subscription.features.onpremise": "Add on-premise/hosted services like HipChat",
-  "subscription.features.customServices": "Private services for you and your team",
+  "subscription.features.onpremise.mattermost": "Add on-premise/hosted services like Mattermost",
   "subscription.features.encryptedSync": "Encrypted session synchronization",
   "subscription.features.vpn": "Proxy & VPN support",
   "subscription.features.ads": "No ads, ever!",
+  "subscription.features.spellchecker": "Support for spellchecker",
+  "subscription.features.noInterruptions": "No app delays & nagging to upgrade license",
   "subscription.features.comingSoon": "coming soon",
   "infobar.servicesUpdated": "Your services have been updated.",
   "infobar.updateAvailable": "A new update for Franz is available.",
@@ -252,5 +254,6 @@
   "validation.minLength": "{field} should be at least {length} characters long",
   "feature.delayApp.headline": "Please purchase a Franz Supporter License to skip waiting",
   "feature.delayApp.action": "Get a Franz Supporter License",
-  "feature.delayApp.text": "Franz will continue in {seconds} seconds."
+  "feature.delayApp.text": "Franz will continue in {seconds} seconds.",
+  "premiumFeature.button.upgradeAccount": "Upgrade account"
 }

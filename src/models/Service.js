@@ -30,6 +30,10 @@ export default class Service {
   @observable hasCrashed = false;
   @observable isDarkModeEnabled = false;
 
+  // @observable proxy = {
+  //   isEnabled: false,
+  // };
+
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
