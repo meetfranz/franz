@@ -10,7 +10,7 @@ export const config = {
 
 export default function init(stores) {
   reaction(
-    () => stores.features.features.needToWaitToProceed,
+    () => stores.features.features.isSpellcheckerPremiumFeature,
     (enabled, r) => {
       if (enabled) {
         debug('Initializing `spellchecker` feature');
@@ -22,23 +22,8 @@ export default function init(stores) {
 
         config.isPremiumFeature = isSpellcheckerPremiumFeature || DEFAULT_IS_PREMIUM_FEATURE;
 
-        // reaction(
-        //   () => stores.settings.all.app.enableSpellchecking,
-        //   (enabled, r) => {
-        //     if (enabled) {
-        //       // debug('Initializing `spellchecker` feature');
-
-        //       // // Dispose the reaction to run this only once
-        //       // r.dispose();
-
-        //       // const { isSpellcheckerPremiumFeature } = stores.features.features;
-
-        //       // config.isPremiumFeature = isSpellcheckerPremiumFeature || DEFAULT_IS_PREMIUM_FEATURE;
-        //     }
-        //   },
-        // );
-
         autorun(() => {
+          console.log('FEATURE spellchecker autorun', stores.user.data.isPremium, config.isPremiumFeature);
           if (!stores.user.data.isPremium && config.isPremiumFeature) {
             debug('Override settings.spellcheckerEnabled flag to false');
 
