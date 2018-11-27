@@ -3,7 +3,6 @@ import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';
-import SettingsModel from '../models/Settings';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 
