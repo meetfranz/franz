@@ -4,13 +4,10 @@ import { DEFAULT_APP_SETTINGS } from '../config';
 export default class Settings {
   @observable app = DEFAULT_APP_SETTINGS
 
+  @observable proxy = {}
+
   @observable service = {
     activeService: '',
-  }
-
-  @observable group = {
-    collapsed: [],
-    disabled: [],
   }
 
   @observable stats = {
@@ -19,10 +16,10 @@ export default class Settings {
 
   @observable migration = {}
 
-  constructor({ app, service, group, stats, migration }) {
+  constructor({ app, proxy, service, stats, migration }) {
     Object.assign(this.app, app);
+    Object.assign(this.proxy, proxy);
     Object.assign(this.service, service);
-    Object.assign(this.group, group);
     Object.assign(this.stats, stats);
     Object.assign(this.migration, migration);
   }

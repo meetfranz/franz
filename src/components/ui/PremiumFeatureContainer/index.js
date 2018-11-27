@@ -6,6 +6,8 @@ import injectSheet from 'react-jss';
 
 import { oneOrManyChildElements } from '../../../prop-types';
 
+import UserStore from '../../../stores/UserStore';
+
 import styles from './styles';
 
 const messages = defineMessages({
@@ -15,9 +17,14 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('actions') @injectSheet(styles) @observer class PremiumFeatureContainer extends Component {
+export default @inject('stores', 'actions') @injectSheet(styles) @observer class PremiumFeatureContainer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    condition: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    condition: true,
   };
 
   static contextTypes = {
@@ -29,11 +36,13 @@ export default @inject('actions') @injectSheet(styles) @observer class PremiumFe
       classes,
       children,
       actions,
+      condition,
+      stores,
     } = this.props;
 
     const { intl } = this.context;
 
-    return (
+    return !stores.user.data.isPremium && !!condition ? (
       <div className={classes.container}>
         <div className={classes.titleContainer}>
           <p className={classes.title}>Premium Feature</p>
@@ -49,12 +58,15 @@ export default @inject('actions') @injectSheet(styles) @observer class PremiumFe
           {children}
         </div>
       </div>
-    );
+    ) : children;
   }
 }
 
 PremiumFeatureContainer.wrappedComponent.propTypes = {
   children: oneOrManyChildElements.isRequired,
+  stores: PropTypes.shape({
+    user: PropTypes.instanceOf(UserStore).isRequired,
+  }).isRequired,
   actions: PropTypes.shape({
     ui: PropTypes.shape({
       openSettings: PropTypes.func.isRequired,

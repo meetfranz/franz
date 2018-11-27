@@ -30,10 +30,6 @@ export default class Service {
   @observable hasCrashed = false;
   @observable isDarkModeEnabled = false;
 
-  // @observable proxy = {
-  //   isEnabled: false,
-  // };
-
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
@@ -72,6 +68,8 @@ export default class Service {
     this.isDarkModeEnabled = data.isDarkModeEnabled !== undefined ? data.isDarkModeEnabled : this.isDarkModeEnabled;
 
     this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
+
+    this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
 
     this.recipe = recipe;
 

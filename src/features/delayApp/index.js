@@ -38,8 +38,8 @@ export default function init(stores) {
         let shownAfterLaunch = false;
         let timeLastDelay = moment();
 
-        config.delayOffset = globalConfig.delayOffset || DEFAULT_DELAY_OFFSET;
-        config.delayDuration = globalConfig.wait || DEFAULT_DELAY_DURATION;
+        config.delayOffset = globalConfig.delayOffset !== undefined ? globalConfig.delayOffset : DEFAULT_DELAY_OFFSET;
+        config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_DELAY_DURATION;
 
         autorun(() => {
           const diff = moment().diff(timeLastDelay);

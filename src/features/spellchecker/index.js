@@ -20,10 +20,9 @@ export default function init(stores) {
 
         const { isSpellcheckerPremiumFeature } = stores.features.features;
 
-        config.isPremiumFeature = isSpellcheckerPremiumFeature || DEFAULT_IS_PREMIUM_FEATURE;
+        config.isPremiumFeature = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_IS_PREMIUM_FEATURE;
 
         autorun(() => {
-          console.log('FEATURE spellchecker autorun', stores.user.data.isPremium, config.isPremiumFeature);
           if (!stores.user.data.isPremium && config.isPremiumFeature) {
             debug('Override settings.spellcheckerEnabled flag to false');
 

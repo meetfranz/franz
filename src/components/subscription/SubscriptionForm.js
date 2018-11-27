@@ -40,9 +40,6 @@ const messages = defineMessages({
       id: 'subscription.features.onpremise.mattermost',
       defaultMessage: '!!!Add on-premise/hosted services like Mattermost',
     },
-    encryptedSync: {
-      id: 'subscription.features.encryptedSync',
-      defaultMessage: '!!!Encrypted session synchronization',
     noInterruptions: {
       id: 'subscription.features.noInterruptions',
       defaultMessage: '!!!No app delays & nagging to upgrade license',

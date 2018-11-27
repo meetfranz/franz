@@ -43,20 +43,17 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
 
   render() {
     const { serviceCount } = this.props;
-    const { features } = this.props.stores.features;
     const { intl } = this.context;
 
     return (
       <div className="settings-navigation">
-        {features.userCanManageServices && (
-          <Link
-            to="/settings/recipes"
-            className="settings-navigation__link"
-            activeClassName="is-active"
-          >
-            {intl.formatMessage(messages.availableServices)}
-          </Link>
-        )}
+        <Link
+          to="/settings/recipes"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+        >
+          {intl.formatMessage(messages.availableServices)}
+        </Link>
         <Link
           to="/settings/services"
           className="settings-navigation__link"
@@ -96,12 +93,4 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
     );
   }
 }
-
-SettingsNavigation.wrappedComponent.propTypes = {
-  stores: PropTypes.shape({
-    features: PropTypes.shape({
-      features: PropTypes.object.isRequired,
-    }).isRequired,
-  }).isRequired,
-};
 

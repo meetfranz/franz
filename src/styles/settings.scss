@@ -249,6 +249,11 @@
       margin: 25px 0 15px;
 
       &:first-of-type { margin-top: 0; }
+
+      .badge {
+        font-weight: normal;
+        margin-left: 10px;
+      }
     }
   }
 

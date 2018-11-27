@@ -143,11 +143,19 @@ export default class ServicesStore extends Store {
   // Actions
   @action async _createService({ recipeId, serviceData, redirect = true }) {
     const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
     this.allServicesRequest.patch((result) => {
       if (!result) return;
       result.push(response.data);
+    });
+
+    this.actions.settings.update({
+      type: 'proxy',
+      data: {
+        [`${response.data.id}`]: data.proxy,
+      },
     });
 
     this.actionStatus = response.status || [];
@@ -221,6 +229,13 @@ export default class ServicesStore extends Store {
         args: newData,
       });
     }
+
+    this.actions.settings.update({
+      type: 'proxy',
+      data: {
+        [`${serviceId}`]: data.proxy,
+      },
+    });
 
     if (redirect) {
       this.stores.router.push('/settings/services');

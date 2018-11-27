@@ -96,7 +96,6 @@ export default @observer class EditSettingsForm extends Component {
     isClearingAllCache: PropTypes.bool.isRequired,
     onClearAllCache: PropTypes.func.isRequired,
     cacheSize: PropTypes.string.isRequired,
-    isPremiumUser: PropTypes.bool.isRequired,
     isSpellcheckerPremiumFeature: PropTypes.bool.isRequired,
   };
 
@@ -127,7 +126,6 @@ export default @observer class EditSettingsForm extends Component {
       isClearingAllCache,
       onClearAllCache,
       cacheSize,
-      isPremiumUser,
       isSpellcheckerPremiumFeature,
     } = this.props;
     const { intl } = this.context;
@@ -180,16 +178,14 @@ export default @observer class EditSettingsForm extends Component {
 
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
-            {!isPremiumUser && isSpellcheckerPremiumFeature ? (
-              <PremiumFeatureContainer>
-                <Toggle
-                  field={form.$('enableSpellchecking')}
-                  disabled
-                />
-              </PremiumFeatureContainer>
-            ) : (
-              <Toggle field={form.$('enableSpellchecking')} />
-            )}
+            <PremiumFeatureContainer
+              condition={isSpellcheckerPremiumFeature}
+            >
+              <Toggle
+                field={form.$('enableSpellchecking')}
+                disabled
+              />
+            </PremiumFeatureContainer>
             <Toggle field={form.$('enableGPUAcceleration')} />
             <p className="settings__help">{intl.formatMessage(messages.enableGPUAccelerationInfo)}</p>
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}

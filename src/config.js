@@ -29,4 +29,9 @@ export const DEFAULT_APP_SETTINGS = {
 export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-service-request';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 
-export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config', 'settings.json');
+export const FILE_SYSTEM_SETTINGS_TYPES = [
+  'app',
+  'proxy',
+];
+
+export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');

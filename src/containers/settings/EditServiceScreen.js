@@ -6,14 +6,16 @@ import { defineMessages, intlShape } from 'react-intl';
 import UserStore from '../../stores/UserStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
-import FeaturesStore from '../../stores/FeaturesStore';
 import SettingsStore from '../../stores/SettingsStore';
+import FeaturesStore from '../../stores/FeaturesStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
 import { required, url, oneRequired } from '../../helpers/validation-helpers';
+
+import { config as proxyFeature } from '../../features/serviceProxy';
 
 const messages = defineMessages({
   name: {
@@ -56,6 +58,22 @@ const messages = defineMessages({
     id: 'settings.service.form.enableDarkMode',
     defaultMessage: '!!!Enable Dark Mode',
   },
+  enableProxy: {
+    id: 'settings.service.form.proxy.isEnabled',
+    defaultMessage: '!!!Use Proxy',
+  },
+  proxyHost: {
+    id: 'settings.service.form.proxy.host',
+    defaultMessage: '!!!Proxy Host/IP',
+  },
+  proxyUser: {
+    id: 'settings.service.form.proxy.user',
+    defaultMessage: '!!!User',
+  },
+  proxyPassword: {
+    id: 'settings.service.form.proxy.password',
+    defaultMessage: '!!!Password',
+  },
 });
 
 export default @inject('stores', 'actions') @observer class EditServiceScreen extends Component {
@@ -82,7 +100,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     }
   }
 
-  prepareForm(recipe, service, userCanManageServices) {
+  prepareForm(recipe, service, proxy) {
     const { intl } = this.context;
     const config = {
       fields: {
@@ -128,7 +146,6 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     if (recipe.hasTeamId) {
       Object.assign(config.fields, {
         team: {
-          disabled: !userCanManageServices,
           label: intl.formatMessage(messages.team),
           placeholder: intl.formatMessage(messages.team),
           value: service.team,
@@ -140,7 +157,6 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     if (recipe.hasCustomUrl) {
       Object.assign(config.fields, {
         customUrl: {
-          disabled: !userCanManageServices,
           label: intl.formatMessage(messages.customUrl),
           placeholder: 'https://',
           value: service.customUrl,
@@ -175,6 +191,40 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
       });
     }
 
+    if (proxy.isEnabled) {
+      const serviceProxyConfig = this.props.stores.settings.proxy[service.id] || {};
+
+      Object.assign(config.fields, {
+        proxy: {
+          name: 'proxy',
+          label: 'proxy',
+          fields: {
+            isEnabled: {
+              label: intl.formatMessage(messages.enableProxy),
+              value: serviceProxyConfig.isEnabled,
+              default: false,
+            },
+            host: {
+              label: intl.formatMessage(messages.proxyHost),
+              value: serviceProxyConfig.host,
+              default: '',
+            },
+            user: {
+              label: intl.formatMessage(messages.proxyUser),
+              value: serviceProxyConfig.user,
+              default: '',
+            },
+            password: {
+              label: intl.formatMessage(messages.proxyPassword),
+              value: serviceProxyConfig.password,
+              default: '',
+              type: 'password',
+            },
+          },
+        },
+      });
+    }
+
     return new Form(config);
   }
 
@@ -192,7 +242,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
   }
 
   render() {
-    const { recipes, services, user, features } = this.props.stores;
+    const { recipes, services, user } = this.props.stores;
     const { action } = this.props.router.params;
 
     let recipe;
@@ -227,8 +277,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
       );
     }
 
-    const userCanManageServices = features.features.userCanManageServices;
-    const form = this.prepareForm(recipe, service, userCanManageServices);
+    const form = this.prepareForm(recipe, service, proxyFeature);
 
     return (
       <EditServiceForm
@@ -236,13 +285,14 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
         recipe={recipe}
         service={service}
         user={user.data}
-        userCanManageServices={userCanManageServices}
         form={form}
         status={services.actionStatus}
         isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
         isDeleting={services.deleteServiceRequest.isExecuting}
         onSubmit={d => this.onSubmit(d)}
         onDelete={() => this.deleteService()}
+        isProxyFeatureEnabled={proxyFeature.isEnabled}
+        isProxyFeaturePremiumFeature={proxyFeature.isPremium}
       />
     );
   }
@@ -253,8 +303,8 @@ EditServiceScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     services: PropTypes.instanceOf(ServicesStore).isRequired,
-    features: PropTypes.instanceOf(FeaturesStore).isRequired,
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
   }).isRequired,
   router: PropTypes.shape({
     params: PropTypes.shape({
@@ -267,5 +317,8 @@ EditServiceScreen.wrappedComponent.propTypes = {
       updateService: PropTypes.func.isRequired,
       deleteService: PropTypes.func.isRequired,
     }).isRequired,
+    // settings: PropTypes.shape({
+    //   update: PropTypes.func.isRequred,
+    // }).isRequired,
   }).isRequired,
 };

@@ -219,7 +219,6 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         cacheSize={cacheSize}
         isClearingAllCache={isClearingAllCache}
         onClearAllCache={clearAllCache}
-        isPremiumUser={this.props.stores.user.data.isPremium}
         isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
       />
     );

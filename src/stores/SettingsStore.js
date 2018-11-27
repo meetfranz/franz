@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
@@ -7,6 +7,8 @@ import SettingsModel from '../models/Settings';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 
+import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
+
 const { systemPreferences } = remote;
 const debug = require('debug')('Franz:SettingsStore');
 
@@ -14,12 +16,35 @@ export default class SettingsStore extends Store {
   @observable appSettingsRequest = new CachedRequest(this.api.local, 'getAppSettings');
   @observable updateAppSettingsRequest = new Request(this.api.local, 'updateAppSettings');
 
+  @observable fileSystemSettingsRequests = [];
+
+  fileSystemSettingsTypes = FILE_SYSTEM_SETTINGS_TYPES;
+  @observable _fileSystemSettingsCache = {
+    app: DEFAULT_APP_SETTINGS,
+    proxy: {},
+  };
+
   constructor(...args) {
     super(...args);
 
     // Register action handlers
     this.actions.settings.update.listen(this._update.bind(this));
     this.actions.settings.remove.listen(this._remove.bind(this));
+
+    this.fileSystemSettingsTypes.forEach((type) => {
+      this.fileSystemSettingsRequests[type] = new CachedRequest(this.api.local, 'getAppSettings');
+    });
+
+    ipcRenderer.on('appSettings', (event, resp) => {
+      debug('Get appSettings resolves', resp, resp.type, resp.data);
+
+      this._fileSystemSettingsCache[resp.type] = resp.data;
+    });
+
+    this.fileSystemSettingsTypes.forEach((type) => {
+      console.log(type);
+      ipcRenderer.send('getAppSettings', type);
+    });
   }
 
   async setup() {
@@ -28,29 +53,53 @@ export default class SettingsStore extends Store {
     await this._migrate();
   }
 
+  @computed get app() {
+    return this._fileSystemSettingsCache.app || DEFAULT_APP_SETTINGS;
+  }
+
+  @computed get proxy() {
+    return this._fileSystemSettingsCache.proxy || {};
+  }
+
+  @computed get service() {
+    return localStorage.getItem('service') || {
+      activeService: '',
+    };
+  }
+
+  @computed get stats() {
+    return localStorage.getItem('stats') || {
+      activeService: '',
+    };
+  }
+
+  @computed get migration() {
+    return localStorage.getItem('migration') || {};
+  }
+
   @computed get all() {
-    return new SettingsModel({
-      app: this.appSettingsRequest.execute().result || {},
-      service: localStorage.getItem('service') || {},
-      group: localStorage.getItem('group') || {},
-      stats: localStorage.getItem('stats') || {},
-      migration: localStorage.getItem('migration') || {},
-    });
+    return {
+      app: this.app,
+      proxy: this.proxy,
+      service: this.service,
+      stats: this.stats,
+      migration: this.migration,
+    };
   }
 
   @action async _update({ type, data }) {
     const appSettings = this.all;
-    if (type !== 'app') {
+    if (!this.fileSystemSettingsTypes.includes(type)) {
       debug('Update settings', type, data, this.all);
       localStorage.setItem(type, Object.assign(appSettings[type], data));
     } else {
       debug('Update settings on file system', type, data);
-      this.updateAppSettingsRequest.execute(data);
-
-      this.appSettingsRequest.patch((result) => {
-        if (!result) return;
-        Object.assign(result, data);
+      ipcRenderer.send('updateAppSettings', {
+        type,
+        data,
       });
+
+      Object.assign(this._fileSystemSettingsCache[type], data);
     }
   }
 
@@ -127,5 +176,9 @@ export default class SettingsStore extends Store {
 
       debug('Set up dark mode');
     }
+  }
+
+  _getFileBasedSettings(type) {
+    ipcRenderer.send('getAppSettings', type);
   }
 }

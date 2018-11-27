@@ -64,7 +64,13 @@ ipcRenderer.on('service-settings-update', (e, data) => {
   }
 });
 
-// initSpellchecker
+// Needed for current implementation of electrons 'login' event
+ipcRenderer.on('get-service-id', (event) => {
+  debug('Asking for service id', event);
+
+  event.sender.send('service-id', serviceData.id);
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');
