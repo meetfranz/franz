@@ -485,7 +485,9 @@ export default class FranzMenu {
     this.stores = stores;
     this.actions = actions;
 
-    autorun(this._build.bind(this));
+    setTimeout(() => {
+      autorun(this._build.bind(this));
+    }, 10);
   }
 
   rebuild() {
@@ -497,7 +499,6 @@ export default class FranzMenu {
   }
 
   _build() {
-    // console.log(window.franz);
     const serviceTpl = Object.assign([], this.serviceTpl); // need to clone object so we don't modify computed (cached) object
 
     if (window.franz === undefined) {
@@ -521,6 +522,7 @@ export default class FranzMenu {
       click: () => {
         this.actions.service.openDevToolsForActiveService();
       },
+      enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
     });
 
     tpl[1].submenu.unshift({
@@ -559,6 +561,7 @@ export default class FranzMenu {
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
           },
+          enabled: this.stores.user.isLoggedIn,
         },
         {
           type: 'separator',
@@ -640,6 +643,7 @@ export default class FranzMenu {
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
           },
+          enabled: this.stores.user.isLoggedIn,
         },
         {
           type: 'separator',
@@ -661,6 +665,7 @@ export default class FranzMenu {
       click: () => {
         this.actions.ui.openSettings({ path: 'recipes' });
       },
+      enabled: this.stores.user.isLoggedIn,
     }, {
       type: 'separator',
     });
