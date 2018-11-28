@@ -8,6 +8,7 @@ import Form from '../../../lib/Form';
 import Button from '../../ui/Button';
 import Toggle from '../../ui/Toggle';
 import Select from '../../ui/Select';
+import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 
 import { FRANZ_TRANSLATION } from '../../../config';
 
@@ -95,6 +96,7 @@ export default @observer class EditSettingsForm extends Component {
     isClearingAllCache: PropTypes.bool.isRequired,
     onClearAllCache: PropTypes.func.isRequired,
     cacheSize: PropTypes.string.isRequired,
+    isSpellcheckerPremiumFeature: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -124,6 +126,7 @@ export default @observer class EditSettingsForm extends Component {
       isClearingAllCache,
       onClearAllCache,
       cacheSize,
+      isSpellcheckerPremiumFeature,
     } = this.props;
     const { intl } = this.context;
 
@@ -175,7 +178,14 @@ export default @observer class EditSettingsForm extends Component {
 
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
-            <Toggle field={form.$('enableSpellchecking')} />
+            <PremiumFeatureContainer
+              condition={isSpellcheckerPremiumFeature}
+            >
+              <Toggle
+                field={form.$('enableSpellchecking')}
+                disabled
+              />
+            </PremiumFeatureContainer>
             <Toggle field={form.$('enableGPUAcceleration')} />
             <p className="settings__help">{intl.formatMessage(messages.enableGPUAccelerationInfo)}</p>
             {/* <Select field={form.$('spellcheckingLanguage')} /> */}

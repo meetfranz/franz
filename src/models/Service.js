@@ -69,6 +69,8 @@ export default class Service {
 
     this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
 
+    this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
+
     this.recipe = recipe;
 
     autorun(() => {

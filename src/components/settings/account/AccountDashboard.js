@@ -180,11 +180,9 @@ export default @observer class AccountDashboard extends Component {
                         <span className="badge badge--success">{intl.formatMessage(messages.accountTypeEnterprise)}</span>
                       )}
                     </div>
-                    {!user.isSSO && (
-                      <Link to="/settings/user/edit" className="button">
-                        {intl.formatMessage(messages.accountEditButton)}
-                      </Link>
-                    )}
+                    <Link to="/settings/user/edit" className="button">
+                      {intl.formatMessage(messages.accountEditButton)}
+                    </Link>
                     {user.emailValidated}
                   </div>
                 </div>

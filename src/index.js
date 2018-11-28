@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -11,6 +11,8 @@ import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
+
+import { DEFAULT_APP_SETTINGS } from './config';
 
 const debug = require('debug')('Franz:App');
 
@@ -62,7 +64,8 @@ if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESK
 }
 
 // Initialize Settings
-const settings = new Settings();
+const settings = new Settings('app', DEFAULT_APP_SETTINGS);
+const proxySettings = new Settings('proxy');
 
 // Disable GPU acceleration
 if (!settings.get('enableGPUAcceleration')) {
@@ -94,7 +97,14 @@ const createWindow = () => {
   const trayIcon = new Tray();
 
   // Initialize ipcApi
-  ipcApi({ mainWindow, settings, trayIcon });
+  ipcApi({
+    mainWindow,
+    settings: {
+      app: settings,
+      proxy: proxySettings,
+    },
+    trayIcon,
+  });
 
   // Manage Window State
   mainWindowState.manage(mainWindow);
@@ -176,6 +186,24 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
+// This is the worst possible implementation as the webview.webContents based callback doesn't work 🖕
+app.on('login', (event, webContents, request, authInfo, callback) => {
+  event.preventDefault();
+  debug('browser login event', authInfo);
+  if (authInfo.isProxy && authInfo.scheme === 'basic') {
+    webContents.send('get-service-id');
+
+    ipcMain.on('service-id', (e, id) => {
+      debug('Received service id', id);
+
+      const ps = proxySettings.get(id);
+      callback(ps.user, ps.password);
+    });
+  } else {
+    // TODO: implement basic auth
+  }
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

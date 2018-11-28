@@ -9,20 +9,23 @@ const { session } = remote;
 
 export default class LocalApi {
   // Settings
-  getAppSettings() {
+  getAppSettings(type) {
     return new Promise((resolve) => {
-      ipcRenderer.once('appSettings', (event, data) => {
-        debug('LocalApi::getAppSettings resolves', data);
-        resolve(data);
+      ipcRenderer.once('appSettings', (event, resp) => {
+        debug('LocalApi::getAppSettings resolves', resp.type, resp.data);
+        resolve(resp);
       });
 
-      ipcRenderer.send('getAppSettings');
+      ipcRenderer.send('getAppSettings', type);
     });
   }
 
-  async updateAppSettings(data) {
-    debug('LocalApi::updateAppSettings resolves', data);
-    ipcRenderer.send('updateAppSettings', data);
+  async updateAppSettings(type, data) {
+    debug('LocalApi::updateAppSettings resolves', type, data);
+    ipcRenderer.send('updateAppSettings', {
+      type,
+      data,
+    });
   }
 
   // Services

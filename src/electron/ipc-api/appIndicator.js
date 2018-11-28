@@ -15,7 +15,7 @@ function getAsset(type, asset) {
 
 export default (params) => {
   autorun(() => {
-    isTrayIconEnabled = params.settings.get('enableSystemTray');
+    isTrayIconEnabled = params.settings.app.get('enableSystemTray');
 
     if (!isTrayIconEnabled) {
       params.trayIcon.hide();

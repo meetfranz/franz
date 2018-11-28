@@ -15,6 +15,8 @@ import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
 import ImageUpload from '../../ui/ImageUpload';
 
+import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
+
 const messages = defineMessages({
   saveService: {
     id: 'settings.service.form.saveButton',
@@ -92,6 +94,14 @@ const messages = defineMessages({
     id: 'settings.service.form.iconUpload',
     defaultMessage: '!!!Drop your image, or click here',
   },
+  headlineProxy: {
+    id: 'settings.service.form.proxy.headline',
+    defaultMessage: '!!!Proxy Settings',
+  },
+  proxyInfo: {
+    id: 'settings.service.form.proxy.info',
+    defaultMessage: '!!!Proxy settings will not be synchronized with the Franz servers.',
+  },
 });
 
 export default @observer class EditServiceForm extends Component {
@@ -106,13 +116,14 @@ export default @observer class EditServiceForm extends Component {
       return null;
     },
     user: PropTypes.instanceOf(User).isRequired,
-    userCanManageServices: PropTypes.bool.isRequired,
     action: PropTypes.string.isRequired,
     form: PropTypes.instanceOf(Form).isRequired,
     onSubmit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     isSaving: PropTypes.bool.isRequired,
     isDeleting: PropTypes.bool.isRequired,
+    isProxyFeatureEnabled: PropTypes.bool.isRequired,
+    isProxyFeaturePremiumFeature: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -169,11 +180,12 @@ export default @observer class EditServiceForm extends Component {
       service,
       action,
       user,
-      userCanManageServices,
       form,
       isSaving,
       isDeleting,
       onDelete,
+      isProxyFeatureEnabled,
+      isProxyFeaturePremiumFeature,
     } = this.props;
     const { intl } = this.context;
 
@@ -318,6 +330,33 @@ export default @observer class EditServiceForm extends Component {
                 />
               </div>
             </div>
+
+            {isProxyFeatureEnabled && (
+              <PremiumFeatureContainer condition={isProxyFeaturePremiumFeature}>
+                <div className="settings__settings-group">
+                  <h3>
+                    {intl.formatMessage(messages.headlineProxy)}
+                    <span className="badge badge--success">beta</span>
+                  </h3>
+                  <Toggle field={form.$('proxy.isEnabled')} />
+                  {form.$('proxy.isEnabled').value && (
+                    <div>
+                      <Input field={form.$('proxy.host')} />
+                      <Input field={form.$('proxy.user')} />
+                      <Input
+                        field={form.$('proxy.password')}
+                        showPasswordToggle
+                      />
+                      <p>
+                        <span className="mdi mdi-information" />
+                        {intl.formatMessage(messages.proxyInfo)}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </PremiumFeatureContainer>
+            )}
+
             {recipe.message && (
               <p className="settings__message">
                 <span className="mdi mdi-information" />
@@ -328,7 +367,7 @@ export default @observer class EditServiceForm extends Component {
         </div>
         <div className="settings__controls">
           {/* Delete Button */}
-          {action === 'edit' && userCanManageServices && deleteButton}
+          {action === 'edit' && deleteButton}
 
           {/* Save Button */}
           {isSaving || isValidatingCustomUrl ? (

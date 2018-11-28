@@ -79,7 +79,6 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     return (
       <SubscriptionForm
         plan={stores.payment.plan}
-        // form={this.prepareForm(stores.payment.plan)}
         isLoading={stores.payment.plansRequest.isExecuting}
         retryPlanRequest={() => stores.payment.plansRequest.reload()}
         isCreatingHostedPage={stores.payment.createHostedPageRequest.isExecuting}
