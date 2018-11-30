@@ -27,7 +27,7 @@ export const DEFAULT_APP_SETTINGS = {
   serviceLimit: 5,
 };
 
-export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-service-request';
+export const FRANZ_SERVICE_REQUEST = 'hhttp://bit.ly/franz-plugin-docs';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 
 export const FILE_SYSTEM_SETTINGS_TYPES = [
