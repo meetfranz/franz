@@ -168,6 +168,18 @@ export default @observer class EditSettingsForm extends Component {
             {/* Language */}
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
             <Select field={form.$('locale')} showLabel={false} />
+            <PremiumFeatureContainer
+              condition={isSpellcheckerPremiumFeature}
+            >
+              <div>
+                <Toggle
+                  field={form.$('enableSpellchecking')}
+                />
+                {form.$('enableSpellchecking').value && (
+                  <Select field={form.$('spellcheckerLanguage')} />
+                )}
+              </div>
+            </PremiumFeatureContainer>
             <a
               href={FRANZ_TRANSLATION}
               target="_blank"
@@ -178,17 +190,8 @@ export default @observer class EditSettingsForm extends Component {
 
             {/* Advanced */}
             <h2 id="advanced">{intl.formatMessage(messages.headlineAdvanced)}</h2>
-            <PremiumFeatureContainer
-              condition={isSpellcheckerPremiumFeature}
-            >
-              <Toggle
-                field={form.$('enableSpellchecking')}
-                disabled
-              />
-            </PremiumFeatureContainer>
             <Toggle field={form.$('enableGPUAcceleration')} />
             <p className="settings__help">{intl.formatMessage(messages.enableGPUAccelerationInfo)}</p>
-            {/* <Select field={form.$('spellcheckingLanguage')} /> */}
             <div className="settings__settings-group">
               <h3>
                 {intl.formatMessage(messages.subheadlineCache)}

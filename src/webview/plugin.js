@@ -1,12 +1,11 @@
 import { ipcRenderer } from 'electron';
-import { ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
 import path from 'path';
 
-import { isDevMode } from '../environment';
 import RecipeWebview from './lib/RecipeWebview';
 
-import Spellchecker from './spellchecker';
+import spellchecker, { switchDict, disable as disableSpellchecker } from './spellchecker';
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
+import contextMenu from './contextMenu';
 import './notifications';
 
 const debug = require('debug')('Franz:Plugin');
@@ -34,19 +33,21 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   }
 });
 
-const spellchecker = new Spellchecker();
-spellchecker.initialize();
+// Needs to run asap to intialize dictionaries
+(async () => {
+  const spellcheckingProvider = await spellchecker();
+  contextMenu(spellcheckingProvider);
+})();
 
-const contextMenuBuilder = new ContextMenuBuilder(spellchecker.handler, null, isDevMode);
-
-new ContextMenuListener((info) => { // eslint-disable-line
-  contextMenuBuilder.showPopupMenu(info);
-});
-
-ipcRenderer.on('settings-update', (e, data) => {
+ipcRenderer.on('settings-update', async (e, data) => {
   debug('Settings update received', data);
 
-  spellchecker.toggleSpellchecker(data.enableSpellchecking);
+  if (data.enableSpellchecking) {
+    switchDict(data.spellcheckerLanguage);
+  } else {
+    disableSpellchecker();
+  }
+
   window.franzSettings = data;
 });
 
@@ -64,7 +65,7 @@ ipcRenderer.on('service-settings-update', (e, data) => {
   }
 });
 
-// Needed for current implementation of electrons 'login' event
+// Needed for current implementation of electrons 'login' event 🤦‍
 ipcRenderer.on('get-service-id', (event) => {
   debug('Asking for service id', event);
 

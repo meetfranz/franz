@@ -13,6 +13,7 @@ import { isMac, isLinux, isWindows } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
 import { onVisibilityChange } from '../helpers/visibility-helper';
+import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
@@ -59,6 +60,8 @@ export default class AppStore extends Store {
 
   @observable isFocused = true;
 
+  dictionaries = [];
+
   constructor(...args) {
     super(...args);
 
@@ -82,7 +85,7 @@ export default class AppStore extends Store {
     ]);
   }
 
-  setup() {
+  async setup() {
     this._appStartsCounter();
     // Focus the active service
     window.addEventListener('focus', this.actions.service.focusActiveService);
@@ -169,11 +172,6 @@ export default class AppStore extends Store {
 
     onVisibilityChange((isVisible) => {
       this.isFocused = isVisible;
-      // debug('Last focus', moment().diff(this.timeLastFocusStart));
-
-      // if (isVisible) {
-      //   this.timeLastFocusStart = moment();
-      // }
 
       debug('Window is visible/focused', isVisible);
     });
@@ -322,31 +320,37 @@ export default class AppStore extends Store {
   }
 
   _getDefaultLocale() {
-    let locale = app.getLocale();
-    if (locales[locale] === undefined) {
-      let localeFuzzy;
-      Object.keys(locales).forEach((localStr) => {
-        if (locales && Object.hasOwnProperty.call(locales, localStr)) {
-          if (locale.substring(0, 2) === localStr.substring(0, 2)) {
-            localeFuzzy = localStr;
-          }
-        }
-      });
+    return getLocale({
+      locale: app.getLocale(),
+      locales,
+      defaultLocale,
+      fallbackLocale: DEFAULT_APP_SETTINGS.fallbackLocale,
+    });
 
-      if (localeFuzzy !== undefined) {
-        locale = localeFuzzy;
-      }
-    }
+    // if (locales[locale] === undefined) {
+    //   let localeFuzzy;
+    //   Object.keys(locales).forEach((localStr) => {
+    //     if (locales && Object.hasOwnProperty.call(locales, localStr)) {
+    //       if (locale.substring(0, 2) === localStr.substring(0, 2)) {
+    //         localeFuzzy = localStr;
+    //       }
+    //     }
+    //   });
 
-    if (locales[locale] === undefined) {
-      locale = defaultLocale;
-    }
+    //   if (localeFuzzy !== undefined) {
+    //     locale = localeFuzzy;
+    //   }
+    // }
 
-    if (!locale) {
-      locale = DEFAULT_APP_SETTINGS.fallbackLocale;
-    }
+    // if (locales[locale] === undefined) {
+    //   locale = defaultLocale;
+    // }
 
-    return locale;
+    // if (!locale) {
+    //   locale = DEFAULT_APP_SETTINGS.fallbackLocale;
+    // }
+
+    // return locale;
   }
 
   _muteAppHandler() {

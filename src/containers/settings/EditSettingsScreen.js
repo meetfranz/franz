@@ -7,7 +7,7 @@ import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
 import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
-import { APP_LOCALES } from '../../i18n/languages';
+import { APP_LOCALES, SPELLCHECKER_LOCALES } from '../../i18n/languages';
 import { gaPage } from '../../lib/analytics';
 import { DEFAULT_APP_SETTINGS } from '../../config';
 import { config as spellcheckerConfig } from '../../features/spellchecker';
@@ -60,8 +60,8 @@ const messages = defineMessages({
     id: 'settings.app.form.enableGPUAcceleration',
     defaultMessage: '!!!Enable GPU Acceleration',
   },
-  spellcheckingLanguage: {
-    id: 'settings.app.form.spellcheckingLanguage',
+  spellcheckerLanguage: {
+    id: 'settings.app.form.spellcheckerLanguage',
     defaultMessage: '!!!Language for spell checking',
   },
   beta: {
@@ -98,6 +98,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         darkMode: settingsData.darkMode,
         showMessageBadgeWhenMuted: settingsData.showMessageBadgeWhenMuted,
         enableSpellchecking: settingsData.enableSpellchecking,
+        spellcheckerLanguage: settingsData.spellcheckerLanguage,
         beta: settingsData.beta, // we need this info in the main process as well
         locale: settingsData.locale, // we need this info in the main process as well
       },
@@ -120,6 +121,14 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       locales.push({
         value: key,
         label: APP_LOCALES[key],
+      });
+    });
+
+    const spellcheckingLanguages = [];
+    Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
+      spellcheckingLanguages.push({
+        value: key,
+        label: SPELLCHECKER_LOCALES[key],
       });
     });
 
@@ -164,6 +173,12 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.enableSpellchecking),
           value: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremiumFeature ? false : settings.all.app.enableSpellchecking,
           default: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremiumFeature ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
+        },
+        spellcheckerLanguage: {
+          label: intl.formatMessage(messages.spellcheckerLanguage),
+          value: settings.all.app.spellcheckerLanguage,
+          options: spellcheckingLanguages,
+          default: DEFAULT_APP_SETTINGS.spellcheckerLanguage,
         },
         darkMode: {
           label: intl.formatMessage(messages.darkMode),

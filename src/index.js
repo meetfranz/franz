@@ -1,10 +1,16 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
+
 import fs from 'fs-extra';
 import path from 'path';
-
 import windowStateKeeper from 'electron-window-state';
 
 import { isDevMode, isMac, isWindows, isLinux } from './environment';
+
+// DEV MODE: Save user data into FranzDev
+if (isDevMode) {
+  app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
+}
+/* eslint-disable import/first */
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -13,6 +19,7 @@ import { appId } from './package.json'; // eslint-disable-line import/no-unresol
 import './electron/exception';
 
 import { DEFAULT_APP_SETTINGS } from './config';
+/* eslint-enable import/first */
 
 const debug = require('debug')('Franz:App');
 
@@ -20,11 +27,6 @@ const debug = require('debug')('Franz:App');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let willQuitApp = false;
-
-// DEV MODE: Save user data into FranzDev
-if (isDevMode) {
-  app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
-}
 
 // Ensure that the recipe directory exists
 fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));

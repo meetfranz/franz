@@ -67,9 +67,14 @@ export default class ServicesStore extends Store {
   }
 
   setup() {
-    // Single key reactions
+    // Single key reactions for the sake of your CPU
     reaction(
-      () => this.stores.settings.all.app.enableSpellchecking,
+      () => this.stores.settings.app.enableSpellchecking,
+      () => this._shareSettingsWithServiceProcess(),
+    );
+
+    reaction(
+      () => this.stores.settings.app.spellcheckerLanguage,
       () => this._shareSettingsWithServiceProcess(),
     );
   }
@@ -590,9 +595,10 @@ export default class ServicesStore extends Store {
   }
 
   _shareSettingsWithServiceProcess() {
+    const settings = this.stores.settings.app;
     this.actions.service.sendIPCMessageToAllServices({
       channel: 'settings-update',
-      args: this.stores.settings.all.app,
+      args: settings,
     });
   }
 

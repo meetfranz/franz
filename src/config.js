@@ -17,6 +17,7 @@ export const DEFAULT_APP_SETTINGS = {
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
+  spellcheckerLanguage: 'en-us',
   darkMode: false,
   locale: '',
   fallbackLocale: 'en-US',
@@ -35,3 +36,5 @@ export const FILE_SYSTEM_SETTINGS_TYPES = [
 ];
 
 export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
+
+export const DICTIONARY_PATH = path.join(app.getPath('userData'), 'dicts');

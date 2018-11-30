@@ -5,8 +5,10 @@ import localStorage from 'mobx-localstorage';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
+import { getLocale } from '../helpers/i18n-helpers';
 
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const { systemPreferences } = remote;
 const debug = require('debug')('Franz:SettingsStore');
@@ -41,7 +43,6 @@ export default class SettingsStore extends Store {
     });
 
     this.fileSystemSettingsTypes.forEach((type) => {
-      console.log(type);
       ipcRenderer.send('getAppSettings', type);
     });
   }
@@ -157,10 +158,18 @@ export default class SettingsStore extends Store {
 
     // Enable dark mode once
     if (!this.all.migration['5.0.0-beta.19-settings']) {
+      const spellcheckerLanguage = getLocale({
+        locale: this.stores.settings.app.locale,
+        locales: SPELLCHECKER_LOCALES,
+        defaultLocale: DEFAULT_APP_SETTINGS.spellcheckerLanguage,
+        fallbackLocale: DEFAULT_APP_SETTINGS.spellcheckerLanguage,
+      });
+
       this.actions.settings.update({
         type: 'app',
         data: {
           darkMode: systemPreferences.isDarkMode(),
+          spellcheckerLanguage,
         },
       });
 
