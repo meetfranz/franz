@@ -12,7 +12,7 @@ export function getLocale({ locale, locales, defaultLocale, fallbackLocale }) {
 
     if (localeFuzzy !== undefined) {
       localeStr = localeFuzzy;
-    } 
+    }
   }
 
   if (locales[localeStr] === undefined) {

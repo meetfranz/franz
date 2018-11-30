@@ -6,7 +6,7 @@ import fs from 'fs-extra';
 const debug = require('debug')('Franz:ipcApi:download');
 
 function decodeBase64Image(dataString) {
-  const matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+  const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
 
   if (matches.length !== 3) {
     return new Error('Invalid input string');
