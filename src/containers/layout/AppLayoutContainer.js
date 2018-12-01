@@ -43,7 +43,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       handleIPCMessage,
       setWebviewReference,
       openWindow,
-      reloadUpdatedServices,
       reorder,
       reload,
       toggleNotifications,
@@ -122,7 +121,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           services={servicesContainer}
           news={news.latest}
           removeNewsItem={hide}
-          reloadServicesAfterUpdate={reloadUpdatedServices}
+          reloadServicesAfterUpdate={() => window.location.reload()}
           installAppUpdate={installUpdate}
           globalError={globalError.error}
           showRequiredRequestsError={requests.showRequiredRequestsError}
