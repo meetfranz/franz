@@ -180,9 +180,6 @@ export default class SettingsStore extends Store {
         },
       });
 
-      localStorage.removeItem('app');
-
-      debug('Set up dark mode');
     }
   }
 
