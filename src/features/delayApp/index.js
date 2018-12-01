@@ -40,6 +40,11 @@ export default function init(stores) {
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
+          if (stores.services.all.length === 0) {
+            shownAfterLaunch = true;
+            return;
+          }
+          
           const diff = moment().diff(timeLastDelay);
           if ((stores.app.isFocused && diff >= config.delayOffset) || !shownAfterLaunch) {
             debug(`App will be delayed for ${config.delayDuration / 1000}s`);
