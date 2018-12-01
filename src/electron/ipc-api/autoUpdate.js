@@ -7,7 +7,7 @@ export default (params) => {
     // autoUpdater.setFeedURL(updateUrl);
     ipcMain.on('autoUpdate', (event, args) => {
       try {
-        autoUpdater.allowPrerelease = Boolean(params.settings.get('beta'));
+        autoUpdater.allowPrerelease = Boolean(params.settings.app.get('beta'));
         if (args.action === 'check') {
           autoUpdater.checkForUpdates();
         } else if (args.action === 'install') {
