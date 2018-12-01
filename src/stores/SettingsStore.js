@@ -179,7 +179,6 @@ export default class SettingsStore extends Store {
           '5.0.0-beta.19-settings': true,
         },
       });
-
     }
   }
 
