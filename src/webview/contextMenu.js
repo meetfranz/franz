@@ -26,6 +26,8 @@ const buildMenuTpl = (props, suggestions) => {
   const hasText = props.selectionText.trim().length > 0;
   const can = type => editFlags[`can${type}`] && hasText;
 
+  console.log(props);
+
   let menuTpl = [
     {
       type: 'separator',
@@ -33,7 +35,7 @@ const buildMenuTpl = (props, suggestions) => {
       id: 'cut',
       role: can('Cut') ? 'cut' : '',
       enabled: can('Cut'),
-      visible: props.isEditable,
+      visible: props.selectionText.trim(),
     }, {
       id: 'copy',
       label: 'Copy',
@@ -130,6 +132,7 @@ const buildMenuTpl = (props, suggestions) => {
     });
   }
 
+  console.log('suggestions', suggestions.length, suggestions);
   if (suggestions.length > 0) {
     suggestions.reverse().map(suggestion => menuTpl.unshift({
       id: `suggestion-${suggestion}`,
