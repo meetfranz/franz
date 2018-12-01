@@ -1,4 +1,4 @@
-import { autorun, reaction, observable } from 'mobx';
+import { autorun, observable } from 'mobx';
 import { remote } from 'electron';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
@@ -30,7 +30,7 @@ export default function init(stores) {
 
       if (config.isEnabled && (isPremiumUser || !config.isPremium)) {
         const serviceProxyConfig = stores.settings.proxy[service.id];
-  
+
         if (serviceProxyConfig && serviceProxyConfig.isEnabled && serviceProxyConfig.host) {
           proxyHost = serviceProxyConfig.host;
         }
