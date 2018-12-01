@@ -35,7 +35,7 @@ const buildMenuTpl = (props, suggestions) => {
       id: 'cut',
       role: can('Cut') ? 'cut' : '',
       enabled: can('Cut'),
-      visible: props.selectionText.trim(),
+      visible: !!props.selectionText.trim(),
     }, {
       id: 'copy',
       label: 'Copy',
