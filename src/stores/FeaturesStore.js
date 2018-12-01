@@ -22,12 +22,16 @@ export default class FeaturesStore extends Store {
     setTimeout(this._enableFeatures.bind(this), 1);
   }
 
+  @computed get anonymousFeatures() {
+    return this.defaultFeaturesRequest.execute().result || DEFAULT_FEATURES_CONFIG;
+  }
+
   @computed get features() {
     if (this.stores.user.isLoggedIn) {
       return this.featuresRequest.execute().result || DEFAULT_FEATURES_CONFIG;
     }
 
-    return this.defaultFeaturesRequest.execute().result || DEFAULT_FEATURES_CONFIG;
+    return DEFAULT_FEATURES_CONFIG;
   }
 
   _monitorLoginStatus() {
