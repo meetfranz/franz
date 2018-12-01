@@ -44,7 +44,7 @@ export default function init(stores) {
             shownAfterLaunch = true;
             return;
           }
-          
+
           const diff = moment().diff(timeLastDelay);
           if ((stores.app.isFocused && diff >= config.delayOffset) || !shownAfterLaunch) {
             debug(`App will be delayed for ${config.delayDuration / 1000}s`);
