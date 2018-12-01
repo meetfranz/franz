@@ -7,6 +7,8 @@ import delayApp from '../features/delayApp';
 import spellchecker from '../features/spellchecker';
 import serviceProxy from '../features/serviceProxy';
 
+import { DEFAULT_FEATURES_CONFIG } from '../config';
+
 export default class FeaturesStore extends Store {
   @observable defaultFeaturesRequest = new CachedRequest(this.api.features, 'default');
   @observable featuresRequest = new CachedRequest(this.api.features, 'features');
@@ -22,10 +24,10 @@ export default class FeaturesStore extends Store {
 
   @computed get features() {
     if (this.stores.user.isLoggedIn) {
-      return this.featuresRequest.execute().result || {};
+      return this.featuresRequest.execute().result || DEFAULT_FEATURES_CONFIG;
     }
 
-    return this.defaultFeaturesRequest.execute().result || {};
+    return this.defaultFeaturesRequest.execute().result || DEFAULT_FEATURES_CONFIG;
   }
 
   _monitorLoginStatus() {

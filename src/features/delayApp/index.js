@@ -2,19 +2,17 @@ import { autorun, observable, reaction } from 'mobx';
 import moment from 'moment';
 import DelayAppComponent from './Component';
 
+import { DEFAULT_FEATURES_CONFIG } from '../../config';
+
 const debug = require('debug')('Franz:feature:delayApp');
 
-const DEFAULT_DELAY_DURATION = 10000; // 10 seconds
-const DEFAULT_DELAY_OFFSET = 3600000; // 1 hour
-const DEFAULT_VISIBILITY = false;
-
 export const config = {
-  delayOffset: DEFAULT_DELAY_OFFSET,
-  delayDuration: DEFAULT_DELAY_DURATION,
+  delayOffset: DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.delayOffset,
+  delayDuration: DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait,
 };
 
 export const state = observable({
-  isDelayAppScreenVisible: DEFAULT_VISIBILITY,
+  isDelayAppScreenVisible: DEFAULT_FEATURES_CONFIG.needToWaitToProceed,
 });
 
 function setVisibility(value) {
@@ -38,8 +36,8 @@ export default function init(stores) {
         let shownAfterLaunch = false;
         let timeLastDelay = moment();
 
-        config.delayOffset = globalConfig.delayOffset !== undefined ? globalConfig.delayOffset : DEFAULT_DELAY_OFFSET;
-        config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_DELAY_DURATION;
+        config.delayOffset = globalConfig.delayOffset !== undefined ? globalConfig.delayOffset : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.delayOffset;
+        config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
           const diff = moment().diff(timeLastDelay);
@@ -55,7 +53,7 @@ export default function init(stores) {
               debug('Resetting app delay');
 
               setVisibility(false);
-            }, DEFAULT_DELAY_DURATION + 1000); // timer needs to be able to hit 0
+            }, DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait + 1000); // timer needs to be able to hit 0
           }
         });
       }

@@ -122,13 +122,13 @@ export default class UserStore extends Store {
   }
 
   @computed get data() {
-    this.getUserInfoRequest.execute();
-    return this.getUserInfoRequest.result || {};
+    if (!this.isLoggedIn) return {};
+    
+    return this.getUserInfoRequest.execute().result || {};
   }
 
   @computed get legacyServices() {
-    this.getLegacyServicesRequest.execute();
-    return this.getLegacyServicesRequest.result || [];
+    return this.getLegacyServicesRequest.execute() || {};
   }
 
   // Actions

@@ -27,6 +27,17 @@ export const DEFAULT_APP_SETTINGS = {
   serviceLimit: 5,
 };
 
+export const DEFAULT_FEATURES_CONFIG = {
+  isSpellcheckerPremiumFeature: false,
+  needToWaitToProceed: false,
+  needToWaitToProceedConfig: {
+    delayOffset: 3600000,
+    wait: 10000,
+  },
+  isServiceProxyEnabled: false,
+  isServiceProxyPremiumFeature: true,
+};
+
 export const FRANZ_SERVICE_REQUEST = 'hhttp://bit.ly/franz-plugin-docs';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 

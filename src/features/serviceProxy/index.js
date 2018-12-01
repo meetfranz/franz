@@ -1,16 +1,15 @@
 import { autorun, reaction, observable } from 'mobx';
 import { remote } from 'electron';
 
+import { DEFAULT_FEATURES_CONFIG } from '../../config';
+
 const { session } = remote;
 
 const debug = require('debug')('Franz:feature:serviceProxy');
 
-const DEFAULT_ENABLED = false;
-const DEFAULT_IS_PREMIUM = true;
-
 export const config = observable({
-  isEnabled: DEFAULT_ENABLED,
-  isPremium: DEFAULT_IS_PREMIUM,
+  isEnabled: DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled,
+  isPremium: DEFAULT_FEATURES_CONFIG.isServiceProxyPremiumFeature,
 });
 
 export default function init(stores) {
@@ -25,8 +24,8 @@ export default function init(stores) {
 
         const { isServiceProxyEnabled, isServiceProxyPremiumFeature } = stores.features.features;
 
-        config.isEnabled = isServiceProxyEnabled !== undefined ? isServiceProxyEnabled : DEFAULT_ENABLED;
-        config.isPremium = isServiceProxyPremiumFeature !== undefined ? isServiceProxyPremiumFeature : DEFAULT_IS_PREMIUM;
+        config.isEnabled = isServiceProxyEnabled !== undefined ? isServiceProxyEnabled : DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled;
+        config.isPremium = isServiceProxyPremiumFeature !== undefined ? isServiceProxyPremiumFeature : DEFAULT_FEATURES_CONFIG.isServiceProxyPremiumFeature;
 
         autorun(() => {
           const services = stores.services.all;

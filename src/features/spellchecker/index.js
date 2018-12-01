@@ -1,11 +1,11 @@
 import { autorun, reaction } from 'mobx';
 
+import { DEFAULT_FEATURES_CONFIG } from '../../config';
+
 const debug = require('debug')('Franz:feature:spellchecker');
 
-const DEFAULT_IS_PREMIUM_FEATURE = true;
-
 export const config = {
-  isPremiumFeature: DEFAULT_IS_PREMIUM_FEATURE,
+  isPremiumFeature: DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature,
 };
 
 export default function init(stores) {
@@ -19,7 +19,7 @@ export default function init(stores) {
 
       const { isSpellcheckerPremiumFeature } = stores.features.features;
 
-      config.isPremiumFeature = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_IS_PREMIUM_FEATURE;
+      config.isPremiumFeature = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature;
 
       autorun(() => {
         if (!stores.user.data.isPremium && config.isPremiumFeature) {
