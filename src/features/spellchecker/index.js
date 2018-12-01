@@ -1,36 +1,27 @@
-import { autorun, reaction } from 'mobx';
+import { autorun, observable } from 'mobx';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
 
 const debug = require('debug')('Franz:feature:spellchecker');
 
-export const config = {
+export const config = observable({
   isPremiumFeature: DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature,
-};
+});
 
 export default function init(stores) {
-  reaction(
-    () => stores.features.features.isSpellcheckerPremiumFeature,
-    (enabled, r) => {
-      debug('Initializing `spellchecker` feature');
+  debug('Initializing `spellchecker` feature');
 
-      // Dispose the reaction to run this only once
-      r.dispose();
+  autorun(() => {
+    const { isSpellcheckerPremiumFeature } = stores.features.features;
 
-      const { isSpellcheckerPremiumFeature } = stores.features.features;
+    config.isPremiumFeature = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature;
 
-      config.isPremiumFeature = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature;
+    if (!stores.user.data.isPremium && config.isPremiumFeature && stores.settings.app.enableSpellchecking) {
+      debug('Override settings.spellcheckerEnabled flag to false');
 
-      autorun(() => {
-        if (!stores.user.data.isPremium && config.isPremiumFeature) {
-          debug('Override settings.spellcheckerEnabled flag to false');
-
-          Object.assign(stores.settings.all.app, {
-            enableSpellchecking: false,
-          });
-        }
+      Object.assign(stores.settings.app, {
+        enableSpellchecking: false,
       });
-    },
-  );
+    }
+  });
 }
-

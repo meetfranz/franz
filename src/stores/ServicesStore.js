@@ -439,6 +439,8 @@ export default class ServicesStore extends Store {
 
   @action _reload({ serviceId }) {
     const service = this.one(serviceId);
+    if (!service.isEnabled) return;
+
     service.resetMessageCount();
 
     service.webview.loadURL(service.url);
