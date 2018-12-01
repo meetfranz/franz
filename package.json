@@ -2,7 +2,7 @@
   "name": "franz",
   "productName": "Franz",
   "appId": "com.meetfranz.franz",
-  "version": "5.0.0-beta.18",
+  "version": "5.0.0-beta.19",
   "description": "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.",
   "copyright": "adlk x franz - Stefan Malzner",
   "main": "index.js",
