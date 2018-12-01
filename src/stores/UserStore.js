@@ -123,7 +123,7 @@ export default class UserStore extends Store {
 
   @computed get data() {
     if (!this.isLoggedIn) return {};
-    
+
     return this.getUserInfoRequest.execute().result || {};
   }
 
