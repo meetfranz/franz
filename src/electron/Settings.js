@@ -42,12 +42,12 @@ export default class Settings {
 
   _hydrate() {
     this.store = this._merge(readJsonSync(this.settingsFile));
-    debug('Hydrate store', toJS(this.store));
+    debug('Hydrate store', this.type, toJS(this.store));
   }
 
   _writeFile() {
     outputJsonSync(this.settingsFile, this.store);
-    debug('Write settings file', toJS(this.store));
+    debug('Write settings file', this.type, toJS(this.store));
   }
 
   get settingsFile() {
