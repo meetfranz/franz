@@ -43,8 +43,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Invite extends Component {
+export default @observer class Invite extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     embed: PropTypes.bool,

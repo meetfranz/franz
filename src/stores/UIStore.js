@@ -1,6 +1,8 @@
 import { action, observable, computed } from 'mobx';
 
 import Store from './lib/Store';
+import * as themeDefault from '../theme/default';
+import * as themeDark from '../theme/dark';
 
 export default class UIStore extends Store {
   @observable showServicesUpdatedInfoBar = false;
@@ -20,13 +22,21 @@ export default class UIStore extends Store {
     return (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted) || !settings.isAppMuted;
   }
 
+  @computed get theme() {
+    if (this.stores.settings.all.app.darkMode) {
+      return Object.assign({}, themeDefault, themeDark);
+    }
+
+    return themeDefault;
+  }
+
   // Actions
   @action _openSettings({ path = '/settings' }) {
     const settingsPath = path !== '/settings' ? `/settings/${path}` : path;
     this.stores.router.push(settingsPath);
   }
 
-  @action _closeSettings(): void {
+  @action _closeSettings() {
     this.stores.router.push('/');
   }
 

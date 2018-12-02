@@ -28,8 +28,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Signup extends Component {
+export default @observer class Signup extends Component {
   static propTypes = {
     donor: MobxPropTypes.objectOrObservableObject.isRequired,
     isLoading: PropTypes.bool.isRequired,

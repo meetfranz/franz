@@ -6,8 +6,7 @@ import classnames from 'classnames';
 
 import { scorePassword as scorePasswordFunc } from '../../helpers/password-helpers';
 
-@observer
-export default class Input extends Component {
+export default @observer class Input extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
@@ -97,6 +96,7 @@ export default class Input extends Component {
             onBlur={field.onBlur}
             onFocus={field.onFocus}
             ref={(element) => { this.inputElement = element; }}
+            disabled={field.disabled}
           />
           {suffix && (
             <span className="franz-form__input-suffix">{suffix}</span>

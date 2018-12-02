@@ -5,11 +5,11 @@ import { inject, observer } from 'mobx-react';
 import AuthLayout from '../../components/auth/AuthLayout';
 import AppStore from '../../stores/AppStore';
 import GlobalErrorStore from '../../stores/GlobalErrorStore';
+import AppLoader from '../../components/ui/AppLoader';
 
 import { oneOrManyChildElements } from '../../prop-types';
 
-@inject('stores', 'actions') @observer
-export default class AuthLayoutContainer extends Component {
+export default @inject('stores', 'actions') @observer class AuthLayoutContainer extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
     location: PropTypes.shape({
@@ -19,14 +19,27 @@ export default class AuthLayoutContainer extends Component {
 
   render() {
     const { stores, actions, children, location } = this.props;
+    const { app, features, globalError } = stores;
+
+    const isLoadingBaseFeatures = features.defaultFeaturesRequest.isExecuting
+      && !features.defaultFeaturesRequest.wasExecuted;
+
+    if (isLoadingBaseFeatures) {
+      return (
+        <AppLoader />
+      );
+    }
+
     return (
       <AuthLayout
-        error={stores.globalError.response}
+        error={globalError.response}
         pathname={location.pathname}
-        isOnline={stores.app.isOnline}
-        isAPIHealthy={!stores.app.healthCheckRequest.isError}
+        isOnline={app.isOnline}
+        isAPIHealthy={!app.healthCheckRequest.isError}
         retryHealthCheck={actions.app.healthCheck}
-        isHealthCheckLoading={stores.app.healthCheckRequest.isExecuting}
+        isHealthCheckLoading={app.healthCheckRequest.isExecuting}
+        isFullScreen={app.isFullScreen}
+        darkMode={app.isSystemDarkModeEnabled}
       >
         {children}
       </AuthLayout>

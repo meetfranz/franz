@@ -46,8 +46,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class RecipesDashboard extends Component {
+export default @observer class RecipesDashboard extends Component {
   static propTypes = {
     recipes: MobxPropTypes.arrayOrObservableArray.isRequired,
     isLoading: PropTypes.bool.isRequired,

@@ -27,7 +27,7 @@ import {
   removeServicePartitionDirectory,
 } from '../../helpers/service-helpers.js';
 
-const debug = require('debug')('ServerApi');
+const debug = require('debug')('Franz:ServerApi');
 
 module.paths.unshift(
   getDevRecipeDirectory(),
@@ -35,7 +35,7 @@ module.paths.unshift(
 );
 
 const { app } = remote;
-const fetch = remote.require('electron-fetch');
+const { default: fetch } = remote.require('electron-fetch');
 
 const SERVER_URL = API;
 const API_VERSION = 'v1';
@@ -259,6 +259,35 @@ export default class ServerApi {
 
     debug('ServerApi::deleteService resolves', data);
     return data;
+  }
+
+  // Features
+  async getDefaultFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/default`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    const features = data;
+    console.debug('ServerApi::getDefaultFeatures resolves', features);
+    return features;
+  }
+
+  async getFeatures() {
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features`, this._prepareAuthRequest({
+      method: 'GET',
+    }));
+    if (!request.ok) {
+      throw request;
+    }
+    const data = await request.json();
+
+    const features = data;
+    console.debug('ServerApi::getFeatures resolves', features);
+    return features;
   }
 
   // Recipes

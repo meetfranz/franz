@@ -1,104 +1,88 @@
 @import './config.scss';
 
+.theme__dark .tab-item {
+  &.is-active {
+    background: $dark-theme-gray;
+
+    .tab-item__icon { margin-left: -4px; }
+  }
+
+  &.is-disabled .tab-item__icon { filter: grayscale(100%) opacity(.2); }
+  .tab-item__icon { width: 34px; }
+}
+
 .tabs {
   display: flex;
-  // flex: 1;
   flex-direction: column;
   flex-shrink: 1;
-  // align-items: center;
-  // height: auto;
 
   .placeholder {
-    width: 100%;
     height: 40px;
+    width: 100%;
   }
 }
 
 .tab-item {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
-  width: $theme-sidebar-width;
+  display: flex;
   height: 65px;
+  justify-content: center;
   min-height: 50px;
+  position: relative;
   transition: background $theme-transition-time;
+  width: $theme-sidebar-width;
 
   &.is-active {
-    border-left: 4px solid $theme-brand-primary;
     background: lighten($theme-brand-primary, 35%);
+    border-left: 4px solid $theme-brand-primary;
 
-    .tab-item__icon {
-      margin-left: -4px;
-    }
+    .tab-item__icon { margin-left: -4px; }
   }
 
-  &.is-disabled {
-    .tab-item__icon {
-      filter: grayscale(100%) opacity(0.2);
-    }
-  }
-
-  &.has-custom-icon {
-    .tab-item__icon {
-      border-radius: $theme-border-radius;
-      // border: 1px solid $theme-gray-lighter;
-      // width: 32px;
-    }
-  }
-
-  &:active {
-    .tab-item__icon {
-      opacity: 0.7;
-    }
-  }
+  &.is-disabled .tab-item__icon { filter: grayscale(100%) opacity(0.2); }
+  &.has-custom-icon .tab-item__icon { border-radius: $theme-border-radius; }
+  &:active .tab-item__icon { opacity: .7; }
 
   .tab-item__icon {
-    width: 30px;
     height: auto;
+    width: 30px;
   }
 
   .tab-item__message-count {
-    min-width: 17px;
-    min-height: 17px;
+    align-items: center;
     background: $theme-brand-danger;
-    color: #FFF;
     border-radius: 20px;
-    padding: 0px 5px;
+    bottom: 8px;
+    color: #FFF;
+    display: flex;
     font-size: 11px;
+    justify-content: center;
+    min-height: 17px;
+    min-width: 17px;
+    padding: 0px 5px;
     position: absolute;
     right: 8px;
-    bottom: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    &.is-indirect {
-      padding-top: 0px;
-    }
+    &.is-indirect { padding-top: 0; }
   }
 
   .tab-item__info-badge {
-    width: 17px;
-    height: 17px;
+    align-items: center;
     background: $theme-gray-light;
-    color: $theme-gray-lighter;
+    bottom: 8px;
     border-radius: 20px;
-    padding: 0px 5px;
+    color: $theme-gray-lighter;
+    display: flex;
     font-size: 11px;
+    height: 17px;
+    justify-content: center;
+    padding: 0px 5px;
     position: absolute;
     right: 8px;
-    bottom: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 17px;
 
-    &.is-indirect {
-      padding-top: 0px;
-    }
+    &.is-indirect { padding-top: 0; }
   }
 
-  &.is-reordering {
-    z-index: 99999;
-  }
+  &.is-reordering { z-index: 99999; }
 }

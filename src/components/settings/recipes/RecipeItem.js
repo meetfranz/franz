@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 
 import RecipePreviewModel from '../../../models/RecipePreview';
 
-@observer
-export default class RecipeItem extends Component {
+export default @observer class RecipeItem extends Component {
   static propTypes = {
     recipe: PropTypes.instanceOf(RecipePreviewModel).isRequired,
     onClick: PropTypes.func.isRequired,

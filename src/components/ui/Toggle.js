@@ -4,17 +4,18 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { Field } from 'mobx-react-form';
 
-@observer
-export default class Toggle extends Component {
+export default @observer class Toggle extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
     showLabel: PropTypes.bool,
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
     className: '',
     showLabel: true,
+    disabled: false,
   };
 
   onChange(e) {
@@ -28,6 +29,7 @@ export default class Toggle extends Component {
       field,
       className,
       showLabel,
+      disabled,
     } = this.props;
 
     if (field.value === '' && field.default !== '') {
@@ -39,6 +41,7 @@ export default class Toggle extends Component {
         className={classnames([
           'franz-form__field',
           'franz-form__toggle-wrapper',
+          'franz-form__toggle-disabled',
           className,
         ])}
       >
@@ -56,7 +59,7 @@ export default class Toggle extends Component {
             name={field.name}
             value={field.name}
             checked={field.value}
-            onChange={e => this.onChange(e)}
+            onChange={e => (!disabled ? this.onChange(e) : null)}
           />
         </label>
         {field.error && <div className={field.error}>{field.error}</div>}

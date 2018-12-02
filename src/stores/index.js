@@ -1,5 +1,6 @@
 import AppStore from './AppStore';
 import UserStore from './UserStore';
+import FeaturesStore from './FeaturesStore';
 import SettingsStore from './SettingsStore';
 import ServicesStore from './ServicesStore';
 import RecipesStore from './RecipesStore';
@@ -8,6 +9,7 @@ import UIStore from './UIStore';
 import PaymentStore from './PaymentStore';
 import NewsStore from './NewsStore';
 import RequestStore from './RequestStore';
+import DictionaryStore from './DictionaryStore';
 import GlobalErrorStore from './GlobalErrorStore';
 
 export default (api, actions, router) => {
@@ -16,6 +18,7 @@ export default (api, actions, router) => {
     router,
     app: new AppStore(stores, api, actions),
     user: new UserStore(stores, api, actions),
+    features: new FeaturesStore(stores, api, actions),
     settings: new SettingsStore(stores, api, actions),
     services: new ServicesStore(stores, api, actions),
     recipes: new RecipesStore(stores, api, actions),
@@ -24,6 +27,7 @@ export default (api, actions, router) => {
     payment: new PaymentStore(stores, api, actions),
     news: new NewsStore(stores, api, actions),
     requests: new RequestStore(stores, api, actions),
+    dictionary: new DictionaryStore(stores, api, actions),
     globalError: new GlobalErrorStore(stores, api, actions),
   });
   // Initialize all stores

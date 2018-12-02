@@ -15,6 +15,8 @@ import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
 import ImageUpload from '../../ui/ImageUpload';
 
+import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
+
 const messages = defineMessages({
   saveService: {
     id: 'settings.service.form.saveButton',
@@ -92,10 +94,17 @@ const messages = defineMessages({
     id: 'settings.service.form.iconUpload',
     defaultMessage: '!!!Drop your image, or click here',
   },
+  headlineProxy: {
+    id: 'settings.service.form.proxy.headline',
+    defaultMessage: '!!!Proxy Settings',
+  },
+  proxyInfo: {
+    id: 'settings.service.form.proxy.info',
+    defaultMessage: '!!!Proxy settings will not be synchronized with the Franz servers.',
+  },
 });
 
-@observer
-export default class EditServiceForm extends Component {
+export default @observer class EditServiceForm extends Component {
   static propTypes = {
     recipe: PropTypes.instanceOf(Recipe).isRequired,
     service(props, propName) {
@@ -113,6 +122,8 @@ export default class EditServiceForm extends Component {
     onDelete: PropTypes.func.isRequired,
     isSaving: PropTypes.bool.isRequired,
     isDeleting: PropTypes.bool.isRequired,
+    isProxyFeatureEnabled: PropTypes.bool.isRequired,
+    isProxyFeaturePremiumFeature: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -173,6 +184,8 @@ export default class EditServiceForm extends Component {
       isSaving,
       isDeleting,
       onDelete,
+      isProxyFeatureEnabled,
+      isProxyFeaturePremiumFeature,
     } = this.props;
     const { intl } = this.context;
 
@@ -201,6 +214,8 @@ export default class EditServiceForm extends Component {
     } else if (recipe.hasHostedOption && service.customUrl) {
       activeTabIndex = 2;
     }
+
+    const requiresUserInput = !recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl);
 
     return (
       <div className="settings__main">
@@ -303,6 +318,9 @@ export default class EditServiceForm extends Component {
 
                 <div className="settings__settings-group">
                   <h3>{intl.formatMessage(messages.headlineGeneral)}</h3>
+                  {recipe.hasDarkMode && (
+                    <Toggle field={form.$('isDarkModeEnabled')} />
+                  )}
                   <Toggle field={form.$('isEnabled')} />
                 </div>
               </div>
@@ -314,6 +332,33 @@ export default class EditServiceForm extends Component {
                 />
               </div>
             </div>
+
+            {isProxyFeatureEnabled && (
+              <PremiumFeatureContainer condition={isProxyFeaturePremiumFeature}>
+                <div className="settings__settings-group">
+                  <h3>
+                    {intl.formatMessage(messages.headlineProxy)}
+                    <span className="badge badge--success">beta</span>
+                  </h3>
+                  <Toggle field={form.$('proxy.isEnabled')} />
+                  {form.$('proxy.isEnabled').value && (
+                    <div>
+                      <Input field={form.$('proxy.host')} />
+                      <Input field={form.$('proxy.user')} />
+                      <Input
+                        field={form.$('proxy.password')}
+                        showPasswordToggle
+                      />
+                      <p>
+                        <span className="mdi mdi-information" />
+                        {intl.formatMessage(messages.proxyInfo)}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </PremiumFeatureContainer>
+            )}
+
             {recipe.message && (
               <p className="settings__message">
                 <span className="mdi mdi-information" />
@@ -340,6 +385,7 @@ export default class EditServiceForm extends Component {
               type="submit"
               label={intl.formatMessage(messages.saveService)}
               htmlForm="form"
+              disabled={action !== 'edit' && form.isPristine && requiresUserInput}
             />
           )}
         </div>

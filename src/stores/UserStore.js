@@ -9,7 +9,7 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 
-const debug = require('debug')('UserStore');
+const debug = require('debug')('Franz:UserStore');
 
 // TODO: split stores into UserStore and AuthStore
 export default class UserStore extends Store {
@@ -122,13 +122,13 @@ export default class UserStore extends Store {
   }
 
   @computed get data() {
-    this.getUserInfoRequest.execute();
-    return this.getUserInfoRequest.result || {};
+    if (!this.isLoggedIn) return {};
+
+    return this.getUserInfoRequest.execute().result || {};
   }
 
   @computed get legacyServices() {
-    this.getLegacyServicesRequest.execute();
-    return this.getLegacyServicesRequest.result || [];
+    return this.getLegacyServicesRequest.execute() || {};
   }
 
   // Actions

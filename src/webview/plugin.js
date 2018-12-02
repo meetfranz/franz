@@ -1,14 +1,17 @@
 import { ipcRenderer } from 'electron';
-import { ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
 import path from 'path';
 
-import { isDevMode } from '../environment';
 import RecipeWebview from './lib/RecipeWebview';
 
-import Spellchecker from './spellchecker';
+import spellchecker, { switchDict, disable as disableSpellchecker } from './spellchecker';
+import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
+import contextMenu from './contextMenu';
 import './notifications';
 
-const debug = require('debug')('Plugin');
+const debug = require('debug')('Franz:Plugin');
+
+window.franzSettings = {};
+let serviceData;
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -17,27 +20,58 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
   try {
     // eslint-disable-next-line
     require(modulePath)(new RecipeWebview(), data);
-    debug('Initialize Recipe');
+    debug('Initialize Recipe', data);
+
+    serviceData = data;
+
+    if (data.isDarkModeEnabled) {
+      injectDarkModeStyle(data.recipe.path);
+      debug('Add dark theme styles');
+    }
   } catch (err) {
     debug('Recipe initialization failed', err);
   }
 });
 
-const spellchecker = new Spellchecker();
-spellchecker.initialize();
+// Needs to run asap to intialize dictionaries
+(async () => {
+  const spellcheckingProvider = await spellchecker();
+  contextMenu(spellcheckingProvider);
+})();
 
-const contextMenuBuilder = new ContextMenuBuilder(spellchecker.handler, null, isDevMode);
-
-new ContextMenuListener((info) => { // eslint-disable-line
-  contextMenuBuilder.showPopupMenu(info);
-});
-
-ipcRenderer.on('settings-update', (e, data) => {
-  spellchecker.toggleSpellchecker(data.enableSpellchecking);
+ipcRenderer.on('settings-update', async (e, data) => {
   debug('Settings update received', data);
+
+  if (data.enableSpellchecking) {
+    switchDict(data.spellcheckerLanguage);
+  } else {
+    disableSpellchecker();
+  }
+
+  window.franzSettings = data;
 });
 
-// initSpellche
+ipcRenderer.on('service-settings-update', (e, data) => {
+  debug('Service settings update received', data);
+
+  if (data.isDarkModeEnabled && !isDarkModeStyleInjected()) {
+    injectDarkModeStyle(serviceData.recipe.path);
+
+    debug('Enable service dark mode');
+  } else if (!data.isDarkModeEnabled && isDarkModeStyleInjected()) {
+    removeDarkModeStyle();
+
+    debug('Disable service dark mode');
+  }
+});
+
+// Needed for current implementation of electrons 'login' event 🤦‍
+ipcRenderer.on('get-service-id', (event) => {
+  debug('Asking for service id', event);
+
+  event.sender.send('service-id', serviceData.id);
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
   ipcRenderer.sendToHost('hello');
@@ -47,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const originalWindowOpen = window.open;
 
 window.open = (url, frameName, features) => {
-  // We need to differentiate if the link should be opened in a popup or in the systems default browser 
+  // We need to differentiate if the link should be opened in a popup or in the systems default browser
   if (!frameName && !features) {
     return ipcRenderer.sendToHost('new-window', url);
   }

@@ -10,8 +10,7 @@ import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
 import WebviewCrashHandler from './WebviewCrashHandler';
 import ServiceDisabled from './ServiceDisabled';
 
-@observer
-export default class ServiceWebview extends Component {
+export default @observer class ServiceWebview extends Component {
   static propTypes = {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,

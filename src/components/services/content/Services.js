@@ -18,8 +18,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Services extends Component {
+export default @observer class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     setWebviewReference: PropTypes.func.isRequired,

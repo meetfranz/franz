@@ -5,8 +5,7 @@ import { inject, observer } from 'mobx-react';
 import SubscriptionPopup from '../../components/subscription/SubscriptionPopup';
 
 
-@inject('stores', 'actions') @observer
-export default class SubscriptionPopupScreen extends Component {
+export default @inject('stores', 'actions') @observer class SubscriptionPopupScreen extends Component {
   state = {
     complete: false,
   };

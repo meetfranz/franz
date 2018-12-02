@@ -1,15 +1,34 @@
 @import './config.scss';
 
+.theme__dark .badge {
+  background: $dark-theme-gray;
+  border-radius: $theme-border-radius-small;
+  color: $dark-theme-gray-lightest;
+
+  &.badge--primary,
+  &.badge--premium {
+    background: $theme-brand-primary;
+    color: $dark-theme-gray-smoke;
+  }
+}
+
+
 .badge {
-  font-size: 14px;
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: $theme-border-radius;
   background: $theme-gray-lighter;
+  border-radius: $theme-border-radius;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px 10px;
 
   &.badge--primary,
   &.badge--premium {
     background: $theme-brand-primary;
     color: #FFF;
   }
+
+  &.badge--success {
+    background: $theme-brand-success;
+    color: #FFF;
+  }
+
 }

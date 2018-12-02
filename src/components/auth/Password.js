@@ -41,8 +41,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class Password extends Component {
+export default @observer class Password extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,

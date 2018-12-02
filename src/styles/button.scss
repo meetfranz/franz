@@ -1,71 +1,94 @@
 @import './config.scss';
 
-.franz-form__button {
-  position: relative;
+.theme__dark .franz-form__button {
   background: $theme-brand-primary;
-  display: block;
-  padding: 10px 20px;
-  color: #FFF;
-  border-radius: 3px;
-  transition: background 0.5s;
-  text-align: center;
+  color: $dark-theme-text-color;
 
-  &:hover {
-    background: darken($theme-brand-primary, 5%);
-  }
-
-  &:active {
-    transition: none;
-    background: lighten($theme-brand-primary, 5%);
-  }
-
-  &:disabled {
-    opacity: 0.2;
-  }
+  &:hover { background: darken($theme-brand-primary, 5%); }
+  &:active { background: lighten($theme-brand-primary, 5%); }
 
   &.franz-form__button--secondary {
-    background: $theme-gray-lighter;
-    color: $theme-gray;
+    background: $dark-theme-gray-lighter;
+    color: $dark-theme-text-color;
 
-    &:hover {
-      background: darken($theme-gray-lighter, 5%);
-    }
-
-    &:active {
-      background: lighten($theme-gray-lighter, 5%);
-    }
+    &:hover { background: lighten($dark-theme-gray-lighter, 10%); }
+    &:active { background: lighten($dark-theme-gray-lighter, 20%); }
   }
 
   &.franz-form__button--danger {
     background: $theme-brand-danger;
 
-    &:hover {
-      background: darken($theme-brand-danger, 5%);
-    }
-
-    &:active {
-      background: lighten($theme-brand-danger, 5%);
-    }
+    &:hover { background: darken($theme-brand-danger, 5%); }
+    &:active { background: lighten($theme-brand-danger, 5%); }
   }
 
   &.franz-form__button--warning {
     background: $theme-brand-warning;
 
-    &:hover {
-      background: darken($theme-brand-warning, 5%);
-    }
+    &:hover { background: darken($theme-brand-warning, 5%); }
+    &:active { background: lighten($theme-brand-warning, 5%); }
+  }
 
-    &:active {
-      background: lighten($theme-brand-warning, 5%);
+  &.franz-form__button--inverted {
+    border: 2px solid $theme-brand-primary;
+    color: $theme-brand-primary;
+
+    &:hover {
+      background: darken($theme-brand-primary, 5%);
+      color: $dark-theme-text-color;
     }
+  }
+
+  &:disabled { opacity: .5; }
+}
+
+.franz-form__button {
+  background: $theme-brand-primary;
+  border-radius: 3px;
+  display: block;
+  color: #FFF;
+  padding: 10px 20px;
+  position: relative;
+  transition: background .5s;
+  text-align: center;
+
+  &:hover { background: darken($theme-brand-primary, 5%) }
+
+  &:active {
+    background: lighten($theme-brand-primary, 5%);
+    transition: none;
+  }
+
+  &:disabled { opacity: .2; }
+
+  &.franz-form__button--secondary {
+    background: $theme-gray-lighter;
+    color: $theme-gray;
+
+    &:hover { background: darken($theme-gray-lighter, 5%); }
+    &:active { background: lighten($theme-gray-lighter, 5%); }
+  }
+
+  &.franz-form__button--danger {
+    background: $theme-brand-danger;
+
+    &:hover { background: darken($theme-brand-danger, 5%); }
+    &:active { background: lighten($theme-brand-danger, 5%); }
+  }
+
+  &.franz-form__button--warning {
+    background: $theme-brand-warning;
+
+    &:hover { background: darken($theme-brand-warning, 5%); }
+    &:active { background: lighten($theme-brand-warning, 5%); }
   }
 
   &.franz-form__button--inverted {
     background: none;
-    padding: 10px 20px;
     border: 2px solid $theme-brand-primary;
     color: $theme-brand-primary;
-    transition: background 0.5s, color 0.5s;
+    padding: 10px 20px;
+    transition: background .5s, color .5s;
 
     &:hover {
       background: darken($theme-brand-primary, 5%);
@@ -74,11 +97,11 @@
   }
 
   .loader {
+    display: inline-block;
+    height: 12px;
+    margin-right: 5px;
     position: relative;
     width: 20px;
-    height: 12px;
     z-index: 9999;
-    display: inline-block;
-    margin-right: 5px;
   }
 }

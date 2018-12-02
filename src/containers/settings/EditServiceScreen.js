@@ -6,12 +6,16 @@ import { defineMessages, intlShape } from 'react-intl';
 import UserStore from '../../stores/UserStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
+import SettingsStore from '../../stores/SettingsStore';
+import FeaturesStore from '../../stores/FeaturesStore';
 import Form from '../../lib/Form';
 import { gaPage } from '../../lib/analytics';
 
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
 import { required, url, oneRequired } from '../../helpers/validation-helpers';
+
+import { config as proxyFeature } from '../../features/serviceProxy';
 
 const messages = defineMessages({
   name: {
@@ -50,10 +54,29 @@ const messages = defineMessages({
     id: 'settings.service.form.icon',
     defaultMessage: '!!!Custom icon',
   },
+  enableDarkMode: {
+    id: 'settings.service.form.enableDarkMode',
+    defaultMessage: '!!!Enable Dark Mode',
+  },
+  enableProxy: {
+    id: 'settings.service.form.proxy.isEnabled',
+    defaultMessage: '!!!Use Proxy',
+  },
+  proxyHost: {
+    id: 'settings.service.form.proxy.host',
+    defaultMessage: '!!!Proxy Host/IP',
+  },
+  proxyUser: {
+    id: 'settings.service.form.proxy.user',
+    defaultMessage: '!!!User',
+  },
+  proxyPassword: {
+    id: 'settings.service.form.proxy.password',
+    defaultMessage: '!!!Password',
+  },
 });
 
-@inject('stores', 'actions') @observer
-export default class EditServiceScreen extends Component {
+export default @inject('stores', 'actions') @observer class EditServiceScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
@@ -77,7 +100,7 @@ export default class EditServiceScreen extends Component {
     }
   }
 
-  prepareForm(recipe, service) {
+  prepareForm(recipe, service, proxy) {
     const { intl } = this.context;
     const config = {
       fields: {
@@ -111,6 +134,11 @@ export default class EditServiceScreen extends Component {
           value: service.hasCustomUploadedIcon ? service.icon : false,
           default: null,
           type: 'file',
+        },
+        isDarkModeEnabled: {
+          label: intl.formatMessage(messages.enableDarkMode),
+          value: service.isDarkModeEnabled,
+          default: this.props.stores.settings.all.app.darkMode,
         },
       },
     };
@@ -159,6 +187,40 @@ export default class EditServiceScreen extends Component {
           label: intl.formatMessage(messages.indirectMessages),
           value: service.isIndirectMessageBadgeEnabled,
           default: true,
+        },
+      });
+    }
+
+    if (proxy.isEnabled) {
+      const serviceProxyConfig = this.props.stores.settings.proxy[service.id] || {};
+
+      Object.assign(config.fields, {
+        proxy: {
+          name: 'proxy',
+          label: 'proxy',
+          fields: {
+            isEnabled: {
+              label: intl.formatMessage(messages.enableProxy),
+              value: serviceProxyConfig.isEnabled,
+              default: false,
+            },
+            host: {
+              label: intl.formatMessage(messages.proxyHost),
+              value: serviceProxyConfig.host,
+              default: '',
+            },
+            user: {
+              label: intl.formatMessage(messages.proxyUser),
+              value: serviceProxyConfig.user,
+              default: '',
+            },
+            password: {
+              label: intl.formatMessage(messages.proxyPassword),
+              value: serviceProxyConfig.password,
+              default: '',
+              type: 'password',
+            },
+          },
         },
       });
     }
@@ -215,7 +277,7 @@ export default class EditServiceScreen extends Component {
       );
     }
 
-    const form = this.prepareForm(recipe, service);
+    const form = this.prepareForm(recipe, service, proxyFeature);
 
     return (
       <EditServiceForm
@@ -229,6 +291,8 @@ export default class EditServiceScreen extends Component {
         isDeleting={services.deleteServiceRequest.isExecuting}
         onSubmit={d => this.onSubmit(d)}
         onDelete={() => this.deleteService()}
+        isProxyFeatureEnabled={proxyFeature.isEnabled}
+        isProxyFeaturePremiumFeature={proxyFeature.isPremium}
       />
     );
   }
@@ -239,6 +303,8 @@ EditServiceScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     services: PropTypes.instanceOf(ServicesStore).isRequired,
+    settings: PropTypes.instanceOf(SettingsStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
   }).isRequired,
   router: PropTypes.shape({
     params: PropTypes.shape({
@@ -251,5 +317,8 @@ EditServiceScreen.wrappedComponent.propTypes = {
       updateService: PropTypes.func.isRequired,
       deleteService: PropTypes.func.isRequired,
     }).isRequired,
+    // settings: PropTypes.shape({
+    //   update: PropTypes.func.isRequred,
+    // }).isRequired,
   }).isRequired,
 };

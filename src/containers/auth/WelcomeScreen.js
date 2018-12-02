@@ -7,8 +7,7 @@ import UserStore from '../../stores/UserStore';
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import { gaPage } from '../../lib/analytics';
 
-@inject('stores', 'actions') @observer
-export default class LoginScreen extends Component {
+export default @inject('stores', 'actions') @observer class LoginScreen extends Component {
   componentDidMount() {
     gaPage('Auth/Welcome');
   }

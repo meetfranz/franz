@@ -4,44 +4,46 @@ $toggle-size: 14px;
 $toggle-width: 40px;
 $toggle-button-size: 22px;
 
-.franz-form {
-  .franz-form__toggle-wrapper {
-    display: flex;
-    flex-direction: row;
+.theme__dark .franz-form .franz-form__toggle-wrapper .franz-form__toggle {
+  background: $dark-theme-gray;
+  border-radius: $toggle-size / 2;
 
-    .franz-form__label {
-      margin-left: 20px;
+  .franz-form__toggle-button {
+    background: $dark-theme-gray-lighter;
+    box-shadow: 0 1px 4px rgba($dark-theme-black, .3);
+  }
+}
+
+.franz-form .franz-form__toggle-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  .franz-form__label { margin-left: 20px; }
+
+  .franz-form__toggle {
+    background: $theme-gray-lighter;
+    border-radius: $theme-border-radius;
+    height: $toggle-size;
+    position: relative;
+    width: $toggle-width;
+
+    .franz-form__toggle-button {
+      background: $theme-gray-light;
+      border-radius: 100%;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+      height: $toggle-size - 2;
+      left: 1px;
+      top: 1px;
+      position: absolute;
+      transition: all .5s;
+      width: $toggle-size - 2;
     }
 
-    .franz-form__toggle {
-      width: $toggle-width;
-      height: $toggle-size;
-      position: relative;
-      background: $theme-gray-lighter;
-      border-radius: $theme-border-radius;
-
-      .franz-form__toggle-button {
-        position: absolute;
-        left: 0;
-        top: -($toggle-button-size - $toggle-size) / 2;
-        width: $toggle-button-size;
-        height: $toggle-button-size;
-        background: $theme-gray-light;
-        border-radius: 100%;
-        transition: all 0.5s;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-      }
-
-      &.is-active {
-        .franz-form__toggle-button {
-          left: $toggle-width - $toggle-button-size;
-          background: $theme-brand-primary;
-        }
-      }
-
-      input {
-        display: none;
-      }
+    &.is-active .franz-form__toggle-button {
+      background: $theme-brand-primary;
+      left: $toggle-width - $toggle-size - 3;;
     }
+
+    input { display: none; }
   }
 }

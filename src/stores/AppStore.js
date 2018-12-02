@@ -12,12 +12,14 @@ import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac, isLinux, isWindows } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent } from '../lib/analytics';
+import { onVisibilityChange } from '../helpers/visibility-helper';
+import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 
-const debug = require('debug')('AppStore');
+const debug = require('debug')('Franz:AppStore');
 
-const { app } = remote;
+const { app, systemPreferences } = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -50,9 +52,15 @@ export default class AppStore extends Store {
 
   @observable isSystemMuteOverridden = false;
 
+  @observable isSystemDarkModeEnabled = false;
+
   @observable isClearingAllCache = false;
 
   @observable isFullScreen = mainWindow.isFullScreen();
+
+  @observable isFocused = true;
+
+  dictionaries = [];
 
   constructor(...args) {
     super(...args);
@@ -77,7 +85,7 @@ export default class AppStore extends Store {
     ]);
   }
 
-  setup() {
+  async setup() {
     this._appStartsCounter();
     // Focus the active service
     window.addEventListener('focus', this.actions.service.focusActiveService);
@@ -159,6 +167,14 @@ export default class AppStore extends Store {
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
+
+    this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
+
+    onVisibilityChange((isVisible) => {
+      this.isFocused = isVisible;
+
+      debug('Window is visible/focused', isVisible);
+    });
   }
 
   @computed get cacheSize() {
@@ -304,31 +320,12 @@ export default class AppStore extends Store {
   }
 
   _getDefaultLocale() {
-    let locale = app.getLocale();
-    if (locales[locale] === undefined) {
-      let localeFuzzy;
-      Object.keys(locales).forEach((localStr) => {
-        if (locales && Object.hasOwnProperty.call(locales, localStr)) {
-          if (locale.substring(0, 2) === localStr.substring(0, 2)) {
-            localeFuzzy = localStr;
-          }
-        }
-      });
-
-      if (localeFuzzy !== undefined) {
-        locale = localeFuzzy;
-      }
-    }
-
-    if (locales[locale] === undefined) {
-      locale = defaultLocale;
-    }
-
-    if (!locale) {
-      locale = DEFAULT_APP_SETTINGS.fallbackLocale;
-    }
-
-    return locale;
+    return getLocale({
+      locale: app.getLocale(),
+      locales,
+      defaultLocale,
+      fallbackLocale: DEFAULT_APP_SETTINGS.fallbackLocale,
+    });
   }
 
   _muteAppHandler() {

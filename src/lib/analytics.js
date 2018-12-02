@@ -2,7 +2,7 @@ import { remote } from 'electron';
 import { GA_ID } from '../config';
 // import { isDevMode } from '../environment';
 
-const debug = require('debug')('Analytics');
+const debug = require('debug')('Franz:Analytics');
 
 const { app } = remote;
 

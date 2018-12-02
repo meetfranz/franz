@@ -50,8 +50,7 @@ const messages = defineMessages({
   },
 });
 
-@inject('stores', 'actions') @observer
-export default class EditUserScreen extends Component {
+export default @inject('stores', 'actions') @observer class EditUserScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
@@ -145,6 +144,7 @@ export default class EditUserScreen extends Component {
         // user={user.data}
         status={user.actionStatus}
         form={form}
+        isEnterprise={user.data.isEnterprise}
         isSaving={user.updateUserInfoRequest.isExecuting}
         onSubmit={d => this.onSubmit(d)}
       />

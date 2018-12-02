@@ -4,12 +4,12 @@ export default class LocalApi {
     this.local = local;
   }
 
-  getAppSettings() {
-    return this.local.getAppSettings();
+  getAppSettings(type) {
+    return this.local.getAppSettings(type);
   }
 
-  updateAppSettings(data) {
-    return this.local.updateAppSettings(data);
+  updateAppSettings(type, data) {
+    return this.local.updateAppSettings(type, data);
   }
 
   getAppCacheSize() {

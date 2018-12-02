@@ -24,8 +24,7 @@ const messages = defineMessages({
   },
 });
 
-@observer
-export default class WebviewCrashHandler extends Component {
+export default @observer class WebviewCrashHandler extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     reload: PropTypes.func.isRequired,
