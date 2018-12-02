@@ -52,7 +52,7 @@
   "subscription.features.onpremise": "Add on-premise/hosted services like HipChat",
   "subscription.features.onpremise.mattermost": "Add on-premise/hosted services like Mattermost",
   "subscription.features.encryptedSync": "Encrypted session synchronization",
-  "subscription.features.vpn": "Proxy & VPN support",
+  "subscription.features.proxy": "Proxy support for services",
   "subscription.features.ads": "No ads, ever!",
   "subscription.features.spellchecker": "Support for spellchecker",
   "subscription.features.noInterruptions": "No app delays & nagging to upgrade license",
