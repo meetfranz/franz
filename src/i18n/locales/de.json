@@ -237,7 +237,7 @@
    "subscription.features.noInterruptions" : "Keine Wartezeiten um Franz zu verwenden",
    "subscription.features.onpremise" : "Integration von gehosteten Diensten, wie HipChat",
    "subscription.features.onpremise.mattermost" : "Integration von gehosteten Diensten, wie Mattermost",
-   "subscription.features.proxy" : "Proxy support for services",
+   "subscription.features.proxy" : "Proxy Support für Dienste",
    "subscription.features.spellchecker" : "Support for spellchecker",
    "subscription.includedFeatures" : "Bezahlte Franz Premium Support Konten beinhalten",
    "subscription.paymentSessionError" : "Das Zahlungs-Formular konnte nicht geladen werden.",
