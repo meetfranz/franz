@@ -1,4 +1,4 @@
-import { remote, ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
 import { action, computed, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
@@ -10,7 +10,6 @@ import { getLocale } from '../helpers/i18n-helpers';
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
-const { systemPreferences } = remote;
 const debug = require('debug')('Franz:SettingsStore');
 
 export default class SettingsStore extends Store {
@@ -37,7 +36,7 @@ export default class SettingsStore extends Store {
     });
 
     ipcRenderer.on('appSettings', (event, resp) => {
-      debug('Get appSettings resolves', resp, resp.type, resp.data);
+      debug('Get appSettings resolves', resp.type, resp.data);
 
       this._fileSystemSettingsCache[resp.type] = resp.data;
     });
@@ -156,7 +155,6 @@ export default class SettingsStore extends Store {
       debug('Migrated settings to split stores');
     }
 
-    // Enable dark mode once
     if (!this.all.migration['5.0.0-beta.19-settings']) {
       const spellcheckerLanguage = getLocale({
         locale: this.stores.settings.app.locale,
@@ -168,7 +166,6 @@ export default class SettingsStore extends Store {
       this.actions.settings.update({
         type: 'app',
         data: {
-          darkMode: systemPreferences.isDarkMode(),
           spellcheckerLanguage,
         },
       });

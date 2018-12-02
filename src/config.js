@@ -2,6 +2,7 @@ import electron from 'electron';
 import path from 'path';
 
 const app = process.type === 'renderer' ? electron.remote.app : electron.app;
+const systemPreferences = process.type === 'renderer' ? electron.remote.systemPreferences : electron.systemPreferences;
 
 export const CHECK_INTERVAL = 1000 * 3600; // How often should we perform checks
 export const LOCAL_API = 'http://localhost:3000';
@@ -18,7 +19,7 @@ export const DEFAULT_APP_SETTINGS = {
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
   spellcheckerLanguage: 'en-us',
-  darkMode: false,
+  darkMode: process.platform === 'darwin' ? systemPreferences.isDarkMode() : false, // We can't use refs from `./environment` at this time
   locale: '',
   fallbackLocale: 'en-US',
   beta: false,
