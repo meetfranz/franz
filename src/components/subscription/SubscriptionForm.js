@@ -44,9 +44,9 @@ const messages = defineMessages({
       id: 'subscription.features.noInterruptions',
       defaultMessage: '!!!No app delays & nagging to upgrade license',
     },
-    vpn: {
-      id: 'subscription.features.vpn',
-      defaultMessage: '!!!Proxy & VPN support',
+    proxy: {
+      id: 'subscription.features.proxy',
+      defaultMessage: '!!!Proxy support for services',
     },
     spellchecker: {
       id: 'subscription.features.spellchecker',
@@ -170,6 +170,9 @@ export default @observer class SubscriptionForm extends Component {
                   </li>
                   <li>
                     {intl.formatMessage(messages.features.spellchecker)}
+                  </li>
+                  <li>
+                    {intl.formatMessage(messages.features.proxy)}
                   </li>
                   <li>
                     {intl.formatMessage(messages.features.ads)}
