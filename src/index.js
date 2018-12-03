@@ -115,7 +115,7 @@ const createWindow = () => {
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   // Open the DevTools.
-  if (isDevMode) {
+  if (isDevMode || process.argv.includes('--devtools')) {
     mainWindow.webContents.openDevTools();
   }
 
