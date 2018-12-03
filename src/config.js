@@ -39,7 +39,7 @@ export const DEFAULT_FEATURES_CONFIG = {
   isServiceProxyPremiumFeature: true,
 };
 
-export const FRANZ_SERVICE_REQUEST = 'hhttp://bit.ly/franz-plugin-docs';
+export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-plugin-docs';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 
 export const FILE_SYSTEM_SETTINGS_TYPES = [
