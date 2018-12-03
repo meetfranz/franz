@@ -1,3 +1,28 @@
+<a name="5.0.0-beta.19"></a>
+# [5.0.0-beta.19](https://github.com/meetfranz/franz/compare/v5.0.0-beta.18...v5.0.0-beta.19) (2018-12-02)
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+### Features
+
+* **App:** 👉 Dark Mode 👈 ([fd7954f](https://github.com/meetfranz/franz/commit/fd7954f)) 🙌 [@guillecura](https://github.com/guillecura)
+* **App:** Add proxy support for services ([6297274](https://github.com/meetfranz/franz/commit/6297274)) 
+* **App:** New spell checker ([3d87c0e](https://github.com/meetfranz/franz/commit/3d87c0e))
+* **App:** New context menu ([3d87c0e](https://github.com/meetfranz/franz/commit/3d87c0e))
+* **App:** Lay groundwork for general themeing support ([4ea044a](https://github.com/meetfranz/franz/commit/4ea044a))
+* **App:** Add option to enable dark mode for supported services ([fd7954f](https://github.com/meetfranz/franz/commit/fd7954f))
+
+### Bug Fixes
+
+* **App:** App menu was not initialized on app launch. Resolving copy & paste issues for login. ([72d4164](https://github.com/meetfranz/franz/commit/72d4164))
+* **General:** Convert many links from http to https ([#967](https://github.com/meetfranz/franz/issues/967)) 🙌 [@Stanzilla](https://github.com/Stanzilla) ([04a23b7](https://github.com/meetfranz/franz/commit/04a23b7))
+* **Menu:** Fix File -> Quit menu entry ([#888](https://github.com/meetfranz/franz/issues/888)) 🙌 [@dabalroman](https://github.com/dabalroman) ([4115b27](https://github.com/meetfranz/franz/commit/4115b27))
+* **Windows:** Fix impossible Ctrl+10 Shortcut ([0db7c12](https://github.com/meetfranz/franz/commit/0db7c12))
+* **Windows:** Remove minimize setting check on close event ([#1038](https://github.com/meetfranz/franz/issues/1038)) 🙌 [@imaginarny](https://github.com/imaginarny) ([af9d356](https://github.com/meetfranz/franz/commit/af9d356))
+
+
 <a name="5.0.0-beta.18"></a>
 # [5.0.0-beta.18](https://github.com/meetfranz/franz/compare/v5.0.0-beta.16...v5.0.0-beta.18) (2018-04-03)
 
@@ -95,11 +120,11 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 * **Notification:** Remove notification sound when app is muted ([53fde0c](https://github.com/meetfranz/franz/commit/53fde0c))
 * **Recipes:** Enable `urlInputPrefix` for team and customURL ([873957d](https://github.com/meetfranz/franz/commit/873957d))
 * **Services:** Ctrl/Cmd+R now navigates back to the service root ([7293492](https://github.com/meetfranz/franz/commit/7293492))
-* **Services:** Fix transparent service background ([ed0098f](https://github.com/meetfranz/franz/commit/ed0098f)), closes [#361](https://github.com/meetfranz/franz/issues/361)
+* **Services:** Fix transparent service background ([ed0098f](https://github.com/meetfranz/franz/commit/ed0098f))
 * **Shortcuts:** Fixed settings shortcut inconsistency ([ca74846](https://github.com/meetfranz/franz/commit/ca74846))
 * **Spell checker:** Fixed issues with spell checker ([965fdf2](https://github.com/meetfranz/franz/commit/965fdf2))
 * **Translations:** Re-add Spanish to available languages. ([ad936f2](https://github.com/meetfranz/franz/commit/ad936f2))
-* **Windows:** Open window when clicking on toast notification ([b82bbc8](https://github.com/meetfranz/franz/commit/b82bbc8)), closes [#370](https://github.com/meetfranz/franz/issues/370)
+* **Windows:** Open window when clicking on toast notification ([b82bbc8](https://github.com/meetfranz/franz/commit/b82bbc8))
 
 
 <a name="5.0.0-beta.14"></a>
@@ -110,9 +135,9 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 
 * **App:** Add link to changelog in app update notification ([2cbd938](https://github.com/meetfranz/franz/commit/2cbd938))
 * **App:** Add option to enable/disable spell checker ([dcab45a](https://github.com/meetfranz/franz/commit/dcab45a))
-* **App:** Add option to mute all services in sidebar ([f5a9aa2](https://github.com/meetfranz/franz/commit/f5a9aa2)), closes [#8](https://github.com/meetfranz/franz/issues/8) [#162](https://github.com/meetfranz/franz/issues/162)
-* **App:** Decrease minimum window size to 600px width ([2521621](https://github.com/meetfranz/franz/commit/2521621)), closes [#239](https://github.com/meetfranz/franz/issues/239)
-* **App:** Respect System DoNotDisturb mode for service audio ([7d41227](https://github.com/meetfranz/franz/commit/7d41227)), closes [#162](https://github.com/meetfranz/franz/issues/162)
+* **App:** Add option to mute all services in sidebar ([f5a9aa2](https://github.com/meetfranz/franz/commit/f5a9aa2))
+* **App:** Decrease minimum window size to 600px width ([2521621](https://github.com/meetfranz/franz/commit/2521621))
+* **App:** Respect System DoNotDisturb mode for service audio ([7d41227](https://github.com/meetfranz/franz/commit/7d41227))
 * **Service:** Add option to display disabled services in tabs ([1839eff](https://github.com/meetfranz/franz/commit/1839eff))
 * **Service:** Add option to mute service ([b405ba1](https://github.com/meetfranz/franz/commit/b405ba1))
 * **Service:** Add dialog to reload crashed services ([259d40c](https://github.com/meetfranz/franz/commit/259d40c)) ([dannyqiu](https://github.com/dannyqiu))
@@ -121,11 +146,11 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 
 ### Bug Fixes
 
-* **Windows:** Fix notifications on Windows 10 (Fall Creators Update) ([eea4801](https://github.com/meetfranz/franz/commit/eea4801)), closes [#173](https://github.com/meetfranz/franz/issues/173)
-* **macOS:** Fix TouchBar related crash on macOS 10.12.1 and lower ([9e9a2ed](https://github.com/meetfranz/franz/commit/9e9a2ed)), closes [#70](https://github.com/meetfranz/franz/issues/70)
-* **App:** Add fallback to service menu when service name is empty ([42ed24d](https://github.com/meetfranz/franz/commit/42ed24d)), closes [#250](https://github.com/meetfranz/franz/issues/250)
+* **Windows:** Fix notifications on Windows 10 (Fall Creators Update) ([eea4801](https://github.com/meetfranz/franz/commit/eea4801))
+* **macOS:** Fix TouchBar related crash on macOS 10.12.1 and lower ([9e9a2ed](https://github.com/meetfranz/franz/commit/9e9a2ed))
+* **App:** Add fallback to service menu when service name is empty ([42ed24d](https://github.com/meetfranz/franz/commit/42ed24d))
 * **App:** Prevent app from redirecting when dropping link ([811a527](https://github.com/meetfranz/franz/commit/811a527)) ([dannyqiu](https://github.com/dannyqiu))
-* **Support with CPU:** Reduce maximum CPU usage ([64ad918](https://github.com/meetfranz/franz/commit/64ad918)), closes [#314](https://github.com/meetfranz/franz/issues/314)
+* **Support with CPU:** Reduce maximum CPU usage ([64ad918](https://github.com/meetfranz/franz/commit/64ad918))
 * **Hosted Services:** Do not strip www from custom service Url  ([a764321](https://github.com/meetfranz/franz/commit/a764321)) ([BeneStem](https://github.com/BeneStem))
 * **Services:** Fix onNotify in service API ([b15421b](https://github.com/meetfranz/franz/commit/b15421b)) ([dannyqiu](https://github.com/dannyqiu))
 * **Sidebar:** Fix tabs reordering ([86413ba](https://github.com/meetfranz/franz/commit/86413ba)) ([josescgar](https://github.com/josescgar))
@@ -158,7 +183,7 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 * **Onboarding:** Fix issue with import of on-premise services ([7c7d27d](https://github.com/meetfranz/franz/commit/7c7d27d))
 * **Shortcuts:** Flip shortcut to navigate to next/previous service ([37d5923](https://github.com/meetfranz/franz/commit/37d5923))
 * **Windows:** Open Window when app is pinned to taskbar and minimized to system tray ([777814a](https://github.com/meetfranz/franz/commit/777814a))
-* **Recipes:** Recipe developers don't need Premium Supporter Account for debugging ([7a9947a](https://github.com/meetfranz/franz/commit/7a9947a)), closes [#23](https://github.com/meetfranz/franz/issues/23)
+* **Recipes:** Recipe developers don't need Premium Supporter Account for debugging ([7a9947a](https://github.com/meetfranz/franz/commit/7a9947a))
 
 
 
@@ -167,10 +192,10 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 
 ### Features
 
-* **Settings:** Add option to disable system tray icon ([c62f3fc](https://github.com/meetfranz/franz/commit/c62f3fc)), closes [#2](https://github.com/meetfranz/franz/issues/2)
-* **Service:** Display URL of hyperlinks ([a0cec4d](https://github.com/meetfranz/franz/commit/a0cec4d)), closes [#47](https://github.com/meetfranz/franz/issues/47) ([GustavoKatel](https://github.com/GustavoKatel))
+* **Settings:** Add option to disable system tray icon ([c62f3fc](https://github.com/meetfranz/franz/commit/c62f3fc))
+* **Service:** Display URL of hyperlinks ([a0cec4d](https://github.com/meetfranz/franz/commit/a0cec4d)) ([GustavoKatel](https://github.com/GustavoKatel))
 * **App:** Add tab cycling with ctrl[+shift]+tab or ctrl+[pageup|pagedown] ([e58f558](https://github.com/meetfranz/franz/commit/
-e58f558)), closes [#35](https://github.com/meetfranz/franz/issues/35) ([GustavoKatel](https://github.com/GustavoKatel))
+e58f558)) ([GustavoKatel](https://github.com/GustavoKatel))
 * **Translation:** Add Brazilian Portuguese ([phmigotto](https://github.com/phmigotto))
 * **Translation:** Add Dutch ([cpeetersburg](https://github.com/cpeetersburg), [Blizzke](https://github.com/Blizzke))
 * **Translation:** Add Flemish ([Blizzke](https://github.com/Blizzke), [mroeling](https://github.com/mroeling))
@@ -184,10 +209,10 @@ e58f558)), closes [#35](https://github.com/meetfranz/franz/issues/35) ([GustavoK
 
 ### Bug Fixes
 
-* **App:** Force Franz to use single window ([2ae409e](https://github.com/meetfranz/franz/commit/2ae409e)), closes [#29](https://github.com/meetfranz/franz/issues/29)
+* **App:** Force Franz to use single window ([2ae409e](https://github.com/meetfranz/franz/commit/2ae409e))
 * **Onboarding:** Fix enable/disable service import toggle ([23174f9](https://github.com/meetfranz/franz/commit/23174f9))
-* **Onboarding:** Fix service import ([99d1c01](https://github.com/meetfranz/franz/commit/99d1c01)), closes [#22](https://github.com/meetfranz/franz/issues/22)
+* **Onboarding:** Fix service import ([99d1c01](https://github.com/meetfranz/franz/commit/99d1c01))
 * **Payment:** Fix payment window when name contains special character ([a854614](https://github.com/meetfranz/franz/commit/a854614))
-* **macOS:** Add macOS dark theme system tray icon ([55805f1](https://github.com/meetfranz/franz/commit/55805f1)), closes [#1](https://github.com/meetfranz/franz/issues/1)
-* **Windows:** Fix enable/disable autostart on login ([eca7f3b](https://github.com/meetfranz/franz/commit/eca7f3b)), closes [#17](https://github.com/meetfranz/franz/issues/17)
+* **macOS:** Add macOS dark theme system tray icon ([55805f1](https://github.com/meetfranz/franz/commit/55805f1))
+* **Windows:** Fix enable/disable autostart on login ([eca7f3b](https://github.com/meetfranz/franz/commit/eca7f3b))
 * **Windows:** Fix multiple system tray icons when opening/closing Franz ([5b9b0c7](https://github.com/meetfranz/franz/commit/5b9b0c7))

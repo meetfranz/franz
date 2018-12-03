@@ -176,10 +176,6 @@ export default class SettingsStore extends Store {
           '5.0.0-beta.19-settings': true,
         },
       });
-
-      localStorage.removeItem('app');
-
-      debug('Set up dark mode');
     }
   }
 
