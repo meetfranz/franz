@@ -1,7 +1,7 @@
 import { autorun, observable } from 'mobx';
 import { remote } from 'electron';
 
-import { DEFAULT_FEATURES_CONFIG } from '../../config';
+import { DEFAULT_FEATURES_CONFIG, HEALTHCHECK_URL } from '../../config';
 
 const { session } = remote;
 
@@ -15,29 +15,40 @@ export const config = observable({
 export default function init(stores) {
   debug('Initializing `serviceProxy` feature');
 
-  autorun(() => {
-    const { isServiceProxyEnabled, isServiceProxyPremiumFeature } = stores.features.features;
+  const { defaultSession } = session;
+  defaultSession.resolveProxy(HEALTHCHECK_URL, (proxy) => {
+    debug('Resolve proxy', proxy);
 
-    config.isEnabled = isServiceProxyEnabled !== undefined ? isServiceProxyEnabled : DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled;
-    config.isPremium = isServiceProxyPremiumFeature !== undefined ? isServiceProxyPremiumFeature : DEFAULT_FEATURES_CONFIG.isServiceProxyPremiumFeature;
+    let systemProxy = 'direct://';
+    const proxyMatch = proxy.match(/PROXY (.*)/i);
+    if (proxyMatch.length) {
+      systemProxy = proxyMatch[1].trim();
+    }
 
-    const services = stores.services.all;
-    const isPremiumUser = stores.user.data.isPremium;
+    autorun(() => {
+      const { isServiceProxyEnabled, isServiceProxyPremiumFeature } = stores.features.features;
 
-    services.forEach((service) => {
-      const s = session.fromPartition(`persist:service-${service.id}`);
-      let proxyHost = 'direct://';
+      config.isEnabled = isServiceProxyEnabled !== undefined ? isServiceProxyEnabled : DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled;
+      config.isPremium = isServiceProxyPremiumFeature !== undefined ? isServiceProxyPremiumFeature : DEFAULT_FEATURES_CONFIG.isServiceProxyPremiumFeature;
 
-      if (config.isEnabled && (isPremiumUser || !config.isPremium)) {
-        const serviceProxyConfig = stores.settings.proxy[service.id];
+      const services = stores.services.enabled;
+      const isPremiumUser = stores.user.data.isPremium;
 
-        if (serviceProxyConfig && serviceProxyConfig.isEnabled && serviceProxyConfig.host) {
-          proxyHost = serviceProxyConfig.host;
+      services.forEach((service) => {
+        let proxyHost = systemProxy;
+        const s = session.fromPartition(`persist:service-${service.id}`);
+
+        if (config.isEnabled && (isPremiumUser || !config.isPremium)) {
+          const serviceProxyConfig = stores.settings.proxy[service.id];
+
+          if (serviceProxyConfig && serviceProxyConfig.isEnabled && serviceProxyConfig.host) {
+            proxyHost = serviceProxyConfig.host;
+          }
         }
-      }
 
-      s.setProxy({ proxyRules: proxyHost }, (e) => {
-        debug(`Using proxy "${proxyHost}" for "${service.name}" (${service.id})`, e);
+        s.setProxy({ proxyRules: proxyHost }, () => {
+          debug(`Using proxy "${proxyHost}" for "${service.name}" (${service.id})`);
+        });
       });
     });
   });
