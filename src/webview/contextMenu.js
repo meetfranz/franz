@@ -3,7 +3,7 @@
 
 import { clipboard, remote, ipcRenderer, shell } from 'electron';
 
-import { isDevMode } from '../environment';
+import { isDevMode, isMac } from '../environment';
 
 const debug = require('debug')('Franz:contextMenu');
 
@@ -23,19 +23,28 @@ function delUnusedElements(menuTpl) {
 
 const buildMenuTpl = (props, suggestions) => {
   const { editFlags } = props;
-  const hasText = props.selectionText.trim().length > 0;
+  const textSelection = props.selectionText.trim();
+  const hasText = textSelection.length > 0;
   const can = type => editFlags[`can${type}`] && hasText;
-
-  console.log(props);
 
   let menuTpl = [
     {
       type: 'separator',
     }, {
+      id: 'lookup',
+      label: `Look Up "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
+      visible: isMac && props.mediaType === 'none' && hasText,
+      click() {
+        debug('Show definition for selection', textSelection);
+        webContents.showDefinitionForSelection();
+      },
+    }, {
+      type: 'separator',
+    }, {
       id: 'cut',
       role: can('Cut') ? 'cut' : '',
       enabled: can('Cut'),
-      visible: !!props.selectionText.trim() && props.isEditable,
+      visible: hasText && props.isEditable,
     }, {
       id: 'copy',
       label: 'Copy',
@@ -50,6 +59,18 @@ const buildMenuTpl = (props, suggestions) => {
       visible: props.isEditable,
     }, {
       type: 'separator',
+      visible: props.isEditable && hasText,
+    }, {
+      id: 'searchTextSelection',
+      label: `Search Google for "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
+      visible: hasText,
+      click() {
+        const url = `https://www.google.com/search?q=${textSelection}`;
+        debug('Search on Google', url);
+        shell.openExternal(url);
+      },
+    }, {
+      type: 'separator',
     },
   ];
 
@@ -60,6 +81,7 @@ const buildMenuTpl = (props, suggestions) => {
       id: 'openLink',
       label: 'Open Link in Browser',
       click() {
+        debug('Open link in Browser', props.linkURL);
         shell.openExternal(props.linkURL);
       },
     }, {
@@ -83,6 +105,7 @@ const buildMenuTpl = (props, suggestions) => {
       id: 'openImage',
       label: 'Open Image in Browser',
       click() {
+        debug('Open image in Browser', props.srcURL);
         shell.openExternal(props.srcURL);
       },
     }, {
@@ -132,7 +155,6 @@ const buildMenuTpl = (props, suggestions) => {
     });
   }
 
-  console.log('suggestions', suggestions.length, suggestions);
   if (suggestions.length > 0) {
     suggestions.reverse().map(suggestion => menuTpl.unshift({
       id: `suggestion-${suggestion}`,
