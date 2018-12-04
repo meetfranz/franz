@@ -27,6 +27,9 @@ const buildMenuTpl = (props, suggestions) => {
   const hasText = textSelection.length > 0;
   const can = type => editFlags[`can${type}`] && hasText;
 
+  const canGoBack = webContents.canGoBack();
+  const canGoForward = webContents.canGoForward();
+
   let menuTpl = [
     {
       type: 'separator',
@@ -165,6 +168,28 @@ const buildMenuTpl = (props, suggestions) => {
     }));
   }
 
+  if (canGoBack || canGoForward) {
+    menuTpl.push({
+      type: 'separator',
+    }, {
+      id: 'goBack',
+      label: 'Go Back',
+      enabled: canGoBack,
+      click() {
+        webContents.goBack();
+      },
+    }, {
+      id: 'goForward',
+      label: 'Go Forward',
+      enabled: canGoForward,
+      click() {
+        webContents.goForward();
+      },
+    }, {
+      type: 'separator',
+    });
+  }
+
   if (isDevMode) {
     menuTpl.push({
       type: 'separator',
@@ -174,8 +199,6 @@ const buildMenuTpl = (props, suggestions) => {
       click() {
         webContents.inspectElement(props.x, props.y);
       },
-    }, {
-      type: 'separator',
     });
   }
 
