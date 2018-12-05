@@ -15,10 +15,14 @@ import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
+import { isPositionValid } from './electron/windowUtils';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
-import { DEFAULT_APP_SETTINGS } from './config';
+import {
+  DEFAULT_APP_SETTINGS,
+  DEFAULT_WINDOW_OPTIONS,
+} from './config';
 /* eslint-enable import/first */
 
 const debug = require('debug')('Franz:App');
@@ -52,6 +56,15 @@ const isSecondInstance = app.makeSingleInstance((argv) => {
       }
     }
   }
+
+  if (argv.includes('--reset-window')) {
+    // Needs to be delayed to not interfere with mainWindow.restore();
+    setTimeout(() => {
+      debug('Resetting windows via Task');
+      mainWindow.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
+      mainWindow.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+    }, 1);
+  }
 });
 
 if (isSecondInstance) {
@@ -78,14 +91,23 @@ if (!settings.get('enableGPUAcceleration')) {
 const createWindow = () => {
   // Remember window size
   const mainWindowState = windowStateKeeper({
-    defaultWidth: 800,
-    defaultHeight: 600,
+    defaultWidth: DEFAULT_WINDOW_OPTIONS.width,
+    defaultHeight: DEFAULT_WINDOW_OPTIONS.height,
   });
+
+  let posX = mainWindowState.x || DEFAULT_WINDOW_OPTIONS.x;
+  let posY = mainWindowState.y || DEFAULT_WINDOW_OPTIONS.y;
+
+  if (!isPositionValid({ x: posX, y: posY })) {
+    debug('Window is out of screen bounds, resetting window');
+    posX = DEFAULT_WINDOW_OPTIONS.x;
+    posY = DEFAULT_WINDOW_OPTIONS.y;
+  }
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    x: mainWindowState.x,
-    y: mainWindowState.y,
+    x: posX,
+    y: posY,
     width: mainWindowState.width,
     height: mainWindowState.height,
     minWidth: 600,
@@ -187,7 +209,20 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  if (process.platform === 'win32') {
+    app.setUserTasks([{
+      program: process.execPath,
+      arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
+      iconPath: path.join(`${__dirname}`, '../src/assets/images/taskbar/win32/display.ico'),
+      iconIndex: 0,
+      title: 'Move Franz to Current Display',
+      description: 'Restore the position and size of Franz',
+    }]);
+  }
+
+  createWindow();
+});
 
 // This is the worst possible implementation as the webview.webContents based callback doesn't work 🖕
 app.on('login', (event, webContents, request, authInfo, callback) => {
