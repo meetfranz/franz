@@ -1,3 +1,19 @@
+<a name="5.0.0-beta.20"></a>
+# [5.0.0-beta.20](https://github.com/meetfranz/franz/compare/v5.0.0-beta.19...v5.0.0-beta.20) (2018-12-05)
+
+
+### Features
+
+* **Context Menu:** Add "Go Back" and "Go Forward" ([5c18595](https://github.com/meetfranz/franz/commit/5c18595))
+* **Context Menu:** Add Lookup, Search Google for ([5d5aa0c](https://github.com/meetfranz/franz/commit/5d5aa0c))
+
+### Bug Fixes
+
+* **App:** Use system proxy for services ([8ddae4a](https://github.com/meetfranz/franz/commit/8ddae4a))
+* **App:** Fix service request url ([7751c17](https://github.com/meetfranz/franz/commit/7751c17))
+* **Windows:** Fix quit app, really! ([ca1d618](https://github.com/meetfranz/franz/commit/ca1d618))
+
+
 <a name="5.0.0-beta.19"></a>
 # [5.0.0-beta.19](https://github.com/meetfranz/franz/compare/v5.0.0-beta.18...v5.0.0-beta.19) (2018-12-02)
 
