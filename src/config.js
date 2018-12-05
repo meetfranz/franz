@@ -10,8 +10,6 @@ export const DEV_API = 'https://dev.franzinfra.com';
 export const LIVE_API = 'https://api.franzinfra.com';
 export const GA_ID = 'UA-74126766-10';
 
-export const HEALTHCHECK_URL = 'https://api.franzinfra.com/health';
-
 export const DEFAULT_APP_SETTINGS = {
   autoLaunchInBackground: false,
   runInBackground: true,
