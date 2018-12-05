@@ -39,6 +39,13 @@ export const DEFAULT_FEATURES_CONFIG = {
   isServiceProxyPremiumFeature: true,
 };
 
+export const DEFAULT_WINDOW_OPTIONS = {
+  width: 800,
+  height: 600,
+  x: 0,
+  y: 0,
+};
+
 export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-plugin-docs';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 
