@@ -592,7 +592,7 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(menuItems.quit),
           role: 'quit',
-          click: () => {
+          click() {
             app.quit();
           },
         },
@@ -651,6 +651,10 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(menuItems.quit),
           role: 'quit',
+          accelerator: 'Ctrl+Q',
+          click() {
+            app.quit();
+          },
         },
       ];
 
