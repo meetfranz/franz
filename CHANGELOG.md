@@ -4,14 +4,18 @@
 
 ### Features
 
+* **Windows:** Add taskbar action to reset Franz window ([08fa75a](https://github.com/meetfranz/franz/commit/08fa75a))
 * **Context Menu:** Add "Go Back" and "Go Forward" ([5c18595](https://github.com/meetfranz/franz/commit/5c18595))
 * **Context Menu:** Add Lookup, Search Google for ([5d5aa0c](https://github.com/meetfranz/franz/commit/5d5aa0c))
+* **App:** Add `--devtools` command line arg to automatically open Dev Tools ([84fc3a0](https://github.com/meetfranz/franz/commit/84fc3a0))
 
 ### Bug Fixes
 
 * **App:** Use system proxy for services ([8ddae4a](https://github.com/meetfranz/franz/commit/8ddae4a))
 * **App:** Fix service request url ([7751c17](https://github.com/meetfranz/franz/commit/7751c17))
+* **App:** Do not install App updates without user confirmation ([72fcaef](https://github.com/meetfranz/franz/commit/72fcaef))
 * **Windows:** Fix quit app, really! ([ca1d618](https://github.com/meetfranz/franz/commit/ca1d618))
+* **Context Menu:** Fix empty context menu item ([18040d4](https://github.com/meetfranz/franz/commit/18040d4))
 
 
 <a name="5.0.0-beta.19"></a>
