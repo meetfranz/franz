@@ -1,12 +1,29 @@
 {
   "presets": [
-    "@babel/env",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "electron": 2
+        }
+      }
+    ],
     "@babel/react"
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
     "@babel/proposal-export-default-from",
-    ["@babel/proposal-class-properties", { "loose": true }],
+    [
+      "@babel/proposal-class-properties",
+      {
+        "loose": true
+      }
+    ],
     "@babel/proposal-throw-expressions",
     "@babel/syntax-dynamic-import"
   ],
