@@ -1,9 +1,9 @@
 import { webFrame } from 'electron';
-import fs from 'fs';
-import path from 'path';
 import { SpellCheckerProvider } from 'electron-hunspell';
+import path from 'path';
 
 import { DICTIONARY_PATH } from '../config';
+
 
 const debug = require('debug')('Franz:spellchecker');
 
@@ -11,30 +11,20 @@ let provider;
 let currentDict;
 let _isEnabled = false;
 
-async function loadDictionaries() {
-  const rawList = fs.readdirSync(DICTIONARY_PATH);
-
-  const dicts = rawList.filter(item => !item.startsWith('.') && fs.lstatSync(path.join(DICTIONARY_PATH, item)).isDirectory());
-
-  debug('Found dictionaries', dicts);
-
-  for (let i = 0; i < dicts.length; i += 1) {
-    const fileLocation = `${DICTIONARY_PATH}/${dicts[i]}/${dicts[i]}`;
-    debug('Trying to load', fileLocation);
-    // eslint-disable-next-line
-    await provider.loadDictionary(dicts[i], `${fileLocation}.dic`, `${fileLocation}.aff`);
+async function loadDictionary(locale) {
+  try {
+    // Replacing app.asar is not beautiful but unforunately necessary
+    const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
+    console.log(fileLocation, __dirname);
+    await provider.loadDictionary(locale, `${fileLocation}.dic`, `${fileLocation}.aff`);
+  } catch (err) {
+    console.error('Could not load dictionary', err);
   }
 }
 
 export async function switchDict(locale) {
   try {
     debug('Trying to load dictionary', locale);
-
-    if (!provider.availableDictionaries.includes(locale)) {
-      console.warn('Dict not available', locale);
-
-      return;
-    }
 
     if (!provider) {
       console.warn('SpellcheckProvider not initialized');
@@ -48,6 +38,8 @@ export async function switchDict(locale) {
       return;
     }
 
+    provider.unloadDictionary(locale);
+    loadDictionary(locale);
     provider.switchDictionary(locale);
 
     debug('Switched dictionary to', locale);
@@ -66,7 +58,7 @@ export default async function initialize(languageCode = 'en-us') {
 
     debug('Init spellchecker');
     await provider.initialize();
-    await loadDictionaries();
+    // await loadDictionaries();
 
     debug('Available spellchecker dictionaries', provider.availableDictionaries);
 

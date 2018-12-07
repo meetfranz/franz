@@ -56,4 +56,5 @@ export const FILE_SYSTEM_SETTINGS_TYPES = [
 
 export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
 
-export const DICTIONARY_PATH = path.join(app.getPath('userData'), 'dicts');
+// Replacing app.asar is not beautiful but unforunately necessary
+export const DICTIONARY_PATH = path.join(__dirname, 'dictionaries').replace('app.asar', 'app.asar.unpacked');

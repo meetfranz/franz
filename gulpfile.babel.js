@@ -137,7 +137,6 @@ export function sign(done) {
 }
 
 const build = gulp.series(
-  clean,
   gulp.parallel(mvSrc, mvPackageJson),
   gulp.parallel(html, scripts, styles),
 );
