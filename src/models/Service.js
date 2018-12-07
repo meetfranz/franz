@@ -29,6 +29,7 @@ export default class Service {
   @observable hasCustomUploadedIcon = false;
   @observable hasCrashed = false;
   @observable isDarkModeEnabled = false;
+  @observable spellcheckerLanguage = null;
 
   constructor(data, recipe) {
     if (!data) {
@@ -70,6 +71,8 @@ export default class Service {
     this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
 
     this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
+
+    this.spellcheckerLanguage = data.spellcheckerLanguage !== undefined ? data.spellcheckerLanguage : this.spellcheckerLanguage;
 
     this.recipe = recipe;
 

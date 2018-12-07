@@ -25,3 +25,29 @@ export function getLocale({ locale, locales, defaultLocale, fallbackLocale }) {
 
   return localeStr;
 }
+
+export function getSelectOptions({ locales, resetToDefaultText = '' }) {
+  let options = [];
+
+  if (resetToDefaultText) {
+    options = [
+      {
+        value: '',
+        label: resetToDefaultText,
+      }, {
+        value: '───',
+        label: '───',
+        disabled: true,
+      },
+    ];
+  }
+
+  Object.keys(locales).sort(Intl.Collator().compare).forEach((key) => {
+    options.push({
+      value: key,
+      label: locales[key],
+    });
+  });
+
+  return options;
+}

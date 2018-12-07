@@ -14,6 +14,7 @@ import Input from '../../ui/Input';
 import Toggle from '../../ui/Toggle';
 import Button from '../../ui/Button';
 import ImageUpload from '../../ui/ImageUpload';
+import Select from '../../ui/Select';
 
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 
@@ -332,6 +333,12 @@ export default @observer class EditServiceForm extends Component {
                 />
               </div>
             </div>
+
+            <PremiumFeatureContainer>
+              <div className="settings__settings-group">
+                <Select field={form.$('spellcheckerLanguage')} />
+              </div>
+            </PremiumFeatureContainer>
 
             {isProxyFeatureEnabled && (
               <PremiumFeatureContainer condition={isProxyFeaturePremiumFeature}>

@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron';
 import path from 'path';
+import { observable } from 'mobx';
 
 import RecipeWebview from './lib/RecipeWebview';
 
@@ -12,6 +13,8 @@ const debug = require('debug')('Franz:Plugin');
 
 window.franzSettings = {};
 let serviceData;
+let overrideSpellcheckerLanguage = false;
+
 
 ipcRenderer.on('initializeRecipe', (e, data) => {
   const modulePath = path.join(data.recipe.path, 'webview.js');
@@ -28,6 +31,13 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
       injectDarkModeStyle(data.recipe.path);
       debug('Add dark theme styles');
     }
+
+    if (data.spellcheckerLanguage) {
+      debug('Overriding spellchecker language to', data.spellcheckerLanguage);
+      switchDict(data.spellcheckerLanguage);
+
+      overrideSpellcheckerLanguage = true;
+    }
   } catch (err) {
     debug('Recipe initialization failed', err);
   }
@@ -42,10 +52,11 @@ ipcRenderer.on('initializeRecipe', (e, data) => {
 ipcRenderer.on('settings-update', async (e, data) => {
   debug('Settings update received', data);
 
-  if (data.enableSpellchecking) {
-    switchDict(data.spellcheckerLanguage);
-  } else {
+  if (!data.enableSpellchecking) {
     disableSpellchecker();
+  } else if (!overrideSpellcheckerLanguage) {
+    debug('Setting spellchecker language based on app settings to', data.spellcheckerLanguage);
+    switchDict(data.spellcheckerLanguage);
   }
 
   window.franzSettings = data;
@@ -53,6 +64,8 @@ ipcRenderer.on('settings-update', async (e, data) => {
 
 ipcRenderer.on('service-settings-update', (e, data) => {
   debug('Service settings update received', data);
+
+  serviceData = data;
 
   if (data.isDarkModeEnabled && !isDarkModeStyleInjected()) {
     injectDarkModeStyle(serviceData.recipe.path);
@@ -62,6 +75,18 @@ ipcRenderer.on('service-settings-update', (e, data) => {
     removeDarkModeStyle();
 
     debug('Disable service dark mode');
+  }
+
+  if (data.spellcheckerLanguage) {
+    debug('Overriding spellchecker language to', data.spellcheckerLanguage);
+    switchDict(data.spellcheckerLanguage);
+
+    overrideSpellcheckerLanguage = true;
+  } else {
+    debug('Going back to default spellchecker language to', window.franzSettings.spellcheckerLanguage);
+    switchDict(window.franzSettings.spellcheckerLanguage);
+
+    overrideSpellcheckerLanguage = false;
   }
 });
 

@@ -13,9 +13,7 @@ let _isEnabled = false;
 
 async function loadDictionary(locale) {
   try {
-    // Replacing app.asar is not beautiful but unforunately necessary
     const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
-    console.log(fileLocation, __dirname);
     await provider.loadDictionary(locale, `${fileLocation}.dic`, `${fileLocation}.aff`);
   } catch (err) {
     console.error('Could not load dictionary', err);

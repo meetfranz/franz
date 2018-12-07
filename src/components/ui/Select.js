@@ -9,12 +9,14 @@ export default @observer class Select extends Component {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
     showLabel: PropTypes.bool,
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
     focus: false,
     showLabel: true,
+    disabled: false,
   };
 
   render() {
@@ -22,13 +24,17 @@ export default @observer class Select extends Component {
       field,
       className,
       showLabel,
+      disabled,
     } = this.props;
+
+    console.log('disabled', disabled);
 
     return (
       <div
         className={classnames({
           'franz-form__field': true,
           'has-error': field.error,
+          'is-disabled': disabled,
           [`${className}`]: className,
         })}
       >
@@ -45,12 +51,13 @@ export default @observer class Select extends Component {
           id={field.id}
           defaultValue={field.value}
           className="franz-form__select"
+          disabled={field.disabled || disabled}
         >
           {field.options.map(type => (
             <option
               key={type.value}
               value={type.value}
-              // selected={field.value === }
+              disabled={type.disabled}
             >
               {type.label}
             </option>
