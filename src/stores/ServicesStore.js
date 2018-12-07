@@ -400,6 +400,18 @@ export default class ServicesStore extends Store {
       const url = args[0];
 
       this.actions.app.openExternalUrl({ url });
+    } else if (channel === 'set-service-spellchecker-language') {
+      if (!args) {
+        console.warn('Did not receive locale');
+      } else {
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            spellcheckerLanguage: args[0] === 'reset' ? '' : args[0],
+          },
+          redirect: false,
+        });
+      }
     }
   }
 
@@ -625,7 +637,7 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (service.webview) {
-      service.webview.send('initializeRecipe', service);
+      service.webview.send('initialize-recipe', service);
     }
   }
 

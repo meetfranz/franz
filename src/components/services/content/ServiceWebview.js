@@ -96,7 +96,7 @@ export default @observer class ServiceWebview extends Component {
             ref={(element) => { this.webview = element; }}
             autosize
             src={service.url}
-            preload="./webview/plugin.js"
+            preload="./webview/recipe.js"
             partition={`persist:service-${service.id}`}
             onDidAttach={() => setWebviewReference({
               serviceId: service.id,
