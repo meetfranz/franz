@@ -163,7 +163,10 @@ export default class Service {
 
     this.webview.addEventListener('did-stop-loading', () => {
       this.isLoading = false;
-      this.isFirstLoad = false;
+
+      if (!this.isError) {
+        this.isFirstLoad = false;
+      }
     });
 
     this.webview.addEventListener('did-fail-load', (event) => {
