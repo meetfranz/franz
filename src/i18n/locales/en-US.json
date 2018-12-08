@@ -139,6 +139,8 @@
   "settings.service.form.proxy.user": "User (optional)",
   "settings.service.form.proxy.password": "Password (optional)",
   "settings.service.form.proxy.info": "Proxy settings will not synced with the Franz servers.",
+  "settings.service.form.spellcheckerLanguage": "Spell checking Language",
+  "settings.service.form.spellcheckerLanguage.default": "Use System Default ({default})",
   "settings.service.error.headline": "Error",
   "settings.service.error.goBack": "Back to services",
   "settings.service.error.message": "Could not load service recipe.",
