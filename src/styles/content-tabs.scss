@@ -1,5 +1,21 @@
 @import './config.scss';
 
+.theme__dark {
+  .content-tabs {
+    .content-tabs__content {
+      background: $dark-theme-gray-darker;
+    }
+
+    .content-tabs__tabs {
+      .content-tabs__item {
+        background: $dark-theme-gray;
+        color: #FFF;
+        border: 0;
+      }
+    }
+  }
+}
+
 .content-tabs {
   .content-tabs__tabs {
     border-top-left-radius: $theme-border-radius-small;
