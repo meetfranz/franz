@@ -2,6 +2,8 @@ import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
+const debug = require('debug')('Franz:Service');
+
 export default class Service {
   id = '';
   recipe = '';
@@ -30,6 +32,11 @@ export default class Service {
   @observable hasCrashed = false;
   @observable isDarkModeEnabled = false;
   @observable spellcheckerLanguage = null;
+
+  // @observable isFirstNavigation = true;
+  @observable isLoading = true;
+  @observable isError = false;
+  @observable errorMessage = '';
 
   constructor(data, recipe) {
     if (!data) {
@@ -150,9 +157,25 @@ export default class Service {
 
     this.webview.addEventListener('did-start-loading', () => {
       this.hasCrashed = false;
+      this.isLoading = true;
+      this.isError = false;
+    });
+
+    this.webview.addEventListener('did-stop-loading', () => {
+      this.isLoading = false;
+    });
+
+    this.webview.addEventListener('did-fail-load', (event) => {
+      debug('Service failed to load', this.name, event);
+      if (event.isMainFrame) {
+        this.isError = true;
+        this.errorMessage = event.errorDescription;
+        this.isLoading = false;
+      }
     });
 
     this.webview.addEventListener('crashed', () => {
+      debug('Service crashed', this.name);
       this.hasCrashed = true;
     });
   }

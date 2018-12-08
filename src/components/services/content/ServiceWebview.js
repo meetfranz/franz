@@ -7,7 +7,9 @@ import classnames from 'classnames';
 
 import ServiceModel from '../../../models/Service';
 import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
+import WebviewLoader from '../../ui/WebviewLoader';
 import WebviewCrashHandler from './WebviewCrashHandler';
+import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
 
 export default @observer class ServiceWebview extends Component {
@@ -15,6 +17,7 @@ export default @observer class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    edit: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
     enable: PropTypes.func.isRequired,
   };
@@ -58,6 +61,7 @@ export default @observer class ServiceWebview extends Component {
       service,
       setWebviewReference,
       reload,
+      edit,
       isAppMuted,
       enable,
     } = this.props;
@@ -83,6 +87,20 @@ export default @observer class ServiceWebview extends Component {
             name={service.recipe.name}
             webview={service.webview}
             reload={reload}
+          />
+        )}
+        {service.isLoading && (
+          <WebviewLoader
+            loaded={!service.isLoading}
+            name={service.name}
+          />
+        )}
+        {service.isError && (
+          <WebviewErrorHandler
+            name={service.recipe.name}
+            errorMessage={service.errorMessage}
+            reload={reload}
+            edit={edit}
           />
         )}
         {!service.isEnabled ? (

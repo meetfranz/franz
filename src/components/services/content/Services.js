@@ -25,6 +25,7 @@ export default @observer class Services extends Component {
     handleIPCMessage: PropTypes.func.isRequired,
     openWindow: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    openSettings: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
     update: PropTypes.func.isRequired,
   };
@@ -45,6 +46,7 @@ export default @observer class Services extends Component {
       setWebviewReference,
       openWindow,
       reload,
+      openSettings,
       isAppMuted,
       update,
     } = this.props;
@@ -79,6 +81,7 @@ export default @observer class Services extends Component {
             setWebviewReference={setWebviewReference}
             openWindow={openWindow}
             reload={() => reload({ serviceId: service.id })}
+            edit={() => openSettings({ path: `services/edit/${service.id}` })}
             isAppMuted={isAppMuted}
             enable={() => update({
               serviceId: service.id,
