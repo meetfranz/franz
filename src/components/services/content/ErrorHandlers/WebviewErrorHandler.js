@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
   errorMessage: {
     id: 'service.errorHandler.message',
-    defaultMessage: '!!!Error: {error}',
+    defaultMessage: '!!!Error:',
   },
 });
 
@@ -58,9 +58,7 @@ export default @injectSheet(styles) @observer class WebviewCrashHandler extends 
       <div className={classes.component}>
         <h1>{intl.formatMessage(messages.headline)}</h1>
         <p>{intl.formatMessage(messages.text, { name })}</p>
-        <p>{intl.formatMessage(messages.errorMessage, {
-          error: errorMessage,
-        })}</p>
+        <p><strong>{intl.formatMessage(messages.errorMessage)}:</strong> {errorMessage}</p>
         <div className={classes.buttonContainer}>
           <Button
             label={intl.formatMessage(messages.editAction, { name })}
