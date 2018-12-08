@@ -4,7 +4,6 @@ import path from 'path';
 
 import { DICTIONARY_PATH } from '../config';
 
-
 const debug = require('debug')('Franz:spellchecker');
 
 let provider;
@@ -15,6 +14,7 @@ async function loadDictionary(locale) {
   try {
     const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
     await provider.loadDictionary(locale, `${fileLocation}.dic`, `${fileLocation}.aff`);
+    debug('Loaded dictionary', locale, 'from', fileLocation);
   } catch (err) {
     console.error('Could not load dictionary', err);
   }
@@ -36,7 +36,9 @@ export async function switchDict(locale) {
       return;
     }
 
-    provider.unloadDictionary(locale);
+    if (currentDict) {
+      provider.unloadDictionary(locale);
+    }
     loadDictionary(locale);
     provider.switchDictionary(locale);
 

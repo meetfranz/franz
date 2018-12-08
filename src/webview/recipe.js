@@ -9,13 +9,18 @@ import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } fro
 import contextMenu from './contextMenu';
 import './notifications';
 
+import { DEFAULT_APP_SETTINGS } from '../config';
+
 const debug = require('debug')('Franz:Plugin');
 
 class RecipeController {
   @observable settings = {
     overrideSpellcheckerLanguage: false,
-    app: {},
-    service: {},
+    app: DEFAULT_APP_SETTINGS,
+    service: {
+      isDarkModeEnabled: false,
+      spellcheckerLanguage: '',
+    },
   };
 
   spellcheckProvider = null;
@@ -49,6 +54,7 @@ class RecipeController {
     this.spellcheckingProvider = await spellchecker();
     contextMenu(
       this.spellcheckingProvider,
+      () => this.settings.app.enableSpellchecking,
       () => this.settings.app.spellcheckerLanguage,
       () => this.spellcheckerLanguage);
 
@@ -81,10 +87,10 @@ class RecipeController {
       debug('Setting spellchecker language to', this.spellcheckerLanguage);
       switchDict(this.spellcheckerLanguage);
     } else {
+      debug('Disable spellchecker');
       disableSpellchecker();
     }
 
-    console.log(this.settings.service);
     if (this.settings.service.isDarkModeEnabled) {
       debug('Enable dark mode');
       injectDarkModeStyle(this.settings.service.recipe.path);

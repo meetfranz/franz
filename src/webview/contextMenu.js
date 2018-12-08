@@ -22,7 +22,7 @@ function delUnusedElements(menuTpl) {
   });
 }
 
-const buildMenuTpl = (props, suggestions, defaultSpellcheckerLanguage, spellcheckerLanguage) => {
+const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheckerLanguage, spellcheckerLanguage) => {
   const { editFlags } = props;
   const textSelection = props.selectionText.trim();
   const hasText = textSelection.length > 0;
@@ -205,11 +205,14 @@ const buildMenuTpl = (props, suggestions, defaultSpellcheckerLanguage, spellchec
     });
   });
 
+  console.log('isSpellcheckEnabled', isSpellcheckEnabled);
+
   menuTpl.push({
     type: 'separator',
   }, {
     id: 'spellchecker',
-    label: 'Spellchecker',
+    label: 'Spell Checking',
+    visible: isSpellcheckEnabled,
     submenu: [
       {
         id: 'spellchecker',
@@ -222,6 +225,7 @@ const buildMenuTpl = (props, suggestions, defaultSpellcheckerLanguage, spellchec
         id: 'resetToDefault',
         label: `Reset to system default (${SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
         type: 'radio',
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
         click() {
           debug('Resetting service spellchecker to system default');
           ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
@@ -229,6 +233,7 @@ const buildMenuTpl = (props, suggestions, defaultSpellcheckerLanguage, spellchec
       },
       {
         type: 'separator',
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
       },
       ...spellcheckingLanguages],
   });
@@ -249,7 +254,7 @@ const buildMenuTpl = (props, suggestions, defaultSpellcheckerLanguage, spellchec
   return delUnusedElements(menuTpl);
 };
 
-export default function contextMenu(spellcheckProvider, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
+export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
   webContents.on('context-menu', (e, props) => {
     e.preventDefault();
 
@@ -264,6 +269,7 @@ export default function contextMenu(spellcheckProvider, getDefaultSpellcheckerLa
       buildMenuTpl(
         props,
         suggestions.slice(0, 5),
+        isSpellcheckEnabled(),
         getDefaultSpellcheckerLanguage(),
         getSpellcheckerLanguage(),
       ),
