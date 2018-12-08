@@ -32,7 +32,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   componentDidMount() {
     gaPage('Settings/Recipe Dashboard/Featured');
 
-    autorun(() => {
+    this.autorunDisposer = autorun(() => {
       const { filter } = this.props.params;
       const { currentFilter } = this.state;
 
@@ -51,7 +51,10 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
   componentWillUnmount() {
     this.props.stores.services.resetStatus();
+    this.autorunDisposer();
   }
+
+  autorunDisposer = null;
 
   searchRecipes(needle) {
     if (needle === '') {

@@ -33,7 +33,7 @@ export default @observer class ServiceWebview extends Component {
   };
 
   componentDidMount() {
-    autorun(() => {
+    this.autorunDisposer = autorun(() => {
       if (this.props.service.isActive) {
         this.setState({ forceRepaint: true });
         setTimeout(() => {
@@ -41,6 +41,10 @@ export default @observer class ServiceWebview extends Component {
         }, 100);
       }
     });
+  }
+
+  componentWillUnmount() {
+    this.autorunDisposer();
   }
 
   updateTargetUrl = (event) => {
@@ -54,6 +58,7 @@ export default @observer class ServiceWebview extends Component {
     });
   }
 
+  autorunDisposer = null;
   webview = null;
 
   render() {
