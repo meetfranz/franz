@@ -33,7 +33,7 @@ export default class Service {
   @observable isDarkModeEnabled = false;
   @observable spellcheckerLanguage = null;
 
-  // @observable isFirstNavigation = true;
+  @observable isFirstLoad = true;
   @observable isLoading = true;
   @observable isError = false;
   @observable errorMessage = '';
@@ -163,6 +163,7 @@ export default class Service {
 
     this.webview.addEventListener('did-stop-loading', () => {
       this.isLoading = false;
+      this.isFirstLoad = false;
     });
 
     this.webview.addEventListener('did-fail-load', (event) => {
