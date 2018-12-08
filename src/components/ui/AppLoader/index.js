@@ -53,7 +53,7 @@ export default @injectSheet(styles) class AppLoader extends Component {
       >
         {textList.map((text, i) => (
           <span
-            key={i}
+            key={text}
             className={classnames({
               [`${classes.slogan}`]: true,
               [`${classes.visible}`]: step === i,
