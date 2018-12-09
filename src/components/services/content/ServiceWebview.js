@@ -96,7 +96,7 @@ export default @observer class ServiceWebview extends Component {
             reload={reload}
           />
         )}
-        {service.isLoading && service.isFirstLoad && (
+        {service.isEnabled && service.isLoading && service.isFirstLoad && (
           <WebviewLoader
             loaded={!service.isLoading}
             name={service.name}
