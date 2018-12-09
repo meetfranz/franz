@@ -97,7 +97,7 @@ const messages = defineMessages({
   },
   headlineProxy: {
     id: 'settings.service.form.proxy.headline',
-    defaultMessage: '!!!Proxy Settings',
+    defaultMessage: '!!!HTTP/HTTPS Proxy Settings',
   },
   proxyInfo: {
     id: 'settings.service.form.proxy.info',
@@ -351,7 +351,12 @@ export default @observer class EditServiceForm extends Component {
                   <Toggle field={form.$('proxy.isEnabled')} />
                   {form.$('proxy.isEnabled').value && (
                     <Fragment>
-                      <Input field={form.$('proxy.host')} />
+                      <div className="grid">
+                        <div className="grid__row">
+                          <Input field={form.$('proxy.host')} className="proxyHost" />
+                          <Input field={form.$('proxy.port')} />
+                        </div>
+                      </div>
                       <Input field={form.$('proxy.user')} />
                       <Input
                         field={form.$('proxy.password')}

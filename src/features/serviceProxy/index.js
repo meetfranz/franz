@@ -34,7 +34,7 @@ export default function init(stores) {
         const serviceProxyConfig = proxySettings[service.id];
 
         if (serviceProxyConfig && serviceProxyConfig.isEnabled && serviceProxyConfig.host) {
-          const proxyHost = serviceProxyConfig.host;
+          const proxyHost = `${serviceProxyConfig.host}${serviceProxyConfig.port ? `:${serviceProxyConfig.port}` : ''}`;
           debug(`Setting proxy config from service settings for "${service.name}" (${service.id}) to`, proxyHost);
 
           s.setProxy({ proxyRules: proxyHost }, () => {

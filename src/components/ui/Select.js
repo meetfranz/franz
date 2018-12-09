@@ -26,8 +26,6 @@ export default @observer class Select extends Component {
       disabled,
     } = this.props;
 
-    console.log('disabled', disabled);
-
     return (
       <div
         className={classnames({

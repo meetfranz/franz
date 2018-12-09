@@ -147,7 +147,6 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
           // user={user.data}
           status={user.actionStatus}
           form={form}
-          isEnterprise={user.data.isEnterprise}
           isSaving={user.updateUserInfoRequest.isExecuting}
           onSubmit={d => this.onSubmit(d)}
         />

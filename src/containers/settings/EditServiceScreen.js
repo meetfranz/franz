@@ -71,6 +71,10 @@ const messages = defineMessages({
     id: 'settings.service.form.proxy.host',
     defaultMessage: '!!!Proxy Host/IP',
   },
+  proxyPort: {
+    id: 'settings.service.form.proxy.port',
+    defaultMessage: '!!!Port',
+  },
   proxyUser: {
     id: 'settings.service.form.proxy.user',
     defaultMessage: '!!!User',
@@ -231,6 +235,11 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
             host: {
               label: intl.formatMessage(messages.proxyHost),
               value: serviceProxyConfig.host,
+              default: '',
+            },
+            port: {
+              label: intl.formatMessage(messages.proxyPort),
+              value: serviceProxyConfig.port,
               default: '',
             },
             user: {
