@@ -1,5 +1,7 @@
 import { ipcRenderer } from 'electron';
-import { action, computed, observable } from 'mobx';
+import {
+  action, computed, observable, set,
+} from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import Store from './lib/Store';
@@ -17,7 +19,7 @@ export default class SettingsStore extends Store {
 
   @observable updateAppSettingsRequest = new Request(this.api.local, 'updateAppSettings');
 
-  @observable fileSystemSettingsRequests = [];
+  fileSystemSettingsRequests = [];
 
   fileSystemSettingsTypes = FILE_SYSTEM_SETTINGS_TYPES;
 
@@ -115,7 +117,7 @@ export default class SettingsStore extends Store {
         data,
       });
 
-      Object.assign(this._fileSystemSettingsCache[type], data);
+      set(this._fileSystemSettingsCache[type], data);
     }
   }
 
