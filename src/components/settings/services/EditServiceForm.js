@@ -99,6 +99,10 @@ const messages = defineMessages({
     id: 'settings.service.form.proxy.headline',
     defaultMessage: '!!!HTTP/HTTPS Proxy Settings',
   },
+  proxyRestartInfo: {
+    id: 'settings.service.form.proxy.restartInfo',
+    defaultMessage: '!!!Please restart Franz after changing proxy Settings.',
+  },
   proxyInfo: {
     id: 'settings.service.form.proxy.info',
     defaultMessage: '!!!Proxy settings will not be synchronized with the Franz servers.',
@@ -362,6 +366,10 @@ export default @observer class EditServiceForm extends Component {
                         field={form.$('proxy.password')}
                         showPasswordToggle
                       />
+                      <p>
+                        <span className="mdi mdi-information" />
+                        {intl.formatMessage(messages.proxyRestartInfo)}
+                      </p>
                       <p>
                         <span className="mdi mdi-information" />
                         {intl.formatMessage(messages.proxyInfo)}
