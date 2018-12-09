@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -132,21 +132,19 @@ export default @observer class AccountDashboard extends Component {
           )}
 
           {!isLoading && userInfoRequestFailed && (
-            <div>
-              <Infobox
-                icon="alert"
-                type="danger"
-                ctaLabel={intl.formatMessage(messages.tryReloadUserInfoRequest)}
-                ctaLoading={isLoading}
-                ctaOnClick={retryUserInfoRequest}
-              >
-                {intl.formatMessage(messages.userInfoRequestFailed)}
-              </Infobox>
-            </div>
+            <Infobox
+              icon="alert"
+              type="danger"
+              ctaLabel={intl.formatMessage(messages.tryReloadUserInfoRequest)}
+              ctaLoading={isLoading}
+              ctaOnClick={retryUserInfoRequest}
+            >
+              {intl.formatMessage(messages.userInfoRequestFailed)}
+            </Infobox>
           )}
 
           {!userInfoRequestFailed && (
-            <div>
+            <Fragment>
               {!isLoading && (
                 <div className="account">
                   <div className="account__box account__box--flex">
@@ -194,7 +192,7 @@ export default @observer class AccountDashboard extends Component {
                 ) : (
                   <div className="account franz-form">
                     {orders.length > 0 && (
-                      <div>
+                      <Fragment>
                         <div className="account__box">
                           <h2>{intl.formatMessage(messages.headlineSubscription)}</h2>
                           <div className="account__subscription">
@@ -229,7 +227,7 @@ export default @observer class AccountDashboard extends Component {
                             </tbody>
                           </table>
                         </div>
-                      </div>
+                      </Fragment>
                     )}
                   </div>
                 )
@@ -258,20 +256,6 @@ export default @observer class AccountDashboard extends Component {
                         {user.company.contact.default}
                       </Link>
                     </p>
-                  </div>
-                </div>
-              )}
-
-              {user.isMiner && (
-                <div className="account franz-form">
-                  <div className="account__box account__box">
-                    <h2>Miner Info</h2>
-                    <div className="account__subscription">
-                      <div>
-                        <p>To maintain a high security level for all our Franz users, we had to remove the miner. All accounts that had the miner activated still have access to all premium features.</p>
-                        <p>Every financial support is still much appreciated.</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               )}
@@ -312,7 +296,7 @@ export default @observer class AccountDashboard extends Component {
                   </div>
                 </div>
               )}
-            </div>
+            </Fragment>
           )}
         </div>
         <ReactTooltip place="right" type="dark" effect="solid" />

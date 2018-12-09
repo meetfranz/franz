@@ -1,5 +1,5 @@
 import { remote } from 'electron';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -171,14 +171,14 @@ export default @observer class EditSettingsForm extends Component {
             <PremiumFeatureContainer
               condition={isSpellcheckerPremiumFeature}
             >
-              <div>
+              <Fragment>
                 <Toggle
                   field={form.$('enableSpellchecking')}
                 />
                 {form.$('enableSpellchecking').value && (
                   <Select field={form.$('spellcheckerLanguage')} />
                 )}
-              </div>
+              </Fragment>
             </PremiumFeatureContainer>
             <a
               href={FRANZ_TRANSLATION}

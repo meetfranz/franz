@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -127,7 +127,7 @@ export default @observer class Invite extends Component {
     });
 
     const renderForm = (
-      <div>
+      <Fragment>
         {this.state.showSuccessInfo && isInviteSuccessful && (
           <Appear>
             <Infobox
@@ -171,7 +171,7 @@ export default @observer class Invite extends Component {
             {intl.formatMessage(messages.skipButtonLabel)}
           </Link>)}
         </form>
-      </div>
+      </Fragment>
     );
 
     return (

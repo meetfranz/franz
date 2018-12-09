@@ -11,10 +11,7 @@ import Button from '../ui/Button';
 import Link from '../ui/Link';
 import Infobox from '../ui/Infobox';
 
-
 import { globalError as globalErrorPropType } from '../../prop-types';
-
-// import Appear from '../ui/effects/Appear';
 
 const messages = defineMessages({
   headline: {

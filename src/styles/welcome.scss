@@ -1,9 +1,12 @@
 .auth .welcome {
+  height: auto;
+  
   &__content {
     align-items: center;
     color: #FFF;
     display: flex;
     justify-content: center;
+    height: auto;
   }
 
   &__logo { width: 100px; }
@@ -37,6 +40,7 @@
     display: block;
     margin-top: 100px;
     text-align: center;
+    height: auto;
 
     .button:first-of-type { margin-right: 25px; }
   }
@@ -71,6 +75,7 @@
     padding: 20px 20px 5px;
     text-align: center;
     width: 480px;
+    height: auto;
   }
 
   &__featured-service {

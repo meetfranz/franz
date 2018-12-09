@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router';
@@ -271,14 +271,14 @@ export default @observer class EditServiceForm extends Component {
                 {recipe.hasCustomUrl && (
                   <TabItem title={intl.formatMessage(messages.tabOnPremise)}>
                     {user.isPremium || recipe.author.find(a => a.email === user.email) ? (
-                      <div>
+                      <Fragment>
                         <Input field={form.$('customUrl')} />
                         {form.error === 'url-validation-error' && (
                           <p className="franz-form__error">
                             {intl.formatMessage(messages.customUrlValidationError, { name: recipe.name })}
                           </p>
                         )}
-                      </div>
+                      </Fragment>
                     ) : (
                       <div className="center premium-info">
                         <p>{intl.formatMessage(messages.customUrlPremiumInfo)}</p>
@@ -308,12 +308,12 @@ export default @observer class EditServiceForm extends Component {
                   <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
                   <Toggle field={form.$('isBadgeEnabled')} />
                   {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
-                    <div>
+                    <Fragment>
                       <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
                       <p className="settings__help">
                         {intl.formatMessage(messages.indirectMessageInfo)}
                       </p>
-                    </div>
+                    </Fragment>
                   )}
                 </div>
 
@@ -349,7 +349,7 @@ export default @observer class EditServiceForm extends Component {
                   </h3>
                   <Toggle field={form.$('proxy.isEnabled')} />
                   {form.$('proxy.isEnabled').value && (
-                    <div>
+                    <Fragment>
                       <Input field={form.$('proxy.host')} />
                       <Input field={form.$('proxy.user')} />
                       <Input
@@ -360,7 +360,7 @@ export default @observer class EditServiceForm extends Component {
                         <span className="mdi mdi-information" />
                         {intl.formatMessage(messages.proxyInfo)}
                       </p>
-                    </div>
+                    </Fragment>
                   )}
                 </div>
               </PremiumFeatureContainer>

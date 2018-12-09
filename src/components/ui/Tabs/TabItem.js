@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { oneOrManyChildElements } from '../../../prop-types';
 
@@ -11,7 +11,7 @@ export default class TabItem extends Component {
     const { children } = this.props;
 
     return (
-      <div>{children}</div>
+      <Fragment>{children}</Fragment>
     );
   }
 }

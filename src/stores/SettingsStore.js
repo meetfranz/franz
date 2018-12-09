@@ -57,6 +57,21 @@ export default class SettingsStore extends Store {
   }
 
   @computed get proxy() {
+    // // We need to provide the final data structure as mobx autoruns won't work
+    // const proxySettings = observable({});
+    // this.stores.services.all.forEach((service) => {
+    //   proxySettings[service.id] = {
+    //     isEnabled: false,
+    //     host: null,
+    //     user: null,
+    //     password: null,
+    //   };
+    // });
+
+    // debug('this._fileSystemSettingsCache.proxy', this._fileSystemSettingsCache.proxy, proxySettings);
+
+    // return Object.assign(proxySettings, this._fileSystemSettingsCache.proxy);
+
     return this._fileSystemSettingsCache.proxy || {};
   }
 

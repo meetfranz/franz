@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -158,35 +158,33 @@ export default @observer class SubscriptionForm extends Component {
         <Radio field={this.form.$('paymentTier')} showLabel={false} className="paymentTiers" />
         {!hideInfo && (
           <div className="subscription__premium-info">
-            <div>
-              <p>
-                <strong>{intl.formatMessage(messages.includedFeatures)}</strong>
-              </p>
-              <div className="subscription">
-                <ul className="subscription__premium-features">
-                  <li>{intl.formatMessage(messages.features.onpremise)}</li>
-                  <li>
-                    {intl.formatMessage(messages.features.noInterruptions)}
-                  </li>
-                  <li>
-                    {intl.formatMessage(messages.features.spellchecker)}
-                  </li>
-                  <li>
-                    {intl.formatMessage(messages.features.proxy)}
-                  </li>
-                  <li>
-                    {intl.formatMessage(messages.features.ads)}
-                  </li>
-                </ul>
-              </div>
+            <p>
+              <strong>{intl.formatMessage(messages.includedFeatures)}</strong>
+            </p>
+            <div className="subscription">
+              <ul className="subscription__premium-features">
+                <li>{intl.formatMessage(messages.features.onpremise)}</li>
+                <li>
+                  {intl.formatMessage(messages.features.noInterruptions)}
+                </li>
+                <li>
+                  {intl.formatMessage(messages.features.spellchecker)}
+                </li>
+                <li>
+                  {intl.formatMessage(messages.features.proxy)}
+                </li>
+                <li>
+                  {intl.formatMessage(messages.features.ads)}
+                </li>
+              </ul>
             </div>
           </div>
         )}
-        <div>
+        <Fragment>
           {error.code === 'no-payment-session' && (
             <p className="error-message center">{intl.formatMessage(messages.paymentSessionError)}</p>
           )}
-        </div>
+        </Fragment>
         {showSkipOption && this.form.$('paymentTier').value === 'skip' ? (
           <Button
             label={skipButtonLabel}
