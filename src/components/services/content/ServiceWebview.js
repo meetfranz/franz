@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
 import { observer } from 'mobx-react';
@@ -89,33 +89,41 @@ export default @observer class ServiceWebview extends Component {
 
     return (
       <div className={webviewClasses}>
-        {service.hasCrashed && (
-          <WebviewCrashHandler
-            name={service.recipe.name}
-            webview={service.webview}
-            reload={reload}
-          />
-        )}
-        {service.isEnabled && service.isLoading && service.isFirstLoad && (
-          <WebviewLoader
-            loaded={!service.isLoading}
-            name={service.name}
-          />
-        )}
-        {service.isError && (
-          <WebviewErrorHandler
-            name={service.recipe.name}
-            errorMessage={service.errorMessage}
-            reload={reload}
-            edit={edit}
-          />
+        {service.isActive && (
+          <Fragment>
+            {service.hasCrashed && (
+              <WebviewCrashHandler
+                name={service.recipe.name}
+                webview={service.webview}
+                reload={reload}
+              />
+            )}
+            {service.isEnabled && service.isLoading && service.isFirstLoad && (
+              <WebviewLoader
+                loaded={!service.isLoading}
+                name={service.name}
+              />
+            )}
+            {service.isError && (
+              <WebviewErrorHandler
+                name={service.recipe.name}
+                errorMessage={service.errorMessage}
+                reload={reload}
+                edit={edit}
+              />
+            )}
+          </Fragment>
         )}
         {!service.isEnabled ? (
-          <ServiceDisabled
-            name={service.recipe.name}
-            webview={service.webview}
-            enable={enable}
-          />
+          <Fragment>
+            {service.isActive && (
+              <ServiceDisabled
+                name={service.recipe.name}
+                webview={service.webview}
+                enable={enable}
+              />
+            )}
+          </Fragment>
         ) : (
           <Webview
             ref={(element) => { this.webview = element; }}
