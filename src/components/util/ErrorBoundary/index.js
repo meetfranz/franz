@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { defineMessages, intlShape } from 'react-intl';
 
-import Button from '../../ui/Button'; 
+import Button from '../../ui/Button';
 
 import styles from './styles';
 
@@ -22,16 +23,21 @@ export default @injectSheet(styles) class ErrorBoundary extends Component {
     hasError: false,
   }
 
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+  }
+
   static contextTypes = {
     intl: intlShape,
   };
 
-  componentDidCatch(error, info) {
+  componentDidCatch() {
     this.setState({ hasError: true });
   }
 
   render() {
-    const { classes } = this.props; 
+    const { classes } = this.props;
     const { intl } = this.context;
 
     if (this.state.hasError) {
@@ -40,10 +46,10 @@ export default @injectSheet(styles) class ErrorBoundary extends Component {
           <h1 className={classes.title}>
             {intl.formatMessage(messages.headline)}
           </h1>
-          <Button 
+          <Button
             label={intl.formatMessage(messages.action)}
             buttonType="inverted"
-            onClick={() => location.reload()}
+            onClick={() => window.location.reload()}
           />
         </div>
       );

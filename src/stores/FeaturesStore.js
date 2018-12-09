@@ -11,6 +11,7 @@ import { DEFAULT_FEATURES_CONFIG } from '../config';
 
 export default class FeaturesStore extends Store {
   @observable defaultFeaturesRequest = new CachedRequest(this.api.features, 'default');
+
   @observable featuresRequest = new CachedRequest(this.api.features, 'features');
 
   async setup() {

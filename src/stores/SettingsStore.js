@@ -14,11 +14,13 @@ const debug = require('debug')('Franz:SettingsStore');
 
 export default class SettingsStore extends Store {
   @observable appSettingsRequest = new CachedRequest(this.api.local, 'getAppSettings');
+
   @observable updateAppSettingsRequest = new Request(this.api.local, 'updateAppSettings');
 
   @observable fileSystemSettingsRequests = [];
 
   fileSystemSettingsTypes = FILE_SYSTEM_SETTINGS_TYPES;
+
   @observable _fileSystemSettingsCache = {
     app: DEFAULT_APP_SETTINGS,
     proxy: {},

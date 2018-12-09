@@ -141,11 +141,13 @@ export default @observer class Invite extends Component {
         )}
 
         <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
-          {!embed && (<img
-            src="./assets/images/logo.svg"
-            className="auth__logo"
-            alt=""
-          />)}
+          {!embed && (
+            <img
+              src="./assets/images/logo.svg"
+              className="auth__logo"
+              alt=""
+            />
+          )}
           <h1 className={embed && 'invite__embed'}>
             {intl.formatMessage(messages.headline)}
           </h1>
@@ -164,12 +166,14 @@ export default @observer class Invite extends Component {
             label={intl.formatMessage(messages.submitButtonLabel)}
             loaded={!isLoadingInvite}
           />
-          {!embed && (<Link
-            to="/"
-            className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
-          >
-            {intl.formatMessage(messages.skipButtonLabel)}
-          </Link>)}
+          {!embed && (
+            <Link
+              to="/"
+              className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
+            >
+              {intl.formatMessage(messages.skipButtonLabel)}
+            </Link>
+          )}
         </form>
       </Fragment>
     );

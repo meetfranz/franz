@@ -48,10 +48,6 @@ export default @observer class EditServiceForm extends Component {
     isEnterprise: PropTypes.bool.isRequired,
   };
 
-  static defaultProps = {
-    service: {},
-  };
-
   static contextTypes = {
     intl: intlShape,
   };

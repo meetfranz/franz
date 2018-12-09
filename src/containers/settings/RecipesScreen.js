@@ -16,7 +16,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   static propTypes = {
     params: PropTypes.shape({
       filter: PropTypes.string,
-    }).isRequired,
+    }),
   };
 
   static defaultProps = {
@@ -29,6 +29,8 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     needle: null,
     currentFilter: 'featured',
   };
+
+  autorunDisposer = null;
 
   componentDidMount() {
     gaPage('Settings/Recipe Dashboard/Featured');
@@ -55,8 +57,6 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     this.autorunDisposer();
   }
 
-  autorunDisposer = null;
-
   searchRecipes(needle) {
     if (needle === '') {
       this.resetSearch();
@@ -72,7 +72,9 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   }
 
   render() {
-    const { recipePreviews, recipes, services, user } = this.props.stores;
+    const {
+      recipePreviews, recipes, services, user,
+    } = this.props.stores;
     const { showAddServiceInterface } = this.props.actions.service;
 
     const { filter } = this.props.params;

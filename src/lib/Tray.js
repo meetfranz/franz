@@ -1,4 +1,6 @@
-import { app, Tray, Menu, systemPreferences, nativeImage } from 'electron';
+import {
+  app, Tray, Menu, systemPreferences, nativeImage,
+} from 'electron';
 import path from 'path';
 
 const FILE_EXTENSION = process.platform === 'win32' ? 'ico' : 'png';
@@ -7,7 +9,9 @@ const INDICATOR_TRAY_UNREAD = 'tray-unread';
 
 export default class TrayIcon {
   trayIcon = null;
+
   indicator = 0;
+
   themeChangeSubscriberId = null;
 
   show() {
@@ -79,7 +83,7 @@ export default class TrayIcon {
     }
 
     return nativeImage.createFromPath(path.join(
-      __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`),
-    );
+      __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`,
+    ));
   }
 }

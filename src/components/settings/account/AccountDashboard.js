@@ -167,7 +167,8 @@ export default @observer class AccountDashboard extends Component {
                         {`${user.firstname} ${user.lastname}`}
                       </h2>
                       {user.organization && `${user.organization}, `}
-                      {user.email}<br />
+                      {user.email}
+                      <br />
                       {!user.isEnterprise && !user.isPremium && (
                         <span className="badge badge">{intl.formatMessage(messages.accountTypeBasic)}</span>
                       )}
@@ -217,6 +218,7 @@ export default @observer class AccountDashboard extends Component {
                                   </td>
                                   <td className="invoices__action">
                                     <button
+                                      type="button"
                                       onClick={() => openExternalUrl(order.invoiceUrl)}
                                     >
                                       {intl.formatMessage(messages.invoiceDownload)}

@@ -38,12 +38,15 @@ export default class AppStore extends Store {
   };
 
   @observable healthCheckRequest = new Request(this.api.app, 'health');
+
   @observable getAppCacheSizeRequest = new Request(this.api.local, 'getAppCacheSize');
+
   @observable clearAppCacheRequest = new Request(this.api.local, 'clearAppCache');
 
   @observable autoLaunchOnStart = true;
 
   @observable isOnline = navigator.onLine;
+
   @observable timeOfflineStart;
 
   @observable updateStatus = null;
@@ -150,19 +153,22 @@ export default class AppStore extends Store {
     key(
       '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
         this.actions.service.setActiveNext();
-      });
+      },
+    );
 
     // Set active the prev service
     key(
       '⌘+pageup, ctrl+pageup, ⌘+alt+left, ctrl+shift+tab', () => {
         this.actions.service.setActivePrev();
-      });
+      },
+    );
 
     // Global Mute
     key(
       '⌘+shift+m ctrl+shift+m', () => {
         this.actions.app.toggleMuteApp();
-      });
+      },
+    );
 
     this.locale = this._getDefaultLocale();
 
@@ -182,7 +188,9 @@ export default class AppStore extends Store {
   }
 
   // Actions
-  @action _notify({ title, options, notificationId, serviceId = null }) {
+  @action _notify({
+    title, options, notificationId, serviceId = null,
+  }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
     const notification = new window.Notification(title, options);

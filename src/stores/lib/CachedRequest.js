@@ -5,6 +5,7 @@ import Request from './Request';
 
 export default class CachedRequest extends Request {
   _apiCalls = [];
+
   _isInvalidated = true;
 
   execute(...callArgs) {

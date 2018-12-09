@@ -33,6 +33,8 @@ export default @observer class Input extends Component {
     passwordScore: 0,
   }
 
+  inputElement = null;
+
   componentDidMount() {
     if (this.props.focus) {
       this.focus();
@@ -52,8 +54,6 @@ export default @observer class Input extends Component {
   focus() {
     this.inputElement.focus();
   }
-
-  inputElement = null;
 
   render() {
     const {
@@ -110,7 +110,7 @@ export default @observer class Input extends Component {
                 'mdi-eye': !this.state.showPassword,
                 'mdi-eye-off': this.state.showPassword,
               })}
-              onClick={() => this.setState({ showPassword: !this.state.showPassword })}
+              onClick={() => this.setState(prevState => ({ showPassword: !prevState.showPassword }))}
               tabIndex="-1"
             />
           )}

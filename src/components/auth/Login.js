@@ -83,17 +83,17 @@ export default @observer class Login extends Component {
     },
   }, this.context.intl);
 
+  emailField = null;
+
   submit(e) {
     e.preventDefault();
     this.form.submit({
       onSuccess: (form) => {
         this.props.onSubmit(form.values());
       },
-      onError: () => {},
+      onError: () => { },
     });
   }
-
-  emailField = null;
 
   render() {
     const { form } = this;

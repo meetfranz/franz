@@ -18,7 +18,9 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
   };
 
   render() {
-    const { stores, actions, children, location } = this.props;
+    const {
+      stores, actions, children, location,
+    } = this.props;
     const { app, features, globalError } = stores;
 
     const isLoadingBaseFeatures = features.defaultFeaturesRequest.isExecuting

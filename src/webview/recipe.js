@@ -56,7 +56,8 @@ class RecipeController {
       this.spellcheckingProvider,
       () => this.settings.app.enableSpellchecking,
       () => this.settings.app.spellcheckerLanguage,
-      () => this.spellcheckerLanguage);
+      () => this.spellcheckerLanguage,
+    );
 
     autorun(() => this.update());
   }

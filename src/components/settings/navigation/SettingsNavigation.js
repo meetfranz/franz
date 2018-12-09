@@ -59,7 +59,9 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           className="settings-navigation__link"
           activeClassName="is-active"
         >
-          {intl.formatMessage(messages.yourServices)} <span className="badge">{serviceCount}</span>
+          {intl.formatMessage(messages.yourServices)}
+          {' '}
+          <span className="badge">{serviceCount}</span>
         </Link>
         <Link
           to="/settings/user"
@@ -93,4 +95,3 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
     );
   }
 }
-

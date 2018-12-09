@@ -39,6 +39,7 @@ export default @observer class SettingsLayout extends Component {
         <div className="settings-wrapper">
           <ErrorBoundary>
             <button
+              type="button"
               className="settings-wrapper__action"
               onClick={closeSettings}
             />
@@ -46,6 +47,7 @@ export default @observer class SettingsLayout extends Component {
               {navigation}
               {children}
               <button
+                type="button"
                 className="settings__close mdi mdi-close"
                 onClick={closeSettings}
               />

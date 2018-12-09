@@ -18,6 +18,8 @@ export default @observer class Radio extends Component {
     showLabel: true,
   };
 
+  inputElement = null;
+
   componentDidMount() {
     if (this.props.focus) {
       this.focus();
@@ -27,8 +29,6 @@ export default @observer class Radio extends Component {
   focus() {
     this.inputElement.focus();
   }
-
-  inputElement = null;
 
   render() {
     const {

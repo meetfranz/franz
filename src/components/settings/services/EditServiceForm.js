@@ -130,6 +130,7 @@ export default @observer class EditServiceForm extends Component {
   static defaultProps = {
     service: {},
   };
+
   static contextTypes = {
     intl: intlShape,
   };

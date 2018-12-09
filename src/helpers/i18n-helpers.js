@@ -1,4 +1,6 @@
-export function getLocale({ locale, locales, defaultLocale, fallbackLocale }) {
+export function getLocale({
+  locale, locales, defaultLocale, fallbackLocale,
+}) {
   let localeStr = locale;
   if (locales[locale] === undefined) {
     let localeFuzzy;

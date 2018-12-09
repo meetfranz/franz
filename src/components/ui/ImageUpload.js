@@ -23,6 +23,8 @@ export default @observer class ImageUpload extends Component {
     path: null,
   }
 
+  dropzoneRef = null;
+
   onDrop(acceptedFiles) {
     const { field } = this.props;
 
@@ -35,8 +37,6 @@ export default @observer class ImageUpload extends Component {
 
     field.set('');
   }
-
-  dropzoneRef = null;
 
   render() {
     const {

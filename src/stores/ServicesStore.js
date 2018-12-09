@@ -1,4 +1,6 @@
-import { action, reaction, computed, observable } from 'mobx';
+import {
+  action, reaction, computed, observable,
+} from 'mobx';
 import { debounce, remove } from 'lodash';
 
 import Store from './lib/Store';
@@ -11,10 +13,15 @@ const debug = require('debug')('Franz:ServiceStore');
 
 export default class ServicesStore extends Store {
   @observable allServicesRequest = new CachedRequest(this.api.services, 'all');
+
   @observable createServiceRequest = new Request(this.api.services, 'create');
+
   @observable updateServiceRequest = new Request(this.api.services, 'update');
+
   @observable reorderServicesRequest = new Request(this.api.services, 'reorder');
+
   @observable deleteServiceRequest = new Request(this.api.services, 'delete');
+
   @observable clearCacheRequest = new Request(this.api.services, 'clearCache');
 
   @observable filterNeedle = null;

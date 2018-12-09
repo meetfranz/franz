@@ -6,9 +6,13 @@ const debug = require('debug')('Franz:Service');
 
 export default class Service {
   id = '';
+
   recipe = '';
+
   webview = null;
+
   timer = null;
+
   events = {};
 
   isAttached = false;
@@ -16,26 +20,43 @@ export default class Service {
   @observable isActive = false; // Is current webview active
 
   @observable name = '';
+
   @observable unreadDirectMessageCount = 0;
+
   @observable unreadIndirectMessageCount = 0;
 
   @observable order = 99;
+
   @observable isEnabled = true;
+
   @observable isMuted = false;
+
   @observable team = '';
+
   @observable customUrl = '';
+
   @observable isNotificationEnabled = true;
+
   @observable isBadgeEnabled = true;
+
   @observable isIndirectMessageBadgeEnabled = true;
+
   @observable iconUrl = '';
+
   @observable hasCustomUploadedIcon = false;
+
   @observable hasCrashed = false;
+
   @observable isDarkModeEnabled = false;
+
   @observable spellcheckerLanguage = null;
 
   @observable isFirstLoad = true;
+
   @observable isLoading = true;
+
   @observable isError = false;
+
   @observable errorMessage = '';
 
   constructor(data, recipe) {

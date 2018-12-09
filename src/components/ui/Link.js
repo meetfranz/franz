@@ -72,5 +72,4 @@ Link.wrappedComponent.defaultProps = {
   activeClassName: '',
   strictFilter: false,
   target: '',
-  openInBrowser: false,
 };

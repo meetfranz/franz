@@ -1,7 +1,9 @@
 // This is heavily based on https://github.com/sindresorhus/electron-context-menu
 // ❤ @sindresorhus
 
-import { clipboard, remote, ipcRenderer, shell } from 'electron';
+import {
+  clipboard, remote, ipcRenderer, shell,
+} from 'electron';
 
 import { isDevMode, isMac } from '../environment';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';

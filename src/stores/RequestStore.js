@@ -6,10 +6,13 @@ const debug = require('debug')('Franz:RequestsStore');
 
 export default class RequestStore extends Store {
   @observable userInfoRequest;
+
   @observable servicesRequest;
+
   @observable showRequiredRequestsError = false;
 
   retries = 0;
+
   retryDelay = 2000;
 
   constructor(...args) {

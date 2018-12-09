@@ -38,13 +38,18 @@ export default @observer class WebviewCrashHandler extends Component {
     countdown: 10000,
   }
 
+  countdownInterval = null;
+
+  countdownIntervalTimeout = 1000;
+
+
   componentDidMount() {
     const { reload } = this.props;
 
     this.countdownInterval = setInterval(() => {
-      this.setState({
-        countdown: this.state.countdown - this.countdownIntervalTimeout,
-      });
+      this.setState(prevState => ({
+        countdown: prevState.countdown - this.countdownIntervalTimeout,
+      }));
 
       if (this.state.countdown <= 0) {
         reload();
@@ -52,9 +57,6 @@ export default @observer class WebviewCrashHandler extends Component {
       }
     }, this.countdownIntervalTimeout);
   }
-
-  countdownInterval = null;
-  countdownIntervalTimeout = 1000;
 
   render() {
     const { name, reload } = this.props;
@@ -70,10 +72,12 @@ export default @observer class WebviewCrashHandler extends Component {
           buttonType="inverted"
           onClick={() => reload()}
         />
-        <p className="footnote">{intl.formatMessage(messages.autoReload, {
-          name,
-          seconds: this.state.countdown / 1000,
-        })}</p>
+        <p className="footnote">
+          {intl.formatMessage(messages.autoReload, {
+            name,
+            seconds: this.state.countdown / 1000,
+          })}
+        </p>
       </div>
     );
   }

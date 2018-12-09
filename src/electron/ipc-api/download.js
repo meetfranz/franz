@@ -12,7 +12,7 @@ function decodeBase64Image(dataString) {
     return new Error('Invalid input string');
   }
 
-  return new Buffer(matches[2], 'base64');
+  return Buffer.from(matches[2], 'base64');
 }
 
 export default (params) => {

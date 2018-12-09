@@ -81,8 +81,7 @@ export default @observer class SubscriptionForm extends Component {
     hideInfo: PropTypes.bool.isRequired,
   };
 
-  static defaultProps ={
-    content: '',
+  static defaultProps = {
     showSkipOption: false,
     skipAction: () => null,
     skipButtonLabel: '',

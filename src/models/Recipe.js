@@ -5,21 +5,33 @@ import path from 'path';
 
 export default class Recipe {
   id = '';
+
   name = '';
+
   description = '';
+
   version = '';
+
   path = '';
 
   serviceURL = '';
 
   hasDirectMessages = true;
+
   hasIndirectMessages = false;
+
   hasNotificationSound = false;
+
   hasTeamId = false;
+
   hasPredefinedUrl = false;
+
   hasCustomUrl = false;
+
   hasHostedOption = false;
+
   urlInputPrefix = '';
+
   urlInputSuffix = '';
 
   message = '';

@@ -20,7 +20,7 @@ const messages = defineMessages({
 
 export default @observer class Services extends Component {
   static propTypes = {
-    services: MobxPropTypes.arrayOrObservableArray.isRequired,
+    services: MobxPropTypes.arrayOrObservableArray,
     setWebviewReference: PropTypes.func.isRequired,
     handleIPCMessage: PropTypes.func.isRequired,
     openWindow: PropTypes.func.isRequired,
@@ -32,7 +32,6 @@ export default @observer class Services extends Component {
 
   static defaultProps = {
     services: [],
-    activeService: '',
   };
 
   static contextTypes = {

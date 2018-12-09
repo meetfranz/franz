@@ -8,6 +8,7 @@ import { CHECK_INTERVAL } from '../config';
 
 export default class NewsStore extends Store {
   @observable latestNewsRequest = new CachedRequest(this.api.news, 'latest');
+
   @observable hideNewsRequest = new Request(this.api.news, 'hide');
 
   constructor(...args) {

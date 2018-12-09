@@ -15,7 +15,6 @@ import { isWindows } from '../../environment';
 export default @observer class AuthLayout extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
-    pathname: PropTypes.string.isRequired,
     error: globalErrorPropType.isRequired,
     isOnline: PropTypes.bool.isRequired,
     isAPIHealthy: PropTypes.bool.isRequired,
@@ -32,7 +31,6 @@ export default @observer class AuthLayout extends Component {
   render() {
     const {
       children,
-      pathname,
       error,
       isOnline,
       isAPIHealthy,
@@ -45,8 +43,8 @@ export default @observer class AuthLayout extends Component {
 
     return (
       <div className={darkMode ? 'theme__dark' : ''}>
-        {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
-        <div className={'auth'}>
+        {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+        <div className="auth">
           {!isOnline && (
             <InfoBar
               type="warning"

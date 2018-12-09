@@ -42,6 +42,7 @@ const API_VERSION = 'v1';
 
 export default class ServerApi {
   recipePreviews = [];
+
   recipes = [];
 
   // User
@@ -522,8 +523,7 @@ export default class ServerApi {
           const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/${s.service}`,
             this._prepareAuthRequest({
               method: 'GET',
-            }),
-          );
+            }));
 
           if (request.status === 200) {
             const data = await request.json();
@@ -549,9 +549,9 @@ export default class ServerApi {
 
     await this._bulkRecipeCheck(recipes);
 
-    return Promise.all(services
-      .map(async service => await this._prepareServiceModel(service)) // eslint-disable-line
-    );
+    /* eslint-disable no-return-await */
+    return Promise.all(services.map(async service => await this._prepareServiceModel(service)));
+    /* eslint-enable no-return-await */
   }
 
   async _prepareServiceModel(service) {
@@ -596,8 +596,7 @@ export default class ServerApi {
         }
 
         return recipe;
-      }),
-    ).catch(err => console.error('Can\'t load recipe', err));
+      })).catch(err => console.error('Can\'t load recipe', err));
   }
 
   _mapRecipePreviewModel(recipes) {

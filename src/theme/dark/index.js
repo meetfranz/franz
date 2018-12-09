@@ -5,4 +5,3 @@ export const colorBackgroundSubscriptionContainer = legacyStyles.themeBrandInfo;
 
 export const colorHeadline = legacyStyles.darkThemeTextColor;
 export const colorText = legacyStyles.darkThemeTextColor;
-

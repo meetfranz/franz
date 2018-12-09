@@ -7,7 +7,9 @@ import Loader from '../Loader';
 
 import styles from './styles';
 
-export default inject('stores')(injectSheet(styles)(({ stores, classes, className, title, children }) => (
+export default inject('stores')(injectSheet(styles)(({
+  stores, classes, className, title, children,
+}) => (
   <div className={classes.wrapper}>
     <div
       className={classnames({
@@ -24,5 +26,4 @@ export default inject('stores')(injectSheet(styles)(({ stores, classes, classNam
       )}
     </div>
   </div>
-),
-));
+)));

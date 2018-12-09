@@ -14,7 +14,6 @@ export default @observer class Select extends Component {
 
   static defaultProps = {
     className: null,
-    focus: false,
     showLabel: true,
     disabled: false,
   };

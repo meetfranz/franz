@@ -3,16 +3,20 @@ import Reaction from './Reaction';
 
 export default class Store {
   stores = {};
+
   api = {};
+
   actions = {};
 
   _reactions = [];
 
   // status implementation
   @observable _status = null;
+
   @computed get actionStatus() {
     return this._status || [];
   }
+
   set actionStatus(status) {
     this._status = status;
   }

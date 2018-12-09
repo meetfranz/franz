@@ -9,15 +9,23 @@ export default class Request {
   }
 
   @observable result = null;
+
   @observable error = null;
+
   @observable isExecuting = false;
+
   @observable isError = false;
+
   @observable wasExecuted = false;
 
   _promise = Promise;
+
   _api = {};
+
   _method = '';
+
   _isWaitingForResponse = false;
+
   _currentApiCall = null;
 
   constructor(api, method) {

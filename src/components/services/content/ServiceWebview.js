@@ -20,6 +20,7 @@ export default @observer class ServiceWebview extends Component {
     edit: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
     enable: PropTypes.func.isRequired,
+    isActive: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -31,6 +32,10 @@ export default @observer class ServiceWebview extends Component {
     targetUrl: '',
     statusBarVisible: false,
   };
+
+  autorunDisposer = null;
+
+  webview = null;
 
   componentDidMount() {
     this.autorunDisposer = autorun(() => {
@@ -57,10 +62,6 @@ export default @observer class ServiceWebview extends Component {
       statusBarVisible: visible,
     });
   }
-
-  autorunDisposer = null;
-
-  webview = null;
 
   render() {
     const {

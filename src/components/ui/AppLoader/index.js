@@ -28,19 +28,19 @@ export default @injectSheet(styles) class AppLoader extends Component {
     step: 0,
   }
 
+  interval = null;
+
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState({
-        step: this.state.step === textList.length - 1 ? 0 : this.state.step + 1,
-      });
+      this.setState(prevState => ({
+        step: prevState.step === textList.length - 1 ? 0 : prevState.step + 1,
+      }));
     }, 2500);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-
-  interval = null;
 
   render() {
     const { classes } = this.props;
@@ -66,4 +66,3 @@ export default @injectSheet(styles) class AppLoader extends Component {
     );
   }
 }
-

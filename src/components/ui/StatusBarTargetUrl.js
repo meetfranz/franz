@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import Appear from '../ui/effects/Appear';
+import Appear from './effects/Appear';
 
 export default @observer class StatusBarTargetUrl extends Component {
   static propTypes = {
@@ -13,7 +13,6 @@ export default @observer class StatusBarTargetUrl extends Component {
 
   static defaultProps = {
     className: '',
-    position: 'bottom',
     text: '',
   };
 

@@ -20,4 +20,3 @@ export const colorSubscriptionContainerBorder = [1, 'solid', brandPrimary];
 export const colorSubscriptionContainerTitle = brandPrimary;
 export const colorSubscriptionContainerActionButtonBackground = brandPrimary;
 export const colorSubscriptionContainerActionButtonColor = '#FFF';
-

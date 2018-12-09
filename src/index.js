@@ -1,10 +1,14 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import {
+  app, BrowserWindow, shell, ipcMain,
+} from 'electron';
 
 import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 
-import { isDevMode, isMac, isWindows, isLinux } from './environment';
+import {
+  isDevMode, isMac, isWindows, isLinux,
+} from './environment';
 
 // DEV MODE: Save user data into FranzDev
 if (isDevMode) {

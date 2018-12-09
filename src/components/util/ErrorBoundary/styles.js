@@ -1,4 +1,4 @@
-export default (theme) => ({
+export default theme => ({
   component: {
     display: 'flex',
     width: '100%',
@@ -9,5 +9,5 @@ export default (theme) => ({
   title: {
     fontSize: 20,
     color: theme.colorText,
-  }
+  },
 });

@@ -99,7 +99,7 @@ export default @observer class AppLayout extends Component {
       <ErrorBoundary>
         <div className={(darkMode ? 'theme__dark' : '')}>
           <div className="app">
-            {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
+            {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
             <div className="app__content">
               {sidebar}
               <div className="app__service">
@@ -153,7 +153,9 @@ export default @observer class AppLayout extends Component {
                     sticky
                   >
                     <span className="mdi mdi-information" />
-                    {intl.formatMessage(messages.updateAvailable)} <a href="https://meetfranz.com/changelog" target="_blank">
+                    {intl.formatMessage(messages.updateAvailable)}
+                    {' '}
+                    <a href="https://meetfranz.com/changelog" target="_blank">
                       <u>{intl.formatMessage(messages.changelog)}</u>
                     </a>
                   </InfoBar>
