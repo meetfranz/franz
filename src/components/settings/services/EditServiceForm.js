@@ -361,11 +361,15 @@ export default @observer class EditServiceForm extends Component {
                           <Input field={form.$('proxy.port')} />
                         </div>
                       </div>
-                      <Input field={form.$('proxy.user')} />
-                      <Input
-                        field={form.$('proxy.password')}
-                        showPasswordToggle
-                      />
+                      <div className="grid">
+                        <div className="grid__row">
+                          <Input field={form.$('proxy.user')} />
+                          <Input
+                            field={form.$('proxy.password')}
+                            showPasswordToggle
+                          />
+                        </div>
+                      </div>
                       <p>
                         <span className="mdi mdi-information" />
                         {intl.formatMessage(messages.proxyRestartInfo)}
