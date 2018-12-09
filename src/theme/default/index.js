@@ -12,6 +12,8 @@ export const borderRadiusSmall = legacyStyles.themeBorderRadiusSmall;
 export const colorBackground = legacyStyles.themeGrayLighter;
 export const colorHeadline = legacyStyles.themeGrayDark;
 
+export const colorText = legacyStyles.themeTextColor;
+
 // Subscription Container Component
 export const colorSubscriptionContainerBackground = 'none';
 export const colorSubscriptionContainerBorder = [1, 'solid', brandPrimary];

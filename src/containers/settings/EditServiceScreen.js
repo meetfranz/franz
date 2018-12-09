@@ -13,6 +13,8 @@ import { gaPage } from '../../lib/analytics';
 
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
+
 import { required, url, oneRequired } from '../../helpers/validation-helpers';
 import { getSelectOptions } from '../../helpers/i18n-helpers';
 
@@ -302,20 +304,22 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     const form = this.prepareForm(recipe, service, proxyFeature);
 
     return (
-      <EditServiceForm
-        action={action}
-        recipe={recipe}
-        service={service}
-        user={user.data}
-        form={form}
-        status={services.actionStatus}
-        isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
-        isDeleting={services.deleteServiceRequest.isExecuting}
-        onSubmit={d => this.onSubmit(d)}
-        onDelete={() => this.deleteService()}
-        isProxyFeatureEnabled={proxyFeature.isEnabled}
-        isProxyFeaturePremiumFeature={proxyFeature.isPremium}
-      />
+      <ErrorBoundary>
+        <EditServiceForm
+          action={action}
+          recipe={recipe}
+          service={service}
+          user={user.data}
+          form={form}
+          status={services.actionStatus}
+          isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
+          isDeleting={services.deleteServiceRequest.isExecuting}
+          onSubmit={d => this.onSubmit(d)}
+          onDelete={() => this.deleteService()}
+          isProxyFeatureEnabled={proxyFeature.isEnabled}
+          isProxyFeaturePremiumFeature={proxyFeature.isPremium}
+        />
+      </ErrorBoundary>
     );
   }
 }

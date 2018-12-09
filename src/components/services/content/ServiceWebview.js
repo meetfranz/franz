@@ -59,6 +59,7 @@ export default @observer class ServiceWebview extends Component {
   }
 
   autorunDisposer = null;
+
   webview = null;
 
   render() {

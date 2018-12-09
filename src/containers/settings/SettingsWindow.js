@@ -6,6 +6,7 @@ import ServicesStore from '../../stores/ServicesStore';
 
 import Layout from '../../components/settings/SettingsLayout';
 import Navigation from '../../components/settings/navigation/SettingsNavigation';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class SettingsContainer extends Component {
   render() {
@@ -19,12 +20,14 @@ export default @inject('stores', 'actions') @observer class SettingsContainer ex
     );
 
     return (
-      <Layout
-        navigation={navigation}
-        closeSettings={closeSettings}
-      >
-        {children}
-      </Layout>
+      <ErrorBoundary>
+        <Layout
+          navigation={navigation}
+          closeSettings={closeSettings}
+        >
+          {children}
+        </Layout>
+      </ErrorBoundary>
     );
   }
 }

@@ -269,5 +269,7 @@
   "feature.delayApp.headline": "Please purchase a Franz Supporter License to skip waiting",
   "feature.delayApp.action": "Get a Franz Supporter License",
   "feature.delayApp.text": "Franz will continue in {seconds} seconds.",
-  "premiumFeature.button.upgradeAccount": "Upgrade account"
+  "premiumFeature.button.upgradeAccount": "Upgrade account",
+  "app.errorHandler.headline": "Something went wrong",
+  "app.errorHandler.action": "Reload"
 }

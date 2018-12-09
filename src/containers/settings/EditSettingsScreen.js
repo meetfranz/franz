@@ -16,6 +16,7 @@ import { getSelectOptions } from '../../helpers/i18n-helpers';
 
 
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
@@ -216,20 +217,22 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
     const form = this.prepareForm();
 
     return (
-      <EditSettingsForm
-        form={form}
-        checkForUpdates={checkForUpdates}
-        installUpdate={installUpdate}
-        isCheckingForUpdates={updateStatus === updateStatusTypes.CHECKING}
-        isUpdateAvailable={updateStatus === updateStatusTypes.AVAILABLE}
-        noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
-        updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
-        onSubmit={d => this.onSubmit(d)}
-        cacheSize={cacheSize}
-        isClearingAllCache={isClearingAllCache}
-        onClearAllCache={clearAllCache}
-        isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
-      />
+      <ErrorBoundary>
+        <EditSettingsForm
+          form={form}
+          checkForUpdates={checkForUpdates}
+          installUpdate={installUpdate}
+          isCheckingForUpdates={updateStatus === updateStatusTypes.CHECKING}
+          isUpdateAvailable={updateStatus === updateStatusTypes.AVAILABLE}
+          noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
+          updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
+          onSubmit={d => this.onSubmit(d)}
+          cacheSize={cacheSize}
+          isClearingAllCache={isClearingAllCache}
+          onClearAllCache={clearAllCache}
+          isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
+        />
+      </ErrorBoundary>
     );
   }
 }

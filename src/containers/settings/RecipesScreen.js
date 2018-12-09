@@ -10,6 +10,7 @@ import UserStore from '../../stores/UserStore';
 import { gaPage } from '../../lib/analytics';
 
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {
@@ -93,19 +94,21 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       || recipePreviews.searchRecipePreviewsRequest.isExecuting;
 
     return (
-      <RecipesDashboard
-        recipes={allRecipes}
-        isLoading={isLoading}
-        addedServiceCount={services.all.length}
-        isPremium={user.data.isPremium}
-        hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
-        showAddServiceInterface={showAddServiceInterface}
-        searchRecipes={e => this.searchRecipes(e)}
-        resetSearch={() => this.resetSearch()}
-        searchNeedle={this.state.needle}
-        serviceStatus={services.actionStatus}
-        devRecipesCount={recipePreviews.dev.length}
-      />
+      <ErrorBoundary>
+        <RecipesDashboard
+          recipes={allRecipes}
+          isLoading={isLoading}
+          addedServiceCount={services.all.length}
+          isPremium={user.data.isPremium}
+          hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
+          showAddServiceInterface={showAddServiceInterface}
+          searchRecipes={e => this.searchRecipes(e)}
+          resetSearch={() => this.resetSearch()}
+          searchNeedle={this.state.needle}
+          serviceStatus={services.actionStatus}
+          devRecipesCount={recipePreviews.dev.length}
+        />
+      </ErrorBoundary>
     );
   }
 }
