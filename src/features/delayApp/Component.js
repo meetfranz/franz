@@ -44,9 +44,9 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
 
   componentDidMount() {
     this.countdownInterval = setInterval(() => {
-      this.setState({
-        countdown: prevState => ({ value: prevState.countdown - this.countdownIntervalTimeout }),
-      });
+      this.setState(prevState => ({
+        countdown: prevState.countdown - this.countdownIntervalTimeout,
+      }));
 
       if (this.state.countdown <= 0) {
         // reload();
