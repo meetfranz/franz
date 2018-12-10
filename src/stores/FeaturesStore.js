@@ -37,7 +37,7 @@ export default class FeaturesStore extends Store {
 
   @computed get features() {
     if (this.stores.user.isLoggedIn) {
-      return this.featuresRequest.execute().result || DEFAULT_FEATURES_CONFIG;
+      return Object.assign({}, DEFAULT_FEATURES_CONFIG, this.featuresRequest.execute().result);
     }
 
     return DEFAULT_FEATURES_CONFIG;
