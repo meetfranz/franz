@@ -36,7 +36,13 @@ export default @observer class SettingsLayout extends Component {
 
     return (
       <Appear transitionName="fadeIn-fast">
-        <div className="settings-wrapper">
+        <div
+          id="settings__window"
+          className="settings-wrapper"
+          role="dialog"
+          aria-modal
+          aria-labelledby="modal__header"
+        >
           <ErrorBoundary>
             <button
               type="button"
@@ -50,6 +56,7 @@ export default @observer class SettingsLayout extends Component {
                 type="button"
                 className="settings__close mdi mdi-close"
                 onClick={closeSettings}
+                aria-label="Close Settings"
               />
             </div>
           </ErrorBoundary>

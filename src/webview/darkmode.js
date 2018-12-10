@@ -3,11 +3,11 @@
 import path from 'path';
 import fs from 'fs-extra';
 
+import { createRandomIdString } from '../helpers/id-helpers';
+
 const debug = require('debug')('Franz:DarkMode');
 
-const chars = [...'abcdefghijklmnopqrstuvwxyz'];
-
-const ID = [...Array(20)].map(() => chars[Math.random() * chars.length | 0]).join``;
+const ID = createRandomIdString();
 
 export function injectDarkModeStyle(recipePath) {
   const darkModeStyle = path.join(recipePath, 'darkmode.css');

@@ -58,7 +58,7 @@ export default @observer class Sidebar extends Component {
     const { intl } = this.context;
 
     return (
-      <div className="sidebar">
+      <div className="sidebar" role="navigation">
         <Tabbar
           {...this.props}
           enableToolTip={() => this.enableToolTip()}
@@ -69,6 +69,7 @@ export default @observer class Sidebar extends Component {
           onClick={toggleMuteApp}
           className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
           data-tip={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)} (${ctrlKey}+Shift+M)`}
+          aria-label={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)}`}
         >
           <i className={`mdi mdi-bell${isAppMuted ? '-off' : ''}`} />
         </button>
@@ -77,6 +78,7 @@ export default @observer class Sidebar extends Component {
           onClick={() => openSettings({ path: 'recipes' })}
           className="sidebar__button sidebar__button--new-service"
           data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
+          aria-label={`${intl.formatMessage(messages.addNewService)}`}
         >
           <i className="mdi mdi-plus-box" />
         </button>
@@ -85,6 +87,7 @@ export default @observer class Sidebar extends Component {
           onClick={() => openSettings({ path: 'app' })}
           className="sidebar__button sidebar__button--settings"
           data-tip={`${intl.formatMessage(messages.settings)} (${ctrlKey}+,)`}
+          aria-label={`${intl.formatMessage(messages.settings)}`}
         >
           <i className="mdi mdi-settings" />
         </button>

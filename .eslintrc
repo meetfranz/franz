@@ -39,7 +39,8 @@
         "allowChildren": false
       }
     ],
-    "jsx-a11y/click-events-have-key-events": 1
+    "jsx-a11y/click-events-have-key-events": 1,
+    "no-bitwise": 1
   },
   "globals": {
     "window": true,

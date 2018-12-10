@@ -37,8 +37,9 @@ class TabBarSortableList extends Component {
     } = this.props;
 
     return (
-      <ul
+      <div
         className="tabs"
+        role="tablist"
       >
         {services.map((service, index) => (
           <TabItem
@@ -67,7 +68,7 @@ class TabBarSortableList extends Component {
             <span className="mdi mdi-plus" />
           </button>
         </li> */}
-      </ul>
+      </div>
     );
   }
 }

@@ -42,6 +42,11 @@
   &.is-disabled .tab-item__icon { filter: grayscale(100%) opacity(0.2); }
   &.has-custom-icon .tab-item__icon { border-radius: $theme-border-radius; }
   &:active .tab-item__icon { opacity: .7; }
+  
+  button {
+    width: 100%;
+    height: 100%;
+  }
 
   .tab-item__icon {
     height: auto;

@@ -142,7 +142,7 @@ export default @observer class EditSettingsForm extends Component {
     return (
       <div className="settings__main">
         <div className="settings__header">
-          <h1>{intl.formatMessage(messages.headline)}</h1>
+          <h1 id="modal__header">{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
           <form

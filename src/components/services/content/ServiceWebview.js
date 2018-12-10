@@ -88,7 +88,12 @@ export default @observer class ServiceWebview extends Component {
     }
 
     return (
-      <div className={webviewClasses}>
+      <div
+        className={webviewClasses}
+        role="tabpanel"
+        id={service.DOMID}
+        tabIndex={service.isActive ? 0 : -1}
+      >
         {service.isActive && (
           <Fragment>
             {service.hasCrashed && (

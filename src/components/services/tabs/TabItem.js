@@ -150,16 +150,21 @@ class TabItem extends Component {
     }
 
     return (
-      <li
+      <button
+        type="button"
         className={classnames({
           'tab-item': true,
           'is-active': service.isActive,
           'has-custom-icon': service.hasCustomIcon,
           'is-disabled': !service.isEnabled,
         })}
-        onClick={clickHandler}
+        role="tab"
         onContextMenu={() => menu.popup(remote.getCurrentWindow())}
         data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
+        aria-label={service.name}
+        aria-selected={service.isActive}
+        aria-controls={service.DOMID}
+        onClick={clickHandler}
       >
         <img
           src={service.icon}
@@ -167,7 +172,7 @@ class TabItem extends Component {
           alt=""
         />
         {notificationBadge}
-      </li>
+      </button>
     );
   }
 }

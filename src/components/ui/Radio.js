@@ -53,7 +53,10 @@ export default @observer class Radio extends Component {
             {field.label}
           </label>
         )}
-        <div className="franz-form__radio-wrapper">
+        <div
+          className="franz-form__radio-wrapper"
+          role="radiogroup"
+        >
           {field.options.map(type => (
             <label
               key={type.value}
@@ -62,6 +65,9 @@ export default @observer class Radio extends Component {
                 'franz-form__radio': true,
                 'is-selected': field.value === type.value,
               })}
+              role="radio"
+              aria-checked={field.value === type.value}
+              tabIndex="0"
             >
               <input
                 id={`${field.id}-${type.value}`}

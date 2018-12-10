@@ -2,10 +2,14 @@ import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
+import { createRandomIdString } from '../helpers/id-helpers';
+
 const debug = require('debug')('Franz:Service');
 
 export default class Service {
   id = '';
+
+  DOMID = createRandomIdString();
 
   recipe = '';
 

@@ -37,13 +37,20 @@ export default @observer class Toggle extends Component {
     }
 
     return (
-      <div
+      <button
+        type="button"
         className={classnames([
           'franz-form__field',
           'franz-form__toggle-wrapper',
           'franz-form__toggle-disabled',
           className,
         ])}
+        onClick={() => {
+          console.log('value', field.value);
+          field.value = !field.value;
+        }}
+        role="checkbox"
+        aria-checked={field.value}
       >
         <label
           htmlFor={field.id}
@@ -60,11 +67,19 @@ export default @observer class Toggle extends Component {
             value={field.name}
             checked={field.value}
             onChange={e => (!disabled ? this.onChange(e) : null)}
+            tabIndex={0}
           />
         </label>
         {field.error && <div className={field.error}>{field.error}</div>}
-        {field.label && showLabel && <label className="franz-form__label" htmlFor={field.id}>{field.label}</label>}
-      </div>
+        {field.label && showLabel && (
+          <label
+            className="franz-form__label"
+            htmlFor={field.id}
+          >
+            {field.label}
+          </label>
+        )}
+      </button>
     );
   }
 }
