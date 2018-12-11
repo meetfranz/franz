@@ -1,6 +1,9 @@
 <a name="5.0.0-beta.21"></a>
 # [5.0.0-beta.21](https://github.com/meetfranz/franz/compare/5.0.0-beta.20...5.0.0-beta.21) (2018-12-11)
 
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 ### Features
 
@@ -18,8 +21,6 @@
 
 * **Dark Mode:** Dark Mode polishing
 * **App:** Updated a ton of dependencies
-
-
 
 
 <a name="5.0.0-beta.20"></a>
