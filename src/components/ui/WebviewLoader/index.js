@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import injectSheet from 'react-jss';
 
 import FullscreenLoader from '../FullscreenLoader';
 
-const WebviewLoader = ({ name }) => (
-  <FullscreenLoader
-    title={`Loading ${name}`}
-  />
-);
+import styles from './styles';
 
-WebviewLoader.propTypes = {
-  name: PropTypes.string.isRequired,
-};
+export default @injectSheet(styles) class WebviewLoader extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired,
+  }
 
-export default WebviewLoader;
+  render() {
+    const { classes, name } = this.props;
+    return (
+      <FullscreenLoader
+        className={classes.component}
+        title={`Loading ${name}`}
+      />
+    );
+  }
+}

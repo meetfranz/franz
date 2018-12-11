@@ -1,3 +1,5 @@
+import hexToRgba from 'hex-to-rgba';
+
 import * as legacyStyles from './legacy';
 
 export const brandPrimary = '#3498db';
@@ -20,3 +22,6 @@ export const colorSubscriptionContainerBorder = [1, 'solid', brandPrimary];
 export const colorSubscriptionContainerTitle = brandPrimary;
 export const colorSubscriptionContainerActionButtonBackground = brandPrimary;
 export const colorSubscriptionContainerActionButtonColor = '#FFF';
+
+// Webview Loader
+export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);

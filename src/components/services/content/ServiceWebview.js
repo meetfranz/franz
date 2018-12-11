@@ -89,7 +89,7 @@ export default @observer class ServiceWebview extends Component {
 
     return (
       <div className={webviewClasses}>
-        {service.isActive && (
+        {service.isActive && service.isEnabled && (
           <Fragment>
             {service.hasCrashed && (
               <WebviewCrashHandler
@@ -100,7 +100,7 @@ export default @observer class ServiceWebview extends Component {
             )}
             {service.isEnabled && service.isLoading && service.isFirstLoad && (
               <WebviewLoader
-                loaded={!service.isLoading}
+                loaded={false}
                 name={service.name}
               />
             )}
