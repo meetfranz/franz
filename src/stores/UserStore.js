@@ -219,10 +219,11 @@ export default class UserStore extends Store {
   }
 
   @action _logout() {
+    // workaround mobx issue
     localStorage.removeItem('authToken');
+    window.localStorage.removeItem('authToken');
     this.getUserInfoRequest.invalidate().reset();
     this.authToken = null;
-    // this.data = {};
   }
 
   @action async _importLegacyServices({ services }) {
