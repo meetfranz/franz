@@ -75,7 +75,9 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     if (isLoadingFeatures || isLoadingServices) {
       return (
-        <AppLoader />
+        <ThemeProvider theme={ui.theme}>
+          <AppLoader />
+        </ThemeProvider>
       );
     }
 

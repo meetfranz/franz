@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+import injectSheet, { withTheme } from 'react-jss';
 import classnames from 'classnames';
 
 import FullscreenLoader from '../FullscreenLoader';
@@ -19,9 +19,10 @@ const textList = shuffleArray([
   'Traveling through space & time',
 ]);
 
-export default @injectSheet(styles) class AppLoader extends Component {
+export default @injectSheet(styles) @withTheme class AppLoader extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
   }
 
   state = {
@@ -43,13 +44,14 @@ export default @injectSheet(styles) class AppLoader extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const { step } = this.state;
 
     return (
       <FullscreenLoader
         title="Franz"
         className={classes.component}
+        spinnerColor={theme.colorAppLoaderSpinner}
       >
         {textList.map((text, i) => (
           <span

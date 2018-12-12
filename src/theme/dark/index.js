@@ -8,5 +8,6 @@ export const colorBackgroundSubscriptionContainer = legacyStyles.themeBrandInfo;
 export const colorHeadline = legacyStyles.darkThemeTextColor;
 export const colorText = legacyStyles.darkThemeTextColor;
 
-// Webview Loader
+// Loader
+export const colorFullscreenLoaderSpinner = '#FFF';
 export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.darkThemeGrayDarkest, 0.5);

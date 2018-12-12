@@ -23,5 +23,7 @@ export const colorSubscriptionContainerTitle = brandPrimary;
 export const colorSubscriptionContainerActionButtonBackground = brandPrimary;
 export const colorSubscriptionContainerActionButtonColor = '#FFF';
 
-// Webview Loader
+// Loader
+export const colorAppLoaderSpinner = '#FFF';
+export const colorFullscreenLoaderSpinner = legacyStyles.themeGrayDark;
 export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);
