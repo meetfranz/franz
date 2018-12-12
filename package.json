@@ -17,14 +17,12 @@
     "dev": "cross-env NODE_ENV=development gulp dev",
     "lint": "eslint src",
     "sign": "gulp sign",
-    "compile": "gulp clean && gulp build",
-    "prebuild": "npm run compile && npm run dictionaries",
+    "prebuild": "gulp build",
     "build": "node_modules/.bin/electron-builder --publish onTag",
     "rebuild": "node_modules/.bin/electron-rebuild",
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "reformat-files": "./node_modules/.bin/prettier --ignore-path .eslintignore --write --require-pragma \"**/*.{js,jsx,scss}\"",
-    "dictionaries": "node ./build-helpers/installDictionaries.js"
+    "reformat-files": "./node_modules/.bin/prettier --ignore-path .eslintignore --write --require-pragma \"**/*.{js,jsx,scss}\""
   },
   "keywords": [],
   "author": "Stefan Malzner <stefan@adlk.io>",
