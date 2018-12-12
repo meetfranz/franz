@@ -20,7 +20,7 @@ before_script:
 script:
 - npm run lint
 - npm run build
-- travis_wait 30 npx electron-builder --publish onTag
+- travis_wait node_modules/.bin/electron-builder --publish onTag
 
 cache: npm
 
