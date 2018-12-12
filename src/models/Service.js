@@ -182,7 +182,7 @@ export default class Service {
       this.isError = false;
     });
 
-    this.webview.addEventListener('did-stop-loading', () => {
+    this.webview.addEventListener('did-frame-finish-load', () => {
       this.isLoading = false;
 
       if (!this.isError) {
