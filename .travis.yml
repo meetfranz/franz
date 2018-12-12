@@ -16,11 +16,12 @@ language: node_js
 
 before_script:
 - npm install node-sass -g
+- npm ci
 
 script:
 - npm run lint
 - npm run build
-- travis_wait npx electron-builder --publish onTag
+- travis_wait 30 npx electron-builder --publish onTag
 
 cache: npm
 
