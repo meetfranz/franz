@@ -143,25 +143,16 @@ export function dictionaries(done) {
   let packages = '';
   Object.keys(SPELLCHECKER_LOCALES).forEach((key) => { packages = `${packages} hunspell-dict-${key}`; });
 
-  if (process.platform !== 'win32') {
-    _shell(`
-      rm -rf ${paths.dictionaries}
-      npm install --prefix ${path.join(__dirname, paths.dictionaries)} ${packages}
-      mv ${paths.dictionaries}/node_modules/* ${paths.dictionaries}
-      rm -rf ${paths.dictionaries}/node_modules ${paths.dictionaries}/package-lock.json`,
-    done);
-  } else {
-    _shell(`npm install --prefix ${path.join(__dirname, 'temp')} ${packages}`, () => {
-      moveSync(
-        path.join(__dirname, 'temp', 'node_modules'),
-        path.join(__dirname, 'build', paths.dictionaries)
-      );
+  _shell(`npm install --prefix ${path.join(__dirname, 'temp')} ${packages}`, () => {
+    moveSync(
+      path.join(__dirname, 'temp', 'node_modules'),
+      path.join(__dirname, 'build', paths.dictionaries),
+    );
 
-      removeSync(path.join(__dirname, 'temp'));
+    removeSync(path.join(__dirname, 'temp'));
 
-      done();
-    });
-  }
+    done();
+  });
 }
 
 export function sign(done) {
