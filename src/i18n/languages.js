@@ -34,7 +34,7 @@ export const SPELLCHECKER_LOCALES = {
   'cs-cz': 'Čeština',
   'da-dk': 'Dansk',
   'de-de': 'Deutsch',
-  'el-gr': 'λληνικά (Greek)',
+  'el-gr': 'ελληνικά (Greek)',
   'en-us': 'English',
   'es-es': 'Español',
   'et-ee': 'Estonian',

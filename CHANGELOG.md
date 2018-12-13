@@ -1,3 +1,12 @@
+<a name="5.0.0-beta.22"></a>
+# [5.0.0-beta.22](https://github.com/meetfranz/franz/compare/5.0.0-beta.20...5.0.0-beta.22) (2018-12-13)
+
+
+### Bug Fixes
+
+* **Windows:** Package spellchecker dictionaries
+
+
 <a name="5.0.0-beta.21"></a>
 # [5.0.0-beta.21](https://github.com/meetfranz/franz/compare/5.0.0-beta.20...5.0.0-beta.21) (2018-12-11)
 

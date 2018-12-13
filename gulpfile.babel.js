@@ -6,9 +6,10 @@ import server from 'gulp-server-livereload';
 import { exec } from 'child_process';
 import dotenv from 'dotenv';
 import sassVariables from 'gulp-sass-variables';
-import { removeSync } from 'fs-extra';
+import { moveSync, removeSync } from 'fs-extra';
 import kebabCase from 'kebab-case';
 import hexRgb from 'hex-rgb';
+import path from 'path';
 
 import config from './package.json';
 
@@ -45,6 +46,7 @@ const paths = {
 };
 
 function _shell(cmd, cb) {
+  console.log('executing', cmd);
   exec(cmd, {
     cwd: paths.dest,
   }, (error, stdout, stderr) => {
@@ -141,13 +143,16 @@ export function dictionaries(done) {
   let packages = '';
   Object.keys(SPELLCHECKER_LOCALES).forEach((key) => { packages = `${packages} hunspell-dict-${key}`; });
 
-  _shell(`
-    rm -rf ${paths.dictionaries}
-    npm install --prefix ${paths.dictionaries} ${packages}
-    mv ${paths.dictionaries}/node_modules/* ${paths.dictionaries}
-    rm -rf ${paths.dictionaries}/node_modules ${paths.dictionaries}/package-lock.json
-    pwd`,
-  done);
+  _shell(`npm install --prefix ${path.join(__dirname, 'temp')} ${packages}`, () => {
+    moveSync(
+      path.join(__dirname, 'temp', 'node_modules'),
+      path.join(__dirname, 'build', paths.dictionaries),
+    );
+
+    removeSync(path.join(__dirname, 'temp'));
+
+    done();
+  });
 }
 
 export function sign(done) {
