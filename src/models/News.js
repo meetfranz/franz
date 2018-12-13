@@ -2,8 +2,11 @@
 
 export default class News {
   id = '';
+
   message = '';
+
   type = 'primary';
+
   sticky = false;
 
   constructor(data) {

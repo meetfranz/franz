@@ -25,6 +25,7 @@ const paths = {
   src: 'src',
   dest: 'build',
   tmp: '.tmp',
+  dictionaries: 'dictionaries',
   package: `out/${config.version}`,
   html: {
     src: 'src/**/*.html',
@@ -73,7 +74,8 @@ export function mvSrc() {
       `${paths.src}/*/**`,
       `!${paths.scripts.watch}`,
       `!${paths.src}/styles/**`,
-    ], { since: gulp.lastRun(mvSrc) })
+    ], { since: gulp.lastRun(mvSrc) },
+  )
     .pipe(gulp.dest(paths.dest));
 }
 
@@ -81,7 +83,8 @@ export function mvPackageJson() {
   return gulp.src(
     [
       './package.json',
-    ])
+    ],
+  )
     .pipe(gulp.dest(paths.dest));
 }
 
@@ -132,6 +135,21 @@ export function webserver() {
     }));
 }
 
+export function dictionaries(done) {
+  const { SPELLCHECKER_LOCALES } = require('./build/i18n/languages');
+
+  let packages = '';
+  Object.keys(SPELLCHECKER_LOCALES).forEach((key) => { packages = `${packages} hunspell-dict-${key}`; });
+
+  _shell(`
+    rm -rf ${paths.dictionaries}
+    npm install --prefix ${paths.dictionaries} ${packages}
+    mv ${paths.dictionaries}/node_modules/* ${paths.dictionaries}
+    rm -rf ${paths.dictionaries}/node_modules ${paths.dictionaries}/package-lock.json
+    pwd`,
+  done);
+}
+
 export function sign(done) {
   _shell(`codesign --verbose=4 --deep --strict --force --sign "${process.env.SIGNING_IDENTITY}" "${__dirname}/node_modules/electron/dist/Electron.app"`, done);
 }
@@ -140,6 +158,7 @@ const build = gulp.series(
   clean,
   gulp.parallel(mvSrc, mvPackageJson),
   gulp.parallel(html, scripts, styles),
+  dictionaries,
 );
 export { build };
 

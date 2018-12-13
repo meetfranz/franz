@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
 import { observer } from 'mobx-react';
@@ -7,7 +7,9 @@ import classnames from 'classnames';
 
 import ServiceModel from '../../../models/Service';
 import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
+import WebviewLoader from '../../ui/WebviewLoader';
 import WebviewCrashHandler from './WebviewCrashHandler';
+import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
 
 export default @observer class ServiceWebview extends Component {
@@ -15,8 +17,10 @@ export default @observer class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    edit: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
     enable: PropTypes.func.isRequired,
+    isActive: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -29,8 +33,12 @@ export default @observer class ServiceWebview extends Component {
     statusBarVisible: false,
   };
 
+  autorunDisposer = null;
+
+  webview = null;
+
   componentDidMount() {
-    autorun(() => {
+    this.autorunDisposer = autorun(() => {
       if (this.props.service.isActive) {
         this.setState({ forceRepaint: true });
         setTimeout(() => {
@@ -38,6 +46,10 @@ export default @observer class ServiceWebview extends Component {
         }, 100);
       }
     });
+  }
+
+  componentWillUnmount() {
+    this.autorunDisposer();
   }
 
   updateTargetUrl = (event) => {
@@ -51,13 +63,12 @@ export default @observer class ServiceWebview extends Component {
     });
   }
 
-  webview = null;
-
   render() {
     const {
       service,
       setWebviewReference,
       reload,
+      edit,
       isAppMuted,
       enable,
     } = this.props;
@@ -78,25 +89,47 @@ export default @observer class ServiceWebview extends Component {
 
     return (
       <div className={webviewClasses}>
-        {service.hasCrashed && (
-          <WebviewCrashHandler
-            name={service.recipe.name}
-            webview={service.webview}
-            reload={reload}
-          />
+        {service.isActive && service.isEnabled && (
+          <Fragment>
+            {service.hasCrashed && (
+              <WebviewCrashHandler
+                name={service.recipe.name}
+                webview={service.webview}
+                reload={reload}
+              />
+            )}
+            {service.isEnabled && service.isLoading && service.isFirstLoad && (
+              <WebviewLoader
+                loaded={false}
+                name={service.name}
+              />
+            )}
+            {service.isError && (
+              <WebviewErrorHandler
+                name={service.recipe.name}
+                errorMessage={service.errorMessage}
+                reload={reload}
+                edit={edit}
+              />
+            )}
+          </Fragment>
         )}
         {!service.isEnabled ? (
-          <ServiceDisabled
-            name={service.recipe.name}
-            webview={service.webview}
-            enable={enable}
-          />
+          <Fragment>
+            {service.isActive && (
+              <ServiceDisabled
+                name={service.recipe.name}
+                webview={service.webview}
+                enable={enable}
+              />
+            )}
+          </Fragment>
         ) : (
           <Webview
             ref={(element) => { this.webview = element; }}
             autosize
             src={service.url}
-            preload="./webview/plugin.js"
+            preload="./webview/recipe.js"
             partition={`persist:service-${service.id}`}
             onDidAttach={() => setWebviewReference({
               serviceId: service.id,

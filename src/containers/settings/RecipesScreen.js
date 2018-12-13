@@ -10,12 +10,13 @@ import UserStore from '../../stores/UserStore';
 import { gaPage } from '../../lib/analytics';
 
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {
     params: PropTypes.shape({
       filter: PropTypes.string,
-    }).isRequired,
+    }),
   };
 
   static defaultProps = {
@@ -29,10 +30,12 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     currentFilter: 'featured',
   };
 
+  autorunDisposer = null;
+
   componentDidMount() {
     gaPage('Settings/Recipe Dashboard/Featured');
 
-    autorun(() => {
+    this.autorunDisposer = autorun(() => {
       const { filter } = this.props.params;
       const { currentFilter } = this.state;
 
@@ -51,6 +54,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
   componentWillUnmount() {
     this.props.stores.services.resetStatus();
+    this.autorunDisposer();
   }
 
   searchRecipes(needle) {
@@ -68,7 +72,9 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   }
 
   render() {
-    const { recipePreviews, recipes, services, user } = this.props.stores;
+    const {
+      recipePreviews, recipes, services, user,
+    } = this.props.stores;
     const { showAddServiceInterface } = this.props.actions.service;
 
     const { filter } = this.props.params;
@@ -90,19 +96,21 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       || recipePreviews.searchRecipePreviewsRequest.isExecuting;
 
     return (
-      <RecipesDashboard
-        recipes={allRecipes}
-        isLoading={isLoading}
-        addedServiceCount={services.all.length}
-        isPremium={user.data.isPremium}
-        hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
-        showAddServiceInterface={showAddServiceInterface}
-        searchRecipes={e => this.searchRecipes(e)}
-        resetSearch={() => this.resetSearch()}
-        searchNeedle={this.state.needle}
-        serviceStatus={services.actionStatus}
-        devRecipesCount={recipePreviews.dev.length}
-      />
+      <ErrorBoundary>
+        <RecipesDashboard
+          recipes={allRecipes}
+          isLoading={isLoading}
+          addedServiceCount={services.all.length}
+          isPremium={user.data.isPremium}
+          hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
+          showAddServiceInterface={showAddServiceInterface}
+          searchRecipes={e => this.searchRecipes(e)}
+          resetSearch={() => this.resetSearch()}
+          searchNeedle={this.state.needle}
+          serviceStatus={services.actionStatus}
+          devRecipesCount={recipePreviews.dev.length}
+        />
+      </ErrorBoundary>
     );
   }
 }

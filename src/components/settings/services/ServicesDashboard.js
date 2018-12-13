@@ -101,17 +101,15 @@ export default @observer class ServicesDashboard extends Component {
             />
           )}
           {!isLoading && servicesRequestFailed && (
-            <div>
-              <Infobox
-                icon="alert"
-                type="danger"
-                ctaLabel={intl.formatMessage(messages.tryReloadServices)}
-                ctaLoading={isLoading}
-                ctaOnClick={retryServicesRequest}
-              >
-                {intl.formatMessage(messages.servicesRequestFailed)}
-              </Infobox>
-            </div>
+            <Infobox
+              icon="alert"
+              type="danger"
+              ctaLabel={intl.formatMessage(messages.tryReloadServices)}
+              ctaLoading={isLoading}
+              ctaOnClick={retryServicesRequest}
+            >
+              {intl.formatMessage(messages.servicesRequestFailed)}
+            </Infobox>
           )}
 
           {status.length > 0 && status.includes('updated') && (

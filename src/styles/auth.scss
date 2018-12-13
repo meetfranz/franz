@@ -33,17 +33,9 @@
 
   .auth__layout {
     width: 100%;
-
-    & > div {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-
-      & > span {
-        position: absolute;
-        width: 100%;
-      }
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .auth__container {

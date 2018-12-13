@@ -1,5 +1,5 @@
 import { remote } from 'electron';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -171,21 +171,23 @@ export default @observer class EditSettingsForm extends Component {
             <PremiumFeatureContainer
               condition={isSpellcheckerPremiumFeature}
             >
-              <div>
+              <Fragment>
                 <Toggle
                   field={form.$('enableSpellchecking')}
                 />
                 {form.$('enableSpellchecking').value && (
                   <Select field={form.$('spellcheckerLanguage')} />
                 )}
-              </div>
+              </Fragment>
             </PremiumFeatureContainer>
             <a
               href={FRANZ_TRANSLATION}
               target="_blank"
               className="link"
             >
-              {intl.formatMessage(messages.translationHelp)} <i className="mdi mdi-open-in-new" />
+              {intl.formatMessage(messages.translationHelp)}
+              {' '}
+              <i className="mdi mdi-open-in-new" />
             </a>
 
             {/* Advanced */}
@@ -233,7 +235,9 @@ export default @observer class EditSettingsForm extends Component {
             )}
             <br />
             <Toggle field={form.$('beta')} />
-            {intl.formatMessage(messages.currentVersion)} {remote.app.getVersion()}
+            {intl.formatMessage(messages.currentVersion)}
+            {' '}
+            {remote.app.getVersion()}
           </form>
         </div>
       </div>

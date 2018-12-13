@@ -1,3 +1,5 @@
+import hexToRgba from 'hex-to-rgba';
+
 import * as legacyStyles from './legacy';
 
 export const brandPrimary = '#3498db';
@@ -12,6 +14,8 @@ export const borderRadiusSmall = legacyStyles.themeBorderRadiusSmall;
 export const colorBackground = legacyStyles.themeGrayLighter;
 export const colorHeadline = legacyStyles.themeGrayDark;
 
+export const colorText = legacyStyles.themeTextColor;
+
 // Subscription Container Component
 export const colorSubscriptionContainerBackground = 'none';
 export const colorSubscriptionContainerBorder = [1, 'solid', brandPrimary];
@@ -19,3 +23,7 @@ export const colorSubscriptionContainerTitle = brandPrimary;
 export const colorSubscriptionContainerActionButtonBackground = brandPrimary;
 export const colorSubscriptionContainerActionButtonColor = '#FFF';
 
+// Loader
+export const colorAppLoaderSpinner = '#FFF';
+export const colorFullscreenLoaderSpinner = legacyStyles.themeGrayDark;
+export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);

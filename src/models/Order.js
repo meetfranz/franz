@@ -1,9 +1,14 @@
 export default class Order {
   id = '';
+
   subscriptionId = '';
+
   name = '';
+
   invoiceUrl = '';
+
   price = '';
+
   date = '';
 
   constructor(data) {

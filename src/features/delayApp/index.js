@@ -67,4 +67,3 @@ export default function init(stores) {
 }
 
 export const Component = DelayAppComponent;
-

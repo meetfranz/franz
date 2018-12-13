@@ -13,9 +13,14 @@ import { gaPage } from '../../lib/analytics';
 
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
+
 import { required, url, oneRequired } from '../../helpers/validation-helpers';
+import { getSelectOptions } from '../../helpers/i18n-helpers';
 
 import { config as proxyFeature } from '../../features/serviceProxy';
+
+import { SPELLCHECKER_LOCALES } from '../../i18n/languages';
 
 const messages = defineMessages({
   name: {
@@ -66,6 +71,10 @@ const messages = defineMessages({
     id: 'settings.service.form.proxy.host',
     defaultMessage: '!!!Proxy Host/IP',
   },
+  proxyPort: {
+    id: 'settings.service.form.proxy.port',
+    defaultMessage: '!!!Port',
+  },
   proxyUser: {
     id: 'settings.service.form.proxy.user',
     defaultMessage: '!!!User',
@@ -73,6 +82,14 @@ const messages = defineMessages({
   proxyPassword: {
     id: 'settings.service.form.proxy.password',
     defaultMessage: '!!!Password',
+  },
+  spellcheckerLanguage: {
+    id: 'settings.service.form.spellcheckerLanguage',
+    defaultMessage: '!!!Spell checking Language',
+  },
+  spellcheckerSystemDefault: {
+    id: 'settings.service.form.spellcheckerLanguage.default',
+    defaultMessage: '!!!Use System Default ({default})',
   },
 });
 
@@ -101,6 +118,11 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
   }
 
   prepareForm(recipe, service, proxy) {
+    const spellcheckerLanguage = getSelectOptions({
+      locales: SPELLCHECKER_LOCALES,
+      resetToDefaultText: this.context.intl.formatMessage(messages.spellcheckerSystemDefault, { default: SPELLCHECKER_LOCALES[this.props.stores.settings.app.spellcheckerLanguage] }),
+    });
+
     const { intl } = this.context;
     const config = {
       fields: {
@@ -138,7 +160,13 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
         isDarkModeEnabled: {
           label: intl.formatMessage(messages.enableDarkMode),
           value: service.isDarkModeEnabled,
-          default: this.props.stores.settings.all.app.darkMode,
+          default: this.props.stores.settings.app.darkMode,
+        },
+        spellcheckerLanguage: {
+          label: intl.formatMessage(messages.spellcheckerLanguage),
+          value: service.spellcheckerLanguage,
+          options: spellcheckerLanguage,
+          disabled: !this.props.stores.settings.app.enableSpellchecking,
         },
       },
     };
@@ -207,6 +235,11 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
             host: {
               label: intl.formatMessage(messages.proxyHost),
               value: serviceProxyConfig.host,
+              default: '',
+            },
+            port: {
+              label: intl.formatMessage(messages.proxyPort),
+              value: serviceProxyConfig.port,
               default: '',
             },
             user: {
@@ -280,20 +313,22 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     const form = this.prepareForm(recipe, service, proxyFeature);
 
     return (
-      <EditServiceForm
-        action={action}
-        recipe={recipe}
-        service={service}
-        user={user.data}
-        form={form}
-        status={services.actionStatus}
-        isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
-        isDeleting={services.deleteServiceRequest.isExecuting}
-        onSubmit={d => this.onSubmit(d)}
-        onDelete={() => this.deleteService()}
-        isProxyFeatureEnabled={proxyFeature.isEnabled}
-        isProxyFeaturePremiumFeature={proxyFeature.isPremium}
-      />
+      <ErrorBoundary>
+        <EditServiceForm
+          action={action}
+          recipe={recipe}
+          service={service}
+          user={user.data}
+          form={form}
+          status={services.actionStatus}
+          isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
+          isDeleting={services.deleteServiceRequest.isExecuting}
+          onSubmit={d => this.onSubmit(d)}
+          onDelete={() => this.deleteService()}
+          isProxyFeatureEnabled={proxyFeature.isEnabled}
+          isProxyFeaturePremiumFeature={proxyFeature.isPremium}
+        />
+      </ErrorBoundary>
     );
   }
 }

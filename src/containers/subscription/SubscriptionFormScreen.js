@@ -12,7 +12,7 @@ const { BrowserWindow } = remote;
 export default @inject('stores', 'actions') @observer class SubscriptionFormScreen extends Component {
   static propTypes = {
     onCloseWindow: PropTypes.func,
-    content: PropTypes.oneOrManyChildElements,
+    content: PropTypes.node,
     showSkipOption: PropTypes.bool,
     skipAction: PropTypes.func,
     skipButtonLabel: PropTypes.string,

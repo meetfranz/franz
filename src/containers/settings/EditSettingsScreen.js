@@ -12,8 +12,11 @@ import { gaPage } from '../../lib/analytics';
 import { DEFAULT_APP_SETTINGS } from '../../config';
 import { config as spellcheckerConfig } from '../../features/spellchecker';
 
+import { getSelectOptions } from '../../helpers/i18n-helpers';
+
 
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
@@ -116,20 +119,12 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
     const { app, settings, user } = this.props.stores;
     const { intl } = this.context;
 
-    const locales = [];
-    Object.keys(APP_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
-      locales.push({
-        value: key,
-        label: APP_LOCALES[key],
-      });
+    const locales = getSelectOptions({
+      locales: APP_LOCALES,
     });
 
-    const spellcheckingLanguages = [];
-    Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
-      spellcheckingLanguages.push({
-        value: key,
-        label: SPELLCHECKER_LOCALES[key],
-      });
+    const spellcheckingLanguages = getSelectOptions({
+      locales: SPELLCHECKER_LOCALES,
     });
 
     const config = {
@@ -222,20 +217,22 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
     const form = this.prepareForm();
 
     return (
-      <EditSettingsForm
-        form={form}
-        checkForUpdates={checkForUpdates}
-        installUpdate={installUpdate}
-        isCheckingForUpdates={updateStatus === updateStatusTypes.CHECKING}
-        isUpdateAvailable={updateStatus === updateStatusTypes.AVAILABLE}
-        noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
-        updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
-        onSubmit={d => this.onSubmit(d)}
-        cacheSize={cacheSize}
-        isClearingAllCache={isClearingAllCache}
-        onClearAllCache={clearAllCache}
-        isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
-      />
+      <ErrorBoundary>
+        <EditSettingsForm
+          form={form}
+          checkForUpdates={checkForUpdates}
+          installUpdate={installUpdate}
+          isCheckingForUpdates={updateStatus === updateStatusTypes.CHECKING}
+          isUpdateAvailable={updateStatus === updateStatusTypes.AVAILABLE}
+          noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
+          updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
+          onSubmit={d => this.onSubmit(d)}
+          cacheSize={cacheSize}
+          isClearingAllCache={isClearingAllCache}
+          onClearAllCache={clearAllCache}
+          isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
+        />
+      </ErrorBoundary>
     );
   }
 }

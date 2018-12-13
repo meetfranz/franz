@@ -69,18 +69,29 @@ export default @observer class Signup extends Component {
                 donor.amount ? (
                   <span>
                     <p>
-                      Thank you so much for your previous donation of <strong>$ {donor.amount}</strong>.
+                      Thank you so much for your previous donation of
+                      {' '}
+                      <strong>
+                        $
+                        {donor.amount}
+                      </strong>
+                      .
                       <br />
                       Your support allowed us to get where we are today.
                       <br />
                     </p>
                     <p>
-                      As an early supporter, you get <strong>a lifetime premium supporter license</strong> without any
+                      As an early supporter, you get
+                      {' '}
+                      <strong>a lifetime premium supporter license</strong>
+                      {' '}
+                      without any
                       additional charges.
                     </p>
                     <p>
                       However, If you want to keep supporting us, you are more than welcome to subscribe to a plan.
-                      <br /><br />
+                      <br />
+                      <br />
                     </p>
                   </span>
                 ) : (
@@ -113,12 +124,6 @@ export default @observer class Signup extends Component {
                   hideInfo={Boolean(donor.amount)}
                   skipButtonLabel={intl.formatMessage(messages.skipPayment)}
                 />
-                {/* <Link
-                  to={inviteRoute}
-                  className="franz-form__button franz-form__button--secondary auth__button auth__button--skip"
-                >
-                  {intl.formatMessage(messages.skipPayment)}
-                </Link> */}
               </Appear>
             </Loader>
           </form>

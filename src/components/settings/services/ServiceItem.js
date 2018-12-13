@@ -27,6 +27,7 @@ export default @observer class ServiceItem extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     goToServiceForm: PropTypes.func.isRequired,
   };
+
   static contextTypes = {
     intl: intlShape,
   };

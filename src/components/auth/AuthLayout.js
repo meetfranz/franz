@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { RouteTransition } from 'react-router-transition';
 import { intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 
@@ -16,7 +15,6 @@ import { isWindows } from '../../environment';
 export default @observer class AuthLayout extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
-    pathname: PropTypes.string.isRequired,
     error: globalErrorPropType.isRequired,
     isOnline: PropTypes.bool.isRequired,
     isAPIHealthy: PropTypes.bool.isRequired,
@@ -33,7 +31,6 @@ export default @observer class AuthLayout extends Component {
   render() {
     const {
       children,
-      pathname,
       error,
       isOnline,
       isAPIHealthy,
@@ -46,8 +43,8 @@ export default @observer class AuthLayout extends Component {
 
     return (
       <div className={darkMode ? 'theme__dark' : ''}>
-        {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
-        <div className={'auth'}>
+        {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+        <div className="auth">
           {!isOnline && (
             <InfoBar
               type="warning"
@@ -69,22 +66,10 @@ export default @observer class AuthLayout extends Component {
             </InfoBar>
           )}
           <div className="auth__layout">
-            <RouteTransition
-              pathname={pathname}
-              atEnter={{ opacity: 0 }}
-              atLeave={{ opacity: 0 }}
-              atActive={{ opacity: 1 }}
-              mapStyles={styles => ({
-                transform: `translateX(${styles.translateX}%)`,
-                opacity: styles.opacity,
-              })}
-              component="span"
-            >
-              {/* Inject globalError into children  */}
-              {React.cloneElement(children, {
-                error,
-              })}
-            </RouteTransition>
+            {/* Inject globalError into children  */}
+            {React.cloneElement(children, {
+              error,
+            })}
           </div>
           {/* </div> */}
           <Link to="https://adlk.io" className="auth__adlk" target="_blank">

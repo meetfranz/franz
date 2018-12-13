@@ -61,6 +61,7 @@ export default @observer class Infobox extends Component {
           <button
             className="infobox__cta"
             onClick={ctaOnClick}
+            type="button"
           >
             <Loader
               loaded={!ctaLoading}
@@ -74,6 +75,7 @@ export default @observer class Infobox extends Component {
         )}
         {dismissable && (
           <button
+            type="button"
             onClick={() => this.setState({
               dismissed: true,
             })}

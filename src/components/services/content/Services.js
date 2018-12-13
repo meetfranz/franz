@@ -20,18 +20,18 @@ const messages = defineMessages({
 
 export default @observer class Services extends Component {
   static propTypes = {
-    services: MobxPropTypes.arrayOrObservableArray.isRequired,
+    services: MobxPropTypes.arrayOrObservableArray,
     setWebviewReference: PropTypes.func.isRequired,
     handleIPCMessage: PropTypes.func.isRequired,
     openWindow: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    openSettings: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
     update: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     services: [],
-    activeService: '',
   };
 
   static contextTypes = {
@@ -45,6 +45,7 @@ export default @observer class Services extends Component {
       setWebviewReference,
       openWindow,
       reload,
+      openSettings,
       isAppMuted,
       update,
     } = this.props;
@@ -79,6 +80,7 @@ export default @observer class Services extends Component {
             setWebviewReference={setWebviewReference}
             openWindow={openWindow}
             reload={() => reload({ serviceId: service.id })}
+            edit={() => openSettings({ path: `services/edit/${service.id}` })}
             isAppMuted={isAppMuted}
             enable={() => update({
               serviceId: service.id,

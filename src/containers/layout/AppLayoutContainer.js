@@ -75,7 +75,9 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     if (isLoadingFeatures || isLoadingServices) {
       return (
-        <AppLoader />
+        <ThemeProvider theme={ui.theme}>
+          <AppLoader />
+        </ThemeProvider>
       );
     }
 
@@ -105,6 +107,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
+        openSettings={openSettings}
         isAppMuted={settings.all.app.isAppMuted}
         update={updateService}
       />

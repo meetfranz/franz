@@ -1,10 +1,13 @@
-const { ipcRenderer } = require('electron');
-const uuidV1 = require('uuid/v1');
+import { ipcRenderer } from 'electron';
+import uuidV1 from 'uuid/v1';
+
+const debug = require('debug')('Franz:Notifications');
 
 class Notification {
   static permission = 'granted';
 
   constructor(title = '', options = {}) {
+    debug('New notification', title, options);
     this.title = title;
     this.options = options;
     this.notificationId = uuidV1();

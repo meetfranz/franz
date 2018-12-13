@@ -4,6 +4,7 @@ import Request from './lib/Request';
 
 export default class GlobalErrorStore extends Store {
   @observable error = null;
+
   @observable response = {};
 
   constructor(...args) {

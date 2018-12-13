@@ -6,7 +6,7 @@ import injectSheet from 'react-jss';
 
 import Button from '../../components/ui/Button';
 
-import { config } from './';
+import { config } from '.';
 import styles from './styles';
 
 const messages = defineMessages({
@@ -38,11 +38,15 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
     countdown: config.delayDuration,
   }
 
+  countdownInterval = null;
+
+  countdownIntervalTimeout = 1000;
+
   componentDidMount() {
     this.countdownInterval = setInterval(() => {
-      this.setState({
-        countdown: this.state.countdown - this.countdownIntervalTimeout,
-      });
+      this.setState(prevState => ({
+        countdown: prevState.countdown - this.countdownIntervalTimeout,
+      }));
 
       if (this.state.countdown <= 0) {
         // reload();
@@ -54,9 +58,6 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
   componentWillUnmount() {
     clearInterval(this.countdownInterval);
   }
-
-  countdownInterval = null;
-  countdownIntervalTimeout = 1000;
 
   render() {
     const { classes, actions } = this.props;
@@ -71,9 +72,11 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
           buttonType="inverted"
           onClick={() => actions.ui.openSettings({ path: 'user' })}
         />
-        <p className="footnote">{intl.formatMessage(messages.text, {
-          seconds: this.state.countdown / 1000,
-        })}</p>
+        <p className="footnote">
+          {intl.formatMessage(messages.text, {
+            seconds: this.state.countdown / 1000,
+          })}
+        </p>
       </div>
     );
   }

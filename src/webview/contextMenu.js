@@ -1,9 +1,12 @@
 // This is heavily based on https://github.com/sindresorhus/electron-context-menu
 // ❤ @sindresorhus
 
-import { clipboard, remote, ipcRenderer, shell } from 'electron';
+import {
+  clipboard, remote, ipcRenderer, shell,
+} from 'electron';
 
 import { isDevMode, isMac } from '../environment';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:contextMenu');
 
@@ -21,7 +24,7 @@ function delUnusedElements(menuTpl) {
   });
 }
 
-const buildMenuTpl = (props, suggestions) => {
+const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheckerLanguage, spellcheckerLanguage) => {
   const { editFlags } = props;
   const textSelection = props.selectionText.trim();
   const hasText = textSelection.length > 0;
@@ -190,6 +193,54 @@ const buildMenuTpl = (props, suggestions) => {
     });
   }
 
+  const spellcheckingLanguages = [];
+  Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
+    spellcheckingLanguages.push({
+      id: `lang-${key}`,
+      label: SPELLCHECKER_LOCALES[key],
+      type: 'radio',
+      checked: spellcheckerLanguage === key,
+      click() {
+        debug('Setting service spellchecker to', key);
+        ipcRenderer.sendToHost('set-service-spellchecker-language', key);
+      },
+    });
+  });
+
+  console.log('isSpellcheckEnabled', isSpellcheckEnabled);
+
+  menuTpl.push({
+    type: 'separator',
+  }, {
+    id: 'spellchecker',
+    label: 'Spell Checking',
+    visible: isSpellcheckEnabled,
+    submenu: [
+      {
+        id: 'spellchecker',
+        label: 'Available Languages',
+        enabled: false,
+      }, {
+        type: 'separator',
+      },
+      {
+        id: 'resetToDefault',
+        label: `Reset to system default (${SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
+        type: 'radio',
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
+        click() {
+          debug('Resetting service spellchecker to system default');
+          ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
+        },
+      },
+      {
+        type: 'separator',
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
+      },
+      ...spellcheckingLanguages],
+  });
+
+
   if (isDevMode) {
     menuTpl.push({
       type: 'separator',
@@ -205,7 +256,7 @@ const buildMenuTpl = (props, suggestions) => {
   return delUnusedElements(menuTpl);
 };
 
-export default function contextMenu(spellcheckProvider) {
+export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
   webContents.on('context-menu', (e, props) => {
     e.preventDefault();
 
@@ -216,7 +267,15 @@ export default function contextMenu(spellcheckProvider) {
       debug('Suggestions', suggestions);
     }
 
-    const menu = Menu.buildFromTemplate(buildMenuTpl(props, suggestions.slice(0, 5)));
+    const menu = Menu.buildFromTemplate(
+      buildMenuTpl(
+        props,
+        suggestions.slice(0, 5),
+        isSpellcheckEnabled(),
+        getDefaultSpellcheckerLanguage(),
+        getSpellcheckerLanguage(),
+      ),
+    );
 
     menu.popup(remote.getCurrentWindow());
   });

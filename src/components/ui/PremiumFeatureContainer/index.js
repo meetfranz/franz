@@ -73,4 +73,3 @@ PremiumFeatureContainer.wrappedComponent.propTypes = {
     }).isRequired,
   }).isRequired,
 };
-

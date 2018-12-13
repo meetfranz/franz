@@ -5,6 +5,7 @@ export default class Plan {
     id: '',
     price: 0,
   }
+
   year = {
     id: '',
     price: 0,

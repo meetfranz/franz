@@ -1,3 +1,28 @@
+<a name="5.0.0-beta.21"></a>
+# [5.0.0-beta.21](https://github.com/meetfranz/franz/compare/5.0.0-beta.20...5.0.0-beta.21) (2018-12-11)
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+### Features
+
+* **Service:** Add option to change spellchecking language by service ([baf7d60](https://github.com/meetfranz/franz/commit/baf7d60))
+* **Context Menu:** Quickly change the spellchecker language for the active service
+* **Service:** Add error screen for services that failed to load ([a5e7171](https://github.com/meetfranz/franz/commit/a5e7171))
+* **Service:** Add port option for proxy configuration ([baf7d60](https://github.com/meetfranz/franz/commit/baf7d60))
+
+
+### Bug Fixes
+
+* **Spellchecker:** Fix issue with dictionary download ([0cdc165](https://github.com/meetfranz/franz/commit/0cdc165))
+
+### Improvements
+
+* **Dark Mode:** Dark Mode polishing
+* **App:** Updated a ton of dependencies
+
+
 <a name="5.0.0-beta.20"></a>
 # [5.0.0-beta.20](https://github.com/meetfranz/franz/compare/v5.0.0-beta.19...v5.0.0-beta.20) (2018-12-05)
 

@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import Loader from 'react-loader';
 
 // import { oneOrManyChildElements } from '../../prop-types';
-import Appear from '../ui/effects/Appear';
+import Appear from './effects/Appear';
 
 export default @observer class InfoBar extends Component {
   static propTypes = {
@@ -64,6 +64,7 @@ export default @observer class InfoBar extends Component {
           {children}
           {ctaLabel && (
             <button
+              type="button"
               className="info-bar__cta"
               onClick={onClick}
             >
@@ -80,6 +81,7 @@ export default @observer class InfoBar extends Component {
         </div>
         {!sticky && (
           <button
+            type="button"
             className="info-bar__close mdi mdi-close"
             onClick={onHide}
           />

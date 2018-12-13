@@ -8,7 +8,9 @@ import { gaEvent } from '../lib/analytics';
 
 export default class RecipePreviewsStore extends Store {
   @observable allRecipePreviewsRequest = new CachedRequest(this.api.recipePreviews, 'all');
+
   @observable featuredRecipePreviewsRequest = new CachedRequest(this.api.recipePreviews, 'featured');
+
   @observable searchRecipePreviewsRequest = new Request(this.api.recipePreviews, 'search');
 
   constructor(...args) {

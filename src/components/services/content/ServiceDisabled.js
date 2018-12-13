@@ -27,6 +27,7 @@ export default @observer class ServiceDisabled extends Component {
   };
 
   countdownInterval = null;
+
   countdownIntervalTimeout = 1000;
 
   render() {

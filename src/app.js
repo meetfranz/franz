@@ -4,7 +4,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
-import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
+import {
+  Router, Route, hashHistory, IndexRedirect,
+} from 'react-router';
 
 import '@babel/polyfill';
 import smoothScroll from 'smoothscroll-polyfill';

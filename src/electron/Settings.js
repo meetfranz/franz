@@ -8,6 +8,7 @@ const debug = require('debug')('Franz:Settings');
 
 export default class Settings {
   type = '';
+
   @observable store = {};
 
   constructor(type, defaultState = {}) {

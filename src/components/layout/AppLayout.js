@@ -6,6 +6,8 @@ import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
+import ErrorBoundary from '../util/ErrorBoundary';
+
 import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
@@ -94,74 +96,78 @@ export default @observer class AppLayout extends Component {
     const { intl } = this.context;
 
     return (
-      <div className={(darkMode ? 'theme__dark' : '')}>
-        <div className="app">
-          {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon={'assets/images/logo.svg'} />}
-          <div className="app__content">
-            {sidebar}
-            <div className="app__service">
-              {news.length > 0 && news.map(item => (
-                <InfoBar
-                  key={item.id}
-                  position="top"
-                  type={item.type}
-                  sticky={item.sticky}
-                  onHide={() => removeNewsItem({ newsId: item.id })}
-                >
-                  <span dangerouslySetInnerHTML={createMarkup(item.message)} />
-                </InfoBar>
-              ))}
-              {!isOnline && (
-                <InfoBar
-                  type="danger"
-                >
-                  <span className="mdi mdi-flash" />
-                  {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
-                </InfoBar>
-              )}
-              {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
-                <InfoBar
-                  type="danger"
-                  ctaLabel="Try again"
-                  ctaLoading={areRequiredRequestsLoading}
-                  sticky
-                  onClick={retryRequiredRequests}
-                >
-                  <span className="mdi mdi-flash" />
-                  {intl.formatMessage(messages.requiredRequestsFailed)}
-                </InfoBar>
-              )}
-              {showServicesUpdatedInfoBar && (
-                <InfoBar
-                  type="primary"
-                  ctaLabel={intl.formatMessage(messages.buttonReloadServices)}
-                  onClick={reloadServicesAfterUpdate}
-                  sticky
-                >
-                  <span className="mdi mdi-power-plug" />
-                  {intl.formatMessage(messages.servicesUpdated)}
-                </InfoBar>
-              )}
-              {appUpdateIsDownloaded && (
-                <InfoBar
-                  type="primary"
-                  ctaLabel={intl.formatMessage(messages.buttonInstallUpdate)}
-                  onClick={installAppUpdate}
-                  sticky
-                >
-                  <span className="mdi mdi-information" />
-                  {intl.formatMessage(messages.updateAvailable)} <a href="https://meetfranz.com/changelog" target="_blank">
-                    <u>{intl.formatMessage(messages.changelog)}</u>
-                  </a>
-                </InfoBar>
-              )}
-              {isDelayAppScreenVisible && (<DelayApp />)}
-              {services}
+      <ErrorBoundary>
+        <div className={(darkMode ? 'theme__dark' : '')}>
+          <div className="app">
+            {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+            <div className="app__content">
+              {sidebar}
+              <div className="app__service">
+                {news.length > 0 && news.map(item => (
+                  <InfoBar
+                    key={item.id}
+                    position="top"
+                    type={item.type}
+                    sticky={item.sticky}
+                    onHide={() => removeNewsItem({ newsId: item.id })}
+                  >
+                    <span dangerouslySetInnerHTML={createMarkup(item.message)} />
+                  </InfoBar>
+                ))}
+                {!isOnline && (
+                  <InfoBar
+                    type="danger"
+                  >
+                    <span className="mdi mdi-flash" />
+                    {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
+                  </InfoBar>
+                )}
+                {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
+                  <InfoBar
+                    type="danger"
+                    ctaLabel="Try again"
+                    ctaLoading={areRequiredRequestsLoading}
+                    sticky
+                    onClick={retryRequiredRequests}
+                  >
+                    <span className="mdi mdi-flash" />
+                    {intl.formatMessage(messages.requiredRequestsFailed)}
+                  </InfoBar>
+                )}
+                {showServicesUpdatedInfoBar && (
+                  <InfoBar
+                    type="primary"
+                    ctaLabel={intl.formatMessage(messages.buttonReloadServices)}
+                    onClick={reloadServicesAfterUpdate}
+                    sticky
+                  >
+                    <span className="mdi mdi-power-plug" />
+                    {intl.formatMessage(messages.servicesUpdated)}
+                  </InfoBar>
+                )}
+                {appUpdateIsDownloaded && (
+                  <InfoBar
+                    type="primary"
+                    ctaLabel={intl.formatMessage(messages.buttonInstallUpdate)}
+                    onClick={installAppUpdate}
+                    sticky
+                  >
+                    <span className="mdi mdi-information" />
+                    {intl.formatMessage(messages.updateAvailable)}
+                    {' '}
+                    <a href="https://meetfranz.com/changelog" target="_blank">
+                      <u>{intl.formatMessage(messages.changelog)}</u>
+                    </a>
+                  </InfoBar>
+                )}
+                {isDelayAppScreenVisible && (<DelayApp />)}
+                {services}
+              </div>
             </div>
           </div>
+          {children}
         </div>
-        {children}
-      </div>
+      </ErrorBoundary>
     );
   }
 }
