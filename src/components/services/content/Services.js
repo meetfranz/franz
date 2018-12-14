@@ -26,7 +26,6 @@ export default @observer class Services extends Component {
     openWindow: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
-    isAppMuted: PropTypes.bool.isRequired,
     update: PropTypes.func.isRequired,
   };
 
@@ -46,7 +45,6 @@ export default @observer class Services extends Component {
       openWindow,
       reload,
       openSettings,
-      isAppMuted,
       update,
     } = this.props;
     const { intl } = this.context;
@@ -81,7 +79,6 @@ export default @observer class Services extends Component {
             openWindow={openWindow}
             reload={() => reload({ serviceId: service.id })}
             edit={() => openSettings({ path: `services/edit/${service.id}` })}
-            isAppMuted={isAppMuted}
             enable={() => update({
               serviceId: service.id,
               serviceData: {

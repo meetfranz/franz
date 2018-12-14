@@ -15,7 +15,7 @@ export default class Service {
 
   events = {};
 
-  isAttached = false;
+  @observable isAttached = false;
 
   @observable isActive = false; // Is current webview active
 
