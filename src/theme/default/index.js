@@ -27,3 +27,6 @@ export const colorSubscriptionContainerActionButtonColor = '#FFF';
 export const colorAppLoaderSpinner = '#FFF';
 export const colorFullscreenLoaderSpinner = legacyStyles.themeGrayDark;
 export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);
+
+// Modal
+export const colorModalOverlayBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);
