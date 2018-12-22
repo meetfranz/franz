@@ -1,5 +1,8 @@
 import {
-  action, reaction, computed, observable,
+  action,
+  reaction,
+  computed,
+  observable,
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 
@@ -318,12 +321,17 @@ export default class ServicesStore extends Store {
   }
 
   @action _setWebviewReference({ serviceId, webview }) {
+    debug('Set webview reference', serviceId, webview)
     const service = this.one(serviceId);
 
     service.webview = webview;
 
     if (!service.isAttached) {
-      service.initializeWebViewEvents(this);
+      debug('Webview is not attached, initializing');
+      service.initializeWebViewEvents({
+        handleIPCMessage: this.actions.service.handleIPCMessage,
+        openWindow: this.actions.service.openWindow,
+      });
       service.initializeWebViewListener();
     }
 
@@ -644,14 +652,15 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (service.webview) {
-      service.webview.send('initialize-recipe', service);
+      debug('Initialize recipe', service.recipe.id, service.name);
+      service.webview.send('initialize-recipe', service.shareWithWebview, service.recipe);
     }
   }
 
   _initRecipePolling(serviceId) {
     const service = this.one(serviceId);
 
-    const delay = 1000;
+    const delay = 2000;
 
     if (service) {
       if (service.timer !== null) {

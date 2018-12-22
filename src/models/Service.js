@@ -114,6 +114,13 @@ export default class Service {
     });
   }
 
+  @computed get shareWithWebview() {
+    return {
+      spellcheckerLanguage: this.spellcheckerLanguage,
+      isDarkModeEnabled: this.isDarkModeEnabled,
+    };
+  }
+
   @computed get url() {
     if (this.recipe.hasCustomUrl && this.customUrl) {
       let url;
@@ -162,14 +169,14 @@ export default class Service {
     return userAgent;
   }
 
-  initializeWebViewEvents(store) {
-    this.webview.addEventListener('ipc-message', e => store.actions.service.handleIPCMessage({
+  initializeWebViewEvents({ handleIPCMessage, openWindow }) {
+    this.webview.addEventListener('ipc-message', e => handleIPCMessage({
       serviceId: this.id,
       channel: e.channel,
       args: e.args,
     }));
 
-    this.webview.addEventListener('new-window', (event, url, frameName, options) => store.actions.service.openWindow({
+    this.webview.addEventListener('new-window', (event, url, frameName, options) => openWindow({
       event,
       url,
       frameName,

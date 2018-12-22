@@ -98,7 +98,7 @@
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "2.1.0",
     "dotenv": "^4.0.0",
-    "electron": "^2.0.13",
+    "electron": "4.0.0-beta.9",
     "electron-builder": "20.34.0",
     "electron-rebuild": "^1.6.0",
     "eslint": "5.10.0",
