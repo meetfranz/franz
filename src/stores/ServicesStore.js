@@ -321,7 +321,6 @@ export default class ServicesStore extends Store {
   }
 
   @action _setWebviewReference({ serviceId, webview }) {
-    debug('Set webview reference', serviceId, webview)
     const service = this.one(serviceId);
 
     service.webview = webview;
