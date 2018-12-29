@@ -18,7 +18,7 @@ export function resetState() {
   console.log('reset state', state);
 }
 
-export default function initialize(stores) {
+export default function initialize() {
   debug('Initialize basicAuth feature');
 
   window.franz.features.basicAuth = {
