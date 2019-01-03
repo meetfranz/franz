@@ -9,11 +9,9 @@ environment:
 version: 5.0.0.{build}
 
 install:
-  - ps: $version = Get-Content .\.nvmrc -Raw 
+  - ps: $version = Get-Content .\.nvmrc -Raw
   - ps: Install-Product node $version
-  - npm ci
-  - node --version
-  - npm --version
+  - npx lerna bootstrap
 
 cache:
  - '%APPDATA%\npm-cache'

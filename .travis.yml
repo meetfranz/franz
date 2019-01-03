@@ -15,6 +15,7 @@ matrix:
 language: node_js
 
 before_script:
+- npx lerna bootstrap
 - npm install node-sass -g
 
 script:
