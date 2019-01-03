@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/forms",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "React form components for Franz",
   "main": "lib/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/theme",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Theme configuration for Franz",
   "author": "Stefan Malzner <stefan@adlk.io>",
   "homepage": "https://github.com/meetfranz/franz",
@@ -29,6 +29,7 @@
     "color": "^3.1.0"
   },
   "devDependencies": {
-    "@types/color": "^3.0.0"
+    "@types/color": "^3.0.0",
+    "@types/color-convert": "^1.9.0"
   }
 }
