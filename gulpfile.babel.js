@@ -90,6 +90,15 @@ export function mvPackageJson() {
     .pipe(gulp.dest(paths.dest));
 }
 
+export function mvPackages() {
+  return gulp.src(
+    [
+      'packages/**',
+    ],
+  )
+    .pipe(gulp.dest(`${paths.dest}/packages`));
+}
+
 export function html() {
   return gulp.src(paths.html.src, { since: gulp.lastRun(html) })
     .pipe(gulp.dest(paths.html.dest));
@@ -161,7 +170,7 @@ export function sign(done) {
 
 const build = gulp.series(
   clean,
-  gulp.parallel(mvSrc, mvPackageJson),
+  gulp.parallel(mvSrc, mvPackageJson, mvPackages),
   gulp.parallel(html, scripts, styles),
   dictionaries,
 );
