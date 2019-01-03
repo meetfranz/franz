@@ -1,0 +1,47 @@
+{
+  "name": "@meetfranz/forms",
+  "version": "1.0.0",
+  "description": "React form components for Franz",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "tsc -w",
+    "prepare": "tsc",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "keywords": [
+    "Franz",
+    "Forms",
+    "React",
+    "UI"
+  ],
+  "author": "Stefan Malzner <stefan@adlk.io>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@mdi/js": "^3.3.92",
+    "@mdi/react": "^1.1.0",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.11",
+    "mobx": "^5.8.0",
+    "mobx-react": "^5.4.3",
+    "react": "^16.7.0",
+    "react-html-attributes": "^1.4.3",
+    "react-jss": "^8.6.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/addon-a11y": "^4.1.4",
+    "@storybook/addon-actions": "^4.1.4",
+    "@storybook/addon-info": "^4.1.4",
+    "@storybook/addon-links": "^4.1.4",
+    "@storybook/addons": "^4.1.4",
+    "@storybook/react": "^4.1.4",
+    "@types/classnames": "^2.2.6",
+    "@types/jss": "^9.5.7",
+    "@types/lodash": "^4.14.119",
+    "@types/react": "^16.7.18",
+    "@types/react-jss": "^8.6.0",
+    "babel-loader": "^8.0.4",
+    "storybook-addon-jss-theme": "^1.0.2"
+  }
+}
