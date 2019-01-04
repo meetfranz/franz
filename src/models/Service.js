@@ -202,7 +202,7 @@ export default class Service {
 
     this.webview.addEventListener('did-fail-load', (event) => {
       debug('Service failed to load', this.name, event);
-      if (event.isMainFrame) {
+      if (event.isMainFrame && event.errorCode !== -3) {
         this.isError = true;
         this.errorMessage = event.errorDescription;
         this.isLoading = false;
