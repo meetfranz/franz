@@ -30,6 +30,14 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 $ npm run rebuild
 ```
 
+### Install dependencies
+Run the following command to install all dependencies, and link sibling modules with Franz.
+```bash
+$ npx lerna bootstrap
+```
+
+If you previously ran `npm install` it sometimes is necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. 
+
 ### Run Franz Development App
 Run these two commands __simultaneously__ in different console tabs.
 
