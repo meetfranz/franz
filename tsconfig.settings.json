@@ -12,6 +12,6 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "composite": true
+    "composite": true,
   }
 }

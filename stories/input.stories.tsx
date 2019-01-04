@@ -3,7 +3,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { Input } from '../lib';
+import { Input } from '../packages/forms/src';
+
+console.log('stories');
 
 const defaultProps = {
   label: 'Label',

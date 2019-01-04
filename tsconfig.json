@@ -1,5 +1,7 @@
 {
-  "files": [],
+  "files": [
+    "packages/**/*.{ts,tsx}"
+  ],
   "references": [
     {
       "path": "packages/theme"

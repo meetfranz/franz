@@ -1,4 +1,4 @@
-enum Themes {
+export enum ThemeType {
   default = 'default',
   dark = 'dark',
 }
@@ -6,8 +6,8 @@ enum Themes {
 import * as darkThemeConfig from './themes/dark';
 import * as defaultThemeConfig from './themes/default';
 
-export default (themeId: Themes) => {
-  if (themeId === Themes.dark) {
+export default (themeId: ThemeType) => {
+  if (themeId === ThemeType.dark) {
     return Object.assign({}, defaultThemeConfig, darkThemeConfig);
   }
 

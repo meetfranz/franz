@@ -5,9 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "tsc -w",
-    "prepare": "tsc",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "prepare": "tsc"
   },
   "publishConfig": {
     "access": "public"

@@ -1,21 +1,22 @@
 import React from 'react';
+import { Classes } from 'jss';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import addons, { makeDecorator } from '@storybook/addons';
-import theme from '@meetfranz/theme';
+import theme, { Theme, ThemeType } from '../../packages/theme/src';
 
 const defaultTheme = {
   name: 'Default',
-  variables: theme('default'),
+  variables: theme(ThemeType.default),
 };
 
 const darkTheme = {
   name: 'Dark Mode',
-  variables: theme('dark'),
+  variables: theme(ThemeType.dark),
 };
 
 const themes = [defaultTheme, darkTheme];
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   title: {
     fontSize: 14,
   },
@@ -28,7 +29,7 @@ const styles = (theme) => ({
   },
 });
 
-const Container = injectSheet(styles)(({ name, classes, story }) => (
+const Container = injectSheet(styles)(({ name, classes, story }: { name: string, classes: Classes, story: React.ReactNode }) => (
   <article>
     <h1 className={classes.title}>{name}</h1>
     <div className={classes.container}>
@@ -42,7 +43,7 @@ export default makeDecorator({
   parameterName: 'theme',
   // This means don't run this decorator if the notes decorator is not set
   // skipIfNoParametersOrOptions: true,
-  wrapper: (getStory, context, { options }) => {
+  wrapper: (getStory: Function, context: any, { options }: any) => {
     const channel = addons.getChannel();
 
     return (
