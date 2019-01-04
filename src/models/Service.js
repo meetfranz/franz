@@ -189,13 +189,16 @@ export default class Service {
       this.isError = false;
     });
 
-    this.webview.addEventListener('did-frame-finish-load', () => {
+    const didLoad = () => {
       this.isLoading = false;
 
       if (!this.isError) {
         this.isFirstLoad = false;
       }
-    });
+    };
+
+    this.webview.addEventListener('did-frame-finish-load', didLoad.bind(this));
+    this.webview.addEventListener('did-navigate', didLoad.bind(this));
 
     this.webview.addEventListener('did-fail-load', (event) => {
       debug('Service failed to load', this.name, event);
