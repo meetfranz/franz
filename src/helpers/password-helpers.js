@@ -1,7 +1,7 @@
-import { SHA256 } from 'jshashes';
+import crypto from 'crypto';
 
 export function hash(password) {
-  return new SHA256().b64(password);
+  return crypto.createHash('sha256').update(password).digest('base64');
 }
 
 export function scorePassword(password) {
