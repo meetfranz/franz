@@ -42,9 +42,9 @@ class RecipeController {
 
   async initialize() {
     Object.keys(this.ipcEvents).forEach((channel) => {
-      ipcRenderer.on(channel, (event, data) => {
-        debug('Received IPC event for channel', channel, 'with', data);
-        this[this.ipcEvents[channel]](event, data);
+      ipcRenderer.on(channel, (...args) => {
+        debug('Received IPC event for channel', channel, 'with', ...args);
+        this[this.ipcEvents[channel]](...args);
       });
     });
 
@@ -62,17 +62,18 @@ class RecipeController {
     autorun(() => this.update());
   }
 
-  loadRecipeModule(event, data) {
+  loadRecipeModule(event, config, recipe) {
     debug('loadRecipeModule');
-    const modulePath = path.join(data.recipe.path, 'webview.js');
+    const modulePath = path.join(recipe.path, 'webview.js');
+    debug('module path', modulePath);
     // Delete module from cache
     delete require.cache[require.resolve(modulePath)];
     try {
       // eslint-disable-next-line
-      require(modulePath)(new RecipeWebview(), data);
-      debug('Initialize Recipe', data);
+      require(modulePath)(new RecipeWebview(), {...config, recipe,});
+      debug('Initialize Recipe', config, recipe);
 
-      this.settings.service = data;
+      this.settings.service = config;
     } catch (err) {
       console.error('Recipe initialization failed', err);
     }

@@ -41,7 +41,10 @@ const paths = {
   scripts: {
     src: 'src/**/*.js',
     dest: 'build/',
-    watch: 'src/**/*.js',
+    watch: [
+      'packages/**/*.js',
+      'src/**/*.js',
+    ],
   },
 };
 
