@@ -6,9 +6,6 @@
   "homepage": "https://github.com/meetfranz/franz",
   "license": "Apache-2.0",
   "main": "lib/index.js",
-  "files": [
-    "lib/**/*"
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -17,8 +14,8 @@
     "url": "git+https://github.com/meetfranz/franz.git"
   },
   "scripts": {
-    "dev": "tsc -w",
-    "prepare": "tsc",
+    "dev": "NODE_ENV=development ../../node_modules/.bin/webpack -w",
+    "prepare": "../../node_modules/.bin/webpack",
     "preprepare": "npm run test",
     "test": "npx mocha"
   },

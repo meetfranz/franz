@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "experimentalDecorators": true
+  },
   "files": [
     "packages/**/*.{ts,tsx}"
   ],

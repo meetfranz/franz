@@ -4,8 +4,8 @@
   "description": "React form components for Franz",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "tsc -w",
-    "prepare": "tsc"
+    "dev": "NODE_ENV=development ../../node_modules/.bin/webpack -w",
+    "prepare": "../../node_modules/.bin/webpack"
   },
   "publishConfig": {
     "access": "public"
@@ -25,13 +25,15 @@
   "dependencies": {
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
+    "react-html-attributes": "^1.4.3"
+  },
+  "peerDependencies": {
     "@meetfranz/theme": "file:../theme",
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
     "react": "^16.7.0",
-    "react-html-attributes": "^1.4.3",
     "react-jss": "^8.6.1"
   },
   "gitHead": "e9a48f96f8659dcd6ac07a8445f60f27d6ae698a"

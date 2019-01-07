@@ -2,7 +2,9 @@ import React from 'react';
 import { Classes } from 'jss';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import addons, { makeDecorator } from '@storybook/addons';
-import theme, { Theme, ThemeType } from '../../packages/theme/src';
+import theme, { ThemeType, Theme } from '@meetfranz/theme';
+
+console.log(theme);
 
 const defaultTheme = {
   name: 'Default',
@@ -29,7 +31,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const Container = injectSheet(styles)(({ name, classes, story }: { name: string, classes: Classes, story: React.ReactNode }) => (
+const Container = injectSheet(styles)(({ name, classes, story }: { name: string, classes: Classes, story: any }) => (
   <article>
     <h1 className={classes.title}>{name}</h1>
     <div className={classes.container}>
