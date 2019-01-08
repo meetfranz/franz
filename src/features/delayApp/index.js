@@ -41,6 +41,11 @@ export default function init(stores) {
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
+          if (stores.user.data.isPremium) {
+            debug('Skipping app delay as user is Premium Supporter');
+            return;
+          }
+
           if (stores.services.all.length === 0) {
             shownAfterLaunch = true;
             return;
