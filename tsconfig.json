@@ -1,16 +1,7 @@
 {
+  "extends": "./tsconfig.settings.json",
   "compilerOptions": {
-    "experimentalDecorators": true
+    "outDir": ".tstmp",
+    "rootDir": "./"
   },
-  "files": [
-    "packages/**/*.{ts,tsx}"
-  ],
-  "references": [
-    {
-      "path": "packages/theme"
-    },
-    {
-      "path": "packages/forms"
-    }
-  ]
 }

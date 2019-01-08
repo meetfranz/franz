@@ -138,11 +138,13 @@
     "gulp-server-livereload": "^1.9.2",
     "hex-rgb": "3.0.0",
     "husky": "^1.1.4",
+    "i": "0.3.6",
     "install": "0.12.2",
     "kebab-case": "1.0.0",
     "lerna": "^3.8.0",
     "mocha": "5.2.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "4.11.0",
+    "npm": "6.5.0",
     "prettier": "1.15.2",
     "react-docgen-typescript-loader": "3.0.0",
     "react-docgen-typescript-webpack-plugin": "1.1.0",
@@ -153,7 +155,8 @@
     "tslint-config-airbnb": "5.11.1",
     "typescript": "3.2.2",
     "webpack": "4.28.3",
-    "webpack-cli": "3.2.1"
+    "webpack-cli": "3.2.1",
+    "webpack-node-externals": "1.7.2"
   },
   "config": {
     "commitizen": {

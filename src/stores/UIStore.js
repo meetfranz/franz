@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'mobx';
-import * as theme from '@meetfranz/theme';
+import { theme } from '@meetfranz/theme';
 
 import Store from './lib/Store';
 
@@ -23,10 +23,10 @@ export default class UIStore extends Store {
 
   @computed get theme() {
     if (this.stores.settings.all.app.darkMode) {
-      return theme.default('dark');
+      return theme('dark');
     }
 
-    return theme.default('default');
+    return theme('default');
   }
 
   // Actions

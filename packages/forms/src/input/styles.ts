@@ -1,4 +1,4 @@
-import * as CSS from 'csstype';
+import CSS from 'csstype';
 import { Theme } from '../../../theme/lib';
 
 const prefixStyles = (theme: Theme) => ({

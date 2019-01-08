@@ -2,6 +2,7 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "outDir": ".tstmp",
-    "rootDir": "./"
+    "rootDir": "./",
+    "moduleResolution": "node"
   },
 }

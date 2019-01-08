@@ -11,8 +11,6 @@ import Button from '../../ui/Button';
 import Radio from '../../ui/Radio';
 import Infobox from '../../ui/Infobox';
 
-console.log('input', Input);
-
 const messages = defineMessages({
   headline: {
     id: 'settings.account.headline',

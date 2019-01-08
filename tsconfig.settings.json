@@ -13,5 +13,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "composite": true,
+    "esModuleInterop": true
   }
 }
