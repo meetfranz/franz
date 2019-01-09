@@ -23,29 +23,23 @@ function setVisibility(value) {
 }
 
 export default function init(stores) {
-  reaction(
-    () => stores.features.features.needToWaitToProceed,
-    (enabled, r) => {
-      if (enabled) {
-        debug('Initializing `delayApp` feature');
+  debug('Initializing `delayApp` feature');
 
-        // Dispose the reaction to run this only once
-        r.dispose();
+  let shownAfterLaunch = false;
+  let timeLastDelay = moment();
+
+  reaction(
+    () => stores.features.features.needToWaitToProceed && !stores.user.data.isPremium,
+    (isEnabled) => {
+      if (isEnabled) {
+        debug('Enabling `delayApp` feature');
 
         const { needToWaitToProceedConfig: globalConfig } = stores.features.features;
-
-        let shownAfterLaunch = false;
-        let timeLastDelay = moment();
 
         config.delayOffset = globalConfig.delayOffset !== undefined ? globalConfig.delayOffset : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.delayOffset;
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
-          if (stores.user.data.isPremium) {
-            debug('Skipping app delay as user is Premium Supporter');
-            return;
-          }
-
           if (stores.services.all.length === 0) {
             shownAfterLaunch = true;
             return;
@@ -68,6 +62,8 @@ export default function init(stores) {
             }, DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait + 1000); // timer needs to be able to hit 0
           }
         });
+      } else {
+        setVisibility(false);
       }
     },
   );

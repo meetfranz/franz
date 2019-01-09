@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { computed, observable, reaction } from 'mobx';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
@@ -22,6 +22,13 @@ export default class FeaturesStore extends Store {
 
     await this.featuresRequest._promise;
     setTimeout(this._enableFeatures.bind(this), 1);
+
+    // single key reaction
+    reaction(() => this.stores.user.data.isPremium, () => {
+      if (this.stores.user.isLoggedIn) {
+        this.featuresRequest.invalidate({ immediately: true });
+      }
+    });
   }
 
   @computed get anonymousFeatures() {
