@@ -259,6 +259,7 @@ app.on('login', (event, webContents, request, authInfo, callback) => {
   }
 });
 
+// TODO: evaluate if we need to store the authCallback for every service
 ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
   debug('Received basic auth credentials', user, '********');
 
