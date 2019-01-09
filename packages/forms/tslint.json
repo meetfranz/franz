@@ -1,12 +1,3 @@
 {
-  "extends": ["tslint-config-airbnb"],
-  "rules": {
-    "import-name": false,
-    "variable-name": false,
-    "class-name": false,
-    "prefer-array-literal": false,
-    "semicolon": [true, "always"],
-    "max-line-length": false,
-    "ordered-imports": true
-  }
+  "extends": "../../tslint.json"
 }

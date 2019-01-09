@@ -1,18 +1,15 @@
 import React from 'react';
 
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-
 import { Input } from '@meetfranz/forms';
+import { storiesOf } from '../stores/stories';
 
-console.log('stories');
+export const stories = () => (<div>input stories</div>);
 
 const defaultProps = {
   label: 'Label',
   id: 'test1',
   name: 'test1',
-  onChange: action('changed'),
-  focus: true,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
 };
 
 const defaultPasswordProps = {
@@ -20,11 +17,10 @@ const defaultPasswordProps = {
   type: 'password',
   id: 'test1',
   name: 'test1',
-  onChange: action('changed'),
-  focus: true,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
 };
 
-storiesOf('Input', module)
+storiesOf('Input')
   .add('Basic', () => (
     <Input
       {...defaultProps}
@@ -52,7 +48,7 @@ storiesOf('Input', module)
       suffix=".meetfranz.com"
     />
   ))
-  .add('With pre-/suffix', () => (
+  .add('With pre-suffix', () => (
     <Input
       {...defaultProps}
       prefix="https://"
@@ -67,8 +63,7 @@ storiesOf('Input', module)
     />
   ));
 
-storiesOf('Password', module)
-  // .addDecorator(withThemesProvider(themes))
+storiesOf('Password')
   .add('Basic', () => (
     <Input
       {...defaultPasswordProps}
