@@ -6,6 +6,7 @@ import CachedRequest from './lib/CachedRequest';
 import delayApp from '../features/delayApp';
 import spellchecker from '../features/spellchecker';
 import serviceProxy from '../features/serviceProxy';
+import basicAuth from '../features/basicAuth';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -47,5 +48,6 @@ export default class FeaturesStore extends Store {
     delayApp(this.stores, this.actions);
     spellchecker(this.stores, this.actions);
     serviceProxy(this.stores, this.actions);
+    basicAuth(this.stores, this.actions);
   }
 }

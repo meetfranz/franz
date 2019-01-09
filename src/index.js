@@ -1,5 +1,8 @@
 import {
-  app, BrowserWindow, shell, ipcMain,
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
 } from 'electron';
 
 import fs from 'fs-extra';
@@ -7,8 +10,13 @@ import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 
 import {
-  isDevMode, isMac, isWindows, isLinux,
+  isDevMode,
+  isMac,
+  isWindows,
+  isLinux,
 } from './environment';
+
+import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 
 // DEV MODE: Save user data into FranzDev
 if (isDevMode) {
@@ -263,21 +271,41 @@ app.on('ready', () => {
 });
 
 // This is the worst possible implementation as the webview.webContents based callback doesn't work 🖕
+// TODO: rewrite to handle multiple login calls
+const noop = () => null;
+let authCallback = noop;
 app.on('login', (event, webContents, request, authInfo, callback) => {
-  event.preventDefault();
+  authCallback = callback;
   debug('browser login event', authInfo);
+  event.preventDefault();
   if (authInfo.isProxy && authInfo.scheme === 'basic') {
     webContents.send('get-service-id');
 
-    ipcMain.on('service-id', (e, id) => {
+    ipcMain.once('service-id', (e, id) => {
       debug('Received service id', id);
 
       const ps = proxySettings.get(id);
       callback(ps.user, ps.password);
     });
-  } else {
-    // TODO: implement basic auth
+  } else if (authInfo.scheme === 'basic') {
+    debug('basic auth handler', authInfo);
+    basicAuthHandler(mainWindow, authInfo);
   }
+});
+
+// TODO: evaluate if we need to store the authCallback for every service
+ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
+  debug('Received basic auth credentials', user, '********');
+
+  authCallback(user, password);
+  authCallback = noop;
+});
+
+ipcMain.on('feature-basic-auth-cancel', () => {
+  debug('Cancel basic auth');
+
+  authCallback(null);
+  authCallback = noop;
 });
 
 // Quit when all windows are closed.

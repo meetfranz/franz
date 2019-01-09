@@ -11,3 +11,6 @@ export const colorText = legacyStyles.darkThemeTextColor;
 // Loader
 export const colorFullscreenLoaderSpinner = '#FFF';
 export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.darkThemeGrayDarkest, 0.5);
+
+// Modal
+export const colorModalOverlayBackground = hexToRgba(legacyStyles.darkThemeGrayDarkest, 0.8);
