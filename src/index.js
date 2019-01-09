@@ -254,7 +254,7 @@ app.on('login', (event, webContents, request, authInfo, callback) => {
       callback(ps.user, ps.password);
     });
   } else if (authInfo.scheme === 'basic') {
-    console.log('basic auth handler', authInfo);
+    debug('basic auth handler', authInfo);
     basicAuthHandler(mainWindow, authInfo);
   }
 });
