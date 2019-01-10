@@ -13,7 +13,11 @@ export const state = observable(defaultState);
 export default function initWorkspaces(stores, actions) {
   const { features, user } = stores;
   reaction(
-    () => features.features.isWorkspaceEnabled && user.isLoggedIn,
+    () => (
+      features.features.isWorkspaceEnabled && (
+        !features.features.isWorkspacePremiumFeature || user.data.isPremium
+      )
+    ),
     (isEnabled) => {
       if (isEnabled) {
         debug('Initializing `workspaces` feature');
