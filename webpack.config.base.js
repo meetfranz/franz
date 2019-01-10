@@ -19,6 +19,6 @@ module.exports = dir => ({
   devtool: 'inline-source-map',
   mode: IS_DEV ? 'development' : 'production',
   optimization: {
-    minimizer: !IS_DEV ? [new TerserPlugin()] : null,
+    minimizer: !IS_DEV ? [new TerserPlugin()] : [],
   },
 });
