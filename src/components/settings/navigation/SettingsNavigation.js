@@ -14,6 +14,10 @@ const messages = defineMessages({
     id: 'settings.navigation.yourServices',
     defaultMessage: '!!!Your services',
   },
+  yourWorkspaces: {
+    id: 'settings.navigation.yourWorkspaces',
+    defaultMessage: '!!!Your workspaces',
+  },
   account: {
     id: 'settings.navigation.account',
     defaultMessage: '!!!Account',
@@ -62,6 +66,14 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           {intl.formatMessage(messages.yourServices)}
           {' '}
           <span className="badge">{serviceCount}</span>
+        </Link>
+        <Link
+          to="/settings/workspaces"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+        >
+          {intl.formatMessage(messages.yourWorkspaces)}
+          {' '}
         </Link>
         <Link
           to="/settings/user"
