@@ -1,8 +1,21 @@
 {
   "name": "@meetfranz/typings",
   "version": "0.0.0",
-  "description": "Typescript type roots for internal and external projects",
-  "license": "Apache-2.0",
+  "description": "TypeScript typings for internal and external projects",
   "author": "Stefan Malzner <stefan@adlk.io>",
-  "homepage": "https://github.com/meetfranz/franz"
+  "homepage": "https://github.com/meetfranz/franz",
+  "license": "Apache-2.0",
+  "directories": {
+    "types": "types"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meetfranz/franz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/meetfranz/franz/issues"
+  }
 }
