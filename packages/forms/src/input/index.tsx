@@ -16,14 +16,12 @@ import scorePasswordFunc from './scorePassword';
 
 import styles from './styles';
 
-interface IProps extends IFormField, React.InputHTMLAttributes<HTMLInputElement>, IWithStyle {
-  label: string;
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {
   focus?: boolean;
   prefix?: string;
   suffix?: string;
   scorePassword?: boolean;
   showPasswordToggle?: boolean;
-  error?: string;
 }
 
 interface IState {
@@ -32,15 +30,15 @@ interface IState {
 }
 
 @observer
-class Input extends Component<IProps, IState> {
+class InputComponent extends Component<IProps, IState> {
   public static defaultProps = {
-    classes: {},
     focus: false,
     onChange: () => {},
     scorePassword: false,
     showLabel: true,
     showPasswordToggle: false,
     type: 'text',
+    disabled: false,
   };
 
   state = {
@@ -172,4 +170,4 @@ class Input extends Component<IProps, IState> {
   }
 }
 
-export default injectSheet(styles)(Input);
+export const Input = injectSheet(styles)(InputComponent);

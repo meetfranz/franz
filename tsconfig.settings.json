@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "esnext",
     "module": "commonjs",
     "lib": [
@@ -13,6 +14,11 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "composite": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": ["packages/typings/types", "node_modules/@types"],
+    "paths": {
+      "@types/*": ["packages/typings/types/*.d.ts"],
+      "*": ["packages/typings/types/*.d.ts"]
+    }
   }
 }

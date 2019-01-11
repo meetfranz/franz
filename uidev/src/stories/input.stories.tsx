@@ -3,8 +3,6 @@ import React from 'react';
 import { Input } from '@meetfranz/forms';
 import { storiesOf } from '../stores/stories';
 
-export const stories = () => (<div>input stories</div>);
-
 const defaultProps = {
   label: 'Label',
   id: 'test1',

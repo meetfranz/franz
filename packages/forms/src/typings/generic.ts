@@ -1,11 +1,14 @@
 import { Classes } from 'jss';
 
 export interface IFormField {
-  title?: string;
   showLabel?: boolean;
-  isError?: boolean;
+  label?: string;
+  error?: string;
 }
 
 export interface IWithStyle {
   classes: Classes;
 }
+
+export type Merge<M, N> = Omit<M, Extract<keyof M, keyof N>> & N;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

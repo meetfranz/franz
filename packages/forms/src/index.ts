@@ -1,1 +1,2 @@
-export { default as Input } from './input';
+export { Input } from './input';
+export { Toggle } from './toggle';

@@ -1,20 +1,34 @@
+import CSS from 'csstype';
 import { Classes } from 'jss';
+import { observer } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import injectSheet from 'react-jss';
-import './stories/input';
+
 import { WithTheme } from './withTheme';
+
+import './stories/input.stories';
+import './stories/toggle.stories';
 
 import { store } from './stores';
 
 const styles = {
+  '@global body': {
+    margin: 0,
+  },
   container: {
     display: 'flex',
     width: '100%',
   },
   menu: {
     width: 300,
-    position: 'fixed' as any,
+    position: 'fixed' as CSS.PositionProperty,
+    listStyleType: 'none',
+  },
+  storyList: {
+    paddingLeft: 18,
+    marginTop: 5,
+    marginBottom: 20,
   },
   stories: {
     width: '100%',
@@ -22,6 +36,7 @@ const styles = {
     paddingLeft: 40,
     paddingRight: 40,
     borderLeft: '1px solid #CFCFCF',
+    background: '#f7f7f7',
   },
   sectionHeadline: {
     fontSize: 30,
@@ -34,24 +49,29 @@ const styles = {
     marginBottom: 40,
     borderBottom: '1px solid #CFCFCF',
   },
+  sectionLink: {
+    fontWeight: 'bold' as CSS.FontWeightProperty,
+    color: '#000',
+    textDecoration: 'none',
+  },
+  storyLink: {
+    color: '#000',
+    textDecoration: 'none',
+  },
 };
 
-const foo = {
-  seas: 'bar',
-};
-
-export const App = injectSheet(styles)(({ classes }: { classes: Classes }) => (
+export const App = injectSheet(styles)(observer(({ classes }: { classes: Classes }) => (
   <div className={classes.container}>
     <ul className={classes.menu}>
       {store.stories.sections.map((section, key) => (
         <li key={key}>
-          <a href={`#section-${key}`}>{
+          <a href={`#section-${key}`} className={classes.sectionLink}>{
             section.name}
           </a>
-          <ul>
+          <ul className={classes.storyList}>
             {section.stories.map((story, storyKey) => (
               <li key={storyKey}>
-                <a href={`#section-${key}-story-${storyKey}`}>
+                <a href={`#section-${key}-story-${storyKey}`} className={classes.storyLink}>
                   {story.name}
                 </a>
               </li>
@@ -78,12 +98,13 @@ export const App = injectSheet(styles)(({ classes }: { classes: Classes }) => (
                 {story.name}
               </h2>
               <WithTheme>
-                {story.component()}
+                <story.component />
               </WithTheme>
             </div>
           ))}
         </div>
       ))}
     </div>
+    <DevTools />
   </div>
-));
+)));

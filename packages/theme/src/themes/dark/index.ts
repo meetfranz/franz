@@ -24,3 +24,7 @@ export const inputDisabledOpacity = 0.5;
 export const inputScorePasswordBackground = legacyStyles.darkThemeGrayDark;
 export const inputModifierColor = color(legacyStyles.darkThemeGrayLighter).lighten(0.3).hex();
 export const inputPlaceholderColor = color(legacyStyles.darkThemeGrayLighter).darken(0.1).hex();
+
+// Toggle
+export const toggleBackground = legacyStyles.darkThemeGray;
+export const toggleButton = legacyStyles.darkThemeGrayLighter;

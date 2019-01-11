@@ -42,3 +42,10 @@ export const inputPrefixColor = legacyStyles.themeGrayLight;
 export const inputPrefixBackground = legacyStyles.themeGrayLighter;
 export const inputDisabledOpacity = 0.5;
 export const inputScorePasswordBackground = legacyStyles.themeGrayLighter;
+
+// Toggle
+export const toggleBackground = legacyStyles.themeGrayLighter;
+export const toggleButton = legacyStyles.themeGrayLight;
+export const toggleButtonActive = brandPrimary;
+export const toggleWidth = 40;
+export const toggleHeight = 14;

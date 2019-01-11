@@ -1,8 +1,9 @@
 {
   "extends": "../tsconfig.settings.json",
   "compilerOptions": {
+    "baseUrl": "..",
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
   },
   "references": [{
     "path": "../packages/theme"

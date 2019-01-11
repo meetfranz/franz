@@ -2,7 +2,7 @@ import { store } from './index';
 
 export type StorySectionName = string;
 export type StoryName = string;
-export type StoryComponent = Function;
+export type StoryComponent = () => JSX.Element;
 
 export interface IStories {
   name: string;
