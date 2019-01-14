@@ -1,14 +1,11 @@
-import { observable, reaction } from 'mobx';
-import { merge } from 'lodash';
+import { reaction } from 'mobx';
 import WorkspacesStore from './store';
 import api from './api';
+import { state, resetState } from './state';
 
 const debug = require('debug')('Franz:feature:workspaces');
 
 let store = null;
-const defaultState = { workspaces: [] };
-
-export const state = observable(defaultState);
 
 export default function initWorkspaces(stores, actions) {
   const { features, user } = stores;
@@ -27,8 +24,7 @@ export default function initWorkspaces(stores, actions) {
         debug('Disabling `workspaces` feature');
         store.teardown();
         store = null;
-        // Reset state to default
-        merge(state, defaultState);
+        resetState(); // Reset state to default
       }
     },
     {

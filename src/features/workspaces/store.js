@@ -1,6 +1,7 @@
 import { observable, reaction } from 'mobx';
 import Store from '../../stores/lib/Store';
 import CachedRequest from '../../stores/lib/CachedRequest';
+import Workspace from '../../models/Workspace';
 
 const debug = require('debug')('Franz:feature:workspaces');
 
@@ -18,12 +19,20 @@ export default class WorkspacesStore extends Store {
 
     reaction(
       () => this.allWorkspacesRequest.result,
-      workspaces => this.setWorkspaces(workspaces),
+      workspaces => this._setWorkspaces(workspaces),
+    );
+    reaction(
+      () => this.allWorkspacesRequest.isExecuting,
+      isExecuting => this._setIsLoading(isExecuting),
     );
   }
 
-  setWorkspaces = (workspaces) => {
+  _setWorkspaces = (workspaces) => {
     debug('setting user workspaces', workspaces.slice());
-    this.state.workspaces = workspaces;
+    this.state.workspaces = workspaces.map(data => new Workspace(data));
+  };
+
+  _setIsLoading = (isLoading) => {
+    this.state.isLoading = isLoading;
   };
 }

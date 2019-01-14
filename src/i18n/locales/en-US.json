@@ -196,6 +196,7 @@
   "settings.user.form.accountType.individual": "Individual",
   "settings.user.form.accountType.non-profit": "Non-Profit",
   "settings.user.form.accountType.company": "Company",
+  "settings.workspaces.headline": "Your workspaces",
   "subscription.type.free": "free",
   "subscription.type.month": "month",
   "subscription.type.year": "year",
