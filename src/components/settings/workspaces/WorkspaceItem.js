@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape } from 'react-intl';
+import { intlShape } from 'react-intl';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Workspace from '../../../models/Workspace';
