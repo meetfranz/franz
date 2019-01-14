@@ -43,7 +43,12 @@ class WorkspacesDashboard extends Component {
           ) : (
             <table className="service-table">
               <tbody>
-                {workspaces.map(workspace => <WorkspaceItem workspace={workspace} />)}
+                {workspaces.map(workspace => (
+                  <WorkspaceItem
+                    key={workspace.id}
+                    workspace={workspace}
+                  />
+                ))}
               </tbody>
             </table>
           )}
