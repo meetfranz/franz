@@ -12,6 +12,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      react: path.resolve('../node_modules/react'),
+    },
   },
   mode: 'none',
   plugins: [
@@ -19,4 +22,8 @@ module.exports = {
       template: path.join('src', 'app.html'),
     }),
   ],
+  devServer: {
+    inline: true,
+    port: 8008,
+  },
 };

@@ -26,12 +26,16 @@
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
     "@meetfranz/theme": "file:../theme",
+    "react-html-attributes": "^1.4.3",
+    "react-loader": "^2.4.5"
+  },
+  "peerDependencies": {
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
+    "react": "^16.7.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
-    "react": "^16.7.0",
-    "react-html-attributes": "^1.4.3",
+    "react-dom": "16.7.0",
     "react-jss": "^8.6.1"
   },
   "gitHead": "e9a48f96f8659dcd6ac07a8445f60f27d6ae698a"

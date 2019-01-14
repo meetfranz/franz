@@ -6,12 +6,10 @@ const prefixStyles = (theme: Theme) => ({
   color: theme.inputPrefixColor,
   lineHeight: theme.inputHeight,
   padding: '0 10px',
+  fontSize: theme.uiFontSize,
 });
 
 export default (theme: Theme) => ({
-  container: {
-    // display: 'flex',
-  },
   disabled: {
     opacity: theme.inputDisabledOpacity,
   },
@@ -33,7 +31,7 @@ export default (theme: Theme) => ({
   input: {
     background: 'none',
     border: 0,
-    fontSize: theme.inputFontSize,
+    fontSize: theme.uiFontSize,
     outline: 'none',
     padding: 8,
     width: '100%',

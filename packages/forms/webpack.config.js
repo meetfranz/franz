@@ -7,4 +7,13 @@ module.exports = Object.assign({}, baseConfig, {
     path: path.join(__dirname, 'lib'),
     libraryTarget: 'commonjs2',
   },
+  externals: {
+    react: 'react',
+    reactDom: 'react-dom',
+    classnames: 'classnames',
+    lodash: 'lodash',
+    mobx: 'mobx',
+    mobxReact: 'mobx-react',
+    reactJss: 'react-jss',
+  },
 });

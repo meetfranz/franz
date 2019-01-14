@@ -6,6 +6,7 @@ export default (theme: Theme) => ({
   },
   label: {
     color: theme.labelColor,
+    fontSize: theme.uiFontSize,
   },
   hasError: {
     color: theme.brandDanger,

@@ -11,9 +11,7 @@ import Error from '../error';
 import Label from '../label';
 import Wrapper from '../wrapper';
 
-interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {
-  // field: any;
-}
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {}
 
 const styles = (theme: Theme) => ({
   toggle: {
@@ -42,7 +40,7 @@ const styles = (theme: Theme) => ({
     visibility: 'hidden' as any,
   },
   disabled: {
-    opacity: 0.5,
+    opacity: theme.inputDisabledOpacity,
   },
   toggleLabel: {
     display: 'flex',
@@ -76,8 +74,6 @@ class ToggleComponent extends Component<IProps> {
       value,
       onChange,
     } = this.props;
-
-    console.log('props', this.props);
 
     return (
       <Wrapper>

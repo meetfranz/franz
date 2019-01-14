@@ -34,6 +34,7 @@ class InputComponent extends Component<IProps, IState> {
   public static defaultProps = {
     focus: false,
     onChange: () => {},
+    onBlur: () => {},
     scorePassword: false,
     showLabel: true,
     showPasswordToggle: false,
@@ -74,6 +75,7 @@ class InputComponent extends Component<IProps, IState> {
   render() {
     const {
       classes,
+      className,
       disabled,
       error,
       id,
@@ -84,6 +86,11 @@ class InputComponent extends Component<IProps, IState> {
       showLabel,
       showPasswordToggle,
       type,
+      value,
+      name,
+      placeholder,
+      spellCheck,
+      onBlur,
     } = this.props;
 
     const {
@@ -91,18 +98,7 @@ class InputComponent extends Component<IProps, IState> {
       passwordScore,
     } = this.state;
 
-    const inputProps = pick(this.props, htmlElementAttributes['input']);
-
-    if (type === 'password' && showPassword) {
-      inputProps.type = 'text';
-    }
-
-    inputProps.onChange = this.onChange.bind(this);
-
-    const cssClasses = classnames({
-      [`${inputProps.className}`]: inputProps.className,
-      [`${classes.input}`]: true,
-    });
+    const inputType = type === 'password' && showPassword ? 'text' : type;
 
     return (
       <Wrapper>
@@ -110,10 +106,11 @@ class InputComponent extends Component<IProps, IState> {
           title={label}
           showLabel={showLabel}
           htmlFor={id}
+          className={className}
         >
           <div
             className={classnames({
-              [`${classes.hasPasswordScore}`]: showPasswordToggle,
+              [`${classes.hasPasswordScore}`]: scorePassword,
               [`${classes.wrapper}`]: true,
               [`${classes.disabled}`]: disabled,
               [`${classes.hasError}`]: error,
@@ -124,9 +121,16 @@ class InputComponent extends Component<IProps, IState> {
               </span>
             )}
             <input
-              {...inputProps}
-              className={cssClasses}
+              id={id}
+              type={inputType}
+              name={name}
+              value={value}
+              placeholder={placeholder}
+              spellCheck={spellCheck}
+              className={classes.input}
               ref={this.inputRef}
+              onChange={this.onChange.bind(this)}
+              onBlur={onBlur}
             />
             {suffix && (
               <span className={classes.suffix}>

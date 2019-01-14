@@ -18,7 +18,7 @@ class Wrapper extends Component<IProps> {
     } = this.props;
 
     return (
-    <div className={classes.container}>
+      <div className={classes.container}>
         {children}
       </div>
     );

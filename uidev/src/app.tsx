@@ -7,14 +7,20 @@ import injectSheet from 'react-jss';
 
 import { WithTheme } from './withTheme';
 
+import './stories/button.stories';
 import './stories/input.stories';
 import './stories/toggle.stories';
 
 import { store } from './stores';
 
+import { theme, ThemeType } from '@meetfranz/theme';
+const defaultTheme = theme(ThemeType.default);
+
 const styles = {
   '@global body': {
     margin: 0,
+    fontSize: defaultTheme.uiFontSize,
+    fontFamily: '\'Open Sans\', sans-serif',
   },
   container: {
     display: 'flex',
@@ -24,6 +30,7 @@ const styles = {
     width: 300,
     position: 'fixed' as CSS.PositionProperty,
     listStyleType: 'none',
+    fontSize: 14,
   },
   storyList: {
     paddingLeft: 18,

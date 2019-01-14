@@ -24,7 +24,6 @@ const styles = (theme: Theme) => ({
     borderRadius: theme.borderRadiusSmall,
     marginBottom: 20,
     padding: 20,
-    paddingBottom: 5,
     background: theme.colorContentBackground,
   },
 });

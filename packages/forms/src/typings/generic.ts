@@ -1,3 +1,4 @@
+import { Theme } from '@meetfranz/theme/lib';
 import { Classes } from 'jss';
 
 export interface IFormField {
@@ -8,6 +9,7 @@ export interface IFormField {
 
 export interface IWithStyle {
   classes: Classes;
+  theme: Theme;
 }
 
 export type Merge<M, N> = Omit<M, Extract<keyof M, keyof N>> & N;

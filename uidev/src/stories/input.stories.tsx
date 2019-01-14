@@ -1,61 +1,68 @@
 import React from 'react';
+import uuid from 'uuid/v4';
 
 import { Input } from '@meetfranz/forms';
 import { storiesOf } from '../stores/stories';
 
-const defaultProps = {
-  label: 'Label',
-  id: 'test1',
-  name: 'test1',
-  onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+const defaultProps = () => {
+  const id = uuid();
+  return {
+    label: 'Label',
+    id: `test-${id}`,
+    name: `test-${id}`,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+  };
 };
 
-const defaultPasswordProps = {
-  label: 'Password',
-  type: 'password',
-  id: 'test1',
-  name: 'test1',
-  onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+const defaultPasswordProps = () => {
+  const id = uuid();
+  return {
+    label: 'Password',
+    id: `test-${id}`,
+    name: `test-${id}`,
+    type: 'password',
+    onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+  };
 };
 
 storiesOf('Input')
   .add('Basic', () => (
     <Input
-      {...defaultProps}
+      {...defaultProps()}
       placeholder="Placeholder text"
     />
   ))
   .add('Without Label', () => (
     <Input
-      {...defaultProps}
+      {...defaultProps()}
       showLabel={false}
     />
   ))
   .add('Disabled', () => (
-    <Input {...defaultProps} disabled />
+    <Input {...defaultProps()} disabled />
   ))
   .add('With prefix', () => (
     <Input
-      {...defaultProps}
+      {...defaultProps()}
       prefix="https://"
     />
   ))
   .add('With suffix', () => (
     <Input
-      {...defaultProps}
+      {...defaultProps()}
       suffix=".meetfranz.com"
     />
   ))
   .add('With pre-suffix', () => (
     <Input
-      {...defaultProps}
+      {...defaultProps()}
       prefix="https://"
       suffix=".meetfranz.com"
     />
   ))
   .add('With error', () => (
     <Input
-      {...defaultProps}
+      {...defaultProps()}
       value="faulty input"
       error="This is a generic error message."
     />
@@ -64,25 +71,25 @@ storiesOf('Input')
 storiesOf('Password')
   .add('Basic', () => (
     <Input
-      {...defaultPasswordProps}
+      {...defaultPasswordProps()}
     />
   ))
   .add('Show password toggle', () => (
     <Input
-      {...defaultPasswordProps}
+      {...defaultPasswordProps()}
       showPasswordToggle
     />
   ))
   .add('Score password', () => (
     <Input
-      {...defaultPasswordProps}
+      {...defaultPasswordProps()}
       showPasswordToggle
       scorePassword
     />
   ))
   .add('Score password with error', () => (
     <Input
-      {...defaultPasswordProps}
+      {...defaultPasswordProps()}
       error="Password is too short"
       showPasswordToggle
       scorePassword
