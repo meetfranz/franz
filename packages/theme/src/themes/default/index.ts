@@ -8,6 +8,8 @@ export const brandInfo = '#5bc0de';
 export const brandWarning = '#FF9F00';
 export const brandDanger = '#d9534f';
 
+export const uiFontSize = 14;
+
 export const borderRadius = legacyStyles.themeBorderRadius;
 export const borderRadiusSmall = legacyStyles.themeBorderRadiusSmall;
 
@@ -33,7 +35,6 @@ export const colorWebviewLoaderBackground = color(legacyStyles.themeGrayLighter)
 export const labelColor = legacyStyles.themeGrayLight;
 export const inputColor = legacyStyles.themeGray;
 export const inputHeight = '35px';
-export const inputFontSize = '14px';
 export const inputBackground = legacyStyles.themeGrayLightest;
 export const inputBorder = `1px solid ${legacyStyles.themeGrayLighter}`;
 export const inputModifierColor = legacyStyles.themeGrayLight;
@@ -49,3 +50,28 @@ export const toggleButton = legacyStyles.themeGrayLight;
 export const toggleButtonActive = brandPrimary;
 export const toggleWidth = 40;
 export const toggleHeight = 14;
+
+// Button
+export const buttonPrimaryBackground = brandPrimary;
+export const buttonPrimaryTextColor = '#FFF';
+
+export const buttonSecondaryBackground = legacyStyles.themeGrayLighter;
+export const buttonSecondaryTextColor = legacyStyles.themeGray;
+
+export const buttonDangerBackground = brandDanger;
+export const buttonDangerTextColor = '#FFF';
+
+export const buttonWarningBackground = brandWarning;
+export const buttonWarningTextColor = '#FFF';
+
+export const buttonInvertedBackground = 'none';
+export const buttonInvertedTextColor = brandPrimary;
+export const buttonInvertedBorder = `1px solid ${brandPrimary}`;
+
+export const buttonLoaderColor = {
+  primary: '#FFF',
+  secondary: buttonSecondaryTextColor,
+  warning: '#FFF',
+  danger: '#FFF',
+  inverted: brandPrimary,
+};

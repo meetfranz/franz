@@ -1,5 +1,6 @@
 import color from 'color';
 
+import * as defaultStyles from '../default';
 import * as legacyStyles from '../legacy';
 
 export const colorBackground = legacyStyles.darkThemeGrayDarkest;
@@ -28,3 +29,21 @@ export const inputPlaceholderColor = color(legacyStyles.darkThemeGrayLighter).da
 // Toggle
 export const toggleBackground = legacyStyles.darkThemeGray;
 export const toggleButton = legacyStyles.darkThemeGrayLighter;
+
+// Button
+export const buttonPrimaryTextColor = legacyStyles.darkThemeTextColor;
+
+export const buttonSecondaryBackground = legacyStyles.darkThemeGrayLighter;
+export const buttonSecondaryTextColor = legacyStyles.darkThemeTextColor;
+
+export const buttonDangerTextColor = legacyStyles.darkThemeTextColor;
+
+export const buttonWarningTextColor = legacyStyles.darkThemeTextColor;
+
+export const buttonLoaderColor = {
+  primary: '#FFF',
+  secondary: buttonSecondaryTextColor,
+  warning: '#FFF',
+  danger: '#FFF',
+  inverted: defaultStyles.brandPrimary,
+};
