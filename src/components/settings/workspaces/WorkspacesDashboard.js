@@ -22,6 +22,7 @@ class WorkspacesDashboard extends Component {
   static propTypes = {
     workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    onWorkspaceClick: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -29,7 +30,7 @@ class WorkspacesDashboard extends Component {
   };
 
   render() {
-    const { workspaces, isLoading } = this.props;
+    const { workspaces, isLoading, onWorkspaceClick } = this.props;
     const { intl } = this.context;
 
     return (
@@ -47,6 +48,7 @@ class WorkspacesDashboard extends Component {
                   <WorkspaceItem
                     key={workspace.id}
                     workspace={workspace}
+                    onItemClick={w => onWorkspaceClick(w)}
                   />
                 ))}
               </tbody>

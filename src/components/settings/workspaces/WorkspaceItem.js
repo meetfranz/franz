@@ -11,6 +11,7 @@ import Workspace from '../../../models/Workspace';
 class WorkspaceItem extends Component {
   static propTypes = {
     workspace: PropTypes.instanceOf(Workspace).isRequired,
+    onItemClick: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -18,7 +19,7 @@ class WorkspaceItem extends Component {
   };
 
   render() {
-    const { workspace } = this.props;
+    const { workspace, onItemClick } = this.props;
     // const { intl } = this.context;
 
     return (
@@ -29,7 +30,7 @@ class WorkspaceItem extends Component {
       >
         <td
           className="workspace-table__column-name"
-          onClick={() => console.log('go to workspace', workspace.name)}
+          onClick={() => onItemClick(workspace)}
         >
           {workspace.name}
         </td>

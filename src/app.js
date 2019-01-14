@@ -40,6 +40,7 @@ import InviteScreen from './containers/auth/InviteScreen';
 import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 import WorkspacesScreen from './containers/settings/WorkspacesScreen';
+import EditWorkspaceScreen from './containers/settings/EditWorkspaceScreen';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -77,6 +78,7 @@ window.addEventListener('load', () => {
                   <Route path="/settings/services" component={ServicesScreen} />
                   <Route path="/settings/services/:action/:id" component={EditServiceScreen} />
                   <Route path="/settings/workspaces" component={WorkspacesScreen} />
+                  <Route path="/settings/workspaces/:action/:id" component={EditWorkspaceScreen} />
                   <Route path="/settings/user" component={AccountScreen} />
                   <Route path="/settings/user/edit" component={EditUserScreen} />
                   <Route path="/settings/app" component={EditSettingsScreen} />
