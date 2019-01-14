@@ -41,7 +41,7 @@ class WorkspacesDashboard extends Component {
           {isLoading ? (
             <Loader />
           ) : (
-            <table className="service-table">
+            <table className="workspace-table">
               <tbody>
                 {workspaces.map(workspace => (
                   <WorkspaceItem

@@ -24,11 +24,11 @@ class WorkspaceItem extends Component {
     return (
       <tr
         className={classnames({
-          'service-table__row': true,
+          'workspace-table__row': true,
         })}
       >
         <td
-          className="service-table__column-name"
+          className="workspace-table__column-name"
           onClick={() => console.log('go to workspace', workspace.name)}
         >
           {workspace.name}
