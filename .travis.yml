@@ -22,7 +22,7 @@ before_script:
 - npm install node-sass -g
 
 script:
-- npm run lint
+# - npm run lint
 - travis_wait 30 npm run build
 
 cache: npm
