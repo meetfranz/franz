@@ -8,16 +8,23 @@ import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 import Loader from 'react-loader';
 
-import { IFormField, IWithStyle } from '../typings/generic';
+import { IFormField, IWithStyle, Omit } from '../typings/generic';
 
 type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'inverted';
 
-interface IProps extends React.InputHTMLAttributes<HTMLButtonElement>, IFormField, IWithStyle {
+interface IProps extends IFormField, IWithStyle {
+  className?: string;
+  disabled?: boolean;
+  id?: string;
+  type?: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => void;
   buttonType?: ButtonType;
   stretch?: boolean;
   loaded?: boolean;
   busy?: boolean;
   icon?: keyof typeof mdiIcons;
+  href?: string;
+  target?: string;
 }
 
 interface IState {
@@ -28,7 +35,7 @@ const styles = (theme: Theme) => ({
   button: {
     borderRadius: theme.borderRadiusSmall,
     border: 'none',
-    display: 'flex',
+    display: 'inline-flex',
     position: 'relative' as CSS.PositionProperty,
     transition: 'background .5s',
     textAlign: 'center' as CSS.TextAlignProperty,
@@ -37,6 +44,7 @@ const styles = (theme: Theme) => ({
     padding: 0,
     width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
     fontSize: theme.uiFontSize,
+    textDecoration: 'none',
   },
   label: {
     margin: '10px 20px',
@@ -127,6 +135,7 @@ class ButtonComponent extends Component<IProps> {
     buttonType: 'primary' as ButtonType,
     stretch: false,
     busy: false,
+    // target: '_self'
   };
 
   state = {
@@ -163,6 +172,8 @@ class ButtonComponent extends Component<IProps> {
       loaded,
       icon: iconName,
       busy: busyProp,
+      href,
+      target,
     } = this.props;
 
     const {
@@ -185,19 +196,8 @@ class ButtonComponent extends Component<IProps> {
       showLoader = busy;
     }
 
-    return (
-      <button
-        id={id}
-        type={type}
-        onClick={onClick}
-        className={classnames({
-          [`${classes.button}`]: true,
-          [`${classes[buttonType as ButtonType]}`]: true,
-          [`${classes.disabled}`]: disabled,
-          [`${className}`]: className,
-        })}
-        disabled={disabled}
-      >
+    const content = (
+      <>
         <div className={classes.loaderContainer}>
           {showLoader && (
             <Loader
@@ -219,8 +219,47 @@ class ButtonComponent extends Component<IProps> {
           )}
           {label}
         </div>
-      </button>
+      </>
     );
+
+    let wrapperComponent = null;
+
+    if (!href) {
+      wrapperComponent = (
+        <button
+          id={id}
+          type={type}
+          onClick={onClick}
+          className={classnames({
+            [`${classes.button}`]: true,
+            [`${classes[buttonType as ButtonType]}`]: true,
+            [`${classes.disabled}`]: disabled,
+            [`${className}`]: className,
+          })}
+          disabled={disabled}
+        >
+          {content}
+        </button>
+      );
+    } else {
+      wrapperComponent = (
+        <a
+          href={href}
+          target={target}
+          onClick={onClick}
+          className={classnames({
+            [`${classes.button}`]: true,
+            [`${classes[buttonType as ButtonType]}`]: true,
+            [`${className}`]: className,
+          })}
+          rel={target === '_blank' ? 'noopener' : ''}
+        >
+          {content}
+        </a>
+      );
+    }
+
+    return wrapperComponent;
   }
 }
 

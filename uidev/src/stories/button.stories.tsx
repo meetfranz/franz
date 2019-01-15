@@ -10,7 +10,6 @@ const defaultProps = {
   id: 'test1',
   name: 'test1',
   type: 'button',
-  onClick: (e: React.MouseEvent<HTMLButtonElement>)  => console.log('click event', e),
   disabled: false,
 };
 
@@ -22,13 +21,13 @@ const WithStoreButton = observer(({ store }: { store: any }) => (
   <>
     <Button
       {...Object.assign({}, defaultProps, store)}
-      onClick={() => {
+      onClick={!store.onClick ? () => {
         store.busy = !store.busy;
 
         window.setTimeout(() => {
           store.busy = !store.busy;
         },                1000);
-      }}
+      } : store.onClick}
     />
   </>
 ));
@@ -77,8 +76,22 @@ storiesOf('Button')
       busy: true,
     })} />
   ))
-  .add('With icon', () => (
+  .add('As link', () => (
     <WithStoreButton store={createStore({
-      icon: 'mdiAccountCircle',
+      href: 'https://meetfranz.com',
     })} />
-  ));
+  ))
+  .add('As link (target=_blank)', () => (
+    <WithStoreButton store={createStore({
+      href: 'https://meetfranz.com',
+      target: '_blank',
+    })} />
+  ))
+  .add('As link (with onClick)', () => (
+    <WithStoreButton store={createStore({
+      href: 'https://meetfranz.com',
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        alert('Click event');
+      },
+    })} />));
