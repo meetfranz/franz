@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/forms",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React form components for Franz",
   "main": "lib/index.js",
   "scripts": {
@@ -25,16 +25,16 @@
   "dependencies": {
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
-    "@meetfranz/theme": "file:../theme",
+    "@meetfranz/theme": "^1.0.2",
     "react-html-attributes": "^1.4.3",
     "react-loader": "^2.4.5"
   },
   "peerDependencies": {
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
-    "react": "^16.7.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
+    "react": "^16.7.0",
     "react-dom": "16.7.0",
     "react-jss": "^8.6.1"
   },
