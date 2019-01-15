@@ -277,6 +277,6 @@ export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, get
       ),
     );
 
-    menu.popup(remote.getCurrentWindow());
+    menu.popup();
   });
 }
