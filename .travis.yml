@@ -14,6 +14,9 @@ matrix:
 
 language: node_js
 
+install: 
+- echo do nothing
+
 before_script:
 - npx lerna bootstrap
 - npm install node-sass -g
