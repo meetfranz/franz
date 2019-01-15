@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/theme",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Theme configuration for Franz",
   "author": "Stefan Malzner <stefan@adlk.io>",
   "homepage": "https://github.com/meetfranz/franz",
@@ -25,5 +25,5 @@
   "dependencies": {
     "color": "^3.1.0"
   },
-  "gitHead": "e9a48f96f8659dcd6ac07a8445f60f27d6ae698a"
+  "gitHead": "e31248830eb63c8bff3d9add3baa4ca8916b74e1"
 }
