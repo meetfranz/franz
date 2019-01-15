@@ -1,10 +1,8 @@
 import { mdiEye, mdiEyeOff } from '@mdi/js';
 import Icon from '@mdi/react';
 import classnames from 'classnames';
-import pick from 'lodash/pick';
 import { observer } from 'mobx-react';
 import React, { Component, createRef } from 'react';
-import htmlElementAttributes from 'react-html-attributes';
 import injectSheet from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';

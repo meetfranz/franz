@@ -1,3 +1,5 @@
+import * as mdiIcons from '@mdi/js';
+import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import CSS from 'csstype';
@@ -15,6 +17,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLButtonElement>, IFormFiel
   stretch?: boolean;
   loaded?: boolean;
   busy?: boolean;
+  icon?: keyof typeof mdiIcons;
 }
 
 interface IState {
@@ -38,27 +41,50 @@ const styles = (theme: Theme) => ({
   label: {
     margin: '10px 20px',
     width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   primary: {
     background: theme.buttonPrimaryBackground,
     color: theme.buttonPrimaryTextColor,
+
+    '& svg': {
+      fill: theme.buttonPrimaryTextColor,
+    },
   },
   secondary: {
     background: theme.buttonSecondaryBackground,
     color: theme.buttonSecondaryTextColor,
+
+    '& svg': {
+      fill: theme.buttonSecondaryTextColor,
+    },
   },
   danger: {
     background: theme.buttonDangerBackground,
     color: theme.buttonDangerTextColor,
+
+    '& svg': {
+      fill: theme.buttonDangerTextColor,
+    },
   },
   warning: {
     background: theme.buttonWarningBackground,
     color: theme.buttonWarningTextColor,
+
+    '& svg': {
+      fill: theme.buttonWarningTextColor,
+    },
   },
   inverted: {
     background: theme.buttonInvertedBackground,
     color: theme.buttonInvertedTextColor,
     border: theme.buttonInvertedBorder,
+
+    '& svg': {
+      fill: theme.buttonInvertedTextColor,
+    },
   },
   disabled: {
     opacity: theme.inputDisabledOpacity,
@@ -77,6 +103,10 @@ const styles = (theme: Theme) => ({
     marginLeft: (props: IProps): number => !props.busy ? 10 : 20,
     marginRight: (props: IProps): number => !props.busy ? -10 : -20,
     position: (props: IProps): CSS.PositionProperty => props.stretch ? 'absolute' : 'inherit',
+  },
+  icon: {
+    marginLeft: -5,
+    marginRight: 10,
   },
 });
 
@@ -122,12 +152,20 @@ class ButtonComponent extends Component<IProps> {
       onClick,
       buttonType,
       loaded,
+      icon: iconName,
       busy: busyProp,
     } = this.props;
 
     const {
       busy,
     } = this.state;
+
+    let icon = '';
+    if (iconName && mdiIcons[iconName]) {
+      icon = mdiIcons[iconName];
+    } else if (iconName && !mdiIcons[iconName]) {
+      console.warn(`Icon '${iconName}' was not found`);
+    }
 
     let showLoader = false;
     if (loaded) {
@@ -162,6 +200,13 @@ class ButtonComponent extends Component<IProps> {
           )}
         </div>
         <div className={classes.label}>
+          {icon && (
+            <Icon
+              path={icon}
+              size={1}
+              className={classes.icon}
+            />
+          )}
           {label}
         </div>
       </button>
