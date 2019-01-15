@@ -58,6 +58,9 @@ export const buttonPrimaryTextColor = '#FFF';
 export const buttonSecondaryBackground = legacyStyles.themeGrayLighter;
 export const buttonSecondaryTextColor = legacyStyles.themeGray;
 
+export const buttonSuccessBackground = brandSuccess;
+export const buttonSuccessTextColor = '#FFF';
+
 export const buttonDangerBackground = brandDanger;
 export const buttonDangerTextColor = '#FFF';
 
@@ -71,6 +74,7 @@ export const buttonInvertedBorder = `1px solid ${brandPrimary}`;
 export const buttonLoaderColor = {
   primary: '#FFF',
   secondary: buttonSecondaryTextColor,
+  success: '#FFF',
   warning: '#FFF',
   danger: '#FFF',
   inverted: brandPrimary,

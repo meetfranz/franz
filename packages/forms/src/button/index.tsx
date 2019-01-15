@@ -10,7 +10,7 @@ import Loader from 'react-loader';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
-type ButtonType = 'primary' | 'secondary' | 'danger' | 'warning' | 'inverted';
+type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'inverted';
 
 interface IProps extends React.InputHTMLAttributes<HTMLButtonElement>, IFormField, IWithStyle {
   buttonType?: ButtonType;
@@ -59,6 +59,14 @@ const styles = (theme: Theme) => ({
 
     '& svg': {
       fill: theme.buttonSecondaryTextColor,
+    },
+  },
+  success: {
+    background: theme.buttonSuccessBackground,
+    color: theme.buttonSuccessTextColor,
+
+    '& svg': {
+      fill: theme.buttonSuccessTextColor,
     },
   },
   danger: {
@@ -144,6 +152,7 @@ class ButtonComponent extends Component<IProps> {
   render() {
     const {
       classes,
+      className,
       theme,
       disabled,
       id,
@@ -185,6 +194,7 @@ class ButtonComponent extends Component<IProps> {
           [`${classes.button}`]: true,
           [`${classes[buttonType as ButtonType]}`]: true,
           [`${classes.disabled}`]: disabled,
+          [`${className}`]: className,
         })}
         disabled={disabled}
       >

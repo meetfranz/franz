@@ -43,6 +43,7 @@ export const buttonWarningTextColor = legacyStyles.darkThemeTextColor;
 export const buttonLoaderColor = {
   primary: '#FFF',
   secondary: buttonSecondaryTextColor,
+  success: '#FFF',
   warning: '#FFF',
   danger: '#FFF',
   inverted: defaultStyles.brandPrimary,

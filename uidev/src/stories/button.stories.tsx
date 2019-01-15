@@ -42,6 +42,11 @@ storiesOf('Button')
       buttonType: 'secondary',
     })} />
   ))
+  .add('Success', () => (
+    <WithStoreButton store={createStore({
+      buttonType: 'success',
+    })} />
+  ))
   .add('Warning', () => (
     <WithStoreButton store={createStore({
       buttonType: 'warning',
