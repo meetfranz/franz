@@ -35,6 +35,7 @@
     "@meetfranz/electron-notification-state": "^1.0.0",
     "@meetfranz/forms": "file:packages/forms",
     "@meetfranz/theme": "file:packages/theme",
+    "@meetfranz/ui": "file:packages/ui",
     "address-rfc2822": "^2.0.1",
     "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",
     "classnames": "2.2.6",

@@ -7,8 +7,14 @@ import injectSheet from 'react-jss';
 
 import { WithTheme } from './withTheme';
 
+import './stories/badge.stories';
 import './stories/button.stories';
+import './stories/headline.stories';
+import './stories/icon.stories';
+import './stories/infobox.stories';
 import './stories/input.stories';
+import './stories/loader.stories';
+import './stories/select.stories';
 import './stories/toggle.stories';
 
 import { store } from './stores';
@@ -31,6 +37,8 @@ const styles = {
     position: 'fixed' as CSS.PositionProperty,
     listStyleType: 'none',
     fontSize: 14,
+    overflow: 'scroll',
+    height: '100%',
   },
   storyList: {
     paddingLeft: 18,

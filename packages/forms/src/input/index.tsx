@@ -7,12 +7,16 @@ import injectSheet from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
-import Error from '../error';
-import Label from '../label';
-import Wrapper from '../wrapper';
-import scorePasswordFunc from './scorePassword';
+import { Error } from '../error';
+import { Label } from '../label';
+import { Wrapper } from '../wrapper';
+import { scorePasswordFunc } from './scorePassword';
 
 import styles from './styles';
+
+interface IData {
+  [index: string]: string;
+}
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {
   focus?: boolean;
@@ -20,6 +24,8 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField
   suffix?: string;
   scorePassword?: boolean;
   showPasswordToggle?: boolean;
+  data: IData;
+  inputClassName?: string;
 }
 
 interface IState {
@@ -48,10 +54,16 @@ class InputComponent extends Component<IProps, IState> {
   private inputRef = createRef<HTMLInputElement>();
 
   componentDidMount() {
-    const { focus } = this.props;
+    const { focus, data } = this.props;
 
-    if (focus && this.inputRef && this.inputRef.current) {
-      this.inputRef.current.focus();
+    if (this.inputRef && this.inputRef.current) {
+      if (focus) {
+        this.inputRef.current.focus();
+      }
+
+      if (data) {
+        Object.keys(data).map(key => this.inputRef.current!.dataset[key] = data[key]);
+      }
     }
   }
 
@@ -77,6 +89,7 @@ class InputComponent extends Component<IProps, IState> {
       disabled,
       error,
       id,
+      inputClassName,
       label,
       prefix,
       scorePassword,
@@ -99,15 +112,17 @@ class InputComponent extends Component<IProps, IState> {
     const inputType = type === 'password' && showPassword ? 'text' : type;
 
     return (
-      <Wrapper>
+      <Wrapper
+        className={className}
+      >
         <Label
           title={label}
           showLabel={showLabel}
           htmlFor={id}
-          className={className}
         >
           <div
             className={classnames({
+              [`${inputClassName}`]: inputClassName,
               [`${classes.hasPasswordScore}`]: scorePassword,
               [`${classes.wrapper}`]: true,
               [`${classes.disabled}`]: disabled,
@@ -122,13 +137,14 @@ class InputComponent extends Component<IProps, IState> {
               id={id}
               type={inputType}
               name={name}
-              value={value}
+              defaultValue={value as string}
               placeholder={placeholder}
               spellCheck={spellCheck}
               className={classes.input}
               ref={this.inputRef}
               onChange={this.onChange.bind(this)}
               onBlur={onBlur}
+              disabled={disabled}
             />
             {suffix && (
               <span className={classes.suffix}>

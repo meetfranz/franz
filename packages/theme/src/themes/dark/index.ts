@@ -48,3 +48,15 @@ export const buttonLoaderColor = {
   danger: '#FFF',
   inverted: defaultStyles.brandPrimary,
 };
+
+// Select
+export const selectBackground = inputBackground;
+export const selectBorder = inputBorder;
+export const selectColor = inputColor;
+export const selectToggleColor = inputPrefixColor;
+export const selectPopupBackground = legacyStyles.darkThemeGrayLight;
+export const selectOptionColor = '#FFF';
+export const selectOptionBorder = `1px solid ${color(legacyStyles.darkThemeGrayLight).darken(0.2).hex()}`;
+export const selectOptionItemHover = color(legacyStyles.darkThemeGrayLight).darken(0.2).hex();
+export const selectOptionItemHoverColor = selectColor;
+export const selectSearchColor = inputBackground;

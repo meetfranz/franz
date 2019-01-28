@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
@@ -7,22 +8,27 @@ import styles from './styles';
 
 interface IProps extends IWithStyle {
   children: React.ReactNode;
+  className?: string;
 }
 
 @observer
-class Wrapper extends Component<IProps> {
+class WrapperComponent extends Component<IProps> {
   render() {
     const {
       children,
       classes,
+      className,
     } = this.props;
 
     return (
-      <div className={classes.container}>
+      <div className={classnames({
+        [`${classes.container}`]: true,
+        [`${className}`]: className,
+      })}>
         {children}
       </div>
     );
   }
 }
 
-export default injectStyle(styles)(Wrapper);
+export const Wrapper = injectStyle(styles)(WrapperComponent);

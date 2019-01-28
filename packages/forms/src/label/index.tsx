@@ -13,7 +13,7 @@ interface ILabel extends IFormField, React.LabelHTMLAttributes<HTMLLabelElement>
 }
 
 @observer
-class Label extends Component<ILabel> {
+class LabelComponent extends Component<ILabel> {
   static defaultProps = {
     showLabel: true,
   };
@@ -46,4 +46,4 @@ class Label extends Component<ILabel> {
   }
 }
 
-export default injectSheet(styles)(Label);
+export const Label = injectSheet(styles)(LabelComponent);

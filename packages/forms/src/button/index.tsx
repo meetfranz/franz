@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 import Loader from 'react-loader';
 
-import { IFormField, IWithStyle, Omit } from '../typings/generic';
+import { IFormField, IWithStyle } from '../typings/generic';
 
 type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'inverted';
 

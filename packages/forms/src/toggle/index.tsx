@@ -7,11 +7,13 @@ import injectStyle from 'react-jss';
 
 import { IFormField, IWithStyle, Omit } from '../typings/generic';
 
-import Error from '../error';
-import Label from '../label';
-import Wrapper from '../wrapper';
+import { Error } from '../error';
+import { Label } from '../label';
+import { Wrapper } from '../wrapper';
 
-interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {}
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {
+  className?: string;
+}
 
 const styles = (theme: Theme) => ({
   toggle: {
@@ -65,6 +67,7 @@ class ToggleComponent extends Component<IProps> {
   render() {
     const {
       classes,
+      className,
       disabled,
       error,
       id,
@@ -76,7 +79,9 @@ class ToggleComponent extends Component<IProps> {
     } = this.props;
 
     return (
-      <Wrapper>
+      <Wrapper
+        className={className}
+      >
         <Label
           title={label}
           showLabel={showLabel}

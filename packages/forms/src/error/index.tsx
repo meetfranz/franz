@@ -12,7 +12,7 @@ interface IProps {
 }
 
 @observer
-class Error extends Component<IProps> {
+class ErrorComponent extends Component<IProps> {
   render() {
     const {
       classes,
@@ -29,4 +29,4 @@ class Error extends Component<IProps> {
   }
 }
 
-export default injectSheet(styles)(Error);
+export const Error = injectSheet(styles)(ErrorComponent);

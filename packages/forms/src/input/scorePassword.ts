@@ -10,7 +10,7 @@ interface IVariations {
   upper: boolean;
 }
 
-export default function scorePasswordFunc(password: string): number {
+export function scorePasswordFunc(password: string): number {
   let score: number = 0;
   if (!password) {
     return score;

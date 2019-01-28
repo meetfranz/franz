@@ -2,6 +2,14 @@ import color from 'color';
 
 import * as legacyStyles from '../legacy';
 
+export interface IStyleTypes {
+  [index: string]: {
+    accent: string;
+    contrast: string;
+    border?: string;
+  };
+}
+
 export const brandPrimary = '#3498db';
 export const brandSuccess = '#5cb85c';
 export const brandInfo = '#5bc0de';
@@ -51,6 +59,35 @@ export const toggleButtonActive = brandPrimary;
 export const toggleWidth = 40;
 export const toggleHeight = 14;
 
+// Style Types
+export const styleTypes: IStyleTypes = {
+  primary: {
+    accent: brandPrimary,
+    contrast: '#FFF',
+  },
+  secondary: {
+    accent: legacyStyles.themeGrayLighter,
+    contrast: legacyStyles.themeGray,
+  },
+  success: {
+    accent: brandSuccess,
+    contrast: '#FFF',
+  },
+  warning: {
+    accent: brandWarning,
+    contrast: '#FFF',
+  },
+  danger: {
+    accent: brandDanger,
+    contrast: '#FFF',
+  },
+  inverted: {
+    accent: 'none',
+    contrast: brandPrimary,
+    border: `1px solid ${brandPrimary}`,
+  },
+};
+
 // Button
 export const buttonPrimaryBackground = brandPrimary;
 export const buttonPrimaryTextColor = '#FFF';
@@ -79,3 +116,24 @@ export const buttonLoaderColor = {
   danger: '#FFF',
   inverted: brandPrimary,
 };
+
+// Select
+export const selectBackground = inputBackground;
+export const selectBorder = inputBorder;
+export const selectHeight = inputHeight;
+export const selectColor = inputColor;
+export const selectToggleColor = inputPrefixColor;
+export const selectPopupBackground = '#FFF';
+export const selectOptionColor = inputColor;
+export const selectOptionBorder = `1px solid ${legacyStyles.themeGrayLightest}`;
+export const selectOptionItemHover = legacyStyles.themeGrayLighter;
+export const selectOptionItemHoverColor = selectColor;
+export const selectOptionItemActive = brandPrimary;
+export const selectOptionItemActiveColor = '#FFF';
+export const selectSearchBackground = legacyStyles.themeGrayLighter;
+export const selectSearchColor = inputColor;
+export const selectDisabledOpacity = inputDisabledOpacity;
+
+// Badge
+export const badgeFontSize = uiFontSize - 2;
+export const badgeBorderRadius = 50;
