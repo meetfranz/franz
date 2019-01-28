@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/typings",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "TypeScript typings for internal and external projects",
   "author": "Stefan Malzner <stefan@adlk.io>",
   "homepage": "https://github.com/meetfranz/franz",
