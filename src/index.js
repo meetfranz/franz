@@ -161,6 +161,9 @@ const createWindow = () => {
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
   // Initialize System Tray
