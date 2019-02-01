@@ -95,6 +95,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "7.0.0",
     "babel-eslint": "10.0.1",
+    "conventional-changelog-cli": "2.0.11",
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "2.1.0",
     "dotenv": "^4.0.0",
