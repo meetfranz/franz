@@ -114,6 +114,13 @@ export default class Service {
     });
   }
 
+  @computed get shareWithWebview() {
+    return {
+      spellcheckerLanguage: this.spellcheckerLanguage,
+      isDarkModeEnabled: this.isDarkModeEnabled,
+    };
+  }
+
   @computed get url() {
     if (this.recipe.hasCustomUrl && this.customUrl) {
       let url;
@@ -162,14 +169,14 @@ export default class Service {
     return userAgent;
   }
 
-  initializeWebViewEvents(store) {
-    this.webview.addEventListener('ipc-message', e => store.actions.service.handleIPCMessage({
+  initializeWebViewEvents({ handleIPCMessage, openWindow }) {
+    this.webview.addEventListener('ipc-message', e => handleIPCMessage({
       serviceId: this.id,
       channel: e.channel,
       args: e.args,
     }));
 
-    this.webview.addEventListener('new-window', (event, url, frameName, options) => store.actions.service.openWindow({
+    this.webview.addEventListener('new-window', (event, url, frameName, options) => openWindow({
       event,
       url,
       frameName,
@@ -182,17 +189,20 @@ export default class Service {
       this.isError = false;
     });
 
-    this.webview.addEventListener('did-frame-finish-load', () => {
+    const didLoad = () => {
       this.isLoading = false;
 
       if (!this.isError) {
         this.isFirstLoad = false;
       }
-    });
+    };
+
+    this.webview.addEventListener('did-frame-finish-load', didLoad.bind(this));
+    this.webview.addEventListener('did-navigate', didLoad.bind(this));
 
     this.webview.addEventListener('did-fail-load', (event) => {
       debug('Service failed to load', this.name, event);
-      if (event.isMainFrame) {
+      if (event.isMainFrame && event.errorCode !== -27 && event.errorCode !== -3) {
         this.isError = true;
         this.errorMessage = event.errorDescription;
         this.isLoading = false;

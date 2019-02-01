@@ -1,5 +1,8 @@
 import {
-  app, BrowserWindow, shell, ipcMain,
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
 } from 'electron';
 
 import fs from 'fs-extra';
@@ -7,8 +10,13 @@ import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 
 import {
-  isDevMode, isMac, isWindows, isLinux,
+  isDevMode,
+  isMac,
+  isWindows,
+  isLinux,
 } from './environment';
+
+import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 
 // DEV MODE: Save user data into FranzDev
 if (isDevMode) {
@@ -46,35 +54,69 @@ if (isWindows) {
 }
 
 // Force single window
-const isSecondInstance = app.makeSingleInstance((argv) => {
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', (event, argv) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
 
-    if (process.platform === 'win32') {
-      // Keep only command line / deep linked arguments
-      const url = argv.slice(1);
+      if (isWindows) {
+        // Keep only command line / deep linked arguments
+        const url = argv.slice(1);
 
-      if (url) {
-        handleDeepLink(mainWindow, url.toString());
+        if (url) {
+          handleDeepLink(mainWindow, url.toString());
+        }
+      }
+
+      if (argv.includes('--reset-window')) {
+        // Needs to be delayed to not interfere with mainWindow.restore();
+        setTimeout(() => {
+          debug('Resetting windows via Task');
+          mainWindow.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
+          mainWindow.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+        }, 1);
       }
     }
-  }
+  });
 
-  if (argv.includes('--reset-window')) {
-    // Needs to be delayed to not interfere with mainWindow.restore();
-    setTimeout(() => {
-      debug('Resetting windows via Task');
-      mainWindow.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
-      mainWindow.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
-    }, 1);
-  }
-});
-
-if (isSecondInstance) {
-  console.log('An instance of Franz is already running. Exiting...');
-  app.exit();
+  // Create myWindow, load the rest of the app, etc...
+  app.on('ready', () => {
+  });
 }
+// const isSecondInstance = app.makeSingleInstance((argv) => {
+//   if (mainWindow) {
+//     if (mainWindow.isMinimized()) mainWindow.restore();
+//     mainWindow.focus();
+
+//     if (process.platform === 'win32') {
+//       // Keep only command line / deep linked arguments
+//       const url = argv.slice(1);
+
+//       if (url) {
+//         handleDeepLink(mainWindow, url.toString());
+//       }
+//     }
+//   }
+
+//   if (argv.includes('--reset-window')) {
+//     // Needs to be delayed to not interfere with mainWindow.restore();
+//     setTimeout(() => {
+//       debug('Resetting windows via Task');
+//       mainWindow.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
+//       mainWindow.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+//     }, 1);
+//   }
+// });
+
+// if (isSecondInstance) {
+//   console.log('An instance of Franz is already running. Exiting...');
+//   app.exit();
+// }
 
 // Fix Unity indicator issue
 // https://github.com/electron/electron/issues/9046
@@ -119,6 +161,9 @@ const createWindow = () => {
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
   // Initialize System Tray
@@ -229,21 +274,41 @@ app.on('ready', () => {
 });
 
 // This is the worst possible implementation as the webview.webContents based callback doesn't work 🖕
+// TODO: rewrite to handle multiple login calls
+const noop = () => null;
+let authCallback = noop;
 app.on('login', (event, webContents, request, authInfo, callback) => {
-  event.preventDefault();
+  authCallback = callback;
   debug('browser login event', authInfo);
+  event.preventDefault();
   if (authInfo.isProxy && authInfo.scheme === 'basic') {
     webContents.send('get-service-id');
 
-    ipcMain.on('service-id', (e, id) => {
+    ipcMain.once('service-id', (e, id) => {
       debug('Received service id', id);
 
       const ps = proxySettings.get(id);
       callback(ps.user, ps.password);
     });
-  } else {
-    // TODO: implement basic auth
+  } else if (authInfo.scheme === 'basic') {
+    debug('basic auth handler', authInfo);
+    basicAuthHandler(mainWindow, authInfo);
   }
+});
+
+// TODO: evaluate if we need to store the authCallback for every service
+ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
+  debug('Received basic auth credentials', user, '********');
+
+  authCallback(user, password);
+  authCallback = noop;
+});
+
+ipcMain.on('feature-basic-auth-cancel', () => {
+  debug('Cancel basic auth');
+
+  authCallback(null);
+  authCallback = noop;
 });
 
 // Quit when all windows are closed.
