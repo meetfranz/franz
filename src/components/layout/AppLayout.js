@@ -115,14 +115,15 @@ export default @observer class AppLayout extends Component {
                     <span dangerouslySetInnerHTML={createMarkup(item.message)} />
                   </InfoBar>
                 ))}
-                {!isOnline && (
+                {/* {!isOnline && (
                   <InfoBar
                     type="danger"
+                    sticky
                   >
                     <span className="mdi mdi-flash" />
                     {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
                   </InfoBar>
-                )}
+                )} */}
                 {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
                   <InfoBar
                     type="danger"
