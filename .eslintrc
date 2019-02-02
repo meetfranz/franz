@@ -6,12 +6,16 @@
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [2, {
       "ignore": ["electron"]
-    }],
+      }],
+    "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
     }],
+    "react/forbid-prop-types": 1,
+    "react/destructuring-assignment": 1,
+    "prefer-destructuring": 1,
     "no-underscore-dangle": 0,
     "max-len": 0,
     "class-methods-use-this": 0,
@@ -19,7 +23,23 @@
     "react/jsx-no-bind": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "react/jsx-no-target-blank": 0,
-    "no-restricted-syntax": [0, "ForInStatement"]
+    "no-restricted-syntax": [0, "ForInStatement"],
+    "jsx-a11y/no-noninteractive-element-interactions": 1,
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": [
+          "Label"
+        ],
+        "required": {
+          "every": [
+            "id"
+          ]
+        },
+        "allowChildren": false
+      }
+    ],
+    "jsx-a11y/click-events-have-key-events": 1
   },
   "globals": {
     "window": true,

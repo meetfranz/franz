@@ -1,15 +1,22 @@
 import { observable, toJS } from 'mobx';
 import { pathExistsSync, outputJsonSync, readJsonSync } from 'fs-extra';
+import path from 'path';
 
-import { SETTINGS_PATH, DEFAULT_APP_SETTINGS } from '../config';
+import { SETTINGS_PATH } from '../config';
 
-const debug = require('debug')('Settings');
+const debug = require('debug')('Franz:Settings');
 
 export default class Settings {
-  @observable store = DEFAULT_APP_SETTINGS;
+  type = '';
 
-  constructor() {
-    if (!pathExistsSync(SETTINGS_PATH)) {
+  @observable store = {};
+
+  constructor(type, defaultState = {}) {
+    this.type = type;
+    this.store = defaultState;
+    this.defaultState = defaultState;
+
+    if (!pathExistsSync(this.settingsFile)) {
       this._writeFile();
     } else {
       this._hydrate();
@@ -17,7 +24,7 @@ export default class Settings {
   }
 
   set(settings) {
-    this.store = Object.assign(this.store, settings);
+    this.store = this._merge(settings);
 
     this._writeFile();
   }
@@ -30,13 +37,21 @@ export default class Settings {
     return this.store[key];
   }
 
+  _merge(settings) {
+    return Object.assign(this.defaultState, this.store, settings);
+  }
+
   _hydrate() {
-    this.store = readJsonSync(SETTINGS_PATH);
-    debug('Hydrate store', toJS(this.store));
+    this.store = this._merge(readJsonSync(this.settingsFile));
+    debug('Hydrate store', this.type, toJS(this.store));
   }
 
   _writeFile() {
-    outputJsonSync(SETTINGS_PATH, this.store);
-    debug('Write settings file', toJS(this.store));
+    outputJsonSync(this.settingsFile, this.store);
+    debug('Write settings file', this.type, toJS(this.store));
+  }
+
+  get settingsFile() {
+    return path.join(SETTINGS_PATH, `${this.type === 'app' ? 'settings' : this.type}.json`);
   }
 }

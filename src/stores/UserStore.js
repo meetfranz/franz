@@ -8,34 +8,52 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 
-const debug = require('debug')('UserStore');
+const debug = require('debug')('Franz:UserStore');
 
 // TODO: split stores into UserStore and AuthStore
 export default class UserStore extends Store {
   BASE_ROUTE = '/auth';
+
   WELCOME_ROUTE = `${this.BASE_ROUTE}/welcome`;
+
   LOGIN_ROUTE = `${this.BASE_ROUTE}/login`;
+
   LOGOUT_ROUTE = `${this.BASE_ROUTE}/logout`;
+
   SIGNUP_ROUTE = `${this.BASE_ROUTE}/signup`;
+
   PRICING_ROUTE = `${this.BASE_ROUTE}/signup/pricing`;
+
   IMPORT_ROUTE = `${this.BASE_ROUTE}/signup/import`;
+
   INVITE_ROUTE = `${this.BASE_ROUTE}/signup/invite`;
+
   PASSWORD_ROUTE = `${this.BASE_ROUTE}/password`;
 
   @observable loginRequest = new Request(this.api.user, 'login');
+
   @observable signupRequest = new Request(this.api.user, 'signup');
+
   @observable passwordRequest = new Request(this.api.user, 'password');
+
   @observable inviteRequest = new Request(this.api.user, 'invite');
+
   @observable getUserInfoRequest = new CachedRequest(this.api.user, 'getInfo');
+
   @observable updateUserInfoRequest = new Request(this.api.user, 'updateInfo');
+
   @observable getLegacyServicesRequest = new CachedRequest(this.api.user, 'getLegacyServices');
+
   @observable deleteAccountRequest = new CachedRequest(this.api.user, 'delete');
 
   @observable isImportLegacyServicesExecuting = false;
+
   @observable isImportLegacyServicesCompleted = false;
 
   @observable id;
+
   @observable authToken = localStorage.getItem('authToken') || null;
+
   @observable accountType;
 
   @observable hasCompletedSignup = null;
@@ -47,6 +65,7 @@ export default class UserStore extends Store {
   logoutReasonTypes = {
     SERVER: 'SERVER',
   };
+
   @observable logoutReason = null;
 
   constructor(...args) {
@@ -121,13 +140,13 @@ export default class UserStore extends Store {
   }
 
   @computed get data() {
-    this.getUserInfoRequest.execute();
-    return this.getUserInfoRequest.result || {};
+    if (!this.isLoggedIn) return {};
+
+    return this.getUserInfoRequest.execute().result || {};
   }
 
   @computed get legacyServices() {
-    this.getLegacyServicesRequest.execute();
-    return this.getLegacyServicesRequest.result || [];
+    return this.getLegacyServicesRequest.execute() || {};
   }
 
   // Actions
@@ -138,7 +157,9 @@ export default class UserStore extends Store {
     this.stores.router.push('/');
   }
 
-  @action async _signup({ firstname, lastname, email, password, accountType, company }) {
+  @action async _signup({
+    firstname, lastname, email, password, accountType, company,
+  }) {
     const authToken = await this.signupRequest.execute({
       firstname,
       lastname,
@@ -187,10 +208,11 @@ export default class UserStore extends Store {
   }
 
   @action _logout() {
+    // workaround mobx issue
     localStorage.removeItem('authToken');
+    window.localStorage.removeItem('authToken');
     this.getUserInfoRequest.invalidate().reset();
     this.authToken = null;
-    // this.data = {};
   }
 
   @action async _importLegacyServices({ services }) {

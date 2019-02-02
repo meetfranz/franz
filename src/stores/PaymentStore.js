@@ -6,8 +6,11 @@ import Store from './lib/Store';
 
 export default class PaymentStore extends Store {
   @observable plansRequest = new CachedRequest(this.api.payment, 'plans');
+
   @observable createHostedPageRequest = new Request(this.api.payment, 'getHostedPage');
+
   @observable createDashboardUrlRequest = new Request(this.api.payment, 'getDashboardUrl');
+
   @observable ordersDataRequest = new CachedRequest(this.api.payment, 'getOrders');
 
   constructor(...args) {

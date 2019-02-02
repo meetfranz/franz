@@ -1,15 +1,8 @@
 .invite__form {
-  /* play with values to see different layouts */
-  // display: flex;
   align-items: center;
   align-self: center;
   justify-content: center;
 }
 
-.invite__embed {
-  text-align: center;
-}
-
-.invite__embed--button {
-  width: 100%;
-}
+.invite__embed { text-align: center; }
+.invite__embed--button { width: 100%; }

@@ -1,92 +1,89 @@
-.auth {
-  .welcome {
+.auth .welcome {
+  height: auto;
+  
+  &__content {
+    align-items: center;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    height: auto;
+  }
 
-    &__content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #FFF;
+  &__logo { width: 100px; }
+
+  &__text {
+    border-left: 1px solid #FFF;
+    margin-left: 40px;
+    padding-left: 40px;
+
+    h1 {
+      font-size: 60px;
+      letter-spacing: -.4rem;
+      margin-bottom: 5px;
     }
 
-    &__logo {
-      width: 100px;
+    h2 {
+      margin-bottom: 0;
+      margin-left: 2px;
     }
+  }
 
-    &__text {
-      margin-left: 40px;
-      padding-left: 40px;
-      border-left: 1px solid #FFF;
+  &__services {
+    height: 100%;
+    margin-left: -450px;
+    max-height: 600px;
+    max-width: 800px;
+    width: 100%;
+  }
 
-      h1 {
-        font-size: 60px;
-        letter-spacing: -0.4rem;
-        margin-bottom: 5px;
-      }
+  &__buttons {
+    display: block;
+    margin-top: 100px;
+    text-align: center;
+    height: auto;
 
-      h2 {
-        margin-left: 2px;
-        margin-bottom: 0;
-      }
-    }
+    .button:first-of-type { margin-right: 25px; }
+  }
 
-    &__services {
-      width: 100%;
-      max-width: 800px;
-      height: 100%;
-      max-height: 600px;
-      margin-left: -450px;
-    }
+  .button {
+    border-color: #FFF;
+    color: #FFF;
 
-    &__buttons {
-      display: block;
-      margin-top: 100px;
-      text-align: center;
-
-      .button:first-of-type {
-        margin-right: 25px;
-      }
-    }
-
-    .button {
-      border-color: #FFF;
-      color: #FFF;
-
-      &:hover {
-        background: #FFF;
-        color: $theme-brand-primary;
-      }
-
-      &__inverted {
-        background: #FFF;
-        color: $theme-brand-primary;
-      }
-      &__inverted:hover {
-        background: none;
-        color: #FFF;
-      }
-    }
-
-    &__featured-services {
-      text-align: center;
-      width: 480px;
-      margin: 80px auto 0 auto;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
+    &:hover {
       background: #FFF;
-      border-radius: 6px;
-      padding: 20px 20px 5px;
+      color: $theme-brand-primary;
     }
 
-    &__featured-service {
-      width: 35px;
-      height: 35px;
-      margin: 0 10px 15px;
-      transition: 0.5s filter, 0.5s opacity;
-
-      img {
-        width: 35px;
-      }
+    &__inverted {
+      background: #FFF;
+      color: $theme-brand-primary;
     }
+
+    &__inverted:hover {
+      background: none;
+      color: #FFF;
+    }
+  }
+
+  &__featured-services {
+    align-items: center;
+    background: #FFF;
+    border-radius: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 80px auto 0 auto;
+    padding: 20px 20px 5px;
+    text-align: center;
+    width: 480px;
+    height: auto;
+  }
+
+  &__featured-service {
+    margin: 0 10px 15px;
+    height: 35px;
+    transition: .5s filter, .5s opacity;
+    width: 35px;
+
+    img { width: 35px; }
   }
 }

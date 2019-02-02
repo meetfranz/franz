@@ -1,4 +1,4 @@
-export default class ServicesApi {
+export default class RecipesApi {
   constructor(server) {
     this.server = server;
   }

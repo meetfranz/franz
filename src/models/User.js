@@ -2,19 +2,34 @@ import { observable } from 'mobx';
 
 export default class User {
   id = null;
+
   @observable email = null;
+
   @observable firstname = null;
+
   @observable lastname = null;
+
   @observable organization = null;
+
   @observable accountType = null;
-  @observable emailIsConfirmed = true; // better assume it's confirmed to avoid noise
+
+  @observable emailIsConfirmed = true;
+
+  // better assume it's confirmed to avoid noise
   @observable subscription = {};
+
   @observable isSubscriptionOwner = false;
+
   @observable isPremium = false;
+
   @observable beta = false;
+
   @observable donor = {};
+
   @observable isDonor = false;
+
   @observable isMiner = false;
+
   @observable locale = false;
 
   constructor(data) {

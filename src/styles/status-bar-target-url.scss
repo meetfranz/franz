@@ -1,14 +1,14 @@
 @import './config.scss';
 
 .status-bar-target-url {
-  height: auto;
   background: $theme-gray-lighter;
+  border-top-left-radius: 5px;
+  bottom: 0;
+  box-shadow: 0 0 8px rgba(black, .2);
+  color: $theme-gray-dark;
+  font-size: 12px;
+  height: auto;
+  right: 0;
   padding: 4px;
   position: absolute;
-  box-shadow: 0 0 8px rgba(black, 0.2);
-  font-size: 12px;
-  color: $theme-gray-dark;
-  bottom: 0;
-  right: 0;
-  border-top-left-radius: 5px;
 }

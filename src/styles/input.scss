@@ -1,6 +1,34 @@
 @import './config.scss';
 @import './mixins.scss';
 
+.theme__dark .franz-form {
+  .franz-form__label { color: $dark-theme-text-color; }
+
+  .franz-form__input-wrapper {
+    background: $dark-theme-gray-dark;
+    border: 1px solid $dark-theme-gray-light;
+  }
+
+  .franz-form__input {
+    color: $dark-theme-gray-lightest;
+
+    &::placeholder { color: $dark-theme-gray-lighter; }
+  }
+
+  .franz-form__input-prefix,
+  .franz-form__input-suffix {
+    background: $dark-theme-gray;
+    color: $dark-theme-gray-lighter;
+  }
+
+  .franz-form__input-modifier {
+    border-left: 1px solid $dark-theme-gray-light;
+    color: $dark-theme-gray-lighter;
+  }
+
+  .franz-form__password-score { background: $dark-theme-gray-dark; }
+}
+
 .franz-form {
   .franz-form__field {
     display: flex;
@@ -9,19 +37,12 @@
     margin-bottom: 20px;
 
     &.has-error {
-      .franz-form__input-wrapper {
-        border-color: $theme-brand-danger;
-      }
-
-      .franz-form__input-modifier {
-        border-color: $theme-brand-danger;
-      }
+      .franz-form__input-wrapper,
+      .franz-form__input-modifier { border-color: $theme-brand-danger; }
     }
   }
 
-  .franz-form__label {
-    @include formLabel();
-  }
+  .franz-form__label { @include formLabel(); }
 
   .franz-form__error {
     color: $theme-brand-danger;
@@ -30,74 +51,60 @@
   }
 
   .franz-form__input-wrapper {
-    display: flex;
-    width: 100%;
-    order: 1;
-    border-radius: $theme-border-radius-small;
     background: $theme-gray-lightest;
     border: 1px solid $theme-gray-lighter;
+    border-radius: $theme-border-radius-small;
+    display: flex;
     flex-wrap: wrap;
+    order: 1;
+    width: 100%;
   }
 
   .franz-form__input {
-    flex: 1;
-    border: 0;
     background: none;
-    width: 100%;
-    padding: 8px;
-    // font-size: 18px;
+    border: 0;
     color: $theme-gray;
+    flex: 1;
+    padding: 8px;
+    width: 100%;
 
-    &::placeholder {
-      color: lighten($theme-gray-light, 10%);
-    }
+    &::placeholder { color: lighten($theme-gray-light, 10%); }
   }
 
   .franz-form__input-prefix,
   .franz-form__input-suffix {
-    padding: 0 10px;
     background: $theme-gray-lighter;
     color: $theme-gray-light;
     line-height: 35px;
+    padding: 0 10px;
   }
 
   .franz-form__input-modifier {
-    padding: 0 20px;
     border-left: 1px solid $theme-gray-lighter;
     color: $theme-gray-light;
     font-size: 20px;
+    padding: 0 20px;
   }
 
   .franz-form__password-score {
     background: $theme-gray-lighter;
-    height: 5px;
-    flex-basis: 100%;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+    flex-basis: 100%;
+    height: 5px;
 
     meter {
-      width: 100%;
-      height: 100%;
-      display: block;
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
+      display: block;
+      height: 100%;
       overflow: hidden;
+      width: 100%;
 
-      &::-webkit-meter-bar {
-        background: none;
-      }
-
-      &::-webkit-meter-even-less-good-value {
-        background: $theme-brand-danger;
-      }
-
-      &::-webkit-meter-suboptimum-value {
-        background: $theme-brand-warning;
-      }
-
-      &::-webkit-meter-optimum-value {
-        background: $theme-brand-success;
-      }
+      &::-webkit-meter-bar { background: none; }
+      &::-webkit-meter-even-less-good-value { background: $theme-brand-danger; }
+      &::-webkit-meter-suboptimum-value { background: $theme-brand-warning; }
+      &::-webkit-meter-optimum-value { background: $theme-brand-success; }
     }
   }
 }

@@ -1,17 +1,18 @@
 import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
-import { isDevMode } from '../../environment.js';
+
+const debug = require('debug')('Franz:ipcApi:autoUpdate');
 
 export default (params) => {
-  if (!isDevMode && (process.platform === 'darwin' || process.platform === 'win32')) {
-    // autoUpdater.setFeedURL(updateUrl);
+  if (process.platform === 'darwin' || process.platform === 'win32') {
     ipcMain.on('autoUpdate', (event, args) => {
       try {
-        autoUpdater.allowPrerelease = Boolean(params.settings.get('beta'));
+        autoUpdater.autoInstallOnAppQuit = false;
+        autoUpdater.allowPrerelease = Boolean(params.settings.app.get('beta'));
         if (args.action === 'check') {
           autoUpdater.checkForUpdates();
         } else if (args.action === 'install') {
-          console.log('install update');
+          debug('install update');
           autoUpdater.quitAndInstall();
           // we need to send a quit event
           setTimeout(() => {
@@ -25,12 +26,12 @@ export default (params) => {
     });
 
     autoUpdater.on('update-not-available', () => {
-      console.log('update-not-available');
+      debug('update-not-available');
       params.mainWindow.webContents.send('autoUpdate', { available: false });
     });
 
     autoUpdater.on('update-available', () => {
-      console.log('update-available');
+      debug('update-available');
       params.mainWindow.webContents.send('autoUpdate', { available: true });
     });
 
@@ -39,16 +40,16 @@ export default (params) => {
       logMessage = `${logMessage} - Downloaded ${progressObj.percent}%`;
       logMessage = `${logMessage} (${progressObj.transferred}/${progressObj.total})`;
 
-      console.log(logMessage);
+      debug(logMessage);
     });
 
     autoUpdater.on('update-downloaded', () => {
-      console.log('update-downloaded');
+      debug('update-downloaded');
       params.mainWindow.webContents.send('autoUpdate', { downloaded: true });
     });
 
     autoUpdater.on('error', () => {
-      console.log('update-error');
+      debug('update-error');
       params.mainWindow.webContents.send('autoUpdate', { error: true });
     });
   }

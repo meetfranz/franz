@@ -6,6 +6,8 @@ import { defineMessages, intlShape } from 'react-intl';
 import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
 import EditUserForm from '../../components/settings/user/EditUserForm';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
+
 import { required, email, minLength } from '../../helpers/validation-helpers';
 
 const messages = defineMessages({
@@ -135,13 +137,15 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
     const form = this.prepareForm(user.data);
 
     return (
-      <EditUserForm
-        // user={user.data}
-        status={user.actionStatus}
-        form={form}
-        isSaving={user.updateUserInfoRequest.isExecuting}
-        onSubmit={d => this.onSubmit(d)}
-      />
+      <ErrorBoundary>
+        <EditUserForm
+          // user={user.data}
+          status={user.actionStatus}
+          form={form}
+          isSaving={user.updateUserInfoRequest.isExecuting}
+          onSubmit={d => this.onSubmit(d)}
+        />
+      </ErrorBoundary>
     );
   }
 }

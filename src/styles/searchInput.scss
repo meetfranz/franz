@@ -1,20 +1,36 @@
+@import './config.scss';
+@import './mixins.scss';
+
+.theme__dark .search-input {
+  @extend %headline__dark;
+  background: $dark-theme-gray-dark;
+  border: 1px solid $dark-theme-gray-light;
+  border-radius: $theme-border-radius;
+  color: $dark-theme-gray-lightest;
+
+  input { color: $dark-theme-gray-lightest; }
+}
+
 .search-input {
-  width: 100%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  border-radius: 30px;
-  background: $theme-gray-lightest;
-  padding: 5px 10px;
   @extend %headline;
+  align-items: center;
+  background: $theme-gray-lightest;
+  border-radius: 30px;
   color: $theme-gray-light;
+  display: flex;
+  height: auto;
+  padding: 5px 10px;
+  width: 100%;
+
+  label {
+    width: 100%;
+  }
 
   input {
-    padding-left: 10px;
     background: none;
     border: 0;
-    flex: 1;
     color: $theme-gray-light;
+    flex: 1;
+    padding-left: 10px;
   }
 }

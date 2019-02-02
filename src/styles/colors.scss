@@ -1,22 +1,40 @@
-$theme-brand-primary: #3498db;
-$theme-brand-success: #5cb85c;
-$theme-brand-info: #5bc0de;
-$theme-brand-warning: #FF9F00;
-$theme-brand-danger: #d9534f;
+@import "./type-helper";
 
-$theme-gray-dark: #373a3c;
-$theme-gray: #55595c;
-$theme-gray-light: #818a91;
-$theme-gray-lighter: #eceeef;
-$theme-gray-lightest: #f7f7f9;
+$theme-brand-primary:        convert-rgb-string-to-color($raw-theme-brand-primary);
+$theme-brand-success:        convert-rgb-string-to-color($raw-theme-brand-success);
+$theme-brand-info:           convert-rgb-string-to-color($raw-theme-brand-info);
+$theme-brand-warning:        convert-rgb-string-to-color($raw-theme-brand-warning);
+$theme-brand-danger:         convert-rgb-string-to-color($raw-theme-brand-danger);
 
-$theme-border-radius: 6px;
-$theme-border-radius-small: 3px;
+$theme-gray-dark:            convert-rgb-string-to-color($raw-theme-gray-dark);
+$theme-gray:                 convert-rgb-string-to-color($raw-theme-gray);
+$theme-gray-light:           convert-rgb-string-to-color($raw-theme-gray-light);
+$theme-gray-lighter:         convert-rgb-string-to-color($raw-theme-gray-lighter);
+$theme-gray-lightest:        convert-rgb-string-to-color($raw-theme-gray-lightest);
 
-$theme-sidebar-width: 68px;
+$theme-border-radius:        to-number($raw-theme-border-radius);
+$theme-border-radius-small:  to-number($raw-theme-border-radius-small);
 
-$theme-text-color: $theme-gray-dark;
+$theme-sidebar-width:        to-number($raw-theme-sidebar-width);
 
-$theme-transition-time: 0.5s;
+$theme-text-color:           convert-rgb-string-to-color($raw-theme-gray-dark);
 
-$theme-inset-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+$theme-transition-time:      .5s;
+
+$theme-inset-shadow:         inset 0 2px 5px rgba(0, 0, 0, .03);
+
+// Dark Theme
+$dark-theme-black:           convert-rgb-string-to-color($raw-dark-theme-black);
+
+$dark-theme-gray-darkest:    convert-rgb-string-to-color($raw-dark-theme-gray-darkest);
+$dark-theme-gray-darker:     convert-rgb-string-to-color($raw-dark-theme-gray-darker);
+$dark-theme-gray-dark:       convert-rgb-string-to-color($raw-dark-theme-gray-dark);
+
+$dark-theme-gray:            convert-rgb-string-to-color($raw-dark-theme-gray);
+
+$dark-theme-gray-light:      convert-rgb-string-to-color($raw-dark-theme-gray-light);
+$dark-theme-gray-lighter:    convert-rgb-string-to-color($raw-dark-theme-gray-lighter);
+$dark-theme-gray-lightest:   convert-rgb-string-to-color($raw-dark-theme-gray-lightest);
+
+$dark-theme-gray-smoke:      convert-rgb-string-to-color($raw-dark-theme-gray-smoke);
+$dark-theme-text-color:      convert-rgb-string-to-color($raw-dark-theme-text-color);

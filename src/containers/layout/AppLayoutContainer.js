@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
+import { ThemeProvider } from 'react-jss';
 
 import AppStore from '../../stores/AppStore';
 import RecipesStore from '../../stores/RecipesStore';
 import ServicesStore from '../../stores/ServicesStore';
+import FeaturesStore from '../../stores/FeaturesStore';
 import UIStore from '../../stores/UIStore';
 import NewsStore from '../../stores/NewsStore';
 import SettingsStore from '../../stores/SettingsStore';
@@ -17,6 +19,8 @@ import Sidebar from '../../components/layout/Sidebar';
 import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
+import { state as delayAppState } from '../../features/delayApp';
+
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
     children: null,
@@ -25,6 +29,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
   render() {
     const {
       app,
+      features,
       services,
       ui,
       news,
@@ -38,7 +43,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       handleIPCMessage,
       setWebviewReference,
       openWindow,
-      reloadUpdatedServices,
       reorder,
       reload,
       toggleNotifications,
@@ -63,12 +67,17 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const { children } = this.props;
 
+    const isLoadingFeatures = features.featuresRequest.isExecuting
+      && !features.featuresRequest.wasExecuted;
+
     const isLoadingServices = services.allServicesRequest.isExecuting
       && services.allServicesRequest.isExecutingFirstTime;
 
-    if (isLoadingServices) {
+    if (isLoadingFeatures || isLoadingServices) {
       return (
-        <AppLoader />
+        <ThemeProvider theme={ui.theme}>
+          <AppLoader />
+        </ThemeProvider>
       );
     }
 
@@ -98,31 +107,35 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         setWebviewReference={setWebviewReference}
         openWindow={openWindow}
         reload={reload}
-        isAppMuted={settings.all.app.isAppMuted}
+        openSettings={openSettings}
         update={updateService}
       />
     );
 
     return (
-      <AppLayout
-        isFullScreen={app.isFullScreen}
-        isOnline={app.isOnline}
-        showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
-        appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
-        sidebar={sidebar}
-        services={servicesContainer}
-        news={news.latest}
-        removeNewsItem={hide}
-        reloadServicesAfterUpdate={reloadUpdatedServices}
-        installAppUpdate={installUpdate}
-        globalError={globalError.error}
-        showRequiredRequestsError={requests.showRequiredRequestsError}
-        areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
-        retryRequiredRequests={retryRequiredRequests}
-        areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
-      >
-        {React.Children.count(children) > 0 ? children : null}
-      </AppLayout>
+      <ThemeProvider theme={ui.theme}>
+        <AppLayout
+          isFullScreen={app.isFullScreen}
+          isOnline={app.isOnline}
+          showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
+          appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
+          sidebar={sidebar}
+          services={servicesContainer}
+          news={news.latest}
+          removeNewsItem={hide}
+          reloadServicesAfterUpdate={() => window.location.reload()}
+          installAppUpdate={installUpdate}
+          globalError={globalError.error}
+          showRequiredRequestsError={requests.showRequiredRequestsError}
+          areRequiredRequestsSuccessful={requests.areRequiredRequestsSuccessful}
+          retryRequiredRequests={retryRequiredRequests}
+          areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
+          darkMode={settings.all.app.darkMode}
+          isDelayAppScreenVisible={delayAppState.isDelayAppScreenVisible}
+        >
+          {React.Children.count(children) > 0 ? children : null}
+        </AppLayout>
+      </ThemeProvider>
     );
   }
 }
@@ -130,6 +143,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 AppLayoutContainer.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     services: PropTypes.instanceOf(ServicesStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
     recipes: PropTypes.instanceOf(RecipesStore).isRequired,
     app: PropTypes.instanceOf(AppStore).isRequired,
     ui: PropTypes.instanceOf(UIStore).isRequired,

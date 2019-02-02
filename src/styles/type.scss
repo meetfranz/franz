@@ -1,6 +1,12 @@
 @import './config.scss';
 @import './mixins.scss';
 
+.theme__dark {
+  a { color: $dark-theme-gray-smoke; }
+  .label { color: $dark-theme-gray-lightest; }
+  .footnote { color: $dark-theme-gray-lightest; }
+}
+
 h1 {
   font-size: 30px;
   font-weight: 300;
@@ -15,38 +21,32 @@ h2 {
   margin-bottom: 25px;
   margin-top: 55px;
 
-  &:first-of-type {
-    margin-top: 0;
-  }
+  &:first-of-type { margin-top: 0; }
 }
 
 p {
   margin-bottom: 10px;
   line-height: 1.7rem;
 
-  &:last-of-type {
-    margin-bottom: 0;
-  }
+  &:last-of-type { margin-bottom: 0; }
 }
 
-strong {
-  font-weight: bold;
-}
+strong { font-weight: bold; }
 
 a {
-  text-decoration: none;
   color: $theme-text-color;
+  text-decoration: none;
 
   &.button {
-    position: relative;
     background: none;
+    border: 2px solid $theme-brand-primary;
+    border-radius: 3px;
+    color: $theme-brand-primary;
     display: inline-block;
     padding: 10px 20px;
-    border: 2px solid $theme-brand-primary;
-    color: $theme-brand-primary;
-    border-radius: 3px;
-    transition: background 0.5s, color 0.5s;
+    position: relative;
     text-align: center;
+    transition: background .5s, color .5s;
 
     &:hover {
       background: darken($theme-brand-primary, 5%);
@@ -54,25 +54,19 @@ a {
     }
   }
 
-  &.link {
-    color: $theme-brand-primary;
-  }
+  &.link { color: $theme-brand-primary; }
 }
 
 .error-message, .error-message:last-of-type {
-  margin: 10px 0;
   color: $theme-brand-danger;
+  margin: 10px 0;
 }
 
-.center {
-  text-align: center;
-}
+.center { text-align: center; }
 
-.label {
-  @include formLabel();
-}
+.label { @include formLabel(); }
 
 .footnote {
-  font-size: 12px;
   color: $theme-gray-light;
+  font-size: 12px;
 }

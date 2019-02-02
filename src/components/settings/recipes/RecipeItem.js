@@ -15,6 +15,7 @@ export default @observer class RecipeItem extends Component {
 
     return (
       <button
+        type="button"
         className="recipe-teaser"
         onClick={onClick}
       >

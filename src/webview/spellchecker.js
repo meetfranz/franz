@@ -1,63 +1,84 @@
-import { SpellCheckHandler } from 'electron-spellchecker';
+import { webFrame } from 'electron';
+import { SpellCheckerProvider } from 'electron-hunspell';
+import path from 'path';
 
-import { isMac } from '../environment';
+import { DICTIONARY_PATH } from '../config';
 
-export default class Spellchecker {
-  isInitialized = false;
-  handler = null;
-  initRetries = 0;
-  DOMCheckInterval = null;
+const debug = require('debug')('Franz:spellchecker');
 
-  get inputs() {
-    return document.querySelectorAll('input[type="text"], [contenteditable="true"], textarea');
-  }
+let provider;
+let currentDict;
+let _isEnabled = false;
 
-  initialize() {
-    this.handler = new SpellCheckHandler();
-
-    if (!isMac) {
-      this.attach();
-    } else {
-      this.isInitialized = true;
-    }
-  }
-
-  attach() {
-    let initFailed = false;
-
-    if (this.initRetries > 3) {
-      console.error('Could not initialize spellchecker');
-      return;
-    }
-
-    try {
-      this.handler.attachToInput();
-      this.handler.switchLanguage(navigator.language);
-    } catch (err) {
-      initFailed = true;
-      this.initRetries = +1;
-      setTimeout(() => { this.attach(); console.warn('Spellchecker init failed, trying again in 5s'); }, 5000);
-    }
-
-    if (!initFailed) {
-      this.isInitialized = true;
-    }
-  }
-
-  toggleSpellchecker(enable = false) {
-    this.inputs.forEach((input) => {
-      input.setAttribute('spellcheck', enable);
-    });
-
-    this.intervalHandler(enable);
-  }
-
-  intervalHandler(enable) {
-    clearInterval(this.DOMCheckInterval);
-
-    if (enable) {
-      this.DOMCheckInterval = setInterval(() => this.toggleSpellchecker(enable), 30000);
-    }
+async function loadDictionary(locale) {
+  try {
+    const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
+    await provider.loadDictionary(locale, `${fileLocation}.dic`, `${fileLocation}.aff`);
+    debug('Loaded dictionary', locale, 'from', fileLocation);
+  } catch (err) {
+    console.error('Could not load dictionary', err);
   }
 }
 
+export async function switchDict(locale) {
+  try {
+    debug('Trying to load dictionary', locale);
+
+    if (!provider) {
+      console.warn('SpellcheckProvider not initialized');
+
+      return;
+    }
+
+    if (locale === currentDict) {
+      console.warn('Dictionary is already used', currentDict);
+
+      return;
+    }
+
+    if (currentDict) {
+      provider.unloadDictionary(locale);
+    }
+    loadDictionary(locale);
+    provider.switchDictionary(locale);
+
+    debug('Switched dictionary to', locale);
+
+    currentDict = locale;
+    _isEnabled = true;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export default async function initialize(languageCode = 'en-us') {
+  try {
+    provider = new SpellCheckerProvider();
+    const locale = languageCode.toLowerCase();
+
+    debug('Init spellchecker');
+    await provider.initialize();
+    // await loadDictionaries();
+
+    debug('Available spellchecker dictionaries', provider.availableDictionaries);
+
+    switchDict(locale);
+
+    return provider;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
+export function isEnabled() {
+  return _isEnabled;
+}
+
+export function disable() {
+  if (isEnabled()) {
+    webFrame.setSpellCheckProvider(currentDict, true, { spellCheck: () => true });
+    _isEnabled = false;
+    currentDict = null;
+  }
+}

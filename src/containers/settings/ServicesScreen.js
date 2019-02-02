@@ -8,6 +8,7 @@ import UserStore from '../../stores/UserStore';
 import ServiceStore from '../../stores/ServicesStore';
 
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class ServicesScreen extends Component {
   componentDidMount() {
@@ -39,20 +40,22 @@ export default @inject('stores', 'actions') @observer class ServicesScreen exten
     }
 
     return (
-      <ServicesDashboard
-        user={user.data}
-        services={allServices}
-        status={services.actionStatus}
-        deleteService={() => this.deleteService()}
-        toggleService={toggleService}
-        isLoading={isLoading}
-        filterServices={filter}
-        resetFilter={resetFilter}
-        goTo={router.push}
-        servicesRequestFailed={services.allServicesRequest.wasExecuted && services.allServicesRequest.isError}
-        retryServicesRequest={() => services.allServicesRequest.reload()}
-        searchNeedle={services.filterNeedle}
-      />
+      <ErrorBoundary>
+        <ServicesDashboard
+          user={user.data}
+          services={allServices}
+          status={services.actionStatus}
+          deleteService={() => this.deleteService()}
+          toggleService={toggleService}
+          isLoading={isLoading}
+          filterServices={filter}
+          resetFilter={resetFilter}
+          goTo={router.push}
+          servicesRequestFailed={services.allServicesRequest.wasExecuted && services.allServicesRequest.isError}
+          retryServicesRequest={() => services.allServicesRequest.reload()}
+          searchNeedle={services.filterNeedle}
+        />
+      </ErrorBoundary>
     );
   }
 }

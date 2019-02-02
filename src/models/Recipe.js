@@ -1,23 +1,37 @@
 import emailParser from 'address-rfc2822';
 import semver from 'semver';
+import fs from 'fs-extra';
+import path from 'path';
 
 export default class Recipe {
   id = '';
+
   name = '';
+
   description = '';
+
   version = '';
+
   path = '';
 
   serviceURL = '';
 
   hasDirectMessages = true;
+
   hasIndirectMessages = false;
+
   hasNotificationSound = false;
+
   hasTeamId = false;
+
   hasPredefinedUrl = false;
+
   hasCustomUrl = false;
+
   hasHostedOption = false;
+
   urlInputPrefix = '';
+
   urlInputSuffix = '';
 
   message = '';
@@ -72,5 +86,9 @@ export default class Recipe {
     }
 
     return [];
+  }
+
+  get hasDarkMode() {
+    return fs.pathExistsSync(path.join(this.path, 'darkmode.css'));
   }
 }

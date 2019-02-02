@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape } from 'react-intl';
+import { inject, observer } from 'mobx-react';
 
 import Link from '../../ui/Link';
 
@@ -31,7 +32,7 @@ const messages = defineMessages({
   },
 });
 
-export default class SettingsNavigation extends Component {
+export default @inject('stores') @observer class SettingsNavigation extends Component {
   static propTypes = {
     serviceCount: PropTypes.number.isRequired,
   };
@@ -58,7 +59,9 @@ export default class SettingsNavigation extends Component {
           className="settings-navigation__link"
           activeClassName="is-active"
         >
-          {intl.formatMessage(messages.yourServices)} <span className="badge">{serviceCount}</span>
+          {intl.formatMessage(messages.yourServices)}
+          {' '}
+          <span className="badge">{serviceCount}</span>
         </Link>
         <Link
           to="/settings/user"

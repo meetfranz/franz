@@ -1,11 +1,14 @@
 import { ipcMain } from 'electron';
 
 export default (params) => {
-  ipcMain.on('getAppSettings', () => {
-    params.mainWindow.webContents.send('appSettings', params.settings.all);
+  ipcMain.on('getAppSettings', (event, type) => {
+    params.mainWindow.webContents.send('appSettings', {
+      type,
+      data: params.settings[type].all,
+    });
   });
 
   ipcMain.on('updateAppSettings', (event, args) => {
-    params.settings.set(args);
+    params.settings[args.type].set(args.data);
   });
 };

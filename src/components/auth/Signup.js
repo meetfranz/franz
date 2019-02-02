@@ -199,7 +199,8 @@ export default @observer class Signup extends Component {
                 className="link"
               >
                 {intl.formatMessage(messages.privacy)}
-              </Link>.
+              </Link>
+              .
             </p>
           </form>
           <div className="auth__links">

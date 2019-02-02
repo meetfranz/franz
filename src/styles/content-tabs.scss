@@ -1,54 +1,60 @@
 @import './config.scss';
 
+.theme__dark {
+  .content-tabs {
+    .content-tabs__content {
+      background: $dark-theme-gray-darker;
+    }
+
+    .content-tabs__tabs {
+      .content-tabs__item {
+        background: $dark-theme-gray;
+        color: #FFF;
+        border: 0;
+      }
+    }
+  }
+}
+
 .content-tabs {
   .content-tabs__tabs {
-    display: flex;
     border-top-left-radius: $theme-border-radius-small;
     border-top-right-radius: $theme-border-radius-small;
+    display: flex;
     overflow: hidden;
 
     .content-tabs__item {
-      padding: 10px;
-      flex: 1;
-      // border: 1px solid $theme-gray-lightest;
-      color: $theme-gray-dark;
       background: linear-gradient($theme-gray-lightest 80%, darken($theme-gray-lightest, 3%));
       border-right: 1px solid $theme-gray-lighter;
+      color: $theme-gray-dark;
+      flex: 1;
+      padding: 10px;
       transition: background $theme-transition-time;
 
-      &:last-of-type {
-        border-right: 0;
-      }
+      &:last-of-type { border-right: 0; }
 
       &.is-active {
         background: $theme-brand-primary;
-        color: #FFF;
         box-shadow: none;
+        color: #FFF;
       }
     }
   }
 
   .content-tabs__content {
-    padding: 20px 20px;
+    background: $theme-gray-lightest;
     border-bottom-left-radius: $theme-border-radius-small;
     border-bottom-right-radius: $theme-border-radius-small;
-    background: $theme-gray-lightest;
+    padding: 20px 20px;
 
     .content-tabs__item {
-      top: 0;
       display: none;
+      top: 0;
 
-      &.is-active {
-        display: block;
-      }
+      &.is-active { display: block; }
     }
 
-    .franz-form__input-wrapper {
-      background: #FFF;
-    }
-
-    .franz-form__field:last-of-type {
-      margin-bottom: 0;
-    }
+    .franz-form__input-wrapper { background: #FFF; }
+    .franz-form__field:last-of-type { margin-bottom: 0; }
   }
 }

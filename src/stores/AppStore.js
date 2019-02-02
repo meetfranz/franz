@@ -1,22 +1,25 @@
-import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
-import AutoLaunch from 'auto-launch';
-import { ipcRenderer, remote, shell } from 'electron';
-import key from 'keymaster';
+import { remote, ipcRenderer, shell } from 'electron';
 import { action, computed, observable } from 'mobx';
 import moment from 'moment';
+import key from 'keymaster';
+import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
+import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
-import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isLinux, isMac, isWindows } from '../environment';
-
-import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
-import locales from '../i18n/translations';
-import Request from './lib/Request';
 
 import Store from './lib/Store';
+import Request from './lib/Request';
+import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
+import { isMac, isLinux, isWindows } from '../environment';
+import locales from '../i18n/translations';
+import Request from './lib/Request';
+import { onVisibilityChange } from '../helpers/visibility-helper';
+import { getLocale } from '../helpers/i18n-helpers';
 
-const debug = require('debug')('AppStore');
+import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+import Store from './lib/Store';
+const debug = require('debug')('Franz:AppStore');
 
-const { app } = remote;
+const { app, systemPreferences } = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -35,12 +38,15 @@ export default class AppStore extends Store {
   };
 
   @observable healthCheckRequest = new Request(this.api.app, 'health');
+
   @observable getAppCacheSizeRequest = new Request(this.api.local, 'getAppCacheSize');
+
   @observable clearAppCacheRequest = new Request(this.api.local, 'clearAppCache');
 
   @observable autoLaunchOnStart = true;
 
   @observable isOnline = navigator.onLine;
+
   @observable timeOfflineStart;
 
   @observable updateStatus = null;
@@ -49,9 +55,15 @@ export default class AppStore extends Store {
 
   @observable isSystemMuteOverridden = false;
 
+  @observable isSystemDarkModeEnabled = false;
+
   @observable isClearingAllCache = false;
 
   @observable isFullScreen = mainWindow.isFullScreen();
+
+  @observable isFocused = true;
+
+  dictionaries = [];
 
   constructor(...args) {
     super(...args);
@@ -76,25 +88,17 @@ export default class AppStore extends Store {
     ]);
   }
 
-  setup() {
+  async setup() {
     this._appStartsCounter();
     // Focus the active service
     window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
-    window.addEventListener('online', () => {
-      this.isOnline = true;
-    });
-    window.addEventListener('offline', () => {
-      this.isOnline = false;
-    });
+    window.addEventListener('online', () => { this.isOnline = true; });
+    window.addEventListener('offline', () => { this.isOnline = false; });
 
-    mainWindow.on('enter-full-screen', () => {
-      this.isFullScreen = true;
-    });
-    mainWindow.on('leave-full-screen', () => {
-      this.isFullScreen = false;
-    });
+    mainWindow.on('enter-full-screen', () => { this.isFullScreen = true; });
+    mainWindow.on('leave-full-screen', () => { this.isFullScreen = false; });
 
 
     this.isOnline = navigator.onLine;
@@ -151,23 +155,34 @@ export default class AppStore extends Store {
     key(
       '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
         this.actions.service.setActiveNext();
-      });
+      },
+    );
 
     // Set active the prev service
     key(
       '⌘+pageup, ctrl+pageup, ⌘+alt+left, ctrl+shift+tab', () => {
         this.actions.service.setActivePrev();
-      });
+      },
+    );
 
     // Global Mute
     key(
       '⌘+shift+m ctrl+shift+m', () => {
         this.actions.app.toggleMuteApp();
-      });
+      },
+    );
 
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
+
+    this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
+
+    onVisibilityChange((isVisible) => {
+      this.isFocused = isVisible;
+
+      debug('Window is visible/focused', isVisible);
+    });
   }
 
   @computed get cacheSize() {
@@ -175,7 +190,9 @@ export default class AppStore extends Store {
   }
 
   // Actions
-  @action _notify({ title, options, notificationId, serviceId = null }) {
+  @action _notify({
+    title, options, notificationId, serviceId = null,
+  }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
     const notification = new window.Notification(title, options);
@@ -264,13 +281,11 @@ export default class AppStore extends Store {
     this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
   }
 
-  @action
-  async _clearAllCache() {
+  @action async _clearAllCache() {
     this.isClearingAllCache = true;
     const clearAppCache = this.clearAppCacheRequest.execute();
     const allServiceIds = await getServiceIdsFromPartitions();
-    const allOrphanedServiceIds = allServiceIds.filter(
-      id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
+    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
 
     await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
 
@@ -288,8 +303,7 @@ export default class AppStore extends Store {
     if (!this.isOnline) {
       this.timeOfflineStart = moment();
     } else {
-      const deltaTime = moment()
-        .diff(this.timeOfflineStart);
+      const deltaTime = moment().diff(this.timeOfflineStart);
 
       if (deltaTime > 30 * 60 * 1000) {
         this.actions.service.reloadAll();
@@ -314,32 +328,12 @@ export default class AppStore extends Store {
   }
 
   _getDefaultLocale() {
-    let locale = app.getLocale();
-    if (locales[locale] === undefined) {
-      let localeFuzzy;
-      Object.keys(locales)
-        .forEach((localStr) => {
-          if (locales && Object.hasOwnProperty.call(locales, localStr)) {
-            if (locale.substring(0, 2) === localStr.substring(0, 2)) {
-              localeFuzzy = localStr;
-            }
-          }
-        });
-
-      if (localeFuzzy !== undefined) {
-        locale = localeFuzzy;
-      }
-    }
-
-    if (locales[locale] === undefined) {
-      locale = defaultLocale;
-    }
-
-    if (!locale) {
-      locale = DEFAULT_APP_SETTINGS.fallbackLocale;
-    }
-
-    return locale;
+    return getLocale({
+      locale: app.getLocale(),
+      locales,
+          defaultLocale,
+      fallbackLocale: DEFAULT_APP_SETTINGS.fallbackLocale,
+    });
   }
 
   _muteAppHandler() {

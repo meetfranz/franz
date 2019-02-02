@@ -5,11 +5,13 @@ import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
 import { matchRoute } from '../helpers/routing-helpers';
 
-const debug = require('debug')('RecipeStore');
+const debug = require('debug')('Franz:RecipeStore');
 
 export default class RecipesStore extends Store {
   @observable allRecipesRequest = new CachedRequest(this.api.recipes, 'all');
+
   @observable installRecipeRequest = new Request(this.api.recipes, 'install');
+
   @observable getRecipeUpdatesRequest = new Request(this.api.recipes, 'update');
 
   constructor(...args) {

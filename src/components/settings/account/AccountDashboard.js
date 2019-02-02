@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -43,6 +43,10 @@ const messages = defineMessages({
   accountTypePremium: {
     id: 'settings.account.accountType.premium',
     defaultMessage: '!!!Premium Supporter Account',
+  },
+  accountTypeEnterprise: {
+    id: 'settings.account.accountType.enterprise',
+    defaultMessage: '!!!Enterprise Account',
   },
   accountEditButton: {
     id: 'settings.account.account.editButton',
@@ -128,21 +132,19 @@ export default @observer class AccountDashboard extends Component {
           )}
 
           {!isLoading && userInfoRequestFailed && (
-            <div>
-              <Infobox
-                icon="alert"
-                type="danger"
-                ctaLabel={intl.formatMessage(messages.tryReloadUserInfoRequest)}
-                ctaLoading={isLoading}
-                ctaOnClick={retryUserInfoRequest}
-              >
-                {intl.formatMessage(messages.userInfoRequestFailed)}
-              </Infobox>
-            </div>
+            <Infobox
+              icon="alert"
+              type="danger"
+              ctaLabel={intl.formatMessage(messages.tryReloadUserInfoRequest)}
+              ctaLoading={isLoading}
+              ctaOnClick={retryUserInfoRequest}
+            >
+              {intl.formatMessage(messages.userInfoRequestFailed)}
+            </Infobox>
           )}
 
           {!userInfoRequestFailed && (
-            <div>
+            <Fragment>
               {!isLoading && (
                 <div className="account">
                   <div className="account__box account__box--flex">
@@ -165,18 +167,21 @@ export default @observer class AccountDashboard extends Component {
                         {`${user.firstname} ${user.lastname}`}
                       </h2>
                       {user.organization && `${user.organization}, `}
-                      {user.email}<br />
-                      {!user.isPremium && (
+                      {user.email}
+                      <br />
+                      {!user.isEnterprise && !user.isPremium && (
                         <span className="badge badge">{intl.formatMessage(messages.accountTypeBasic)}</span>
                       )}
                       {user.isPremium && (
                         <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
                       )}
+                      {user.isEnterprise && (
+                        <span className="badge badge--success">{intl.formatMessage(messages.accountTypeEnterprise)}</span>
+                      )}
                     </div>
                     <Link to="/settings/user/edit" className="button">
                       {intl.formatMessage(messages.accountEditButton)}
                     </Link>
-
                     {user.emailValidated}
                   </div>
                 </div>
@@ -188,7 +193,7 @@ export default @observer class AccountDashboard extends Component {
                 ) : (
                   <div className="account franz-form">
                     {orders.length > 0 && (
-                      <div>
+                      <Fragment>
                         <div className="account__box">
                           <h2>{intl.formatMessage(messages.headlineSubscription)}</h2>
                           <div className="account__subscription">
@@ -213,6 +218,7 @@ export default @observer class AccountDashboard extends Component {
                                   </td>
                                   <td className="invoices__action">
                                     <button
+                                      type="button"
                                       onClick={() => openExternalUrl(order.invoiceUrl)}
                                     >
                                       {intl.formatMessage(messages.invoiceDownload)}
@@ -223,27 +229,40 @@ export default @observer class AccountDashboard extends Component {
                             </tbody>
                           </table>
                         </div>
-                      </div>
+                      </Fragment>
                     )}
                   </div>
                 )
               )}
 
-              {user.isMiner && (
-                <div className="account franz-form">
-                  <div className="account__box account__box">
-                    <h2>Miner Info</h2>
-                    <div className="account__subscription">
-                      <div>
-                        <p>To maintain a high security level for all our Franz users, we had to remove the miner. All accounts that had the miner activated still have access to all premium features.</p>
-                        <p>Every financial support is still much appreciated.</p>
-                      </div>
-                    </div>
+              {user.isEnterprise && (
+                <div className="account">
+                  <div className="account__box">
+                    <h2>{user.company.name}</h2>
+                    <p>
+                      Technical contact:&nbsp;
+                      <Link
+                        className="link"
+                        target="_blank"
+                        to={`mailto:${user.company.contact.technical}?subject=Franz`}
+                      >
+                        {user.company.contact.technical}
+                      </Link>
+                      <br />
+                      General contact:&nbsp;
+                      <Link
+                        className="link"
+                        target="_blank"
+                        to={`mailto:${user.company.contact.default}?subject=Franz`}
+                      >
+                        {user.company.contact.default}
+                      </Link>
+                    </p>
                   </div>
                 </div>
               )}
 
-              {!user.isPremium && (
+              {!user.isEnterprise && !user.isPremium && (
                 isLoadingPlans ? (
                   <Loader />
                 ) : (
@@ -258,28 +277,29 @@ export default @observer class AccountDashboard extends Component {
                 )
               )}
 
-              <div className="account franz-form">
-                <div className="account__box">
-                  <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
-                  {!isDeleteAccountSuccessful && (
-                    <div className="account__subscription">
-                      <p>{intl.formatMessage(messages.deleteInfo)}</p>
-                      <Button
-                        label={intl.formatMessage(messages.deleteAccount)}
-                        buttonType="danger"
-                        onClick={() => deleteAccount()}
-                        loaded={!isLoadingDeleteAccount}
-                      />
-                    </div>
-                  )}
-                  {isDeleteAccountSuccessful && (
-                    <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
-                  )}
+              {!user.isEnterprise && (
+                <div className="account franz-form">
+                  <div className="account__box">
+                    <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
+                    {!isDeleteAccountSuccessful && (
+                      <div className="account__subscription">
+                        <p>{intl.formatMessage(messages.deleteInfo)}</p>
+                        <Button
+                          label={intl.formatMessage(messages.deleteAccount)}
+                          buttonType="danger"
+                          onClick={() => deleteAccount()}
+                          loaded={!isLoadingDeleteAccount}
+                        />
+                      </div>
+                    )}
+                    {isDeleteAccountSuccessful && (
+                      <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
+              )}
+            </Fragment>
           )}
-
         </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
       </div>

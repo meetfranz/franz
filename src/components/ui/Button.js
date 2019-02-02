@@ -62,6 +62,8 @@ export default @observer class Button extends Component {
     }
 
     return (
+      // disabling rule as button has type defined in `buttonProps`
+      /* eslint-disable react/button-has-type */
       <button {...buttonProps}>
         <Loader
           loaded={loaded}
@@ -72,6 +74,7 @@ export default @observer class Button extends Component {
         />
         {label}
       </button>
+      /* eslint-enable react/button-has-type */
     );
   }
 }

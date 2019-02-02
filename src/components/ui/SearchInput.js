@@ -23,7 +23,7 @@ export default @observer class SearchInput extends Component {
     value: '',
     placeholder: '',
     className: '',
-    name: uuidv1(),
+    name: 'searchInput',
     throttle: false,
     throttleDelay: 250,
     onChange: () => null,
@@ -31,6 +31,8 @@ export default @observer class SearchInput extends Component {
     autoFocus: false,
     showLabels: true,
   };
+
+  input = null;
 
   constructor(props) {
     super(props);
@@ -76,8 +78,6 @@ export default @observer class SearchInput extends Component {
     onReset();
   }
 
-  input = null;
-
   render() {
     const { className, name, showLabels, placeholder } = this.props;
     const { value } = this.state;
@@ -93,16 +93,18 @@ export default @observer class SearchInput extends Component {
           <label
             htmlFor={name}
             className="mdi mdi-magnify"
-          />
-        )}
+          >
+          )}
         <input
           name={name}
-          type="text"
-          placeholder={placeholder}
-          value={value}
-          onChange={e => this.onChange(e)}
-          ref={(ref) => { this.input = ref; }}
-        />
+          id={name}
+            type="text"
+            placeholder={placeholder}
+            value={value}
+            onChange={e => this.onChange(e)}
+            ref={(ref) => { this.input = ref; }}
+          />
+        </label>
         {showLabels && value.length > 0 && (
           <span
             className="mdi mdi-close-circle-outline"

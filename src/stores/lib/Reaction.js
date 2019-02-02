@@ -3,7 +3,9 @@ import { autorun } from 'mobx';
 
 export default class Reaction {
   reaction;
+
   hasBeenStarted;
+
   dispose;
 
   constructor(reaction) {

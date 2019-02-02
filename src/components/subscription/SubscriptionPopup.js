@@ -46,7 +46,9 @@ export default @observer class SubscriptionPopup extends Component {
   }
 
   render() {
-    const { url, closeWindow, completeCheck, isCompleted } = this.props;
+    const {
+      url, closeWindow, completeCheck, isCompleted,
+    } = this.props;
     const { intl } = this.context;
 
     return (
