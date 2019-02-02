@@ -89,15 +89,13 @@ export default @observer class SearchInput extends Component {
           'search-input',
         ])}
       >
-        {showLabels && (
-          <label
-            htmlFor={name}
-            className="mdi mdi-magnify"
-          >
-          )}
-        <input
-          name={name}
-          id={name}
+        <label
+          htmlFor={name}
+          className="mdi mdi-magnify"
+        >
+          <input
+            name={name}
+            id={name}
             type="text"
             placeholder={placeholder}
             value={value}

@@ -1,9 +1,7 @@
 import { remote } from 'electron';
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 
 import { DEFAULT_APP_SETTINGS, FRANZ_TRANSLATION } from '../../../config';
@@ -11,11 +9,9 @@ import { DEFAULT_APP_SETTINGS, FRANZ_TRANSLATION } from '../../../config';
 import Form from '../../../lib/Form';
 import Button from '../../ui/Button';
 import Input from '../../ui/Input';
-import Toggle from '../../ui/Toggle';
-import Select from '../../ui/Select';
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
-
-import { FRANZ_TRANSLATION } from '../../../config';
+import Select from '../../ui/Select';
+import Toggle from '../../ui/Toggle';
 
 const messages = defineMessages({
   headline: {
@@ -206,10 +202,10 @@ export default @observer class EditSettingsForm extends Component {
 
             {/* Backgrounds */}
             <h2 id="theme">{intl.formatMessage(messages.appBackground)}</h2>
-            <div className={'add-bg-row'}>
+            <div className="add-bg-row">
               <Input field={form.$('appBackground')} showLabel={false} />
             </div>
-            <div className={'add-bg-row'}>
+            <div className="add-bg-row">
               <Button
                 buttonType="success"
                 label={intl.formatMessage(messages.setBackground)}

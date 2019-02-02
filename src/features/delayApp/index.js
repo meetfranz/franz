@@ -3,7 +3,6 @@ import moment from 'moment';
 import DelayAppComponent from './Component';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
-import { gaEvent } from '../../lib/analytics';
 
 const debug = require('debug')('Franz:feature:delayApp');
 
@@ -50,7 +49,6 @@ export default function init(stores) {
             debug(`App will be delayed for ${config.delayDuration / 1000}s`);
 
             setVisibility(true);
-            gaEvent('delayApp', 'show', 'Delay App Feature');
 
             timeLastDelay = moment();
             shownAfterLaunch = true;

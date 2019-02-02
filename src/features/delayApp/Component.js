@@ -4,8 +4,6 @@ import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
-import { gaEvent } from '../../lib/analytics';
-
 import Button from '../../components/ui/Button';
 
 import { config } from '.';
@@ -66,7 +64,6 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
 
     actions.ui.openSettings({ path: 'user' });
 
-    gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
   }
 
   render() {

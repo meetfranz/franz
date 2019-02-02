@@ -3,16 +3,13 @@ import {
   action, computed, observable, set,
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
+import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
+import { getLocale } from '../helpers/i18n-helpers';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import CachedRequest from './lib/CachedRequest';
+import Request from './lib/Request';
 
 import Store from './lib/Store';
-import Request from './lib/Request';
-import { DEFAULT_APP_SETTINGS } from '../config';
-import SettingsModel from '../models/Settings';
-import CachedRequest from './lib/CachedRequest';
-import { getLocale } from '../helpers/i18n-helpers';
-
-import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
-import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:SettingsStore');
 
@@ -111,7 +108,7 @@ export default class SettingsStore extends Store {
   }
 
   @action async _getAppSettings() {
-    return this.appSettingsRequest.execute().result;
+    return this.all.app;
   }
 
   @action async _update({ type, data }) {
@@ -125,11 +122,7 @@ export default class SettingsStore extends Store {
         type,
         data,
       });
-      this.appSettingsRequest.patch((result) => {
-        if (!result) return;
-        Object.assign(result, data);
-        this.actions.ui.changeTheme(result.theme);
-      });
+      this.actions.ui.changeTheme(data.theme);
 
       set(this._fileSystemSettingsCache[type], data);
     }

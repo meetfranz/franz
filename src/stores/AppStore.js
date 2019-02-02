@@ -1,22 +1,21 @@
-import { remote, ipcRenderer, shell } from 'electron';
-import { action, computed, observable } from 'mobx';
-import moment from 'moment';
-import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
+import { ipcRenderer, remote, shell } from 'electron';
+import key from 'keymaster';
+import { action, computed, observable } from 'mobx';
+import moment from 'moment';
 import prettyBytes from 'pretty-bytes';
-
-import Store from './lib/Store';
-import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac, isLinux, isWindows } from '../environment';
-import locales from '../i18n/translations';
-import Request from './lib/Request';
-import { onVisibilityChange } from '../helpers/visibility-helper';
+import { isLinux, isMac, isWindows } from '../environment';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+import { onVisibilityChange } from '../helpers/visibility-helper';
+import locales from '../i18n/translations';
+import Request from './lib/Request';
+
 import Store from './lib/Store';
+
 const debug = require('debug')('Franz:AppStore');
 
 const { app, systemPreferences } = remote;
@@ -94,11 +93,19 @@ export default class AppStore extends Store {
     window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
-    window.addEventListener('online', () => { this.isOnline = true; });
-    window.addEventListener('offline', () => { this.isOnline = false; });
+    window.addEventListener('online', () => {
+      this.isOnline = true;
+    });
+    window.addEventListener('offline', () => {
+      this.isOnline = false;
+    });
 
-    mainWindow.on('enter-full-screen', () => { this.isFullScreen = true; });
-    mainWindow.on('leave-full-screen', () => { this.isFullScreen = false; });
+    mainWindow.on('enter-full-screen', () => {
+      this.isFullScreen = true;
+    });
+    mainWindow.on('leave-full-screen', () => {
+      this.isFullScreen = false;
+    });
 
 
     this.isOnline = navigator.onLine;
@@ -281,11 +288,14 @@ export default class AppStore extends Store {
     this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
   }
 
-  @action async _clearAllCache() {
+  @action
+  async _clearAllCache() {
     this.isClearingAllCache = true;
     const clearAppCache = this.clearAppCacheRequest.execute();
     const allServiceIds = await getServiceIdsFromPartitions();
-    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
+    const allOrphanedServiceIds = allServiceIds.filter(
+      id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id),
+    );
 
     await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
 
@@ -303,7 +313,8 @@ export default class AppStore extends Store {
     if (!this.isOnline) {
       this.timeOfflineStart = moment();
     } else {
-      const deltaTime = moment().diff(this.timeOfflineStart);
+      const deltaTime = moment()
+        .diff(this.timeOfflineStart);
 
       if (deltaTime > 30 * 60 * 1000) {
         this.actions.service.reloadAll();
@@ -331,7 +342,7 @@ export default class AppStore extends Store {
     return getLocale({
       locale: app.getLocale(),
       locales,
-          defaultLocale,
+      defaultLocale,
       fallbackLocale: DEFAULT_APP_SETTINGS.fallbackLocale,
     });
   }

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
+import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
+import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import RecipeStore from '../../stores/RecipesStore';
 import ServiceStore from '../../stores/ServicesStore';
 import UserStore from '../../stores/UserStore';
-
-import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
-import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {
@@ -33,17 +33,18 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
   componentDidMount() {
     autorun(() => {
-    this.autorunDisposer = autorun(() => {
-      const { filter } = this.props.params;
-      const { currentFilter } = this.state;
+      this.autorunDisposer = autorun(() => {
+        const { filter } = this.props.params;
+        const { currentFilter } = this.state;
 
-      if (filter === 'all' && currentFilter !== 'all') {
-        this.setState({ currentFilter: 'all' });
-      } else if (filter === 'featured' && currentFilter !== 'featured') {
-        this.setState({ currentFilter: 'featured' });
-      } else if (filter === 'dev' && currentFilter !== 'dev') {
-        this.setState({ currentFilter: 'dev' });
-      }
+        if (filter === 'all' && currentFilter !== 'all') {
+          this.setState({ currentFilter: 'all' });
+        } else if (filter === 'featured' && currentFilter !== 'featured') {
+          this.setState({ currentFilter: 'featured' });
+        } else if (filter === 'dev' && currentFilter !== 'dev') {
+          this.setState({ currentFilter: 'dev' });
+        }
+      });
     });
   }
 
