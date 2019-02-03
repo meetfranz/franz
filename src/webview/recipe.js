@@ -73,7 +73,7 @@ class RecipeController {
       require(modulePath)(new RecipeWebview(), {...config, recipe,});
       debug('Initialize Recipe', config, recipe);
 
-      this.settings.service = config;
+      this.settings.service = Object.assign(config, { recipe });
     } catch (err) {
       console.error('Recipe initialization failed', err);
     }
