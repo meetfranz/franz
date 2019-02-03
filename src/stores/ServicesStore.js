@@ -291,6 +291,8 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
+
+    this._focusActiveService();
   }
 
   @action _setActiveNext() {
@@ -341,6 +343,9 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (service.webview) {
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
       service.webview.focus();
     }
   }
