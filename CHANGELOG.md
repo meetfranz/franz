@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* **Service:** Fix unecessary webview resize ([4b7d3e2](https://github.com/meetfranz/franz/commit/4b7d3e2))
+* **Service:** Fix unnecessary webview resize / Slack scroll issue ([4b7d3e2](https://github.com/meetfranz/franz/commit/4b7d3e2))
 * **Service:** Improve focus when switching services ([d130f26](https://github.com/meetfranz/franz/commit/d130f26)), closes [#1255](https://github.com/meetfranz/franz/issues/1255)
 * **Service:** Fix dark mode in services ([d529410](https://github.com/meetfranz/franz/commit/d529410))
 
