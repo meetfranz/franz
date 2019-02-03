@@ -9,8 +9,8 @@ class RecipeWebview {
       indirect: 0,
     };
 
-    if (options.startTheme) {
-      this.changeTheme(options.startTheme);
+    if (options.theme) {
+      this.changeTheme(options.theme);
     }
 
     ipcRenderer.on('poll', () => {

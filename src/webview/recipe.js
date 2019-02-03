@@ -70,7 +70,7 @@ class RecipeController {
     delete require.cache[require.resolve(modulePath)];
     try {
       // eslint-disable-next-line
-      require(modulePath)(new RecipeWebview(), {...config, recipe,});
+      require(modulePath)(new RecipeWebview({...config, recipe,}));
       debug('Initialize Recipe', config, recipe);
 
       this.settings.service = config;

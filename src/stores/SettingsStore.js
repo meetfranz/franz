@@ -122,7 +122,7 @@ export default class SettingsStore extends Store {
         type,
         data,
       });
-      this.actions.ui.changeTheme(data.theme);
+      this.actions.ui.changeTheme(data.theme || appSettings.app.theme);
 
       set(this._fileSystemSettingsCache[type], data);
     }

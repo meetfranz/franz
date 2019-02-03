@@ -376,9 +376,7 @@ export default class AppStore extends Store {
     }
   }
 
-  async _setBackground() {
-    this.autoLaunchOnStart = await this._checkAutoStart();
-
+  _setBackground() {
     const bg = this.stores.settings.all.app.appBackground;
     this.actions.settings.setBackground(bg);
   }

@@ -656,8 +656,7 @@ export default class ServicesStore extends Store {
     this.actions.settings.appSettings()
       .then(({ theme }) => {
         if (service.webview) {
-          service.startTheme = theme;
-          service.webview.send('initialize-recipe', service.shareWithWebview, service.recipe);
+          service.webview.send('initialize-recipe', { ...service.shareWithWebview, theme }, service.recipe);
         }
       })
       .catch(console.error);
