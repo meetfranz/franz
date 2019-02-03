@@ -5,13 +5,11 @@ import { defineMessages, intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
-import { Component as DelayApp } from '../../features/delayApp';
-import { Component as BasicAuth } from '../../features/basicAuth';
-import ErrorBoundary from '../util/ErrorBoundary';
-
 import globalMessages from '../../i18n/globalMessages';
+import { Component as BasicAuth } from '../../features/basicAuth';
 
 import { isWindows } from '../../environment';
+import ErrorBoundary from '../util/ErrorBoundary';
 /* eslint-disable react/no-danger */
 
 function createMarkup(HTMLString) {
@@ -63,7 +61,6 @@ export default @observer class AppLayout extends Component {
     retryRequiredRequests: PropTypes.func.isRequired,
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
-    isDelayAppScreenVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -92,7 +89,6 @@ export default @observer class AppLayout extends Component {
       retryRequiredRequests,
       areRequiredRequestsLoading,
       darkMode,
-      isDelayAppScreenVisible,
     } = this.props;
 
     const { intl } = this.context;
@@ -162,7 +158,6 @@ export default @observer class AppLayout extends Component {
                     </a>
                   </InfoBar>
                 )}
-                {isDelayAppScreenVisible && (<DelayApp />)}
                 <BasicAuth />
                 {services}
               </div>

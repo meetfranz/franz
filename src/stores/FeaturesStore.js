@@ -1,9 +1,8 @@
-import { computed, observable, reaction } from 'mobx';
+import { computed, observable } from 'mobx';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 
-import delayApp from '../features/delayApp';
 import spellchecker from '../features/spellchecker';
 import serviceProxy from '../features/serviceProxy';
 import basicAuth from '../features/basicAuth';
@@ -15,20 +14,11 @@ export default class FeaturesStore extends Store {
 
   @observable featuresRequest = new CachedRequest(this.api.features, 'features');
 
-  async setup() {
+  setup() {
     this.registerReactions([
       this._monitorLoginStatus.bind(this),
+      this._debugFeatures.bind(this),
     ]);
-
-    await this.featuresRequest._promise;
-    setTimeout(this._enableFeatures.bind(this), 1);
-
-    // single key reaction
-    reaction(() => this.stores.user.data.isPremium, () => {
-      if (this.stores.user.isLoggedIn) {
-        this.featuresRequest.invalidate({ immediately: true });
-      }
-    });
   }
 
   @computed get anonymousFeatures() {
@@ -43,6 +33,9 @@ export default class FeaturesStore extends Store {
     return DEFAULT_FEATURES_CONFIG;
   }
 
+  _debugFeatures() {
+  }
+
   _monitorLoginStatus() {
     if (this.stores.user.isLoggedIn) {
       this.featuresRequest.invalidate({ immediately: true });
@@ -52,7 +45,6 @@ export default class FeaturesStore extends Store {
   }
 
   _enableFeatures() {
-    delayApp(this.stores, this.actions);
     spellchecker(this.stores, this.actions);
     serviceProxy(this.stores, this.actions);
     basicAuth(this.stores, this.actions);

@@ -39,11 +39,11 @@ export const DEFAULT_FEATURES_CONFIG = {
   isSpellcheckerPremiumFeature: false,
   needToWaitToProceed: false,
   needToWaitToProceedConfig: {
-    delayOffset: 3600000,
-    wait: 10000,
+    delayOffset: 0,
+    wait: 0,
   },
   isServiceProxyEnabled: false,
-  isServiceProxyPremiumFeature: true,
+  isServiceProxyPremiumFeature: false,
 };
 
 export const DEFAULT_WINDOW_OPTIONS = {
