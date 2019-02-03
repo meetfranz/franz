@@ -1,3 +1,19 @@
+# [5.0.0-omega.24](https://github.com/MikeDabrowski/franz/compare/v5.0.0-omega.23...v5.0.0-omega.24) (2019-02-03)
+
+
+### Bug Fixes
+
+* **App:** Fix app not starting ([76cc98d](https://github.com/MikeDabrowski/franz/commit/76cc98d))
+* **App:** Removed delay for non premium users. One of the most vile things to do. ([56933f6](https://github.com/MikeDabrowski/franz/commit/56933f6))
+* **DarkMode:** Fix service dark mode ([4512203](https://github.com/MikeDabrowski/franz/commit/4512203)), closes [#d5294105](https://github.com/MikeDabrowski/franz/issues/d5294105)
+* **Theme:** Fix loading theme on start ([8ac904c](https://github.com/MikeDabrowski/franz/commit/8ac904c))
+
+
+
+# [5.0.0-omega.23](https://github.com/MikeDabrowski/franz/compare/v5.0.0-omega.24...v5.0.0-omega.23) (2019-02-03)
+
+
+
 # [5.0.0-omega.23](https://github.com/MikeDabrowski/franz/compare/5.0.0-beta.20...5.0.0-omega.23) (2019-02-02)
 
 

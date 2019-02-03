@@ -10,7 +10,6 @@ import { isLinux, isMac, isWindows } from '../environment';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
-import { onVisibilityChange } from '../helpers/visibility-helper';
 import locales from '../i18n/translations';
 import Request from './lib/Request';
 
@@ -184,12 +183,6 @@ export default class AppStore extends Store {
     this._healthCheck();
 
     this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
-
-    onVisibilityChange((isVisible) => {
-      this.isFocused = isVisible;
-
-      debug('Window is visible/focused', isVisible);
-    });
   }
 
   @computed get cacheSize() {
