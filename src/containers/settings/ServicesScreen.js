@@ -12,7 +12,6 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class ServicesScreen extends Component {
   componentDidMount() {
-    gaPage('Settings/Service Dashboard');
   }
 
   componentWillUnmount() {

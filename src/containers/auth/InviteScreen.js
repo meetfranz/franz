@@ -5,7 +5,6 @@ import Invite from '../../components/auth/Invite';
 
 export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
   componentDidMount() {
-    gaPage('Auth/Invite');
   }
 
   render() {

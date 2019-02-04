@@ -6,7 +6,6 @@ import UserStore from '../../stores/UserStore';
 
 export default @inject('stores', 'actions') @observer class PasswordScreen extends Component {
   componentDidMount() {
-    gaPage('Auth/Password Retrieve');
   }
 
   render() {

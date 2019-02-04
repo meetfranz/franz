@@ -6,7 +6,6 @@ import UserStore from '../../stores/UserStore';
 
 export default @inject('stores', 'actions') @observer class ImportScreen extends Component {
   componentDidMount() {
-    gaPage('Auth/Import');
   }
 
   render() {

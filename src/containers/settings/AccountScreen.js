@@ -14,7 +14,6 @@ const { BrowserWindow } = remote;
 
 export default @inject('stores', 'actions') @observer class AccountScreen extends Component {
   componentDidMount() {
-    gaPage('Settings/Account Dashboard');
   }
 
   onCloseWindow() {

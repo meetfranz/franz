@@ -7,7 +7,6 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
   componentDidMount() {
-    gaPage('Settings/Invite');
   }
 
   componentWillUnmount() {

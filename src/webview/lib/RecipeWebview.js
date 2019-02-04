@@ -23,21 +23,42 @@ class RecipeWebview {
   }
 
   changeTheme = (themeName) => {
-    const currentClassList = document.body.classList;
-    if (themeName && !currentClassList.contains(themeName)) {
-      let name = themeName;
-      if (!themeName.startsWith('theme-')) {
-        name = `theme-${themeName}`;
-      }
-      [...currentClassList].forEach((c) => {
-        if (c && c.startsWith('theme-')) {
-          document.body.classList.remove(c);
+    if(document.body && document.body.classList) {
+      const currentClassList = document.body.classList;
+      if (themeName && !currentClassList.contains(themeName)) {
+        let name = themeName;
+        if (!themeName.startsWith('theme-')) {
+          name = `theme-${themeName}`;
         }
-      });
-      if (name === 'theme-regular') {
-        return;
+        [...currentClassList].forEach((c) => {
+          if (c && c.startsWith('theme-')) {
+            document.body.classList.remove(c);
+          }
+        });
+        if (name === 'theme-regular') {
+          return;
+        }
+        document.body.classList.add(name);
       }
-      document.body.classList.add(name);
+    } else {
+      window.addEventListener('load', () => {
+        const currentClassList = document.body.classList;
+        if (themeName && !currentClassList.contains(themeName)) {
+          let name = themeName;
+          if (!themeName.startsWith('theme-')) {
+            name = `theme-${themeName}`;
+          }
+          [...currentClassList].forEach((c) => {
+            if (c && c.startsWith('theme-')) {
+              document.body.classList.remove(c);
+            }
+          });
+          if (name === 'theme-regular') {
+            return;
+          }
+          document.body.classList.add(name);
+        }
+      })
     }
   };
 

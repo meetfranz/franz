@@ -8,7 +8,6 @@ import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 
 export default @inject('stores', 'actions') @observer class LoginScreen extends Component {
   componentDidMount() {
-    gaPage('Auth/Welcome');
   }
 
   render() {
