@@ -2,8 +2,6 @@ import { mdiArrowRightDropCircleOutline, mdiCloseCircle, mdiMagnify } from '@mdi
 import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
-import debounce from 'lodash/debounce';
-import { observer } from 'mobx-react';
 import React, { Component, createRef } from 'react';
 import injectStyle from 'react-jss';
 
@@ -86,7 +84,8 @@ const styles = (theme: Theme) => ({
     },
   },
   selected: {
-    fontWeight: 'bold',
+    background: theme.selectOptionItemActive,
+    color: theme.selectOptionItemActiveColor,
   },
   toggle: {
     marginLeft: 'auto',
@@ -133,7 +132,6 @@ const styles = (theme: Theme) => ({
   },
 });
 
-@observer
 class SelectComponent extends Component<IProps> {
   public static defaultProps = {
     onChange: () => {},
@@ -166,7 +164,7 @@ class SelectComponent extends Component<IProps> {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: IProps, prevState: IState) {
     const {
       open,
     } = this.state;
@@ -179,41 +177,6 @@ class SelectComponent extends Component<IProps> {
   }
 
   componentDidMount() {
-    if (this.componentRef && this.componentRef.current) {
-      this.keyListener = this.componentRef.current.addEventListener('keydown', debounce((e) => {
-        const {
-          selected,
-          open,
-          options,
-        } = this.state;
-
-        if (!open) return;
-
-        if (e.keyCode === 38 && selected > 0) {
-          this.setState((state: IState) => ({
-            selected: state.selected - 1,
-          }));
-        } else if (e.keyCode === 40 && selected < Object.keys(options!).length - 1) {
-          this.setState((state: IState) => ({
-            selected: state.selected + 1,
-          }));
-        } else if (e.keyCode === 13) {
-          this.select(Object.keys(options!)[selected]);
-        }
-
-        if (this.activeOptionRef && this.activeOptionRef.current && this.scrollContainerRef && this.scrollContainerRef.current) {
-          const containerTopOffset = this.scrollContainerRef.current.offsetTop;
-          const optionTopOffset = this.activeOptionRef.current.offsetTop;
-
-          const topOffset = optionTopOffset - containerTopOffset;
-
-          this.scrollContainerRef.current.scrollTop = topOffset - 35;
-        }
-      },                                                                                10, {
-        leading: true,
-      }));
-    }
-
     if (this.inputRef && this.inputRef.current) {
       const {
         data,
@@ -223,10 +186,14 @@ class SelectComponent extends Component<IProps> {
         Object.keys(data).map(key => this.inputRef.current!.dataset[key] = data[key]);
       }
     }
+
+    window.addEventListener('keydown', this.arrowKeysHandler.bind(this), false);
   }
 
   componentWillMount() {
-    const { value } = this.props;
+    const {
+      value,
+    } = this.props;
 
     if (this.componentRef && this.componentRef.current) {
       this.componentRef.current.removeEventListener('keydown', this.keyListener);
@@ -239,6 +206,10 @@ class SelectComponent extends Component<IProps> {
     }
 
     this.setFilter();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.arrowKeysHandler.bind(this));
   }
 
   setFilter(needle: string = '') {
@@ -274,6 +245,49 @@ class SelectComponent extends Component<IProps> {
 
     if (this.props.onChange) {
       this.props.onChange(key as any);
+    }
+  }
+
+  arrowKeysHandler(e: KeyboardEvent) {
+    const {
+      selected,
+      open,
+      options,
+    } = this.state;
+
+    if (!open) return;
+
+    if (e.keyCode === 38 || e.keyCode === 40) {
+      e.preventDefault();
+    }
+
+    if (this.componentRef && this.componentRef.current) {
+      if (e.keyCode === 38 && selected > 0) {
+        this.setState((state: IState) => ({
+          selected: state.selected - 1,
+        }));
+      } else if (e.keyCode === 40 && selected < Object.keys(options!).length - 1) {
+        this.setState((state: IState) => ({
+          selected: state.selected + 1,
+        }));
+      } else if (e.keyCode === 13) {
+        this.select(Object.keys(options!)[selected]);
+      }
+
+      if (this.activeOptionRef && this.activeOptionRef.current && this.scrollContainerRef && this.scrollContainerRef.current) {
+        const containerTopOffset = this.scrollContainerRef.current.offsetTop;
+        const optionTopOffset = this.activeOptionRef.current.offsetTop;
+
+        const topOffset = optionTopOffset - containerTopOffset;
+
+        this.scrollContainerRef.current.scrollTop = topOffset - 35;
+      }
+    }
+
+    switch (e.keyCode){
+      case 37: case 39: case 38:  case 40: // Arrow keys
+      case 32:  break; // Space
+      default: break; // do not block other keys
     }
   }
 
@@ -314,6 +328,7 @@ class SelectComponent extends Component<IProps> {
     return (
       <Wrapper
         className={className}
+        identifier="franz-select"
       >
         <Label
           title={label}
@@ -366,7 +381,7 @@ class SelectComponent extends Component<IProps> {
                   <button
                     type="button"
                     className={classes.clearNeedle}
-                    onClick={() => this.setState({ needle: '', selected: -1 })}
+                    onClick={() => this.setFilter()}
                   >
                     <Icon
                       path={mdiCloseCircle}

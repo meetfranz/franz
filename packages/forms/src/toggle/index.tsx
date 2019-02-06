@@ -1,7 +1,6 @@
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import CSS from 'csstype';
-import { observer } from 'mobx-react';
 import React, { Component, createRef } from 'react';
 import injectStyle from 'react-jss';
 
@@ -55,7 +54,6 @@ const styles = (theme: Theme) => ({
   },
 });
 
-@observer
 class ToggleComponent extends Component<IProps> {
   public static defaultProps = {
     onChange: () => {},
@@ -81,6 +79,7 @@ class ToggleComponent extends Component<IProps> {
     return (
       <Wrapper
         className={className}
+        identifier="franz-toggle"
       >
         <Label
           title={label}

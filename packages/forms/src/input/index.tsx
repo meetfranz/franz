@@ -1,7 +1,6 @@
 import { mdiEye, mdiEyeOff } from '@mdi/js';
 import Icon from '@mdi/react';
 import classnames from 'classnames';
-import { observer } from 'mobx-react';
 import React, { Component, createRef } from 'react';
 import injectSheet from 'react-jss';
 
@@ -33,7 +32,6 @@ interface IState {
   passwordScore: number;
 }
 
-@observer
 class InputComponent extends Component<IProps, IState> {
   public static defaultProps = {
     focus: false,
@@ -114,6 +112,7 @@ class InputComponent extends Component<IProps, IState> {
     return (
       <Wrapper
         className={className}
+        identifier="franz-input"
       >
         <Label
           title={label}

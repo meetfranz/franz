@@ -1,6 +1,4 @@
-import classnames from 'classnames';
 import { Classes } from 'jss';
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 
@@ -11,7 +9,6 @@ interface IProps {
   message: string;
 }
 
-@observer
 class ErrorComponent extends Component<IProps> {
   render() {
     const {

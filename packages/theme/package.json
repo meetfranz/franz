@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/theme",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Theme configuration for Franz",
   "author": "Stefan Malzner <stefan@adlk.io>",
   "homepage": "https://github.com/meetfranz/franz",
@@ -14,8 +14,8 @@
     "url": "git+https://github.com/meetfranz/franz.git"
   },
   "scripts": {
-    "dev": "NODE_ENV=development ../../node_modules/.bin/webpack -w",
-    "prepare": "../../node_modules/.bin/webpack",
+    "dev": "tsc -w",
+    "prepare": "tsc",
     "preprepare": "npm run test",
     "test": "npx mocha"
   },

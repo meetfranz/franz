@@ -65,6 +65,7 @@ class BadgeComponent extends Component<IProps> {
           [classes[type]]: true,
           [`${className}`]: className,
         })}
+        data-type="franz-badge"
       >
         {children}
       </div>

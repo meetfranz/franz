@@ -1,9 +1,7 @@
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
-// import Loader from 'react-loader';
 
 import { Icon } from '../';
 import { IWithStyle } from '../typings/generic';
@@ -95,7 +93,6 @@ const styles = (theme: Theme) => ({
   ...buttonStyles(theme),
 });
 
-@observer
 class InfoboxComponent extends Component<IProps, IState> {
   public static defaultProps = {
     type: 'primary',
@@ -160,6 +157,7 @@ class InfoboxComponent extends Component<IProps, IState> {
             [classes[`${type}`]]: type,
             [classes.dismissing]: isDismissing,
           })}
+          data-type="franz-infobox"
         >
           {icon && (
             <Icon icon={icon} className={classes.icon} />

@@ -1,6 +1,5 @@
 import classnames from 'classnames';
 import { Classes } from 'jss';
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 
@@ -12,7 +11,6 @@ interface ILabel extends IFormField, React.LabelHTMLAttributes<HTMLLabelElement>
   classes: Classes;
 }
 
-@observer
 class LabelComponent extends Component<ILabel> {
   static defaultProps = {
     showLabel: true,

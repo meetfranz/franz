@@ -26,10 +26,13 @@ class LoaderComponent extends Component<IProps> {
     } = this.props;
 
     return (
-      <div className={classnames({
-        [classes.container]: true,
-        [`${className}`]: className,
-      })}>
+      <div
+        className={classnames({
+          [classes.container]: true,
+          [`${className}`]: className,
+        })}
+        data-type="franz-loader"
+      >
         <ReactLoader
           loaded={false}
           width={4}

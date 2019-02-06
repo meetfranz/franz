@@ -1,11 +1,11 @@
 {
   "name": "@meetfranz/forms",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "React form components for Franz",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "NODE_ENV=development ../../node_modules/.bin/webpack -w",
-    "prepare": "../../node_modules/.bin/webpack"
+    "dev": "tsc -w",
+    "prepare": "tsc"
   },
   "publishConfig": {
     "access": "public"
@@ -31,9 +31,6 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
-    "mobx": "^5.8.0",
-    "mobx-react": "^5.4.3",
     "react": "^16.7.0",
     "react-dom": "16.7.0",
     "react-jss": "^8.6.1"

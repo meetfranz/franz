@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
-import { uiFontSize } from '@meetfranz/theme/lib/themes/default';
 import { IWithStyle, Omit } from '../typings/generic';
 
 interface IProps extends IWithStyle {
@@ -55,6 +54,7 @@ class HeadlineComponent extends Component<IProps> {
           [classes[level ? `h${level}` : 'h1']]: true,
           [`${className}`]: className,
         }),
+        'data-type': 'franz-headline',
       },
       children,
     );

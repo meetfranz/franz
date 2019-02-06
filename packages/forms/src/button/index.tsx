@@ -3,7 +3,6 @@ import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import CSS from 'csstype';
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 import Loader from 'react-loader';
@@ -37,7 +36,7 @@ const styles = (theme: Theme) => ({
     border: 'none',
     display: 'inline-flex',
     position: 'relative' as CSS.PositionProperty,
-    transition: 'background .5s',
+    transition: 'background .5s, opacity 0.3s',
     textAlign: 'center' as CSS.TextAlignProperty,
     outline: 'none',
     alignItems: 'center',
@@ -45,6 +44,14 @@ const styles = (theme: Theme) => ({
     width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
+
+    '&:hover': {
+      opacity: 0.8,
+    },
+    '&:active': {
+      opacity: 0.5,
+      transition: 'none',
+    },
   },
   label: {
     margin: '10px 20px',
@@ -126,7 +133,6 @@ const styles = (theme: Theme) => ({
   },
 });
 
-@observer
 class ButtonComponent extends Component<IProps> {
   public static defaultProps = {
     type: 'button',
@@ -237,6 +243,7 @@ class ButtonComponent extends Component<IProps> {
             [`${className}`]: className,
           })}
           disabled={disabled}
+          data-type="franz-button"
         >
           {content}
         </button>
@@ -253,6 +260,7 @@ class ButtonComponent extends Component<IProps> {
             [`${className}`]: className,
           })}
           rel={target === '_blank' ? 'noopener' : ''}
+          data-type="franz-button"
         >
           {content}
         </a>
