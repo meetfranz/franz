@@ -39,6 +39,7 @@
     "address-rfc2822": "^2.0.1",
     "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",
     "classnames": "2.2.6",
+    "cld3-asm": "1.0.1",
     "debug-electron": "^0.0.4",
     "du": "^0.1.0",
     "electron-dl": "1.12.0",
