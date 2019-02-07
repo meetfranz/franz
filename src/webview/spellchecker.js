@@ -85,7 +85,7 @@ export function disable() {
 }
 
 export function getSpellcheckerLocaleByFuzzyIdentifier(identifier) {
-  const locales = Object.keys(SPELLCHECKER_LOCALES).filter(key => key.split('-')[0] === identifier);
+  const locales = Object.keys(SPELLCHECKER_LOCALES).filter(key => key === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
 
   if (locales.length >= 1) {
     return locales[0];
