@@ -1,10 +1,12 @@
 import { ipcRenderer } from 'electron';
 import path from 'path';
 import { autorun, computed, observable } from 'mobx';
+import { loadModule } from 'cld3-asm';
+import { debounce } from 'lodash';
 
 import RecipeWebview from './lib/RecipeWebview';
 
-import spellchecker, { switchDict, disable as disableSpellchecker } from './spellchecker';
+import spellchecker, { switchDict, disable as disableSpellchecker, getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
 import contextMenu from './contextMenu';
 import './notifications';
@@ -60,6 +62,39 @@ class RecipeController {
     );
 
     autorun(() => this.update());
+
+    console.log(JSON.parse(JSON.stringify(this.settings)));
+
+    const cldFactory = await loadModule();
+    const identifier = cldFactory.create(0, 1000);
+
+    window.addEventListener('keyup', debounce((e) => {
+      const elem = e.target;
+
+      let value = '';
+      if (elem.isContentEditable) {
+        value = elem.textContent;
+      } else {
+        //
+      }
+
+      // Force a minimum length to get better detection results
+      if (value.length < 30) return;
+
+      debug('Detecting language for', value);
+      const findResult = identifier.findLanguage(value);
+
+      debug('Language detection result', findResult);
+
+      if (findResult.is_reliable) {
+        debug('Language detected reliably, setting spellchecker language to', findResult.language);
+        const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(findResult.language);
+        debug('reported back', spellcheckerLocale);
+        if (spellcheckerLocale) {
+          switchDict(spellcheckerLocale);
+        }
+      }
+    }, 200));
   }
 
   loadRecipeModule(event, config, recipe) {
@@ -87,7 +122,12 @@ class RecipeController {
 
     if (this.settings.app.enableSpellchecking) {
       debug('Setting spellchecker language to', this.spellcheckerLanguage);
-      switchDict(this.spellcheckerLanguage);
+      let { spellcheckerLanguage } = this;
+      if (spellcheckerLanguage === 'automatic') {
+        debug('Found `automatic` locale, falling back to user locale until detected', this.settings.app.locale);
+        spellcheckerLanguage = this.settings.app.locale;
+      }
+      switchDict(spellcheckerLanguage);
     } else {
       debug('Disable spellchecker');
       disableSpellchecker();
