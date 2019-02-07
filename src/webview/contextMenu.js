@@ -207,8 +207,6 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     });
   });
 
-  console.log('isSpellcheckEnabled', isSpellcheckEnabled);
-
   menuTpl.push({
     type: 'separator',
   }, {
