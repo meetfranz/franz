@@ -63,8 +63,6 @@ class RecipeController {
 
     autorun(() => this.update());
 
-    console.log(JSON.parse(JSON.stringify(this.settings)));
-
     const cldFactory = await loadModule();
     const identifier = cldFactory.create(0, 1000);
 
@@ -79,7 +77,7 @@ class RecipeController {
       }
 
       // Force a minimum length to get better detection results
-      if (value.length < 30) return;
+      if (value.length < 40) return;
 
       debug('Detecting language for', value);
       const findResult = identifier.findLanguage(value);
