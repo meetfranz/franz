@@ -42,6 +42,8 @@ class RecipeController {
     return this.settings.service.spellcheckerLanguage || this.settings.app.spellcheckerLanguage;
   }
 
+  cldIdentifier = null;
+
   async initialize() {
     Object.keys(this.ipcEvents).forEach((channel) => {
       ipcRenderer.on(channel, (...args) => {
@@ -62,37 +64,6 @@ class RecipeController {
     );
 
     autorun(() => this.update());
-
-    const cldFactory = await loadModule();
-    const identifier = cldFactory.create(0, 1000);
-
-    window.addEventListener('keyup', debounce((e) => {
-      const elem = e.target;
-
-      let value = '';
-      if (elem.isContentEditable) {
-        value = elem.textContent;
-      } else {
-        //
-      }
-
-      // Force a minimum length to get better detection results
-      if (value.length < 40) return;
-
-      debug('Detecting language for', value);
-      const findResult = identifier.findLanguage(value);
-
-      debug('Language detection result', findResult);
-
-      if (findResult.is_reliable) {
-        debug('Language detected reliably, setting spellchecker language to', findResult.language);
-        const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(findResult.language);
-        debug('reported back', spellcheckerLocale);
-        if (spellcheckerLocale) {
-          switchDict(spellcheckerLocale);
-        }
-      }
-    }, 200));
   }
 
   loadRecipeModule(event, config, recipe) {
@@ -122,13 +93,20 @@ class RecipeController {
       debug('Setting spellchecker language to', this.spellcheckerLanguage);
       let { spellcheckerLanguage } = this;
       if (spellcheckerLanguage === 'automatic') {
+        this.automaticLanguageDetection();
         debug('Found `automatic` locale, falling back to user locale until detected', this.settings.app.locale);
         spellcheckerLanguage = this.settings.app.locale;
+      } else if (this.cldIdentifier) {
+        this.cldIdentifier.destroy();
       }
       switchDict(spellcheckerLanguage);
     } else {
       debug('Disable spellchecker');
       disableSpellchecker();
+
+      if (this.cldIdentifier) {
+        this.cldIdentifier.destroy();
+      }
     }
 
     if (this.settings.service.isDarkModeEnabled) {
@@ -150,6 +128,42 @@ class RecipeController {
 
   serviceIdEcho(event) {
     event.sender.send('service-id', this.settings.service.id);
+  }
+
+  async automaticLanguageDetection() {
+    const cldFactory = await loadModule();
+    this.cldIdentifier = cldFactory.create(0, 1000);
+
+    window.addEventListener('keyup', debounce((e) => {
+      const element = e.target;
+
+      console.log(element);
+
+      if (!element) return;
+
+      let value = '';
+      if (element.isContentEditable) {
+        value = element.textContent;
+      } else if (element.value) {
+        value = element.value;
+      }
+
+      // Force a minimum length to get better detection results
+      if (value.length < 30) return;
+
+      debug('Detecting language for', value);
+      const findResult = this.cldIdentifier.findLanguage(value);
+
+      debug('Language detection result', findResult);
+
+      if (findResult.is_reliable) {
+        const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(findResult.language);
+        debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
+        if (spellcheckerLocale) {
+          switchDict(spellcheckerLocale);
+        }
+      }
+    }, 225));
   }
 }
 

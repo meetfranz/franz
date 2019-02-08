@@ -232,19 +232,18 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
         },
       },
       {
-        type: 'separator',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
-      },
-      {
         id: 'automaticDetection',
         label: 'Automatic language detection',
         type: 'radio',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
         checked: spellcheckerLanguage === 'automatic',
         click() {
-          debug('Detect spellchecker language automatically');
+          debug('Detect language automatically');
           ipcRenderer.sendToHost('set-service-spellchecker-language', 'automatic');
         },
+      },
+      {
+        type: 'separator',
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
       },
       ...spellcheckingLanguages],
   });

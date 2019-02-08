@@ -13,4 +13,20 @@ export default defineMessages({
     id: 'global.notConnectedToTheInternet',
     defaultMessage: '!!!You are not connected to the internet.',
   },
+  spellcheckerLanguage: {
+    id: 'global.spellchecking.language',
+    defaultMessage: '!!!Spell checking language',
+  },
+  spellcheckerSystemDefault: {
+    id: 'global.spellchecker.useDefault',
+    defaultMessage: '!!!Use System Default ({default})',
+  },
+  spellcheckerAutomaticDetection: {
+    id: 'global.spellchecking.autodetect',
+    defaultMessage: '!!!Detect language automatically',
+  },
+  spellcheckerAutomaticDetectionShort: {
+    id: 'global.spellchecking.autodetect.short',
+    defaultMessage: '!!!Automatic',
+  },
 });
