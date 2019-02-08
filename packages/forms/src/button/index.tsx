@@ -4,7 +4,7 @@ import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import CSS from 'csstype';
 import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import injectStyle, { withTheme } from 'react-jss';
 import Loader from 'react-loader';
 
 import { IFormField, IWithStyle } from '../typings/generic';
@@ -271,4 +271,4 @@ class ButtonComponent extends Component<IProps> {
   }
 }
 
-export const Button = injectStyle(styles)(ButtonComponent);
+export const Button = injectStyle(styles)(withTheme(ButtonComponent));
