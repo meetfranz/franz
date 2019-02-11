@@ -4,24 +4,23 @@ import {
   shell,
   ipcMain,
 } from 'electron';
+import isDevMode from 'electron-is-dev';
 import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 
+// Set app directory before loading user modules
+if (isDevMode) {
+  app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
+}
+
+/* eslint-disable import/first */
 import {
-  isDevMode,
   isMac,
   isWindows,
   isLinux,
 } from './environment';
-
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
-
-// DEV MODE: Save user data into FranzDev
-if (isDevMode) {
-  app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
-}
-/* eslint-disable import/first */
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
