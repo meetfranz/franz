@@ -23,6 +23,9 @@ export const colorSubscriptionContainerTitle = brandPrimary;
 export const colorSubscriptionContainerActionButtonBackground = brandPrimary;
 export const colorSubscriptionContainerActionButtonColor = '#FFF';
 
+// Error Handler
+export const colorWebviewErrorHandlerBackground = legacyStyles.themeGrayLighter;
+
 // Loader
 export const colorAppLoaderSpinner = '#FFF';
 export const colorFullscreenLoaderSpinner = legacyStyles.themeGrayDark;

@@ -18,7 +18,6 @@ export default @observer class ServiceWebview extends Component {
     setWebviewReference: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     edit: PropTypes.func.isRequired,
-    isAppMuted: PropTypes.bool.isRequired,
     enable: PropTypes.func.isRequired,
     isActive: PropTypes.bool,
   };
@@ -69,7 +68,6 @@ export default @observer class ServiceWebview extends Component {
       setWebviewReference,
       reload,
       edit,
-      isAppMuted,
       enable,
     } = this.props;
 
@@ -137,7 +135,6 @@ export default @observer class ServiceWebview extends Component {
             })}
             onUpdateTargetUrl={this.updateTargetUrl}
             useragent={service.userAgent}
-            muted={isAppMuted || service.isMuted}
             allowpopups
           />
         )}

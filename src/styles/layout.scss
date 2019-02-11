@@ -19,7 +19,7 @@ html { overflow: hidden; }
 
       &:hover,
       &:active { color: $dark-theme-gray-smoke; }
-      &.is-muted { color: $dark-theme-gray; }
+      &.is-muted { color: $theme-brand-primary; }
     }
   }
 

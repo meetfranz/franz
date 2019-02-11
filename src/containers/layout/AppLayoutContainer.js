@@ -108,7 +108,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         openWindow={openWindow}
         reload={reload}
         openSettings={openSettings}
-        isAppMuted={settings.all.app.isAppMuted}
         update={updateService}
       />
     );

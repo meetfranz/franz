@@ -1,4 +1,4 @@
-export default {
+export default theme => ({
   component: {
     left: 0,
     position: 'absolute',
@@ -6,7 +6,7 @@ export default {
     width: '100%',
     zIndex: 0,
     alignItems: 'center',
-    // background: $theme-gray-lighter;
+    background: theme.colorWebviewErrorHandlerBackground,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -22,4 +22,4 @@ export default {
       margin: [0, 10, 0, 10],
     },
   },
-};
+});

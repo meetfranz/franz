@@ -31,7 +31,7 @@ const messages = defineMessages({
   },
 });
 
-export default @injectSheet(styles) @observer class WebviewCrashHandler extends Component {
+export default @injectSheet(styles) @observer class WebviewErrorHandler extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     reload: PropTypes.func.isRequired,
