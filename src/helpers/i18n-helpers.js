@@ -28,21 +28,32 @@ export function getLocale({
   return localeStr;
 }
 
-export function getSelectOptions({ locales, resetToDefaultText = '' }) {
-  let options = [];
+export function getSelectOptions({ locales, resetToDefaultText = '', automaticDetectionText = '' }) {
+  const options = [];
 
   if (resetToDefaultText) {
-    options = [
+    options.push(
       {
         value: '',
         label: resetToDefaultText,
-      }, {
-        value: '───',
-        label: '───',
-        disabled: true,
       },
-    ];
+    );
   }
+
+  if (automaticDetectionText) {
+    options.push(
+      {
+        value: 'automatic',
+        label: automaticDetectionText,
+      },
+    );
+  }
+
+  options.push({
+    value: '───',
+    label: '───',
+    disabled: true,
+  });
 
   Object.keys(locales).sort(Intl.Collator().compare).forEach((key) => {
     options.push({
