@@ -11,7 +11,7 @@ import payment from './payment';
 import news from './news';
 import settings from './settings';
 import requests from './requests';
-import workspace from './workspace';
+import workspace from '../features/workspaces/actions';
 
 const actions = Object.assign({}, {
   service,

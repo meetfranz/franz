@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { gaPage } from '../../lib/analytics';
-import { state } from '../../features/workspaces/state';
-import WorkspacesDashboard from '../../components/settings/workspaces/WorkspacesDashboard';
-import ErrorBoundary from '../../components/util/ErrorBoundary';
+import { gaPage } from '../../../lib/analytics';
+import { state } from '../state';
+import WorkspacesDashboard from '../components/WorkspacesDashboard';
+import ErrorBoundary from '../../../components/util/ErrorBoundary';
 
 @inject('actions') @observer
 class WorkspacesScreen extends Component {

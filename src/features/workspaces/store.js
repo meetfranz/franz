@@ -1,7 +1,7 @@
 import { observable, reaction } from 'mobx';
 import Store from '../../stores/lib/Store';
 import CachedRequest from '../../stores/lib/CachedRequest';
-import Workspace from '../../models/Workspace';
+import Workspace from './models/Workspace';
 import { matchRoute } from '../../helpers/routing-helpers';
 
 const debug = require('debug')('Franz:feature:workspaces');

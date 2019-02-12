@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
-import Form from '../../lib/Form';
-import ErrorBoundary from '../../components/util/ErrorBoundary';
-import { gaPage } from '../../lib/analytics';
-import { state } from '../../features/workspaces/state';
+import { Link } from 'react-router';
+import Form from '../../../lib/Form';
+import ErrorBoundary from '../../../components/util/ErrorBoundary';
+import { gaPage } from '../../../lib/analytics';
+import { state } from '../state';
 
 const messages = defineMessages({
   name: {
     id: 'settings.workspace.form.name',
     defaultMessage: '!!!Name',
+  },
+  yourWorkspaces: {
+    id: 'settings.workspace.form.yourWorkspaces',
+    defaultMessage: '!!!Your workspaces',
   },
 });
 
@@ -38,6 +43,7 @@ class EditWorkspaceScreen extends Component {
   }
 
   render() {
+    const { intl } = this.context;
     const { workspaceBeingEdited } = state;
     if (!workspaceBeingEdited) return null;
 
@@ -45,7 +51,22 @@ class EditWorkspaceScreen extends Component {
 
     return (
       <ErrorBoundary>
-        <div>{workspaceBeingEdited.name}</div>
+        <div className="settings__main">
+          <div className="settings__header">
+            <span className="settings__header-item">
+              <Link to="/settings/workspaces">
+                {intl.formatMessage(messages.yourWorkspaces)}
+              </Link>
+            </span>
+            <span className="separator" />
+            <span className="settings__header-item">
+              {workspaceBeingEdited.name}
+            </span>
+          </div>
+          <div className="settings__body">
+            test
+          </div>
+        </div>
       </ErrorBoundary>
     );
   }

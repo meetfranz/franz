@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 
-import Loader from '../../ui/Loader';
+import Loader from '../../../components/ui/Loader';
 import WorkspaceItem from './WorkspaceItem';
 
 const messages = defineMessages({

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Workspace from '../models/Workspace';
+import Workspace from './models/Workspace';
 
 export default {
   edit: {

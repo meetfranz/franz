@@ -1,4 +1,4 @@
-@import './config.scss';
+@import '../../../styles/config';
 
 .theme__dark .workspace-table {
   .workspace-table__column-info .mdi { color: $dark-theme-gray-lightest; }

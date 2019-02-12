@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import Workspace from '../../../models/Workspace';
+import Workspace from '../models/Workspace';
 
 // const messages = defineMessages({});
 
