@@ -278,7 +278,7 @@ export default class UserStore extends Store {
         // Give this some time to sink
         setTimeout(() => {
           this._tokenLogin(token);
-        }, 100);
+        }, 1000);
       }
     } else if (!this.isLoggedIn
       && !currentRoute.includes(this.BASE_ROUTE)) {

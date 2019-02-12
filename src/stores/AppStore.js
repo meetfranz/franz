@@ -144,10 +144,12 @@ export default class AppStore extends Store {
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
       debug('Navigate from deep link', data);
-      const { url } = data;
+      let { url } = data;
       if (!url) return;
 
-      this.stores.router.push(data.url);
+      url = url.replace(/\/$/, '');
+
+      this.stores.router.push(url);
     });
 
     // Set active the next service

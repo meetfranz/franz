@@ -74,21 +74,22 @@ if (!gotTheLock) {
       mainWindow.focus();
 
       if (isWindows) {
-        // Keep only command line / deep linked arguments
-        const url = argv.slice(1);
+        onDidLoad((window) => {
+          // Keep only command line / deep linked arguments
+          const url = argv.slice(1);
+          if (url) {
+            handleDeepLink(window, url.toString());
+          }
 
-        if (url) {
-          handleDeepLink(mainWindow, url.toString());
-        }
-      }
-
-      if (argv.includes('--reset-window')) {
-        // Needs to be delayed to not interfere with mainWindow.restore();
-        setTimeout(() => {
-          debug('Resetting windows via Task');
-          mainWindow.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
-          mainWindow.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
-        }, 1);
+          if (argv.includes('--reset-window')) {
+            // Needs to be delayed to not interfere with mainWindow.restore();
+            setTimeout(() => {
+              debug('Resetting windows via Task');
+              window.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
+              window.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+            }, 1);
+          }
+        });
       }
     }
   });
@@ -172,6 +173,16 @@ const createWindow = () => {
   // Open the DevTools.
   if (isDevMode || process.argv.includes('--devtools')) {
     mainWindow.webContents.openDevTools();
+  }
+
+  // Windows deep linking handling on app launch
+  if (isWindows) {
+    onDidLoad((window) => {
+      const url = process.argv.slice(1);
+      if (url) {
+        handleDeepLink(window, url.toString());
+      }
+    });
   }
 
   // Emitted when the window is closed.
