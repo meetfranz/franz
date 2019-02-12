@@ -6,9 +6,10 @@ import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
+import { Component as BasicAuth } from '../../features/basicAuth';
 import ErrorBoundary from '../util/ErrorBoundary';
 
-import globalMessages from '../../i18n/globalMessages';
+// import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
 
@@ -50,7 +51,7 @@ export default @observer class AppLayout extends Component {
     services: PropTypes.element.isRequired,
     children: PropTypes.element,
     news: MobxPropTypes.arrayOrObservableArray.isRequired,
-    isOnline: PropTypes.bool.isRequired,
+    // isOnline: PropTypes.bool.isRequired,
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
     removeNewsItem: PropTypes.func.isRequired,
@@ -78,7 +79,7 @@ export default @observer class AppLayout extends Component {
       sidebar,
       services,
       children,
-      isOnline,
+      // isOnline,
       news,
       showServicesUpdatedInfoBar,
       appUpdateIsDownloaded,
@@ -114,14 +115,15 @@ export default @observer class AppLayout extends Component {
                     <span dangerouslySetInnerHTML={createMarkup(item.message)} />
                   </InfoBar>
                 ))}
-                {!isOnline && (
+                {/* {!isOnline && (
                   <InfoBar
                     type="danger"
+                    sticky
                   >
                     <span className="mdi mdi-flash" />
                     {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
                   </InfoBar>
-                )}
+                )} */}
                 {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
                   <InfoBar
                     type="danger"
@@ -161,6 +163,7 @@ export default @observer class AppLayout extends Component {
                   </InfoBar>
                 )}
                 {isDelayAppScreenVisible && (<DelayApp />)}
+                <BasicAuth />
                 {services}
               </div>
             </div>

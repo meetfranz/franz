@@ -1,20 +1,26 @@
 import {
-  app, BrowserWindow, shell, ipcMain,
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
 } from 'electron';
-
+import isDevMode from 'electron-is-dev';
 import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 
-import {
-  isDevMode, isMac, isWindows, isLinux,
-} from './environment';
-
-// DEV MODE: Save user data into FranzDev
+// Set app directory before loading user modules
 if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
+
 /* eslint-disable import/first */
+import {
+  isMac,
+  isWindows,
+  isLinux,
+} from './environment';
+import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -35,6 +41,17 @@ const debug = require('debug')('Franz:App');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let willQuitApp = false;
+
+// Register methods to be called once the window has been loaded.
+let onDidLoadFns = [];
+
+function onDidLoad(fn) {
+  if (onDidLoadFns) {
+    onDidLoadFns.push(fn);
+  } else if (mainWindow) {
+    fn(mainWindow);
+  }
+}
 
 // Ensure that the recipe directory exists
 fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
@@ -57,27 +74,24 @@ if (!gotTheLock) {
       mainWindow.focus();
 
       if (isWindows) {
-        // Keep only command line / deep linked arguments
-        const url = argv.slice(1);
+        onDidLoad((window) => {
+          // Keep only command line / deep linked arguments
+          const url = argv.slice(1);
+          if (url) {
+            handleDeepLink(window, url.toString());
+          }
 
-        if (url) {
-          handleDeepLink(mainWindow, url.toString());
-        }
-      }
-
-      if (argv.includes('--reset-window')) {
-        // Needs to be delayed to not interfere with mainWindow.restore();
-        setTimeout(() => {
-          debug('Resetting windows via Task');
-          mainWindow.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
-          mainWindow.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
-        }, 1);
+          if (argv.includes('--reset-window')) {
+            // Needs to be delayed to not interfere with mainWindow.restore();
+            setTimeout(() => {
+              debug('Resetting windows via Task');
+              window.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
+              window.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+            }, 1);
+          }
+        });
       }
     }
-  });
-
-  // Create myWindow, load the rest of the app, etc...
-  app.on('ready', () => {
   });
 }
 // const isSecondInstance = app.makeSingleInstance((argv) => {
@@ -153,6 +167,17 @@ const createWindow = () => {
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    const fns = onDidLoadFns;
+    onDidLoadFns = null;
+    for (const fn of fns) {
+      fn(mainWindow);
+    }
   });
 
   // Initialize System Tray
@@ -177,6 +202,16 @@ const createWindow = () => {
   // Open the DevTools.
   if (isDevMode || process.argv.includes('--devtools')) {
     mainWindow.webContents.openDevTools();
+  }
+
+  // Windows deep linking handling on app launch
+  if (isWindows) {
+    onDidLoad((window) => {
+      const url = process.argv.slice(1);
+      if (url) {
+        handleDeepLink(window, url.toString());
+      }
+    });
   }
 
   // Emitted when the window is closed.
@@ -248,6 +283,13 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
+  // Register App URL
+  app.setAsDefaultProtocolClient('franz');
+
+  if (isDevMode) {
+    app.setAsDefaultProtocolClient('franz-dev');
+  }
+
   if (process.platform === 'win32') {
     app.setUserTasks([{
       program: process.execPath,
@@ -263,21 +305,41 @@ app.on('ready', () => {
 });
 
 // This is the worst possible implementation as the webview.webContents based callback doesn't work 🖕
+// TODO: rewrite to handle multiple login calls
+const noop = () => null;
+let authCallback = noop;
 app.on('login', (event, webContents, request, authInfo, callback) => {
-  event.preventDefault();
+  authCallback = callback;
   debug('browser login event', authInfo);
+  event.preventDefault();
   if (authInfo.isProxy && authInfo.scheme === 'basic') {
     webContents.send('get-service-id');
 
-    ipcMain.on('service-id', (e, id) => {
+    ipcMain.once('service-id', (e, id) => {
       debug('Received service id', id);
 
       const ps = proxySettings.get(id);
       callback(ps.user, ps.password);
     });
-  } else {
-    // TODO: implement basic auth
+  } else if (authInfo.scheme === 'basic') {
+    debug('basic auth handler', authInfo);
+    basicAuthHandler(mainWindow, authInfo);
   }
+});
+
+// TODO: evaluate if we need to store the authCallback for every service
+ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
+  debug('Received basic auth credentials', user, '********');
+
+  authCallback(user, password);
+  authCallback = noop;
+});
+
+ipcMain.on('feature-basic-auth-cancel', () => {
+  debug('Cancel basic auth');
+
+  authCallback(null);
+  authCallback = noop;
 });
 
 // Quit when all windows are closed.
@@ -305,13 +367,13 @@ app.on('activate', () => {
 });
 
 app.on('will-finish-launching', () => {
-  // Protocol handler for osx
+  // Protocol handler for macOS
   app.on('open-url', (event, url) => {
     event.preventDefault();
-    console.log(`open-url event: ${url}`);
-    handleDeepLink(mainWindow, url);
+
+    onDidLoad((window) => {
+      debug('open-url event', url);
+      handleDeepLink(window, url);
+    });
   });
 });
-
-// Register App URL
-app.setAsDefaultProtocolClient('franz');

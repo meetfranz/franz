@@ -70,6 +70,7 @@ export default class ServicesStore extends Store {
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
+      this._handleMuteSettings.bind(this),
     ]);
 
     // Just bind this
@@ -291,6 +292,8 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
+
+    this._focusActiveService();
   }
 
   @action _setActiveNext() {
@@ -341,6 +344,9 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (service.webview) {
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
       service.webview.focus();
     }
   }
@@ -620,6 +626,20 @@ export default class ServicesStore extends Store {
       });
       this.allServicesRequest.invalidate().reset();
     }
+  }
+
+  _handleMuteSettings() {
+    const { enabled } = this;
+    const { isAppMuted } = this.stores.settings.app;
+
+    enabled.forEach((service) => {
+      const { isAttached } = service;
+      const isMuted = isAppMuted || service.isMuted;
+
+      if (isAttached) {
+        service.webview.setAudioMuted(isMuted);
+      }
+    });
   }
 
   _shareSettingsWithServiceProcess() {

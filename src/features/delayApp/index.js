@@ -3,6 +3,7 @@ import moment from 'moment';
 import DelayAppComponent from './Component';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
+import { gaEvent } from '../../lib/analytics';
 
 const debug = require('debug')('Franz:feature:delayApp');
 
@@ -22,19 +23,18 @@ function setVisibility(value) {
 }
 
 export default function init(stores) {
-  reaction(
-    () => stores.features.features.needToWaitToProceed,
-    (enabled, r) => {
-      if (enabled) {
-        debug('Initializing `delayApp` feature');
+  debug('Initializing `delayApp` feature');
 
-        // Dispose the reaction to run this only once
-        r.dispose();
+  let shownAfterLaunch = false;
+  let timeLastDelay = moment();
+
+  reaction(
+    () => stores.features.features.needToWaitToProceed && !stores.user.data.isPremium,
+    (isEnabled) => {
+      if (isEnabled) {
+        debug('Enabling `delayApp` feature');
 
         const { needToWaitToProceedConfig: globalConfig } = stores.features.features;
-
-        let shownAfterLaunch = false;
-        let timeLastDelay = moment();
 
         config.delayOffset = globalConfig.delayOffset !== undefined ? globalConfig.delayOffset : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.delayOffset;
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
@@ -50,6 +50,7 @@ export default function init(stores) {
             debug(`App will be delayed for ${config.delayDuration / 1000}s`);
 
             setVisibility(true);
+            gaEvent('delayApp', 'show', 'Delay App Feature');
 
             timeLastDelay = moment();
             shownAfterLaunch = true;
@@ -61,6 +62,8 @@ export default function init(stores) {
             }, DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait + 1000); // timer needs to be able to hit 0
           }
         });
+      } else {
+        setVisibility(false);
       }
     },
   );

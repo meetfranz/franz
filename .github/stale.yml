@@ -11,6 +11,8 @@ daysUntilClose: -1 # Close the issue almost immediately. See: https://github.com
 exemptLabels:
   - blocker
   - security
+  - feature request
+  - bug
   
 # Label to use when marking an issue as stale
 staleLabel: "[Status] Stale"

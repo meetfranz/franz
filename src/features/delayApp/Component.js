@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
+import { gaEvent } from '../../lib/analytics';
+
 import Button from '../../components/ui/Button';
 
 import { config } from '.';
@@ -59,8 +61,16 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
     clearInterval(this.countdownInterval);
   }
 
+  handleCTAClick() {
+    const { actions } = this.props;
+
+    actions.ui.openSettings({ path: 'user' });
+
+    gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
+  }
+
   render() {
-    const { classes, actions } = this.props;
+    const { classes } = this.props;
     const { intl } = this.context;
 
     return (
@@ -70,7 +80,7 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
           label={intl.formatMessage(messages.action)}
           className={classes.button}
           buttonType="inverted"
-          onClick={() => actions.ui.openSettings({ path: 'user' })}
+          onClick={this.handleCTAClick.bind(this)}
         />
         <p className="footnote">
           {intl.formatMessage(messages.text, {

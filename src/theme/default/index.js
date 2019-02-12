@@ -23,7 +23,13 @@ export const colorSubscriptionContainerTitle = brandPrimary;
 export const colorSubscriptionContainerActionButtonBackground = brandPrimary;
 export const colorSubscriptionContainerActionButtonColor = '#FFF';
 
+// Error Handler
+export const colorWebviewErrorHandlerBackground = legacyStyles.themeGrayLighter;
+
 // Loader
 export const colorAppLoaderSpinner = '#FFF';
 export const colorFullscreenLoaderSpinner = legacyStyles.themeGrayDark;
 export const colorWebviewLoaderBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);
+
+// Modal
+export const colorModalOverlayBackground = hexToRgba(legacyStyles.themeGrayLighter, 0.8);

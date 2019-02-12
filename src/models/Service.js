@@ -15,7 +15,7 @@ export default class Service {
 
   events = {};
 
-  isAttached = false;
+  @observable isAttached = false;
 
   @observable isActive = false; // Is current webview active
 
@@ -202,7 +202,7 @@ export default class Service {
 
     this.webview.addEventListener('did-fail-load', (event) => {
       debug('Service failed to load', this.name, event);
-      if (event.isMainFrame && event.errorCode !== -3) {
+      if (event.isMainFrame && event.errorCode !== -21 && event.errorCode !== -3) {
         this.isError = true;
         this.errorMessage = event.errorDescription;
         this.isLoading = false;
