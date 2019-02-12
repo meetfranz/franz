@@ -33,6 +33,7 @@ import {
   DEFAULT_APP_SETTINGS,
   DEFAULT_WINDOW_OPTIONS,
 } from './config';
+import { asarPath } from './helpers/asar-helpers';
 /* eslint-enable import/first */
 
 const debug = require('debug')('Franz:App');
@@ -87,6 +88,12 @@ if (!gotTheLock) {
               debug('Resetting windows via Task');
               window.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
               window.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+            }, 1);
+          } else if (argv.includes('--quit')) {
+            // Needs to be delayed to not interfere with mainWindow.restore();
+            setTimeout(() => {
+              debug('Quitting Franz via Task');
+              app.quit();
             }, 1);
           }
         });
@@ -265,10 +272,15 @@ app.on('ready', () => {
     app.setUserTasks([{
       program: process.execPath,
       arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
-      iconPath: path.join(`${__dirname}`, '../src/assets/images/taskbar/win32/display.ico'),
+      iconPath: asarPath(path.join(isDevMode ? `${__dirname}../src/` : __dirname, 'assets/images/taskbar/win32/display.ico')),
       iconIndex: 0,
       title: 'Move Franz to Current Display',
       description: 'Restore the position and size of Franz',
+    }, {
+      program: process.execPath,
+      arguments: `${isDevMode ? `${__dirname} ` : ''}--quit`,
+      iconIndex: 0,
+      title: 'Quit Franz',
     }]);
   }
 

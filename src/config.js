@@ -1,5 +1,6 @@
 import electron from 'electron';
 import path from 'path';
+import { asarPath } from './helpers/asar-helpers';
 
 const app = process.type === 'renderer' ? electron.remote.app : electron.app;
 const systemPreferences = process.type === 'renderer' ? electron.remote.systemPreferences : electron.systemPreferences;
@@ -57,4 +58,4 @@ export const FILE_SYSTEM_SETTINGS_TYPES = [
 export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
 
 // Replacing app.asar is not beautiful but unforunately necessary
-export const DICTIONARY_PATH = path.join(__dirname, 'dictionaries').replace('app.asar', 'app.asar.unpacked');
+export const DICTIONARY_PATH = asarPath(path.join(__dirname, 'dictionaries').replace('app.asar', 'app.asar.unpacked'));
