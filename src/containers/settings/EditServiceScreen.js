@@ -19,8 +19,11 @@ import { required, url, oneRequired } from '../../helpers/validation-helpers';
 import { getSelectOptions } from '../../helpers/i18n-helpers';
 
 import { config as proxyFeature } from '../../features/serviceProxy';
+import { config as spellcheckerFeature } from '../../features/spellchecker';
 
 import { SPELLCHECKER_LOCALES } from '../../i18n/languages';
+
+import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
   name: {
@@ -83,14 +86,6 @@ const messages = defineMessages({
     id: 'settings.service.form.proxy.password',
     defaultMessage: '!!!Password',
   },
-  spellcheckerLanguage: {
-    id: 'settings.service.form.spellcheckerLanguage',
-    defaultMessage: '!!!Spell checking Language',
-  },
-  spellcheckerSystemDefault: {
-    id: 'settings.service.form.spellcheckerLanguage.default',
-    defaultMessage: '!!!Use System Default ({default})',
-  },
 });
 
 export default @inject('stores', 'actions') @observer class EditServiceScreen extends Component {
@@ -118,12 +113,26 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
   }
 
   prepareForm(recipe, service, proxy) {
+    const {
+      intl,
+    } = this.context;
+
+    const {
+      stores,
+    } = this.props;
+
+    let defaultSpellcheckerLanguage = SPELLCHECKER_LOCALES[stores.settings.app.spellcheckerLanguage];
+
+    if (stores.settings.app.spellcheckerLanguage === 'automatic') {
+      defaultSpellcheckerLanguage = intl.formatMessage(globalMessages.spellcheckerAutomaticDetectionShort);
+    }
+
     const spellcheckerLanguage = getSelectOptions({
       locales: SPELLCHECKER_LOCALES,
-      resetToDefaultText: this.context.intl.formatMessage(messages.spellcheckerSystemDefault, { default: SPELLCHECKER_LOCALES[this.props.stores.settings.app.spellcheckerLanguage] }),
+      resetToDefaultText: intl.formatMessage(globalMessages.spellcheckerSystemDefault, { default: defaultSpellcheckerLanguage }),
+      automaticDetectionText: stores.settings.app.spellcheckerLanguage !== 'automatic' ? intl.formatMessage(globalMessages.spellcheckerAutomaticDetection) : '',
     });
 
-    const { intl } = this.context;
     const config = {
       fields: {
         name: {
@@ -160,13 +169,13 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
         isDarkModeEnabled: {
           label: intl.formatMessage(messages.enableDarkMode),
           value: service.isDarkModeEnabled,
-          default: this.props.stores.settings.app.darkMode,
+          default: stores.settings.app.darkMode,
         },
         spellcheckerLanguage: {
-          label: intl.formatMessage(messages.spellcheckerLanguage),
+          label: intl.formatMessage(globalMessages.spellcheckerLanguage),
           value: service.spellcheckerLanguage,
           options: spellcheckerLanguage,
-          disabled: !this.props.stores.settings.app.enableSpellchecking,
+          disabled: !stores.settings.app.enableSpellchecking,
         },
       },
     };
@@ -220,7 +229,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     }
 
     if (proxy.isEnabled) {
-      const serviceProxyConfig = this.props.stores.settings.proxy[service.id] || {};
+      const serviceProxyConfig = stores.settings.proxy[service.id] || {};
 
       Object.assign(config.fields, {
         proxy: {
@@ -326,7 +335,8 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
           onSubmit={d => this.onSubmit(d)}
           onDelete={() => this.deleteService()}
           isProxyFeatureEnabled={proxyFeature.isEnabled}
-          isProxyFeaturePremiumFeature={proxyFeature.isPremium}
+          isProxyPremiumFeature={proxyFeature.isPremium}
+          isSpellcheckerPremiumFeature={spellcheckerFeature.isPremium}
         />
       </ErrorBoundary>
     );

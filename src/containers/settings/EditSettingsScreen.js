@@ -14,9 +14,10 @@ import { config as spellcheckerConfig } from '../../features/spellchecker';
 
 import { getSelectOptions } from '../../helpers/i18n-helpers';
 
-
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
+
+import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
@@ -62,10 +63,6 @@ const messages = defineMessages({
   enableGPUAcceleration: {
     id: 'settings.app.form.enableGPUAcceleration',
     defaultMessage: '!!!Enable GPU Acceleration',
-  },
-  spellcheckerLanguage: {
-    id: 'settings.app.form.spellcheckerLanguage',
-    defaultMessage: '!!!Language for spell checking',
   },
   beta: {
     id: 'settings.app.form.beta',
@@ -125,6 +122,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
 
     const spellcheckingLanguages = getSelectOptions({
       locales: SPELLCHECKER_LOCALES,
+      automaticDetectionText: this.context.intl.formatMessage(globalMessages.spellcheckerAutomaticDetection),
     });
 
     const config = {
@@ -166,11 +164,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
-          value: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremiumFeature ? false : settings.all.app.enableSpellchecking,
-          default: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremiumFeature ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
+          value: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremium ? false : settings.all.app.enableSpellchecking,
+          default: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremium ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
         spellcheckerLanguage: {
-          label: intl.formatMessage(messages.spellcheckerLanguage),
+          label: intl.formatMessage(globalMessages.spellcheckerLanguage),
           value: settings.all.app.spellcheckerLanguage,
           options: spellcheckingLanguages,
           default: DEFAULT_APP_SETTINGS.spellcheckerLanguage,
@@ -230,7 +228,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           cacheSize={cacheSize}
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}
-          isSpellcheckerPremiumFeature={spellcheckerConfig.isPremiumFeature}
+          isSpellcheckerPremiumFeature={spellcheckerConfig.isPremium}
         />
       </ErrorBoundary>
     );

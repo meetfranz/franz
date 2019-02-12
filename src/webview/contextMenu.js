@@ -207,8 +207,6 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     });
   });
 
-  console.log('isSpellcheckEnabled', isSpellcheckEnabled);
-
   menuTpl.push({
     type: 'separator',
   }, {
@@ -231,6 +229,16 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
         click() {
           debug('Resetting service spellchecker to system default');
           ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
+        },
+      },
+      {
+        id: 'automaticDetection',
+        label: 'Automatic language detection',
+        type: 'radio',
+        checked: spellcheckerLanguage === 'automatic',
+        click() {
+          debug('Detect language automatically');
+          ipcRenderer.sendToHost('set-service-spellchecker-language', 'automatic');
         },
       },
       {
