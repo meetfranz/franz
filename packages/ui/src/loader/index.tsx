@@ -1,7 +1,7 @@
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import injectStyle, { withTheme } from 'react-jss';
 import ReactLoader from 'react-loader';
 
 import { IWithStyle } from '../typings/generic';
@@ -45,4 +45,4 @@ class LoaderComponent extends Component<IProps> {
   }
 }
 
-export const Loader = injectStyle(styles)(LoaderComponent);
+export const Loader = injectStyle(styles)(withTheme(LoaderComponent));
