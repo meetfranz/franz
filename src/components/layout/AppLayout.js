@@ -5,7 +5,6 @@ import { defineMessages, intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
-import { Component as DelayApp } from '../../features/delayApp';
 import { Component as BasicAuth } from '../../features/basicAuth';
 import ErrorBoundary from '../util/ErrorBoundary';
 
@@ -44,7 +43,9 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class AppLayout extends Component {
+export default
+@observer
+class AppLayout extends Component {
   static propTypes = {
     isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
@@ -62,7 +63,6 @@ export default @observer class AppLayout extends Component {
     retryRequiredRequests: PropTypes.func.isRequired,
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
-    isDelayAppScreenVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -91,30 +91,37 @@ export default @observer class AppLayout extends Component {
       retryRequiredRequests,
       areRequiredRequestsLoading,
       darkMode,
-      isDelayAppScreenVisible,
     } = this.props;
 
     const { intl } = this.context;
 
     return (
       <ErrorBoundary>
-        <div className={(darkMode ? 'theme__dark' : '')}>
+        <div className={darkMode ? 'theme__dark' : ''}>
           <div className="app">
-            {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+            {isWindows && !isFullScreen && (
+              <TitleBar
+                menu={window.franz.menu.template}
+                icon="assets/images/logo.svg"
+              />
+            )}
             <div className="app__content">
               {sidebar}
               <div className="app__service">
-                {news.length > 0 && news.map(item => (
-                  <InfoBar
-                    key={item.id}
-                    position="top"
-                    type={item.type}
-                    sticky={item.sticky}
-                    onHide={() => removeNewsItem({ newsId: item.id })}
-                  >
-                    <span dangerouslySetInnerHTML={createMarkup(item.message)} />
-                  </InfoBar>
-                ))}
+                {news.length > 0
+                  && news.map(item => (
+                    <InfoBar
+                      key={item.id}
+                      position="top"
+                      type={item.type}
+                      sticky={item.sticky}
+                      onHide={() => removeNewsItem({ newsId: item.id })}
+                    >
+                      <span
+                        dangerouslySetInnerHTML={createMarkup(item.message)}
+                      />
+                    </InfoBar>
+                  ))}
                 {/* {!isOnline && (
                   <InfoBar
                     type="danger"
@@ -162,7 +169,6 @@ export default @observer class AppLayout extends Component {
                     </a>
                   </InfoBar>
                 )}
-                {isDelayAppScreenVisible && (<DelayApp />)}
                 <BasicAuth />
                 {services}
               </div>
