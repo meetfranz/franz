@@ -1,3 +1,20 @@
+# [5.0.0](https://github.com/meetfranz/franz/compare/5.0.0-beta.24...5.0.0) (2019-02-15)
+
+### General
+
+* **App:** Updated electron to 4.0.4
+
+### Features
+
+* **Spellchecker:** Add automatic spellcheck language detection ([a5e7171](https://github.com/meetfranz/franz/commit/a5e7171))
+* **Windows:** Add option to quit Franz from Taskbar ([8808601](https://github.com/meetfranz/franz/commit/8808601))
+
+### Bug Fixes
+
+* **App:** Various bugfixes and improvements
+
+
+
 # [5.0.0-beta.24](https://github.com/meetfranz/franz/compare/v5.0.0-beta.23...v5.0.0-beta.24) (2019-02-03)
 
 
