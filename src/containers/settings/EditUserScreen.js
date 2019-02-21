@@ -9,7 +9,6 @@ import EditUserForm from '../../components/settings/user/EditUserForm';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 import { required, email, minLength } from '../../helpers/validation-helpers';
-import { gaPage } from '../../lib/analytics';
 
 const messages = defineMessages({
   firstname: {
@@ -56,10 +55,6 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Account/Edit');
-  }
 
   componentWillUnmount() {
     this.props.actions.user.resetStatus();
