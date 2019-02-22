@@ -37,6 +37,7 @@ class InputComponent extends Component<IProps, IState> {
     focus: false,
     onChange: () => {},
     onBlur: () => {},
+    onFocus: () => {},
     scorePassword: false,
     showLabel: true,
     showPasswordToggle: false,
@@ -100,6 +101,7 @@ class InputComponent extends Component<IProps, IState> {
       placeholder,
       spellCheck,
       onBlur,
+      onFocus,
     } = this.props;
 
     const {
@@ -142,6 +144,7 @@ class InputComponent extends Component<IProps, IState> {
               className={classes.input}
               ref={this.inputRef}
               onChange={this.onChange.bind(this)}
+              onFocus={onFocus}
               onBlur={onBlur}
               disabled={disabled}
             />
