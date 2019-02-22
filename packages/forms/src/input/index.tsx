@@ -109,11 +109,8 @@ class InputComponent extends Component<IProps, IState> {
       placeholder,
       spellCheck,
       onBlur,
-<<<<<<< HEAD
       onEnterKey,
-=======
       onFocus,
->>>>>>> develop
     } = this.props;
 
     const {
