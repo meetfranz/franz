@@ -25,6 +25,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField
   showPasswordToggle?: boolean;
   data: IData;
   inputClassName?: string;
+  onEnterKey?: Function;
 }
 
 interface IState {
@@ -80,6 +81,13 @@ class InputComponent extends Component<IProps, IState> {
     }
   }
 
+  onInputKeyPress(e: React.KeyboardEvent) {
+    if (e.key === "Enter") {
+      const { onEnterKey } = this.props;
+      onEnterKey && onEnterKey();
+    }
+  }
+
   render() {
     const {
       classes,
@@ -100,6 +108,7 @@ class InputComponent extends Component<IProps, IState> {
       placeholder,
       spellCheck,
       onBlur,
+      onEnterKey,
     } = this.props;
 
     const {
@@ -144,6 +153,7 @@ class InputComponent extends Component<IProps, IState> {
               onChange={this.onChange.bind(this)}
               onBlur={onBlur}
               disabled={disabled}
+              onKeyPress={this.onInputKeyPress.bind(this)}
             />
             {suffix && (
               <span className={classes.suffix}>
