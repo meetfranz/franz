@@ -8,4 +8,7 @@ export default {
   create: {
     name: PropTypes.string.isRequired,
   },
+  delete: {
+    workspace: PropTypes.instanceOf(Workspace).isRequired,
+  },
 };

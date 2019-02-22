@@ -5,15 +5,27 @@ import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { gaPage } from '../../../lib/analytics';
 import { state } from '../state';
 import EditWorkspaceForm from '../components/EditWorkspaceForm';
+import PropTypes from 'prop-types';
 
 @inject('stores', 'actions') @observer
 class EditWorkspaceScreen extends Component {
+  static propTypes = {
+    actions: PropTypes.shape({
+      workspace: PropTypes.shape({
+        delete: PropTypes.func.isRequired,
+      }),
+    }).isRequired,
+  };
+
   componentDidMount() {
     gaPage('Settings/Workspace/Edit');
   }
 
   onDelete = () => {
-    console.log('delete workspace');
+    const { workspaceBeingEdited } = state;
+    const { actions } = this.props;
+    if (!workspaceBeingEdited) return null;
+    actions.workspace.delete({ workspace: workspaceBeingEdited });
   };
 
   onSave = (values) => {

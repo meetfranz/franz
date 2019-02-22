@@ -22,3 +22,7 @@ export const prepareAuthRequest = (options, auth = true) => {
 
   return request;
 };
+
+export const sendAuthRequest = (url, options) => (
+  window.fetch(url, prepareAuthRequest(options))
+);

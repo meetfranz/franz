@@ -50,6 +50,7 @@ export default class WorkspacesStore extends Store {
 
     this.actions.workspace.edit.listen(this._edit);
     this.actions.workspace.create.listen(this._create);
+    this.actions.workspace.delete.listen(this._delete);
   }
 
   _setWorkspaces = (workspaces) => {
@@ -73,6 +74,16 @@ export default class WorkspacesStore extends Store {
       const workspace = new Workspace(result);
       this.state.workspaces.push(workspace);
       this._edit({ workspace });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  _delete = async ({ workspace }) => {
+    try {
+      await this.api.deleteWorkspace(workspace);
+      this.state.workspaces.remove(workspace);
+      this.stores.router.push('/settings/workspaces');
     } catch (error) {
       throw error;
     }

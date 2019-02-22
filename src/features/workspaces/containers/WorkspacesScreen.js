@@ -21,14 +21,14 @@ class WorkspacesScreen extends Component {
   }
 
   render() {
-    const { workspace } = this.props.actions;
+    const { actions } = this.props;
     return (
       <ErrorBoundary>
         <WorkspacesDashboard
           workspaces={state.workspaces}
           isLoading={state.isLoading}
-          onCreateWorkspaceSubmit={data => workspace.create(data)}
-          onWorkspaceClick={w => workspace.edit({ workspace: w })}
+          onCreateWorkspaceSubmit={data => actions.workspace.create(data)}
+          onWorkspaceClick={w => actions.workspace.edit({ workspace: w })}
         />
       </ErrorBoundary>
     );
