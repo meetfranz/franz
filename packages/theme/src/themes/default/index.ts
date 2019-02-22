@@ -137,3 +137,6 @@ export const selectDisabledOpacity = inputDisabledOpacity;
 // Badge
 export const badgeFontSize = uiFontSize - 2;
 export const badgeBorderRadius = 50;
+
+// Modal
+export const colorModalOverlayBackground = color(legacyStyles.themeGrayLighter).alpha(0.8).rgb().string();

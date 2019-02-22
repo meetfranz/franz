@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
+import { ThemeProvider } from 'react-jss';
+import { theme } from '@meetfranz/theme';
 
 import AuthLayout from '../../components/auth/AuthLayout';
 import AppStore from '../../stores/AppStore';
@@ -21,30 +23,38 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
     const {
       stores, actions, children, location,
     } = this.props;
-    const { app, features, globalError } = stores;
+    const {
+      app, features, globalError, settings,
+    } = stores;
 
     const isLoadingBaseFeatures = features.defaultFeaturesRequest.isExecuting
       && !features.defaultFeaturesRequest.wasExecuted;
 
+    const themeType = theme(settings.app.darkMode ? 'dark' : 'default');
+
     if (isLoadingBaseFeatures) {
       return (
-        <AppLoader />
+        <ThemeProvider theme={theme(themeType)}>
+          <AppLoader />
+        </ThemeProvider>
       );
     }
 
     return (
-      <AuthLayout
-        error={globalError.response}
-        pathname={location.pathname}
-        isOnline={app.isOnline}
-        isAPIHealthy={!app.healthCheckRequest.isError}
-        retryHealthCheck={actions.app.healthCheck}
-        isHealthCheckLoading={app.healthCheckRequest.isExecuting}
-        isFullScreen={app.isFullScreen}
-        darkMode={app.isSystemDarkModeEnabled}
-      >
-        {children}
-      </AuthLayout>
+      <ThemeProvider theme={theme(themeType)}>
+        <AuthLayout
+          error={globalError.response}
+          pathname={location.pathname}
+          isOnline={app.isOnline}
+          isAPIHealthy={!app.healthCheckRequest.isError}
+          retryHealthCheck={actions.app.healthCheck}
+          isHealthCheckLoading={app.healthCheckRequest.isExecuting}
+          isFullScreen={app.isFullScreen}
+          darkMode={app.isSystemDarkModeEnabled}
+        >
+          {children}
+        </AuthLayout>
+      </ThemeProvider>
     );
   }
 }

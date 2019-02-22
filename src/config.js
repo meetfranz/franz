@@ -1,5 +1,7 @@
 import electron from 'electron';
 import path from 'path';
+import isDevMode from 'electron-is-dev';
+
 import { asarPath } from './helpers/asar-helpers';
 
 const app = process.type === 'renderer' ? electron.remote.app : electron.app;
@@ -9,7 +11,7 @@ export const CHECK_INTERVAL = 1000 * 3600; // How often should we perform checks
 export const LOCAL_API = 'http://localhost:3000';
 export const DEV_API = 'https://dev.franzinfra.com';
 export const LIVE_API = 'https://api.franzinfra.com';
-export const GA_ID = 'UA-74126766-10';
+export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
 
 export const DEFAULT_APP_SETTINGS = {
   autoLaunchInBackground: false,
