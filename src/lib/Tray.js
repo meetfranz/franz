@@ -23,6 +23,8 @@ export default class TrayIcon {
         label: 'Show Franz',
         click() {
           app.mainWindow.show();
+          app.mainWindow.restore();
+          app.mainWindow.focus();
         },
       }, {
         label: 'Quit Franz',
@@ -37,6 +39,8 @@ export default class TrayIcon {
 
     this.trayIcon.on('click', () => {
       app.mainWindow.show();
+      app.mainWindow.restore();
+      app.mainWindow.focus();
     });
 
     if (process.platform === 'darwin') {
