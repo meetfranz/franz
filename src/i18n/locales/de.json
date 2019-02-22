@@ -218,7 +218,7 @@
    "settings.services.tooltip.notificationsDisabled" : "Benachrichtigungen deaktiviert",
    "settings.services.updatedInfo" : "Deine Änderungen wurden gespeichert",
    "settings.workspaces.headline": "Deine Workspaces",
-   "settings.workspace.add.form.submitButton": "Create Workspace",
+   "settings.workspace.add.form.submitButton": "Workspace erstellen",
    "settings.workspace.add.form.name": "Name",
    "settings.workspace.form.yourWorkspaces": "Deine Workspaces",
    "settings.workspace.form.name": "Name",

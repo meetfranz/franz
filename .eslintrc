@@ -2,6 +2,7 @@
   "parser": "babel-eslint",
   "extends": "eslint-config-airbnb",
   "rules": {
+    "consistent-return": 0,
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [2, {
