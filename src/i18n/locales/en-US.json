@@ -1,6 +1,10 @@
 {
   "global.api.unhealthy": "Can't connect to Franz online services",
   "global.notConnectedToTheInternet": "You are not connected to the internet.",
+  "global.spellchecking.language": "Spell checking language",
+  "global.spellchecker.useDefault": "Use System Default ({default})",
+  "global.spellchecking.autodetect": "Detect language automatically",
+  "global.spellchecking.autodetect.short": "Automatic",
   "welcome.signupButton": "Create a free account",
   "welcome.loginButton": "Login to your account",
   "welcome.slogan": "Messaging that works for you",
