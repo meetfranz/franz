@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { gaPage } from '../../../lib/analytics';
 import { state } from '../state';
 import WorkspacesDashboard from '../components/WorkspacesDashboard';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
@@ -15,10 +14,6 @@ class WorkspacesScreen extends Component {
       }),
     }).isRequired,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Workspaces Dashboard');
-  }
 
   render() {
     const { actions } = this.props;

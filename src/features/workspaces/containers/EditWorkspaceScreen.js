@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
-import { gaPage } from '../../../lib/analytics';
 import { state } from '../state';
 import EditWorkspaceForm from '../components/EditWorkspaceForm';
-import PropTypes from 'prop-types';
 
 @inject('stores', 'actions') @observer
 class EditWorkspaceScreen extends Component {
@@ -16,10 +15,6 @@ class EditWorkspaceScreen extends Component {
       }),
     }).isRequired,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Workspace/Edit');
-  }
 
   onDelete = () => {
     const { workspaceBeingEdited } = state;
