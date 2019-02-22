@@ -60,3 +60,6 @@ export const selectOptionBorder = `1px solid ${color(legacyStyles.darkThemeGrayL
 export const selectOptionItemHover = color(legacyStyles.darkThemeGrayLight).darken(0.2).hex();
 export const selectOptionItemHoverColor = selectColor;
 export const selectSearchColor = inputBackground;
+
+// Modal
+export const colorModalOverlayBackground = color(legacyStyles.darkThemeGray).alpha(0.8).rgb().string();
