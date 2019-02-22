@@ -27,6 +27,7 @@ class WorkspacesScreen extends Component {
         <WorkspacesDashboard
           workspaces={state.workspaces}
           isLoading={state.isLoading}
+          onCreateWorkspaceSubmit={data => workspace.create(data)}
           onWorkspaceClick={w => workspace.edit({ workspace: w })}
         />
       </ErrorBoundary>

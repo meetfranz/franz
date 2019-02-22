@@ -49,6 +49,7 @@ export default class WorkspacesStore extends Store {
     );
 
     this.actions.workspace.edit.listen(this._edit);
+    this.actions.workspace.create.listen(this._create);
   }
 
   _setWorkspaces = (workspaces) => {
@@ -64,5 +65,16 @@ export default class WorkspacesStore extends Store {
 
   _edit = ({ workspace }) => {
     this.stores.router.push(`/settings/workspaces/edit/${workspace.id}`);
-  }
+  };
+
+  _create = async ({ name }) => {
+    try {
+      const result = await this.api.createWorkspace(name);
+      const workspace = new Workspace(result);
+      this.state.workspaces.push(workspace);
+      this._edit({ workspace });
+    } catch (error) {
+      throw error;
+    }
+  };
 }

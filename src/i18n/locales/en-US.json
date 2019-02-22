@@ -197,6 +197,8 @@
   "settings.user.form.accountType.non-profit": "Non-Profit",
   "settings.user.form.accountType.company": "Company",
   "settings.workspaces.headline": "Your workspaces",
+  "settings.workspace.add.form.submitButton": "Create Workspace",
+  "settings.workspace.add.form.name": "Name",
   "settings.workspace.form.yourWorkspaces": "Your workspaces",
   "settings.workspace.form.name": "Name",
   "settings.workspace.form.buttonDelete": "Delete Workspace",

@@ -38,7 +38,7 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
 
   state = {
     countdown: config.delayDuration,
-  }
+  };
 
   countdownInterval = null;
 

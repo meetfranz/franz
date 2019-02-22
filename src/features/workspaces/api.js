@@ -10,4 +10,13 @@ export default {
     if (!request.ok) throw request;
     return request.json();
   },
+  createWorkspace: async (name) => {
+    const url = `${API}/${API_VERSION}/workspace`;
+    const request = await window.fetch(url, prepareAuthRequest({
+      method: 'POST',
+      body: JSON.stringify({ name }),
+    }));
+    if (!request.ok) throw request;
+    return request.json();
+  },
 };

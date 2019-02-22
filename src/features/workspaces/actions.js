@@ -5,4 +5,7 @@ export default {
   edit: {
     workspace: PropTypes.instanceOf(Workspace).isRequired,
   },
+  create: {
+    name: PropTypes.string.isRequired,
+  },
 };

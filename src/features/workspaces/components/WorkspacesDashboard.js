@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
+import injectSheet from 'react-jss';
 
 import Loader from '../../../components/ui/Loader';
 import WorkspaceItem from './WorkspaceItem';
+import CreateWorkspaceForm from './CreateWorkspaceForm';
 
 const messages = defineMessages({
   headline: {
@@ -17,12 +19,21 @@ const messages = defineMessages({
   },
 });
 
-@observer
+const styles = () => ({
+  createForm: {
+    height: 'auto',
+    marginBottom: '20px',
+  },
+});
+
+@observer @injectSheet(styles)
 class WorkspacesDashboard extends Component {
   static propTypes = {
-    workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
+    classes: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    onCreateWorkspaceSubmit: PropTypes.func.isRequired,
     onWorkspaceClick: PropTypes.func.isRequired,
+    workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
   };
 
   static contextTypes = {
@@ -30,7 +41,13 @@ class WorkspacesDashboard extends Component {
   };
 
   render() {
-    const { workspaces, isLoading, onWorkspaceClick } = this.props;
+    const {
+      workspaces,
+      isLoading,
+      onCreateWorkspaceSubmit,
+      onWorkspaceClick,
+      classes,
+    } = this.props;
     const { intl } = this.context;
 
     return (
@@ -39,21 +56,26 @@ class WorkspacesDashboard extends Component {
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <table className="workspace-table">
-              <tbody>
-                {workspaces.map(workspace => (
-                  <WorkspaceItem
-                    key={workspace.id}
-                    workspace={workspace}
-                    onItemClick={w => onWorkspaceClick(w)}
-                  />
-                ))}
-              </tbody>
-            </table>
-          )}
+          <div className={classes.body}>
+            <div className={classes.createForm}>
+              <CreateWorkspaceForm onSubmit={onCreateWorkspaceSubmit} />
+            </div>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <table className="workspace-table">
+                <tbody>
+                  {workspaces.map(workspace => (
+                    <WorkspaceItem
+                      key={workspace.id}
+                      workspace={workspace}
+                      onItemClick={w => onWorkspaceClick(w)}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
     );
