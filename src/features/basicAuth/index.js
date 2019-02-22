@@ -31,15 +31,6 @@ export default function initialize() {
     state.authInfo = data.authInfo;
     state.isModalVisible = true;
   });
-
-  // autorun(() => {
-  //   // if (state.serviceId) {
-  //   // const service = stores.services.one(state.serviceId);
-  //   // if (service) {
-  //   //   state.service = service;
-  //   // }
-  //   // }
-  // });
 }
 
 export function mainIpcHandler(mainWindow, authInfo) {
