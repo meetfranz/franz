@@ -130,7 +130,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-cli": "1.2.2",
     "gulp-sass": "^4.0.2",
-    "gulp-sass-variables": "^1.1.1",
+    "gulp-sass-variables": "1.1.1",
     "gulp-server-livereload": "^1.9.2",
     "hex-rgb": "3.0.0",
     "html-webpack-plugin": "4.0.0-beta.5",
