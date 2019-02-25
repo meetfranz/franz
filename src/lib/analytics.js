@@ -37,7 +37,3 @@ export function gaEvent(category, action, label) {
 
   debug('GA track event', category, action);
 }
-
-setTimeout(() => {
-  ga('send', 'Ping');
-}, 1000 * 60 * 10); // Ping GA every 10 Minutes
