@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { defineMessages, intlShape } from 'react-intl';
 import { Button } from '@meetfranz/forms';
@@ -9,6 +9,7 @@ import { H1, Icon } from '@meetfranz/ui';
 import Modal from '../../components/ui/Modal';
 import { state } from '.';
 import { gaEvent } from '../../lib/analytics';
+import ServicesStore from '../../stores/ServicesStore';
 
 const messages = defineMessages({
   headline: {
@@ -86,7 +87,7 @@ const styles = theme => ({
   },
 });
 
-export default @injectSheet(styles) @observer class ShareFranzModal extends Component {
+export default @injectSheet(styles) @inject('stores') @observer class ShareFranzModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
@@ -104,7 +105,10 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
 
     const {
       classes,
+      stores,
     } = this.props;
+
+    const serviceCount = stores.services.all.length;
 
     const { intl } = this.context;
 
@@ -127,7 +131,7 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
             label={intl.formatMessage(messages.actions.email)}
             className={classes.cta}
             icon="mdiEmail"
-            href={`mailto:?subject=Meet the cool app Franz&body=${intl.formatMessage(messages.shareText.email, { count: 10 })}}`}
+            href={`mailto:?subject=Meet the cool app Franz&body=${intl.formatMessage(messages.shareText.email, { count: serviceCount })}}`}
             target="_blank"
             onClick={() => {
               gaEvent('Share Franz', 'share', 'Share via email');
@@ -147,7 +151,7 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
             label={intl.formatMessage(messages.actions.twitter)}
             className={classes.cta}
             icon="mdiTwitter"
-            href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareText.twitter, { count: 10 })}`}
+            href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareText.twitter, { count: serviceCount })}`}
             target="_blank"
             onClick={() => {
               gaEvent('Share Franz', 'share', 'Share via Twitter');
@@ -158,3 +162,9 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
     );
   }
 }
+
+ShareFranzModal.wrappedComponent.propTypes = {
+  stores: PropTypes.shape({
+    services: PropTypes.instanceOf(ServicesStore).isRequired,
+  }).isRequired,
+};
