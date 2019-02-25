@@ -28,5 +28,6 @@ export default theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
+    padding: 20,
   },
 });

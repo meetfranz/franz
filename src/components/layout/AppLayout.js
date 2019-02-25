@@ -7,6 +7,7 @@ import { TitleBar } from 'electron-react-titlebar';
 import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
 import { Component as BasicAuth } from '../../features/basicAuth';
+import { Component as ShareFranz } from '../../features/shareFranz';
 import ErrorBoundary from '../util/ErrorBoundary';
 
 // import globalMessages from '../../i18n/globalMessages';
@@ -164,6 +165,7 @@ export default @observer class AppLayout extends Component {
                 )}
                 {isDelayAppScreenVisible && (<DelayApp />)}
                 <BasicAuth />
+                <ShareFranz />
                 {services}
               </div>
             </div>

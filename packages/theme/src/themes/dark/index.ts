@@ -62,4 +62,4 @@ export const selectOptionItemHoverColor = selectColor;
 export const selectSearchColor = inputBackground;
 
 // Modal
-export const colorModalOverlayBackground = color(legacyStyles.darkThemeGray).alpha(0.8).rgb().string();
+export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.8).rgb().string();
