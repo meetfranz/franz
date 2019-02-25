@@ -7,6 +7,7 @@ import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
+import ms from 'ms';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -112,12 +113,12 @@ export default class AppStore extends Store {
     // Check if system is muted
     // There are no events to subscribe so we need to poll everey 5s
     this._systemDND();
-    setInterval(() => this._systemDND(), 5000);
+    setInterval(() => this._systemDND(), ms('5s'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
     // Check for an update in 30s (need a delay to prevent Squirrel Installer lock file issues)
-    setTimeout(() => this._checkForUpdates(), 30000);
+    setTimeout(() => this._checkForUpdates(), ms('30s'));
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
@@ -316,7 +317,7 @@ export default class AppStore extends Store {
     } else {
       const deltaTime = moment().diff(this.timeOfflineStart);
 
-      if (deltaTime > 30 * 60 * 1000) {
+      if (deltaTime > ms('30m')) {
         this.actions.service.reloadAll();
       }
     }
