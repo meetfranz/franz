@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import { Input, Button } from '@meetfranz/forms';
 import injectSheet from 'react-jss';
-
 import Form from '../../../lib/Form';
+import { required } from '../../../helpers/validation-helpers';
 
 const messages = defineMessages({
   submitButton: {
@@ -28,11 +28,11 @@ const styles = () => ({
   },
   submitButton: {
     height: 'inherit',
-    marginTop: '17px',
+    marginTop: '3px',
   },
 });
 
-@observer @injectSheet(styles)
+@injectSheet(styles) @observer
 class CreateWorkspaceForm extends Component {
   static contextTypes = {
     intl: intlShape,
@@ -43,46 +43,45 @@ class CreateWorkspaceForm extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  prepareForm() {
+  form = (() => {
     const { intl } = this.context;
-    const config = {
+    return new Form({
       fields: {
         name: {
           label: intl.formatMessage(messages.name),
           placeholder: intl.formatMessage(messages.name),
           value: '',
+          validators: [required],
         },
       },
-    };
-    return new Form(config);
-  }
+    });
+  })();
 
-  submitForm(form) {
+  submitForm() {
+    const { form } = this;
     form.submit({
       onSuccess: async (f) => {
         const { onSubmit } = this.props;
-        const values = f.values();
-        onSubmit(values);
+        onSubmit(f.values());
       },
-      onError: async () => {},
     });
   }
 
   render() {
     const { intl } = this.context;
     const { classes } = this.props;
-    const form = this.prepareForm();
-
+    const { form } = this;
     return (
       <div className={classes.form}>
         <Input
           className={classes.input}
           {...form.$('name').bind()}
+          showLabel={false}
           onEnterKey={this.submitForm.bind(this, form)}
         />
         <Button
           className={classes.submitButton}
-          type="button"
+          type="submit"
           label={intl.formatMessage(messages.submitButton)}
           onClick={this.submitForm.bind(this, form)}
         />

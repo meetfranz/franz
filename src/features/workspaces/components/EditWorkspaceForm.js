@@ -4,9 +4,11 @@ import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import { Input, Button } from '@meetfranz/forms';
+import injectSheet from 'react-jss';
 
-import Form from '../../../lib/Form';
 import Workspace from '../models/Workspace';
+import Form from '../../../lib/Form';
+import { required } from '../../../helpers/validation-helpers';
 
 const messages = defineMessages({
   buttonDelete: {
@@ -27,7 +29,13 @@ const messages = defineMessages({
   },
 });
 
-@observer
+const styles = () => ({
+  nameInput: {
+    height: 'auto',
+  },
+});
+
+@injectSheet(styles) @observer
 class EditWorkspaceForm extends Component {
   static contextTypes = {
     intl: intlShape,
@@ -41,22 +49,30 @@ class EditWorkspaceForm extends Component {
     isDeleting: PropTypes.bool.isRequired,
   };
 
-  prepareForm(workspace) {
+  form = this.prepareWorkspaceForm(this.props.workspace);
+
+  componentWillReceiveProps(nextProps) {
+    const { workspace } = this.props;
+    if (workspace.id !== nextProps.workspace.id) {
+      this.form = this.prepareWorkspaceForm(nextProps.workspace);
+    }
+  }
+
+  prepareWorkspaceForm(workspace) {
     const { intl } = this.context;
-    const config = {
+    return new Form({
       fields: {
         name: {
           label: intl.formatMessage(messages.name),
           placeholder: intl.formatMessage(messages.name),
           value: workspace.name,
+          validators: [required],
         },
       },
-    };
-    return new Form(config);
+    });
   }
 
-  submitForm(submitEvent, form) {
-    submitEvent.preventDefault();
+  submitForm(form) {
     form.submit({
       onSuccess: async (f) => {
         const { onSave } = this.props;
@@ -70,15 +86,13 @@ class EditWorkspaceForm extends Component {
   render() {
     const { intl } = this.context;
     const {
-      workspace,
+      classes,
       isDeleting,
       isSaving,
       onDelete,
+      workspace,
     } = this.props;
-    if (!workspace) return null;
-
-    const form = this.prepareForm(workspace);
-
+    const { form } = this;
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -93,11 +107,9 @@ class EditWorkspaceForm extends Component {
           </span>
         </div>
         <div className="settings__body">
-          <form onSubmit={e => this.submitForm(e, form)} id="form">
-            <div className="workspace-name">
-              <Input {...form.$('name').bind()} />
-            </div>
-          </form>
+          <div className={classes.nameInput}>
+            <Input {...form.$('name').bind()} />
+          </div>
         </div>
         <div className="settings__controls">
           {/* ===== Delete Button ===== */}
@@ -130,7 +142,7 @@ class EditWorkspaceForm extends Component {
             <Button
               type="submit"
               label={intl.formatMessage(messages.buttonSave)}
-              htmlForm="form"
+              onClick={this.submitForm.bind(this, form)}
             />
           )}
         </div>

@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
-import { state } from '../state';
 import EditWorkspaceForm from '../components/EditWorkspaceForm';
+import { state } from '../state';
 
 @inject('stores', 'actions') @observer
 class EditWorkspaceScreen extends Component {
