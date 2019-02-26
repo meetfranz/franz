@@ -1,5 +1,7 @@
 @import './config.scss';
 
+.services__webview:not(.is-active) { display: none; }
+
 .theme__dark .services {
   background: $dark-theme-gray-darkest;
 
@@ -39,18 +41,12 @@
     webview {
       background: $theme-gray-lighter;
       display: inline-flex;
-      height: 0;
-      width: 0;
+      height: 100%;
+      width: 100%;
     }
 
     &.is-active {
       z-index: 100;
-
-      webview {
-        flex: 0 1;
-        height: 100%;
-        width: 100%;
-      }
     }
 
     &--force-repaint webview { z-index: 5; }

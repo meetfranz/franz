@@ -1,3 +1,83 @@
+# [5.0.0-beta.24.1](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24...v5.0.0-beta.24.1) (2019-02-26)
+
+
+### Bug Fixes
+
+* **APP:** Update from originalFranz 
+* **App:** Remove gaEvent and fix theme not loading on start ([bf502e6](https://github.com/MikeDabrowski/franz/commit/bf502e6))
+
+
+
+# [5.0.0-omega.24](https://github.com/MikeDabrowski/franz/compare/v5.0.0-omega.23...v5.0.0-omega.24) (2019-02-03)
+
+
+### Bug Fixes
+
+* **App:** Fix app not starting ([ab68b96](https://github.com/MikeDabrowski/franz/commit/ab68b96))
+* **App:** Removed delay for non premium users. One of the most vile things to do. ([56933f6](https://github.com/MikeDabrowski/franz/commit/56933f6))
+* **DarkMode:** Fix service dark mode ([4512203](https://github.com/MikeDabrowski/franz/commit/4512203)), closes [#d5294105](https://github.com/MikeDabrowski/franz/issues/d5294105)
+* **Theme:** Fix loading theme on start ([8ac904c](https://github.com/MikeDabrowski/franz/commit/8ac904c))
+
+
+
+# [5.0.0-omega.23](https://github.com/MikeDabrowski/franz/compare/5.0.0-beta.20...v5.0.0-omega.23) (2019-02-02)
+
+
+### Bug Fixes
+
+* **App:** Fix background reset button ([c45ecad](https://github.com/MikeDabrowski/franz/commit/c45ecad))
+* **App:** Fix body closing tag ([e1ff03f](https://github.com/MikeDabrowski/franz/commit/e1ff03f))
+* **App:** Fix loading background on Franz's start ([5e1d7c1](https://github.com/MikeDabrowski/franz/commit/5e1d7c1))
+* **App:** Slack not loading csses properly ([222bb42](https://github.com/MikeDabrowski/franz/commit/222bb42))
+* **App:** Various fixes for lintner ([baf06ea](https://github.com/MikeDabrowski/franz/commit/baf06ea))
+
+
+### Features
+
+* **App:** Load selected theme on app start ([4520eb0](https://github.com/MikeDabrowski/franz/commit/4520eb0))
+
+
+
+# [5.0.0-beta.21](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.20...v5.0.0-beta.21) (2018-11-03)
+
+
+### Bug Fixes
+
+* **App:** Slack not changing theme ([c3695ce](https://github.com/MikeDabrowski/franz/commit/c3695ce)), closes [#4](https://github.com/MikeDabrowski/franz/issues/4)
+
+
+### Features
+
+* **App:** Change recipe theme when changing Franz theme ([a240113](https://github.com/MikeDabrowski/franz/commit/a240113)), closes [#2](https://github.com/MikeDabrowski/franz/issues/2)
+
+
+
+# [5.0.0-beta.19](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.18...v5.0.0-beta.19) (2018-11-02)
+
+
+### Bug Fixes
+
+* **App:** Allow hidden directories in franz recipes directory ([90d495f](https://github.com/MikeDabrowski/franz/commit/90d495f))
+* **App:** Fix broken quit button and shortcut + body theme ([8a25988](https://github.com/MikeDabrowski/franz/commit/8a25988))
+
+
+### Features
+
+* **App:** Add themes picker and two basic themes ([99612e8](https://github.com/MikeDabrowski/franz/commit/99612e8))
+* **App:** Remove Google Analytics ([b9e9077](https://github.com/MikeDabrowski/franz/commit/b9e9077))
+* **App:** Set background image UI ([27d67cd](https://github.com/MikeDabrowski/franz/commit/27d67cd))
+
+
+
+# [5.0.0-beta.24](https://github.com/meetfranz/franz/compare/v5.0.0-beta.23...v5.0.0-beta.24) (2019-02-03)
+
+
+### Bug Fixes
+
+* **Service:** Fix unnecessary webview resize / Slack scroll issue ([4b7d3e2](https://github.com/meetfranz/franz/commit/4b7d3e2))
+* **Service:** Improve focus when switching services ([d130f26](https://github.com/meetfranz/franz/commit/d130f26)), closes [#1255](https://github.com/meetfranz/franz/issues/1255)
+* **Service:** Fix dark mode in services ([d529410](https://github.com/meetfranz/franz/commit/d529410))
+
 # [5.0.0-omega.24](https://github.com/MikeDabrowski/franz/compare/v5.0.0-omega.23...v5.0.0-omega.24) (2019-02-03)
 
 
