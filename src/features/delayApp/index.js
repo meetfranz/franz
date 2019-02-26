@@ -28,8 +28,12 @@ export default function init(stores) {
   let shownAfterLaunch = false;
   let timeLastDelay = moment();
 
+  window.franz.features.delayApp = {
+    state,
+  };
+
   reaction(
-    () => stores.features.features.needToWaitToProceed && !stores.user.data.isPremium,
+    () => stores.user.isLoggedIn && stores.features.features.needToWaitToProceed && !stores.user.data.isPremium,
     (isEnabled) => {
       if (isEnabled) {
         debug('Enabling `delayApp` feature');

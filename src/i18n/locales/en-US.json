@@ -286,5 +286,12 @@
   "feature.delayApp.text": "Franz will continue in {seconds} seconds.",
   "premiumFeature.button.upgradeAccount": "Upgrade account",
   "app.errorHandler.headline": "Something went wrong",
-  "app.errorHandler.action": "Reload"
+  "app.errorHandler.action": "Reload",
+  "feature.shareFranz.headline": "Franz is better together!",
+  "feature.shareFranz.text": "Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
+  "feature.shareFranz.action.email": "Send as email",
+  "feature.shareFranz.action.facebook": "Share on Facebook",
+  "feature.shareFranz.action.twitter": "Share on Twitter",
+  "feature.shareFranz.shareText.email": "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
+  "feature.shareFranz.shareText.twitter": "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @MeetFranz"
 }

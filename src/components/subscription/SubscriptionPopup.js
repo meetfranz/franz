@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import Webview from 'react-electron-web-view';
+import ms from 'ms';
 
 import Button from '../ui/Button';
 
@@ -42,7 +43,7 @@ export default @observer class SubscriptionPopup extends Component {
 
     setTimeout(() => {
       this.props.closeWindow();
-    }, 4000);
+    }, ms('4s'));
   }
 
   render() {

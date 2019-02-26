@@ -139,4 +139,4 @@ export const badgeFontSize = uiFontSize - 2;
 export const badgeBorderRadius = 50;
 
 // Modal
-export const colorModalOverlayBackground = color(legacyStyles.themeGrayLighter).alpha(0.8).rgb().string();
+export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
