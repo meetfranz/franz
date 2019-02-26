@@ -207,6 +207,7 @@
   "settings.workspace.form.name": "Name",
   "settings.workspace.form.buttonDelete": "Delete Workspace",
   "settings.workspace.form.buttonSave": "Save Workspace",
+  "settings.workspace.form.servicesInWorkspaceHeadline": "Services in this Workspace",
   "subscription.type.free": "free",
   "subscription.type.month": "month",
   "subscription.type.year": "year",

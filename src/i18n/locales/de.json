@@ -224,6 +224,7 @@
    "settings.workspace.form.name": "Name",
    "settings.workspace.form.buttonDelete": "Workspace löschen",
    "settings.workspace.form.buttonSave": "Workspace speichern",
+  "settings.workspace.form.servicesInWorkspaceHeadline": "Services in diesem Workspace",
    "settings.user.form.accountType.company" : "Firma",
    "settings.user.form.accountType.individual" : "Einzelperson",
    "settings.user.form.accountType.label" : "Konto-Typ",

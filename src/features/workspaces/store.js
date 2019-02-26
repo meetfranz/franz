@@ -51,6 +51,7 @@ export default class WorkspacesStore extends Store {
     this.actions.workspace.edit.listen(this._edit);
     this.actions.workspace.create.listen(this._create);
     this.actions.workspace.delete.listen(this._delete);
+    this.actions.workspace.update.listen(this._update);
   }
 
   _setWorkspaces = (workspaces) => {
@@ -83,6 +84,17 @@ export default class WorkspacesStore extends Store {
     try {
       await this.api.deleteWorkspace(workspace);
       this.state.workspaces.remove(workspace);
+      this.stores.router.push('/settings/workspaces');
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  _update = async ({ workspace }) => {
+    try {
+      await this.api.updateWorkspace(workspace);
+      const localWorkspace = this.state.workspaces.find(ws => ws.id === workspace.id);
+      Object.assign(localWorkspace, workspace);
       this.stores.router.push('/settings/workspaces');
     } catch (error) {
       throw error;

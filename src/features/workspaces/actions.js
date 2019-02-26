@@ -11,4 +11,7 @@ export default {
   delete: {
     workspace: PropTypes.instanceOf(Workspace).isRequired,
   },
+  update: {
+    workspace: PropTypes.instanceOf(Workspace).isRequired,
+  },
 };

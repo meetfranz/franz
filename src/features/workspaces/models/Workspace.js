@@ -19,7 +19,7 @@ export default class Workspace {
     this.id = data.id;
     this.name = data.name;
     this.order = data.order;
-    this.services = data.services;
+    this.services.replace(data.services);
     this.userId = data.userId;
   }
 }
