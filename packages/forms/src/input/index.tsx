@@ -138,7 +138,7 @@ class InputComponent extends Component<IProps, IState> {
               id={id}
               type={inputType}
               name={name}
-              defaultValue={value as string}
+              value={value as string}
               placeholder={placeholder}
               spellCheck={spellCheck}
               className={classes.input}
