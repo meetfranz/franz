@@ -8,6 +8,11 @@ environment:
 
 version: 5.0.0.{build}
 
+configuration:
+  - Default
+  - AppX-WindowsStore
+  - AppX-Testing
+
 install:
   - ps: $version = Get-Content .\.nvmrc -Raw
   - ps: Install-Product node $version
@@ -18,15 +23,34 @@ cache:
 
 before_build:
   - npm run lint
-
-build_script:
-  - npm run build
-
-notifications:
-  - provider: Slack
-    incoming_webhook:
-      secure: 2NnhP/L7Jk9PDE0JvdNnYVBnmDHFRWHmTQBQ1492ZQ5O0Ok/97FAbk/FbGZVEalli8xcaPkVu3jiOD7IPVvHLKUrmyvficRgmL+qf4lhD1s=
+  - gulp build
 
 artifacts:
   - path: out\*.exe
+  - path: out\*.appx
   - path: out\*.yml
+
+for:
+  # default build / .exe / signed
+  - matrix:
+      only:
+        - configuration: Default
+    build_script:
+      - npx electron-builder --win -p onTag
+
+  # Windows Store build / .appx / unsigned
+  - matrix:
+      only:
+        - configuration: AppX-WindowsStore
+    skip_non_tags: true
+    environment:
+      CSC_LINK: ""
+    build_script:
+      - npx electron-builder --win --config=./electron-builder-appx.yml -p onTag
+
+  # Windows Store test build / .appx / signed
+  - matrix:
+      only:
+        - configuration: AppX-Testing
+    build_script:
+      - npx electron-builder --win --config=./electron-builder-appx.yml -p never

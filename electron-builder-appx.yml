@@ -1,0 +1,12 @@
+win:
+  target:
+  - target: appx
+
+appx:
+  applicationId: Franz
+  identityName: 31511Meetfranz.Franz
+  publisher: CN=7A74E0A9-3E09-4DBA-AF89-BB44DD05C953
+  publisherDisplayName: Meetfranz
+  backgroundColor: transparent
+
+extends: "./electron-builder.yml"
