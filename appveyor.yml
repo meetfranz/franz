@@ -16,7 +16,7 @@ configuration:
 install:
   - ps: $version = Get-Content .\.nvmrc -Raw
   - ps: echo $version
-  - ps: Install-Product node $version
+  - ps: Install-Product node 10
   - npx lerna bootstrap
 
 cache:
