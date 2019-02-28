@@ -1,6 +1,7 @@
 directories:
   app: ./build
   output: ./out
+  buildResources: ./build-helpers/images/
 
 appId: "com.meetfranz.franz"
 
@@ -39,10 +40,10 @@ nsis:
   perMachine: false
   oneClick: true
 
-protocols: 
+protocols:
   name: Franz
-  schemes: [franz] 
+  schemes: [franz]
 
-asarUnpack: 
+asarUnpack:
   - ./dictionaries
   - ./assets/images/taskbar
