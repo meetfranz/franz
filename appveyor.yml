@@ -14,8 +14,8 @@ configuration:
   - AppX-Testing
 
 install:
-  - ps: $version = Get-Content .\.nvmrc -Raw
-  - ps: Install-Product node $version
+  # - ps: $version = Get-Content .\.nvmrc -Raw
+  - ps: Install-Product node 10
   - npx lerna bootstrap
 
 cache:
