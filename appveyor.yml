@@ -42,7 +42,7 @@ for:
   - matrix:
       only:
         - configuration: AppX-WindowsStore
-    skip_non_tags: true
+    # skip_non_tags: true
     environment:
       CSC_LINK: ""
     build_script:
