@@ -52,5 +52,7 @@ for:
   - matrix:
       only:
         - configuration: AppX-Testing
+    environment:
+      CSC_LINK: ""
     build_script:
       - npx electron-builder --win --config=./electron-builder-appx.yml -p never
