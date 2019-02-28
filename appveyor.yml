@@ -15,8 +15,7 @@ configuration:
 
 install:
   - ps: $version = Get-Content .\.nvmrc -Raw
-  - ps: echo $version
-  - ps: Install-Product node 10
+  - ps: Install-Product node $version
   - npx lerna bootstrap
 
 cache:
@@ -24,7 +23,7 @@ cache:
 
 before_build:
   - npm run lint
-  - gulp build
+  - npx gulp build
 
 artifacts:
   - path: out\*.exe
