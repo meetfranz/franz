@@ -642,7 +642,14 @@ export default class ServerApi {
         'X-Franz-platform': process.platform,
         'X-Franz-Timezone-Offset': new Date().getTimezoneOffset(),
         'X-Franz-System-Locale': app.getLocale(),
-      }, options.headers),
+      },
+      process.windowsStore ? {
+        'X-Franz-APPX': true,
+      } : {},
+      process.mas ? {
+        'X-Franz-MAS': true,
+      } : {},
+      options.headers),
     });
 
     if (auth) {
