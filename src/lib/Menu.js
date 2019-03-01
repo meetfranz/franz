@@ -3,6 +3,8 @@ import { observable, autorun, computed } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
+import { workspacesState } from '../features/workspaces/state';
+import workspaceActions from '../features/workspaces/actions';
 
 const { app, Menu, dialog } = remote;
 
@@ -179,6 +181,18 @@ const menuItems = defineMessages({
     id: 'menu.services.addNewService',
     defaultMessage: '!!!Add New Service...',
   },
+  workspaces: {
+    id: 'menu.workspaces',
+    defaultMessage: '!!!Workspaces',
+  },
+  defaultWorkspace: {
+    id: 'menu.workspaces.defaultWorkspace',
+    defaultMessage: '!!!Default',
+  },
+  addNewWorkspace: {
+    id: 'menu.workspaces.addNewWorkspace',
+    defaultMessage: '!!!Add New Workspace...',
+  },
 });
 
 function getActiveWebview() {
@@ -263,6 +277,10 @@ const _templateFactory = intl => [
   },
   {
     label: intl.formatMessage(menuItems.services),
+    submenu: [],
+  },
+  {
+    label: intl.formatMessage(menuItems.workspaces),
     submenu: [],
   },
   {
@@ -499,7 +517,9 @@ export default class FranzMenu {
   }
 
   _build() {
-    const serviceTpl = Object.assign([], this.serviceTpl); // need to clone object so we don't modify computed (cached) object
+    // need to clone object so we don't modify computed (cached) object
+    const serviceTpl = Object.assign([], this.serviceTpl);
+    const workspacesMenu = Object.assign([], this.workspacesMenu);
 
     if (window.franz === undefined) {
       return;
@@ -632,7 +652,7 @@ export default class FranzMenu {
         },
       );
 
-      tpl[4].submenu.unshift(about, {
+      tpl[5].submenu.unshift(about, {
         type: 'separator',
       });
     } else {
@@ -678,6 +698,8 @@ export default class FranzMenu {
       tpl[3].submenu = serviceTpl;
     }
 
+    tpl[4].submenu = workspacesMenu;
+
     this.currentTemplate = tpl;
     const menu = Menu.buildFromTemplate(tpl);
     Menu.setApplicationMenu(menu);
@@ -699,6 +721,51 @@ export default class FranzMenu {
     }
 
     return [];
+  }
+
+  @computed get workspacesMenu() {
+    const { workspaces, activeWorkspace } = workspacesState;
+    const { intl } = window.franz;
+    const menu = [];
+
+    // Add new workspace item:
+    menu.push({
+      label: intl.formatMessage(menuItems.addNewWorkspace),
+      accelerator: `${cmdKey}+Shift+N`,
+      click: () => {
+        this.actions.ui.openSettings({ path: 'workspaces' });
+      },
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    });
+
+    // Default workspace
+    menu.push({
+      label: intl.formatMessage(menuItems.defaultWorkspace),
+      accelerator: `${cmdKey}+Alt+1`,
+      type: 'radio',
+      checked: !activeWorkspace,
+      click: () => {
+        workspaceActions.deactivate();
+      },
+    });
+
+    // Workspace items
+    if (this.stores.user.isLoggedIn) {
+      workspaces.forEach((workspace, i) => menu.push({
+        label: workspace.name,
+        accelerator: i < 9 ? `${cmdKey}+Alt+${i + 2}` : null,
+        type: 'radio',
+        checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
+        click: () => {
+          workspaceActions.activate({ workspace });
+        },
+      }));
+    }
+
+    console.log(menu);
+    return menu;
   }
 
   _getServiceName(service) {

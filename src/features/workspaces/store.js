@@ -1,8 +1,9 @@
-import { observable, reaction } from 'mobx';
+import { observable, reaction, action } from 'mobx';
 import Store from '../../stores/lib/Store';
 import CachedRequest from '../../stores/lib/CachedRequest';
 import Workspace from './models/Workspace';
 import { matchRoute } from '../../helpers/routing-helpers';
+import workspaceActions from './actions';
 
 const debug = require('debug')('Franz:feature:workspaces');
 
@@ -48,28 +49,30 @@ export default class WorkspacesStore extends Store {
       },
     );
 
-    this.actions.workspace.edit.listen(this._edit);
-    this.actions.workspace.create.listen(this._create);
-    this.actions.workspace.delete.listen(this._delete);
-    this.actions.workspace.update.listen(this._update);
+    workspaceActions.edit.listen(this._edit);
+    workspaceActions.create.listen(this._create);
+    workspaceActions.delete.listen(this._delete);
+    workspaceActions.update.listen(this._update);
+    workspaceActions.activate.listen(this._setActiveWorkspace);
+    workspaceActions.deactivate.listen(this._deactivateActiveWorkspace);
   }
 
-  _setWorkspaces = (workspaces) => {
+  _getWorkspaceById = id => this.state.workspaces.find(w => w.id === id);
+
+  @action _setWorkspaces = (workspaces) => {
     debug('setting user workspaces', workspaces.slice());
     this.state.workspaces = workspaces.map(data => new Workspace(data));
   };
 
-  _setIsLoading = (isLoading) => {
+  @action _setIsLoading = (isLoading) => {
     this.state.isLoading = isLoading;
   };
 
-  _getWorkspaceById = id => this.state.workspaces.find(w => w.id === id);
-
-  _edit = ({ workspace }) => {
+  @action _edit = ({ workspace }) => {
     this.stores.router.push(`/settings/workspaces/edit/${workspace.id}`);
   };
 
-  _create = async ({ name }) => {
+  @action _create = async ({ name }) => {
     try {
       const result = await this.api.createWorkspace(name);
       const workspace = new Workspace(result);
@@ -80,7 +83,7 @@ export default class WorkspacesStore extends Store {
     }
   };
 
-  _delete = async ({ workspace }) => {
+  @action _delete = async ({ workspace }) => {
     try {
       await this.api.deleteWorkspace(workspace);
       this.state.workspaces.remove(workspace);
@@ -90,7 +93,7 @@ export default class WorkspacesStore extends Store {
     }
   };
 
-  _update = async ({ workspace }) => {
+  @action _update = async ({ workspace }) => {
     try {
       await this.api.updateWorkspace(workspace);
       const localWorkspace = this.state.workspaces.find(ws => ws.id === workspace.id);
@@ -99,5 +102,13 @@ export default class WorkspacesStore extends Store {
     } catch (error) {
       throw error;
     }
+  };
+
+  @action _setActiveWorkspace = ({ workspace }) => {
+    this.state.activeWorkspace = workspace;
+  };
+
+  @action _deactivateActiveWorkspace = () => {
+    this.state.activeWorkspace = null;
   };
 }

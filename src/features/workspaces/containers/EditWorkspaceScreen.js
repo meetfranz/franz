@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import EditWorkspaceForm from '../components/EditWorkspaceForm';
-import { state } from '../state';
+import { workspacesState } from '../state';
 import ServicesStore from '../../../stores/ServicesStore';
 import Workspace from '../models/Workspace';
 
@@ -22,23 +22,23 @@ class EditWorkspaceScreen extends Component {
   };
 
   onDelete = () => {
-    const { workspaceBeingEdited } = state;
+    const { workspaceBeingEdited } = workspacesState;
     const { actions } = this.props;
     if (!workspaceBeingEdited) return null;
-    actions.workspace.delete({ workspace: workspaceBeingEdited });
+    actions.workspaces.delete({ workspace: workspaceBeingEdited });
   };
 
   onSave = (values) => {
-    const { workspaceBeingEdited } = state;
+    const { workspaceBeingEdited } = workspacesState;
     const { actions } = this.props;
     const workspace = new Workspace(
       Object.assign({}, workspaceBeingEdited, values),
     );
-    actions.workspace.update({ workspace });
+    actions.workspaces.update({ workspace });
   };
 
   render() {
-    const { workspaceBeingEdited } = state;
+    const { workspaceBeingEdited } = workspacesState;
     const { stores } = this.props;
     if (!workspaceBeingEdited) return null;
     return (

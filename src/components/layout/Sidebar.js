@@ -31,7 +31,7 @@ export default @observer class Sidebar extends Component {
     openSettings: PropTypes.func.isRequired,
     toggleMuteApp: PropTypes.func.isRequired,
     isAppMuted: PropTypes.bool.isRequired,
-  }
+  };
 
   static contextTypes = {
     intl: intlShape,
