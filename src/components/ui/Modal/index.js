@@ -3,9 +3,9 @@ import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import injectCSS from 'react-jss';
+import { Icon } from '@meetfranz/ui';
 
 import styles from './styles';
-import { Icon } from '../../../../packages/ui/lib';
 
 // ReactModal.setAppElement('#root');
 
