@@ -2,7 +2,7 @@ import {
   action,
   reaction,
   computed,
-  observable, runInAction,
+  observable,
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
@@ -12,7 +12,6 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent } from '../lib/analytics';
-import { workspacesState } from '../features/workspaces/state';
 import { filterServicesByActiveWorkspace, getActiveWorkspaceServices } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');

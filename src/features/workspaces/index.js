@@ -15,9 +15,9 @@ export const filterServicesByActiveWorkspace = (services) => {
   return services;
 };
 
-export const getActiveWorkspaceServices = (services) => {
-  return filterServicesByActiveWorkspace(services);
-};
+export const getActiveWorkspaceServices = services => (
+  filterServicesByActiveWorkspace(services)
+);
 
 export default function initWorkspaces(stores, actions) {
   const { features, user } = stores;
