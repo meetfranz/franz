@@ -60,7 +60,6 @@ export default function initWorkspaces(stores, actions) {
       const workspaceServices = filterServicesByActiveWorkspace(services);
       const isActiveServiceInWorkspace = workspaceServices.includes(activeService);
       if (!isActiveServiceInWorkspace) {
-        console.log(workspaceServices[0].id);
         actions.service.setActive({ serviceId: workspaceServices[0].id });
       }
     }

@@ -764,7 +764,6 @@ export default class FranzMenu {
       }));
     }
 
-    console.log(menu);
     return menu;
   }
 
