@@ -1,3 +1,12 @@
+# [5.0.0-beta.24.2](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24.1...v5.0.0-beta.24.2) (2019-03-04)
+
+
+### Bug Fixes
+
+* **Service:** Enable roundcube ([2b38e4b](https://github.com/MikeDabrowski/franz/commit/2b38e4b))
+
+
+
 # [5.0.0-beta.24.1](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24...v5.0.0-beta.24.1) (2019-02-26)
 
 
