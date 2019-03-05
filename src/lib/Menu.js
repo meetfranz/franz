@@ -251,9 +251,7 @@ const _templateFactory = intl => [
           const activeService = getActiveWebview();
           activeService.getZoomLevel((level) => {
             // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) {
-              activeService.setZoomLevel(level + 1);
-            }
+            if (level < 9) activeService.setZoomLevel(level + 1);
           });
         },
       },
@@ -264,9 +262,7 @@ const _templateFactory = intl => [
           const activeService = getActiveWebview();
           activeService.getZoomLevel((level) => {
             // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-            if (level > -9) {
-              activeService.setZoomLevel(level - 1);
-            }
+            if (level > -9) activeService.setZoomLevel(level - 1);
           });
         },
       },
@@ -414,8 +410,10 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: `${ctrlKey}+Plus`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === 5 ? zoomLevel : zoomLevel + 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
           });
         },
       },
@@ -423,8 +421,10 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${ctrlKey}+-`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === -5 ? zoomLevel : zoomLevel - 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
           });
         },
       },
