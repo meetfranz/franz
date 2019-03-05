@@ -34,6 +34,7 @@ import {
   DEFAULT_WINDOW_OPTIONS,
 } from './config';
 import { asarPath } from './helpers/asar-helpers';
+import { isValidExternalURL } from './helpers/url-helpers';
 /* eslint-enable import/first */
 
 const debug = require('debug')('Franz:App');
@@ -294,7 +295,10 @@ const createWindow = () => {
   mainWindow.webContents.on('new-window', (e, url) => {
     debug('Open url', url);
     e.preventDefault();
-    shell.openExternal(url);
+
+    if (isValidExternalURL(url)) {
+      shell.openExternal(url);
+    }
   });
 };
 
