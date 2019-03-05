@@ -135,6 +135,7 @@ export default @observer class ServiceWebview extends Component {
             })}
             onUpdateTargetUrl={this.updateTargetUrl}
             useragent={service.userAgent}
+            webpreferences="nativeWindowOpen=yes"
             allowpopups
           />
         )}
