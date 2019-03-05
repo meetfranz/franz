@@ -1,0 +1,54 @@
+[
+  {
+    "id": "sidebar.settings",
+    "defaultMessage": "!!!Settings",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 11,
+      "column": 12
+    },
+    "end": {
+      "line": 14,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.addNewService",
+    "defaultMessage": "!!!Add new service",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 15,
+      "column": 17
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.muteApp",
+    "defaultMessage": "!!!Disable notifications & audio",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 19,
+      "column": 8
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.unmuteApp",
+    "defaultMessage": "!!!Enable notifications & audio",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 23,
+      "column": 10
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  }
+]
