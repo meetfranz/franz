@@ -9,8 +9,7 @@ environment:
 version: 5.0.0.{build}
 
 install:
-  - ps: $version = Get-Content .\.nvmrc -Raw
-  - ps: Install-Product node $version
+  - ps: Install-Product node 10
   - npx lerna bootstrap
 
 cache:
