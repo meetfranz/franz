@@ -223,19 +223,23 @@ const createWindow = () => {
 
   // Emitted when the window is closed.
   mainWindow.on('close', (e) => {
+    debug('Window: close window');
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     if (!willQuitApp && (settings.get('runInBackground') === undefined || settings.get('runInBackground'))) {
       e.preventDefault();
       if (isWindows) {
+        debug('Window: minimize');
         mainWindow.minimize();
-      } else {
-        mainWindow.hide();
-      }
 
-      if (isWindows) {
-        mainWindow.setSkipTaskbar(true);
+        if (settings.get('minimizeToSystemTray')) {
+          debug('Skip taskbar: true');
+          mainWindow.setSkipTaskbar(true);
+        }
+      } else {
+        debug('Window: hide');
+        mainWindow.hide();
       }
     } else {
       app.quit();
@@ -248,32 +252,39 @@ const createWindow = () => {
     app.wasMaximized = app.isMaximized;
 
     if (settings.get('minimizeToSystemTray')) {
+      debug('Skip taskbar: true');
       mainWindow.setSkipTaskbar(true);
       trayIcon.show();
     }
   });
 
   mainWindow.on('maximize', () => {
+    debug('Window: maximize');
     app.isMaximized = true;
   });
 
   mainWindow.on('unmaximize', () => {
+    debug('Window: unmaximize');
     app.isMaximized = false;
   });
 
   mainWindow.on('restore', () => {
+    debug('Window: restore');
     mainWindow.setSkipTaskbar(false);
 
     if (app.wasMaximized) {
+      debug('Window: was maximized before, maximize window');
       mainWindow.maximize();
     }
 
     if (!settings.get('enableSystemTray')) {
+      debug('Tray: hiding tray icon');
       trayIcon.hide();
     }
   });
 
   mainWindow.on('show', () => {
+    debug('Skip taskbar: false');
     mainWindow.setSkipTaskbar(false);
   });
 
@@ -281,6 +292,7 @@ const createWindow = () => {
   app.isMaximized = mainWindow.isMaximized();
 
   mainWindow.webContents.on('new-window', (e, url) => {
+    debug('Open url', url);
     e.preventDefault();
     shell.openExternal(url);
   });
@@ -360,7 +372,10 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (settings.get('runInBackground') === undefined
     || settings.get('runInBackground')) {
+    debug('Window: all windows closed, quit app');
     app.quit();
+  } else {
+    debug('Window: don\'t quit app');
   }
 });
 
