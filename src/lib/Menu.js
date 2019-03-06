@@ -315,17 +315,17 @@ const _templateFactory = intl => [
 
 const _titleBarTemplateFactory = intl => [
   {
-    label: intl.formatMessage(menuItems.edit),
+    label: `&${intl.formatMessage(menuItems.edit)}`,
     submenu: [
       {
-        label: intl.formatMessage(menuItems.undo),
+        label: `&${intl.formatMessage(menuItems.undo)}`,
         accelerator: `${ctrlKey}+Z`,
         click() {
           getActiveWebview().undo();
         },
       },
       {
-        label: intl.formatMessage(menuItems.redo),
+        label: `&${intl.formatMessage(menuItems.redo)}`,
         accelerator: `${ctrlKey}+Y`,
         click() {
           getActiveWebview().redo();
@@ -335,41 +335,41 @@ const _titleBarTemplateFactory = intl => [
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.cut),
+        label: `&${intl.formatMessage(menuItems.cut)}`,
         accelerator: `${ctrlKey}+X`,
         click() {
           getActiveWebview().cut();
         },
       },
       {
-        label: intl.formatMessage(menuItems.copy),
+        label: `&${intl.formatMessage(menuItems.copy)}`,
         accelerator: `${ctrlKey}+C`,
         click() {
           getActiveWebview().copy();
         },
       },
       {
-        label: intl.formatMessage(menuItems.paste),
+        label: `&${intl.formatMessage(menuItems.paste)}`,
         accelerator: `${ctrlKey}+V`,
         click() {
           getActiveWebview().paste();
         },
       },
       {
-        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
+        label: `&${intl.formatMessage(menuItems.pasteAndMatchStyle)}`,
         accelerator: `${ctrlKey}+Shift+V`,
         click() {
           getActiveWebview().pasteAndMatchStyle();
         },
       },
       {
-        label: intl.formatMessage(menuItems.delete),
+        label: `&${intl.formatMessage(menuItems.delete)}`,
         click() {
           getActiveWebview().delete();
         },
       },
       {
-        label: intl.formatMessage(menuItems.selectAll),
+        label: `&${intl.formatMessage(menuItems.selectAll)}`,
         accelerator: `${ctrlKey}+A`,
         click() {
           getActiveWebview().selectAll();
@@ -378,20 +378,20 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: intl.formatMessage(menuItems.view),
+    label: `&${intl.formatMessage(menuItems.view)}`,
     submenu: [
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.resetZoom),
+        label: `&${intl.formatMessage(menuItems.resetZoom)}`,
         accelerator: `${ctrlKey}+0`,
         click() {
           getActiveWebview().setZoomLevel(0);
         },
       },
       {
-        label: intl.formatMessage(menuItems.zoomIn),
+        label: `&${intl.formatMessage(menuItems.zoomIn)}`,
         accelerator: `${ctrlKey}+Plus`,
         click() {
           getActiveWebview().getZoomLevel((zoomLevel) => {
@@ -400,7 +400,7 @@ const _titleBarTemplateFactory = intl => [
         },
       },
       {
-        label: intl.formatMessage(menuItems.zoomOut),
+        label: `&${intl.formatMessage(menuItems.zoomOut)}`,
         accelerator: `${ctrlKey}+-`,
         click() {
           getActiveWebview().getZoomLevel((zoomLevel) => {
@@ -413,8 +413,8 @@ const _titleBarTemplateFactory = intl => [
       },
       {
         label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
-          ? intl.formatMessage(menuItems.exitFullScreen)
-          : intl.formatMessage(menuItems.enterFullScreen),
+          ? `&${intl.formatMessage(menuItems.exitFullScreen)}`
+          : `&${intl.formatMessage(menuItems.enterFullScreen)}`,
         accelerator: 'F11',
         click(menuItem, browserWindow) {
           browserWindow.setFullScreen(!browserWindow.isFullScreen());
@@ -423,21 +423,21 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: intl.formatMessage(menuItems.services),
+    label: `&${intl.formatMessage(menuItems.services)}`,
     submenu: [],
   },
   {
-    label: intl.formatMessage(menuItems.window),
+    label: `&${intl.formatMessage(menuItems.window)}`,
     submenu: [
       {
-        label: intl.formatMessage(menuItems.minimize),
+        label: `&${intl.formatMessage(menuItems.minimize)}`,
         accelerator: 'Ctrl+M',
         click(menuItem, browserWindow) {
           browserWindow.minimize();
         },
       },
       {
-        label: intl.formatMessage(menuItems.close),
+        label: `&${intl.formatMessage(menuItems.close)}`,
         accelerator: 'Ctrl+W',
         click(menuItem, browserWindow) {
           browserWindow.close();
@@ -446,32 +446,32 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: '?',
+    label: '&?',
     submenu: [
       {
-        label: intl.formatMessage(menuItems.learnMore),
+        label: `&${intl.formatMessage(menuItems.learnMore)}`,
         click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
-        label: intl.formatMessage(menuItems.changelog),
+        label: `&${intl.formatMessage(menuItems.changelog)}`,
         click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
       },
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.support),
+        label: `&${intl.formatMessage(menuItems.support)}`,
         click() { shell.openExternal('https://meetfranz.com/support'); },
       },
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.tos),
+        label: `&${intl.formatMessage(menuItems.tos)}`,
         click() { shell.openExternal('https://meetfranz.com/terms'); },
       },
       {
-        label: intl.formatMessage(menuItems.privacy),
+        label: `&${intl.formatMessage(menuItems.privacy)}`,
         click() { shell.openExternal('https://meetfranz.com/privacy'); },
       },
     ],
@@ -511,13 +511,13 @@ export default class FranzMenu {
     tpl[1].submenu.push({
       type: 'separator',
     }, {
-      label: intl.formatMessage(menuItems.toggleDevTools),
+      label: `&${intl.formatMessage(menuItems.toggleDevTools)}`,
       accelerator: `${cmdKey}+Alt+I`,
       click: (menuItem, browserWindow) => {
         browserWindow.webContents.toggleDevTools();
       },
     }, {
-      label: intl.formatMessage(menuItems.toggleServiceDevTools),
+      label: `&${intl.formatMessage(menuItems.toggleServiceDevTools)}`,
       accelerator: `${cmdKey}+Shift+Alt+I`,
       click: () => {
         this.actions.service.openDevToolsForActiveService();
@@ -526,7 +526,7 @@ export default class FranzMenu {
     });
 
     tpl[1].submenu.unshift({
-      label: intl.formatMessage(menuItems.reloadService),
+      label: `&${intl.formatMessage(menuItems.reloadService)}`,
       id: 'reloadService', // TODO: needed?
       accelerator: `${cmdKey}+R`,
       click: () => {
@@ -538,7 +538,7 @@ export default class FranzMenu {
         }
       },
     }, {
-      label: intl.formatMessage(menuItems.reloadFranz),
+      label: `&${intl.formatMessage(menuItems.reloadFranz)}`,
       accelerator: `${cmdKey}+Shift+R`,
       click: () => {
         window.location.reload();
@@ -546,17 +546,17 @@ export default class FranzMenu {
     });
 
     tpl.unshift({
-      label: isMac ? app.getName() : intl.formatMessage(menuItems.file),
+      label: isMac ? app.getName() : `&${intl.formatMessage(menuItems.file)}`,
       submenu: [
         {
-          label: intl.formatMessage(menuItems.about),
+          label: `&${intl.formatMessage(menuItems.about)}`,
           role: 'about',
         },
         {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.settings),
+          label: `&${intl.formatMessage(menuItems.settings)}`,
           accelerator: 'CmdOrCtrl+,',
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
@@ -567,7 +567,7 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.services),
+          label: `&${intl.formatMessage(menuItems.services)}`,
           role: 'services',
           submenu: [],
         },
@@ -575,22 +575,22 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.hide),
+          label: `&${intl.formatMessage(menuItems.hide)}`,
           role: 'hide',
         },
         {
-          label: intl.formatMessage(menuItems.hideOthers),
+          label: `&${intl.formatMessage(menuItems.hideOthers)}`,
           role: 'hideothers',
         },
         {
-          label: intl.formatMessage(menuItems.unhide),
+          label: `&${intl.formatMessage(menuItems.unhide)}`,
           role: 'unhide',
         },
         {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
+          label: `&${intl.formatMessage(menuItems.quit)}`,
           role: 'quit',
           click() {
             app.quit();
@@ -600,10 +600,11 @@ export default class FranzMenu {
     });
 
     const about = {
-      label: intl.formatMessage(menuItems.about),
+      label: `&${intl.formatMessage(menuItems.about)}`,
       click: () => {
         dialog.showMessageBox({
           type: 'info',
+
           title: 'Franz',
           message: 'Franz',
           detail: `Version: ${remote.app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
@@ -638,7 +639,7 @@ export default class FranzMenu {
     } else {
       tpl[0].submenu = [
         {
-          label: intl.formatMessage(menuItems.settings),
+          label: `&${intl.formatMessage(menuItems.settings)}`,
           accelerator: 'Ctrl+P',
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
@@ -649,7 +650,7 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
+          label: `&${intl.formatMessage(menuItems.quit)}`,
           role: 'quit',
           accelerator: 'Ctrl+Q',
           click() {
@@ -664,7 +665,7 @@ export default class FranzMenu {
     }
 
     serviceTpl.unshift({
-      label: intl.formatMessage(menuItems.addNewService),
+      label: `&${intl.formatMessage(menuItems.addNewService)}`,
       accelerator: `${cmdKey}+N`,
       click: () => {
         this.actions.ui.openSettings({ path: 'recipes' });
