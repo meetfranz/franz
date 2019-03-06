@@ -206,8 +206,10 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
-        mainWindow.show();
-        mainWindow.restore();
+        if (app.mainWindow.isMinimized()) {
+          mainWindow.show();
+          mainWindow.restore();
+        }
         mainWindow.focus();
       }
     };
