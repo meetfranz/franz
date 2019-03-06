@@ -23,9 +23,9 @@ export default class TrayIcon {
         label: 'Show Franz',
         click() {
           if (app.mainWindow.isMinimized()) {
-            app.mainWindow.show();
             app.mainWindow.restore();
           }
+          app.mainWindow.show();
           app.mainWindow.focus();
         },
       }, {
@@ -41,9 +41,9 @@ export default class TrayIcon {
 
     this.trayIcon.on('click', () => {
       if (app.mainWindow.isMinimized()) {
-        app.mainWindow.show();
         app.mainWindow.restore();
       }
+      app.mainWindow.show();
       app.mainWindow.focus();
     });
 
