@@ -3901,6 +3901,32 @@
           "column": 27,
           "line": 186
         }
+      },
+      {
+        "defaultMessage": "!!!Disable notifications & audio",
+        "end": {
+          "column": 3,
+          "line": 193
+        },
+        "file": "src/lib/Menu.js",
+        "id": "sidebar.muteApp",
+        "start": {
+          "column": 11,
+          "line": 190
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable notifications & audio",
+        "end": {
+          "column": 3,
+          "line": 197
+        },
+        "file": "src/lib/Menu.js",
+        "id": "sidebar.unmuteApp",
+        "start": {
+          "column": 13,
+          "line": 194
+        }
       }
     ],
     "path": "src/lib/Menu.json"
