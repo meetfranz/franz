@@ -1,0 +1,28 @@
+[
+  {
+    "id": "welcome.signupButton",
+    "defaultMessage": "!!!Create a free account",
+    "file": "src/components/auth/Welcome.js",
+    "start": {
+      "line": 9,
+      "column": 16
+    },
+    "end": {
+      "line": 12,
+      "column": 3
+    }
+  },
+  {
+    "id": "welcome.loginButton",
+    "defaultMessage": "!!!Login to your account",
+    "file": "src/components/auth/Welcome.js",
+    "start": {
+      "line": 13,
+      "column": 15
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  }
+]

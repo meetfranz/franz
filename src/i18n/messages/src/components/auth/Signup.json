@@ -1,0 +1,158 @@
+[
+  {
+    "id": "signup.headline",
+    "defaultMessage": "!!!Sign up",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 18,
+      "column": 12
+    },
+    "end": {
+      "line": 21,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.firstname.label",
+    "defaultMessage": "!!!Firstname",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 22,
+      "column": 18
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.lastname.label",
+    "defaultMessage": "!!!Lastname",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 26,
+      "column": 17
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.email.label",
+    "defaultMessage": "!!!Email address",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 30,
+      "column": 14
+    },
+    "end": {
+      "line": 33,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.company.label",
+    "defaultMessage": "!!!Company",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 34,
+      "column": 16
+    },
+    "end": {
+      "line": 37,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.password.label",
+    "defaultMessage": "!!!Password",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 38,
+      "column": 17
+    },
+    "end": {
+      "line": 41,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.legal.info",
+    "defaultMessage": "!!!By creating a Franz account you accept the",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 42,
+      "column": 13
+    },
+    "end": {
+      "line": 45,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.legal.terms",
+    "defaultMessage": "!!!Terms of service",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 46,
+      "column": 9
+    },
+    "end": {
+      "line": 49,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.legal.privacy",
+    "defaultMessage": "!!!Privacy Statement",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 50,
+      "column": 11
+    },
+    "end": {
+      "line": 53,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.submit.label",
+    "defaultMessage": "!!!Create account",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 54,
+      "column": 21
+    },
+    "end": {
+      "line": 57,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.link.login",
+    "defaultMessage": "!!!Already have an account, sign in?",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 58,
+      "column": 13
+    },
+    "end": {
+      "line": 61,
+      "column": 3
+    }
+  },
+  {
+    "id": "signup.emailDuplicate",
+    "defaultMessage": "!!!A user with that email address already exists",
+    "file": "src/components/auth/Signup.js",
+    "start": {
+      "line": 62,
+      "column": 18
+    },
+    "end": {
+      "line": 65,
+      "column": 3
+    }
+  }
+]

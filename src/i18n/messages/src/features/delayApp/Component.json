@@ -1,0 +1,41 @@
+[
+  {
+    "id": "feature.delayApp.headline",
+    "defaultMessage": "!!!Please purchase license to skip waiting",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 15,
+      "column": 12
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.delayApp.action",
+    "defaultMessage": "!!!Get a Franz Supporter License",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 19,
+      "column": 10
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.delayApp.text",
+    "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 23,
+      "column": 8
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  }
+]

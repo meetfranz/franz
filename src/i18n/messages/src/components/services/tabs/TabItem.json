@@ -1,0 +1,119 @@
+[
+  {
+    "id": "tabs.item.reload",
+    "defaultMessage": "!!!Reload",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 15,
+      "column": 10
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.edit",
+    "defaultMessage": "!!!Edit",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 19,
+      "column": 8
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.disableNotifications",
+    "defaultMessage": "!!!Disable notifications",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 23,
+      "column": 24
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.enableNotification",
+    "defaultMessage": "!!!Enable notifications",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 27,
+      "column": 23
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.disableAudio",
+    "defaultMessage": "!!!Disable audio",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 31,
+      "column": 16
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.enableAudio",
+    "defaultMessage": "!!!Enable audio",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 35,
+      "column": 15
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.disableService",
+    "defaultMessage": "!!!Disable Service",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 39,
+      "column": 18
+    },
+    "end": {
+      "line": 42,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.enableService",
+    "defaultMessage": "!!!Enable Service",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 43,
+      "column": 17
+    },
+    "end": {
+      "line": 46,
+      "column": 3
+    }
+  },
+  {
+    "id": "tabs.item.deleteService",
+    "defaultMessage": "!!!Delete Service",
+    "file": "src/components/services/tabs/TabItem.js",
+    "start": {
+      "line": 47,
+      "column": 17
+    },
+    "end": {
+      "line": 50,
+      "column": 3
+    }
+  }
+]

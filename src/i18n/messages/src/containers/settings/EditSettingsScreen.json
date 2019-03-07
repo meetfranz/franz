@@ -1,0 +1,158 @@
+[
+  {
+    "id": "settings.app.form.autoLaunchOnStart",
+    "defaultMessage": "!!!Launch Franz on start",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 22,
+      "column": 21
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.autoLaunchInBackground",
+    "defaultMessage": "!!!Open in background",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 26,
+      "column": 26
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.runInBackground",
+    "defaultMessage": "!!!Keep Franz in background when closing the window",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 30,
+      "column": 19
+    },
+    "end": {
+      "line": 33,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.enableSystemTray",
+    "defaultMessage": "!!!Show Franz in system tray",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 34,
+      "column": 20
+    },
+    "end": {
+      "line": 37,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.minimizeToSystemTray",
+    "defaultMessage": "!!!Minimize Franz to system tray",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 38,
+      "column": 24
+    },
+    "end": {
+      "line": 41,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.language",
+    "defaultMessage": "!!!Language",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 42,
+      "column": 12
+    },
+    "end": {
+      "line": 45,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.darkMode",
+    "defaultMessage": "!!!Dark Mode",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 46,
+      "column": 12
+    },
+    "end": {
+      "line": 49,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.showDisabledServices",
+    "defaultMessage": "!!!Display disabled services tabs",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 50,
+      "column": 24
+    },
+    "end": {
+      "line": 53,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.showMessagesBadgesWhenMuted",
+    "defaultMessage": "!!!Show unread message badge when notifications are disabled",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 54,
+      "column": 29
+    },
+    "end": {
+      "line": 57,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.enableSpellchecking",
+    "defaultMessage": "!!!Enable spell checking",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 58,
+      "column": 23
+    },
+    "end": {
+      "line": 61,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.enableGPUAcceleration",
+    "defaultMessage": "!!!Enable GPU Acceleration",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 62,
+      "column": 25
+    },
+    "end": {
+      "line": 65,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.beta",
+    "defaultMessage": "!!!Include beta versions",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 66,
+      "column": 8
+    },
+    "end": {
+      "line": 69,
+      "column": 3
+    }
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "settings.recipes.headline",
+    "defaultMessage": "!!!Available Services",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 15,
+      "column": 12
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.searchService",
+    "defaultMessage": "!!!Search service",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 19,
+      "column": 17
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.mostPopular",
+    "defaultMessage": "!!!Most popular",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 23,
+      "column": 22
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.all",
+    "defaultMessage": "!!!All services",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 27,
+      "column": 14
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.dev",
+    "defaultMessage": "!!!Development",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 31,
+      "column": 14
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.nothingFound",
+    "defaultMessage": "!!!Sorry, but no service matched your search term.",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 35,
+      "column": 16
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.servicesSuccessfulAddedInfo",
+    "defaultMessage": "!!!Service successfully added",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 39,
+      "column": 31
+    },
+    "end": {
+      "line": 42,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.missingService",
+    "defaultMessage": "!!!Missing a service?",
+    "file": "src/components/settings/recipes/RecipesDashboard.js",
+    "start": {
+      "line": 43,
+      "column": 18
+    },
+    "end": {
+      "line": 46,
+      "column": 3
+    }
+  }
+]

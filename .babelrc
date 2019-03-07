@@ -27,7 +27,7 @@
     "@babel/proposal-throw-expressions",
     "@babel/syntax-dynamic-import",
     ["react-intl", {
-      "messagesDir": "./translations/messages/",
+      "messagesDir": "./src/i18n/messages/",
       "enforceDescriptions": false,
       "extractSourceLocation": true
     }]

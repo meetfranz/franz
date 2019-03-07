@@ -1,0 +1,54 @@
+[
+  {
+    "id": "pricing.headline",
+    "defaultMessage": "!!!Support Franz",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 13,
+      "column": 12
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.support.label",
+    "defaultMessage": "!!!Select your support plan",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 17,
+      "column": 23
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.submit.label",
+    "defaultMessage": "!!!Support the development of Franz",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 21,
+      "column": 21
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.link.skipPayment",
+    "defaultMessage": "!!!I don't want to support the development of Franz.",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 25,
+      "column": 15
+    },
+    "end": {
+      "line": 28,
+      "column": 3
+    }
+  }
+]

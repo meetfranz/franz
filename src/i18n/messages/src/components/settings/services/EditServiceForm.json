@@ -1,0 +1,288 @@
+[
+  {
+    "id": "settings.service.form.saveButton",
+    "defaultMessage": "!!!Save service",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 22,
+      "column": 15
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.deleteButton",
+    "defaultMessage": "!!!Delete Service",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 26,
+      "column": 17
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.availableServices",
+    "defaultMessage": "!!!Available services",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 30,
+      "column": 21
+    },
+    "end": {
+      "line": 33,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.yourServices",
+    "defaultMessage": "!!!Your services",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 34,
+      "column": 16
+    },
+    "end": {
+      "line": 37,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.addServiceHeadline",
+    "defaultMessage": "!!!Add {name}",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 38,
+      "column": 22
+    },
+    "end": {
+      "line": 41,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.editServiceHeadline",
+    "defaultMessage": "!!!Edit {name}",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 42,
+      "column": 23
+    },
+    "end": {
+      "line": 45,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.tabHosted",
+    "defaultMessage": "!!!Hosted",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 46,
+      "column": 13
+    },
+    "end": {
+      "line": 49,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.tabOnPremise",
+    "defaultMessage": "!!!Self hosted ⭐️",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 50,
+      "column": 16
+    },
+    "end": {
+      "line": 53,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.useHostedService",
+    "defaultMessage": "!!!Use the hosted {name} service.",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 54,
+      "column": 20
+    },
+    "end": {
+      "line": 57,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.customUrlValidationError",
+    "defaultMessage": "!!!Could not validate custom {name} server.",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 58,
+      "column": 28
+    },
+    "end": {
+      "line": 61,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.customUrlPremiumInfo",
+    "defaultMessage": "!!!To add self hosted services, you need a Franz Premium Supporter Account.",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 62,
+      "column": 24
+    },
+    "end": {
+      "line": 65,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.customUrlUpgradeAccount",
+    "defaultMessage": "!!!Upgrade your account",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 66,
+      "column": 27
+    },
+    "end": {
+      "line": 69,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.indirectMessageInfo",
+    "defaultMessage": "!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 70,
+      "column": 23
+    },
+    "end": {
+      "line": 73,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.isMutedInfo",
+    "defaultMessage": "!!!When disabled, all notification sounds and audio playback are muted",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 74,
+      "column": 15
+    },
+    "end": {
+      "line": 77,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.headlineNotifications",
+    "defaultMessage": "!!!Notifications",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 78,
+      "column": 25
+    },
+    "end": {
+      "line": 81,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.headlineBadges",
+    "defaultMessage": "!!!Unread message badges",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 82,
+      "column": 18
+    },
+    "end": {
+      "line": 85,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.headlineGeneral",
+    "defaultMessage": "!!!General",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 86,
+      "column": 19
+    },
+    "end": {
+      "line": 89,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.iconDelete",
+    "defaultMessage": "!!!Delete",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 90,
+      "column": 14
+    },
+    "end": {
+      "line": 93,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.iconUpload",
+    "defaultMessage": "!!!Drop your image, or click here",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 94,
+      "column": 14
+    },
+    "end": {
+      "line": 97,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.proxy.headline",
+    "defaultMessage": "!!!HTTP/HTTPS Proxy Settings",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 98,
+      "column": 17
+    },
+    "end": {
+      "line": 101,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.proxy.restartInfo",
+    "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 102,
+      "column": 20
+    },
+    "end": {
+      "line": 105,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.service.form.proxy.info",
+    "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 106,
+      "column": 13
+    },
+    "end": {
+      "line": 109,
+      "column": 3
+    }
+  }
+]

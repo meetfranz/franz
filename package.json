@@ -16,7 +16,7 @@
     "start:live": "cross-env LIVE_API=1 npm start",
     "dev": "cross-env NODE_ENV=development gulp dev",
     "lint": "eslint src",
-    "manage-translations": "node ./translations/manage-translations.js",
+    "manage-translations": "node ./src/i18n/manage-translations.js",
     "sign": "gulp sign",
     "prebuild": "gulp build",
     "build": "npx electron-builder --publish onTag",

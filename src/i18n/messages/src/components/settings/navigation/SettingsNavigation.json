@@ -1,0 +1,80 @@
+[
+  {
+    "id": "settings.navigation.availableServices",
+    "defaultMessage": "!!!Available services",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 9,
+      "column": 21
+    },
+    "end": {
+      "line": 12,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.yourServices",
+    "defaultMessage": "!!!Your services",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 13,
+      "column": 16
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.account",
+    "defaultMessage": "!!!Account",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 17,
+      "column": 11
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.settings",
+    "defaultMessage": "!!!Settings",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 21,
+      "column": 12
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.inviteFriends",
+    "defaultMessage": "!!!Invite Friends",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 25,
+      "column": 17
+    },
+    "end": {
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.logout",
+    "defaultMessage": "!!!Logout",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 29,
+      "column": 10
+    },
+    "end": {
+      "line": 32,
+      "column": 3
+    }
+  }
+]
