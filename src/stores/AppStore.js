@@ -8,6 +8,7 @@ import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
+import { URL } from 'url';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -19,6 +20,7 @@ import { onVisibilityChange } from '../helpers/visibility-helper';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+import { isValidExternalURL } from '../helpers/url-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -256,7 +258,14 @@ export default class AppStore extends Store {
   }
 
   @action _openExternalUrl({ url }) {
-    shell.openExternal(url);
+    const parsedUrl = new URL(url);
+    debug('open external url', parsedUrl);
+
+    if (isValidExternalURL(url)) {
+      shell.openExternal(url);
+    }
+
+    gaEvent('External URL', 'open', parsedUrl.host);
   }
 
   @action _checkForUpdates() {
