@@ -178,6 +178,20 @@ export default class AppStore extends Store {
       },
     );
 
+    // We need to add an additional key listener for ctrl+ on windows. Otherwise only ctrl+shift+ would work
+    if (isWindows) {
+      key(
+        'ctrl+=', () => {
+          debug('Windows: zoom in via ctrl+');
+          const { webview } = this.stores.services.active;
+          webview.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) webview.setZoomLevel(level + 1);
+          });
+        },
+      );
+    }
+
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();

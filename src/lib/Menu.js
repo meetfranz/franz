@@ -239,16 +239,32 @@ const _templateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.resetZoom),
-        role: 'resetzoom',
+        accelerator: 'Cmd+0',
+        click() {
+          getActiveWebview().setZoomLevel(0);
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        // accelerator: 'Cmd+=',
-        role: 'zoomin',
+        accelerator: 'Cmd+plus',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
+          });
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomOut),
-        role: 'zoomout',
+        accelerator: 'Cmd+-',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
+          });
+        },
       },
       {
         type: 'separator',
@@ -394,8 +410,10 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: `${ctrlKey}+Plus`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === 5 ? zoomLevel : zoomLevel + 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
           });
         },
       },
@@ -403,8 +421,10 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${ctrlKey}+-`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === -5 ? zoomLevel : zoomLevel - 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
           });
         },
       },
