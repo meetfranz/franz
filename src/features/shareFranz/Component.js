@@ -20,29 +20,25 @@ const messages = defineMessages({
     id: 'feature.shareFranz.text',
     defaultMessage: '!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.',
   },
-  actions: {
-    email: {
-      id: 'feature.shareFranz.action.email',
-      defaultMessage: '!!!Share as email',
-    },
-    facebook: {
-      id: 'feature.shareFranz.action.facebook',
-      defaultMessage: '!!!Share on Facebook',
-    },
-    twitter: {
-      id: 'feature.shareFranz.action.twitter',
-      defaultMessage: '!!!Share on Twitter',
-    },
+  actionsEmail: {
+    id: 'feature.shareFranz.action.email',
+    defaultMessage: '!!!Share as email',
   },
-  shareText: {
-    email: {
-      id: 'feature.shareFranz.shareText.email',
-      defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com',
-    },
-    twitter: {
-      id: 'feature.shareFranz.shareText.twitter',
-      defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @MeetFranz',
-    },
+  actionsFacebook: {
+    id: 'feature.shareFranz.action.facebook',
+    defaultMessage: '!!!Share on Facebook',
+  },
+  actionsTwitter: {
+    id: 'feature.shareFranz.action.twitter',
+    defaultMessage: '!!!Share on Twitter',
+  },
+  shareTextEmail: {
+    id: 'feature.shareFranz.shareText.email',
+    defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com',
+  },
+  shareTextTwitter: {
+    id: 'feature.shareFranz.shareText.twitter',
+    defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @MeetFranz',
   },
 });
 
@@ -90,7 +86,7 @@ const styles = theme => ({
 export default @injectSheet(styles) @inject('stores') @observer class ShareFranzModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-  }
+  };
 
   static contextTypes = {
     intl: intlShape,
@@ -128,17 +124,17 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
         <p>{intl.formatMessage(messages.text)}</p>
         <div className={classes.actions}>
           <Button
-            label={intl.formatMessage(messages.actions.email)}
+            label={intl.formatMessage(messages.actionsEmail)}
             className={classes.cta}
             icon="mdiEmail"
-            href={`mailto:?subject=Meet the cool app Franz&body=${intl.formatMessage(messages.shareText.email, { count: serviceCount })}}`}
+            href={`mailto:?subject=Meet the cool app Franz&body=${intl.formatMessage(messages.shareTextEmail, { count: serviceCount })}}`}
             target="_blank"
             onClick={() => {
               gaEvent('Share Franz', 'share', 'Share via email');
             }}
           />
           <Button
-            label={intl.formatMessage(messages.actions.facebook)}
+            label={intl.formatMessage(messages.actionsFacebook)}
             className={classes.cta}
             icon="mdiFacebookBox"
             href="https://www.facebook.com/sharer/sharer.php?u=https://www.meetfranz.com?utm_source=facebook&utm_medium=referral&utm_campaign=share-button"
@@ -148,10 +144,10 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             }}
           />
           <Button
-            label={intl.formatMessage(messages.actions.twitter)}
+            label={intl.formatMessage(messages.actionsTwitter)}
             className={classes.cta}
             icon="mdiTwitter"
-            href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareText.twitter, { count: serviceCount })}`}
+            href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareTextTwitter, { count: serviceCount })}`}
             target="_blank"
             onClick={() => {
               gaEvent('Share Franz', 'share', 'Share via Twitter');
