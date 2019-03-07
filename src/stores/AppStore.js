@@ -3,7 +3,6 @@ import {
   action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
-import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
@@ -157,28 +156,6 @@ export default class AppStore extends Store {
       this.stores.router.push(url);
     });
 
-
-    // Global Mute
-    key(
-      '⌘+shift+m ctrl+shift+m', () => {
-        this.actions.app.toggleMuteApp();
-      },
-    );
-
-    // We need to add an additional key listener for ctrl+ on windows. Otherwise only ctrl+shift+ would work
-    if (isWindows) {
-      key(
-        'ctrl+=', () => {
-          debug('Windows: zoom in via ctrl+');
-          const { webview } = this.stores.services.active;
-          webview.getZoomLevel((level) => {
-            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) webview.setZoomLevel(level + 1);
-          });
-        },
-      );
-    }
-
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
@@ -290,7 +267,6 @@ export default class AppStore extends Store {
 
   @action _muteApp({ isMuted, overrideSystemMute = true }) {
     this.isSystemMuteOverridden = overrideSystemMute;
-
     this.actions.settings.update({
       type: 'app',
       data: {

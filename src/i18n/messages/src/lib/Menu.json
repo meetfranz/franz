@@ -583,5 +583,31 @@
       "line": 189,
       "column": 3
     }
+  },
+  {
+    "id": "sidebar.muteApp",
+    "defaultMessage": "!!!Disable notifications & audio",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 190,
+      "column": 11
+    },
+    "end": {
+      "line": 193,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.unmuteApp",
+    "defaultMessage": "!!!Enable notifications & audio",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 194,
+      "column": 13
+    },
+    "end": {
+      "line": 197,
+      "column": 3
+    }
   }
 ]

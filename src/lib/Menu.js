@@ -187,6 +187,14 @@ const menuItems = defineMessages({
     id: 'menu.services.activatePreviousService',
     defaultMessage: '!!!Activate previous service...',
   },
+  muteApp: {
+    id: 'sidebar.muteApp',
+    defaultMessage: '!!!Disable notifications & audio',
+  },
+  unmuteApp: {
+    id: 'sidebar.unmuteApp',
+    defaultMessage: '!!!Enable notifications & audio',
+  },
 });
 
 function getActiveWebview() {
@@ -416,7 +424,7 @@ const _titleBarTemplateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${ctrlKey}+Plus`,
+        accelerator: `${ctrlKey}+=`,
         click() {
           const activeService = getActiveWebview();
           activeService.getZoomLevel((level) => {
@@ -702,34 +710,38 @@ export default class FranzMenu {
 
   @computed get serviceTpl() {
     const { intl } = window.franz;
-    const services = this.stores.services.allDisplayed;
-    const menu = [{
+    const { user, services, settings } = this.stores;
+    if (!user.isLoggedIn) return [];
+    const menu = [];
+
+    menu.push({
       label: intl.formatMessage(menuItems.addNewService),
       accelerator: `${cmdKey}+N`,
       click: () => {
         this.actions.ui.openSettings({ path: 'recipes' });
       },
-      enabled: this.stores.user.isLoggedIn,
     }, {
       type: 'separator',
     }, {
       label: intl.formatMessage(menuItems.activateNextService),
       accelerator: `${cmdKey}+alt+right`,
       click: () => this.actions.service.setActiveNext(),
-      enabled: this.stores.user.isLoggedIn,
     }, {
       label: intl.formatMessage(menuItems.activatePreviousService),
       accelerator: `${cmdKey}+alt+left`,
       click: () => this.actions.service.setActivePrev(),
-      enabled: this.stores.user.isLoggedIn,
+    }, {
+      label: intl.formatMessage(
+        settings.all.app.isAppMuted ? menuItems.unmuteApp : menuItems.muteApp,
+      ).replace('&', '&&'),
+      accelerator: `${cmdKey}+shift+m`,
+      click: () => this.actions.app.toggleMuteApp(),
     }, {
       type: 'separator',
-    }];
-
-    menu.push();
+    });
 
     if (this.stores.user.isLoggedIn) {
-      services.forEach((service, i) => (menu.push({
+      services.allDisplayed.forEach((service, i) => (menu.push({
         label: this._getServiceName(service),
         accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
         type: 'radio',
