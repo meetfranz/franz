@@ -157,19 +157,6 @@ export default class AppStore extends Store {
       this.stores.router.push(url);
     });
 
-    // Set active the next service
-    key(
-      '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
-        this.actions.service.setActiveNext();
-      },
-    );
-
-    // Set active the prev service
-    key(
-      '⌘+pageup, ctrl+pageup, ⌘+alt+left, ctrl+shift+tab', () => {
-        this.actions.service.setActivePrev();
-      },
-    );
 
     // Global Mute
     key(

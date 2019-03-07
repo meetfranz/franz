@@ -179,6 +179,14 @@ const menuItems = defineMessages({
     id: 'menu.services.addNewService',
     defaultMessage: '!!!Add New Service...',
   },
+  activateNextService: {
+    id: 'menu.services.setNextServiceActive',
+    defaultMessage: '!!!Activate next service...',
+  },
+  activatePreviousService: {
+    id: 'menu.services.activatePreviousService',
+    defaultMessage: '!!!Activate previous service...',
+  },
 });
 
 function getActiveWebview() {
@@ -525,7 +533,7 @@ export default class FranzMenu {
       return;
     }
 
-    const intl = window.franz.intl;
+    const { intl } = window.franz;
     const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
 
     tpl[1].submenu.push({
@@ -683,17 +691,6 @@ export default class FranzMenu {
       }, about);
     }
 
-    serviceTpl.unshift({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${cmdKey}+N`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
-      },
-      enabled: this.stores.user.isLoggedIn,
-    }, {
-      type: 'separator',
-    });
-
     if (serviceTpl.length > 0) {
       tpl[3].submenu = serviceTpl;
     }
@@ -704,10 +701,35 @@ export default class FranzMenu {
   }
 
   @computed get serviceTpl() {
+    const { intl } = window.franz;
     const services = this.stores.services.allDisplayed;
+    const menu = [{
+      label: intl.formatMessage(menuItems.addNewService),
+      accelerator: `${cmdKey}+N`,
+      click: () => {
+        this.actions.ui.openSettings({ path: 'recipes' });
+      },
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.activateNextService),
+      accelerator: `${cmdKey}+alt+right`,
+      click: () => this.actions.service.setActiveNext(),
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      label: intl.formatMessage(menuItems.activatePreviousService),
+      accelerator: `${cmdKey}+alt+left`,
+      click: () => this.actions.service.setActivePrev(),
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    }];
+
+    menu.push();
 
     if (this.stores.user.isLoggedIn) {
-      return services.map((service, i) => ({
+      services.forEach((service, i) => (menu.push({
         label: this._getServiceName(service),
         accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
         type: 'radio',
@@ -715,10 +737,10 @@ export default class FranzMenu {
         click: () => {
           this.actions.service.setActive({ serviceId: service.id });
         },
-      }));
+      })));
     }
 
-    return [];
+    return menu;
   }
 
   _getServiceName(service) {

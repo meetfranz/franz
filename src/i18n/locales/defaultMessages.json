@@ -3875,6 +3875,32 @@
           "column": 17,
           "line": 178
         }
+      },
+      {
+        "defaultMessage": "!!!Activate next service...",
+        "end": {
+          "column": 3,
+          "line": 185
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.services.setNextServiceActive",
+        "start": {
+          "column": 23,
+          "line": 182
+        }
+      },
+      {
+        "defaultMessage": "!!!Activate previous service...",
+        "end": {
+          "column": 3,
+          "line": 189
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.services.activatePreviousService",
+        "start": {
+          "column": 27,
+          "line": 186
+        }
       }
     ],
     "path": "src/lib/Menu.json"
