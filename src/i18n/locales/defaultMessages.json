@@ -1177,107 +1177,94 @@
         }
       },
       {
-        "defaultMessage": "!!!Enterprise Account",
+        "defaultMessage": "!!!Edit Account",
         "end": {
           "column": 3,
           "line": 50
         },
         "file": "src/components/settings/account/AccountDashboard.js",
-        "id": "settings.account.accountType.enterprise",
-        "start": {
-          "column": 25,
-          "line": 47
-        }
-      },
-      {
-        "defaultMessage": "!!!Edit Account",
-        "end": {
-          "column": 3,
-          "line": 54
-        },
-        "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.account.editButton",
         "start": {
           "column": 21,
-          "line": 51
+          "line": 47
         }
       },
       {
         "defaultMessage": "!!!Download",
         "end": {
           "column": 3,
-          "line": 58
+          "line": 54
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.invoiceDownload",
         "start": {
           "column": 19,
-          "line": 55
+          "line": 51
         }
       },
       {
         "defaultMessage": "!!!Could not load user information",
         "end": {
           "column": 3,
-          "line": 62
+          "line": 58
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.userInfoRequestFailed",
         "start": {
           "column": 25,
-          "line": 59
+          "line": 55
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 66
+          "line": 62
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.tryReloadUserInfoRequest",
         "start": {
           "column": 28,
-          "line": 63
+          "line": 59
         }
       },
       {
         "defaultMessage": "!!!Delete account",
         "end": {
           "column": 3,
-          "line": 70
+          "line": 66
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteAccount",
         "start": {
           "column": 17,
-          "line": 67
+          "line": 63
         }
       },
       {
         "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
-          "line": 74
+          "line": 70
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteInfo",
         "start": {
           "column": 14,
-          "line": 71
+          "line": 67
         }
       },
       {
         "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
         "end": {
           "column": 3,
-          "line": 78
+          "line": 74
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteEmailSent",
         "start": {
           "column": 19,
-          "line": 75
+          "line": 71
         }
       }
     ],
@@ -3248,94 +3235,81 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Please upgrade your account to add a new service.",
+        "defaultMessage": "!!!Can't connect to Franz Online Services",
         "end": {
           "column": 3,
           "line": 7
         },
         "file": "src/i18n/globalMessages.js",
-        "id": "global.premium.upgradeAccount",
-        "start": {
-          "column": 18,
-          "line": 4
-        }
-      },
-      {
-        "defaultMessage": "!!!Can't connect to Franz Online Services",
-        "end": {
-          "column": 3,
-          "line": 11
-        },
-        "file": "src/i18n/globalMessages.js",
         "id": "global.api.unhealthy",
         "start": {
           "column": 16,
-          "line": 8
+          "line": 4
         }
       },
       {
         "defaultMessage": "!!!You are not connected to the internet.",
         "end": {
           "column": 3,
-          "line": 15
+          "line": 11
         },
         "file": "src/i18n/globalMessages.js",
         "id": "global.notConnectedToTheInternet",
         "start": {
           "column": 29,
-          "line": 12
+          "line": 8
         }
       },
       {
         "defaultMessage": "!!!Spell checking language",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 15
         },
         "file": "src/i18n/globalMessages.js",
         "id": "global.spellchecking.language",
         "start": {
           "column": 24,
-          "line": 16
+          "line": 12
         }
       },
       {
         "defaultMessage": "!!!Use System Default ({default})",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 19
         },
         "file": "src/i18n/globalMessages.js",
         "id": "global.spellchecker.useDefault",
         "start": {
           "column": 29,
-          "line": 20
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Detect language automatically",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 23
         },
         "file": "src/i18n/globalMessages.js",
         "id": "global.spellchecking.autodetect",
         "start": {
           "column": 34,
-          "line": 24
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Automatic",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 27
         },
         "file": "src/i18n/globalMessages.js",
         "id": "global.spellchecking.autodetect.short",
         "start": {
           "column": 39,
-          "line": 28
+          "line": 24
         }
       }
     ],

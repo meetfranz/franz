@@ -44,10 +44,6 @@ const messages = defineMessages({
     id: 'settings.account.accountType.premium',
     defaultMessage: '!!!Premium Supporter Account',
   },
-  accountTypeEnterprise: {
-    id: 'settings.account.accountType.enterprise',
-    defaultMessage: '!!!Enterprise Account',
-  },
   accountEditButton: {
     id: 'settings.account.account.editButton',
     defaultMessage: '!!!Edit Account',
