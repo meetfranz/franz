@@ -4,7 +4,7 @@ import { autoUpdater } from 'electron-updater';
 const debug = require('debug')('Franz:ipcApi:autoUpdate');
 
 export default (params) => {
-  if (process.platform === 'darwin' || process.platform === 'win32') {
+  if (process.platform === 'darwin' || process.platform === 'win32' || process.env.APPIMAGE) {
     ipcMain.on('autoUpdate', (event, args) => {
       try {
         autoUpdater.autoInstallOnAppQuit = false;

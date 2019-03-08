@@ -16,6 +16,7 @@
     "start:live": "cross-env LIVE_API=1 npm start",
     "dev": "cross-env NODE_ENV=development gulp dev",
     "lint": "eslint src",
+    "manage-translations": "node ./src/i18n/manage-translations.js",
     "sign": "gulp sign",
     "prebuild": "gulp build",
     "build": "npx electron-builder --publish onTag",
@@ -52,7 +53,6 @@
     "fs-extra": "7.0.1",
     "hex-to-rgba": "1.0.2",
     "jsonwebtoken": "^7.4.1",
-    "keymaster": "^1.6.2",
     "lodash": "^4.17.4",
     "mdi": "^1.9.33",
     "mime-types": "2.1.21",
@@ -108,11 +108,12 @@
     "@types/uuid": "3.4.4",
     "babel-eslint": "10.0.1",
     "babel-loader": "^8.0.4",
+    "babel-plugin-react-intl": "3.0.1",
     "conventional-changelog-cli": "2.0.11",
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "2.1.0",
     "dotenv": "^4.0.0",
-    "electron": "4.0.4",
+    "electron": "4.0.7",
     "electron-builder": "20.38.4",
     "electron-rebuild": "1.8.4",
     "eslint": "5.10.0",
@@ -137,6 +138,7 @@
     "mocha": "5.2.0",
     "node-sass": "4.11.0",
     "prettier": "1.15.2",
+    "react-intl-translations-manager": "5.0.3",
     "terser-webpack-plugin": "1.2.1",
     "ts-loader": "5.3.2",
     "tslint": "5.12.0",
@@ -157,7 +159,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint && npm run reformat-files"
+      "pre-push": "npm run lint && npm run reformat-files && npm run manage-translations"
     }
   }
 }

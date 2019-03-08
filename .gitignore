@@ -3,6 +3,7 @@ node_modules
 flow-typed
 out
 .DS_Store
+.idea
 build
 .tmp
 .stage

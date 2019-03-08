@@ -1,0 +1,28 @@
+[
+  {
+    "id": "settings.workspace.add.form.submitButton",
+    "defaultMessage": "!!!Save workspace",
+    "file": "src/features/workspaces/components/CreateWorkspaceForm.js",
+    "start": {
+      "line": 11,
+      "column": 16
+    },
+    "end": {
+      "line": 14,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.add.form.name",
+    "defaultMessage": "!!!Name",
+    "file": "src/features/workspaces/components/CreateWorkspaceForm.js",
+    "start": {
+      "line": 15,
+      "column": 8
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  }
+]

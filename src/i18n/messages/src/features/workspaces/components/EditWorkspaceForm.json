@@ -1,0 +1,67 @@
+[
+  {
+    "id": "settings.workspace.form.buttonDelete",
+    "defaultMessage": "!!!Delete workspace",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 16,
+      "column": 16
+    },
+    "end": {
+      "line": 19,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.buttonSave",
+    "defaultMessage": "!!!Save workspace",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 20,
+      "column": 14
+    },
+    "end": {
+      "line": 23,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.name",
+    "defaultMessage": "!!!Name",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 24,
+      "column": 8
+    },
+    "end": {
+      "line": 27,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.yourWorkspaces",
+    "defaultMessage": "!!!Your workspaces",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 28,
+      "column": 18
+    },
+    "end": {
+      "line": 31,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.servicesInWorkspaceHeadline",
+    "defaultMessage": "!!!Services in this Workspace",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 32,
+      "column": 31
+    },
+    "end": {
+      "line": 35,
+      "column": 3
+    }
+  }
+]
