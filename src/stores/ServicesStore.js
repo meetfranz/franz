@@ -44,6 +44,7 @@ export default class ServicesStore extends Store {
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
+    this.actions.service.detachService.listen(this._detachService.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
     this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
@@ -339,6 +340,11 @@ export default class ServicesStore extends Store {
     }
 
     service.isAttached = true;
+  }
+
+  @action _detachService({ service }) {
+    service.webview = null;
+    service.isAttached = false;
   }
 
   @action _focusService({ serviceId }) {
