@@ -1,5 +1,5 @@
 import { remote, shell } from 'electron';
-import { observable, autorun, computed } from 'mobx';
+import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
@@ -535,7 +535,8 @@ export default class FranzMenu {
   }
 
   _build() {
-    const serviceTpl = Object.assign([], this.serviceTpl); // need to clone object so we don't modify computed (cached) object
+    // need to clone object so we don't modify computed (cached) object
+    const serviceTpl = Object.assign([], this.serviceTpl());
 
     if (window.franz === undefined) {
       return;
@@ -708,7 +709,7 @@ export default class FranzMenu {
     Menu.setApplicationMenu(menu);
   }
 
-  @computed get serviceTpl() {
+  serviceTpl() {
     const { intl } = window.franz;
     const { user, services, settings } = this.stores;
     if (!user.isLoggedIn) return [];
@@ -740,17 +741,15 @@ export default class FranzMenu {
       type: 'separator',
     });
 
-    if (this.stores.user.isLoggedIn) {
-      services.allDisplayed.forEach((service, i) => (menu.push({
-        label: this._getServiceName(service),
-        accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
-        type: 'radio',
-        checked: service.isActive,
-        click: () => {
-          this.actions.service.setActive({ serviceId: service.id });
-        },
-      })));
-    }
+    services.allDisplayed.forEach((service, i) => (menu.push({
+      label: this._getServiceName(service),
+      accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
+      type: 'radio',
+      checked: service.isActive,
+      click: () => {
+        this.actions.service.setActive({ serviceId: service.id });
+      },
+    })));
 
     return menu;
   }
