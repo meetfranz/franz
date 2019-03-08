@@ -185,6 +185,11 @@ export default class AppStore extends Store {
   }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
+    // TODO: is there a simple way to use blobs for notifications without storing them on disk?
+    if (options.icon.startsWith('blob:')) {
+      delete options.icon;
+    }
+
     const notification = new window.Notification(title, options);
     notification.onclick = (e) => {
       if (serviceId) {
