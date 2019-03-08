@@ -257,6 +257,19 @@ const createWindow = () => {
   });
 };
 
+// Allow passing command line parameters/switches to electron
+// https://electronjs.org/docs/api/chrome-command-line-switches
+// used for Kerberos support
+// Usage e.g. MACOS
+// $ Franz.app/Contents/MacOS/Franz --auth-server-whitelist *.mydomain.com --auth-negotiate-delegate-whitelist *.mydomain.com
+var argv = require('minimist')(process.argv.slice(1));
+if (argv['auth-server-whitelist']) {
+  app.commandLine.appendSwitch('auth-server-whitelist', argv['auth-server-whitelist'])
+}
+if (argv['auth-negotiate-delegate-whitelist']) {
+  app.commandLine.appendSwitch('auth-negotiate-delegate-whitelist', argv['auth-negotiate-delegate-whitelist'])
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
