@@ -191,6 +191,9 @@ export default class AppStore extends Store {
     }
 
     const notification = new window.Notification(title, options);
+
+    debug('New notification', title, options);
+
     notification.onclick = (e) => {
       if (serviceId) {
         this.actions.service.sendIPCMessage({
@@ -205,6 +208,8 @@ export default class AppStore extends Store {
           mainWindow.restore();
         }
         mainWindow.focus();
+
+        debug('Notification click handler');
       }
     };
   }
