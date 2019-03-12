@@ -13,6 +13,7 @@ import ErrorBoundary from '../util/ErrorBoundary';
 // import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
+import AnnouncementScreen from '../../features/announcements/Component';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -64,6 +65,7 @@ export default @observer class AppLayout extends Component {
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
     isDelayAppScreenVisible: PropTypes.bool.isRequired,
+    isAnnouncementVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -93,6 +95,7 @@ export default @observer class AppLayout extends Component {
       areRequiredRequestsLoading,
       darkMode,
       isDelayAppScreenVisible,
+      isAnnouncementVisible,
     } = this.props;
 
     const { intl } = this.context;
@@ -166,6 +169,7 @@ export default @observer class AppLayout extends Component {
                 {isDelayAppScreenVisible && (<DelayApp />)}
                 <BasicAuth />
                 <ShareFranz />
+                {isAnnouncementVisible && (<AnnouncementScreen />)}
                 {services}
               </div>
             </div>

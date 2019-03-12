@@ -481,15 +481,28 @@
     }
   },
   {
+    "id": "menu.app.announcement",
+    "defaultMessage": "!!!What's new in Franz?",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 158,
+      "column": 16
+    },
+    "end": {
+      "line": 161,
+      "column": 3
+    }
+  },
+  {
     "id": "menu.app.settings",
     "defaultMessage": "!!!Settings",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 158,
+      "line": 162,
       "column": 12
     },
     "end": {
-      "line": 161,
+      "line": 165,
       "column": 3
     }
   },
@@ -498,11 +511,11 @@
     "defaultMessage": "!!!Hide",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 162,
+      "line": 166,
       "column": 8
     },
     "end": {
-      "line": 165,
+      "line": 169,
       "column": 3
     }
   },
@@ -511,11 +524,11 @@
     "defaultMessage": "!!!Hide Others",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 166,
+      "line": 170,
       "column": 14
     },
     "end": {
-      "line": 169,
+      "line": 173,
       "column": 3
     }
   },
@@ -524,11 +537,11 @@
     "defaultMessage": "!!!Unhide",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 170,
+      "line": 174,
       "column": 10
     },
     "end": {
-      "line": 173,
+      "line": 177,
       "column": 3
     }
   },
@@ -537,11 +550,11 @@
     "defaultMessage": "!!!Quit",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 174,
+      "line": 178,
       "column": 8
     },
     "end": {
-      "line": 177,
+      "line": 181,
       "column": 3
     }
   },
@@ -550,11 +563,11 @@
     "defaultMessage": "!!!Add New Service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 178,
+      "line": 182,
       "column": 17
     },
     "end": {
-      "line": 181,
+      "line": 185,
       "column": 3
     }
   },
@@ -563,11 +576,11 @@
     "defaultMessage": "!!!Activate next service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 182,
+      "line": 186,
       "column": 23
     },
     "end": {
-      "line": 185,
+      "line": 189,
       "column": 3
     }
   },
@@ -576,11 +589,11 @@
     "defaultMessage": "!!!Activate previous service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 186,
+      "line": 190,
       "column": 27
     },
     "end": {
-      "line": 189,
+      "line": 193,
       "column": 3
     }
   },
@@ -589,11 +602,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 190,
+      "line": 194,
       "column": 11
     },
     "end": {
-      "line": 193,
+      "line": 197,
       "column": 3
     }
   },
@@ -602,11 +615,11 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 194,
+      "line": 198,
       "column": 13
     },
     "end": {
-      "line": 197,
+      "line": 201,
       "column": 3
     }
   }

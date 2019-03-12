@@ -155,6 +155,10 @@ const menuItems = defineMessages({
     id: 'menu.app.about',
     defaultMessage: '!!!About Franz',
   },
+  announcement: {
+    id: 'menu.app.announcement',
+    defaultMessage: '!!!What\'s new in Franz?',
+  },
   settings: {
     id: 'menu.app.settings',
     defaultMessage: '!!!Settings',
@@ -588,6 +592,12 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(menuItems.about),
           role: 'about',
+        },
+        {
+          label: intl.formatMessage(menuItems.announcement),
+          click: () => {
+            this.actions.announcements.show();
+          },
         },
         {
           type: 'separator',

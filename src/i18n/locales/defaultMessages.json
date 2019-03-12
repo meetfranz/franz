@@ -625,78 +625,78 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 26
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 22
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!A new update for Franz is available.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.updateAvailable",
         "start": {
           "column": 19,
-          "line": 26
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 34
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 30
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Changelog",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 38
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonChangelog",
         "start": {
           "column": 13,
-          "line": 34
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 42
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonInstallUpdate",
         "start": {
           "column": 23,
-          "line": 38
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 46
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 42
+          "line": 43
         }
       }
     ],
@@ -3025,6 +3025,24 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!What's new in Franz {version}?",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/features/announcements/Component.js",
+        "id": "feature.announcements.headline",
+        "start": {
+          "column": 12,
+          "line": 11
+        }
+      }
+    ],
+    "path": "src/features/announcements/Component.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Please purchase license to skip waiting",
         "end": {
           "column": 3,
@@ -3799,133 +3817,146 @@
         }
       },
       {
-        "defaultMessage": "!!!Settings",
+        "defaultMessage": "!!!What's new in Franz?",
         "end": {
           "column": 3,
           "line": 161
         },
         "file": "src/lib/Menu.js",
+        "id": "menu.app.announcement",
+        "start": {
+          "column": 16,
+          "line": 158
+        }
+      },
+      {
+        "defaultMessage": "!!!Settings",
+        "end": {
+          "column": 3,
+          "line": 165
+        },
+        "file": "src/lib/Menu.js",
         "id": "menu.app.settings",
         "start": {
           "column": 12,
-          "line": 158
+          "line": 162
         }
       },
       {
         "defaultMessage": "!!!Hide",
         "end": {
           "column": 3,
-          "line": 165
+          "line": 169
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.hide",
         "start": {
           "column": 8,
-          "line": 162
+          "line": 166
         }
       },
       {
         "defaultMessage": "!!!Hide Others",
         "end": {
           "column": 3,
-          "line": 169
+          "line": 173
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.hideOthers",
         "start": {
           "column": 14,
-          "line": 166
+          "line": 170
         }
       },
       {
         "defaultMessage": "!!!Unhide",
         "end": {
           "column": 3,
-          "line": 173
+          "line": 177
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.unhide",
         "start": {
           "column": 10,
-          "line": 170
+          "line": 174
         }
       },
       {
         "defaultMessage": "!!!Quit",
         "end": {
           "column": 3,
-          "line": 177
+          "line": 181
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.quit",
         "start": {
           "column": 8,
-          "line": 174
+          "line": 178
         }
       },
       {
         "defaultMessage": "!!!Add New Service...",
         "end": {
           "column": 3,
-          "line": 181
+          "line": 185
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.addNewService",
         "start": {
           "column": 17,
-          "line": 178
+          "line": 182
         }
       },
       {
         "defaultMessage": "!!!Activate next service...",
         "end": {
           "column": 3,
-          "line": 185
+          "line": 189
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.setNextServiceActive",
         "start": {
           "column": 23,
-          "line": 182
+          "line": 186
         }
       },
       {
         "defaultMessage": "!!!Activate previous service...",
         "end": {
           "column": 3,
-          "line": 189
+          "line": 193
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.activatePreviousService",
         "start": {
           "column": 27,
-          "line": 186
+          "line": 190
         }
       },
       {
         "defaultMessage": "!!!Disable notifications & audio",
         "end": {
           "column": 3,
-          "line": 193
+          "line": 197
         },
         "file": "src/lib/Menu.js",
         "id": "sidebar.muteApp",
         "start": {
           "column": 11,
-          "line": 190
+          "line": 194
         }
       },
       {
         "defaultMessage": "!!!Enable notifications & audio",
         "end": {
           "column": 3,
-          "line": 197
+          "line": 201
         },
         "file": "src/lib/Menu.js",
         "id": "sidebar.unmuteApp",
         "start": {
           "column": 13,
-          "line": 194
+          "line": 198
         }
       }
     ],

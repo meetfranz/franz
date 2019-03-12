@@ -14,7 +14,7 @@
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
     }],
-    "react/forbid-prop-types": 1,
+    "react/forbid-prop-types": 0,
     "react/destructuring-assignment": 1,
     "prefer-destructuring": 1,
     "no-underscore-dangle": 0,

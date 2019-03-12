@@ -20,6 +20,7 @@ import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
 import { state as delayAppState } from '../../features/delayApp';
+import { announcementsState } from '../../features/announcements/state';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
@@ -134,6 +135,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
           darkMode={settings.all.app.darkMode}
           isDelayAppScreenVisible={delayAppState.isDelayAppScreenVisible}
+          isAnnouncementVisible={announcementsState.isAnnouncementVisible}
         >
           {React.Children.count(children) > 0 ? children : null}
         </AppLayout>
