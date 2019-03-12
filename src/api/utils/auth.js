@@ -3,7 +3,7 @@ import localStorage from 'mobx-localstorage';
 
 const { app } = remote;
 
-export const prepareAuthRequest = (options, auth = true) => {
+export const prepareAuthRequest = (options = { method: 'GET' }, auth = true) => {
   const request = Object.assign(options, {
     mode: 'cors',
     headers: Object.assign({
@@ -23,6 +23,6 @@ export const prepareAuthRequest = (options, auth = true) => {
   return request;
 };
 
-export const sendAuthRequest = (url, options) => (
-  window.fetch(url, prepareAuthRequest(options))
+export const sendAuthRequest = (url, options, auth) => (
+  window.fetch(url, prepareAuthRequest(options, auth))
 );
