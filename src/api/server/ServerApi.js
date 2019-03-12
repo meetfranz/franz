@@ -3,7 +3,6 @@ import path from 'path';
 import tar from 'tar';
 import fs from 'fs-extra';
 import { remote } from 'electron';
-import localStorage from 'mobx-localstorage';
 
 import ServiceModel from '../../models/Service';
 import RecipePreviewModel from '../../models/RecipePreview';
@@ -16,6 +15,7 @@ import OrderModel from '../../models/Order';
 import { sleep } from '../../helpers/async-helpers';
 
 import { API } from '../../environment';
+import { prepareAuthRequest } from '../utils/auth';
 
 import {
   getRecipeDirectory,
@@ -47,7 +47,7 @@ export default class ServerApi {
 
   // User
   async login(email, passwordHash) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/auth/login`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/auth/login`, prepareAuthRequest({
       method: 'POST',
       headers: {
         Authorization: `Basic ${window.btoa(`${email}:${passwordHash}`)}`,
@@ -63,7 +63,7 @@ export default class ServerApi {
   }
 
   async signup(data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/auth/signup`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/auth/signup`, prepareAuthRequest({
       method: 'POST',
       body: JSON.stringify(data),
     }, false));
@@ -77,7 +77,7 @@ export default class ServerApi {
   }
 
   async inviteUser(data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/invite`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/invite`, prepareAuthRequest({
       method: 'POST',
       body: JSON.stringify(data),
     }));
@@ -90,7 +90,7 @@ export default class ServerApi {
   }
 
   async retrievePassword(email) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/auth/password`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/auth/password`, prepareAuthRequest({
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -106,7 +106,7 @@ export default class ServerApi {
   }
 
   async userInfo() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -121,7 +121,7 @@ export default class ServerApi {
   }
 
   async updateUserInfo(data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, prepareAuthRequest({
       method: 'PUT',
       body: JSON.stringify(data),
     }));
@@ -136,7 +136,7 @@ export default class ServerApi {
   }
 
   async deleteAccount() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me`, prepareAuthRequest({
       method: 'DELETE',
     }));
     if (!request.ok) {
@@ -150,7 +150,7 @@ export default class ServerApi {
 
   // Services
   async getServices() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/services`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/services`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -165,7 +165,7 @@ export default class ServerApi {
   }
 
   async createService(recipeId, data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service`, prepareAuthRequest({
       method: 'POST',
       body: JSON.stringify(Object.assign({
         recipeId,
@@ -195,7 +195,7 @@ export default class ServerApi {
       await this.uploadServiceIcon(serviceId, data.iconFile);
     }
 
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${serviceId}`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${serviceId}`, prepareAuthRequest({
       method: 'PUT',
       body: JSON.stringify(data),
     }));
@@ -216,7 +216,7 @@ export default class ServerApi {
     const formData = new FormData();
     formData.append('icon', icon);
 
-    const requestData = this._prepareAuthRequest({
+    const requestData = prepareAuthRequest({
       method: 'PUT',
       body: formData,
     });
@@ -235,7 +235,7 @@ export default class ServerApi {
   }
 
   async reorderService(data) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/reorder`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/reorder`, prepareAuthRequest({
       method: 'PUT',
       body: JSON.stringify(data),
     }));
@@ -248,7 +248,7 @@ export default class ServerApi {
   }
 
   async deleteService(id) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${id}`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/service/${id}`, prepareAuthRequest({
       method: 'DELETE',
     }));
     if (!request.ok) {
@@ -264,7 +264,7 @@ export default class ServerApi {
 
   // Features
   async getDefaultFeatures() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/default`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features/default`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -278,7 +278,7 @@ export default class ServerApi {
   }
 
   async getFeatures() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/features`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -314,7 +314,7 @@ export default class ServerApi {
   }
 
   async getRecipeUpdates(recipeVersions) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/update`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/update`, prepareAuthRequest({
       method: 'POST',
       body: JSON.stringify(recipeVersions),
     }));
@@ -328,7 +328,7 @@ export default class ServerApi {
 
   // Recipes Previews
   async getRecipePreviews() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -343,7 +343,7 @@ export default class ServerApi {
   }
 
   async getFeaturedRecipePreviews() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/popular`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/popular`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -359,7 +359,7 @@ export default class ServerApi {
   }
 
   async searchRecipePreviews(needle) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/search?needle=${needle}`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/search?needle=${needle}`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -415,7 +415,7 @@ export default class ServerApi {
 
   // Payment
   async getPlans() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/payment/plans`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/payment/plans`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -429,7 +429,7 @@ export default class ServerApi {
   }
 
   async getHostedPage(planId) {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/payment/init`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/payment/init`, prepareAuthRequest({
       method: 'POST',
       body: JSON.stringify({
         planId,
@@ -445,7 +445,7 @@ export default class ServerApi {
   }
 
   async getPaymentDashboardUrl() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/billing`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/billing`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -458,7 +458,7 @@ export default class ServerApi {
   }
 
   async getSubscriptionOrders() {
-    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/subscription`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/me/subscription`, prepareAuthRequest({
       method: 'GET',
     }));
     if (!request.ok) {
@@ -474,7 +474,7 @@ export default class ServerApi {
   async getLatestNews() {
     // eslint-disable-next-line
     const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/news?platform=${os.platform()}&arch=${os.arch()}&version=${app.getVersion()}`,
-      this._prepareAuthRequest({
+      prepareAuthRequest({
         method: 'GET',
       }));
 
@@ -489,7 +489,7 @@ export default class ServerApi {
 
   async hideNews(id) {
     const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/news/${id}/read`,
-      this._prepareAuthRequest({
+      prepareAuthRequest({
         method: 'GET',
       }));
 
@@ -502,7 +502,7 @@ export default class ServerApi {
 
   // Health Check
   async healthCheck() {
-    const request = await window.fetch(`${SERVER_URL}/health`, this._prepareAuthRequest({
+    const request = await window.fetch(`${SERVER_URL}/health`, prepareAuthRequest({
       method: 'GET',
     }, false));
     if (!request.ok) {
@@ -521,7 +521,7 @@ export default class ServerApi {
         const services = await Promise.all(config.services.map(async (s) => {
           const service = s;
           const request = await window.fetch(`${SERVER_URL}/${API_VERSION}/recipes/${s.service}`,
-            this._prepareAuthRequest({
+            prepareAuthRequest({
               method: 'GET',
             }));
 
@@ -630,26 +630,6 @@ export default class ServerApi {
         return null;
       }
     }).filter(orderItem => orderItem !== null);
-  }
-
-  _prepareAuthRequest(options, auth = true) {
-    const request = Object.assign(options, {
-      mode: 'cors',
-      headers: Object.assign({
-        'Content-Type': 'application/json',
-        'X-Franz-Source': 'desktop',
-        'X-Franz-Version': app.getVersion(),
-        'X-Franz-platform': process.platform,
-        'X-Franz-Timezone-Offset': new Date().getTimezoneOffset(),
-        'X-Franz-System-Locale': app.getLocale(),
-      }, options.headers),
-    });
-
-    if (auth) {
-      request.headers.Authorization = `Bearer ${localStorage.getItem('authToken')}`;
-    }
-
-    return request;
   }
 
   _getDevRecipes() {
