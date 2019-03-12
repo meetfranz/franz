@@ -3,7 +3,6 @@ import {
   action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
-import key from 'keymaster';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
@@ -13,7 +12,7 @@ import { URL } from 'url';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac, isLinux, isWindows } from '../environment';
+import { isMac } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent, gaPage } from '../lib/analytics';
 import { onVisibilityChange } from '../helpers/visibility-helper';
@@ -157,41 +156,6 @@ export default class AppStore extends Store {
       this.stores.router.push(url);
     });
 
-    // Set active the next service
-    key(
-      '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
-        this.actions.service.setActiveNext();
-      },
-    );
-
-    // Set active the prev service
-    key(
-      '⌘+pageup, ctrl+pageup, ⌘+alt+left, ctrl+shift+tab', () => {
-        this.actions.service.setActivePrev();
-      },
-    );
-
-    // Global Mute
-    key(
-      '⌘+shift+m ctrl+shift+m', () => {
-        this.actions.app.toggleMuteApp();
-      },
-    );
-
-    // We need to add an additional key listener for ctrl+ on windows. Otherwise only ctrl+shift+ would work
-    if (isWindows) {
-      key(
-        'ctrl+=', () => {
-          debug('Windows: zoom in via ctrl+');
-          const { webview } = this.stores.services.active;
-          webview.getZoomLevel((level) => {
-            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) webview.setZoomLevel(level + 1);
-          });
-        },
-      );
-    }
-
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
@@ -221,7 +185,15 @@ export default class AppStore extends Store {
   }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
+    // TODO: is there a simple way to use blobs for notifications without storing them on disk?
+    if (options.icon.startsWith('blob:')) {
+      delete options.icon;
+    }
+
     const notification = new window.Notification(title, options);
+
+    debug('New notification', title, options);
+
     notification.onclick = (e) => {
       if (serviceId) {
         this.actions.service.sendIPCMessage({
@@ -231,12 +203,13 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
-
-        if (isWindows) {
+        mainWindow.show();
+        if (app.mainWindow.isMinimized()) {
           mainWindow.restore();
-        } else if (isLinux) {
-          mainWindow.show();
         }
+        mainWindow.focus();
+
+        debug('Notification click handler');
       }
     };
   }
@@ -303,7 +276,6 @@ export default class AppStore extends Store {
 
   @action _muteApp({ isMuted, overrideSystemMute = true }) {
     this.isSystemMuteOverridden = overrideSystemMute;
-
     this.actions.settings.update({
       type: 'app',
       data: {

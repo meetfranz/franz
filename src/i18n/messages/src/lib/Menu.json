@@ -557,5 +557,57 @@
       "line": 181,
       "column": 3
     }
+  },
+  {
+    "id": "menu.services.setNextServiceActive",
+    "defaultMessage": "!!!Activate next service...",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 182,
+      "column": 23
+    },
+    "end": {
+      "line": 185,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.services.activatePreviousService",
+    "defaultMessage": "!!!Activate previous service...",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 186,
+      "column": 27
+    },
+    "end": {
+      "line": 189,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.muteApp",
+    "defaultMessage": "!!!Disable notifications & audio",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 190,
+      "column": 11
+    },
+    "end": {
+      "line": 193,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.unmuteApp",
+    "defaultMessage": "!!!Enable notifications & audio",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 194,
+      "column": 13
+    },
+    "end": {
+      "line": 197,
+      "column": 3
+    }
   }
 ]

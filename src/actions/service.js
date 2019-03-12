@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import ServiceModel from '../models/Service';
 
 export default {
   setActive: {
@@ -35,6 +36,9 @@ export default {
   setWebviewReference: {
     serviceId: PropTypes.string.isRequired,
     webview: PropTypes.object.isRequired,
+  },
+  detachService: {
+    service: PropTypes.instanceOf(ServiceModel).isRequired,
   },
   focusService: {
     serviceId: PropTypes.string.isRequired,
