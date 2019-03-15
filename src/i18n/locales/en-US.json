@@ -268,6 +268,8 @@
   "menu.app.unhide": "Unhide",
   "menu.app.quit": "Quit",
   "menu.services.addNewService": "Add New Service...",
+  "menu.services.nextService": "Open Next Service...",
+  "menu.services.prevService": "Open Previous Service...",
   "validation.required": "{field} is required",
   "validation.email": "{field} is not valid",
   "validation.url": "{field} is not a valid URL",

@@ -179,6 +179,14 @@ const menuItems = defineMessages({
     id: 'menu.services.addNewService',
     defaultMessage: '!!!Add New Service...',
   },
+  nextService: {
+    id: 'menu.services.nextService',
+    defaultMessage: '!!!Open Next Service...',
+  },
+  prevService: {
+    id: 'menu.services.prevService',
+    defaultMessage: '!!!Open Previous Service...',
+  },
 });
 
 function getActiveWebview() {
@@ -663,16 +671,35 @@ export default class FranzMenu {
       }, about);
     }
 
-    serviceTpl.unshift({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${cmdKey}+N`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
+    serviceTpl.unshift(
+      {
+        label: intl.formatMessage(menuItems.addNewService),
+        accelerator: `${cmdKey}+N`,
+        click: () => {
+          this.actions.ui.openSettings({ path: 'recipes' });
+        },
+        enabled: this.stores.user.isLoggedIn,
       },
-      enabled: this.stores.user.isLoggedIn,
-    }, {
-      type: 'separator',
-    });
+      {
+        accelerator: isMac ? `${cmdKey}+Option+Down` : `${cmdKey}+PageDown`,
+        label: intl.formatMessage(menuItems.nextService),
+        click: () => {
+          this.actions.service.setActiveNext();
+        },
+        enabled: this.stores.user.isLoggedIn,
+      },
+      {
+        label: intl.formatMessage(menuItems.prevService),
+        accelerator: isMac ? `${cmdKey}+Option+Up` : `${cmdKey}+PageUp`,
+        click: () => {
+          this.actions.service.setActivePrev();
+        },
+        enabled: this.stores.user.isLoggedIn,
+      },
+      {
+        type: 'separator',
+      },
+    );
 
     if (serviceTpl.length > 0) {
       tpl[3].submenu = serviceTpl;

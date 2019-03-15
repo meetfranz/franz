@@ -60,6 +60,8 @@
    "menu.help.tos" : "Termos do Serviço",
    "menu.services" : "Serviços",
    "menu.services.addNewService" : "Adicionar Novo Serviço...",
+   "menu.services.nextService" : "Abrir Próximo Serviço...",
+   "menu.services.prevService" : "Abrir Serviço Anterior...",
    "menu.view" : "Ver",
    "menu.view.enterFullScreen" : "Ativar Modo de Ecrã Completo",
    "menu.view.exitFullScreen" : "Sair do Modo de Ecrã Completo",
