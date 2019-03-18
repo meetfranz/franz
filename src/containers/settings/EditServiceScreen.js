@@ -9,7 +9,6 @@ import ServicesStore from '../../stores/ServicesStore';
 import SettingsStore from '../../stores/SettingsStore';
 import FeaturesStore from '../../stores/FeaturesStore';
 import Form from '../../lib/Form';
-import { gaPage } from '../../lib/analytics';
 
 import ServiceError from '../../components/settings/services/ServiceError';
 import EditServiceForm from '../../components/settings/services/EditServiceForm';
@@ -92,10 +91,6 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Service/Edit');
-  }
 
   onSubmit(data) {
     const { action } = this.props.router.params;

@@ -1,8 +1,7 @@
 import { action, observable, computed } from 'mobx';
+import { theme } from '@meetfranz/theme';
 
 import Store from './lib/Store';
-import * as themeDefault from '../theme/default';
-import * as themeDark from '../theme/dark';
 
 export default class UIStore extends Store {
   @observable showServicesUpdatedInfoBar = false;
@@ -24,10 +23,10 @@ export default class UIStore extends Store {
 
   @computed get theme() {
     if (this.stores.settings.all.app.darkMode) {
-      return Object.assign({}, themeDefault, themeDark);
+      return theme('dark');
     }
 
-    return themeDefault;
+    return theme('default');
   }
 
   // Actions

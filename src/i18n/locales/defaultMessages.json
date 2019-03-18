@@ -1,0 +1,3934 @@
+[
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Import your Franz 4 services",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/auth/Import.js",
+        "id": "import.headline",
+        "start": {
+          "column": 12,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Services not yet supported in Franz 5",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/auth/Import.js",
+        "id": "import.notSupportedHeadline",
+        "start": {
+          "column": 24,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Import {count} services",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/auth/Import.js",
+        "id": "import.submit.label",
+        "start": {
+          "column": 21,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!I want to add services manually",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/auth/Import.js",
+        "id": "import.skip.label",
+        "start": {
+          "column": 19,
+          "line": 25
+        }
+      }
+    ],
+    "path": "src/components/auth/Import.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Invite Friends",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "settings.invite.headline",
+        "start": {
+          "column": 20,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!Invite 3 of your friends or colleagues",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "invite.headline.friends",
+        "start": {
+          "column": 12,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Name",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "invite.name.label",
+        "start": {
+          "column": 13,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Email address",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "invite.email.label",
+        "start": {
+          "column": 14,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Send invites",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "invite.submit.label",
+        "start": {
+          "column": 21,
+          "line": 32
+        }
+      },
+      {
+        "defaultMessage": "!!!I want to do this later",
+        "end": {
+          "column": 3,
+          "line": 39
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "invite.skip.label",
+        "start": {
+          "column": 19,
+          "line": 36
+        }
+      },
+      {
+        "defaultMessage": "!!!Invitations sent successfully",
+        "end": {
+          "column": 3,
+          "line": 43
+        },
+        "file": "src/components/auth/Invite.js",
+        "id": "invite.successInfo",
+        "start": {
+          "column": 21,
+          "line": 40
+        }
+      }
+    ],
+    "path": "src/components/auth/Invite.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Sign in",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.headline",
+        "start": {
+          "column": 12,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Email address",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.email.label",
+        "start": {
+          "column": 14,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Password",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.password.label",
+        "start": {
+          "column": 17,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Sign in",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.submit.label",
+        "start": {
+          "column": 21,
+          "line": 29
+        }
+      },
+      {
+        "defaultMessage": "!!!Email or password not valid",
+        "end": {
+          "column": 3,
+          "line": 36
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.invalidCredentials",
+        "start": {
+          "column": 22,
+          "line": 33
+        }
+      },
+      {
+        "defaultMessage": "!!!Your session expired, please login again.",
+        "end": {
+          "column": 3,
+          "line": 40
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.tokenExpired",
+        "start": {
+          "column": 16,
+          "line": 37
+        }
+      },
+      {
+        "defaultMessage": "!!!Your session expired, please login again.",
+        "end": {
+          "column": 3,
+          "line": 44
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.serverLogout",
+        "start": {
+          "column": 16,
+          "line": 41
+        }
+      },
+      {
+        "defaultMessage": "!!!Create a free account",
+        "end": {
+          "column": 3,
+          "line": 48
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.link.signup",
+        "start": {
+          "column": 14,
+          "line": 45
+        }
+      },
+      {
+        "defaultMessage": "!!!Forgot password",
+        "end": {
+          "column": 3,
+          "line": 52
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.link.password",
+        "start": {
+          "column": 16,
+          "line": 49
+        }
+      }
+    ],
+    "path": "src/components/auth/Login.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Forgot password",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.headline",
+        "start": {
+          "column": 12,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Email address",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.email.label",
+        "start": {
+          "column": 14,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Submit",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.submit.label",
+        "start": {
+          "column": 21,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Your new password was sent to your email address",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.successInfo",
+        "start": {
+          "column": 15,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!No user affiliated with that email address",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.noUser",
+        "start": {
+          "column": 10,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Create a free account",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.link.signup",
+        "start": {
+          "column": 14,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Sign in to your account",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/components/auth/Password.js",
+        "id": "password.link.login",
+        "start": {
+          "column": 13,
+          "line": 38
+        }
+      }
+    ],
+    "path": "src/components/auth/Password.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Support Franz",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.headline",
+        "start": {
+          "column": 12,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Select your support plan",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.support.label",
+        "start": {
+          "column": 23,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Support the development of Franz",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.submit.label",
+        "start": {
+          "column": 21,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!I don't want to support the development of Franz.",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.link.skipPayment",
+        "start": {
+          "column": 15,
+          "line": 25
+        }
+      }
+    ],
+    "path": "src/components/auth/Pricing.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Sign up",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.headline",
+        "start": {
+          "column": 12,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Firstname",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.firstname.label",
+        "start": {
+          "column": 18,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Lastname",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.lastname.label",
+        "start": {
+          "column": 17,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Email address",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.email.label",
+        "start": {
+          "column": 14,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Company",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.company.label",
+        "start": {
+          "column": 16,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Password",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.password.label",
+        "start": {
+          "column": 17,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!By creating a Franz account you accept the",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.legal.info",
+        "start": {
+          "column": 13,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!Terms of service",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.legal.terms",
+        "start": {
+          "column": 9,
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!!Privacy Statement",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.legal.privacy",
+        "start": {
+          "column": 11,
+          "line": 50
+        }
+      },
+      {
+        "defaultMessage": "!!!Create account",
+        "end": {
+          "column": 3,
+          "line": 57
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.submit.label",
+        "start": {
+          "column": 21,
+          "line": 54
+        }
+      },
+      {
+        "defaultMessage": "!!!Already have an account, sign in?",
+        "end": {
+          "column": 3,
+          "line": 61
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.link.login",
+        "start": {
+          "column": 13,
+          "line": 58
+        }
+      },
+      {
+        "defaultMessage": "!!!A user with that email address already exists",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/components/auth/Signup.js",
+        "id": "signup.emailDuplicate",
+        "start": {
+          "column": 18,
+          "line": 62
+        }
+      }
+    ],
+    "path": "src/components/auth/Signup.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Create a free account",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/components/auth/Welcome.js",
+        "id": "welcome.signupButton",
+        "start": {
+          "column": 16,
+          "line": 9
+        }
+      },
+      {
+        "defaultMessage": "!!!Login to your account",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/auth/Welcome.js",
+        "id": "welcome.loginButton",
+        "start": {
+          "column": 15,
+          "line": 13
+        }
+      }
+    ],
+    "path": "src/components/auth/Welcome.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Your services have been updated.",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.servicesUpdated",
+        "start": {
+          "column": 19,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!A new update for Franz is available.",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.updateAvailable",
+        "start": {
+          "column": 19,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload services",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.buttonReloadServices",
+        "start": {
+          "column": 24,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Changelog",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.buttonChangelog",
+        "start": {
+          "column": 13,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Restart & install update",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.buttonInstallUpdate",
+        "start": {
+          "column": 23,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!Could not load services and user information",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.requiredRequestsFailed",
+        "start": {
+          "column": 26,
+          "line": 42
+        }
+      }
+    ],
+    "path": "src/components/layout/AppLayout.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Settings",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/layout/Sidebar.js",
+        "id": "sidebar.settings",
+        "start": {
+          "column": 12,
+          "line": 11
+        }
+      },
+      {
+        "defaultMessage": "!!!Add new service",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/layout/Sidebar.js",
+        "id": "sidebar.addNewService",
+        "start": {
+          "column": 17,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Disable notifications & audio",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/layout/Sidebar.js",
+        "id": "sidebar.muteApp",
+        "start": {
+          "column": 8,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable notifications & audio",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/layout/Sidebar.js",
+        "id": "sidebar.unmuteApp",
+        "start": {
+          "column": 10,
+          "line": 23
+        }
+      }
+    ],
+    "path": "src/components/layout/Sidebar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Oh no!",
+        "end": {
+          "column": 3,
+          "line": 15
+        },
+        "file": "src/components/services/content/ErrorHandlers/WebviewErrorHandler.js",
+        "id": "service.errorHandler.headline",
+        "start": {
+          "column": 12,
+          "line": 12
+        }
+      },
+      {
+        "defaultMessage": "!!!{name} has failed to load.",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/components/services/content/ErrorHandlers/WebviewErrorHandler.js",
+        "id": "service.errorHandler.text",
+        "start": {
+          "column": 8,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload {name}",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/components/services/content/ErrorHandlers/WebviewErrorHandler.js",
+        "id": "service.errorHandler.action",
+        "start": {
+          "column": 10,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Edit {name}",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/components/services/content/ErrorHandlers/WebviewErrorHandler.js",
+        "id": "service.errorHandler.editAction",
+        "start": {
+          "column": 14,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Error:",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/components/services/content/ErrorHandlers/WebviewErrorHandler.js",
+        "id": "service.errorHandler.message",
+        "start": {
+          "column": 16,
+          "line": 28
+        }
+      }
+    ],
+    "path": "src/components/services/content/ErrorHandlers/WebviewErrorHandler.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!{name} is disabled",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/components/services/content/ServiceDisabled.js",
+        "id": "service.disabledHandler.headline",
+        "start": {
+          "column": 12,
+          "line": 9
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable {name}",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/services/content/ServiceDisabled.js",
+        "id": "service.disabledHandler.action",
+        "start": {
+          "column": 10,
+          "line": 13
+        }
+      }
+    ],
+    "path": "src/components/services/content/ServiceDisabled.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Welcome to Franz",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/services/content/Services.js",
+        "id": "services.welcome",
+        "start": {
+          "column": 11,
+          "line": 11
+        }
+      },
+      {
+        "defaultMessage": "!!!Get started",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/services/content/Services.js",
+        "id": "services.getStarted",
+        "start": {
+          "column": 14,
+          "line": 15
+        }
+      }
+    ],
+    "path": "src/components/services/content/Services.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Oh no!",
+        "end": {
+          "column": 3,
+          "line": 13
+        },
+        "file": "src/components/services/content/WebviewCrashHandler.js",
+        "id": "service.crashHandler.headline",
+        "start": {
+          "column": 12,
+          "line": 10
+        }
+      },
+      {
+        "defaultMessage": "!!!{name} has caused an error.",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/services/content/WebviewCrashHandler.js",
+        "id": "service.crashHandler.text",
+        "start": {
+          "column": 8,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload {name}",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/services/content/WebviewCrashHandler.js",
+        "id": "service.crashHandler.action",
+        "start": {
+          "column": 10,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Trying to automatically restore {name} in {seconds} seconds",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/services/content/WebviewCrashHandler.js",
+        "id": "service.crashHandler.autoReload",
+        "start": {
+          "column": 14,
+          "line": 22
+        }
+      }
+    ],
+    "path": "src/components/services/content/WebviewCrashHandler.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Reload",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.reload",
+        "start": {
+          "column": 10,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Edit",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.edit",
+        "start": {
+          "column": 8,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Disable notifications",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.disableNotifications",
+        "start": {
+          "column": 24,
+          "line": 23
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable notifications",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.enableNotification",
+        "start": {
+          "column": 23,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Disable audio",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.disableAudio",
+        "start": {
+          "column": 16,
+          "line": 31
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable audio",
+        "end": {
+          "column": 3,
+          "line": 38
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.enableAudio",
+        "start": {
+          "column": 15,
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!!Disable Service",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.disableService",
+        "start": {
+          "column": 18,
+          "line": 39
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable Service",
+        "end": {
+          "column": 3,
+          "line": 46
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.enableService",
+        "start": {
+          "column": 17,
+          "line": 43
+        }
+      },
+      {
+        "defaultMessage": "!!!Delete Service",
+        "end": {
+          "column": 3,
+          "line": 50
+        },
+        "file": "src/components/services/tabs/TabItem.js",
+        "id": "tabs.item.deleteService",
+        "start": {
+          "column": 17,
+          "line": 47
+        }
+      }
+    ],
+    "path": "src/components/services/tabs/TabItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Account",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.headline",
+        "start": {
+          "column": 12,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Your Subscription",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.headlineSubscription",
+        "start": {
+          "column": 24,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade your Account",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.headlineUpgrade",
+        "start": {
+          "column": 19,
+          "line": 23
+        }
+      },
+      {
+        "defaultMessage": "!!Invoices",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.headlineInvoices",
+        "start": {
+          "column": 20,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!Danger Zone",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.headlineDangerZone",
+        "start": {
+          "column": 22,
+          "line": 31
+        }
+      },
+      {
+        "defaultMessage": "!!!Manage your subscription",
+        "end": {
+          "column": 3,
+          "line": 38
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.manageSubscription.label",
+        "start": {
+          "column": 33,
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!!Basic Account",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.accountType.basic",
+        "start": {
+          "column": 20,
+          "line": 39
+        }
+      },
+      {
+        "defaultMessage": "!!!Premium Supporter Account",
+        "end": {
+          "column": 3,
+          "line": 46
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.accountType.premium",
+        "start": {
+          "column": 22,
+          "line": 43
+        }
+      },
+      {
+        "defaultMessage": "!!!Edit Account",
+        "end": {
+          "column": 3,
+          "line": 50
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.account.editButton",
+        "start": {
+          "column": 21,
+          "line": 47
+        }
+      },
+      {
+        "defaultMessage": "!!!Download",
+        "end": {
+          "column": 3,
+          "line": 54
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.invoiceDownload",
+        "start": {
+          "column": 19,
+          "line": 51
+        }
+      },
+      {
+        "defaultMessage": "!!!Could not load user information",
+        "end": {
+          "column": 3,
+          "line": 58
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.userInfoRequestFailed",
+        "start": {
+          "column": 25,
+          "line": 55
+        }
+      },
+      {
+        "defaultMessage": "!!!Try again",
+        "end": {
+          "column": 3,
+          "line": 62
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.tryReloadUserInfoRequest",
+        "start": {
+          "column": 28,
+          "line": 59
+        }
+      },
+      {
+        "defaultMessage": "!!!Delete account",
+        "end": {
+          "column": 3,
+          "line": 66
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.deleteAccount",
+        "start": {
+          "column": 17,
+          "line": 63
+        }
+      },
+      {
+        "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
+        "end": {
+          "column": 3,
+          "line": 70
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.deleteInfo",
+        "start": {
+          "column": 14,
+          "line": 67
+        }
+      },
+      {
+        "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
+        "end": {
+          "column": 3,
+          "line": 74
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.deleteEmailSent",
+        "start": {
+          "column": 19,
+          "line": 71
+        }
+      }
+    ],
+    "path": "src/components/settings/account/AccountDashboard.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Available services",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.availableServices",
+        "start": {
+          "column": 21,
+          "line": 9
+        }
+      },
+      {
+        "defaultMessage": "!!!Your services",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.yourServices",
+        "start": {
+          "column": 16,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Account",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.account",
+        "start": {
+          "column": 11,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Settings",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.settings",
+        "start": {
+          "column": 12,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Invite Friends",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.inviteFriends",
+        "start": {
+          "column": 17,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Logout",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.logout",
+        "start": {
+          "column": 10,
+          "line": 29
+        }
+      }
+    ],
+    "path": "src/components/settings/navigation/SettingsNavigation.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Available Services",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.headline",
+        "start": {
+          "column": 12,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Search service",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.searchService",
+        "start": {
+          "column": 17,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Most popular",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.mostPopular",
+        "start": {
+          "column": 22,
+          "line": 23
+        }
+      },
+      {
+        "defaultMessage": "!!!All services",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.all",
+        "start": {
+          "column": 14,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Development",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.dev",
+        "start": {
+          "column": 14,
+          "line": 31
+        }
+      },
+      {
+        "defaultMessage": "!!!Sorry, but no service matched your search term.",
+        "end": {
+          "column": 3,
+          "line": 38
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.nothingFound",
+        "start": {
+          "column": 16,
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!!Service successfully added",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.servicesSuccessfulAddedInfo",
+        "start": {
+          "column": 31,
+          "line": 39
+        }
+      },
+      {
+        "defaultMessage": "!!!Missing a service?",
+        "end": {
+          "column": 3,
+          "line": 46
+        },
+        "file": "src/components/settings/recipes/RecipesDashboard.js",
+        "id": "settings.recipes.missingService",
+        "start": {
+          "column": 18,
+          "line": 43
+        }
+      }
+    ],
+    "path": "src/components/settings/recipes/RecipesDashboard.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Save service",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.saveButton",
+        "start": {
+          "column": 15,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Delete Service",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.deleteButton",
+        "start": {
+          "column": 17,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Available services",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.availableServices",
+        "start": {
+          "column": 21,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Your services",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.yourServices",
+        "start": {
+          "column": 16,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Add {name}",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.addServiceHeadline",
+        "start": {
+          "column": 22,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!Edit {name}",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.editServiceHeadline",
+        "start": {
+          "column": 23,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!Hosted",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.tabHosted",
+        "start": {
+          "column": 13,
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!!Self hosted ⭐️",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.tabOnPremise",
+        "start": {
+          "column": 16,
+          "line": 50
+        }
+      },
+      {
+        "defaultMessage": "!!!Use the hosted {name} service.",
+        "end": {
+          "column": 3,
+          "line": 57
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.useHostedService",
+        "start": {
+          "column": 20,
+          "line": 54
+        }
+      },
+      {
+        "defaultMessage": "!!!Could not validate custom {name} server.",
+        "end": {
+          "column": 3,
+          "line": 61
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.customUrlValidationError",
+        "start": {
+          "column": 28,
+          "line": 58
+        }
+      },
+      {
+        "defaultMessage": "!!!To add self hosted services, you need a Franz Premium Supporter Account.",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.customUrlPremiumInfo",
+        "start": {
+          "column": 24,
+          "line": 62
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade your account",
+        "end": {
+          "column": 3,
+          "line": 69
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.customUrlUpgradeAccount",
+        "start": {
+          "column": 27,
+          "line": 66
+        }
+      },
+      {
+        "defaultMessage": "!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...",
+        "end": {
+          "column": 3,
+          "line": 73
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.indirectMessageInfo",
+        "start": {
+          "column": 23,
+          "line": 70
+        }
+      },
+      {
+        "defaultMessage": "!!!When disabled, all notification sounds and audio playback are muted",
+        "end": {
+          "column": 3,
+          "line": 77
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.isMutedInfo",
+        "start": {
+          "column": 15,
+          "line": 74
+        }
+      },
+      {
+        "defaultMessage": "!!!Notifications",
+        "end": {
+          "column": 3,
+          "line": 81
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.headlineNotifications",
+        "start": {
+          "column": 25,
+          "line": 78
+        }
+      },
+      {
+        "defaultMessage": "!!!Unread message badges",
+        "end": {
+          "column": 3,
+          "line": 85
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.headlineBadges",
+        "start": {
+          "column": 18,
+          "line": 82
+        }
+      },
+      {
+        "defaultMessage": "!!!General",
+        "end": {
+          "column": 3,
+          "line": 89
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.headlineGeneral",
+        "start": {
+          "column": 19,
+          "line": 86
+        }
+      },
+      {
+        "defaultMessage": "!!!Delete",
+        "end": {
+          "column": 3,
+          "line": 93
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.iconDelete",
+        "start": {
+          "column": 14,
+          "line": 90
+        }
+      },
+      {
+        "defaultMessage": "!!!Drop your image, or click here",
+        "end": {
+          "column": 3,
+          "line": 97
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.iconUpload",
+        "start": {
+          "column": 14,
+          "line": 94
+        }
+      },
+      {
+        "defaultMessage": "!!!HTTP/HTTPS Proxy Settings",
+        "end": {
+          "column": 3,
+          "line": 101
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.proxy.headline",
+        "start": {
+          "column": 17,
+          "line": 98
+        }
+      },
+      {
+        "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
+        "end": {
+          "column": 3,
+          "line": 105
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.proxy.restartInfo",
+        "start": {
+          "column": 20,
+          "line": 102
+        }
+      },
+      {
+        "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
+        "end": {
+          "column": 3,
+          "line": 109
+        },
+        "file": "src/components/settings/services/EditServiceForm.js",
+        "id": "settings.service.form.proxy.info",
+        "start": {
+          "column": 13,
+          "line": 106
+        }
+      }
+    ],
+    "path": "src/components/settings/services/EditServiceForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Error",
+        "end": {
+          "column": 3,
+          "line": 13
+        },
+        "file": "src/components/settings/services/ServiceError.js",
+        "id": "settings.service.error.headline",
+        "start": {
+          "column": 12,
+          "line": 10
+        }
+      },
+      {
+        "defaultMessage": "!!!Back to services",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/settings/services/ServiceError.js",
+        "id": "settings.service.error.goBack",
+        "start": {
+          "column": 10,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Available services",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/settings/services/ServiceError.js",
+        "id": "settings.service.form.availableServices",
+        "start": {
+          "column": 21,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Could not load service recipe.",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/settings/services/ServiceError.js",
+        "id": "settings.service.error.message",
+        "start": {
+          "column": 16,
+          "line": 22
+        }
+      }
+    ],
+    "path": "src/components/settings/services/ServiceError.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Service is disabled",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/settings/services/ServiceItem.js",
+        "id": "settings.services.tooltip.isDisabled",
+        "start": {
+          "column": 21,
+          "line": 11
+        }
+      },
+      {
+        "defaultMessage": "!!!Notifications are disabled",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/settings/services/ServiceItem.js",
+        "id": "settings.services.tooltip.notificationsDisabled",
+        "start": {
+          "column": 32,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!All sounds are muted",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/settings/services/ServiceItem.js",
+        "id": "settings.services.tooltip.isMuted",
+        "start": {
+          "column": 18,
+          "line": 19
+        }
+      }
+    ],
+    "path": "src/components/settings/services/ServiceItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Your services",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.services.headline",
+        "start": {
+          "column": 12,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Search service",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.searchService",
+        "start": {
+          "column": 17,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!You haven't added any services yet.",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.services.noServicesAdded",
+        "start": {
+          "column": 19,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Sorry, but no service matched your search term.",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.recipes.nothingFound",
+        "start": {
+          "column": 18,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Discover services",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.services.discoverServices",
+        "start": {
+          "column": 20,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Could not load your services",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.services.servicesRequestFailed",
+        "start": {
+          "column": 25,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Try again",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.account.tryReloadServices",
+        "start": {
+          "column": 21,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!Your changes have been saved",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.services.updatedInfo",
+        "start": {
+          "column": 15,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!Service has been deleted",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/components/settings/services/ServicesDashboard.js",
+        "id": "settings.services.deletedInfo",
+        "start": {
+          "column": 15,
+          "line": 46
+        }
+      }
+    ],
+    "path": "src/components/settings/services/ServicesDashboard.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Settings",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.headline",
+        "start": {
+          "column": 12,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!General",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.headlineGeneral",
+        "start": {
+          "column": 19,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Language",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.headlineLanguage",
+        "start": {
+          "column": 20,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Updates",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.headlineUpdates",
+        "start": {
+          "column": 19,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Appearance",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.headlineAppearance",
+        "start": {
+          "column": 22,
+          "line": 32
+        }
+      },
+      {
+        "defaultMessage": "!!!Advanced",
+        "end": {
+          "column": 3,
+          "line": 39
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.headlineAdvanced",
+        "start": {
+          "column": 20,
+          "line": 36
+        }
+      },
+      {
+        "defaultMessage": "!!!Help us to translate Franz into your language.",
+        "end": {
+          "column": 3,
+          "line": 43
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.translationHelp",
+        "start": {
+          "column": 19,
+          "line": 40
+        }
+      },
+      {
+        "defaultMessage": "!!!Cache",
+        "end": {
+          "column": 3,
+          "line": 47
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.subheadlineCache",
+        "start": {
+          "column": 20,
+          "line": 44
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz cache is currently using {size} of disk space.",
+        "end": {
+          "column": 3,
+          "line": 51
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.cacheInfo",
+        "start": {
+          "column": 13,
+          "line": 48
+        }
+      },
+      {
+        "defaultMessage": "!!!Clear cache",
+        "end": {
+          "column": 3,
+          "line": 55
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.buttonClearAllCache",
+        "start": {
+          "column": 23,
+          "line": 52
+        }
+      },
+      {
+        "defaultMessage": "!!!Check for updates",
+        "end": {
+          "column": 3,
+          "line": 59
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.buttonSearchForUpdate",
+        "start": {
+          "column": 25,
+          "line": 56
+        }
+      },
+      {
+        "defaultMessage": "!!!Restart & install update",
+        "end": {
+          "column": 3,
+          "line": 63
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.buttonInstallUpdate",
+        "start": {
+          "column": 23,
+          "line": 60
+        }
+      },
+      {
+        "defaultMessage": "!!!Is searching for update",
+        "end": {
+          "column": 3,
+          "line": 67
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusSearching",
+        "start": {
+          "column": 25,
+          "line": 64
+        }
+      },
+      {
+        "defaultMessage": "!!!Update available, downloading...",
+        "end": {
+          "column": 3,
+          "line": 71
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusAvailable",
+        "start": {
+          "column": 25,
+          "line": 68
+        }
+      },
+      {
+        "defaultMessage": "!!!You are using the latest version of Franz",
+        "end": {
+          "column": 3,
+          "line": 75
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusUpToDate",
+        "start": {
+          "column": 24,
+          "line": 72
+        }
+      },
+      {
+        "defaultMessage": "!!!Current version:",
+        "end": {
+          "column": 3,
+          "line": 79
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.currentVersion",
+        "start": {
+          "column": 18,
+          "line": 76
+        }
+      },
+      {
+        "defaultMessage": "!!!Changes require restart",
+        "end": {
+          "column": 3,
+          "line": 83
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.restartRequired",
+        "start": {
+          "column": 29,
+          "line": 80
+        }
+      }
+    ],
+    "path": "src/components/settings/settings/EditSettingsForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Account",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/settings/user/EditUserForm.js",
+        "id": "settings.account.headline",
+        "start": {
+          "column": 12,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Update Profile",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/settings/user/EditUserForm.js",
+        "id": "settings.account.headlineProfile",
+        "start": {
+          "column": 19,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Account Information",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/settings/user/EditUserForm.js",
+        "id": "settings.account.headlineAccount",
+        "start": {
+          "column": 19,
+          "line": 23
+        }
+      },
+      {
+        "defaultMessage": "!!!Change Password",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/components/settings/user/EditUserForm.js",
+        "id": "settings.account.headlinePassword",
+        "start": {
+          "column": 20,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Your changes have been saved",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/components/settings/user/EditUserForm.js",
+        "id": "settings.account.successInfo",
+        "start": {
+          "column": 15,
+          "line": 31
+        }
+      },
+      {
+        "defaultMessage": "!!!Update profile",
+        "end": {
+          "column": 3,
+          "line": 38
+        },
+        "file": "src/components/settings/user/EditUserForm.js",
+        "id": "settings.account.buttonSave",
+        "start": {
+          "column": 14,
+          "line": 35
+        }
+      }
+    ],
+    "path": "src/components/settings/user/EditUserForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Support the development of Franz",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.submit.label",
+        "start": {
+          "column": 21,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Could not initialize payment form",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.paymentSessionError",
+        "start": {
+          "column": 23,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!free",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.type.free",
+        "start": {
+          "column": 12,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!month",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.type.month",
+        "start": {
+          "column": 15,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!year",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.type.year",
+        "start": {
+          "column": 14,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!The Franz Premium Supporter Account includes",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.includedFeatures",
+        "start": {
+          "column": 20,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Add on-premise/hosted services like Mattermost",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.onpremise.mattermost",
+        "start": {
+          "column": 13,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!No app delays & nagging to upgrade license",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.noInterruptions",
+        "start": {
+          "column": 19,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!Proxy support for services",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.proxy",
+        "start": {
+          "column": 9,
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!!Support for Spellchecker",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.spellchecker",
+        "start": {
+          "column": 16,
+          "line": 50
+        }
+      },
+      {
+        "defaultMessage": "!!!No ads, ever!",
+        "end": {
+          "column": 3,
+          "line": 57
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.ads",
+        "start": {
+          "column": 7,
+          "line": 54
+        }
+      },
+      {
+        "defaultMessage": "!!!coming soon",
+        "end": {
+          "column": 3,
+          "line": 61
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.comingSoon",
+        "start": {
+          "column": 14,
+          "line": 58
+        }
+      },
+      {
+        "defaultMessage": "!!!EU residents: local sales tax may apply",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.euTaxInfo",
+        "start": {
+          "column": 13,
+          "line": 62
+        }
+      }
+    ],
+    "path": "src/components/subscription/SubscriptionForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Cancel",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/subscription/SubscriptionPopup.js",
+        "id": "subscriptionPopup.buttonCancel",
+        "start": {
+          "column": 16,
+          "line": 11
+        }
+      },
+      {
+        "defaultMessage": "!!!Done",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/subscription/SubscriptionPopup.js",
+        "id": "subscriptionPopup.buttonDone",
+        "start": {
+          "column": 14,
+          "line": 15
+        }
+      }
+    ],
+    "path": "src/components/subscription/SubscriptionPopup.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Upgrade account",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/ui/PremiumFeatureContainer/index.js",
+        "id": "premiumFeature.button.upgradeAccount",
+        "start": {
+          "column": 10,
+          "line": 14
+        }
+      }
+    ],
+    "path": "src/components/ui/PremiumFeatureContainer/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Something went wrong.",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/util/ErrorBoundary/index.js",
+        "id": "app.errorHandler.headline",
+        "start": {
+          "column": 12,
+          "line": 11
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/util/ErrorBoundary/index.js",
+        "id": "app.errorHandler.action",
+        "start": {
+          "column": 10,
+          "line": 15
+        }
+      }
+    ],
+    "path": "src/components/util/ErrorBoundary/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Name",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.name",
+        "start": {
+          "column": 8,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable service",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.enableService",
+        "start": {
+          "column": 17,
+          "line": 32
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable Notifications",
+        "end": {
+          "column": 3,
+          "line": 39
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.enableNotification",
+        "start": {
+          "column": 22,
+          "line": 36
+        }
+      },
+      {
+        "defaultMessage": "!!!Show unread message badges",
+        "end": {
+          "column": 3,
+          "line": 43
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.enableBadge",
+        "start": {
+          "column": 15,
+          "line": 40
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable audio",
+        "end": {
+          "column": 3,
+          "line": 47
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.enableAudio",
+        "start": {
+          "column": 15,
+          "line": 44
+        }
+      },
+      {
+        "defaultMessage": "!!!Team",
+        "end": {
+          "column": 3,
+          "line": 51
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.team",
+        "start": {
+          "column": 8,
+          "line": 48
+        }
+      },
+      {
+        "defaultMessage": "!!!Custom server",
+        "end": {
+          "column": 3,
+          "line": 55
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.customUrl",
+        "start": {
+          "column": 13,
+          "line": 52
+        }
+      },
+      {
+        "defaultMessage": "!!!Show message badge for all new messages",
+        "end": {
+          "column": 3,
+          "line": 59
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.indirectMessages",
+        "start": {
+          "column": 20,
+          "line": 56
+        }
+      },
+      {
+        "defaultMessage": "!!!Custom icon",
+        "end": {
+          "column": 3,
+          "line": 63
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.icon",
+        "start": {
+          "column": 8,
+          "line": 60
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable Dark Mode",
+        "end": {
+          "column": 3,
+          "line": 67
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.enableDarkMode",
+        "start": {
+          "column": 18,
+          "line": 64
+        }
+      },
+      {
+        "defaultMessage": "!!!Use Proxy",
+        "end": {
+          "column": 3,
+          "line": 71
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.proxy.isEnabled",
+        "start": {
+          "column": 15,
+          "line": 68
+        }
+      },
+      {
+        "defaultMessage": "!!!Proxy Host/IP",
+        "end": {
+          "column": 3,
+          "line": 75
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.proxy.host",
+        "start": {
+          "column": 13,
+          "line": 72
+        }
+      },
+      {
+        "defaultMessage": "!!!Port",
+        "end": {
+          "column": 3,
+          "line": 79
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.proxy.port",
+        "start": {
+          "column": 13,
+          "line": 76
+        }
+      },
+      {
+        "defaultMessage": "!!!User",
+        "end": {
+          "column": 3,
+          "line": 83
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.proxy.user",
+        "start": {
+          "column": 13,
+          "line": 80
+        }
+      },
+      {
+        "defaultMessage": "!!!Password",
+        "end": {
+          "column": 3,
+          "line": 87
+        },
+        "file": "src/containers/settings/EditServiceScreen.js",
+        "id": "settings.service.form.proxy.password",
+        "start": {
+          "column": 17,
+          "line": 84
+        }
+      }
+    ],
+    "path": "src/containers/settings/EditServiceScreen.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Launch Franz on start",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.autoLaunchOnStart",
+        "start": {
+          "column": 21,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Open in background",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.autoLaunchInBackground",
+        "start": {
+          "column": 26,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Keep Franz in background when closing the window",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.runInBackground",
+        "start": {
+          "column": 19,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Show Franz in system tray",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.enableSystemTray",
+        "start": {
+          "column": 20,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Minimize Franz to system tray",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.minimizeToSystemTray",
+        "start": {
+          "column": 24,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!Language",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.language",
+        "start": {
+          "column": 12,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!Dark Mode",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.darkMode",
+        "start": {
+          "column": 12,
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!!Display disabled services tabs",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.showDisabledServices",
+        "start": {
+          "column": 24,
+          "line": 50
+        }
+      },
+      {
+        "defaultMessage": "!!!Show unread message badge when notifications are disabled",
+        "end": {
+          "column": 3,
+          "line": 57
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.showMessagesBadgesWhenMuted",
+        "start": {
+          "column": 29,
+          "line": 54
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable spell checking",
+        "end": {
+          "column": 3,
+          "line": 61
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.enableSpellchecking",
+        "start": {
+          "column": 23,
+          "line": 58
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable GPU Acceleration",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.enableGPUAcceleration",
+        "start": {
+          "column": 25,
+          "line": 62
+        }
+      },
+      {
+        "defaultMessage": "!!!Include beta versions",
+        "end": {
+          "column": 3,
+          "line": 69
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.beta",
+        "start": {
+          "column": 8,
+          "line": 66
+        }
+      }
+    ],
+    "path": "src/containers/settings/EditSettingsScreen.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Firstname",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.firstname",
+        "start": {
+          "column": 13,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Lastname",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.lastname",
+        "start": {
+          "column": 12,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Email",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.email",
+        "start": {
+          "column": 9,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Account type",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.accountType.label",
+        "start": {
+          "column": 20,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Individual",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.accountType.individual",
+        "start": {
+          "column": 25,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Non-Profit",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.accountType.non-profit",
+        "start": {
+          "column": 24,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Company",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.accountType.company",
+        "start": {
+          "column": 22,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!Current password",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.currentPassword",
+        "start": {
+          "column": 19,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!New password",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/containers/settings/EditUserScreen.js",
+        "id": "settings.user.form.newPassword",
+        "start": {
+          "column": 15,
+          "line": 46
+        }
+      }
+    ],
+    "path": "src/containers/settings/EditUserScreen.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Please purchase license to skip waiting",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.headline",
+        "start": {
+          "column": 12,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Get a Franz Supporter License",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.action",
+        "start": {
+          "column": 10,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.text",
+        "start": {
+          "column": 8,
+          "line": 23
+        }
+      }
+    ],
+    "path": "src/features/delayApp/Component.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Franz is better together!",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.headline",
+        "start": {
+          "column": 12,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.text",
+        "start": {
+          "column": 8,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Share as email",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.action.email",
+        "start": {
+          "column": 16,
+          "line": 23
+        }
+      },
+      {
+        "defaultMessage": "!!!Share on Facebook",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.action.facebook",
+        "start": {
+          "column": 19,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Share on Twitter",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.action.twitter",
+        "start": {
+          "column": 18,
+          "line": 31
+        }
+      },
+      {
+        "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
+        "end": {
+          "column": 3,
+          "line": 38
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.shareText.email",
+        "start": {
+          "column": 18,
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @MeetFranz",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.shareText.twitter",
+        "start": {
+          "column": 20,
+          "line": 39
+        }
+      }
+    ],
+    "path": "src/features/shareFranz/Component.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Field is required",
+        "end": {
+          "column": 3,
+          "line": 7
+        },
+        "file": "src/helpers/validation-helpers.js",
+        "id": "validation.required",
+        "start": {
+          "column": 12,
+          "line": 4
+        }
+      },
+      {
+        "defaultMessage": "!!!Email not valid",
+        "end": {
+          "column": 3,
+          "line": 11
+        },
+        "file": "src/helpers/validation-helpers.js",
+        "id": "validation.email",
+        "start": {
+          "column": 9,
+          "line": 8
+        }
+      },
+      {
+        "defaultMessage": "!!!Not a valid URL",
+        "end": {
+          "column": 3,
+          "line": 15
+        },
+        "file": "src/helpers/validation-helpers.js",
+        "id": "validation.url",
+        "start": {
+          "column": 7,
+          "line": 12
+        }
+      },
+      {
+        "defaultMessage": "!!!Too few characters",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/helpers/validation-helpers.js",
+        "id": "validation.minLength",
+        "start": {
+          "column": 13,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!At least one is required",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/helpers/validation-helpers.js",
+        "id": "validation.oneRequired",
+        "start": {
+          "column": 15,
+          "line": 20
+        }
+      }
+    ],
+    "path": "src/helpers/validation-helpers.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Can't connect to Franz Online Services",
+        "end": {
+          "column": 3,
+          "line": 7
+        },
+        "file": "src/i18n/globalMessages.js",
+        "id": "global.api.unhealthy",
+        "start": {
+          "column": 16,
+          "line": 4
+        }
+      },
+      {
+        "defaultMessage": "!!!You are not connected to the internet.",
+        "end": {
+          "column": 3,
+          "line": 11
+        },
+        "file": "src/i18n/globalMessages.js",
+        "id": "global.notConnectedToTheInternet",
+        "start": {
+          "column": 29,
+          "line": 8
+        }
+      },
+      {
+        "defaultMessage": "!!!Spell checking language",
+        "end": {
+          "column": 3,
+          "line": 15
+        },
+        "file": "src/i18n/globalMessages.js",
+        "id": "global.spellchecking.language",
+        "start": {
+          "column": 24,
+          "line": 12
+        }
+      },
+      {
+        "defaultMessage": "!!!Use System Default ({default})",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/i18n/globalMessages.js",
+        "id": "global.spellchecker.useDefault",
+        "start": {
+          "column": 29,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!Detect language automatically",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/i18n/globalMessages.js",
+        "id": "global.spellchecking.autodetect",
+        "start": {
+          "column": 34,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Automatic",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/i18n/globalMessages.js",
+        "id": "global.spellchecking.autodetect.short",
+        "start": {
+          "column": 39,
+          "line": 24
+        }
+      }
+    ],
+    "path": "src/i18n/globalMessages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Edit",
+        "end": {
+          "column": 3,
+          "line": 13
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit",
+        "start": {
+          "column": 8,
+          "line": 10
+        }
+      },
+      {
+        "defaultMessage": "!!!Undo",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.undo",
+        "start": {
+          "column": 8,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Redo",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.redo",
+        "start": {
+          "column": 8,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Cut",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.cut",
+        "start": {
+          "column": 7,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Copy",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.copy",
+        "start": {
+          "column": 8,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Paste",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.paste",
+        "start": {
+          "column": 9,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Paste And Match Style",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.pasteAndMatchStyle",
+        "start": {
+          "column": 22,
+          "line": 34
+        }
+      },
+      {
+        "defaultMessage": "!!!Delete",
+        "end": {
+          "column": 3,
+          "line": 41
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.delete",
+        "start": {
+          "column": 10,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!!Select All",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.selectAll",
+        "start": {
+          "column": 13,
+          "line": 42
+        }
+      },
+      {
+        "defaultMessage": "!!!Speech",
+        "end": {
+          "column": 3,
+          "line": 49
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.speech",
+        "start": {
+          "column": 10,
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!!Start Speaking",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.startSpeaking",
+        "start": {
+          "column": 17,
+          "line": 50
+        }
+      },
+      {
+        "defaultMessage": "!!!Stop Speaking",
+        "end": {
+          "column": 3,
+          "line": 57
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.stopSpeaking",
+        "start": {
+          "column": 16,
+          "line": 54
+        }
+      },
+      {
+        "defaultMessage": "!!!Start Dictation",
+        "end": {
+          "column": 3,
+          "line": 61
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.startDictation",
+        "start": {
+          "column": 18,
+          "line": 58
+        }
+      },
+      {
+        "defaultMessage": "!!!Emoji & Symbols",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.edit.emojiSymbols",
+        "start": {
+          "column": 16,
+          "line": 62
+        }
+      },
+      {
+        "defaultMessage": "!!!Actual Size",
+        "end": {
+          "column": 3,
+          "line": 69
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.resetZoom",
+        "start": {
+          "column": 13,
+          "line": 66
+        }
+      },
+      {
+        "defaultMessage": "!!!Zoom In",
+        "end": {
+          "column": 3,
+          "line": 73
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.zoomIn",
+        "start": {
+          "column": 10,
+          "line": 70
+        }
+      },
+      {
+        "defaultMessage": "!!!Zoom Out",
+        "end": {
+          "column": 3,
+          "line": 77
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.zoomOut",
+        "start": {
+          "column": 11,
+          "line": 74
+        }
+      },
+      {
+        "defaultMessage": "!!!Enter Full Screen",
+        "end": {
+          "column": 3,
+          "line": 81
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.enterFullScreen",
+        "start": {
+          "column": 19,
+          "line": 78
+        }
+      },
+      {
+        "defaultMessage": "!!!Exit Full Screen",
+        "end": {
+          "column": 3,
+          "line": 85
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.exitFullScreen",
+        "start": {
+          "column": 18,
+          "line": 82
+        }
+      },
+      {
+        "defaultMessage": "!!!Toggle Full Screen",
+        "end": {
+          "column": 3,
+          "line": 89
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.toggleFullScreen",
+        "start": {
+          "column": 20,
+          "line": 86
+        }
+      },
+      {
+        "defaultMessage": "!!!Toggle Developer Tools",
+        "end": {
+          "column": 3,
+          "line": 93
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.toggleDevTools",
+        "start": {
+          "column": 18,
+          "line": 90
+        }
+      },
+      {
+        "defaultMessage": "!!!Toggle Service Developer Tools",
+        "end": {
+          "column": 3,
+          "line": 97
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.toggleServiceDevTools",
+        "start": {
+          "column": 25,
+          "line": 94
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload Service",
+        "end": {
+          "column": 3,
+          "line": 101
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.reloadService",
+        "start": {
+          "column": 17,
+          "line": 98
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload Franz",
+        "end": {
+          "column": 3,
+          "line": 105
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view.reloadFranz",
+        "start": {
+          "column": 15,
+          "line": 102
+        }
+      },
+      {
+        "defaultMessage": "!!!Minimize",
+        "end": {
+          "column": 3,
+          "line": 109
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.window.minimize",
+        "start": {
+          "column": 12,
+          "line": 106
+        }
+      },
+      {
+        "defaultMessage": "!!!Close",
+        "end": {
+          "column": 3,
+          "line": 113
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.window.close",
+        "start": {
+          "column": 9,
+          "line": 110
+        }
+      },
+      {
+        "defaultMessage": "!!!Learn More",
+        "end": {
+          "column": 3,
+          "line": 117
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.help.learnMore",
+        "start": {
+          "column": 13,
+          "line": 114
+        }
+      },
+      {
+        "defaultMessage": "!!!Changelog",
+        "end": {
+          "column": 3,
+          "line": 121
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.help.changelog",
+        "start": {
+          "column": 13,
+          "line": 118
+        }
+      },
+      {
+        "defaultMessage": "!!!Support",
+        "end": {
+          "column": 3,
+          "line": 125
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.help.support",
+        "start": {
+          "column": 11,
+          "line": 122
+        }
+      },
+      {
+        "defaultMessage": "!!!Terms of Service",
+        "end": {
+          "column": 3,
+          "line": 129
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.help.tos",
+        "start": {
+          "column": 7,
+          "line": 126
+        }
+      },
+      {
+        "defaultMessage": "!!!Privacy Statement",
+        "end": {
+          "column": 3,
+          "line": 133
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.help.privacy",
+        "start": {
+          "column": 11,
+          "line": 130
+        }
+      },
+      {
+        "defaultMessage": "!!!File",
+        "end": {
+          "column": 3,
+          "line": 137
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.file",
+        "start": {
+          "column": 8,
+          "line": 134
+        }
+      },
+      {
+        "defaultMessage": "!!!View",
+        "end": {
+          "column": 3,
+          "line": 141
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.view",
+        "start": {
+          "column": 8,
+          "line": 138
+        }
+      },
+      {
+        "defaultMessage": "!!!Services",
+        "end": {
+          "column": 3,
+          "line": 145
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.services",
+        "start": {
+          "column": 12,
+          "line": 142
+        }
+      },
+      {
+        "defaultMessage": "!!!Window",
+        "end": {
+          "column": 3,
+          "line": 149
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.window",
+        "start": {
+          "column": 10,
+          "line": 146
+        }
+      },
+      {
+        "defaultMessage": "!!!Help",
+        "end": {
+          "column": 3,
+          "line": 153
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.help",
+        "start": {
+          "column": 8,
+          "line": 150
+        }
+      },
+      {
+        "defaultMessage": "!!!About Franz",
+        "end": {
+          "column": 3,
+          "line": 157
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.app.about",
+        "start": {
+          "column": 9,
+          "line": 154
+        }
+      },
+      {
+        "defaultMessage": "!!!Settings",
+        "end": {
+          "column": 3,
+          "line": 161
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.app.settings",
+        "start": {
+          "column": 12,
+          "line": 158
+        }
+      },
+      {
+        "defaultMessage": "!!!Hide",
+        "end": {
+          "column": 3,
+          "line": 165
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.app.hide",
+        "start": {
+          "column": 8,
+          "line": 162
+        }
+      },
+      {
+        "defaultMessage": "!!!Hide Others",
+        "end": {
+          "column": 3,
+          "line": 169
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.app.hideOthers",
+        "start": {
+          "column": 14,
+          "line": 166
+        }
+      },
+      {
+        "defaultMessage": "!!!Unhide",
+        "end": {
+          "column": 3,
+          "line": 173
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.app.unhide",
+        "start": {
+          "column": 10,
+          "line": 170
+        }
+      },
+      {
+        "defaultMessage": "!!!Quit",
+        "end": {
+          "column": 3,
+          "line": 177
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.app.quit",
+        "start": {
+          "column": 8,
+          "line": 174
+        }
+      },
+      {
+        "defaultMessage": "!!!Add New Service...",
+        "end": {
+          "column": 3,
+          "line": 181
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.services.addNewService",
+        "start": {
+          "column": 17,
+          "line": 178
+        }
+      },
+      {
+        "defaultMessage": "!!!Activate next service...",
+        "end": {
+          "column": 3,
+          "line": 185
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.services.setNextServiceActive",
+        "start": {
+          "column": 23,
+          "line": 182
+        }
+      },
+      {
+        "defaultMessage": "!!!Activate previous service...",
+        "end": {
+          "column": 3,
+          "line": 189
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.services.activatePreviousService",
+        "start": {
+          "column": 27,
+          "line": 186
+        }
+      },
+      {
+        "defaultMessage": "!!!Disable notifications & audio",
+        "end": {
+          "column": 3,
+          "line": 193
+        },
+        "file": "src/lib/Menu.js",
+        "id": "sidebar.muteApp",
+        "start": {
+          "column": 11,
+          "line": 190
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable notifications & audio",
+        "end": {
+          "column": 3,
+          "line": 197
+        },
+        "file": "src/lib/Menu.js",
+        "id": "sidebar.unmuteApp",
+        "start": {
+          "column": 13,
+          "line": 194
+        }
+      }
+    ],
+    "path": "src/lib/Menu.json"
+  }
+]

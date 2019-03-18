@@ -1,0 +1,80 @@
+[
+  {
+    "id": "infobar.servicesUpdated",
+    "defaultMessage": "!!!Your services have been updated.",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 22,
+      "column": 19
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.updateAvailable",
+    "defaultMessage": "!!!A new update for Franz is available.",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 26,
+      "column": 19
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.buttonReloadServices",
+    "defaultMessage": "!!!Reload services",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 30,
+      "column": 24
+    },
+    "end": {
+      "line": 33,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.buttonChangelog",
+    "defaultMessage": "!!!Changelog",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 34,
+      "column": 13
+    },
+    "end": {
+      "line": 37,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.buttonInstallUpdate",
+    "defaultMessage": "!!!Restart & install update",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 38,
+      "column": 23
+    },
+    "end": {
+      "line": 41,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.requiredRequestsFailed",
+    "defaultMessage": "!!!Could not load services and user information",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 42,
+      "column": 26
+    },
+    "end": {
+      "line": 45,
+      "column": 3
+    }
+  }
+]
