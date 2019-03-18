@@ -1,10 +1,12 @@
+import isDev from 'electron-is-dev';
+
 import { LIVE_API, DEV_API, LOCAL_API } from './config';
 
-export const isDevMode = Boolean(process.execPath.match(/[\\/]electron/));
+export const isDevMode = isDev;
 export const useLiveAPI = process.env.LIVE_API;
 export const useLocalAPI = process.env.LOCAL_API;
 
-let platform = process.platform;
+let { platform } = process;
 if (process.env.OS_PLATFORM) {
   platform = process.env.OS_PLATFORM;
 }
