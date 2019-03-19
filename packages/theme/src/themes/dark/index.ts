@@ -63,3 +63,12 @@ export const selectSearchColor = inputBackground;
 
 // Modal
 export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.8).rgb().string();
+
+// Workspace Drawer
+export const workspaceDrawerBackground = color(colorBackground).lighten(0.3).hex();
+export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).lighten(0.2).hex();
+export const workspaceDrawerItemActiveBackground = defaultStyles.brandPrimary;
+export const workspaceDrawerNameColor = colorText;
+export const workspaceDrawerNameActiveColor = 'white';
+export const workspaceDrawerServicesColor = color(colorText).darken(0.5).hex();
+export const workspaceDrawerServicesActiveColor = color(defaultStyles.brandPrimary).lighten(0.5).hex();

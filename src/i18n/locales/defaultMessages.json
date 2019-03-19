@@ -755,6 +755,32 @@
           "column": 10,
           "line": 23
         }
+      },
+      {
+        "defaultMessage": "!!!Open workspace drawer",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/components/layout/Sidebar.js",
+        "id": "sidebar.openWorkspaceDrawer",
+        "start": {
+          "column": 23,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Close workspace drawer",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/components/layout/Sidebar.js",
+        "id": "sidebar.closeWorkspaceDrawer",
+        "start": {
+          "column": 24,
+          "line": 31
+        }
       }
     ],
     "path": "src/components/layout/Sidebar.json"
@@ -3275,6 +3301,37 @@
       }
     ],
     "path": "src/features/workspaces/components/EditWorkspaceForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Workspaces",
+        "end": {
+          "column": 3,
+          "line": 15
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.headline",
+        "start": {
+          "column": 12,
+          "line": 12
+        }
+      },
+      {
+        "defaultMessage": "!!!All services",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.allServices",
+        "start": {
+          "column": 15,
+          "line": 16
+        }
+      }
+    ],
+    "path": "src/features/workspaces/components/WorkspaceDrawer.json"
   },
   {
     "descriptors": [

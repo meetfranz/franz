@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Workspace from './models/Workspace';
 import { createActionsFromDefinitions } from '../../actions/lib/actions';
 
-export default createActionsFromDefinitions({
+export const workspaceActions = createActionsFromDefinitions({
   edit: {
     workspace: PropTypes.instanceOf(Workspace).isRequired,
   },
@@ -19,4 +19,8 @@ export default createActionsFromDefinitions({
     workspace: PropTypes.instanceOf(Workspace).isRequired,
   },
   deactivate: {},
+  toggleWorkspaceDrawer: {},
+  openWorkspaceSettings: {},
 }, PropTypes.checkPropTypes);
+
+export default workspaceActions;

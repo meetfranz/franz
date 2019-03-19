@@ -50,5 +50,31 @@
       "line": 26,
       "column": 3
     }
+  },
+  {
+    "id": "sidebar.openWorkspaceDrawer",
+    "defaultMessage": "!!!Open workspace drawer",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 27,
+      "column": 23
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.closeWorkspaceDrawer",
+    "defaultMessage": "!!!Close workspace drawer",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 31,
+      "column": 24
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
   }
 ]

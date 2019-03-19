@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
+import injectSheet from 'react-jss';
 
 import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
@@ -13,6 +14,7 @@ import ErrorBoundary from '../util/ErrorBoundary';
 // import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
+import { workspacesState } from '../../features/workspaces/state';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -45,10 +47,23 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class AppLayout extends Component {
+const styles = theme => ({
+  appContent: {
+    width: `calc(100% + ${theme.workspaceDrawerWidth})`,
+    transition: 'transform 0.5s ease',
+    transform() {
+      return workspacesState.isWorkspaceDrawerOpen ? 'translateX(0)' : 'translateX(-220px)';
+    },
+  },
+});
+
+@injectSheet(styles) @observer
+class AppLayout extends Component {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
+    workspacesDrawer: PropTypes.element.isRequired,
     services: PropTypes.element.isRequired,
     children: PropTypes.element,
     news: MobxPropTypes.arrayOrObservableArray.isRequired,
@@ -76,7 +91,9 @@ export default @observer class AppLayout extends Component {
 
   render() {
     const {
+      classes,
       isFullScreen,
+      workspacesDrawer,
       sidebar,
       services,
       children,
@@ -102,7 +119,8 @@ export default @observer class AppLayout extends Component {
         <div className={(darkMode ? 'theme__dark' : '')}>
           <div className="app">
             {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
-            <div className="app__content">
+            <div className={`app__content ${classes.appContent}`}>
+              {workspacesDrawer}
               {sidebar}
               <div className="app__service">
                 {news.length > 0 && news.map(item => (
@@ -176,3 +194,5 @@ export default @observer class AppLayout extends Component {
     );
   }
 }
+
+export default AppLayout;

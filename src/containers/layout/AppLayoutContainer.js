@@ -20,6 +20,9 @@ import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
 import { state as delayAppState } from '../../features/delayApp';
+import { workspacesState } from '../../features/workspaces/state';
+import { workspaceActions } from '../../features/workspaces/actions';
+import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
@@ -82,6 +85,14 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       );
     }
 
+    const workspacesDrawer = (
+      <WorkspaceDrawer
+        getServicesForWorkspace={workspace => (
+          workspace ? workspace.services.map(id => services.one(id).name) : services.all.map(s => s.name)
+        )}
+      />
+    );
+
     const sidebar = (
       <Sidebar
         services={services.allDisplayed}
@@ -96,6 +107,8 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         deleteService={deleteService}
         updateService={updateService}
         toggleMuteApp={toggleMuteApp}
+        toggleWorkspaceDrawer={workspaceActions.toggleWorkspaceDrawer}
+        isWorkspaceDrawerOpen={workspacesState.isWorkspaceDrawerOpen}
         showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
       />
@@ -122,6 +135,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
           appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
           sidebar={sidebar}
+          workspacesDrawer={workspacesDrawer}
           services={servicesContainer}
           news={news.latest}
           removeNewsItem={hide}

@@ -3,7 +3,7 @@ import Store from '../../stores/lib/Store';
 import CachedRequest from '../../stores/lib/CachedRequest';
 import Workspace from './models/Workspace';
 import { matchRoute } from '../../helpers/routing-helpers';
-import workspaceActions from './actions';
+import { workspaceActions } from './actions';
 
 const debug = require('debug')('Franz:feature:workspaces');
 
@@ -55,6 +55,8 @@ export default class WorkspacesStore extends Store {
     workspaceActions.update.listen(this._update);
     workspaceActions.activate.listen(this._setActiveWorkspace);
     workspaceActions.deactivate.listen(this._deactivateActiveWorkspace);
+    workspaceActions.toggleWorkspaceDrawer.listen(this._toggleWorkspaceDrawer);
+    workspaceActions.openWorkspaceSettings.listen(this._openWorkspaceSettings);
   }
 
   _getWorkspaceById = id => this.state.workspaces.find(w => w.id === id);
@@ -110,5 +112,13 @@ export default class WorkspacesStore extends Store {
 
   @action _deactivateActiveWorkspace = () => {
     this.state.activeWorkspace = null;
+  };
+
+  @action _toggleWorkspaceDrawer = () => {
+    this.state.isWorkspaceDrawerOpen = !this.state.isWorkspaceDrawerOpen;
+  };
+
+  @action _openWorkspaceSettings = () => {
+    this.actions.ui.openSettings({ path: 'workspaces' });
   };
 }

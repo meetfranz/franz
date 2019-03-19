@@ -249,7 +249,9 @@
   "settings.workspaces.headline": "Your workspaces",
   "settings.workspaces.noWorkspacesAdded": "You haven't added any workspaces yet.",
   "sidebar.addNewService": "Add new service",
+  "sidebar.closeWorkspaceDrawer": "Close workspace drawer",
   "sidebar.muteApp": "Disable notifications & audio",
+  "sidebar.openWorkspaceDrawer": "Open workspace drawer",
   "sidebar.settings": "Settings",
   "sidebar.unmuteApp": "Enable notifications & audio",
   "signup.company.label": "Company",
@@ -294,5 +296,7 @@
   "validation.required": "{field} is required",
   "validation.url": "{field} is not a valid URL",
   "welcome.loginButton": "Login to your account",
-  "welcome.signupButton": "Create a free account"
+  "welcome.signupButton": "Create a free account",
+  "workspaceDrawer.allServices": "All services",
+  "workspaceDrawer.headline": "Workspaces"
 }

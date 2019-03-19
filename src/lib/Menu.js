@@ -4,7 +4,7 @@ import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
 import { workspacesState } from '../features/workspaces/state';
-import workspaceActions from '../features/workspaces/actions';
+import { workspaceActions } from '../features/workspaces/actions';
 
 const { app, Menu, dialog } = remote;
 
@@ -785,7 +785,7 @@ export default class FranzMenu {
       label: intl.formatMessage(menuItems.addNewWorkspace),
       accelerator: `${cmdKey}+Shift+N`,
       click: () => {
-        this.actions.ui.openSettings({ path: 'workspaces' });
+        workspaceActions.openWorkspaceSettings();
       },
       enabled: this.stores.user.isLoggedIn,
     }, {

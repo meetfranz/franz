@@ -37,6 +37,7 @@ export default @observer class ServiceView extends Component {
 
   componentDidMount() {
     this.autorunDisposer = autorun(() => {
+      if (!this.isMounted) return;
       if (this.props.service.isActive) {
         this.setState({ forceRepaint: true });
         setTimeout(() => {

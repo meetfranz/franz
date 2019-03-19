@@ -4,6 +4,7 @@ const defaultState = {
   activeWorkspace: null,
   isLoading: false,
   isFeatureActive: false,
+  isWorkspaceDrawerOpen: false,
   workspaces: [],
   workspaceBeingEdited: null,
 };
