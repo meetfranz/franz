@@ -102,6 +102,9 @@ class InputComponent extends Component<IProps, IState> {
       spellCheck,
       onBlur,
       onFocus,
+      min,
+      max,
+      step,
     } = this.props;
 
     const {
@@ -147,6 +150,9 @@ class InputComponent extends Component<IProps, IState> {
               onFocus={onFocus}
               onBlur={onBlur}
               disabled={disabled}
+              min={min}
+              max={max}
+              step={step}
             />
             {suffix && (
               <span className={classes.suffix}>

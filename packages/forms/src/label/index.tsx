@@ -26,6 +26,8 @@ class LabelComponent extends Component<ILabel> {
       htmlFor,
     } = this.props;
 
+    if (!showLabel) return children;
+
     return (
       <label
         className={classnames({

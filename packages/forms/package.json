@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/forms",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "React form components for Franz",
   "main": "lib/index.js",
   "scripts": {
@@ -35,5 +35,5 @@
     "react-dom": "16.7.0",
     "react-jss": "^8.6.1"
   },
-  "gitHead": "14b151cad6a5a849bb476aaa3fc53bf1eead7f4b"
+  "gitHead": "0aad40e6afcdf5e5598137f974f7fd25abb37290"
 }
