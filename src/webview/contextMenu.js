@@ -33,6 +33,8 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
   const canGoBack = webContents.canGoBack();
   const canGoForward = webContents.canGoForward();
 
+  // @adlk: we can't use roles here due to a bug with electron where electron.remote.webContents.getFocusedWebContents() returns the first webview in DOM instead of the focused one
+  // Github issue creation is pending
   let menuTpl = [
     {
       type: 'separator',
@@ -48,19 +50,32 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
       type: 'separator',
     }, {
       id: 'cut',
-      role: can('Cut') ? 'cut' : '',
+      label: 'Cut',
+      click() {
+        if (can('Cut')) {
+          webContents.cut();
+        }
+      },
       enabled: can('Cut'),
       visible: hasText && props.isEditable,
     }, {
       id: 'copy',
       label: 'Copy',
-      role: can('Copy') ? 'copy' : '',
+      click() {
+        if (can('Copy')) {
+          webContents.copy();
+        }
+      },
       enabled: can('Copy'),
       visible: props.isEditable || hasText,
     }, {
       id: 'paste',
       label: 'Paste',
-      role: editFlags.canPaste ? 'paste' : '',
+      click() {
+        if (editFlags.canPaste) {
+          webContents.paste();
+        }
+      },
       enabled: editFlags.canPaste,
       visible: props.isEditable,
     }, {

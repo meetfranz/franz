@@ -12,7 +12,7 @@ import { URL } from 'url';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac, isLinux, isWindows } from '../environment';
+import { isMac } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent, gaPage } from '../lib/analytics';
 import { onVisibilityChange } from '../helpers/visibility-helper';
@@ -185,7 +185,15 @@ export default class AppStore extends Store {
   }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
+    // TODO: is there a simple way to use blobs for notifications without storing them on disk?
+    if (options.icon.startsWith('blob:')) {
+      delete options.icon;
+    }
+
     const notification = new window.Notification(title, options);
+
+    debug('New notification', title, options);
+
     notification.onclick = (e) => {
       if (serviceId) {
         this.actions.service.sendIPCMessage({
@@ -195,12 +203,13 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
-
-        if (isWindows) {
+        mainWindow.show();
+        if (app.mainWindow.isMinimized()) {
           mainWindow.restore();
-        } else if (isLinux) {
-          mainWindow.show();
         }
+        mainWindow.focus();
+
+        debug('Notification click handler');
       }
     };
   }
