@@ -1,17 +1,11 @@
-import {
-  action,
-  reaction,
-  computed,
-  observable,
-} from 'mobx';
-import { debounce, remove } from 'lodash';
+import {action, computed, observable, reaction,} from 'mobx';
+import {remove} from 'lodash';
 import ms from 'ms';
-import { remove } from 'lodash';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
-import { matchRoute } from '../helpers/routing-helpers';
+import {matchRoute} from '../helpers/routing-helpers';
 
 const debug = require('debug')('Franz:ServiceStore');
 

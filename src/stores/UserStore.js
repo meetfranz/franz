@@ -157,8 +157,6 @@ export default class UserStore extends Store {
     this._setUserData(authToken);
 
     this.stores.router.push('/');
-
-    gaEvent('User', 'tokenLogin');
   }
 
   @action async _signup({

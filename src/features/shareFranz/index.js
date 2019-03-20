@@ -1,9 +1,6 @@
 import { observable, reaction } from 'mobx';
 import ms from 'ms';
 
-import { state as delayAppState } from '../delayApp';
-import { gaEvent, gaPage } from '../../lib/analytics';
-
 export { default as Component } from './Component';
 
 const debug = require('debug')('Franz:feature:shareFranz');
@@ -26,9 +23,6 @@ export default function initialize(stores) {
     debug('Showing share window');
 
     state.isModalVisible = true;
-
-    gaEvent('Share Franz', 'show');
-    gaPage('/share-modal');
   }
 
   reaction(
@@ -36,12 +30,7 @@ export default function initialize(stores) {
     () => {
       setTimeout(() => {
         if (stores.settings.stats.appStarts % 30 === 0) {
-          if (delayAppState.isDelayAppScreenVisible) {
-            debug('Delaying share modal by 5 minutes');
-            setTimeout(() => showModal(), ms('5m'));
-          } else {
-            showModal();
-          }
+          showModal();
         }
       }, ms('2s'));
     },

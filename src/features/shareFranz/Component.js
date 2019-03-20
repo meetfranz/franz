@@ -8,7 +8,6 @@ import { H1, Icon } from '@meetfranz/ui';
 
 import Modal from '../../components/ui/Modal';
 import { state } from '.';
-import { gaEvent } from '../../lib/analytics';
 import ServicesStore from '../../stores/ServicesStore';
 
 const messages = defineMessages({
@@ -129,9 +128,6 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             icon="mdiEmail"
             href={`mailto:?subject=Meet the cool app Franz&body=${intl.formatMessage(messages.shareTextEmail, { count: serviceCount })}}`}
             target="_blank"
-            onClick={() => {
-              gaEvent('Share Franz', 'share', 'Share via email');
-            }}
           />
           <Button
             label={intl.formatMessage(messages.actionsFacebook)}
@@ -139,9 +135,6 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             icon="mdiFacebookBox"
             href="https://www.facebook.com/sharer/sharer.php?u=https://www.meetfranz.com?utm_source=facebook&utm_medium=referral&utm_campaign=share-button"
             target="_blank"
-            onClick={() => {
-              gaEvent('Share Franz', 'share', 'Share via Facebook');
-            }}
           />
           <Button
             label={intl.formatMessage(messages.actionsTwitter)}
@@ -149,9 +142,6 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             icon="mdiTwitter"
             href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareTextTwitter, { count: serviceCount })}`}
             target="_blank"
-            onClick={() => {
-              gaEvent('Share Franz', 'share', 'Share via Twitter');
-            }}
           />
         </div>
       </Modal>

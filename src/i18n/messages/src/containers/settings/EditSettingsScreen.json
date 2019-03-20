@@ -117,15 +117,41 @@
     }
   },
   {
+    "id": "settings.app.form.theme",
+    "defaultMessage": "!!!Pick Franz theme",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 58,
+      "column": 9
+    },
+    "end": {
+      "line": 61,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.headlineBackground",
+    "defaultMessage": "!!!Add app background",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 62,
+      "column": 17
+    },
+    "end": {
+      "line": 65,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.app.form.enableSpellchecking",
     "defaultMessage": "!!!Enable spell checking",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 58,
+      "line": 66,
       "column": 23
     },
     "end": {
-      "line": 61,
+      "line": 69,
       "column": 3
     }
   },
@@ -134,11 +160,11 @@
     "defaultMessage": "!!!Enable GPU Acceleration",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 62,
+      "line": 70,
       "column": 25
     },
     "end": {
-      "line": 65,
+      "line": 73,
       "column": 3
     }
   },
@@ -147,11 +173,11 @@
     "defaultMessage": "!!!Include beta versions",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 66,
+      "line": 74,
       "column": 8
     },
     "end": {
-      "line": 69,
+      "line": 77,
       "column": 3
     }
   }

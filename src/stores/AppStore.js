@@ -1,27 +1,22 @@
-import { remote, ipcRenderer, shell } from 'electron';
-import {
-  action, computed, observable, reaction,
-} from 'mobx';
+import {ipcRenderer, remote, shell} from 'electron';
+import {action, computed, observable,} from 'mobx';
 import moment from 'moment';
-import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
+import {getDoNotDisturb} from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
-import key from 'keymaster';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
-import { URL } from 'url';
+import {URL} from 'url';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
-import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac } from '../environment';
+import {CHECK_INTERVAL, DEFAULT_APP_SETTINGS} from '../config';
+import {isMac} from '../environment';
 import locales from '../i18n/translations';
-import { onVisibilityChange } from '../helpers/visibility-helper';
-import { isLinux, isMac, isWindows } from '../environment';
-import { getLocale } from '../helpers/i18n-helpers';
+import {onVisibilityChange} from '../helpers/visibility-helper';
+import {getLocale} from '../helpers/i18n-helpers';
 
-import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
-import { isValidExternalURL } from '../helpers/url-helpers';
-import locales from '../i18n/translations';
+import {getServiceIdsFromPartitions, removeServicePartitionDirectory} from '../helpers/service-helpers.js';
+import {isValidExternalURL} from '../helpers/url-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -247,6 +242,7 @@ export default class AppStore extends Store {
     if (isValidExternalURL(url)) {
       shell.openExternal(url);
     }
+  }
 
   @action _checkForUpdates() {
     this.updateStatus = this.updateStatusTypes.CHECKING;

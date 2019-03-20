@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
-import { TitleBar } from 'electron-react-titlebar';
+import {observer, PropTypes as MobxPropTypes} from 'mobx-react';
+import {defineMessages, intlShape} from 'react-intl';
+import {TitleBar} from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
-import globalMessages from '../../i18n/globalMessages';
-import { Component as BasicAuth } from '../../features/basicAuth';
-import { Component as ShareFranz } from '../../features/shareFranz';
+import {Component as BasicAuth} from '../../features/basicAuth';
+import {Component as ShareFranz} from '../../features/shareFranz';
 import ErrorBoundary from '../util/ErrorBoundary';
+import {isWindows} from '../../environment';
 
 // import globalMessages from '../../i18n/globalMessages';
-
-import { isWindows } from '../../environment';
-import ErrorBoundary from '../util/ErrorBoundary';
 /* eslint-disable react/no-danger */
 
 function createMarkup(HTMLString) {
