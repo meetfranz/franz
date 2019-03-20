@@ -5,9 +5,6 @@ import Password from '../../components/auth/Password';
 import UserStore from '../../stores/UserStore';
 
 export default @inject('stores', 'actions') @observer class PasswordScreen extends Component {
-  componentDidMount() {
-  }
-
   render() {
     const { actions, stores } = this.props;
 

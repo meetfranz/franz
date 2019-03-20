@@ -1,0 +1,67 @@
+[
+  {
+    "id": "validation.required",
+    "defaultMessage": "!!!Field is required",
+    "file": "src/helpers/validation-helpers.js",
+    "start": {
+      "line": 4,
+      "column": 12
+    },
+    "end": {
+      "line": 7,
+      "column": 3
+    }
+  },
+  {
+    "id": "validation.email",
+    "defaultMessage": "!!!Email not valid",
+    "file": "src/helpers/validation-helpers.js",
+    "start": {
+      "line": 8,
+      "column": 9
+    },
+    "end": {
+      "line": 11,
+      "column": 3
+    }
+  },
+  {
+    "id": "validation.url",
+    "defaultMessage": "!!!Not a valid URL",
+    "file": "src/helpers/validation-helpers.js",
+    "start": {
+      "line": 12,
+      "column": 7
+    },
+    "end": {
+      "line": 15,
+      "column": 3
+    }
+  },
+  {
+    "id": "validation.minLength",
+    "defaultMessage": "!!!Too few characters",
+    "file": "src/helpers/validation-helpers.js",
+    "start": {
+      "line": 16,
+      "column": 13
+    },
+    "end": {
+      "line": 19,
+      "column": 3
+    }
+  },
+  {
+    "id": "validation.oneRequired",
+    "defaultMessage": "!!!At least one is required",
+    "file": "src/helpers/validation-helpers.js",
+    "start": {
+      "line": 20,
+      "column": 15
+    },
+    "end": {
+      "line": 23,
+      "column": 3
+    }
+  }
+]

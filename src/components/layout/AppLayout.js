@@ -7,6 +7,10 @@ import { TitleBar } from 'electron-react-titlebar';
 import InfoBar from '../ui/InfoBar';
 import globalMessages from '../../i18n/globalMessages';
 import { Component as BasicAuth } from '../../features/basicAuth';
+import { Component as ShareFranz } from '../../features/shareFranz';
+import ErrorBoundary from '../util/ErrorBoundary';
+
+// import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
 import ErrorBoundary from '../util/ErrorBoundary';
@@ -160,6 +164,7 @@ export default @observer class AppLayout extends Component {
                   </InfoBar>
                 )}
                 <BasicAuth />
+                <ShareFranz />
                 {services}
               </div>
             </div>

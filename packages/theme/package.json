@@ -1,0 +1,29 @@
+{
+  "name": "@meetfranz/theme",
+  "version": "1.0.9",
+  "description": "Theme configuration for Franz",
+  "author": "Stefan Malzner <stefan@adlk.io>",
+  "homepage": "https://github.com/meetfranz/franz",
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meetfranz/franz.git"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "prepare": "tsc",
+    "preprepare": "npm run test",
+    "test": "npx mocha"
+  },
+  "bugs": {
+    "url": "https://github.com/meetfranz/franz/issues"
+  },
+  "dependencies": {
+    "color": "^3.1.0"
+  },
+  "gitHead": "14b151cad6a5a849bb476aaa3fc53bf1eead7f4b"
+}

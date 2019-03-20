@@ -7,9 +7,6 @@ import UserStore from '../../stores/UserStore';
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 
 export default @inject('stores', 'actions') @observer class LoginScreen extends Component {
-  componentDidMount() {
-  }
-
   render() {
     const { user, recipePreviews } = this.props.stores;
 

@@ -1,0 +1,38 @@
+{
+  "name": "@meetfranz/ui",
+  "version": "0.0.4",
+  "description": "React UI components for Franz",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "tsc -w",
+    "prepare": "tsc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meetfranz/franz.git"
+  },
+  "keywords": [
+    "Franz",
+    "Forms",
+    "React",
+    "UI"
+  ],
+  "author": "Stefan Malzner <stefan@adlk.io>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@mdi/js": "^3.3.92",
+    "@mdi/react": "^1.1.0",
+    "@meetfranz/theme": "^1.0.7",
+    "react-loader": "^2.4.5"
+  },
+  "peerDependencies": {
+    "classnames": "^2.2.6",
+    "react": "^16.7.0",
+    "react-dom": "16.7.0",
+    "react-jss": "^8.6.1"
+  },
+  "gitHead": "14b151cad6a5a849bb476aaa3fc53bf1eead7f4b"
+}

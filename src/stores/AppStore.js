@@ -1,19 +1,27 @@
+import { remote, ipcRenderer, shell } from 'electron';
+import {
+  action, computed, observable, reaction,
+} from 'mobx';
+import moment from 'moment';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
-import { ipcRenderer, remote, shell } from 'electron';
 import key from 'keymaster';
-import { action, computed, observable } from 'mobx';
-import moment from 'moment';
 import prettyBytes from 'pretty-bytes';
+import ms from 'ms';
+import { URL } from 'url';
+
+import Store from './lib/Store';
+import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
+import { isMac } from '../environment';
+import locales from '../i18n/translations';
+import { onVisibilityChange } from '../helpers/visibility-helper';
 import { isLinux, isMac, isWindows } from '../environment';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+import { isValidExternalURL } from '../helpers/url-helpers';
 import locales from '../i18n/translations';
-import Request from './lib/Request';
-
-import Store from './lib/Store';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -92,19 +100,11 @@ export default class AppStore extends Store {
     window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
-    window.addEventListener('online', () => {
-      this.isOnline = true;
-    });
-    window.addEventListener('offline', () => {
-      this.isOnline = false;
-    });
+    window.addEventListener('online', () => { this.isOnline = true; });
+    window.addEventListener('offline', () => { this.isOnline = false; });
 
-    mainWindow.on('enter-full-screen', () => {
-      this.isFullScreen = true;
-    });
-    mainWindow.on('leave-full-screen', () => {
-      this.isFullScreen = false;
-    });
+    mainWindow.on('enter-full-screen', () => { this.isFullScreen = true; });
+    mainWindow.on('leave-full-screen', () => { this.isFullScreen = false; });
 
 
     this.isOnline = navigator.onLine;
@@ -118,12 +118,12 @@ export default class AppStore extends Store {
     // Check if system is muted
     // There are no events to subscribe so we need to poll everey 5s
     this._systemDND();
-    setInterval(() => this._systemDND(), 5000);
+    setInterval(() => this._systemDND(), ms('5s'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
     // Check for an update in 30s (need a delay to prevent Squirrel Installer lock file issues)
-    setTimeout(() => this._checkForUpdates(), 30000);
+    setTimeout(() => this._checkForUpdates(), ms('30s'));
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
@@ -160,32 +160,17 @@ export default class AppStore extends Store {
       this.stores.router.push(url);
     });
 
-    // Set active the next service
-    key(
-      '⌘+pagedown, ctrl+pagedown, ⌘+alt+right, ctrl+tab', () => {
-        this.actions.service.setActiveNext();
-      },
-    );
-
-    // Set active the prev service
-    key(
-      '⌘+pageup, ctrl+pageup, ⌘+alt+left, ctrl+shift+tab', () => {
-        this.actions.service.setActivePrev();
-      },
-    );
-
-    // Global Mute
-    key(
-      '⌘+shift+m ctrl+shift+m', () => {
-        this.actions.app.toggleMuteApp();
-      },
-    );
-
     this.locale = this._getDefaultLocale();
 
     this._healthCheck();
 
     this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
+
+    onVisibilityChange((isVisible) => {
+      this.isFocused = isVisible;
+
+      debug('Window is visible/focused', isVisible);
+    });
   }
 
   @computed get cacheSize() {
@@ -198,7 +183,15 @@ export default class AppStore extends Store {
   }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
+    // TODO: is there a simple way to use blobs for notifications without storing them on disk?
+    if (options.icon.startsWith('blob:')) {
+      delete options.icon;
+    }
+
     const notification = new window.Notification(title, options);
+
+    debug('New notification', title, options);
+
     notification.onclick = (e) => {
       if (serviceId) {
         this.actions.service.sendIPCMessage({
@@ -208,12 +201,13 @@ export default class AppStore extends Store {
         });
 
         this.actions.service.setActive({ serviceId });
-
-        if (isWindows) {
+        mainWindow.show();
+        if (app.mainWindow.isMinimized()) {
           mainWindow.restore();
-        } else if (isLinux) {
-          mainWindow.show();
         }
+        mainWindow.focus();
+
+        debug('Notification click handler');
       }
     };
   }
@@ -247,8 +241,12 @@ export default class AppStore extends Store {
   }
 
   @action _openExternalUrl({ url }) {
-    shell.openExternal(url);
-  }
+    const parsedUrl = new URL(url);
+    debug('open external url', parsedUrl);
+
+    if (isValidExternalURL(url)) {
+      shell.openExternal(url);
+    }
 
   @action _checkForUpdates() {
     this.updateStatus = this.updateStatusTypes.CHECKING;
@@ -271,7 +269,6 @@ export default class AppStore extends Store {
 
   @action _muteApp({ isMuted, overrideSystemMute = true }) {
     this.isSystemMuteOverridden = overrideSystemMute;
-
     this.actions.settings.update({
       type: 'app',
       data: {
@@ -284,14 +281,11 @@ export default class AppStore extends Store {
     this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
   }
 
-  @action
-  async _clearAllCache() {
+  @action async _clearAllCache() {
     this.isClearingAllCache = true;
     const clearAppCache = this.clearAppCacheRequest.execute();
     const allServiceIds = await getServiceIdsFromPartitions();
-    const allOrphanedServiceIds = allServiceIds.filter(
-      id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id),
-    );
+    const allOrphanedServiceIds = allServiceIds.filter(id => !this.stores.services.all.find(s => id.replace('service-', '') === s.id));
 
     await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
 
@@ -309,10 +303,9 @@ export default class AppStore extends Store {
     if (!this.isOnline) {
       this.timeOfflineStart = moment();
     } else {
-      const deltaTime = moment()
-        .diff(this.timeOfflineStart);
+      const deltaTime = moment().diff(this.timeOfflineStart);
 
-      if (deltaTime > 30 * 60 * 1000) {
+      if (deltaTime > ms('30m')) {
         this.actions.service.reloadAll();
       }
     }

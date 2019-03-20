@@ -25,7 +25,12 @@
       }
     ],
     "@babel/proposal-throw-expressions",
-    "@babel/syntax-dynamic-import"
+    "@babel/syntax-dynamic-import",
+    ["react-intl", {
+      "messagesDir": "./src/i18n/messages/",
+      "enforceDescriptions": false,
+      "extractSourceLocation": true
+    }]
   ],
   "sourceMaps": "inline"
 }

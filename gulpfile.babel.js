@@ -41,7 +41,18 @@ const paths = {
   scripts: {
     src: 'src/**/*.js',
     dest: 'build/',
-    watch: 'src/**/*.js',
+    watch: [
+      // 'packages/**/*.js',
+      'src/**/*.js',
+    ],
+  },
+  packages: {
+    watch: 'packages/**/*',
+    // dest: 'build/',
+    // watch: [
+    //   // 'packages/**/*.js',
+    //   'src/**/*.js',
+    // ],
   },
 };
 
@@ -74,8 +85,9 @@ export function mvSrc() {
     [
       `${paths.src}/*`,
       `${paths.src}/*/**`,
-      `!${paths.scripts.watch}`,
+      `!${paths.scripts.watch[1]}`,
       `!${paths.src}/styles/**`,
+      `!${paths.src}/**/*.js`,
     ], { since: gulp.lastRun(mvSrc) },
   )
     .pipe(gulp.dest(paths.dest));
@@ -88,6 +100,15 @@ export function mvPackageJson() {
     ],
   )
     .pipe(gulp.dest(paths.dest));
+}
+
+export function mvLernaPackages() {
+  return gulp.src(
+    [
+      'packages/**',
+    ],
+  )
+    .pipe(gulp.dest(`${paths.dest}/packages`));
 }
 
 export function html() {
@@ -118,7 +139,7 @@ export function scripts() {
 }
 
 export function watch() {
-  gulp.watch(paths.scripts.watch, scripts);
+  gulp.watch(paths.packages.watch, mvLernaPackages);
   gulp.watch(paths.styles.watch, styles);
 
   gulp.watch([
@@ -126,6 +147,8 @@ export function watch() {
     `${paths.scripts.src}`,
     `${paths.styles.src}`,
   ], mvSrc);
+
+  gulp.watch(paths.scripts.watch, scripts);
 }
 
 export function webserver() {
@@ -161,7 +184,7 @@ export function sign(done) {
 
 const build = gulp.series(
   clean,
-  gulp.parallel(mvSrc, mvPackageJson),
+  gulp.parallel(mvSrc, mvPackageJson, mvLernaPackages),
   gulp.parallel(html, scripts, styles),
   dictionaries,
 );

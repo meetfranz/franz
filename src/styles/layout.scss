@@ -124,15 +124,14 @@ html { overflow: hidden; }
   background: $theme-brand-warning;
   color: #FFF;
   display: block;
-  font-size: 10px;
+  font-size: 8px;
   height: auto;
   padding: 4px;
   position: fixed;
-  right: 5px;
-  top: 5px;
+  left: 9px;
+  bottom: 0px;
   transition: opacity .5s ease;
   width: auto;
   z-index: 999999999;
-
-  &:hover { opacity: 0; }
+  pointer-events: none;
 }

@@ -5,9 +5,6 @@ import Import from '../../components/auth/Import';
 import UserStore from '../../stores/UserStore';
 
 export default @inject('stores', 'actions') @observer class ImportScreen extends Component {
-  componentDidMount() {
-  }
-
   render() {
     const { actions, stores } = this.props;
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
+import ms from 'ms';
 
 import Button from '../../ui/Button';
 
@@ -35,12 +36,12 @@ export default @observer class WebviewCrashHandler extends Component {
   };
 
   state = {
-    countdown: 10000,
+    countdown: ms('10s'),
   }
 
   countdownInterval = null;
 
-  countdownIntervalTimeout = 1000;
+  countdownIntervalTimeout = ms('1s');
 
 
   componentDidMount() {
@@ -75,7 +76,7 @@ export default @observer class WebviewCrashHandler extends Component {
         <p className="footnote">
           {intl.formatMessage(messages.autoReload, {
             name,
-            seconds: this.state.countdown / 1000,
+            seconds: this.state.countdown / ms('1s'),
           })}
         </p>
       </div>
