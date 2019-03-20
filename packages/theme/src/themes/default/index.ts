@@ -42,7 +42,7 @@ export const colorWebviewLoaderBackground = color(legacyStyles.themeGrayLighter)
 // Input
 export const labelColor = legacyStyles.themeGrayLight;
 export const inputColor = legacyStyles.themeGray;
-export const inputHeight = '35px';
+export const inputHeight = 40;
 export const inputBackground = legacyStyles.themeGrayLightest;
 export const inputBorder = `1px solid ${legacyStyles.themeGrayLighter}`;
 export const inputModifierColor = legacyStyles.themeGrayLight;
@@ -107,6 +107,8 @@ export const buttonWarningTextColor = '#FFF';
 export const buttonInvertedBackground = 'none';
 export const buttonInvertedTextColor = brandPrimary;
 export const buttonInvertedBorder = `1px solid ${brandPrimary}`;
+
+export const buttonHeight = inputHeight;
 
 export const buttonLoaderColor = {
   primary: '#FFF',
