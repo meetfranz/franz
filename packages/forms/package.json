@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/forms",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "React form components for Franz",
   "main": "lib/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
-    "@meetfranz/theme": "file:../theme",
+    "@meetfranz/theme": "^1.0.11",
     "react-html-attributes": "^1.4.3",
     "react-loader": "^2.4.5"
   },
@@ -35,5 +35,5 @@
     "react-dom": "16.7.0",
     "react-jss": "^8.6.1"
   },
-  "gitHead": "0aad40e6afcdf5e5598137f974f7fd25abb37290"
+  "gitHead": "27778954921365e4957eae964e28f68690f3825f"
 }
