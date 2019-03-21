@@ -62,6 +62,7 @@ export default @injectSheet(styles) @observer class BasicAuthModal extends Compo
         isOpen={isModalVisible}
         className={classes.modal}
         close={this.cancel.bind(this)}
+        showClose={false}
       >
         <h1>Sign in</h1>
         <p>

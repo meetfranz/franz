@@ -43,4 +43,6 @@ protocols:
   name: Franz
   schemes: [franz] 
 
-asarUnpack: "./dictionaries"
+asarUnpack: 
+  - ./dictionaries
+  - ./assets/images/taskbar

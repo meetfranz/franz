@@ -44,10 +44,6 @@ const messages = defineMessages({
     id: 'settings.account.accountType.premium',
     defaultMessage: '!!!Premium Supporter Account',
   },
-  accountTypeEnterprise: {
-    id: 'settings.account.accountType.enterprise',
-    defaultMessage: '!!!Enterprise Account',
-  },
   accountEditButton: {
     id: 'settings.account.account.editButton',
     defaultMessage: '!!!Edit Account',
@@ -169,14 +165,8 @@ export default @observer class AccountDashboard extends Component {
                       {user.organization && `${user.organization}, `}
                       {user.email}
                       <br />
-                      {!user.isEnterprise && !user.isPremium && (
-                        <span className="badge badge">{intl.formatMessage(messages.accountTypeBasic)}</span>
-                      )}
                       {user.isPremium && (
                         <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
-                      )}
-                      {user.isEnterprise && (
-                        <span className="badge badge--success">{intl.formatMessage(messages.accountTypeEnterprise)}</span>
                       )}
                     </div>
                     <Link to="/settings/user/edit" className="button">
@@ -235,34 +225,7 @@ export default @observer class AccountDashboard extends Component {
                 )
               )}
 
-              {user.isEnterprise && (
-                <div className="account">
-                  <div className="account__box">
-                    <h2>{user.company.name}</h2>
-                    <p>
-                      Technical contact:&nbsp;
-                      <Link
-                        className="link"
-                        target="_blank"
-                        to={`mailto:${user.company.contact.technical}?subject=Franz`}
-                      >
-                        {user.company.contact.technical}
-                      </Link>
-                      <br />
-                      General contact:&nbsp;
-                      <Link
-                        className="link"
-                        target="_blank"
-                        to={`mailto:${user.company.contact.default}?subject=Franz`}
-                      >
-                        {user.company.contact.default}
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {!user.isEnterprise && !user.isPremium && (
+              {!user.isPremium && (
                 isLoadingPlans ? (
                   <Loader />
                 ) : (
@@ -277,27 +240,25 @@ export default @observer class AccountDashboard extends Component {
                 )
               )}
 
-              {!user.isEnterprise && (
-                <div className="account franz-form">
-                  <div className="account__box">
-                    <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
-                    {!isDeleteAccountSuccessful && (
-                      <div className="account__subscription">
-                        <p>{intl.formatMessage(messages.deleteInfo)}</p>
-                        <Button
-                          label={intl.formatMessage(messages.deleteAccount)}
-                          buttonType="danger"
-                          onClick={() => deleteAccount()}
-                          loaded={!isLoadingDeleteAccount}
-                        />
-                      </div>
-                    )}
-                    {isDeleteAccountSuccessful && (
-                      <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
-                    )}
+              <div className="account franz-form">
+                <div className="account__box">
+                  <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
+                  {!isDeleteAccountSuccessful && (
+                  <div className="account__subscription">
+                    <p>{intl.formatMessage(messages.deleteInfo)}</p>
+                    <Button
+                      label={intl.formatMessage(messages.deleteAccount)}
+                      buttonType="danger"
+                      onClick={() => deleteAccount()}
+                      loaded={!isLoadingDeleteAccount}
+                    />
                   </div>
+                  )}
+                  {isDeleteAccountSuccessful && (
+                  <p>{intl.formatMessage(messages.deleteEmailSent)}</p>
+                  )}
                 </div>
-              )}
+              </div>
             </Fragment>
           )}
         </div>

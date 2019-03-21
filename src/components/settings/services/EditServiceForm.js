@@ -128,7 +128,8 @@ export default @observer class EditServiceForm extends Component {
     isSaving: PropTypes.bool.isRequired,
     isDeleting: PropTypes.bool.isRequired,
     isProxyFeatureEnabled: PropTypes.bool.isRequired,
-    isProxyFeaturePremiumFeature: PropTypes.bool.isRequired,
+    isProxyPremiumFeature: PropTypes.bool.isRequired,
+    isSpellcheckerPremiumFeature: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -191,7 +192,8 @@ export default @observer class EditServiceForm extends Component {
       isDeleting,
       onDelete,
       isProxyFeatureEnabled,
-      isProxyFeaturePremiumFeature,
+      isProxyPremiumFeature,
+      isSpellcheckerPremiumFeature,
     } = this.props;
     const { intl } = this.context;
 
@@ -339,14 +341,14 @@ export default @observer class EditServiceForm extends Component {
               </div>
             </div>
 
-            <PremiumFeatureContainer>
+            <PremiumFeatureContainer condition={isSpellcheckerPremiumFeature}>
               <div className="settings__settings-group">
                 <Select field={form.$('spellcheckerLanguage')} />
               </div>
             </PremiumFeatureContainer>
 
             {isProxyFeatureEnabled && (
-              <PremiumFeatureContainer condition={isProxyFeaturePremiumFeature}>
+              <PremiumFeatureContainer condition={isProxyPremiumFeature}>
                 <div className="settings__settings-group">
                   <h3>
                     {intl.formatMessage(messages.headlineProxy)}

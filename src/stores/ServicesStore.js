@@ -1,24 +1,25 @@
-import {
-  action,
-  reaction,
-  computed,
-  observable,
-} from 'mobx';
-import { remove } from 'lodash';
+import {action, computed, observable, reaction,} from 'mobx';
+import {remove} from 'lodash';
+import ms from 'ms';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
-import { matchRoute } from '../helpers/routing-helpers';
+import {matchRoute} from '../helpers/routing-helpers';
 
 const debug = require('debug')('Franz:ServiceStore');
 
 export default class ServicesStore extends Store {
   @observable allServicesRequest = new CachedRequest(this.api.services, 'all');
+
   @observable createServiceRequest = new Request(this.api.services, 'create');
+
   @observable updateServiceRequest = new Request(this.api.services, 'update');
+
   @observable reorderServicesRequest = new Request(this.api.services, 'reorder');
+
   @observable deleteServiceRequest = new Request(this.api.services, 'delete');
+
   @observable clearCacheRequest = new Request(this.api.services, 'clearCache');
 
   @observable filterNeedle = null;
@@ -37,6 +38,7 @@ export default class ServicesStore extends Store {
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
+    this.actions.service.detachService.listen(this._detachService.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
     this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
@@ -325,6 +327,11 @@ export default class ServicesStore extends Store {
     }
 
     service.isAttached = true;
+  }
+
+  @action _detachService({ service }) {
+    service.webview = null;
+    service.isAttached = false;
   }
 
   @action _focusService({ serviceId }) {
@@ -670,7 +677,7 @@ export default class ServicesStore extends Store {
   _initRecipePolling(serviceId) {
     const service = this.one(serviceId);
 
-    const delay = 2000;
+    const delay = ms('2s');
 
     if (service) {
       if (service.timer !== null) {

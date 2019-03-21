@@ -128,10 +128,6 @@ export default class UserStore extends Store {
     return Boolean(localStorage.getItem('authToken'));
   }
 
-  // @computed get isTokenValid() {
-  //   return this.authToken !== null && moment(this.tokenExpiry).isAfter(moment());
-  // }
-
   @computed get isTokenExpired() {
     if (!this.authToken) return false;
 
@@ -152,6 +148,12 @@ export default class UserStore extends Store {
   // Actions
   @action async _login({ email, password }) {
     const authToken = await this.loginRequest.execute(email, password)._promise;
+    this._setUserData(authToken);
+
+    this.stores.router.push('/');
+  }
+
+  @action _tokenLogin(authToken) {
     this._setUserData(authToken);
 
     this.stores.router.push('/');
@@ -197,6 +199,8 @@ export default class UserStore extends Store {
   }
 
   @action async _update({ userData }) {
+    if (!this.isLoggedIn) return;
+
     const response = await this.updateUserInfoRequest.execute(userData)._promise;
 
     this.getUserInfoRequest.patch(() => response.data);
@@ -211,6 +215,7 @@ export default class UserStore extends Store {
     // workaround mobx issue
     localStorage.removeItem('authToken');
     window.localStorage.removeItem('authToken');
+
     this.getUserInfoRequest.invalidate().reset();
     this.authToken = null;
   }
@@ -251,6 +256,18 @@ export default class UserStore extends Store {
     const { router } = this.stores;
     const currentRoute = router.location.pathname;
     if (!this.isLoggedIn
+      && currentRoute.includes('token=')) {
+      router.push(this.WELCOME_ROUTE);
+      const token = currentRoute.split('=')[1];
+
+      const data = this._parseToken(token);
+      if (data) {
+        // Give this some time to sink
+        setTimeout(() => {
+          this._tokenLogin(token);
+        }, 1000);
+      }
+    } else if (!this.isLoggedIn
       && !currentRoute.includes(this.BASE_ROUTE)) {
       router.push(this.WELCOME_ROUTE);
     } else if (this.isLoggedIn

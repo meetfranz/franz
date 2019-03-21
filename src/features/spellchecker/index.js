@@ -5,7 +5,7 @@ import { DEFAULT_FEATURES_CONFIG } from '../../config';
 const debug = require('debug')('Franz:feature:spellchecker');
 
 export const config = observable({
-  isPremiumFeature: DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature,
+  isPremium: DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature,
 });
 
 export default function init(stores) {
@@ -14,9 +14,11 @@ export default function init(stores) {
   autorun(() => {
     const { isSpellcheckerPremiumFeature } = stores.features.features;
 
-    config.isPremiumFeature = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature;
+    console.log('isSpellcheckerPremiumFeature', isSpellcheckerPremiumFeature);
 
-    if (!stores.user.data.isPremium && config.isPremiumFeature && stores.settings.app.enableSpellchecking) {
+    config.isPremium = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature;
+
+    if (!stores.user.data.isPremium && config.isPremium && stores.settings.app.enableSpellchecking) {
       debug('Override settings.spellcheckerEnabled flag to false');
 
       Object.assign(stores.settings.app, {

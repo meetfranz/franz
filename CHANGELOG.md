@@ -1,3 +1,77 @@
+## [5.0.1-omega.1](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24.2...v5.0.1-omega.1) (2019-03-21)
+
+
+### Bug Fixes
+
+* **App:** Fixes after updating master ([3140e62](https://github.com/MikeDabrowski/franz/commit/3140e62))
+
+
+### Features
+
+* **Background:** Add reset background hotkey ([338104d](https://github.com/MikeDabrowski/franz/commit/338104d))
+
+
+
+# [5.0.0](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24...v5.0.0) (2019-02-14)
+
+
+### Bug Fixes
+
+* **App:** Ignore network changed error ([cff00d1](https://github.com/MikeDabrowski/franz/commit/cff00d1))
+
+
+### Features
+
+* **Security:** Update electron to 4.0.4 ([b992cd2](https://github.com/MikeDabrowski/franz/commit/b992cd2))
+* **Spell checking:** Add option to automatically detect language ([e2437f2](https://github.com/MikeDabrowski/franz/commit/e2437f2))
+* **Windows:** Add option to quit Franz from Taskbar icon ([8808601](https://github.com/MikeDabrowski/franz/commit/8808601))
+
+
+
+## [5.0.1-beta.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1-beta.1) (2019-03-18)
+
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+### Features
+
+* **App:** Add security checks for external URLs ([6e5531a](https://github.com/meetfranz/franz/commit/6e5531a))
+* **App:** Update electron to 4.0.8 ([8336d17](https://github.com/meetfranz/franz/commit/8336d17))
+* **Linux:** Add auto updater for Linux AppImage builds ([d641b4e](https://github.com/meetfranz/franz/commit/d641b4e))
+* **Spell check:** Add British English as spell check language ([#1306](https://github.com/meetfranz/franz/issues/1306)) ([67fa325](https://github.com/meetfranz/franz/commit/67fa325))
+* **Windows:** Add option to quit Franz from Taskbar icon ([952fc8b](https://github.com/meetfranz/franz/commit/952fc8b))
+
+### Bug Fixes
+
+* **Linux:** Fix minimized window focusing ([#1304](https://github.com/meetfranz/franz/issues/1304)) ([@skoruppa](https://github.com/skoruppa)) ([5b02c4d](https://github.com/meetfranz/franz/commit/5b02c4d))
+* **Notifications:** Fix notifications & notification click when icon is blob ([03589f6](https://github.com/meetfranz/franz/commit/03589f6))
+* **Service:** Fix service zoom (cmd/ctrl+ & cmd/ctrl-) ([91a0f59](https://github.com/meetfranz/franz/commit/91a0f59))
+* **Service:** Fix shortcut for (un)muting notifications & audio ([1df3342](https://github.com/meetfranz/franz/commit/1df3342))
+* **Windows:** Fix copy & paste in service context menus ([e66fcaa](https://github.com/meetfranz/franz/commit/e66fcaa)), closes [#1316](https://github.com/meetfranz/franz/issues/1316)
+* **Windows:** Fix losing window when "Keep Franz in background" is enabled ([78a3722](https://github.com/meetfranz/franz/commit/78a3722))
+
+
+
+# [5.0.0](https://github.com/meetfranz/franz/compare/5.0.0-beta.24...5.0.0) (2019-02-15)
+
+### General
+
+* **App:** Updated electron to 4.0.4
+
+### Features
+
+* **Spellchecker:** Add automatic spellcheck language detection ([a5e7171](https://github.com/meetfranz/franz/commit/a5e7171))
+* **Windows:** Add option to quit Franz from Taskbar ([8808601](https://github.com/meetfranz/franz/commit/8808601))
+
+### Bug Fixes
+
+* **App:** Various bugfixes and improvements
+
+
+
 # [5.0.0-beta.24.2](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24.1...v5.0.0-beta.24.2) (2019-03-04)
 
 
@@ -77,7 +151,6 @@
 * **App:** Set background image UI ([27d67cd](https://github.com/MikeDabrowski/franz/commit/27d67cd))
 
 
-
 # [5.0.0-beta.24](https://github.com/meetfranz/franz/compare/v5.0.0-beta.23...v5.0.0-beta.24) (2019-02-03)
 
 
@@ -86,77 +159,6 @@
 * **Service:** Fix unnecessary webview resize / Slack scroll issue ([4b7d3e2](https://github.com/meetfranz/franz/commit/4b7d3e2))
 * **Service:** Improve focus when switching services ([d130f26](https://github.com/meetfranz/franz/commit/d130f26)), closes [#1255](https://github.com/meetfranz/franz/issues/1255)
 * **Service:** Fix dark mode in services ([d529410](https://github.com/meetfranz/franz/commit/d529410))
-
-# [5.0.0-omega.24](https://github.com/MikeDabrowski/franz/compare/v5.0.0-omega.23...v5.0.0-omega.24) (2019-02-03)
-
-
-### Bug Fixes
-
-* **App:** Fix app not starting ([76cc98d](https://github.com/MikeDabrowski/franz/commit/76cc98d))
-* **App:** Removed delay for non premium users. One of the most vile things to do. ([56933f6](https://github.com/MikeDabrowski/franz/commit/56933f6))
-* **DarkMode:** Fix service dark mode ([4512203](https://github.com/MikeDabrowski/franz/commit/4512203)), closes [#d5294105](https://github.com/MikeDabrowski/franz/issues/d5294105)
-* **Theme:** Fix loading theme on start ([8ac904c](https://github.com/MikeDabrowski/franz/commit/8ac904c))
-
-
-
-# [5.0.0-omega.23](https://github.com/MikeDabrowski/franz/compare/v5.0.0-omega.24...v5.0.0-omega.23) (2019-02-03)
-
-
-
-# [5.0.0-omega.23](https://github.com/MikeDabrowski/franz/compare/5.0.0-beta.20...5.0.0-omega.23) (2019-02-02)
-
-
-### Bug Fixes
-
-* **App:** Fix app delay for Premium Supporters ([08c40f0](https://github.com/MikeDabrowski/franz/commit/08c40f0))
-* **App:** Fix background reset button ([c45ecad](https://github.com/MikeDabrowski/franz/commit/c45ecad))
-* **App:** Fix body closing tag ([e1ff03f](https://github.com/MikeDabrowski/franz/commit/e1ff03f))
-* **App:** Fix loading background on Franz's start ([5e1d7c1](https://github.com/MikeDabrowski/franz/commit/5e1d7c1))
-* **App:** Fix notification sounds when app or services are muted ([33b4c1e](https://github.com/MikeDabrowski/franz/commit/33b4c1e)), closes [#1184](https://github.com/MikeDabrowski/franz/issues/1184) [#900](https://github.com/MikeDabrowski/franz/issues/900) [#460](https://github.com/MikeDabrowski/franz/issues/460) [#1049](https://github.com/MikeDabrowski/franz/issues/1049)
-* **App:** Slack not loading csses properly ([222bb42](https://github.com/MikeDabrowski/franz/commit/222bb42))
-* **App:** Various fixes for lintner ([baf06ea](https://github.com/MikeDabrowski/franz/commit/baf06ea))
-* **i18n:** Fix "greek" spellchecker name ([89c2eeb](https://github.com/MikeDabrowski/franz/commit/89c2eeb))
-* **Service:** Add background to service error view ([536aceb](https://github.com/MikeDabrowski/franz/commit/536aceb))
-* **Sidebar:** Add better contrast for mute button in dark mode ([735b2b7](https://github.com/MikeDabrowski/franz/commit/735b2b7))
-* **Spellchecker:** Dictionaries are now part of app instead of dynamic download ([0cdc165](https://github.com/MikeDabrowski/franz/commit/0cdc165))
-
-
-### Features
-
-* **App:** Load selected theme on app start ([4520eb0](https://github.com/MikeDabrowski/franz/commit/4520eb0))
-* **Service:** Add error screen for services that failed to load ([a5e7171](https://github.com/MikeDabrowski/franz/commit/a5e7171))
-* **Service:** Add option to change spellchecking language by service ([baf7d60](https://github.com/MikeDabrowski/franz/commit/baf7d60))
-
-
-
-# [5.0.0-beta.21](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.20...v5.0.0-beta.21) (2018-11-03)
-
-
-### Bug Fixes
-
-* **App:** Slack not changing theme ([c3695ce](https://github.com/MikeDabrowski/franz/commit/c3695ce)), closes [#4](https://github.com/MikeDabrowski/franz/issues/4)
-
-
-### Features
-
-* **App:** Change recipe theme when changing Franz theme ([a240113](https://github.com/MikeDabrowski/franz/commit/a240113)), closes [#2](https://github.com/MikeDabrowski/franz/issues/2)
-
-
-
-# [5.0.0-beta.19](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.18...v5.0.0-beta.19) (2018-11-02)
-
-
-### Bug Fixes
-
-* **App:** Allow hidden directories in franz recipes directory ([90d495f](https://github.com/MikeDabrowski/franz/commit/90d495f))
-* **App:** Fix broken quit button and shortcut + body theme ([8a25988](https://github.com/MikeDabrowski/franz/commit/8a25988))
-
-
-### Features
-
-* **App:** Add themes picker and two basic themes ([99612e8](https://github.com/MikeDabrowski/franz/commit/99612e8))
-* **App:** Remove Google Analytics ([b9e9077](https://github.com/MikeDabrowski/franz/commit/b9e9077))
-* **App:** Set background image UI ([27d67cd](https://github.com/MikeDabrowski/franz/commit/27d67cd))
 
 
 

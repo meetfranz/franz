@@ -1,0 +1,119 @@
+[
+  {
+    "id": "settings.services.headline",
+    "defaultMessage": "!!!Your services",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 14,
+      "column": 12
+    },
+    "end": {
+      "line": 17,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.searchService",
+    "defaultMessage": "!!!Search service",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 18,
+      "column": 17
+    },
+    "end": {
+      "line": 21,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.noServicesAdded",
+    "defaultMessage": "!!!You haven't added any services yet.",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 22,
+      "column": 19
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.recipes.nothingFound",
+    "defaultMessage": "!!!Sorry, but no service matched your search term.",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 26,
+      "column": 18
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.discoverServices",
+    "defaultMessage": "!!!Discover services",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 30,
+      "column": 20
+    },
+    "end": {
+      "line": 33,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.servicesRequestFailed",
+    "defaultMessage": "!!!Could not load your services",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 34,
+      "column": 25
+    },
+    "end": {
+      "line": 37,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.tryReloadServices",
+    "defaultMessage": "!!!Try again",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 38,
+      "column": 21
+    },
+    "end": {
+      "line": 41,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.updatedInfo",
+    "defaultMessage": "!!!Your changes have been saved",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 42,
+      "column": 15
+    },
+    "end": {
+      "line": 45,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.deletedInfo",
+    "defaultMessage": "!!!Service has been deleted",
+    "file": "src/components/settings/services/ServicesDashboard.js",
+    "start": {
+      "line": 46,
+      "column": 15
+    },
+    "end": {
+      "line": 49,
+      "column": 3
+    }
+  }
+]

@@ -4,9 +4,6 @@ import { inject, observer } from 'mobx-react';
 import Invite from '../../components/auth/Invite';
 
 export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
-  componentDidMount() {
-  }
-
   render() {
     const { actions } = this.props;
 

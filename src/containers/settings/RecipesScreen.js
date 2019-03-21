@@ -32,19 +32,17 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   autorunDisposer = null;
 
   componentDidMount() {
-    autorun(() => {
-      this.autorunDisposer = autorun(() => {
-        const { filter } = this.props.params;
-        const { currentFilter } = this.state;
+    this.autorunDisposer = autorun(() => {
+      const { filter } = this.props.params;
+      const { currentFilter } = this.state;
 
-        if (filter === 'all' && currentFilter !== 'all') {
-          this.setState({ currentFilter: 'all' });
-        } else if (filter === 'featured' && currentFilter !== 'featured') {
-          this.setState({ currentFilter: 'featured' });
-        } else if (filter === 'dev' && currentFilter !== 'dev') {
-          this.setState({ currentFilter: 'dev' });
-        }
-      });
+      if (filter === 'all' && currentFilter !== 'all') {
+        this.setState({ currentFilter: 'all' });
+      } else if (filter === 'featured' && currentFilter !== 'featured') {
+        this.setState({ currentFilter: 'featured' });
+      } else if (filter === 'dev' && currentFilter !== 'dev') {
+        this.setState({ currentFilter: 'dev' });
+      }
     });
   }
 

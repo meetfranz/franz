@@ -40,6 +40,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       setActive,
       handleIPCMessage,
       setWebviewReference,
+      detachService,
       openWindow,
       reorder,
       reload,
@@ -103,6 +104,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         services={services.allDisplayedUnordered}
         handleIPCMessage={handleIPCMessage}
         setWebviewReference={setWebviewReference}
+        detachService={detachService}
         openWindow={openWindow}
         reload={reload}
         openSettings={openSettings}
@@ -157,6 +159,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
       toggleAudio: PropTypes.func.isRequired,
       handleIPCMessage: PropTypes.func.isRequired,
       setWebviewReference: PropTypes.func.isRequired,
+      detachService: PropTypes.func.isRequired,
       openWindow: PropTypes.func.isRequired,
       reloadUpdatedServices: PropTypes.func.isRequired,
       updateService: PropTypes.func.isRequired,

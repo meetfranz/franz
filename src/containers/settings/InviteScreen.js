@@ -6,9 +6,6 @@ import Invite from '../../components/auth/Invite';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
-  componentDidMount() {
-  }
-
   componentWillUnmount() {
     this.props.stores.user.inviteRequest.reset();
   }

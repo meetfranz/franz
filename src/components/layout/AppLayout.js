@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
-import { TitleBar } from 'electron-react-titlebar';
+import {observer, PropTypes as MobxPropTypes} from 'mobx-react';
+import {defineMessages, intlShape} from 'react-intl';
+import {TitleBar} from 'electron-react-titlebar';
 
 import InfoBar from '../ui/InfoBar';
-import globalMessages from '../../i18n/globalMessages';
-import { Component as BasicAuth } from '../../features/basicAuth';
-
-import { isWindows } from '../../environment';
+import {Component as BasicAuth} from '../../features/basicAuth';
+import {Component as ShareFranz} from '../../features/shareFranz';
 import ErrorBoundary from '../util/ErrorBoundary';
+import {isWindows} from '../../environment';
+
+// import globalMessages from '../../i18n/globalMessages';
 /* eslint-disable react/no-danger */
 
 function createMarkup(HTMLString) {
@@ -160,6 +161,7 @@ export default @observer class AppLayout extends Component {
                   </InfoBar>
                 )}
                 <BasicAuth />
+                <ShareFranz />
                 {services}
               </div>
             </div>

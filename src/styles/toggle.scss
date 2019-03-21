@@ -41,7 +41,7 @@ $toggle-button-size: 22px;
 
     &.is-active .franz-form__toggle-button {
       background: $theme-brand-primary;
-      left: $toggle-width - $toggle-size - 3;;
+      left: $toggle-width - $toggle-size - 3;
     }
 
     input { display: none; }

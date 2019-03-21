@@ -11,9 +11,6 @@ import ServicesDashboard from '../../components/settings/services/ServicesDashbo
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 export default @inject('stores', 'actions') @observer class ServicesScreen extends Component {
-  componentDidMount() {
-  }
-
   componentWillUnmount() {
     this.props.actions.service.resetFilter();
     this.props.actions.service.resetStatus();

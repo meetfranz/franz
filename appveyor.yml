@@ -6,14 +6,11 @@ environment:
   CSC_KEY_PASSWORD:
     secure: t8ypNTPKTmvRfd3hHA4aMOtC5KOFqOw3AsKhpU7140Q=
 
-version: 5.0.0.{build}
+version: 5.0.1.{build}
 
 install:
-  - ps: $version = Get-Content .\.nvmrc -Raw 
-  - ps: Install-Product node $version
-  - npm ci
-  - node --version
-  - npm --version
+  - ps: Install-Product node 10
+  - npx lerna bootstrap
 
 cache:
  - '%APPDATA%\npm-cache'

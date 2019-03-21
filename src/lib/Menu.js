@@ -1,5 +1,5 @@
 import { remote, shell } from 'electron';
-import { observable, autorun, computed } from 'mobx';
+import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
@@ -7,6 +7,10 @@ import { isMac, ctrlKey, cmdKey } from '../environment';
 const { app, Menu, dialog } = remote;
 
 const menuItems = defineMessages({
+  resetBackground: {
+    id: 'settings.app.resetBackground',
+    defaultMessage: '!!!ResetBackground',
+  },
   edit: {
     id: 'menu.edit',
     defaultMessage: '!!!Edit',
@@ -179,6 +183,22 @@ const menuItems = defineMessages({
     id: 'menu.services.addNewService',
     defaultMessage: '!!!Add New Service...',
   },
+  activateNextService: {
+    id: 'menu.services.setNextServiceActive',
+    defaultMessage: '!!!Activate next service...',
+  },
+  activatePreviousService: {
+    id: 'menu.services.activatePreviousService',
+    defaultMessage: '!!!Activate previous service...',
+  },
+  muteApp: {
+    id: 'sidebar.muteApp',
+    defaultMessage: '!!!Disable notifications & audio',
+  },
+  unmuteApp: {
+    id: 'sidebar.unmuteApp',
+    defaultMessage: '!!!Enable notifications & audio',
+  },
 });
 
 function getActiveWebview() {
@@ -239,16 +259,32 @@ const _templateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.resetZoom),
-        role: 'resetzoom',
+        accelerator: 'Cmd+0',
+        click() {
+          getActiveWebview().setZoomLevel(0);
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        // accelerator: 'Cmd+=',
-        role: 'zoomin',
+        accelerator: 'Cmd+plus',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
+          });
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomOut),
-        role: 'zoomout',
+        accelerator: 'Cmd+-',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
+          });
+        },
       },
       {
         type: 'separator',
@@ -392,10 +428,12 @@ const _titleBarTemplateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${ctrlKey}+Plus`,
+        accelerator: `${ctrlKey}+=`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === 5 ? zoomLevel : zoomLevel + 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
           });
         },
       },
@@ -403,8 +441,10 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${ctrlKey}+-`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === -5 ? zoomLevel : zoomLevel - 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
           });
         },
       },
@@ -499,31 +539,44 @@ export default class FranzMenu {
   }
 
   _build() {
-    const serviceTpl = Object.assign([], this.serviceTpl); // need to clone object so we don't modify computed (cached) object
+    // need to clone object so we don't modify computed (cached) object
+    const serviceTpl = Object.assign([], this.serviceTpl());
 
     if (window.franz === undefined) {
       return;
     }
 
-    const intl = window.franz.intl;
+    const { intl } = window.franz;
     const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
 
-    tpl[1].submenu.push({
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(menuItems.toggleDevTools),
-      accelerator: `${cmdKey}+Alt+I`,
-      click: (menuItem, browserWindow) => {
-        browserWindow.webContents.toggleDevTools();
+    tpl[1].submenu.push(
+      {
+        type: 'separator',
       },
-    }, {
-      label: intl.formatMessage(menuItems.toggleServiceDevTools),
-      accelerator: `${cmdKey}+Shift+Alt+I`,
-      click: () => {
-        this.actions.service.openDevToolsForActiveService();
+      {
+        label: intl.formatMessage(menuItems.resetBackground),
+        accelerator: `${isMac ? cmdKey : ctrlKey}+d`,
+        click: this.actions.settings.resetBackground,
       },
-      enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
-    });
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.toggleDevTools),
+        accelerator: `${cmdKey}+Alt+I`,
+        click: (menuItem, browserWindow) => {
+          browserWindow.webContents.toggleDevTools();
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.toggleServiceDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+I`,
+        click: () => {
+          this.actions.service.openDevToolsForActiveService();
+        },
+        enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
+      }
+    );
 
     tpl[1].submenu.unshift({
       label: intl.formatMessage(menuItems.reloadService),
@@ -663,17 +716,6 @@ export default class FranzMenu {
       }, about);
     }
 
-    serviceTpl.unshift({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${cmdKey}+N`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
-      },
-      enabled: this.stores.user.isLoggedIn,
-    }, {
-      type: 'separator',
-    });
-
     if (serviceTpl.length > 0) {
       tpl[3].submenu = serviceTpl;
     }
@@ -683,22 +725,49 @@ export default class FranzMenu {
     Menu.setApplicationMenu(menu);
   }
 
-  @computed get serviceTpl() {
-    const services = this.stores.services.allDisplayed;
+  serviceTpl() {
+    const { intl } = window.franz;
+    const { user, services, settings } = this.stores;
+    if (!user.isLoggedIn) return [];
+    const menu = [];
 
-    if (this.stores.user.isLoggedIn) {
-      return services.map((service, i) => ({
-        label: this._getServiceName(service),
-        accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
-        type: 'radio',
-        checked: service.isActive,
-        click: () => {
-          this.actions.service.setActive({ serviceId: service.id });
-        },
-      }));
-    }
+    menu.push({
+      label: intl.formatMessage(menuItems.addNewService),
+      accelerator: `${cmdKey}+N`,
+      click: () => {
+        this.actions.ui.openSettings({ path: 'recipes' });
+      },
+    }, {
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.activateNextService),
+      accelerator: `${cmdKey}+alt+right`,
+      click: () => this.actions.service.setActiveNext(),
+    }, {
+      label: intl.formatMessage(menuItems.activatePreviousService),
+      accelerator: `${cmdKey}+alt+left`,
+      click: () => this.actions.service.setActivePrev(),
+    }, {
+      label: intl.formatMessage(
+        settings.all.app.isAppMuted ? menuItems.unmuteApp : menuItems.muteApp,
+      ).replace('&', '&&'),
+      accelerator: `${cmdKey}+shift+m`,
+      click: () => this.actions.app.toggleMuteApp(),
+    }, {
+      type: 'separator',
+    });
 
-    return [];
+    services.allDisplayed.forEach((service, i) => (menu.push({
+      label: this._getServiceName(service),
+      accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
+      type: 'radio',
+      checked: service.isActive,
+      click: () => {
+        this.actions.service.setActive({ serviceId: service.id });
+      },
+    })));
+
+    return menu;
   }
 
   _getServiceName(service) {
