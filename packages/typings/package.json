@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/typings",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "TypeScript typings for internal and external projects",
   "author": "Stefan Malzner <stefan@adlk.io>",
   "homepage": "https://github.com/meetfranz/franz",
@@ -18,5 +18,5 @@
   "bugs": {
     "url": "https://github.com/meetfranz/franz/issues"
   },
-  "gitHead": "14b151cad6a5a849bb476aaa3fc53bf1eead7f4b"
+  "gitHead": "27778954921365e4957eae964e28f68690f3825f"
 }

@@ -15,6 +15,7 @@ interface IProps extends IWithStyle {
   ctaLabel?: string;
   ctaLoading?: boolean;
   children: React.ReactNode;
+  className: string;
 }
 
 interface IState {
@@ -138,6 +139,7 @@ class InfoboxComponent extends Component<IProps, IState> {
       ctaLoading,
       ctaOnClick,
       dismissable,
+      className,
     } = this.props;
 
     const {
@@ -150,7 +152,10 @@ class InfoboxComponent extends Component<IProps, IState> {
     }
 
     return (
-      <div className={classes.wrapper}>
+      <div className={classnames({
+        [classes.wrapper]: true,
+        [`${className}`]: className,
+      })}>
         <div
           className={classnames({
             [classes.infobox]: true,

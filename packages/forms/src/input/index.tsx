@@ -34,7 +34,7 @@ interface IState {
 }
 
 class InputComponent extends Component<IProps, IState> {
-  public static defaultProps = {
+  static defaultProps = {
     focus: false,
     onChange: () => {},
     onBlur: () => {},
@@ -109,8 +109,10 @@ class InputComponent extends Component<IProps, IState> {
       placeholder,
       spellCheck,
       onBlur,
-      onEnterKey,
       onFocus,
+      min,
+      max,
+      step,
     } = this.props;
 
     const {
@@ -157,6 +159,9 @@ class InputComponent extends Component<IProps, IState> {
               onBlur={onBlur}
               disabled={disabled}
               onKeyPress={this.onInputKeyPress.bind(this)}
+              min={min}
+              max={max}
+              step={step}
             />
             {suffix && (
               <span className={classes.suffix}>

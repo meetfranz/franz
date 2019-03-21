@@ -10,6 +10,7 @@ interface IStoreArgs {
   ctaLabel?: string;
   type?: string;
   dismissable?: boolean;
+  className?: string;
 }
 
 const createStore = (args?: IStoreArgs) => {
@@ -29,6 +30,7 @@ const WithStoreInfobox = observer(({ store, children }: { store: any, children: 
       type={store.type}
       ctaOnClick={store.ctaOnClick}
       dismissable={store.dismissable}
+      className={store.className}
     >
       {children}
     </Infobox>
@@ -121,6 +123,13 @@ storiesOf('Infobox')
         type: 'inverted',
       })}
     >
+      Welcome to the world of tomorrow
+    </WithStoreInfobox>
+  ))
+  .add('With className', () => (
+    <WithStoreInfobox store={createStore({
+      className: 'franz-is-awesome',
+    })}>
       Welcome to the world of tomorrow
     </WithStoreInfobox>
   ));
