@@ -144,9 +144,11 @@ export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string
 // Workspace Drawer
 export const workspaceDrawerWidth = '220px';
 export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
+export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
+export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();
 export const workspaceDrawerItemActiveBackground = legacyStyles.themeGrayLightest;
 export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).darken(0.05).hex();
-export const workspaceDrawerNameColor = colorText;
-export const workspaceDrawerNameActiveColor = colorText;
+export const workspaceDrawerItemNameColor = colorText;
+export const workspaceDrawerItemNameActiveColor = colorText;
 export const workspaceDrawerServicesColor = color(colorText).lighten(1.5).hex();
 export const workspaceDrawerServicesActiveColor = workspaceDrawerServicesColor;

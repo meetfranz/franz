@@ -18,10 +18,10 @@ const styles = theme => ({
   },
   name: {
     marginTop: '4px',
-    color: theme.workspaceDrawerNameColor,
+    color: theme.workspaceDrawerItemNameColor,
   },
   activeName: {
-    color: theme.workspaceDrawerNameActiveColor,
+    color: theme.workspaceDrawerItemNameActiveColor,
   },
   services: {
     display: 'block',

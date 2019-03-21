@@ -35,6 +35,12 @@ const styles = theme => ({
     marginRight: '10px',
     marginTop: '2px',
   },
+  addWorkspaceButtonIcon: {
+    fill: theme.workspaceDrawerAddButtonColor,
+    '&:hover': {
+      fill: theme.workspaceDrawerAddButtonHoverColor,
+    },
+  },
 });
 
 @injectSheet(styles) @observer
@@ -67,6 +73,7 @@ class WorkspaceDrawer extends Component {
             <Icon
               icon="mdiPlusBox"
               size={1.5}
+              className={classes.addWorkspaceButtonIcon}
             />
           </span>
         </H1>
