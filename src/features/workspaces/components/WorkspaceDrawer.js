@@ -54,7 +54,8 @@ class WorkspaceDrawer extends Component {
       getServicesForWorkspace,
     } = this.props;
     const { intl } = this.context;
-
+    const { activeWorkspace, isSwitchingWorkspace, nextWorkspace } = workspacesState;
+    const actualWorkspace = isSwitchingWorkspace ? nextWorkspace : activeWorkspace;
     return (
       <div className={classes.drawer}>
         <H1 className={classes.headline}>
@@ -74,13 +75,13 @@ class WorkspaceDrawer extends Component {
             name={intl.formatMessage(messages.allServices)}
             onClick={() => workspaceActions.deactivate()}
             services={getServicesForWorkspace(null)}
-            isActive={workspacesState.activeWorkspace == null}
+            isActive={actualWorkspace == null}
           />
           {workspacesState.workspaces.map(workspace => (
             <WorkspaceDrawerItem
               key={workspace.id}
               name={workspace.name}
-              isActive={workspacesState.activeWorkspace === workspace}
+              isActive={actualWorkspace === workspace}
               onClick={() => workspaceActions.activate({ workspace })}
               services={getServicesForWorkspace(workspace)}
             />

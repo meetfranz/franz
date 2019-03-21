@@ -15,6 +15,8 @@ import ErrorBoundary from '../util/ErrorBoundary';
 
 import { isWindows } from '../../environment';
 import { workspacesState } from '../../features/workspaces/state';
+import FullscreenLoader from '../ui/FullscreenLoader';
+import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -123,6 +125,7 @@ class AppLayout extends Component {
               {workspacesDrawer}
               {sidebar}
               <div className="app__service">
+                <WorkspaceSwitchingIndicator />
                 {news.length > 0 && news.map(item => (
                   <InfoBar
                     key={item.id}

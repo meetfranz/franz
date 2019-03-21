@@ -2,8 +2,10 @@ import { observable } from 'mobx';
 
 const defaultState = {
   activeWorkspace: null,
-  isLoading: false,
+  nextWorkspace: null,
+  isLoadingWorkspaces: false,
   isFeatureActive: false,
+  isSwitchingWorkspace: false,
   isWorkspaceDrawerOpen: false,
   workspaces: [],
   workspaceBeingEdited: null,

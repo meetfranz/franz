@@ -31,7 +31,7 @@ export default class WorkspacesStore extends Store {
      */
     reaction(
       () => this.allWorkspacesRequest.isExecuting,
-      isExecuting => this._setIsLoading(isExecuting),
+      isExecuting => this._setIsLoadingWorkspaces(isExecuting),
     );
     /**
      * Update the state with the workspace to be edited when route matches.
@@ -66,8 +66,8 @@ export default class WorkspacesStore extends Store {
     this.state.workspaces = workspaces.map(data => new Workspace(data));
   };
 
-  @action _setIsLoading = (isLoading) => {
-    this.state.isLoading = isLoading;
+  @action _setIsLoadingWorkspaces = (isLoading) => {
+    this.state.isLoadingWorkspaces = isLoading;
   };
 
   @action _edit = ({ workspace }) => {
@@ -107,11 +107,26 @@ export default class WorkspacesStore extends Store {
   };
 
   @action _setActiveWorkspace = ({ workspace }) => {
-    this.state.activeWorkspace = workspace;
+    Object.assign(this.state, {
+      isSwitchingWorkspace: true,
+      nextWorkspace: workspace,
+    });
+    setTimeout(() => { this.state.activeWorkspace = workspace; }, 100);
+    setTimeout(() => {
+      Object.assign(this.state, {
+        isSwitchingWorkspace: false,
+        nextWorkspace: null,
+      });
+    }, 1000);
   };
 
   @action _deactivateActiveWorkspace = () => {
-    this.state.activeWorkspace = null;
+    Object.assign(this.state, {
+      isSwitchingWorkspace: true,
+      nextWorkspace: null,
+    });
+    setTimeout(() => { this.state.activeWorkspace = null; }, 100);
+    setTimeout(() => { this.state.isSwitchingWorkspace = false; }, 1000);
   };
 
   @action _toggleWorkspaceDrawer = () => {

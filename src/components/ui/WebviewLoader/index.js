@@ -11,7 +11,7 @@ export default @observer @injectSheet(styles) class WebviewLoader extends Compon
   static propTypes = {
     name: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
-  }
+  };
 
   render() {
     const { classes, name } = this.props;

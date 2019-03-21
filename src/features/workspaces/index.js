@@ -8,10 +8,13 @@ const debug = require('debug')('Franz:feature:workspaces');
 let store = null;
 
 export const filterServicesByActiveWorkspace = (services) => {
-  const { isFeatureActive, activeWorkspace } = workspacesState;
-  if (isFeatureActive && activeWorkspace) {
-    return services.filter(s => activeWorkspace.services.includes(s.id));
-  }
+  const {
+    activeWorkspace,
+    isFeatureActive,
+  } = workspacesState;
+
+  if (!isFeatureActive) return services;
+  if (activeWorkspace) return services.filter(s => activeWorkspace.services.includes(s.id));
   return services;
 };
 

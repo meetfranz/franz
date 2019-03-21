@@ -30,7 +30,7 @@ const styles = () => ({
 class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+    isLoadingWorkspaces: PropTypes.bool.isRequired,
     onCreateWorkspaceSubmit: PropTypes.func.isRequired,
     onWorkspaceClick: PropTypes.func.isRequired,
     workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
@@ -60,7 +60,7 @@ class WorkspacesDashboard extends Component {
             <div className={classes.createForm}>
               <CreateWorkspaceForm onSubmit={onCreateWorkspaceSubmit} />
             </div>
-            {isLoading ? (
+            {isLoadingWorkspaces ? (
               <Loader />
             ) : (
               <table className="workspace-table">
