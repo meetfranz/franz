@@ -3354,6 +3354,24 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!No services added yet",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawerItem.js",
+        "id": "workspaceDrawer.item.noServicesAddedYet",
+        "start": {
+          "column": 22,
+          "line": 9
+        }
+      }
+    ],
+    "path": "src/features/workspaces/components/WorkspaceDrawerItem.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,

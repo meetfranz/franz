@@ -302,5 +302,6 @@
   "welcome.signupButton": "Create a free account",
   "workspaceDrawer.allServices": "All services",
   "workspaceDrawer.headline": "Workspaces",
+  "workspaceDrawer.item.noServicesAddedYet": "No services added yet",
   "workspaces.switchingIndicator.switchingTo": "Switching to"
 }

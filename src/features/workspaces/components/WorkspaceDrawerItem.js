@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
+import { defineMessages, intlShape } from 'react-intl';
+
+const messages = defineMessages({
+  noServicesAddedYet: {
+    id: 'workspaceDrawer.item.noServicesAddedYet',
+    defaultMessage: '!!!No services added yet',
+  },
+});
 
 const styles = theme => ({
   item: {
@@ -48,6 +56,10 @@ class WorkspaceDrawerItem extends Component {
     services: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   render() {
     const {
       classes,
@@ -56,6 +68,7 @@ class WorkspaceDrawerItem extends Component {
       onClick,
       services,
     } = this.props;
+    const { intl } = this.context;
     return (
       <div
         className={classnames([
@@ -78,7 +91,7 @@ class WorkspaceDrawerItem extends Component {
             isActive ? classes.activeServices : null,
           ])}
         >
-          {services.join(', ')}
+          {services.length ? services.join(', ') : intl.formatMessage(messages.noServicesAddedYet)}
         </span>
       </div>
     );
