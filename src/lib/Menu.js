@@ -7,6 +7,10 @@ import { isMac, ctrlKey, cmdKey } from '../environment';
 const { app, Menu, dialog } = remote;
 
 const menuItems = defineMessages({
+  resetBackground: {
+    id: 'settings.app.resetBackground',
+    defaultMessage: '!!!ResetBackground',
+  },
   edit: {
     id: 'menu.edit',
     defaultMessage: '!!!Edit',
@@ -545,22 +549,34 @@ export default class FranzMenu {
     const { intl } = window.franz;
     const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
 
-    tpl[1].submenu.push({
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(menuItems.toggleDevTools),
-      accelerator: `${cmdKey}+Alt+I`,
-      click: (menuItem, browserWindow) => {
-        browserWindow.webContents.toggleDevTools();
+    tpl[1].submenu.push(
+      {
+        type: 'separator',
       },
-    }, {
-      label: intl.formatMessage(menuItems.toggleServiceDevTools),
-      accelerator: `${cmdKey}+Shift+Alt+I`,
-      click: () => {
-        this.actions.service.openDevToolsForActiveService();
+      {
+        label: intl.formatMessage(menuItems.resetBackground),
+        accelerator: `${isMac ? cmdKey : ctrlKey}+d`,
+        click: this.actions.settings.resetBackground,
       },
-      enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
-    });
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.toggleDevTools),
+        accelerator: `${cmdKey}+Alt+I`,
+        click: (menuItem, browserWindow) => {
+          browserWindow.webContents.toggleDevTools();
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.toggleServiceDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+I`,
+        click: () => {
+          this.actions.service.openDevToolsForActiveService();
+        },
+        enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
+      }
+    );
 
     tpl[1].submenu.unshift({
       label: intl.formatMessage(menuItems.reloadService),

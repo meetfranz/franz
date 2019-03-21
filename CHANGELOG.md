@@ -1,3 +1,33 @@
+## [5.0.1-omega.1](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24.2...v5.0.1-omega.1) (2019-03-21)
+
+
+### Bug Fixes
+
+* **App:** Fixes after updating master ([3140e62](https://github.com/MikeDabrowski/franz/commit/3140e62))
+
+
+### Features
+
+* **Background:** Add reset background hotkey ([338104d](https://github.com/MikeDabrowski/franz/commit/338104d))
+
+
+
+# [5.0.0](https://github.com/MikeDabrowski/franz/compare/v5.0.0-beta.24...v5.0.0) (2019-02-14)
+
+
+### Bug Fixes
+
+* **App:** Ignore network changed error ([cff00d1](https://github.com/MikeDabrowski/franz/commit/cff00d1))
+
+
+### Features
+
+* **Security:** Update electron to 4.0.4 ([b992cd2](https://github.com/MikeDabrowski/franz/commit/b992cd2))
+* **Spell checking:** Add option to automatically detect language ([e2437f2](https://github.com/MikeDabrowski/franz/commit/e2437f2))
+* **Windows:** Add option to quit Franz from Taskbar icon ([8808601](https://github.com/MikeDabrowski/franz/commit/8808601))
+
+
+
 ## [5.0.1-beta.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1-beta.1) (2019-03-18)
 
 

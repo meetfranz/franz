@@ -161,6 +161,7 @@
   "settings.app.restartRequired": "Changes require restart",
   "settings.app.subheadlineCache": "Cache",
   "settings.app.translationHelp": "Help us to translate Franz into your language.",
+  "settings.app.resetBackground": "Reset background",
   "settings.app.updateStatusAvailable": "Update available, downloading...",
   "settings.app.updateStatusSearching": "Is searching for update",
   "settings.app.updateStatusUpToDate": "You are using the latest version of Franz",
