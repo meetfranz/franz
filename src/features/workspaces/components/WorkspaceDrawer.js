@@ -9,7 +9,6 @@ import ReactTooltip from 'react-tooltip';
 import { workspacesState } from '../state';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
-import { ctrlKey } from '../../../environment';
 
 const messages = defineMessages({
   headline: {

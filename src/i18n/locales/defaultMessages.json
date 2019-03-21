@@ -3326,39 +3326,39 @@
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 17
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.headline",
         "start": {
           "column": 12,
-          "line": 15
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!All services",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 21
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.allServices",
         "start": {
           "column": 15,
-          "line": 19
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Add workspace",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 25
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.addWorkspaceTooltip",
         "start": {
           "column": 23,
-          "line": 23
+          "line": 22
         }
       }
     ],

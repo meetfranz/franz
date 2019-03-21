@@ -39,6 +39,7 @@ const messages = defineMessages({
 export default @inject('stores') @observer class SettingsNavigation extends Component {
   static propTypes = {
     serviceCount: PropTypes.number.isRequired,
+    workspaceCount: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
@@ -46,7 +47,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
   };
 
   render() {
-    const { serviceCount } = this.props;
+    const { serviceCount, workspaceCount } = this.props;
     const { intl } = this.context;
 
     return (
@@ -74,6 +75,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
         >
           {intl.formatMessage(messages.yourWorkspaces)}
           {' '}
+          <span className="badge">{workspaceCount}</span>
         </Link>
         <Link
           to="/settings/user"
