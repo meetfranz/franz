@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Workspaces",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 12,
+      "line": 15,
       "column": 12
     },
     "end": {
-      "line": 15,
+      "line": 18,
       "column": 3
     }
   },
@@ -17,11 +17,24 @@
     "defaultMessage": "!!!All services",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 16,
+      "line": 19,
       "column": 15
     },
     "end": {
-      "line": 19,
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.addWorkspaceTooltip",
+    "defaultMessage": "!!!Add workspace",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 23,
+      "column": 23
+    },
+    "end": {
+      "line": 26,
       "column": 3
     }
   }

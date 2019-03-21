@@ -4,9 +4,12 @@ import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { defineMessages, intlShape } from 'react-intl';
 import { H1, Icon } from '@meetfranz/ui';
+import ReactTooltip from 'react-tooltip';
+
 import { workspacesState } from '../state';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
+import { ctrlKey } from '../../../environment';
 
 const messages = defineMessages({
   headline: {
@@ -16,6 +19,10 @@ const messages = defineMessages({
   allServices: {
     id: 'workspaceDrawer.allServices',
     defaultMessage: '!!!All services',
+  },
+  addWorkspaceTooltip: {
+    id: 'workspaceDrawer.addWorkspaceTooltip',
+    defaultMessage: '!!!Add workspace',
   },
 });
 
@@ -54,6 +61,10 @@ class WorkspaceDrawer extends Component {
     intl: intlShape,
   };
 
+  componentDidMount() {
+    ReactTooltip.rebuild();
+  }
+
   render() {
     const {
       classes,
@@ -69,6 +80,7 @@ class WorkspaceDrawer extends Component {
           <span
             className={classes.addWorkspaceButton}
             onClick={workspaceActions.openWorkspaceSettings}
+            data-tip={`${intl.formatMessage(messages.addWorkspaceTooltip)}`}
           >
             <Icon
               icon="mdiPlusBox"
@@ -94,6 +106,7 @@ class WorkspaceDrawer extends Component {
             />
           ))}
         </div>
+        <ReactTooltip place="right" type="dark" effect="solid" />
       </div>
     );
   }
