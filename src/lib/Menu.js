@@ -185,6 +185,14 @@ const menuItems = defineMessages({
     id: 'menu.workspaces.addNewWorkspace',
     defaultMessage: '!!!Add New Workspace...',
   },
+  openWorkspaceDrawer: {
+    id: 'menu.workspaces.openWorkspaceDrawer',
+    defaultMessage: '!!!Open workspace drawer',
+  },
+  closeWorkspaceDrawer: {
+    id: 'menu.workspaces.closeWorkspaceDrawer',
+    defaultMessage: '!!!Close workspace drawer',
+  },
   activateNextService: {
     id: 'menu.services.setNextServiceActive',
     defaultMessage: '!!!Activate next service...',
@@ -788,6 +796,19 @@ export default class FranzMenu {
         workspaceActions.openWorkspaceSettings();
       },
       enabled: this.stores.user.isLoggedIn,
+    });
+
+    // Open workspace drawer:
+    const drawerLabel = (
+      workspacesState.isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
+    );
+    menu.push({
+      label: intl.formatMessage(drawerLabel),
+      accelerator: `${cmdKey}+D`,
+      click: () => {
+        workspaceActions.toggleWorkspaceDrawer();
+      },
+      enabled: this.stores.user.isLoggedIn,
     }, {
       type: 'separator',
     });
@@ -804,7 +825,7 @@ export default class FranzMenu {
     });
 
     // Workspace items
-    if (this.stores.user.isLoggedIn) {
+    if (this.stores.user.isPremium) {
       workspaces.forEach((workspace, i) => menu.push({
         label: workspace.name,
         accelerator: i < 9 ? `${cmdKey}+Alt+${i + 1}` : null,

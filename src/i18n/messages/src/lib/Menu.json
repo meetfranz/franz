@@ -572,8 +572,8 @@
     }
   },
   {
-    "id": "menu.services.setNextServiceActive",
-    "defaultMessage": "!!!Activate next service...",
+    "id": "menu.workspaces.openWorkspaceDrawer",
+    "defaultMessage": "!!!Open workspace drawer",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 188,
@@ -585,15 +585,41 @@
     }
   },
   {
+    "id": "menu.workspaces.closeWorkspaceDrawer",
+    "defaultMessage": "!!!Close workspace drawer",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 192,
+      "column": 24
+    },
+    "end": {
+      "line": 195,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.services.setNextServiceActive",
+    "defaultMessage": "!!!Activate next service...",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 196,
+      "column": 23
+    },
+    "end": {
+      "line": 199,
+      "column": 3
+    }
+  },
+  {
     "id": "menu.services.activatePreviousService",
     "defaultMessage": "!!!Activate previous service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 192,
+      "line": 200,
       "column": 27
     },
     "end": {
-      "line": 195,
+      "line": 203,
       "column": 3
     }
   },
@@ -602,11 +628,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 196,
+      "line": 204,
       "column": 11
     },
     "end": {
-      "line": 199,
+      "line": 207,
       "column": 3
     }
   },
@@ -615,11 +641,11 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 200,
+      "line": 208,
       "column": 13
     },
     "end": {
-      "line": 203,
+      "line": 211,
       "column": 3
     }
   },
@@ -628,11 +654,11 @@
     "defaultMessage": "!!!Workspaces",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 204,
+      "line": 212,
       "column": 14
     },
     "end": {
-      "line": 207,
+      "line": 215,
       "column": 3
     }
   },
@@ -641,11 +667,11 @@
     "defaultMessage": "!!!Default",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 208,
+      "line": 216,
       "column": 20
     },
     "end": {
-      "line": 211,
+      "line": 219,
       "column": 3
     }
   }
