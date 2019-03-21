@@ -142,7 +142,8 @@ export const badgeBorderRadius = 50;
 export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
 
 // Workspace Drawer
-export const workspaceDrawerWidth = '220px';
+export const workspaceDrawerWidth = 300;
+export const workspaceDrawerPadding = 20;
 export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
 export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
 export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();

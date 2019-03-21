@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
+import classnames from 'classnames';
 import { workspacesState } from '../state';
 import LoaderComponent from '../../../components/ui/Loader';
 
-const styles = () => ({
+const styles = theme => ({
   wrapper: {
     display: 'flex',
     alignItems: 'flex-start',
     position: 'absolute',
+    transition: 'width 0.5s ease',
     width: '100%',
     marginTop: '20px',
+  },
+  wrapperWhenDrawerIsOpen: {
+    width: `calc(100% - ${theme.workspaceDrawerWidth}px)`,
   },
   component: {
     background: 'rgba(20, 20, 20, 0.4)',
@@ -37,11 +42,16 @@ class WorkspaceSwitchingIndicator extends Component {
 
   render() {
     const { classes } = this.props;
-    const { isSwitchingWorkspace, nextWorkspace } = workspacesState;
+    const { isSwitchingWorkspace, isWorkspaceDrawerOpen, nextWorkspace } = workspacesState;
     if (!isSwitchingWorkspace) return null;
     const nextWorkspaceName = nextWorkspace ? nextWorkspace.name : 'All services';
     return (
-      <div className={classes.wrapper}>
+      <div
+        className={classnames([
+          classes.wrapper,
+          isWorkspaceDrawerOpen ? classes.wrapperWhenDrawerIsOpen : null,
+        ])}
+      >
         <div className={classes.component}>
           <h1 className={classes.name}>
             {`Switching to ${nextWorkspaceName}`}

@@ -43,7 +43,7 @@ class WorkspacesDashboard extends Component {
   render() {
     const {
       workspaces,
-      isLoading,
+      isLoadingWorkspaces,
       onCreateWorkspaceSubmit,
       onWorkspaceClick,
       classes,

@@ -7,7 +7,7 @@ import classnames from 'classnames';
 const styles = theme => ({
   item: {
     height: '67px',
-    padding: '15px 10px',
+    padding: `15px ${theme.workspaceDrawerPadding}px`,
     borderBottom: `1px solid ${theme.workspaceDrawerItemBorder}`,
     '&:first-child': {
       borderTop: `1px solid ${theme.workspaceDrawerItemBorder}`,

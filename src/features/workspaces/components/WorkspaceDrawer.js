@@ -22,17 +22,17 @@ const messages = defineMessages({
 const styles = theme => ({
   drawer: {
     backgroundColor: theme.workspaceDrawerBackground,
-    width: theme.workspaceDrawerWidth,
+    width: `${theme.workspaceDrawerWidth}px`,
   },
   headline: {
     fontSize: '24px',
     marginTop: '38px',
     marginBottom: '25px',
-    marginLeft: '10px',
+    marginLeft: `${theme.workspaceDrawerPadding}px`,
   },
   addWorkspaceButton: {
     float: 'right',
-    marginRight: '10px',
+    marginRight: `${theme.workspaceDrawerPadding}px`,
     marginTop: '2px',
   },
   addWorkspaceButtonIcon: {
