@@ -15,7 +15,6 @@ import ErrorBoundary from '../util/ErrorBoundary';
 
 import { isWindows } from '../../environment';
 import { workspacesState } from '../../features/workspaces/state';
-import FullscreenLoader from '../ui/FullscreenLoader';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 
 function createMarkup(HTMLString) {

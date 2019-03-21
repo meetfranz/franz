@@ -625,78 +625,78 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!A new update for Franz is available.",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.updateAvailable",
         "start": {
           "column": 19,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 32
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Changelog",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 40
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonChangelog",
         "start": {
           "column": 13,
-          "line": 36
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 44
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonInstallUpdate",
         "start": {
           "column": 23,
-          "line": 40
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 48
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 44
+          "line": 45
         }
       }
     ],
@@ -2550,6 +2550,24 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!Loading",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/ui/WebviewLoader/index.js",
+        "id": "service.webviewLoader.loading",
+        "start": {
+          "column": 11,
+          "line": 11
+        }
+      }
+    ],
+    "path": "src/components/ui/WebviewLoader/index.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Something went wrong.",
         "end": {
           "column": 3,
@@ -3363,6 +3381,24 @@
       }
     ],
     "path": "src/features/workspaces/components/WorkspacesDashboard.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Switching to",
+        "end": {
+          "column": 3,
+          "line": 15
+        },
+        "file": "src/features/workspaces/components/WorkspaceSwitchingIndicator.js",
+        "id": "workspaces.switchingIndicator.switchingTo",
+        "start": {
+          "column": 15,
+          "line": 12
+        }
+      }
+    ],
+    "path": "src/features/workspaces/components/WorkspaceSwitchingIndicator.json"
   },
   {
     "descriptors": [

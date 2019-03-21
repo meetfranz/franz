@@ -115,6 +115,7 @@
   "service.errorHandler.headline": "Oh no!",
   "service.errorHandler.message": "Error",
   "service.errorHandler.text": "{name} has failed to load.",
+  "service.webviewLoader.loading": "Loading",
   "services.getStarted": "Get started",
   "services.welcome": "Welcome to Franz",
   "settings.account.account.editButton": "Edit account",
@@ -300,5 +301,6 @@
   "welcome.loginButton": "Login to your account",
   "welcome.signupButton": "Create a free account",
   "workspaceDrawer.allServices": "All services",
-  "workspaceDrawer.headline": "Workspaces"
+  "workspaceDrawer.headline": "Workspaces",
+  "workspaces.switchingIndicator.switchingTo": "Switching to"
 }

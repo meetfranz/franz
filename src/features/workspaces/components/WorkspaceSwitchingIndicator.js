@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
+import { defineMessages, intlShape } from 'react-intl';
+
 import { workspacesState } from '../state';
 import LoaderComponent from '../../../components/ui/Loader';
+
+const messages = defineMessages({
+  switchingTo: {
+    id: 'workspaces.switchingIndicator.switchingTo',
+    defaultMessage: '!!!Switching to',
+  },
+});
 
 const styles = theme => ({
   wrapper: {
@@ -40,8 +49,13 @@ class WorkspaceSwitchingIndicator extends Component {
     classes: PropTypes.object.isRequired,
   };
 
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   render() {
     const { classes } = this.props;
+    const { intl } = this.context;
     const { isSwitchingWorkspace, isWorkspaceDrawerOpen, nextWorkspace } = workspacesState;
     if (!isSwitchingWorkspace) return null;
     const nextWorkspaceName = nextWorkspace ? nextWorkspace.name : 'All services';
@@ -54,7 +68,7 @@ class WorkspaceSwitchingIndicator extends Component {
       >
         <div className={classes.component}>
           <h1 className={classes.name}>
-            {`Switching to ${nextWorkspaceName}`}
+            {`${intl.formatMessage(messages.switchingTo)} ${nextWorkspaceName}`}
           </h1>
           <LoaderComponent />
         </div>
