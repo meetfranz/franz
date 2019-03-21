@@ -795,7 +795,7 @@ export default class FranzMenu {
     // Default workspace
     menu.push({
       label: intl.formatMessage(menuItems.defaultWorkspace),
-      accelerator: `${cmdKey}+Alt+1`,
+      accelerator: `${cmdKey}+Alt+0`,
       type: 'radio',
       checked: !activeWorkspace,
       click: () => {
@@ -807,7 +807,7 @@ export default class FranzMenu {
     if (this.stores.user.isLoggedIn) {
       workspaces.forEach((workspace, i) => menu.push({
         label: workspace.name,
-        accelerator: i < 9 ? `${cmdKey}+Alt+${i + 2}` : null,
+        accelerator: i < 9 ? `${cmdKey}+Alt+${i + 1}` : null,
         type: 'radio',
         checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
         click: () => {
