@@ -29,6 +29,7 @@ export default class WorkspacesStore {
   @observable isWorkspaceDrawerOpen = false;
 
   @computed get workspaces() {
+    if (!this.isFeatureActive) return [];
     return getUserWorkspacesRequest.execute().result || [];
   }
 

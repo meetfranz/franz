@@ -58,3 +58,10 @@ export const getUserWorkspacesRequest = new CachedRequest(workspaceApi, 'getUser
 export const createWorkspaceRequest = new Request(workspaceApi, 'createWorkspace');
 export const deleteWorkspaceRequest = new Request(workspaceApi, 'deleteWorkspace');
 export const updateWorkspaceRequest = new Request(workspaceApi, 'updateWorkspace');
+
+export const resetApiRequests = () => {
+  getUserWorkspacesRequest.reset();
+  createWorkspaceRequest.reset();
+  deleteWorkspaceRequest.reset();
+  updateWorkspaceRequest.reset();
+};

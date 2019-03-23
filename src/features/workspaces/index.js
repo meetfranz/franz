@@ -1,5 +1,6 @@
 import { reaction } from 'mobx';
 import WorkspacesStore from './store';
+import { resetApiRequests } from './api';
 
 const debug = require('debug')('Franz:feature:workspaces');
 
@@ -22,6 +23,7 @@ export default function initWorkspaces(stores, actions) {
       } else if (workspaceStore.isFeatureActive) {
         debug('Disabling `workspaces` feature');
         workspaceStore.stop();
+        resetApiRequests();
       }
     },
     {
