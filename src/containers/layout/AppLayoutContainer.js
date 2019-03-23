@@ -20,9 +20,9 @@ import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
 import { state as delayAppState } from '../../features/delayApp';
-import { workspacesState } from '../../features/workspaces/state';
 import { workspaceActions } from '../../features/workspaces/actions';
 import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
+import { workspaceStore } from '../../features/workspaces';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
@@ -108,7 +108,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         updateService={updateService}
         toggleMuteApp={toggleMuteApp}
         toggleWorkspaceDrawer={workspaceActions.toggleWorkspaceDrawer}
-        isWorkspaceDrawerOpen={workspacesState.isWorkspaceDrawerOpen}
+        isWorkspaceDrawerOpen={workspaceStore.isWorkspaceDrawerOpen}
         showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
       />

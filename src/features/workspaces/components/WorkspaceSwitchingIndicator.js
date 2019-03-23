@@ -5,8 +5,8 @@ import injectSheet from 'react-jss';
 import classnames from 'classnames';
 import { defineMessages, intlShape } from 'react-intl';
 
-import { workspacesState } from '../state';
 import LoaderComponent from '../../../components/ui/Loader';
+import { workspaceStore } from '../index';
 
 const messages = defineMessages({
   switchingTo: {
@@ -56,7 +56,7 @@ class WorkspaceSwitchingIndicator extends Component {
   render() {
     const { classes } = this.props;
     const { intl } = this.context;
-    const { isSwitchingWorkspace, isWorkspaceDrawerOpen, nextWorkspace } = workspacesState;
+    const { isSwitchingWorkspace, isWorkspaceDrawerOpen, nextWorkspace } = workspaceStore;
     if (!isSwitchingWorkspace) return null;
     const nextWorkspaceName = nextWorkspace ? nextWorkspace.name : 'All services';
     return (

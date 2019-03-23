@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import EditWorkspaceForm from '../components/EditWorkspaceForm';
-import { workspacesState } from '../state';
 import ServicesStore from '../../../stores/ServicesStore';
 import Workspace from '../models/Workspace';
+import { workspaceStore } from '../index';
 
 @inject('stores', 'actions') @observer
 class EditWorkspaceScreen extends Component {
@@ -22,14 +22,14 @@ class EditWorkspaceScreen extends Component {
   };
 
   onDelete = () => {
-    const { workspaceBeingEdited } = workspacesState;
+    const { workspaceBeingEdited } = workspaceStore;
     const { actions } = this.props;
     if (!workspaceBeingEdited) return null;
     actions.workspaces.delete({ workspace: workspaceBeingEdited });
   };
 
   onSave = (values) => {
-    const { workspaceBeingEdited } = workspacesState;
+    const { workspaceBeingEdited } = workspaceStore;
     const { actions } = this.props;
     const workspace = new Workspace(
       Object.assign({}, workspaceBeingEdited, values),
@@ -38,7 +38,7 @@ class EditWorkspaceScreen extends Component {
   };
 
   render() {
-    const { workspaceBeingEdited } = workspacesState;
+    const { workspaceBeingEdited } = workspaceStore;
     const { stores } = this.props;
     if (!workspaceBeingEdited) return null;
     return (

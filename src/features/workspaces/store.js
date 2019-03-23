@@ -1,54 +1,39 @@
-import { observable, reaction, action } from 'mobx';
-import Store from '../../stores/lib/Store';
-import CachedRequest from '../../stores/lib/CachedRequest';
-import Workspace from './models/Workspace';
+import {
+  computed,
+  observable,
+  action,
+} from 'mobx';
+import Reaction from '../../stores/lib/Reaction';
 import { matchRoute } from '../../helpers/routing-helpers';
 import { workspaceActions } from './actions';
+import {
+  createWorkspaceRequest,
+  deleteWorkspaceRequest,
+  getUserWorkspacesRequest,
+  updateWorkspaceRequest,
+} from './api';
 
-const debug = require('debug')('Franz:feature:workspaces');
+const debug = require('debug')('Franz:feature:workspaces:store');
 
-export default class WorkspacesStore extends Store {
-  @observable allWorkspacesRequest = new CachedRequest(this.api, 'getUserWorkspaces');
+export default class WorkspacesStore {
+  @observable isFeatureActive = false;
 
-  constructor(stores, api, actions, state) {
-    super(stores, api, actions);
-    this.state = state;
+  @observable activeWorkspace = null;
+
+  @observable nextWorkspace = null;
+
+  @observable workspaceBeingEdited = null;
+
+  @observable isSwitchingWorkspace = false;
+
+  @observable isWorkspaceDrawerOpen = false;
+
+  @computed get workspaces() {
+    return getUserWorkspacesRequest.execute().result || [];
   }
 
-  setup() {
-    debug('fetching workspaces');
-    this.allWorkspacesRequest.execute();
-
-    /**
-     * Update the state workspaces array when workspaces request has results.
-     */
-    reaction(
-      () => this.allWorkspacesRequest.result,
-      workspaces => this._setWorkspaces(workspaces),
-    );
-    /**
-     * Update the loading state when workspace request is executing.
-     */
-    reaction(
-      () => this.allWorkspacesRequest.isExecuting,
-      isExecuting => this._setIsLoadingWorkspaces(isExecuting),
-    );
-    /**
-     * Update the state with the workspace to be edited when route matches.
-     */
-    reaction(
-      () => ({
-        pathname: this.stores.router.location.pathname,
-        workspaces: this.state.workspaces,
-      }),
-      ({ pathname }) => {
-        const match = matchRoute('/settings/workspaces/edit/:id', pathname);
-        if (match) {
-          this.state.workspaceBeingEdited = this._getWorkspaceById(match.id);
-        }
-      },
-    );
-
+  constructor() {
+    // Wire-up action handlers
     workspaceActions.edit.listen(this._edit);
     workspaceActions.create.listen(this._create);
     workspaceActions.delete.listen(this._delete);
@@ -57,18 +42,51 @@ export default class WorkspacesStore extends Store {
     workspaceActions.deactivate.listen(this._deactivateActiveWorkspace);
     workspaceActions.toggleWorkspaceDrawer.listen(this._toggleWorkspaceDrawer);
     workspaceActions.openWorkspaceSettings.listen(this._openWorkspaceSettings);
+
+    // Register and start reactions
+    this._registerReactions([
+      this._updateWorkspaceBeingEdited,
+      this._updateActiveServiceOnWorkspaceSwitch,
+    ]);
   }
 
-  _getWorkspaceById = id => this.state.workspaces.find(w => w.id === id);
+  start(stores, actions) {
+    debug('WorkspacesStore::start');
+    this.stores = stores;
+    this.actions = actions;
+    this._reactions.forEach(r => r.start());
+    this.isFeatureActive = true;
+  }
 
-  @action _setWorkspaces = (workspaces) => {
-    debug('setting user workspaces', workspaces.slice());
-    this.state.workspaces = workspaces.map(data => new Workspace(data));
+  stop() {
+    debug('WorkspacesStore::stop');
+    this._reactions.forEach(r => r.stop());
+    this.isFeatureActive = false;
+  }
+
+  filterServicesByActiveWorkspace = (services) => {
+    const { activeWorkspace, isFeatureActive } = this;
+
+    if (!isFeatureActive) return services;
+    if (activeWorkspace) {
+      return services.filter(s => (
+        activeWorkspace.services.includes(s.id)
+      ));
+    }
+    return services;
   };
 
-  @action _setIsLoadingWorkspaces = (isLoading) => {
-    this.state.isLoadingWorkspaces = isLoading;
-  };
+  // ========== PRIVATE ========= //
+
+  _reactions = [];
+
+  _registerReactions(reactions) {
+    reactions.forEach(r => this._reactions.push(new Reaction(r)));
+  }
+
+  _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
+
+  // Actions
 
   @action _edit = ({ workspace }) => {
     this.stores.router.push(`/settings/workspaces/edit/${workspace.id}`);
@@ -76,9 +94,10 @@ export default class WorkspacesStore extends Store {
 
   @action _create = async ({ name }) => {
     try {
-      const result = await this.api.createWorkspace(name);
-      const workspace = new Workspace(result);
-      this.state.workspaces.push(workspace);
+      const workspace = await createWorkspaceRequest.execute(name);
+      await getUserWorkspacesRequest.patch((result) => {
+        result.push(workspace);
+      });
       this._edit({ workspace });
     } catch (error) {
       throw error;
@@ -87,8 +106,10 @@ export default class WorkspacesStore extends Store {
 
   @action _delete = async ({ workspace }) => {
     try {
-      await this.api.deleteWorkspace(workspace);
-      this.state.workspaces.remove(workspace);
+      await deleteWorkspaceRequest.execute(workspace);
+      await getUserWorkspacesRequest.patch((result) => {
+        result.remove(workspace);
+      });
       this.stores.router.push('/settings/workspaces');
     } catch (error) {
       throw error;
@@ -97,9 +118,11 @@ export default class WorkspacesStore extends Store {
 
   @action _update = async ({ workspace }) => {
     try {
-      await this.api.updateWorkspace(workspace);
-      const localWorkspace = this.state.workspaces.find(ws => ws.id === workspace.id);
-      Object.assign(localWorkspace, workspace);
+      await updateWorkspaceRequest.execute(workspace);
+      await getUserWorkspacesRequest.patch((result) => {
+        const localWorkspace = result.find(ws => ws.id === workspace.id);
+        Object.assign(localWorkspace, workspace);
+      });
       this.stores.router.push('/settings/workspaces');
     } catch (error) {
       throw error;
@@ -107,33 +130,56 @@ export default class WorkspacesStore extends Store {
   };
 
   @action _setActiveWorkspace = ({ workspace }) => {
-    Object.assign(this.state, {
-      isSwitchingWorkspace: true,
-      nextWorkspace: workspace,
-    });
-    setTimeout(() => { this.state.activeWorkspace = workspace; }, 100);
+    // Indicate that we are switching to another workspace
+    this.isSwitchingWorkspace = true;
+    this.nextWorkspace = workspace;
+    // Delay switching to next workspace so that the services loading does not drag down UI
+    setTimeout(() => { this.activeWorkspace = workspace; }, 100);
+    // Indicate that we are done switching to the next workspace
     setTimeout(() => {
-      Object.assign(this.state, {
-        isSwitchingWorkspace: false,
-        nextWorkspace: null,
-      });
+      this.isSwitchingWorkspace = false;
+      this.nextWorkspace = null;
     }, 1000);
   };
 
   @action _deactivateActiveWorkspace = () => {
-    Object.assign(this.state, {
-      isSwitchingWorkspace: true,
-      nextWorkspace: null,
-    });
-    setTimeout(() => { this.state.activeWorkspace = null; }, 100);
-    setTimeout(() => { this.state.isSwitchingWorkspace = false; }, 1000);
+    // Indicate that we are switching to default workspace
+    this.isSwitchingWorkspace = true;
+    this.nextWorkspace = null;
+    // Delay switching to next workspace so that the services loading does not drag down UI
+    setTimeout(() => { this.activeWorkspace = null; }, 100);
+    // Indicate that we are done switching to the default workspace
+    setTimeout(() => { this.isSwitchingWorkspace = false; }, 1000);
   };
 
   @action _toggleWorkspaceDrawer = () => {
-    this.state.isWorkspaceDrawerOpen = !this.state.isWorkspaceDrawerOpen;
+    this.isWorkspaceDrawerOpen = !this.isWorkspaceDrawerOpen;
   };
 
   @action _openWorkspaceSettings = () => {
     this.actions.ui.openSettings({ path: 'workspaces' });
+  };
+
+  // Reactions
+
+  _updateWorkspaceBeingEdited = () => {
+    const { pathname } = this.stores.router.location;
+    const match = matchRoute('/settings/workspaces/edit/:id', pathname);
+    if (match) {
+      this.workspaceBeingEdited = this._getWorkspaceById(match.id);
+    }
+  };
+
+  _updateActiveServiceOnWorkspaceSwitch = () => {
+    if (!this.isFeatureActive) return;
+    if (this.activeWorkspace) {
+      const services = this.stores.services.allDisplayed;
+      const activeService = services.find(s => s.isActive);
+      const workspaceServices = this.filterServicesByActiveWorkspace(services);
+      const isActiveServiceInWorkspace = workspaceServices.includes(activeService);
+      if (!isActiveServiceInWorkspace) {
+        this.actions.service.setActive({ serviceId: workspaceServices[0].id });
+      }
+    }
   };
 }

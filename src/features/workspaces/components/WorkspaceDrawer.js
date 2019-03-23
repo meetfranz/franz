@@ -6,9 +6,9 @@ import { defineMessages, intlShape } from 'react-intl';
 import { H1, Icon } from '@meetfranz/ui';
 import ReactTooltip from 'react-tooltip';
 
-import { workspacesState } from '../state';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
+import { workspaceStore } from '../index';
 
 const messages = defineMessages({
   headline: {
@@ -70,7 +70,12 @@ class WorkspaceDrawer extends Component {
       getServicesForWorkspace,
     } = this.props;
     const { intl } = this.context;
-    const { activeWorkspace, isSwitchingWorkspace, nextWorkspace } = workspacesState;
+    const {
+      activeWorkspace,
+      isSwitchingWorkspace,
+      nextWorkspace,
+      workspaces,
+    } = workspaceStore;
     const actualWorkspace = isSwitchingWorkspace ? nextWorkspace : activeWorkspace;
     return (
       <div className={classes.drawer}>
@@ -95,7 +100,7 @@ class WorkspaceDrawer extends Component {
             services={getServicesForWorkspace(null)}
             isActive={actualWorkspace == null}
           />
-          {workspacesState.workspaces.map(workspace => (
+          {workspaces.map(workspace => (
             <WorkspaceDrawerItem
               key={workspace.id}
               name={workspace.name}

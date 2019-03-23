@@ -12,7 +12,7 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent } from '../lib/analytics';
-import { filterServicesByActiveWorkspace, getActiveWorkspaceServices } from '../features/workspaces';
+import { workspaceStore } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -109,7 +109,7 @@ export default class ServicesStore extends Store {
 
   @computed get allDisplayed() {
     const services = this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
-    return filterServicesByActiveWorkspace(services);
+    return workspaceStore.filterServicesByActiveWorkspace(services);
   }
 
   // This is just used to avoid unnecessary rerendering of resource-heavy webviews
@@ -117,7 +117,7 @@ export default class ServicesStore extends Store {
     const { showDisabledServices } = this.stores.settings.all.app;
     const services = this.allServicesRequest.execute().result || [];
     const filteredServices = showDisabledServices ? services : services.filter(service => service.isEnabled);
-    return getActiveWorkspaceServices(filteredServices);
+    return workspaceStore.filterServicesByActiveWorkspace(filteredServices);
   }
 
   @computed get filtered() {

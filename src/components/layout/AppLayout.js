@@ -14,8 +14,8 @@ import ErrorBoundary from '../util/ErrorBoundary';
 // import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
-import { workspacesState } from '../../features/workspaces/state';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
+import { workspaceStore } from '../../features/workspaces';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -53,7 +53,7 @@ const styles = theme => ({
     width: `calc(100% + ${theme.workspaceDrawerWidth}px)`,
     transition: 'transform 0.5s ease',
     transform() {
-      return workspacesState.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaceDrawerWidth}px)`;
+      return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaceDrawerWidth}px)`;
     },
   },
 });

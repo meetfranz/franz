@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { workspacesState } from '../state';
 import WorkspacesDashboard from '../components/WorkspacesDashboard';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
+import { workspaceStore } from '../index';
+import { getUserWorkspacesRequest } from '../api';
 
 @inject('actions') @observer
 class WorkspacesScreen extends Component {
@@ -20,8 +21,8 @@ class WorkspacesScreen extends Component {
     return (
       <ErrorBoundary>
         <WorkspacesDashboard
-          workspaces={workspacesState.workspaces}
-          isLoadingWorkspaces={workspacesState.isLoadingWorkspaces}
+          workspaces={workspaceStore.workspaces}
+          isLoadingWorkspaces={getUserWorkspacesRequest.isExecuting}
           onCreateWorkspaceSubmit={data => actions.workspaces.create(data)}
           onWorkspaceClick={w => actions.workspaces.edit({ workspace: w })}
         />

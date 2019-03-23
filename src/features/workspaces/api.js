@@ -1,39 +1,60 @@
 import { pick } from 'lodash';
 import { sendAuthRequest } from '../../api/utils/auth';
 import { API, API_VERSION } from '../../environment';
+import Request from '../../stores/lib/Request';
+import CachedRequest from '../../stores/lib/CachedRequest';
+import Workspace from './models/Workspace';
 
-export default {
+const debug = require('debug')('Franz:feature:workspaces:api');
+
+export const workspaceApi = {
   getUserWorkspaces: async () => {
     const url = `${API}/${API_VERSION}/workspace`;
-    const request = await sendAuthRequest(url, { method: 'GET' });
-    if (!request.ok) throw request;
-    return request.json();
+    debug('getUserWorkspaces GET', url);
+    const result = await sendAuthRequest(url, { method: 'GET' });
+    debug('getUserWorkspaces RESULT', result);
+    if (!result.ok) throw result;
+    const workspaces = await result.json();
+    return workspaces.map(data => new Workspace(data));
   },
 
   createWorkspace: async (name) => {
     const url = `${API}/${API_VERSION}/workspace`;
-    const request = await sendAuthRequest(url, {
+    const options = {
       method: 'POST',
       body: JSON.stringify({ name }),
-    });
-    if (!request.ok) throw request;
-    return request.json();
+    };
+    debug('createWorkspace POST', url, options);
+    const result = await sendAuthRequest(url, options);
+    debug('createWorkspace RESULT', result);
+    if (!result.ok) throw result;
+    return new Workspace(await result.json());
   },
 
   deleteWorkspace: async (workspace) => {
     const url = `${API}/${API_VERSION}/workspace/${workspace.id}`;
-    const request = await sendAuthRequest(url, { method: 'DELETE' });
-    if (!request.ok) throw request;
-    return request.json();
+    debug('deleteWorkspace DELETE', url);
+    const result = await sendAuthRequest(url, { method: 'DELETE' });
+    debug('deleteWorkspace RESULT', result);
+    if (!result.ok) throw result;
+    return (await result.json()).deleted;
   },
 
   updateWorkspace: async (workspace) => {
     const url = `${API}/${API_VERSION}/workspace/${workspace.id}`;
-    const request = await sendAuthRequest(url, {
+    const options = {
       method: 'PUT',
       body: JSON.stringify(pick(workspace, ['name', 'services'])),
-    });
-    if (!request.ok) throw request;
-    return request.json();
+    };
+    debug('updateWorkspace UPDATE', url, options);
+    const result = await sendAuthRequest(url, options);
+    debug('updateWorkspace RESULT', result);
+    if (!result.ok) throw result;
+    return new Workspace(await result.json());
   },
 };
+
+export const getUserWorkspacesRequest = new CachedRequest(workspaceApi, 'getUserWorkspaces');
+export const createWorkspaceRequest = new Request(workspaceApi, 'createWorkspace');
+export const deleteWorkspaceRequest = new Request(workspaceApi, 'deleteWorkspace');
+export const updateWorkspaceRequest = new Request(workspaceApi, 'updateWorkspace');

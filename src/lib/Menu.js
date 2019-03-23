@@ -3,7 +3,7 @@ import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
-import { workspacesState } from '../features/workspaces/state';
+import { workspaceStore } from '../features/workspaces/index';
 import { workspaceActions } from '../features/workspaces/actions';
 
 const { app, Menu, dialog } = remote;
@@ -784,7 +784,7 @@ export default class FranzMenu {
   }
 
   workspacesMenu() {
-    const { workspaces, activeWorkspace } = workspacesState;
+    const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
     const { intl } = window.franz;
     const menu = [];
 
@@ -800,7 +800,7 @@ export default class FranzMenu {
 
     // Open workspace drawer:
     const drawerLabel = (
-      workspacesState.isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
+      isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
     );
     menu.push({
       label: intl.formatMessage(drawerLabel),
