@@ -1,5 +1,4 @@
-## [5.0.1-beta.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1-beta.1) (2019-03-18)
-
+# [5.0.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1) (2019-03-25)
 
 ### General
 
@@ -23,6 +22,10 @@
 * **Windows:** Fix copy & paste in service context menus ([e66fcaa](https://github.com/meetfranz/franz/commit/e66fcaa)), closes [#1316](https://github.com/meetfranz/franz/issues/1316)
 * **Windows:** Fix losing window when "Keep Franz in background" is enabled ([78a3722](https://github.com/meetfranz/franz/commit/78a3722))
 
+
+# [5.0.1-beta.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1-beta.1) (2019-03-18)
+
+[See 5.0.1 changelog.](#5-0-1--2019-03-25-)
 
 
 # [5.0.0](https://github.com/meetfranz/franz/compare/5.0.0-beta.24...5.0.0) (2019-02-15)
