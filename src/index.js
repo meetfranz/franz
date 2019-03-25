@@ -1,3 +1,6 @@
+/* eslint-disable import/first */
+import './sentry';
+
 import {
   app,
   BrowserWindow,
@@ -14,7 +17,6 @@ if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
 
-/* eslint-disable import/first */
 import {
   isMac,
   isWindows,
@@ -180,6 +182,7 @@ const createWindow = () => {
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, 'sentry.js'),
     },
   });
 

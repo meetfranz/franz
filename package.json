@@ -38,6 +38,7 @@
     "@meetfranz/forms": "file:packages/forms",
     "@meetfranz/theme": "file:packages/theme",
     "@meetfranz/ui": "file:packages/ui",
+    "@sentry/electron": "0.17.0",
     "address-rfc2822": "^2.0.1",
     "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",
     "classnames": "2.2.6",
