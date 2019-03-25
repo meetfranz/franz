@@ -1,6 +1,5 @@
 # [5.0.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1) (2019-03-25)
 
-
 ### General
 
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
@@ -26,9 +25,7 @@
 
 # [5.0.1-beta.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1-beta.1) (2019-03-18)
 
-
 [See 5.0.1 changelog.](#5-0-1--2019-03-25-)
-
 
 
 # [5.0.0](https://github.com/meetfranz/franz/compare/5.0.0-beta.24...5.0.0) (2019-02-15)
