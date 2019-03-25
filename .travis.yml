@@ -44,6 +44,7 @@ deploy:
   skip_cleanup: true
   acl: public_read
   on:
+    repo: meetfranz/franz
     all_branches: true
 
 env:
