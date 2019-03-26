@@ -7,6 +7,7 @@ import EditWorkspaceForm from '../components/EditWorkspaceForm';
 import ServicesStore from '../../../stores/ServicesStore';
 import Workspace from '../models/Workspace';
 import { workspaceStore } from '../index';
+import { deleteWorkspaceRequest, updateWorkspaceRequest } from '../api';
 
 @inject('stores', 'actions') @observer
 class EditWorkspaceScreen extends Component {
@@ -48,8 +49,8 @@ class EditWorkspaceScreen extends Component {
           services={stores.services.all}
           onDelete={this.onDelete}
           onSave={this.onSave}
-          isDeleting={false}
-          isSaving={false}
+          updateWorkspaceRequest={updateWorkspaceRequest}
+          deleteWorkspaceRequest={deleteWorkspaceRequest}
         />
       </ErrorBoundary>
     );

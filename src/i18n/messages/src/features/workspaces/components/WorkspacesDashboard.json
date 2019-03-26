@@ -63,5 +63,18 @@
       "line": 34,
       "column": 3
     }
+  },
+  {
+    "id": "settings.workspaces.deletedInfo",
+    "defaultMessage": "!!!Workspace has been deleted",
+    "file": "src/features/workspaces/components/WorkspacesDashboard.js",
+    "start": {
+      "line": 35,
+      "column": 15
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
   }
 ]

@@ -3222,7 +3222,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Save workspace",
+        "defaultMessage": "!!!Create workspace",
         "end": {
           "column": 3,
           "line": 14
@@ -3256,65 +3256,65 @@
         "defaultMessage": "!!!Delete workspace",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.buttonDelete",
         "start": {
           "column": 16,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Save workspace",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.buttonSave",
         "start": {
           "column": 14,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Name",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.name",
         "start": {
           "column": 8,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Services in this Workspace",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.servicesInWorkspaceHeadline",
         "start": {
           "column": 31,
-          "line": 32
+          "line": 33
         }
       }
     ],
@@ -3447,6 +3447,19 @@
         "start": {
           "column": 15,
           "line": 31
+        }
+      },
+      {
+        "defaultMessage": "!!!Workspace has been deleted",
+        "end": {
+          "column": 3,
+          "line": 38
+        },
+        "file": "src/features/workspaces/components/WorkspacesDashboard.js",
+        "id": "settings.workspaces.deletedInfo",
+        "start": {
+          "column": 15,
+          "line": 35
         }
       }
     ],

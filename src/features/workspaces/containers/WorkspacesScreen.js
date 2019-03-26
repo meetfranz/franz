@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import WorkspacesDashboard from '../components/WorkspacesDashboard';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { workspaceStore } from '../index';
-import { getUserWorkspacesRequest, updateWorkspaceRequest } from '../api';
+import {
+  createWorkspaceRequest,
+  deleteWorkspaceRequest,
+  getUserWorkspacesRequest,
+  updateWorkspaceRequest,
+} from '../api';
 
 @inject('actions') @observer
 class WorkspacesScreen extends Component {
@@ -23,6 +28,8 @@ class WorkspacesScreen extends Component {
         <WorkspacesDashboard
           workspaces={workspaceStore.workspaces}
           getUserWorkspacesRequest={getUserWorkspacesRequest}
+          createWorkspaceRequest={createWorkspaceRequest}
+          deleteWorkspaceRequest={deleteWorkspaceRequest}
           updateWorkspaceRequest={updateWorkspaceRequest}
           onCreateWorkspaceSubmit={data => actions.workspaces.create(data)}
           onWorkspaceClick={w => actions.workspaces.edit({ workspace: w })}

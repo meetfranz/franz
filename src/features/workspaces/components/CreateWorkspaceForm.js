@@ -10,7 +10,7 @@ import { required } from '../../../helpers/validation-helpers';
 const messages = defineMessages({
   submitButton: {
     id: 'settings.workspace.add.form.submitButton',
-    defaultMessage: '!!!Save workspace',
+    defaultMessage: '!!!Create workspace',
   },
   name: {
     id: 'settings.workspace.add.form.name',
@@ -40,6 +40,7 @@ class CreateWorkspaceForm extends Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
 
@@ -69,7 +70,7 @@ class CreateWorkspaceForm extends Component {
 
   render() {
     const { intl } = this.context;
-    const { classes } = this.props;
+    const { classes, isSubmitting } = this.props;
     const { form } = this;
     return (
       <div className={classes.form}>
@@ -84,6 +85,8 @@ class CreateWorkspaceForm extends Component {
           type="submit"
           label={intl.formatMessage(messages.submitButton)}
           onClick={this.submitForm.bind(this, form)}
+          busy={isSubmitting}
+          buttonType={isSubmitting ? 'secondary' : 'primary'}
         />
       </div>
     );

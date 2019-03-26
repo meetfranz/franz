@@ -11,6 +11,7 @@ import Service from '../../../models/Service';
 import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
 import ServiceListItem from './ServiceListItem';
+import Request from '../../../stores/lib/Request';
 
 const messages = defineMessages({
   buttonDelete: {
@@ -52,12 +53,12 @@ class EditWorkspaceForm extends Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    isDeleting: PropTypes.bool.isRequired,
-    isSaving: PropTypes.bool.isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     services: PropTypes.arrayOf(PropTypes.instanceOf(Service)).isRequired,
     workspace: PropTypes.instanceOf(Workspace).isRequired,
+    updateWorkspaceRequest: PropTypes.instanceOf(Request).isRequired,
+    deleteWorkspaceRequest: PropTypes.instanceOf(Request).isRequired,
   };
 
   form = this.prepareWorkspaceForm(this.props.workspace);
@@ -112,14 +113,16 @@ class EditWorkspaceForm extends Component {
     const { intl } = this.context;
     const {
       classes,
-      isDeleting,
-      isSaving,
       onDelete,
       workspace,
       services,
+      deleteWorkspaceRequest,
+      updateWorkspaceRequest,
     } = this.props;
     const { form } = this;
     const workspaceServices = form.$('services').value;
+    const isDeleting = deleteWorkspaceRequest.isExecuting;
+    const isSaving = updateWorkspaceRequest.isExecuting;
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -151,38 +154,24 @@ class EditWorkspaceForm extends Component {
         </div>
         <div className="settings__controls">
           {/* ===== Delete Button ===== */}
-          {isDeleting ? (
-            <Button
-              label={intl.formatMessage(messages.buttonDelete)}
-              loaded={false}
-              buttonType="secondary"
-              className="settings__delete-button"
-              disabled
-            />
-          ) : (
-            <Button
-              buttonType="danger"
-              label={intl.formatMessage(messages.buttonDelete)}
-              className="settings__delete-button"
-              onClick={onDelete}
-            />
-          )}
+          <Button
+            label={intl.formatMessage(messages.buttonDelete)}
+            loaded={false}
+            busy={isDeleting}
+            buttonType={isDeleting ? 'secondary' : 'danger'}
+            className="settings__delete-button"
+            disabled={isDeleting}
+            onClick={onDelete}
+          />
           {/* ===== Save Button ===== */}
-          {isSaving ? (
-            <Button
-              type="submit"
-              label={intl.formatMessage(messages.buttonSave)}
-              loaded={!isSaving}
-              buttonType="secondary"
-              disabled
-            />
-          ) : (
-            <Button
-              type="submit"
-              label={intl.formatMessage(messages.buttonSave)}
-              onClick={this.submitForm.bind(this, form)}
-            />
-          )}
+          <Button
+            type="submit"
+            label={intl.formatMessage(messages.buttonSave)}
+            busy={isSaving}
+            buttonType={isSaving ? 'secondary' : 'primary'}
+            onClick={this.submitForm.bind(this, form)}
+            disabled={isSaving}
+          />
         </div>
       </div>
     );

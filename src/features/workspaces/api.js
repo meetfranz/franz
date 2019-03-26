@@ -36,7 +36,7 @@ export const workspaceApi = {
     const result = await sendAuthRequest(url, { method: 'DELETE' });
     debug('deleteWorkspace RESULT', result);
     if (!result.ok) throw result;
-    return (await result.json()).deleted;
+    return true;
   },
 
   updateWorkspace: async (workspace) => {

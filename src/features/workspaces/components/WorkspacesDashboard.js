@@ -32,6 +32,10 @@ const messages = defineMessages({
     id: 'settings.workspaces.updatedInfo',
     defaultMessage: '!!!Your changes have been saved',
   },
+  deletedInfo: {
+    id: 'settings.workspaces.deletedInfo',
+    defaultMessage: '!!!Workspace has been deleted',
+  },
 });
 
 const styles = () => ({
@@ -49,6 +53,8 @@ class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     getUserWorkspacesRequest: PropTypes.instanceOf(Request).isRequired,
+    createWorkspaceRequest: PropTypes.instanceOf(Request).isRequired,
+    deleteWorkspaceRequest: PropTypes.instanceOf(Request).isRequired,
     updateWorkspaceRequest: PropTypes.instanceOf(Request).isRequired,
     onCreateWorkspaceSubmit: PropTypes.func.isRequired,
     onWorkspaceClick: PropTypes.func.isRequired,
@@ -63,38 +69,63 @@ class WorkspacesDashboard extends Component {
     const {
       classes,
       getUserWorkspacesRequest,
+      createWorkspaceRequest,
+      deleteWorkspaceRequest,
       updateWorkspaceRequest,
       onCreateWorkspaceSubmit,
       onWorkspaceClick,
       workspaces,
     } = this.props;
     const { intl } = this.context;
+    console.log(deleteWorkspaceRequest.result);
     return (
       <div className="settings__main">
         <div className="settings__header">
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
+
+          {/* ===== Workspace updated info ===== */}
           {updateWorkspaceRequest.wasExecuted && updateWorkspaceRequest.result && (
             <Appear className={classes.appear}>
               <Infobox
                 type="success"
-                icon="checkbox-marked-circle-outline"
+                icon="mdiCheckboxMarkedCircleOutline"
                 dismissable
-                onDismiss={updateWorkspaceRequest.reset}
                 onUnmount={updateWorkspaceRequest.reset}
               >
                 {intl.formatMessage(messages.updatedInfo)}
               </Infobox>
             </Appear>
           )}
+
+          {/* ===== Workspace deleted info ===== */}
+          {deleteWorkspaceRequest.wasExecuted && deleteWorkspaceRequest.result && (
+            <Appear className={classes.appear}>
+              <Infobox
+                type="success"
+                icon="mdiCheckboxMarkedCircleOutline"
+                dismissable
+                onUnmount={deleteWorkspaceRequest.reset}
+              >
+                {intl.formatMessage(messages.deletedInfo)}
+              </Infobox>
+            </Appear>
+          )}
+
+          {/* ===== Create workspace form ===== */}
           <div className={classes.createForm}>
-            <CreateWorkspaceForm onSubmit={onCreateWorkspaceSubmit} />
+            <CreateWorkspaceForm
+              isSubmitting={createWorkspaceRequest.isExecuting}
+              onSubmit={onCreateWorkspaceSubmit}
+            />
           </div>
+
           {getUserWorkspacesRequest.isExecuting ? (
             <Loader />
           ) : (
             <Fragment>
+              {/* ===== Workspace could not be loaded error ===== */}
               {getUserWorkspacesRequest.error ? (
                 <Infobox
                   icon="alert"
@@ -107,6 +138,7 @@ class WorkspacesDashboard extends Component {
                 </Infobox>
               ) : (
                 <table className="workspace-table">
+                  {/* ===== Workspaces list ===== */}
                   <tbody>
                     {workspaces.map(workspace => (
                       <WorkspaceItem
