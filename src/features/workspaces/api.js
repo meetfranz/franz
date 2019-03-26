@@ -2,7 +2,6 @@ import { pick } from 'lodash';
 import { sendAuthRequest } from '../../api/utils/auth';
 import { API, API_VERSION } from '../../environment';
 import Request from '../../stores/lib/Request';
-import CachedRequest from '../../stores/lib/CachedRequest';
 import Workspace from './models/Workspace';
 
 const debug = require('debug')('Franz:feature:workspaces:api');
@@ -54,7 +53,7 @@ export const workspaceApi = {
   },
 };
 
-export const getUserWorkspacesRequest = new CachedRequest(workspaceApi, 'getUserWorkspaces');
+export const getUserWorkspacesRequest = new Request(workspaceApi, 'getUserWorkspaces');
 export const createWorkspaceRequest = new Request(workspaceApi, 'createWorkspace');
 export const deleteWorkspaceRequest = new Request(workspaceApi, 'deleteWorkspace');
 export const updateWorkspaceRequest = new Request(workspaceApi, 'updateWorkspace');

@@ -22,7 +22,7 @@ class WorkspacesScreen extends Component {
       <ErrorBoundary>
         <WorkspacesDashboard
           workspaces={workspaceStore.workspaces}
-          isLoadingWorkspaces={getUserWorkspacesRequest.isExecuting}
+          getUserWorkspacesRequest={getUserWorkspacesRequest}
           onCreateWorkspaceSubmit={data => actions.workspaces.create(data)}
           onWorkspaceClick={w => actions.workspaces.edit({ workspace: w })}
         />

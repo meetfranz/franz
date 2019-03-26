@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -7,6 +7,8 @@ import injectSheet from 'react-jss';
 import Loader from '../../../components/ui/Loader';
 import WorkspaceItem from './WorkspaceItem';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
+import Request from '../../../stores/lib/Request';
+import Infobox from '../../../components/ui/Infobox';
 
 const messages = defineMessages({
   headline: {
@@ -17,6 +19,14 @@ const messages = defineMessages({
     id: 'settings.workspaces.noWorkspacesAdded',
     defaultMessage: '!!!You haven\'t added any workspaces yet.',
   },
+  workspacesRequestFailed: {
+    id: 'settings.workspaces.workspacesRequestFailed',
+    defaultMessage: '!!!Could not load your workspaces',
+  },
+  tryReloadWorkspaces: {
+    id: 'settings.workspaces.tryReloadWorkspaces',
+    defaultMessage: '!!!Try again',
+  },
 });
 
 const styles = () => ({
@@ -26,11 +36,11 @@ const styles = () => ({
   },
 });
 
-@observer @injectSheet(styles)
+@injectSheet(styles) @observer
 class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    isLoadingWorkspaces: PropTypes.bool.isRequired,
+    getUserWorkspacesRequest: PropTypes.instanceOf(Request).isRequired,
     onCreateWorkspaceSubmit: PropTypes.func.isRequired,
     onWorkspaceClick: PropTypes.func.isRequired,
     workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
@@ -42,14 +52,13 @@ class WorkspacesDashboard extends Component {
 
   render() {
     const {
-      workspaces,
-      isLoadingWorkspaces,
+      classes,
+      getUserWorkspacesRequest,
       onCreateWorkspaceSubmit,
       onWorkspaceClick,
-      classes,
+      workspaces,
     } = this.props;
     const { intl } = this.context;
-
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -60,20 +69,34 @@ class WorkspacesDashboard extends Component {
             <div className={classes.createForm}>
               <CreateWorkspaceForm onSubmit={onCreateWorkspaceSubmit} />
             </div>
-            {isLoadingWorkspaces ? (
+            {getUserWorkspacesRequest.isExecuting ? (
               <Loader />
             ) : (
-              <table className="workspace-table">
-                <tbody>
-                  {workspaces.map(workspace => (
-                    <WorkspaceItem
-                      key={workspace.id}
-                      workspace={workspace}
-                      onItemClick={w => onWorkspaceClick(w)}
-                    />
-                  ))}
-                </tbody>
-              </table>
+              <Fragment>
+                {getUserWorkspacesRequest.error ? (
+                  <Infobox
+                    icon="alert"
+                    type="danger"
+                    ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
+                    ctaLoading={getUserWorkspacesRequest.isExecuting}
+                    ctaOnClick={getUserWorkspacesRequest.retry}
+                  >
+                    {intl.formatMessage(messages.workspacesRequestFailed)}
+                  </Infobox>
+                ) : (
+                  <table className="workspace-table">
+                    <tbody>
+                      {workspaces.map(workspace => (
+                        <WorkspaceItem
+                          key={workspace.id}
+                          workspace={workspace}
+                          onItemClick={w => onWorkspaceClick(w)}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </Fragment>
             )}
           </div>
         </div>

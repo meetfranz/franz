@@ -30,7 +30,7 @@ export default class WorkspacesStore {
 
   @computed get workspaces() {
     if (!this.isFeatureActive) return [];
-    return getUserWorkspacesRequest.execute().result || [];
+    return getUserWorkspacesRequest.result || [];
   }
 
   constructor() {
@@ -57,6 +57,7 @@ export default class WorkspacesStore {
     this.actions = actions;
     this._reactions.forEach(r => r.start());
     this.isFeatureActive = true;
+    getUserWorkspacesRequest.execute();
   }
 
   stop() {

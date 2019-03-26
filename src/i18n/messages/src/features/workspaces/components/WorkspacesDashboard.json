@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Your workspaces",
     "file": "src/features/workspaces/components/WorkspacesDashboard.js",
     "start": {
-      "line": 12,
+      "line": 14,
       "column": 12
     },
     "end": {
-      "line": 15,
+      "line": 17,
       "column": 3
     }
   },
@@ -17,11 +17,37 @@
     "defaultMessage": "!!!You haven't added any workspaces yet.",
     "file": "src/features/workspaces/components/WorkspacesDashboard.js",
     "start": {
-      "line": 16,
+      "line": 18,
       "column": 19
     },
     "end": {
-      "line": 19,
+      "line": 21,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspaces.workspacesRequestFailed",
+    "defaultMessage": "!!!Could not load your workspaces",
+    "file": "src/features/workspaces/components/WorkspacesDashboard.js",
+    "start": {
+      "line": 22,
+      "column": 27
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspaces.tryReloadWorkspaces",
+    "defaultMessage": "!!!Try again",
+    "file": "src/features/workspaces/components/WorkspacesDashboard.js",
+    "start": {
+      "line": 26,
+      "column": 23
+    },
+    "end": {
+      "line": 29,
       "column": 3
     }
   }

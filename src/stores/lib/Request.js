@@ -85,6 +85,8 @@ export default class Request {
     return this.execute(...this._currentApiCall.args);
   }
 
+  retry = () => this.reload();
+
   isExecutingWithArgs(...args) {
     return this.isExecuting && this._currentApiCall && isEqual(this._currentApiCall.args, args);
   }
