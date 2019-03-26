@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
+import { Infobox } from '@meetfranz/ui';
 
 import Loader from '../../../components/ui/Loader';
 import WorkspaceItem from './WorkspaceItem';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 import Request from '../../../stores/lib/Request';
-import Infobox from '../../../components/ui/Infobox';
+import Appear from '../../../components/ui/effects/Appear';
 
 const messages = defineMessages({
   headline: {
@@ -27,12 +28,19 @@ const messages = defineMessages({
     id: 'settings.workspaces.tryReloadWorkspaces',
     defaultMessage: '!!!Try again',
   },
+  updatedInfo: {
+    id: 'settings.workspaces.updatedInfo',
+    defaultMessage: '!!!Your changes have been saved',
+  },
 });
 
 const styles = () => ({
   createForm: {
     height: 'auto',
     marginBottom: '20px',
+  },
+  appear: {
+    height: 'auto',
   },
 });
 
@@ -41,6 +49,7 @@ class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     getUserWorkspacesRequest: PropTypes.instanceOf(Request).isRequired,
+    updateWorkspaceRequest: PropTypes.instanceOf(Request).isRequired,
     onCreateWorkspaceSubmit: PropTypes.func.isRequired,
     onWorkspaceClick: PropTypes.func.isRequired,
     workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
@@ -54,6 +63,7 @@ class WorkspacesDashboard extends Component {
     const {
       classes,
       getUserWorkspacesRequest,
+      updateWorkspaceRequest,
       onCreateWorkspaceSubmit,
       onWorkspaceClick,
       workspaces,
@@ -65,40 +75,51 @@ class WorkspacesDashboard extends Component {
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
-          <div className={classes.body}>
-            <div className={classes.createForm}>
-              <CreateWorkspaceForm onSubmit={onCreateWorkspaceSubmit} />
-            </div>
-            {getUserWorkspacesRequest.isExecuting ? (
-              <Loader />
-            ) : (
-              <Fragment>
-                {getUserWorkspacesRequest.error ? (
-                  <Infobox
-                    icon="alert"
-                    type="danger"
-                    ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
-                    ctaLoading={getUserWorkspacesRequest.isExecuting}
-                    ctaOnClick={getUserWorkspacesRequest.retry}
-                  >
-                    {intl.formatMessage(messages.workspacesRequestFailed)}
-                  </Infobox>
-                ) : (
-                  <table className="workspace-table">
-                    <tbody>
-                      {workspaces.map(workspace => (
-                        <WorkspaceItem
-                          key={workspace.id}
-                          workspace={workspace}
-                          onItemClick={w => onWorkspaceClick(w)}
-                        />
-                      ))}
-                    </tbody>
-                  </table>
-                )}
-              </Fragment>
-            )}
+          {updateWorkspaceRequest.wasExecuted && updateWorkspaceRequest.result && (
+            <Appear className={classes.appear}>
+              <Infobox
+                type="success"
+                icon="checkbox-marked-circle-outline"
+                dismissable
+                onDismiss={updateWorkspaceRequest.reset}
+                onUnmount={updateWorkspaceRequest.reset}
+              >
+                {intl.formatMessage(messages.updatedInfo)}
+              </Infobox>
+            </Appear>
+          )}
+          <div className={classes.createForm}>
+            <CreateWorkspaceForm onSubmit={onCreateWorkspaceSubmit} />
           </div>
+          {getUserWorkspacesRequest.isExecuting ? (
+            <Loader />
+          ) : (
+            <Fragment>
+              {getUserWorkspacesRequest.error ? (
+                <Infobox
+                  icon="alert"
+                  type="danger"
+                  ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
+                  ctaLoading={getUserWorkspacesRequest.isExecuting}
+                  ctaOnClick={getUserWorkspacesRequest.retry}
+                >
+                  {intl.formatMessage(messages.workspacesRequestFailed)}
+                </Infobox>
+              ) : (
+                <table className="workspace-table">
+                  <tbody>
+                    {workspaces.map(workspace => (
+                      <WorkspaceItem
+                        key={workspace.id}
+                        workspace={workspace}
+                        onItemClick={w => onWorkspaceClick(w)}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </Fragment>
+          )}
         </div>
       </div>
     );

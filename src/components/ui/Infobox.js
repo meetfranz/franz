@@ -13,6 +13,8 @@ export default @observer class Infobox extends Component {
     ctaLabel: PropTypes.string,
     ctaLoading: PropTypes.bool,
     dismissable: PropTypes.bool,
+    onDismiss: PropTypes.func,
+    onSeen: PropTypes.func,
   };
 
   static defaultProps = {
@@ -22,11 +24,18 @@ export default @observer class Infobox extends Component {
     ctaOnClick: () => null,
     ctaLabel: '',
     ctaLoading: false,
+    onDismiss: () => null,
+    onSeen: () => null,
   };
 
   state = {
     dismissed: false,
   };
+
+  componentDidMount() {
+    const { onSeen } = this.props;
+    if (onSeen) onSeen();
+  }
 
   render() {
     const {
@@ -37,6 +46,7 @@ export default @observer class Infobox extends Component {
       ctaLoading,
       ctaOnClick,
       dismissable,
+      onDismiss,
     } = this.props;
 
     if (this.state.dismissed) {
@@ -76,9 +86,10 @@ export default @observer class Infobox extends Component {
         {dismissable && (
           <button
             type="button"
-            onClick={() => this.setState({
-              dismissed: true,
-            })}
+            onClick={() => {
+              this.setState({ dismissed: true });
+              if (onDismiss) onDismiss();
+            }}
             className="infobox__delete mdi mdi-close"
           />
         )}

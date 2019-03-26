@@ -3388,52 +3388,65 @@
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 18
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.headline",
         "start": {
           "column": 12,
-          "line": 14
+          "line": 15
         }
       },
       {
         "defaultMessage": "!!!You haven't added any workspaces yet.",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 22
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.noWorkspacesAdded",
         "start": {
           "column": 19,
-          "line": 18
+          "line": 19
         }
       },
       {
         "defaultMessage": "!!!Could not load your workspaces",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 26
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspacesRequestFailed",
         "start": {
           "column": 27,
-          "line": 22
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.tryReloadWorkspaces",
         "start": {
           "column": 23,
-          "line": 26
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Your changes have been saved",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/features/workspaces/components/WorkspacesDashboard.js",
+        "id": "settings.workspaces.updatedInfo",
+        "start": {
+          "column": 15,
+          "line": 31
         }
       }
     ],

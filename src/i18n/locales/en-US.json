@@ -252,6 +252,7 @@
   "settings.workspaces.headline": "Your workspaces",
   "settings.workspaces.noWorkspacesAdded": "You haven't added any workspaces yet.",
   "settings.workspaces.tryReloadWorkspaces": "Try again",
+  "settings.workspaces.updatedInfo": "!!!Your changes have been saved",
   "settings.workspaces.workspacesRequestFailed": "Could not load your workspaces",
   "sidebar.addNewService": "Add new service",
   "sidebar.closeWorkspaceDrawer": "Close workspace drawer",

@@ -102,9 +102,7 @@ export default class WorkspacesStore {
   @action _create = async ({ name }) => {
     try {
       const workspace = await createWorkspaceRequest.execute(name);
-      await getUserWorkspacesRequest.patch((result) => {
-        result.push(workspace);
-      });
+      await getUserWorkspacesRequest.result.push(workspace);
       this._edit({ workspace });
     } catch (error) {
       throw error;
@@ -114,9 +112,7 @@ export default class WorkspacesStore {
   @action _delete = async ({ workspace }) => {
     try {
       await deleteWorkspaceRequest.execute(workspace);
-      await getUserWorkspacesRequest.patch((result) => {
-        result.remove(workspace);
-      });
+      await getUserWorkspacesRequest.result.remove(workspace);
       this.stores.router.push('/settings/workspaces');
     } catch (error) {
       throw error;
@@ -126,10 +122,9 @@ export default class WorkspacesStore {
   @action _update = async ({ workspace }) => {
     try {
       await updateWorkspaceRequest.execute(workspace);
-      await getUserWorkspacesRequest.patch((result) => {
-        const localWorkspace = result.find(ws => ws.id === workspace.id);
-        Object.assign(localWorkspace, workspace);
-      });
+      // Path local result optimistically
+      const localWorkspace = this._getWorkspaceById(workspace.id);
+      Object.assign(localWorkspace, workspace);
       this.stores.router.push('/settings/workspaces');
     } catch (error) {
       throw error;

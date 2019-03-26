@@ -109,7 +109,7 @@ export default class Request {
     Request._hooks.forEach(hook => hook(this));
   }
 
-  reset() {
+  reset = () => {
     this.result = null;
     this.isExecuting = false;
     this.isError = false;
@@ -118,5 +118,5 @@ export default class Request {
     this._promise = Promise;
 
     return this;
-  }
+  };
 }
