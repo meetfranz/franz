@@ -23,7 +23,7 @@ export default class FeaturesStore extends Store {
     ]);
 
     await this.featuresRequest._promise;
-    setTimeout(this._enableFeatures.bind(this), 1);
+    setTimeout(this._setupFeatures.bind(this), 1);
 
     // single key reaction
     reaction(() => this.stores.user.data.isPremium, () => {
@@ -53,7 +53,7 @@ export default class FeaturesStore extends Store {
     }
   }
 
-  _enableFeatures() {
+  _setupFeatures() {
     delayApp(this.stores, this.actions);
     spellchecker(this.stores, this.actions);
     serviceProxy(this.stores, this.actions);

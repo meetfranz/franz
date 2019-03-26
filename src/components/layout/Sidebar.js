@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 
 import Tabbar from '../services/tabs/Tabbar';
 import { ctrlKey } from '../../environment';
+import { workspaceStore } from '../../features/workspaces';
 
 const messages = defineMessages({
   settings: {
@@ -88,17 +89,19 @@ export default @observer class Sidebar extends Component {
           enableToolTip={() => this.enableToolTip()}
           disableToolTip={() => this.disableToolTip()}
         />
-        <button
-          type="button"
-          onClick={() => {
-            toggleWorkspaceDrawer();
-            this.updateToolTip();
-          }}
-          className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
-          data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+Shift+D)`}
-        >
-          <i className="mdi mdi-view-grid" />
-        </button>
+        {workspaceStore.isFeatureActive ? (
+          <button
+            type="button"
+            onClick={() => {
+              toggleWorkspaceDrawer();
+              this.updateToolTip();
+            }}
+            className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
+            data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+Shift+D)`}
+          >
+            <i className="mdi mdi-view-grid" />
+          </button>
+        ) : null}
         <button
           type="button"
           onClick={() => {

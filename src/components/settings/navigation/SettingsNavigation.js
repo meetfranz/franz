@@ -4,6 +4,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 
 import Link from '../../ui/Link';
+import { workspaceStore } from '../../../features/workspaces';
 
 const messages = defineMessages({
   availableServices: {
@@ -68,15 +69,17 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           {' '}
           <span className="badge">{serviceCount}</span>
         </Link>
-        <Link
-          to="/settings/workspaces"
-          className="settings-navigation__link"
-          activeClassName="is-active"
-        >
-          {intl.formatMessage(messages.yourWorkspaces)}
-          {' '}
-          <span className="badge">{workspaceCount}</span>
-        </Link>
+        {workspaceStore.isFeatureActive ? (
+          <Link
+            to="/settings/workspaces"
+            className="settings-navigation__link"
+            activeClassName="is-active"
+          >
+            {intl.formatMessage(messages.yourWorkspaces)}
+            {' '}
+            <span className="badge">{workspaceCount}</span>
+          </Link>
+        ) : null}
         <Link
           to="/settings/user"
           className="settings-navigation__link"

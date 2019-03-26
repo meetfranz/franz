@@ -63,6 +63,11 @@ export default class WorkspacesStore {
     debug('WorkspacesStore::stop');
     this._reactions.forEach(r => r.stop());
     this.isFeatureActive = false;
+    this.activeWorkspace = null;
+    this.nextWorkspace = null;
+    this.workspaceBeingEdited = null;
+    this.isSwitchingWorkspace = false;
+    this.isWorkspaceDrawerOpen = false;
   }
 
   filterServicesByActiveWorkspace = (services) => {

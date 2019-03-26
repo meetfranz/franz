@@ -322,6 +322,7 @@ const _templateFactory = intl => [
   {
     label: intl.formatMessage(menuItems.workspaces),
     submenu: [],
+    visible: workspaceStore.isFeatureActive,
   },
   {
     label: intl.formatMessage(menuItems.window),
@@ -563,7 +564,6 @@ export default class FranzMenu {
   _build() {
     // need to clone object so we don't modify computed (cached) object
     const serviceTpl = Object.assign([], this.serviceTpl());
-    const workspacesMenu = Object.assign([], this.workspacesMenu());
 
     if (window.franz === undefined) {
       return;
@@ -731,7 +731,9 @@ export default class FranzMenu {
       tpl[3].submenu = serviceTpl;
     }
 
-    tpl[4].submenu = workspacesMenu;
+    if (workspaceStore.isFeatureActive) {
+      tpl[4].submenu = this.workspacesMenu();
+    }
 
     this.currentTemplate = tpl;
     const menu = Menu.buildFromTemplate(tpl);

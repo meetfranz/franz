@@ -708,78 +708,78 @@
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 14
+          "line": 15
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.settings",
         "start": {
           "column": 12,
-          "line": 11
+          "line": 12
         }
       },
       {
         "defaultMessage": "!!!Add new service",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.addNewService",
         "start": {
           "column": 17,
-          "line": 15
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Disable notifications & audio",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.muteApp",
         "start": {
           "column": 8,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Enable notifications & audio",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.unmuteApp",
         "start": {
           "column": 10,
-          "line": 23
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Open workspace drawer",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.openWorkspaceDrawer",
         "start": {
           "column": 23,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Close workspace drawer",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.closeWorkspaceDrawer",
         "start": {
           "column": 24,
-          "line": 31
+          "line": 32
         }
       }
     ],
@@ -1302,91 +1302,91 @@
         "defaultMessage": "!!!Available services",
         "end": {
           "column": 3,
-          "line": 12
+          "line": 13
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.availableServices",
         "start": {
           "column": 21,
-          "line": 9
+          "line": 10
         }
       },
       {
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 17
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourServices",
         "start": {
           "column": 16,
-          "line": 13
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 21
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 17
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 25
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.account",
         "start": {
           "column": 11,
-          "line": 21
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 29
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.settings",
         "start": {
           "column": 12,
-          "line": 25
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Invite Friends",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 33
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.inviteFriends",
         "start": {
           "column": 17,
-          "line": 29
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Logout",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 37
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.logout",
         "start": {
           "column": 10,
-          "line": 33
+          "line": 34
         }
       }
     ],
