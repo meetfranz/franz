@@ -1,9 +1,6 @@
-**This repository is only for Franz 5 and later, previous versions are no longer maintained.**
----
-
 <img src="./build-helpers/images/icon.png" alt="" width="150"/>
 
-# Franz 5 (beta)
+# Franz 5
 [![Build status Windows](https://ci.appveyor.com/api/projects/status/9yman4ye19x4274o/branch/master?svg=true)](https://ci.appveyor.com/project/adlk/franz/branch/master)
  [![Build Status Mac & Linux](https://travis-ci.com/meetfranz/franz.svg?branch=master)](https://travis-ci.com/meetfranz/franz) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://meetfranz.com/payment.html)
 
@@ -29,6 +26,14 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 ```bash
 $ npm run rebuild
 ```
+
+### Install dependencies
+Run the following command to install all dependencies, and link sibling modules with Franz.
+```bash
+$ npx lerna bootstrap
+```
+
+If you previously ran `npm install` it sometimes is necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. 
 
 ### Run Franz Development App
 Run these two commands __simultaneously__ in different console tabs.

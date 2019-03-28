@@ -14,11 +14,15 @@ matrix:
 
 language: node_js
 
+install: 
+- echo do nothing
+
 before_script:
+- npx lerna bootstrap
 - npm install node-sass -g
 
 script:
-- npm run lint
+# - npm run lint
 - travis_wait 30 npm run build
 
 cache: npm

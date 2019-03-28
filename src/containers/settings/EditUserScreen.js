@@ -9,7 +9,6 @@ import EditUserForm from '../../components/settings/user/EditUserForm';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 import { required, email, minLength } from '../../helpers/validation-helpers';
-import { gaPage } from '../../lib/analytics';
 
 const messages = defineMessages({
   firstname: {
@@ -24,23 +23,21 @@ const messages = defineMessages({
     id: 'settings.user.form.email',
     defaultMessage: '!!!Email',
   },
-  accountType: {
-    label: {
-      id: 'settings.user.form.accountType.label',
-      defaultMessage: '!!!Account type',
-    },
-    individual: {
-      id: 'settings.user.form.accountType.individual',
-      defaultMessage: '!!!Individual',
-    },
-    nonProfit: {
-      id: 'settings.user.form.accountType.non-profit',
-      defaultMessage: '!!!Non-Profit',
-    },
-    company: {
-      id: 'settings.user.form.accountType.company',
-      defaultMessage: '!!!Company',
-    },
+  accountTypeLabel: {
+    id: 'settings.user.form.accountType.label',
+    defaultMessage: '!!!Account type',
+  },
+  accountTypeIndividual: {
+    id: 'settings.user.form.accountType.individual',
+    defaultMessage: '!!!Individual',
+  },
+  accountTypeNonProfit: {
+    id: 'settings.user.form.accountType.non-profit',
+    defaultMessage: '!!!Non-Profit',
+  },
+  accountTypeCompany: {
+    id: 'settings.user.form.accountType.company',
+    defaultMessage: '!!!Company',
   },
   currentPassword: {
     id: 'settings.user.form.currentPassword',
@@ -56,10 +53,6 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaPage('Settings/Account/Edit');
-  }
 
   componentWillUnmount() {
     this.props.actions.user.resetStatus();
@@ -99,21 +92,21 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
         accountType: {
           value: user.accountType,
           validators: [required],
-          label: intl.formatMessage(messages.accountType.label),
+          label: intl.formatMessage(messages.accountTypeLabel),
           options: [{
             value: 'individual',
-            label: intl.formatMessage(messages.accountType.individual),
+            label: intl.formatMessage(messages.accountTypeIndividual),
           }, {
             value: 'non-profit',
-            label: intl.formatMessage(messages.accountType.nonProfit),
+            label: intl.formatMessage(messages.accountTypeNonProfit),
           }, {
             value: 'company',
-            label: intl.formatMessage(messages.accountType.company),
+            label: intl.formatMessage(messages.accountTypeCompany),
           }],
         },
         organization: {
-          label: intl.formatMessage(messages.accountType.company),
-          placeholder: intl.formatMessage(messages.accountType.company),
+          label: intl.formatMessage(messages.accountTypeCompany),
+          placeholder: intl.formatMessage(messages.accountTypeCompany),
           value: user.organization,
         },
         oldPassword: {

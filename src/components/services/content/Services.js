@@ -4,7 +4,7 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
 
-import Webview from './ServiceWebview';
+import ServiceView from './ServiceView';
 import Appear from '../../ui/effects/Appear';
 
 const messages = defineMessages({
@@ -22,6 +22,7 @@ export default @observer class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray,
     setWebviewReference: PropTypes.func.isRequired,
+    detachService: PropTypes.func.isRequired,
     handleIPCMessage: PropTypes.func.isRequired,
     openWindow: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
@@ -42,6 +43,7 @@ export default @observer class Services extends Component {
       services,
       handleIPCMessage,
       setWebviewReference,
+      detachService,
       openWindow,
       reload,
       openSettings,
@@ -71,11 +73,12 @@ export default @observer class Services extends Component {
           </Appear>
         )}
         {services.map(service => (
-          <Webview
+          <ServiceView
             key={service.id}
             service={service}
             handleIPCMessage={handleIPCMessage}
             setWebviewReference={setWebviewReference}
+            detachService={detachService}
             openWindow={openWindow}
             reload={() => reload({ serviceId: service.id })}
             edit={() => openSettings({ path: `services/edit/${service.id}` })}

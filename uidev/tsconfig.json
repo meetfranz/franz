@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "outDir": "lib",
+    "rootDir": "src",
+  },
+  "references": [{
+    "path": "../packages/theme"
+  },
+  {
+    "path": "../packages/forms"
+  }]
+}

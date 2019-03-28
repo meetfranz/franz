@@ -2,6 +2,7 @@
   "parser": "babel-eslint",
   "extends": "eslint-config-airbnb",
   "rules": {
+    "no-param-reassign": 0,
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [2, {
@@ -51,6 +52,7 @@
     "Worker": true,
     "atob": true,
     "btoa": true,
-    "ga": true
+    "ga": true,
+    "mocha": true
   }
 }
