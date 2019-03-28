@@ -29,17 +29,22 @@ const styles = theme => ({
   },
   component: {
     background: 'rgba(20, 20, 20, 0.4)',
-    padding: 20,
+    padding: '10px 20px',
+    display: 'flex',
     width: 'auto',
     height: 'auto',
     margin: [0, 'auto'],
     borderRadius: 6,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     zIndex: 200,
   },
-  name: {
-    fontSize: 35,
-    marginBottom: '10px',
+  spinner: {
+    width: '40px',
+    marginRight: '5px',
+  },
+  message: {
+    fontSize: 16,
+    whiteSpace: 'nowrap',
   },
 });
 
@@ -67,10 +72,12 @@ class WorkspaceSwitchingIndicator extends Component {
         ])}
       >
         <div className={classes.component}>
-          <h1 className={classes.name}>
+          <div className={classes.spinner}>
+            <LoaderComponent />
+          </div>
+          <p className={classes.message}>
             {`${intl.formatMessage(messages.switchingTo)} ${nextWorkspaceName}`}
-          </h1>
-          <LoaderComponent />
+          </p>
         </div>
       </div>
     );
