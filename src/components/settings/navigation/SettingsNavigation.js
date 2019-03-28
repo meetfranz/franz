@@ -69,7 +69,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           {' '}
           <span className="badge">{serviceCount}</span>
         </Link>
-        {workspaceStore.isFeatureActive ? (
+        {workspaceStore.isFeatureEnabled ? (
           <Link
             to="/settings/workspaces"
             className="settings-navigation__link"

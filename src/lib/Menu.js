@@ -323,7 +323,7 @@ const _templateFactory = intl => [
   {
     label: intl.formatMessage(menuItems.workspaces),
     submenu: [],
-    visible: workspaceStore.isFeatureActive,
+    visible: workspaceStore.isFeatureEnabled,
   },
   {
     label: intl.formatMessage(menuItems.window),
@@ -732,7 +732,7 @@ export default class FranzMenu {
       tpl[3].submenu = serviceTpl;
     }
 
-    if (workspaceStore.isFeatureActive) {
+    if (workspaceStore.isFeatureEnabled) {
       tpl[4].submenu = this.workspacesMenu();
     }
 

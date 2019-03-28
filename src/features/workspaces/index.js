@@ -4,11 +4,12 @@ import { resetApiRequests } from './api';
 
 const debug = require('debug')('Franz:feature:workspaces');
 
-export const GA_CATEGORY_WORKSPACES = 'workspaces';
+export const GA_CATEGORY_WORKSPACES = 'Workspaces';
 
 export const workspaceStore = new WorkspacesStore();
 
 export default function initWorkspaces(stores, actions) {
+  stores.workspaces = workspaceStore;
   const { features, user } = stores;
 
   // Toggle workspace feature

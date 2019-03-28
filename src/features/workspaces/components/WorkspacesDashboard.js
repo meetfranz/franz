@@ -10,6 +10,8 @@ import WorkspaceItem from './WorkspaceItem';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 import Request from '../../../stores/lib/Request';
 import Appear from '../../../components/ui/effects/Appear';
+import { workspaceStore } from '../index';
+import PremiumFeatureContainer from '../../../components/ui/PremiumFeatureContainer';
 
 const messages = defineMessages({
   headline: {
@@ -36,6 +38,14 @@ const messages = defineMessages({
     id: 'settings.workspaces.deletedInfo',
     defaultMessage: '!!!Workspace has been deleted',
   },
+  workspaceFeatureInfo: {
+    id: 'settings.workspaces.workspaceFeatureInfo',
+    defaultMessage: '!!!Info about workspace feature',
+  },
+  workspaceFeatureHeadline: {
+    id: 'settings.workspaces.workspaceFeatureHeadline',
+    defaultMessage: '!!!Less is More: Introducing Franz Workspaces',
+  },
 });
 
 const styles = () => ({
@@ -44,6 +54,12 @@ const styles = () => ({
     marginBottom: '20px',
   },
   appear: {
+    height: 'auto',
+  },
+  premiumAnnouncement: {
+    padding: '20px',
+    backgroundColor: '#3498db',
+    marginLeft: '-20px',
     height: 'auto',
   },
 });
@@ -112,14 +128,24 @@ class WorkspacesDashboard extends Component {
             </Appear>
           )}
 
-          {/* ===== Create workspace form ===== */}
-          <div className={classes.createForm}>
-            <CreateWorkspaceForm
-              isSubmitting={createWorkspaceRequest.isExecuting}
-              onSubmit={onCreateWorkspaceSubmit}
-            />
-          </div>
-
+          <PremiumFeatureContainer
+            condition={workspaceStore.isPremiumFeature}
+            gaEventInfo={{ category: 'User', event: 'upgrade', label: 'workspaces' }}
+          >
+            {/* ===== Create workspace form ===== */}
+            <div className={classes.createForm}>
+              <CreateWorkspaceForm
+                isSubmitting={createWorkspaceRequest.isExecuting}
+                onSubmit={onCreateWorkspaceSubmit}
+              />
+            </div>
+          </PremiumFeatureContainer>
+          {workspaceStore.isUpgradeToPremiumRequired && (
+            <div className={classes.premiumAnnouncement}>
+              <h2>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h2>
+              <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
+            </div>
+          )}
           {getUserWorkspacesRequest.isExecuting ? (
             <Loader />
           ) : (

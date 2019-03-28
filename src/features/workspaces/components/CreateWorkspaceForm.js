@@ -30,7 +30,6 @@ const styles = () => ({
   },
   submitButton: {
     height: 'inherit',
-    marginTop: '3px',
   },
 });
 

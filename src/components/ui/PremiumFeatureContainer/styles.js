@@ -6,6 +6,7 @@ export default theme => ({
     padding: 20,
     'border-radius': theme.borderRadius,
     pointerEvents: 'none',
+    height: 'auto',
   },
   titleContainer: {
     display: 'flex',
@@ -26,7 +27,7 @@ export default theme => ({
   content: {
     opacity: 0.5,
     'margin-top': 20,
-    '& :last-child': {
+    '& > :last-child': {
       'margin-bottom': 0,
     },
   },

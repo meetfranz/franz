@@ -3,9 +3,9 @@ import {
   observable,
   action,
 } from 'mobx';
-import Reaction from '../../stores/lib/Reaction';
 import { matchRoute } from '../../helpers/routing-helpers';
 import { workspaceActions } from './actions';
+import { FeatureStore } from '../utils/FeatureStore';
 import {
   createWorkspaceRequest,
   deleteWorkspaceRequest,
@@ -15,7 +15,11 @@ import {
 
 const debug = require('debug')('Franz:feature:workspaces:store');
 
-export default class WorkspacesStore {
+export default class WorkspacesStore extends FeatureStore {
+  @observable isFeatureEnabled = false;
+
+  @observable isPremiumFeature = true;
+
   @observable isFeatureActive = false;
 
   @observable activeWorkspace = null;
@@ -33,36 +37,39 @@ export default class WorkspacesStore {
     return getUserWorkspacesRequest.result || [];
   }
 
-  constructor() {
-    // Wire-up action handlers
-    workspaceActions.edit.listen(this._edit);
-    workspaceActions.create.listen(this._create);
-    workspaceActions.delete.listen(this._delete);
-    workspaceActions.update.listen(this._update);
-    workspaceActions.activate.listen(this._setActiveWorkspace);
-    workspaceActions.deactivate.listen(this._deactivateActiveWorkspace);
-    workspaceActions.toggleWorkspaceDrawer.listen(this._toggleWorkspaceDrawer);
-    workspaceActions.openWorkspaceSettings.listen(this._openWorkspaceSettings);
-
-    // Register and start reactions
-    this._registerReactions([
-      this._updateWorkspaceBeingEdited,
-      this._updateActiveServiceOnWorkspaceSwitch,
-    ]);
+  @computed get isUpgradeToPremiumRequired() {
+    return this.isFeatureEnabled && !this.isFeatureActive;
   }
 
   start(stores, actions) {
     debug('WorkspacesStore::start');
     this.stores = stores;
     this.actions = actions;
-    this._reactions.forEach(r => r.start());
-    this.isFeatureActive = true;
+
+    this._listenToActions([
+      [workspaceActions.edit, this._edit],
+      [workspaceActions.create, this._create],
+      [workspaceActions.delete, this._delete],
+      [workspaceActions.update, this._update],
+      [workspaceActions.activate, this._setActiveWorkspace],
+      [workspaceActions.deactivate, this._deactivateActiveWorkspace],
+      [workspaceActions.toggleWorkspaceDrawer, this._toggleWorkspaceDrawer],
+      [workspaceActions.openWorkspaceSettings, this._openWorkspaceSettings],
+    ]);
+
+    this._startReactions([
+      this._setWorkspaceBeingEditedReaction,
+      this._setActiveServiceOnWorkspaceSwitchReaction,
+      this._setFeatureEnabledReaction,
+      this._setIsPremiumFeatureReaction,
+    ]);
+
     getUserWorkspacesRequest.execute();
+    this.isFeatureActive = true;
   }
 
   stop() {
     debug('WorkspacesStore::stop');
-    this._reactions.forEach(r => r.stop());
     this.isFeatureActive = false;
     this.activeWorkspace = null;
     this.nextWorkspace = null;
@@ -84,12 +91,6 @@ export default class WorkspacesStore {
   };
 
   // ========== PRIVATE ========= //
-
-  _reactions = [];
-
-  _registerReactions(reactions) {
-    reactions.forEach(r => this._reactions.push(new Reaction(r)));
-  }
 
   _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
 
@@ -164,7 +165,17 @@ export default class WorkspacesStore {
 
   // Reactions
 
-  _updateWorkspaceBeingEdited = () => {
+  _setFeatureEnabledReaction = () => {
+    const { isWorkspaceEnabled } = this.stores.features.features;
+    this.isFeatureEnabled = isWorkspaceEnabled;
+  };
+
+  _setIsPremiumFeatureReaction = () => {
+    const { isWorkspacePremiumFeature } = this.stores.features.features;
+    this.isPremiumFeature = isWorkspacePremiumFeature;
+  };
+
+  _setWorkspaceBeingEditedReaction = () => {
     const { pathname } = this.stores.router.location;
     const match = matchRoute('/settings/workspaces/edit/:id', pathname);
     if (match) {
@@ -172,7 +183,7 @@ export default class WorkspacesStore {
     }
   };
 
-  _updateActiveServiceOnWorkspaceSwitch = () => {
+  _setActiveServiceOnWorkspaceSwitchReaction = () => {
     if (!this.isFeatureActive) return;
     if (this.activeWorkspace) {
       const services = this.stores.services.allDisplayed;

@@ -90,7 +90,7 @@ export default @observer class Sidebar extends Component {
           enableToolTip={() => this.enableToolTip()}
           disableToolTip={() => this.disableToolTip()}
         />
-        {workspaceStore.isFeatureActive ? (
+        {workspaceStore.isFeatureEnabled ? (
           <button
             type="button"
             onClick={() => {

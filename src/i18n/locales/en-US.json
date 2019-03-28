@@ -254,6 +254,8 @@
   "settings.workspaces.noWorkspacesAdded": "You haven't added any workspaces yet.",
   "settings.workspaces.tryReloadWorkspaces": "Try again",
   "settings.workspaces.updatedInfo": "Your changes have been saved",
+  "settings.workspaces.workspaceFeatureHeadline": "Less is More: Introducing Franz Workspaces",
+  "settings.workspaces.workspaceFeatureInfo": "Franz Workspaces let you focus on what’s important right now. Set up different sets of services and easily switch between them at any time. You decide which services you need when and where, so we can help you stay on top of your game - or easily switch off from work whenever you want.",
   "settings.workspaces.workspacesRequestFailed": "Could not load your workspaces",
   "sidebar.addNewService": "Add new service",
   "sidebar.closeWorkspaceDrawer": "Close workspace drawer",

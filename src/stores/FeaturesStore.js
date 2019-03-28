@@ -1,4 +1,4 @@
-import { computed, observable, reaction } from 'mobx';
+import { computed, observable, reaction, runInAction } from 'mobx';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
@@ -17,8 +17,11 @@ export default class FeaturesStore extends Store {
 
   @observable featuresRequest = new CachedRequest(this.api.features, 'features');
 
+  @observable features = Object.assign({}, DEFAULT_FEATURES_CONFIG);
+
   async setup() {
     this.registerReactions([
+      this._updateFeatures,
       this._monitorLoginStatus.bind(this),
     ]);
 
@@ -37,13 +40,16 @@ export default class FeaturesStore extends Store {
     return this.defaultFeaturesRequest.execute().result || DEFAULT_FEATURES_CONFIG;
   }
 
-  @computed get features() {
+  _updateFeatures = () => {
+    const features = Object.assign({}, DEFAULT_FEATURES_CONFIG);
     if (this.stores.user.isLoggedIn) {
-      return Object.assign({}, DEFAULT_FEATURES_CONFIG, this.featuresRequest.execute().result);
+      const requestResult = this.featuresRequest.execute().result;
+      Object.assign(features, requestResult);
     }
-
-    return DEFAULT_FEATURES_CONFIG;
-  }
+    runInAction('FeaturesStore::_updateFeatures', () => {
+      this.features = features;
+    });
+  };
 
   _monitorLoginStatus() {
     if (this.stores.user.isLoggedIn) {
