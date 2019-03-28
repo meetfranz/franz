@@ -77,7 +77,6 @@ class WorkspacesDashboard extends Component {
       workspaces,
     } = this.props;
     const { intl } = this.context;
-    console.log(deleteWorkspaceRequest.result);
     return (
       <div className="settings__main">
         <div className="settings__header">

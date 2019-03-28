@@ -8,7 +8,8 @@ import ReactTooltip from 'react-tooltip';
 
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
-import { workspaceStore } from '../index';
+import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
+import { gaEvent } from '../../../lib/analytics';
 
 const messages = defineMessages({
   headline: {
@@ -96,7 +97,10 @@ class WorkspaceDrawer extends Component {
         <div className={classes.workspaces}>
           <WorkspaceDrawerItem
             name={intl.formatMessage(messages.allServices)}
-            onClick={() => workspaceActions.deactivate()}
+            onClick={() => {
+              workspaceActions.deactivate();
+              gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
+            }}
             services={getServicesForWorkspace(null)}
             isActive={actualWorkspace == null}
           />
@@ -105,7 +109,10 @@ class WorkspaceDrawer extends Component {
               key={workspace.id}
               name={workspace.name}
               isActive={actualWorkspace === workspace}
-              onClick={() => workspaceActions.activate({ workspace })}
+              onClick={() => {
+                workspaceActions.activate({ workspace });
+                gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
+              }}
               services={getServicesForWorkspace(workspace)}
             />
           ))}

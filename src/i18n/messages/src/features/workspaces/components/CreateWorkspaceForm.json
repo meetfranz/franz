@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Create workspace",
     "file": "src/features/workspaces/components/CreateWorkspaceForm.js",
     "start": {
-      "line": 11,
+      "line": 13,
       "column": 16
     },
     "end": {
-      "line": 14,
+      "line": 16,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Name",
     "file": "src/features/workspaces/components/CreateWorkspaceForm.js",
     "start": {
-      "line": 15,
+      "line": 17,
       "column": 8
     },
     "end": {
-      "line": 18,
+      "line": 20,
       "column": 3
     }
   }

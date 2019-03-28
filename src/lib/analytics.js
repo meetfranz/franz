@@ -28,12 +28,10 @@ ga('send', 'App');
 
 export function gaPage(page) {
   ga('send', 'pageview', page);
-
   debug('GA track page', page);
 }
 
 export function gaEvent(category, action, label) {
   ga('send', 'event', category, action, label);
-
-  debug('GA track event', category, action);
+  debug('GA track event', category, action, label);
 }

@@ -12,6 +12,8 @@ import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
 import ServiceListItem from './ServiceListItem';
 import Request from '../../../stores/lib/Request';
+import { gaEvent } from '../../../lib/analytics';
+import { GA_CATEGORY_WORKSPACES } from '../index';
 
 const messages = defineMessages({
   buttonDelete: {
@@ -87,15 +89,22 @@ class EditWorkspaceForm extends Component {
     });
   }
 
-  submitForm(form) {
+  save(form) {
     form.submit({
       onSuccess: async (f) => {
         const { onSave } = this.props;
         const values = f.values();
         onSave(values);
+        gaEvent(GA_CATEGORY_WORKSPACES, 'save');
       },
       onError: async () => {},
     });
+  }
+
+  delete() {
+    const { onDelete } = this.props;
+    onDelete();
+    gaEvent(GA_CATEGORY_WORKSPACES, 'delete');
   }
 
   toggleService(service) {
@@ -113,7 +122,6 @@ class EditWorkspaceForm extends Component {
     const { intl } = this.context;
     const {
       classes,
-      onDelete,
       workspace,
       services,
       deleteWorkspaceRequest,
@@ -161,7 +169,7 @@ class EditWorkspaceForm extends Component {
             buttonType={isDeleting ? 'secondary' : 'danger'}
             className="settings__delete-button"
             disabled={isDeleting}
-            onClick={onDelete}
+            onClick={this.delete.bind(this)}
           />
           {/* ===== Save Button ===== */}
           <Button
@@ -169,7 +177,7 @@ class EditWorkspaceForm extends Component {
             label={intl.formatMessage(messages.buttonSave)}
             busy={isSaving}
             buttonType={isSaving ? 'secondary' : 'primary'}
-            onClick={this.submitForm.bind(this, form)}
+            onClick={this.save.bind(this, form)}
             disabled={isSaving}
           />
         </div>
