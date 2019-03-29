@@ -1,4 +1,5 @@
 import Form from 'mobx-react-form';
+import vjf from 'mobx-react-form/lib/validators/VJF';
 
 export default class DefaultForm extends Form {
   bindings() {
@@ -27,6 +28,12 @@ export default class DefaultForm extends Form {
       // // validationDebounceWait: {
       // //   trailing: true,
       // // },
+    };
+  }
+
+  plugins() {
+    return {
+      vjf: vjf(),
     };
   }
 }
