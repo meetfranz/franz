@@ -31,8 +31,8 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.6",
-    "react": "^16.7.0",
-    "react-dom": "16.7.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-jss": "^8.6.1"
   },
   "gitHead": "14b151cad6a5a849bb476aaa3fc53bf1eead7f4b"

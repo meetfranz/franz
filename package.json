@@ -34,6 +34,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "@mdi/font": "^3.5.95",
     "@meetfranz/electron-notification-state": "^1.0.0",
     "@meetfranz/forms": "file:packages/forms",
     "@meetfranz/theme": "file:packages/theme",
@@ -54,7 +55,6 @@
     "hex-to-rgba": "^1.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.4",
-    "mdi": "^2.2.43",
     "mime-types": "^2.1.22",
     "mobx": "^5.9.0",
     "mobx-localstorage": "^1.1.3",
