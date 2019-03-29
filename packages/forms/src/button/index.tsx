@@ -15,7 +15,7 @@ interface IProps extends IFormField, IWithStyle {
   className?: string;
   disabled?: boolean;
   id?: string;
-  type?: string;
+  type?: any;
   onClick: (event: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => void;
   buttonType?: ButtonType;
   stretch?: boolean;
