@@ -23,9 +23,9 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mdi/js": "^3.3.92",
+    "@mdi/js": "^3.5.95",
     "@mdi/react": "^1.1.0",
-    "@meetfranz/theme": "^1.0.7",
+    "@meetfranz/theme": "^1.0.11",
     "react-html-attributes": "^1.4.3",
     "react-loader": "^2.4.5"
   },
