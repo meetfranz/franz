@@ -9,7 +9,7 @@ import { FeatureStore } from '../utils/FeatureStore';
 import {
   createWorkspaceRequest,
   deleteWorkspaceRequest,
-  getUserWorkspacesRequest,
+  getUserWorkspacesRequest, getWorkspaceSettingsRequest, setWorkspaceSettingsRequest,
   updateWorkspaceRequest,
 } from './api';
 
@@ -37,6 +37,14 @@ export default class WorkspacesStore extends FeatureStore {
     return getUserWorkspacesRequest.result || [];
   }
 
+  @computed get settings() {
+    return getWorkspaceSettingsRequest.result;
+  }
+
+  @computed get userHasWorkspaces() {
+    return getUserWorkspacesRequest.wasExecuted && this.workspaces.length > 0;
+  }
+
   @computed get isPremiumUpgradeRequired() {
     return this.isFeatureEnabled && !this.isFeatureActive;
   }
@@ -62,9 +70,11 @@ export default class WorkspacesStore extends FeatureStore {
       this._setActiveServiceOnWorkspaceSwitchReaction,
       this._setFeatureEnabledReaction,
       this._setIsPremiumFeatureReaction,
+      this._activateLastUsedWorkspaceReaction,
     ]);
 
     getUserWorkspacesRequest.execute();
+    getWorkspaceSettingsRequest.execute();
     this.isFeatureActive = true;
   }
 
@@ -93,6 +103,13 @@ export default class WorkspacesStore extends FeatureStore {
   // ========== PRIVATE ========= //
 
   _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
+
+  _updateSettings = (changes) => {
+    setWorkspaceSettingsRequest.execute({
+      ...this.settings,
+      ...changes,
+    });
+  };
 
   // Actions
 
@@ -137,7 +154,10 @@ export default class WorkspacesStore extends FeatureStore {
     this.isSwitchingWorkspace = true;
     this.nextWorkspace = workspace;
     // Delay switching to next workspace so that the services loading does not drag down UI
-    setTimeout(() => { this.activeWorkspace = workspace; }, 100);
+    setTimeout(() => {
+      this.activeWorkspace = workspace;
+      this._updateSettings({ lastActiveWorkspace: workspace.id });
+    }, 100);
     // Indicate that we are done switching to the next workspace
     setTimeout(() => {
       this.isSwitchingWorkspace = false;
@@ -149,8 +169,12 @@ export default class WorkspacesStore extends FeatureStore {
     // Indicate that we are switching to default workspace
     this.isSwitchingWorkspace = true;
     this.nextWorkspace = null;
+    this._updateSettings({ lastActiveWorkspace: null });
+    getWorkspaceSettingsRequest.execute();
     // Delay switching to next workspace so that the services loading does not drag down UI
-    setTimeout(() => { this.activeWorkspace = null; }, 100);
+    setTimeout(() => {
+      this.activeWorkspace = null;
+    }, 100);
     // Indicate that we are done switching to the default workspace
     setTimeout(() => { this.isSwitchingWorkspace = false; }, 1000);
   };
@@ -192,6 +216,16 @@ export default class WorkspacesStore extends FeatureStore {
       const isActiveServiceInWorkspace = workspaceServices.includes(activeService);
       if (!isActiveServiceInWorkspace) {
         this.actions.service.setActive({ serviceId: workspaceServices[0].id });
+      }
+    }
+  };
+
+  _activateLastUsedWorkspaceReaction = () => {
+    if (!this.activeWorkspace && this.userHasWorkspaces) {
+      const { lastActiveWorkspace } = this.settings;
+      if (lastActiveWorkspace) {
+        const workspace = this._getWorkspaceById(lastActiveWorkspace);
+        if (workspace) this._setActiveWorkspace({ workspace });
       }
     }
   };

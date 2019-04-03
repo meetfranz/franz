@@ -1,4 +1,5 @@
 import { pick } from 'lodash';
+import localStorage from 'mobx-localstorage';
 import { sendAuthRequest } from '../../api/utils/auth';
 import { API, API_VERSION } from '../../environment';
 import Request from '../../stores/lib/Request';
@@ -51,12 +52,22 @@ export const workspaceApi = {
     if (!result.ok) throw result;
     return new Workspace(await result.json());
   },
+
+  getWorkspaceSettings: async () => (
+    localStorage.getItem('workspaces') || {}
+  ),
+
+  setWorkspaceSettings: async settings => (
+    localStorage.setItem('workspaces', settings)
+  ),
 };
 
 export const getUserWorkspacesRequest = new Request(workspaceApi, 'getUserWorkspaces');
 export const createWorkspaceRequest = new Request(workspaceApi, 'createWorkspace');
 export const deleteWorkspaceRequest = new Request(workspaceApi, 'deleteWorkspace');
 export const updateWorkspaceRequest = new Request(workspaceApi, 'updateWorkspace');
+export const getWorkspaceSettingsRequest = new Request(workspaceApi, 'getWorkspaceSettings');
+export const setWorkspaceSettingsRequest = new Request(workspaceApi, 'setWorkspaceSettings');
 
 export const resetApiRequests = () => {
   getUserWorkspacesRequest.reset();
