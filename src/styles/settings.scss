@@ -454,6 +454,13 @@
       background: $theme-brand-primary;
       color: #FFF;
 
+      .badge--pro {
+        background: white !important;
+        .badge-icon-pro {
+          fill: $theme-brand-primary;
+        }
+      }
+
       .badge {
         background: #FFF;
         color: $theme-brand-primary;

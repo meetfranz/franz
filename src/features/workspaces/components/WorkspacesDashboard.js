@@ -61,6 +61,7 @@ const styles = () => ({
     marginLeft: '-20px',
     marginBottom: '20px',
     height: 'auto',
+    color: 'white',
   },
 });
 
