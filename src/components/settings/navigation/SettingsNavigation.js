@@ -80,7 +80,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
             {' '}
             {workspaceStore.isPremiumUpgradeRequired ? (
               <span className="badge badge--pro">
-                <Icon icon="mdiStar" />
+                <Icon icon="mdiStar" className="badge-icon-pro" />
               </span>
             ) : (
               <span className="badge">{workspaceCount}</span>

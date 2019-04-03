@@ -433,10 +433,21 @@
     text-decoration: none;
     transition: background $theme-transition-time, color $theme-transition-time;
 
+    .badge--pro {
+      background: $theme-brand-primary !important;
+      padding: 4px 6px 3px 7px;
+
+      .badge-icon-pro {
+        fill: white;
+      }
+    }
+
     &:hover {
       background: darken($theme-gray-lightest, 5%);
 
-      .badge { background: #FFF; }
+      .badge {
+        background: #FFF;
+      }
     }
 
     &.is-active {
