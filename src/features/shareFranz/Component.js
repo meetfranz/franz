@@ -38,7 +38,7 @@ const messages = defineMessages({
   },
   shareTextTwitter: {
     id: 'feature.shareFranz.shareText.twitter',
-    defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @MeetFranz',
+    defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger',
   },
 });
 
