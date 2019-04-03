@@ -37,7 +37,7 @@ export default class WorkspacesStore extends FeatureStore {
     return getUserWorkspacesRequest.result || [];
   }
 
-  @computed get isUpgradeToPremiumRequired() {
+  @computed get isPremiumUpgradeRequired() {
     return this.isFeatureEnabled && !this.isFeatureActive;
   }
 

@@ -3326,39 +3326,65 @@
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.headline",
         "start": {
           "column": 12,
-          "line": 15
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!All services",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.allServices",
         "start": {
           "column": 15,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Add workspace",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.addWorkspaceTooltip",
         "start": {
           "column": 23,
-          "line": 23
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Info about workspace feature",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.workspaceFeatureInfo",
+        "start": {
+          "column": 24,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Create your first workspace",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.premiumCtaButton",
+        "start": {
+          "column": 20,
+          "line": 32
         }
       }
     ],

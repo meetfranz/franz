@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, FormattedHTMLMessage, intlShape } from 'react-intl';
 import { H1, Icon } from '@meetfranz/ui';
+import { Button } from '@meetfranz/forms/lib';
 import ReactTooltip from 'react-tooltip';
 
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
@@ -23,6 +24,14 @@ const messages = defineMessages({
   addWorkspaceTooltip: {
     id: 'workspaceDrawer.addWorkspaceTooltip',
     defaultMessage: '!!!Add workspace',
+  },
+  workspaceFeatureInfo: {
+    id: 'workspaceDrawer.workspaceFeatureInfo',
+    defaultMessage: '!!!Info about workspace feature',
+  },
+  premiumCtaButtonLabel: {
+    id: 'workspaceDrawer.premiumCtaButtonLabel',
+    defaultMessage: '!!!Create your first workspace',
   },
 });
 
@@ -47,6 +56,19 @@ const styles = theme => ({
     '&:hover': {
       fill: theme.workspaceDrawerAddButtonHoverColor,
     },
+  },
+  workspaces: {
+    height: 'auto',
+  },
+  premiumAnnouncement: {
+    padding: '20px',
+    paddingTop: '0',
+    height: 'auto',
+  },
+  premiumCtaButton: {
+    marginTop: '20px',
+    width: '100%',
+    color: 'white !important',
   },
 });
 
@@ -84,7 +106,10 @@ class WorkspaceDrawer extends Component {
           {intl.formatMessage(messages.headline)}
           <span
             className={classes.addWorkspaceButton}
-            onClick={workspaceActions.openWorkspaceSettings}
+            onClick={() => {
+              workspaceActions.openWorkspaceSettings();
+              gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerHeadline');
+            }}
             data-tip={`${intl.formatMessage(messages.addWorkspaceTooltip)}`}
           >
             <Icon
@@ -94,29 +119,45 @@ class WorkspaceDrawer extends Component {
             />
           </span>
         </H1>
-        <div className={classes.workspaces}>
-          <WorkspaceDrawerItem
-            name={intl.formatMessage(messages.allServices)}
-            onClick={() => {
-              workspaceActions.deactivate();
-              gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
-            }}
-            services={getServicesForWorkspace(null)}
-            isActive={actualWorkspace == null}
-          />
-          {workspaces.map(workspace => (
-            <WorkspaceDrawerItem
-              key={workspace.id}
-              name={workspace.name}
-              isActive={actualWorkspace === workspace}
+        {workspaceStore.isPremiumUpgradeRequired ? (
+          <div className={classes.premiumAnnouncement}>
+            <FormattedHTMLMessage {...messages.workspaceFeatureInfo} />
+            <Button
+              className={classes.premiumCtaButton}
+              buttonType="primary"
+              label={intl.formatMessage(messages.premiumCtaButtonLabel)}
+              icon="mdiPlusBox"
               onClick={() => {
-                workspaceActions.activate({ workspace });
+                workspaceActions.openWorkspaceSettings();
+                gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerPremiumCta');
+              }}
+            />
+          </div>
+        ) : (
+          <div className={classes.workspaces}>
+            <WorkspaceDrawerItem
+              name={intl.formatMessage(messages.allServices)}
+              onClick={() => {
+                workspaceActions.deactivate();
                 gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
               }}
-              services={getServicesForWorkspace(workspace)}
+              services={getServicesForWorkspace(null)}
+              isActive={actualWorkspace == null}
             />
-          ))}
-        </div>
+            {workspaces.map(workspace => (
+              <WorkspaceDrawerItem
+                key={workspace.id}
+                name={workspace.name}
+                isActive={actualWorkspace === workspace}
+                onClick={() => {
+                  workspaceActions.activate({ workspace });
+                  gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
+                }}
+                services={getServicesForWorkspace(workspace)}
+              />
+            ))}
+          </div>
+        )}
         <ReactTooltip place="right" type="dark" effect="solid" />
       </div>
     );

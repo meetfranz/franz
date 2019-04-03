@@ -51,7 +51,6 @@ const messages = defineMessages({
 const styles = () => ({
   createForm: {
     height: 'auto',
-    marginBottom: '20px',
   },
   appear: {
     height: 'auto',
@@ -60,6 +59,7 @@ const styles = () => ({
     padding: '20px',
     backgroundColor: '#3498db',
     marginLeft: '-20px',
+    marginBottom: '20px',
     height: 'auto',
   },
 });
@@ -128,6 +128,13 @@ class WorkspacesDashboard extends Component {
             </Appear>
           )}
 
+          {workspaceStore.isPremiumUpgradeRequired && (
+            <div className={classes.premiumAnnouncement}>
+              <h2>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h2>
+              <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
+            </div>
+          )}
+
           <PremiumFeatureContainer
             condition={workspaceStore.isPremiumFeature}
             gaEventInfo={{ category: 'User', event: 'upgrade', label: 'workspaces' }}
@@ -140,12 +147,6 @@ class WorkspacesDashboard extends Component {
               />
             </div>
           </PremiumFeatureContainer>
-          {workspaceStore.isUpgradeToPremiumRequired && (
-            <div className={classes.premiumAnnouncement}>
-              <h2>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h2>
-              <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
-            </div>
-          )}
           {getUserWorkspacesRequest.isExecuting ? (
             <Loader />
           ) : (

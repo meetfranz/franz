@@ -14,8 +14,6 @@ export default function init(stores) {
   autorun(() => {
     const { isSpellcheckerPremiumFeature } = stores.features.features;
 
-    console.log('isSpellcheckerPremiumFeature', isSpellcheckerPremiumFeature);
-
     config.isPremium = isSpellcheckerPremiumFeature !== undefined ? isSpellcheckerPremiumFeature : DEFAULT_FEATURES_CONFIG.isSpellcheckerPremiumFeature;
 
     if (!stores.user.data.isPremium && config.isPremium && stores.settings.app.enableSpellchecking) {
