@@ -20,7 +20,7 @@ export default theme => ({
     color: theme.colorSubscriptionContainerActionButtonColor,
     'margin-left': 'auto',
     'border-radius': theme.borderRadiusSmall,
-    padding: [2, 4],
+    padding: [4, 8],
     'font-size': 12,
     pointerEvents: 'initial',
   },
