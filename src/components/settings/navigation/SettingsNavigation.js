@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape } from 'react-intl';
 import { inject, observer } from 'mobx-react';
+import { Icon } from '@meetfranz/ui';
 
 import Link from '../../ui/Link';
 import { workspaceStore } from '../../../features/workspaces';
@@ -77,7 +78,13 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           >
             {intl.formatMessage(messages.yourWorkspaces)}
             {' '}
-            <span className="badge">{workspaceCount}</span>
+            {workspaceStore.isPremiumUpgradeRequired ? (
+              <span className="badge badge--pro">
+                <Icon icon="mdiStar" />
+              </span>
+            ) : (
+              <span className="badge">{workspaceCount}</span>
+            )}
           </Link>
         ) : null}
         <Link

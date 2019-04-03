@@ -85,6 +85,11 @@
       .badge {
         background: $dark-theme-gray-lighter;
         color: $dark-theme-gray-smoke;
+
+        &.badge--pro {
+          background: $theme-brand-primary;
+          padding: 4px 6px 3px 7px;
+        }
       }
 
       &:hover {
@@ -93,6 +98,11 @@
         .badge {
           background: $dark-theme-gray-lighter;
           color: $dark-theme-gray-smoke;
+
+          &.badge--pro {
+            background: $theme-brand-primary;
+            padding: 4px 6px 3px 7px;
+          }
         }
       }
 

@@ -1,4 +1,9 @@
-import { computed, observable, reaction, runInAction } from 'mobx';
+import {
+  computed,
+  observable,
+  reaction,
+  runInAction,
+} from 'mobx';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
