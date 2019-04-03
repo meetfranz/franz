@@ -9,7 +9,7 @@
   "feature.shareFranz.action.twitter": "Share on Twitter",
   "feature.shareFranz.headline": "Franz is better together!",
   "feature.shareFranz.shareText.email": "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
-  "feature.shareFranz.shareText.twitter": "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @MeetFranz",
+  "feature.shareFranz.shareText.twitter": "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
   "feature.shareFranz.text": "Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
   "global.api.unhealthy": "Can't connect to Franz online services",
   "global.notConnectedToTheInternet": "You are not connected to the internet.",
