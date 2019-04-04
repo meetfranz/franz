@@ -20,9 +20,15 @@ const styles = theme => ({
     '&:first-child': {
       borderTop: `1px solid ${theme.workspaceDrawerItemBorder}`,
     },
+    '&:hover': {
+      backgroundColor: theme.workspaceDrawerItemHoverBackground,
+    },
   },
   isActiveItem: {
     backgroundColor: theme.workspaceDrawerItemActiveBackground,
+    '&:hover': {
+      backgroundColor: theme.workspaceDrawerItemActiveBackground,
+    },
   },
   name: {
     marginTop: '4px',

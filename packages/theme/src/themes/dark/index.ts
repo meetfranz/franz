@@ -69,6 +69,7 @@ export const workspaceDrawerBackground = color(colorBackground).lighten(0.3).hex
 export const workspaceDrawerAddButtonColor = legacyStyles.darkThemeGrayLighter;
 export const workspaceDrawerAddButtonHoverColor = legacyStyles.darkThemeGraySmoke;
 export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).lighten(0.2).hex();
+export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).lighten(0.2).hex();
 export const workspaceDrawerItemActiveBackground = defaultStyles.brandPrimary;
 export const workspaceDrawerItemNameColor = colorText;
 export const workspaceDrawerItemNameActiveColor = 'white';

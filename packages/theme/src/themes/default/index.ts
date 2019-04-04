@@ -149,6 +149,7 @@ export const workspaceDrawerPadding = 20;
 export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
 export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
 export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();
+export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).darken(0.01).hex();
 export const workspaceDrawerItemActiveBackground = legacyStyles.themeGrayLightest;
 export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).darken(0.05).hex();
 export const workspaceDrawerItemNameColor = colorText;
