@@ -3,13 +3,14 @@ import {
   observable,
   action,
 } from 'mobx';
+import localStorage from 'mobx-localstorage';
 import { matchRoute } from '../../helpers/routing-helpers';
 import { workspaceActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
 import {
   createWorkspaceRequest,
   deleteWorkspaceRequest,
-  getUserWorkspacesRequest, getWorkspaceSettingsRequest, setWorkspaceSettingsRequest,
+  getUserWorkspacesRequest,
   updateWorkspaceRequest,
 } from './api';
 
@@ -38,7 +39,7 @@ export default class WorkspacesStore extends FeatureStore {
   }
 
   @computed get settings() {
-    return getWorkspaceSettingsRequest.result;
+    return localStorage.getItem('workspaces') || {};
   }
 
   @computed get userHasWorkspaces() {
@@ -74,7 +75,6 @@ export default class WorkspacesStore extends FeatureStore {
     ]);
 
     getUserWorkspacesRequest.execute();
-    getWorkspaceSettingsRequest.execute();
     this.isFeatureActive = true;
   }
 
@@ -105,7 +105,7 @@ export default class WorkspacesStore extends FeatureStore {
   _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
 
   _updateSettings = (changes) => {
-    setWorkspaceSettingsRequest.execute({
+    localStorage.setItem('workspaces', {
       ...this.settings,
       ...changes,
     });
@@ -170,7 +170,6 @@ export default class WorkspacesStore extends FeatureStore {
     this.isSwitchingWorkspace = true;
     this.nextWorkspace = null;
     this._updateSettings({ lastActiveWorkspace: null });
-    getWorkspaceSettingsRequest.execute();
     // Delay switching to next workspace so that the services loading does not drag down UI
     setTimeout(() => {
       this.activeWorkspace = null;
