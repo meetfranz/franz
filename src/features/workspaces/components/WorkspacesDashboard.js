@@ -48,7 +48,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = () => ({
+const styles = (theme) => ({
   createForm: {
     height: 'auto',
   },
@@ -62,6 +62,7 @@ const styles = () => ({
     marginBottom: '20px',
     height: 'auto',
     color: 'white',
+    borderRadius: theme.borderRadius,
   },
 });
 

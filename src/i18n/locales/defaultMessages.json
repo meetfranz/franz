@@ -3388,7 +3388,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Reactivate your premium account!",
+        "defaultMessage": "!!!Reactivate premium account",
         "end": {
           "column": 3,
           "line": 39
