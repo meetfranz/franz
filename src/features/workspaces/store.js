@@ -19,9 +19,11 @@ const debug = require('debug')('Franz:feature:workspaces:store');
 export default class WorkspacesStore extends FeatureStore {
   @observable isFeatureEnabled = false;
 
+  @observable isFeatureActive = false;
+
   @observable isPremiumFeature = true;
 
-  @observable isFeatureActive = false;
+  @observable isPremiumUpgradeRequired = true;
 
   @observable activeWorkspace = null;
 
@@ -44,10 +46,6 @@ export default class WorkspacesStore extends FeatureStore {
 
   @computed get userHasWorkspaces() {
     return getUserWorkspacesRequest.wasExecuted && this.workspaces.length > 0;
-  }
-
-  @computed get isPremiumUpgradeRequired() {
-    return this.isFeatureEnabled && !this.isFeatureActive;
   }
 
   start(stores, actions) {
@@ -194,8 +192,11 @@ export default class WorkspacesStore extends FeatureStore {
   };
 
   _setIsPremiumFeatureReaction = () => {
-    const { isWorkspacePremiumFeature } = this.stores.features.features;
+    const { features, user } = this.stores;
+    const { isPremium } = user.data;
+    const { isWorkspacePremiumFeature } = features.features;
     this.isPremiumFeature = isWorkspacePremiumFeature;
+    this.isPremiumUpgradeRequired = isWorkspacePremiumFeature && !isPremium;
   };
 
   _setWorkspaceBeingEditedReaction = () => {

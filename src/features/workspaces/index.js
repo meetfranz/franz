@@ -10,15 +10,11 @@ export const workspaceStore = new WorkspacesStore();
 
 export default function initWorkspaces(stores, actions) {
   stores.workspaces = workspaceStore;
-  const { features, user } = stores;
+  const { features } = stores;
 
   // Toggle workspace feature
   reaction(
-    () => (
-      features.features.isWorkspaceEnabled && (
-        !features.features.isWorkspacePremiumFeature || user.data.isPremium
-      )
-    ),
+    () => features.features.isWorkspaceEnabled,
     (isEnabled) => {
       if (isEnabled && !workspaceStore.isFeatureActive) {
         debug('Initializing `workspaces` feature');
