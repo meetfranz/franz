@@ -119,7 +119,7 @@ class WorkspaceDrawer extends Component {
             />
           </span>
         </H1>
-        {workspaceStore.isPremiumUpgradeRequired ? (
+        {!workspaceStore.userHasWorkspaces ? (
           <div className={classes.premiumAnnouncement}>
             <FormattedHTMLMessage {...messages.workspaceFeatureInfo} />
             <Button

@@ -1,5 +1,4 @@
 import { pick } from 'lodash';
-import localStorage from 'mobx-localstorage';
 import { sendAuthRequest } from '../../api/utils/auth';
 import { API, API_VERSION } from '../../environment';
 import Request from '../../stores/lib/Request';
