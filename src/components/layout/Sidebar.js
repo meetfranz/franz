@@ -99,7 +99,7 @@ export default @observer class Sidebar extends Component {
               gaEvent(GA_CATEGORY_WORKSPACES, 'toggleDrawer', 'sidebar');
             }}
             className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
-            data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+Shift+D)`}
+            data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+D)`}
           >
             <i className="mdi mdi-view-grid" />
           </button>
