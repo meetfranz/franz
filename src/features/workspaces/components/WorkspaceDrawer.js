@@ -158,6 +158,7 @@ class WorkspaceDrawer extends Component {
               name={intl.formatMessage(messages.allServices)}
               onClick={() => {
                 workspaceActions.deactivate();
+                workspaceActions.toggleWorkspaceDrawer();
                 gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
               }}
               services={getServicesForWorkspace(null)}
@@ -169,7 +170,9 @@ class WorkspaceDrawer extends Component {
                 name={workspace.name}
                 isActive={actualWorkspace === workspace}
                 onClick={() => {
+                  if (actualWorkspace === workspace) return;
                   workspaceActions.activate({ workspace });
+                  workspaceActions.toggleWorkspaceDrawer();
                   gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
                 }}
                 services={getServicesForWorkspace(workspace)}
