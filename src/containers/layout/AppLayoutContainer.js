@@ -90,6 +90,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         getServicesForWorkspace={workspace => (
           workspace ? workspace.services.map(id => services.one(id).name) : services.all.map(s => s.name)
         )}
+        onUpgradeAccountClick={() => openSettings({ path: 'user' })}
       />
     );
 

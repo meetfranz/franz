@@ -3386,6 +3386,19 @@
           "column": 25,
           "line": 32
         }
+      },
+      {
+        "defaultMessage": "!!!Reactivate your premium account!",
+        "end": {
+          "column": 3,
+          "line": 39
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.reactivatePremiumAccountLabel",
+        "start": {
+          "column": 28,
+          "line": 36
+        }
       }
     ],
     "path": "src/features/workspaces/components/WorkspaceDrawer.json"

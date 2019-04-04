@@ -33,6 +33,10 @@ const messages = defineMessages({
     id: 'workspaceDrawer.premiumCtaButtonLabel',
     defaultMessage: '!!!Create your first workspace',
   },
+  reactivatePremiumAccount: {
+    id: 'workspaceDrawer.reactivatePremiumAccountLabel',
+    defaultMessage: '!!!Reactivate premium account',
+  },
 });
 
 const styles = theme => ({
@@ -77,6 +81,7 @@ class WorkspaceDrawer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     getServicesForWorkspace: PropTypes.func.isRequired,
+    onUpgradeAccountClick: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -91,6 +96,7 @@ class WorkspaceDrawer extends Component {
     const {
       classes,
       getServicesForWorkspace,
+      onUpgradeAccountClick,
     } = this.props;
     const { intl } = this.context;
     const {
@@ -119,19 +125,32 @@ class WorkspaceDrawer extends Component {
             />
           </span>
         </H1>
-        {!workspaceStore.userHasWorkspaces ? (
+        {workspaceStore.isPremiumUpgradeRequired ? (
           <div className={classes.premiumAnnouncement}>
             <FormattedHTMLMessage {...messages.workspaceFeatureInfo} />
-            <Button
-              className={classes.premiumCtaButton}
-              buttonType="primary"
-              label={intl.formatMessage(messages.premiumCtaButtonLabel)}
-              icon="mdiPlusBox"
-              onClick={() => {
-                workspaceActions.openWorkspaceSettings();
-                gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerPremiumCta');
-              }}
-            />
+            {workspaceStore.userHasWorkspaces ? (
+              <Button
+                className={classes.premiumCtaButton}
+                buttonType="primary"
+                label={intl.formatMessage(messages.reactivatePremiumAccount)}
+                icon="mdiStar"
+                onClick={() => {
+                  onUpgradeAccountClick();
+                  gaEvent('User', 'upgrade', 'workspaceDrawer');
+                }}
+              />
+            ) : (
+              <Button
+                className={classes.premiumCtaButton}
+                buttonType="primary"
+                label={intl.formatMessage(messages.premiumCtaButtonLabel)}
+                icon="mdiPlusBox"
+                onClick={() => {
+                  workspaceActions.openWorkspaceSettings();
+                  gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerPremiumCta');
+                }}
+              />
+            )}
           </div>
         ) : (
           <div className={classes.workspaces}>

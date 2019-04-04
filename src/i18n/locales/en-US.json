@@ -311,6 +311,7 @@
   "workspaceDrawer.headline": "Workspaces",
   "workspaceDrawer.item.noServicesAddedYet": "No services added yet",
   "workspaceDrawer.premiumCtaButtonLabel": "Create your first workspace",
+  "workspaceDrawer.reactivatePremiumAccountLabel": "Reactivate premium account",
   "workspaceDrawer.workspaceFeatureInfo": "<p>Franz Workspaces let you focus on what’s important right now. Set up different sets of services and easily switch between them at any time.</p><p>You decide which services you need when and where, so we can help you stay on top of your game - or easily switch off from work whenever you want.</p>",
   "workspaces.switchingIndicator.switchingTo": "Switching to"
 }

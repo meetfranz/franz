@@ -147,38 +147,38 @@ class WorkspacesDashboard extends Component {
                 onSubmit={onCreateWorkspaceSubmit}
               />
             </div>
+            {getUserWorkspacesRequest.isExecuting ? (
+              <Loader />
+            ) : (
+              <Fragment>
+                {/* ===== Workspace could not be loaded error ===== */}
+                {getUserWorkspacesRequest.error ? (
+                  <Infobox
+                    icon="alert"
+                    type="danger"
+                    ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
+                    ctaLoading={getUserWorkspacesRequest.isExecuting}
+                    ctaOnClick={getUserWorkspacesRequest.retry}
+                  >
+                    {intl.formatMessage(messages.workspacesRequestFailed)}
+                  </Infobox>
+                ) : (
+                  <table className="workspace-table">
+                    {/* ===== Workspaces list ===== */}
+                    <tbody>
+                      {workspaces.map(workspace => (
+                        <WorkspaceItem
+                          key={workspace.id}
+                          workspace={workspace}
+                          onItemClick={w => onWorkspaceClick(w)}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </Fragment>
+            )}
           </PremiumFeatureContainer>
-          {getUserWorkspacesRequest.isExecuting ? (
-            <Loader />
-          ) : (
-            <Fragment>
-              {/* ===== Workspace could not be loaded error ===== */}
-              {getUserWorkspacesRequest.error ? (
-                <Infobox
-                  icon="alert"
-                  type="danger"
-                  ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
-                  ctaLoading={getUserWorkspacesRequest.isExecuting}
-                  ctaOnClick={getUserWorkspacesRequest.retry}
-                >
-                  {intl.formatMessage(messages.workspacesRequestFailed)}
-                </Infobox>
-              ) : (
-                <table className="workspace-table">
-                  {/* ===== Workspaces list ===== */}
-                  <tbody>
-                    {workspaces.map(workspace => (
-                      <WorkspaceItem
-                        key={workspace.id}
-                        workspace={workspace}
-                        onItemClick={w => onWorkspaceClick(w)}
-                      />
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </Fragment>
-          )}
         </div>
       </div>
     );
