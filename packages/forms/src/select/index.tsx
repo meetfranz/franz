@@ -306,6 +306,7 @@ class SelectComponent extends Component<IProps> {
       showLabel,
       showSearch,
       onChange,
+      required,
     } = this.props;
 
     const {
@@ -334,6 +335,7 @@ class SelectComponent extends Component<IProps> {
           title={label}
           showLabel={showLabel}
           htmlFor={id}
+          isRequired={required}
         >
           <div
             className={classnames({

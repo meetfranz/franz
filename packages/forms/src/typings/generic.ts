@@ -5,6 +5,7 @@ export interface IFormField {
   showLabel?: boolean;
   label?: string;
   error?: string;
+  required?: boolean;
 }
 
 export interface IWithStyle {
