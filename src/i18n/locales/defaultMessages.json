@@ -3399,6 +3399,19 @@
           "column": 28,
           "line": 36
         }
+      },
+      {
+        "defaultMessage": "!!!add new workspace",
+        "end": {
+          "column": 3,
+          "line": 43
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.addNewWorkspaceLabel",
+        "start": {
+          "column": 24,
+          "line": 40
+        }
       }
     ],
     "path": "src/features/workspaces/components/WorkspaceDrawer.json"

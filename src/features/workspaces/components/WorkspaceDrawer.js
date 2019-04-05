@@ -37,6 +37,10 @@ const messages = defineMessages({
     id: 'workspaceDrawer.reactivatePremiumAccountLabel',
     defaultMessage: '!!!Reactivate premium account',
   },
+  addNewWorkspaceLabel: {
+    id: 'workspaceDrawer.addNewWorkspaceLabel',
+    defaultMessage: '!!!add new workspace',
+  },
 });
 
 const styles = theme => ({
@@ -48,11 +52,11 @@ const styles = theme => ({
     fontSize: '24px',
     marginTop: '38px',
     marginBottom: '25px',
-    marginLeft: `${theme.workspaceDrawerPadding}px`,
+    marginLeft: theme.workspaceDrawerPadding,
   },
   addWorkspaceButton: {
     float: 'right',
-    marginRight: `${theme.workspaceDrawerPadding}px`,
+    marginRight: theme.workspaceDrawerPadding,
     marginTop: '2px',
   },
   addWorkspaceButtonIcon: {
@@ -73,6 +77,24 @@ const styles = theme => ({
     marginTop: '20px',
     width: '100%',
     color: 'white !important',
+  },
+  addNewWorkspaceLabel: {
+    height: 'auto',
+    color: theme.workspaceDrawerServicesColor,
+    marginTop: 20,
+    marginLeft: theme.workspaceDrawerPadding,
+    '& > span': {
+      fontSize: '13px',
+      marginLeft: 10,
+      position: 'relative',
+      top: -3,
+    },
+    '&:hover': {
+      color: theme.workspaceDrawerAddButtonHoverColor,
+      '& > svg': {
+        fill: theme.workspaceDrawerAddButtonHoverColor,
+      },
+    },
   },
 });
 
@@ -180,6 +202,22 @@ class WorkspaceDrawer extends Component {
             ))}
           </div>
         )}
+        <div
+          className={classes.addNewWorkspaceLabel}
+          onClick={() => {
+            workspaceActions.openWorkspaceSettings();
+            gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerAddLabel');
+          }}
+        >
+          <Icon
+            icon="mdiPlusBox"
+            size={1}
+            className={classes.addWorkspaceButtonIcon}
+          />
+          <span>
+            {intl.formatMessage(messages.addNewWorkspaceLabel)}
+          </span>
+        </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
       </div>
     );
