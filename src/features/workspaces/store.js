@@ -13,6 +13,7 @@ import {
   getUserWorkspacesRequest,
   updateWorkspaceRequest,
 } from './api';
+import { WORKSPACES_ROUTES } from './index';
 
 const debug = require('debug')('Franz:feature:workspaces:store');
 
@@ -70,6 +71,7 @@ export default class WorkspacesStore extends FeatureStore {
       this._setFeatureEnabledReaction,
       this._setIsPremiumFeatureReaction,
       this._activateLastUsedWorkspaceReaction,
+      this._openDrawerWithSettingsReaction,
     ]);
 
     getUserWorkspacesRequest.execute();
@@ -99,6 +101,10 @@ export default class WorkspacesStore extends FeatureStore {
   };
 
   // ========== PRIVATE ========= //
+
+  _wasDrawerOpenBeforeSettingsRoute = null;
+
+  _isSettingsRouteActive = null;
 
   _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
 
@@ -226,6 +232,26 @@ export default class WorkspacesStore extends FeatureStore {
       if (lastActiveWorkspace) {
         const workspace = this._getWorkspaceById(lastActiveWorkspace);
         if (workspace) this._setActiveWorkspace({ workspace });
+      }
+    }
+  };
+
+  _openDrawerWithSettingsReaction = () => {
+    const { router } = this.stores;
+    const isWorkspaceSettingsRoute = router.location.pathname.includes(WORKSPACES_ROUTES.ROOT);
+    const isSwitchingToSettingsRoute = !this._isSettingsRouteActive && isWorkspaceSettingsRoute;
+    const isLeavingSettingsRoute = !isWorkspaceSettingsRoute && this._isSettingsRouteActive;
+
+    if (isSwitchingToSettingsRoute) {
+      this._isSettingsRouteActive = true;
+      this._wasDrawerOpenBeforeSettingsRoute = this.isWorkspaceDrawerOpen;
+      if (!this._wasDrawerOpenBeforeSettingsRoute) {
+        workspaceActions.toggleWorkspaceDrawer();
+      }
+    } else if (isLeavingSettingsRoute) {
+      this._isSettingsRouteActive = false;
+      if (!this._wasDrawerOpenBeforeSettingsRoute && this.isWorkspaceDrawerOpen) {
+        workspaceActions.toggleWorkspaceDrawer();
       }
     }
   };

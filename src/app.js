@@ -41,6 +41,7 @@ import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 import WorkspacesScreen from './features/workspaces/containers/WorkspacesScreen';
 import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceScreen';
+import { WORKSPACES_ROUTES } from './features/workspaces';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -77,8 +78,8 @@ window.addEventListener('load', () => {
                   <Route path="/settings/recipes/:filter" component={RecipesScreen} />
                   <Route path="/settings/services" component={ServicesScreen} />
                   <Route path="/settings/services/:action/:id" component={EditServiceScreen} />
-                  <Route path="/settings/workspaces" component={WorkspacesScreen} />
-                  <Route path="/settings/workspaces/:action/:id" component={EditWorkspaceScreen} />
+                  <Route path={WORKSPACES_ROUTES.ROOT} component={WorkspacesScreen} />
+                  <Route path={WORKSPACES_ROUTES.EDIT} component={EditWorkspaceScreen} />
                   <Route path="/settings/user" component={AccountScreen} />
                   <Route path="/settings/user/edit" component={EditUserScreen} />
                   <Route path="/settings/app" component={EditSettingsScreen} />

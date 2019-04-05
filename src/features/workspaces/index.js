@@ -30,3 +30,8 @@ export default function initWorkspaces(stores, actions) {
     },
   );
 }
+
+export const WORKSPACES_ROUTES = {
+  ROOT: '/settings/workspaces',
+  EDIT: '/settings/workspaces/:action/:id',
+};
