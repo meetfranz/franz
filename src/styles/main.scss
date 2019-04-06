@@ -31,9 +31,6 @@ $mdi-font-path: '../node_modules/mdi/fonts';
 @import './invite.scss';
 @import './title-bar.scss';
 
-// Workspaces legacy css
-@import '../features/workspaces/styles/workspaces-table';
-
 // form
 @import './input.scss';
 @import './radio.scss';

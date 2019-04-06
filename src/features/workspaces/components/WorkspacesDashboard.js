@@ -48,7 +48,13 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+const styles = theme => ({
+  table: {
+    width: '100%',
+    '& td': {
+      padding: '10px',
+    },
+  },
   createForm: {
     height: 'auto',
   },
@@ -164,7 +170,7 @@ class WorkspacesDashboard extends Component {
                     {intl.formatMessage(messages.workspacesRequestFailed)}
                   </Infobox>
                 ) : (
-                  <table className="workspace-table">
+                  <table className={classes.table}>
                     {/* ===== Workspaces list ===== */}
                     <tbody>
                       {workspaces.map(workspace => (
