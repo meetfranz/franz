@@ -143,6 +143,12 @@ export const badgeBorderRadius = 50;
 // Modal
 export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
 
+// Workspace settings
+export const workspaceSettings = {
+  listItemBorderColor: legacyStyles.themeGrayLightest,
+  listItemHoverBgColor: legacyStyles.themeGrayLightest,
+};
+
 // Workspace Drawer
 export const workspaceDrawerWidth = 300;
 export const workspaceDrawerPadding = 20;

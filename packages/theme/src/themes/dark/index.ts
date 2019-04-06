@@ -64,6 +64,12 @@ export const selectSearchColor = inputBackground;
 // Modal
 export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.8).rgb().string();
 
+// Workspace settings
+export const workspaceSettings = {
+  listItemBorderColor: legacyStyles.darkThemeGrayDarker,
+  listItemHoverBgColor: legacyStyles.darkThemeGrayDarker,
+};
+
 // Workspace Drawer
 export const workspaceDrawerBackground = color(colorBackground).lighten(0.3).hex();
 export const workspaceDrawerAddButtonColor = legacyStyles.darkThemeGrayLighter;

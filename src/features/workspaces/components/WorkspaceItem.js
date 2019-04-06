@@ -2,14 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { observer } from 'mobx-react';
-import classnames from 'classnames';
+import injectSheet from 'react-jss';
+
 import Workspace from '../models/Workspace';
 
-// const messages = defineMessages({});
+const styles = theme => ({
+  row: {
+    height: 57,
+    borderBottom: `1px solid ${theme.workspaceSettings.listItemBorderColor}`,
+    '&:hover': {
+      background: theme.workspaceSettings.listItemHoverBgColor,
+    },
+  },
+  columnName: {},
+});
 
-@observer
+@injectSheet(styles) @observer
 class WorkspaceItem extends Component {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     workspace: PropTypes.instanceOf(Workspace).isRequired,
     onItemClick: PropTypes.func.isRequired,
   };
@@ -19,19 +30,11 @@ class WorkspaceItem extends Component {
   };
 
   render() {
-    const { workspace, onItemClick } = this.props;
-    // const { intl } = this.context;
+    const { classes, workspace, onItemClick } = this.props;
 
     return (
-      <tr
-        className={classnames({
-          'workspace-table__row': true,
-        })}
-      >
-        <td
-          className="workspace-table__column-name"
-          onClick={() => onItemClick(workspace)}
-        >
+      <tr className={classes.row}>
+        <td onClick={() => onItemClick(workspace)}>
           {workspace.name}
         </td>
       </tr>
