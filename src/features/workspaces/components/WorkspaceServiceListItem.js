@@ -2,23 +2,37 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
+import classnames from 'classnames';
 import { Toggle } from '@meetfranz/forms';
 
 import Service from '../../../models/Service';
 import ServiceIcon from '../../../components/ui/ServiceIcon';
 
 const styles = theme => ({
-  service: {
-    height: theme.workspaceSettings.listItemHeight,
+  listItem: {
+    height: theme.workspaces.settings.listItems.height,
+    borderBottom: `1px solid ${theme.workspaces.settings.listItems.borderColor}`,
     display: 'flex',
+    alignItems: 'center',
   },
-  name: {
-    marginTop: '4px',
+  serviceIcon: {
+    padding: theme.workspaces.settings.listItems.padding,
+  },
+  toggle: {
+    height: 'auto',
+    margin: 0,
+  },
+  label: {
+    padding: theme.workspaces.settings.listItems.padding,
+    flexGrow: 1,
+  },
+  disabledLabel: {
+    color: theme.workspaces.settings.listItems.disabled.color,
   },
 });
 
 @injectSheet(styles) @observer
-class ServiceListItem extends Component {
+class WorkspaceServiceListItem extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     isInWorkspace: PropTypes.bool.isRequired,
@@ -35,16 +49,27 @@ class ServiceListItem extends Component {
     } = this.props;
 
     return (
-      <div className={classes.service}>
-        <ServiceIcon service={service} />
+      <div className={classes.listItem}>
+        <ServiceIcon
+          className={classes.serviceIcon}
+          service={service}
+        />
+        <span
+          className={classnames([
+            classes.label,
+            service.isEnabled ? null : classes.disabledLabel,
+          ])}
+        >
+          {service.name}
+        </span>
         <Toggle
+          className={classes.toggle}
           checked={isInWorkspace}
           onChange={onToggle}
-          label={service.name}
         />
       </div>
     );
   }
 }
 
-export default ServiceListItem;
+export default WorkspaceServiceListItem;

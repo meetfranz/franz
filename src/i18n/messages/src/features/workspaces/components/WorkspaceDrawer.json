@@ -26,12 +26,12 @@
     }
   },
   {
-    "id": "workspaceDrawer.addWorkspaceTooltip",
-    "defaultMessage": "!!!Add workspace",
+    "id": "workspaceDrawer.workspacesSettingsTooltip",
+    "defaultMessage": "!!!Workspaces settings",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
       "line": 24,
-      "column": 23
+      "column": 29
     },
     "end": {
       "line": 27,

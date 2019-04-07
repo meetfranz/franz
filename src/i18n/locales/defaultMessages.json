@@ -3349,15 +3349,15 @@
         }
       },
       {
-        "defaultMessage": "!!!Add workspace",
+        "defaultMessage": "!!!Workspaces settings",
         "end": {
           "column": 3,
           "line": 27
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
-        "id": "workspaceDrawer.addWorkspaceTooltip",
+        "id": "workspaceDrawer.workspacesSettingsTooltip",
         "start": {
-          "column": 23,
+          "column": 29,
           "line": 24
         }
       },

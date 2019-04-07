@@ -21,9 +21,9 @@ const messages = defineMessages({
     id: 'workspaceDrawer.allServices',
     defaultMessage: '!!!All services',
   },
-  addWorkspaceTooltip: {
-    id: 'workspaceDrawer.addWorkspaceTooltip',
-    defaultMessage: '!!!Add workspace',
+  workspacesSettingsTooltip: {
+    id: 'workspaceDrawer.workspacesSettingsTooltip',
+    defaultMessage: '!!!Workspaces settings',
   },
   workspaceFeatureInfo: {
     id: 'workspaceDrawer.workspaceFeatureInfo',
@@ -54,12 +54,12 @@ const styles = theme => ({
     marginBottom: '25px',
     marginLeft: theme.workspaceDrawerPadding,
   },
-  addWorkspaceButton: {
+  workspacesSettingsButton: {
     float: 'right',
     marginRight: theme.workspaceDrawerPadding,
     marginTop: '2px',
   },
-  addWorkspaceButtonIcon: {
+  workspacesSettingsButtonIcon: {
     fill: theme.workspaceDrawerAddButtonColor,
     '&:hover': {
       fill: theme.workspaceDrawerAddButtonHoverColor,
@@ -133,17 +133,17 @@ class WorkspaceDrawer extends Component {
         <H1 className={classes.headline}>
           {intl.formatMessage(messages.headline)}
           <span
-            className={classes.addWorkspaceButton}
+            className={classes.workspacesSettingsButton}
             onClick={() => {
               workspaceActions.openWorkspaceSettings();
-              gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerHeadline');
+              gaEvent(GA_CATEGORY_WORKSPACES, 'settings', 'drawerHeadline');
             }}
-            data-tip={`${intl.formatMessage(messages.addWorkspaceTooltip)}`}
+            data-tip={`${intl.formatMessage(messages.workspacesSettingsTooltip)}`}
           >
             <Icon
-              icon="mdiPlusBox"
+              icon="mdiSettings"
               size={1.5}
-              className={classes.addWorkspaceButtonIcon}
+              className={classes.workspacesSettingsButtonIcon}
             />
           </span>
         </H1>
@@ -212,7 +212,7 @@ class WorkspaceDrawer extends Component {
           <Icon
             icon="mdiPlusBox"
             size={1}
-            className={classes.addWorkspaceButtonIcon}
+            className={classes.workspacesSettingsButtonIcon}
           />
           <span>
             {intl.formatMessage(messages.addNewWorkspaceLabel)}
