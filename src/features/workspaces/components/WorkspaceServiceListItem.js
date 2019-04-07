@@ -5,10 +5,11 @@ import injectSheet from 'react-jss';
 import { Toggle } from '@meetfranz/forms';
 
 import Service from '../../../models/Service';
+import ServiceIcon from '../../../components/ui/ServiceIcon';
 
-const styles = () => ({
+const styles = theme => ({
   service: {
-    height: 'auto',
+    height: theme.workspaceSettings.listItemHeight,
     display: 'flex',
   },
   name: {
@@ -35,6 +36,7 @@ class ServiceListItem extends Component {
 
     return (
       <div className={classes.service}>
+        <ServiceIcon service={service} />
         <Toggle
           checked={isInWorkspace}
           onChange={onToggle}

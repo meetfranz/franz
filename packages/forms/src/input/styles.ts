@@ -10,6 +10,11 @@ const prefixStyles = (theme: Theme) => ({
 });
 
 export default (theme: Theme) => ({
+  label: {
+    '& > div': {
+      marginTop: 5,
+    }
+  },
   disabled: {
     opacity: theme.inputDisabledOpacity,
   },

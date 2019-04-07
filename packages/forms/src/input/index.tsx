@@ -131,6 +131,7 @@ class InputComponent extends Component<IProps, IState> {
           title={label}
           showLabel={showLabel}
           htmlFor={id}
+          className={classes.label}
         >
           <div
             className={classnames({

@@ -8,10 +8,10 @@ import Workspace from '../models/Workspace';
 
 const styles = theme => ({
   row: {
-    height: 57,
-    borderBottom: `1px solid ${theme.workspaceSettings.listItemBorderColor}`,
+    height: theme.workspaces.settings.listItems.height,
+    borderBottom: `1px solid ${theme.workspaces.settings.listItems.borderColor}`,
     '&:hover': {
-      background: theme.workspaceSettings.listItemHoverBgColor,
+      background: theme.workspaces.settings.listItems.hoverBgColor,
     },
   },
   columnName: {},

@@ -10,7 +10,7 @@ import Workspace from '../models/Workspace';
 import Service from '../../../models/Service';
 import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
-import ServiceListItem from './ServiceListItem';
+import WorkspaceServiceListItem from './WorkspaceServiceListItem';
 import Request from '../../../stores/lib/Request';
 import { gaEvent } from '../../../lib/analytics';
 import { GA_CATEGORY_WORKSPACES } from '../index';
@@ -151,7 +151,7 @@ class EditWorkspaceForm extends Component {
           <h2>{intl.formatMessage(messages.servicesInWorkspaceHeadline)}</h2>
           <div className={classes.serviceList}>
             {services.map(s => (
-              <ServiceListItem
+              <WorkspaceServiceListItem
                 key={s.id}
                 service={s}
                 isInWorkspace={workspaceServices.includes(s.id)}

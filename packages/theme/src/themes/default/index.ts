@@ -1,4 +1,5 @@
 import color from 'color';
+import { cloneDeep } from 'lodash';
 
 import * as legacyStyles from '../legacy';
 
@@ -143,8 +144,52 @@ export const badgeBorderRadius = 50;
 // Modal
 export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
 
-// Workspace settings
+// Services
+export const services = {
+  listItems: {
+    padding: 10,
+    height: 57,
+    borderColor: legacyStyles.themeGrayLightest,
+    hoverBgColor: legacyStyles.themeGrayLightest,
+    disabled: {
+      color: legacyStyles.themeGrayLight,
+    },
+  },
+};
+
+// Workspaces
+const drawerBg = color(colorBackground).lighten(0.1).hex();
+
+export const workspaces = {
+  settings: {
+    listItems: cloneDeep(services.listItems),
+  },
+  drawer: {
+    width: 300,
+    padding: 20,
+    background: drawerBg,
+    addButton: {
+      color: legacyStyles.themeGrayLight,
+      hoverColor: color(legacyStyles.themeGrayLight).lighten(0.1).hex(),
+    },
+    listItem: {
+      hoverBackground: color(drawerBg).darken(0.01).hex(),
+      activeBackground: legacyStyles.themeGrayLightest,
+      border: color(drawerBg).darken(0.05).hex(),
+      name: {
+        color: colorText,
+        activeColor: colorText,
+      },
+      services: {
+        color: color(colorText).lighten(1.5).hex(),
+        active: color(colorText).lighten(1.5).hex(),
+      },
+    },
+  },
+};
+
 export const workspaceSettings = {
+  listItemHeight: 57,
   listItemBorderColor: legacyStyles.themeGrayLightest,
   listItemHoverBgColor: legacyStyles.themeGrayLightest,
 };
@@ -162,3 +207,13 @@ export const workspaceDrawerItemNameColor = colorText;
 export const workspaceDrawerItemNameActiveColor = colorText;
 export const workspaceDrawerServicesColor = color(colorText).lighten(1.5).hex();
 export const workspaceDrawerServicesActiveColor = workspaceDrawerServicesColor;
+
+// Service Icon
+export const serviceIcon = {
+  width: 35,
+  isCustom: {
+    border: `1px solid ${legacyStyles.themeGrayLighter}`,
+    borderRadius: legacyStyles.themeBorderRadius,
+    width: 37,
+  },
+};
