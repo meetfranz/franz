@@ -1,4 +1,3 @@
-import { remote } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
@@ -11,8 +10,6 @@ import AccountDashboard from '../../components/settings/account/AccountDashboard
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { WEBSITE } from '../../environment';
 
-const { BrowserWindow } = remote;
-
 export default @inject('stores', 'actions') @observer class AccountScreen extends Component {
   componentWillMount() {
     const {
@@ -23,7 +20,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
   }
 
   onCloseWindow() {
-    const { user, payment } = this.props.stores;
+    const { user } = this.props.stores;
     user.getUserInfoRequest.invalidate({ immediately: true });
   }
 
@@ -32,36 +29,6 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
 
     user.getUserInfoRequest.reload();
     payment.plansRequest.reload();
-  }
-
-  async handlePaymentDashboard() {
-    const { actions, stores } = this.props;
-
-    // actions.payment.createDashboardUrl();
-
-    // const dashboard = await stores.payment.createDashboardUrlRequest;
-
-    // if (dashboard.url) {
-    //   const paymentWindow = new BrowserWindow({
-    //     title: '🔒 Franz Subscription Dashboard',
-    //     parent: remote.getCurrentWindow(),
-    //     modal: false,
-    //     width: 900,
-    //     minWidth: 600,
-    //     webPreferences: {
-    //       nodeIntegration: false,
-    //     },
-    //   });
-    //   paymentWindow.loadURL(dashboard.url);
-
-    //   paymentWindow.on('closed', () => {
-    //     this.onCloseWindow();
-    //   });
-    // }
-
-    const url = `${WEBSITE}/user/billing?token=${stores.user.authToken}&utm_source=app&utm_medium=edit_profile`;
-
-    actions.app.openExternalUrl({ url });
   }
 
   handleWebsiteLink(route) {
@@ -84,7 +51,6 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
       <ErrorBoundary>
         <AccountDashboard
           user={user.data}
-          orders={payment.orders} // das muss raus
           isLoading={isLoadingUserInfo}
           isLoadingPlans={isLoadingPlans}
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
