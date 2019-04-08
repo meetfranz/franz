@@ -1,17 +1,13 @@
-import { remote } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
-import PaymentStore from '../../stores/PaymentStore';
 import UserStore from '../../stores/UserStore';
 import AppStore from '../../stores/AppStore';
 
 import TeamDashboard from '../../components/settings/team/TeamDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { WEBSITE } from '../../environment';
-
-const { BrowserWindow } = remote;
 
 export default @inject('stores', 'actions') @observer class TeamScreen extends Component {
   handleWebsiteLink(route) {
@@ -45,7 +41,6 @@ export default @inject('stores', 'actions') @observer class TeamScreen extends C
 TeamScreen.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     user: PropTypes.instanceOf(UserStore).isRequired,
-    payment: PropTypes.instanceOf(PaymentStore).isRequired,
     app: PropTypes.instanceOf(AppStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({

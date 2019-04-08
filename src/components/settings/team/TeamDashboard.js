@@ -37,11 +37,11 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = {
   cta: {
     marginTop: 40,
   },
-});
+};
 
 
 export default @injectSheet(styles) @observer class TeamDashboard extends Component {
@@ -51,7 +51,6 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
     userInfoRequestFailed: PropTypes.bool.isRequired,
     retryUserInfoRequest: PropTypes.func.isRequired,
     openTeamManagement: PropTypes.func.isRequired,
-    upgradeAccount: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
   };
 
@@ -66,7 +65,6 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
       userInfoRequestFailed,
       retryUserInfoRequest,
       openTeamManagement,
-      upgradeAccount,
       classes,
     } = this.props;
     const { intl } = this.context;
