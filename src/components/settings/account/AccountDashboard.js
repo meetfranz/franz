@@ -164,28 +164,33 @@ export default @observer class AccountDashboard extends Component {
                       </h2>
                       {user.organization && `${user.organization}, `}
                       {user.email}
-                      <div className="manage-user-links">
-                        <Button
-                          label={intl.formatMessage(messages.accountEditButton)}
-                          className="franz-form__button--inverted"
-                          onClick={openEditAccount}
-                        />
-                        {user.isSubscriptionOwner && (
-                          <>
-                            <Button
-                              label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
-                              className="franz-form__button--inverted"
-                              onClick={openBilling}
-                            />
-                            <Button
-                              label={intl.formatMessage(messages.invoicesButton)}
-                              className="franz-form__button--inverted"
-                              onClick={openInvoices}
-                            />
-                          </>
-                        )}
-                      </div>
+                      {user.isSubscriptionOwner && (
+                        <div className="manage-user-links">
+                          <Button
+                            label={intl.formatMessage(messages.accountEditButton)}
+                            className="franz-form__button--inverted"
+                            onClick={openEditAccount}
+                          />
+                          <Button
+                            label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
+                            className="franz-form__button--inverted"
+                            onClick={openBilling}
+                          />
+                          <Button
+                            label={intl.formatMessage(messages.invoicesButton)}
+                            className="franz-form__button--inverted"
+                            onClick={openInvoices}
+                          />
+                        </div>
+                      )}
                     </div>
+                    {!user.isSubscriptionOwner && (
+                      <Button
+                        label={intl.formatMessage(messages.accountEditButton)}
+                        className="franz-form__button--inverted"
+                        onClick={openEditAccount}
+                      />
+                    )}
                   </div>
                 </div>
               )}
