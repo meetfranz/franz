@@ -7,6 +7,9 @@ import {
   LOCAL_API_WEBSITE,
   DEV_API_WEBSITE,
   LIVE_API_WEBSITE,
+  LIVE_WS_API,
+  LOCAL_WS_API,
+  DEV_WS_API,
 } from './config';
 
 export const isDevMode = isDev;
@@ -26,17 +29,22 @@ export const ctrlKey = isMac ? '⌘' : 'Ctrl';
 export const cmdKey = isMac ? 'Cmd' : 'Ctrl';
 
 let api;
+let wsApi;
 let web;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
   api = LIVE_API;
+  wsApi = LIVE_WS_API;
   web = LIVE_API_WEBSITE;
 } else if (isDevMode && useLocalAPI) {
   api = LOCAL_API;
+  wsApi = LOCAL_WS_API;
   web = LOCAL_API_WEBSITE;
 } else {
   api = DEV_API;
+  wsApi = DEV_WS_API;
   web = DEV_API_WEBSITE;
 }
 
 export const API = api;
+export const WS_API = wsApi;
 export const WEBSITE = web;
