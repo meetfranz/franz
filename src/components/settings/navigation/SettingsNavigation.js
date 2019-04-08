@@ -18,6 +18,10 @@ const messages = defineMessages({
     id: 'settings.navigation.account',
     defaultMessage: '!!!Account',
   },
+  team: {
+    id: 'settings.navigation.team',
+    defaultMessage: '!!!Manage Team',
+  },
   settings: {
     id: 'settings.navigation.settings',
     defaultMessage: '!!!Settings',
@@ -69,6 +73,13 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           activeClassName="is-active"
         >
           {intl.formatMessage(messages.account)}
+        </Link>
+        <Link
+          to="/settings/team"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+        >
+          {intl.formatMessage(messages.team)}
         </Link>
         <Link
           to="/settings/app"

@@ -6,6 +6,7 @@ export default theme => ({
     padding: 20,
     'border-radius': theme.borderRadius,
     pointerEvents: 'none',
+    height: 'auto',
   },
   titleContainer: {
     display: 'flex',
