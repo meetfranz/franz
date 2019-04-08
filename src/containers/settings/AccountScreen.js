@@ -9,6 +9,7 @@ import AppStore from '../../stores/AppStore';
 
 import AccountDashboard from '../../components/settings/account/AccountDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
+import { WEBSITE } from '../../environment';
 
 const { BrowserWindow } = remote;
 
@@ -24,69 +25,77 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
   onCloseWindow() {
     const { user, payment } = this.props.stores;
     user.getUserInfoRequest.invalidate({ immediately: true });
-    payment.ordersDataRequest.invalidate({ immediately: true });
   }
 
   reloadData() {
     const { user, payment } = this.props.stores;
 
     user.getUserInfoRequest.reload();
-    payment.ordersDataRequest.reload();
     payment.plansRequest.reload();
   }
 
   async handlePaymentDashboard() {
     const { actions, stores } = this.props;
 
-    actions.payment.createDashboardUrl();
+    // actions.payment.createDashboardUrl();
 
-    const dashboard = await stores.payment.createDashboardUrlRequest;
+    // const dashboard = await stores.payment.createDashboardUrlRequest;
 
-    if (dashboard.url) {
-      const paymentWindow = new BrowserWindow({
-        title: '🔒 Franz Subscription Dashboard',
-        parent: remote.getCurrentWindow(),
-        modal: false,
-        width: 900,
-        minWidth: 600,
-        webPreferences: {
-          nodeIntegration: false,
-        },
-      });
-      paymentWindow.loadURL(dashboard.url);
+    // if (dashboard.url) {
+    //   const paymentWindow = new BrowserWindow({
+    //     title: '🔒 Franz Subscription Dashboard',
+    //     parent: remote.getCurrentWindow(),
+    //     modal: false,
+    //     width: 900,
+    //     minWidth: 600,
+    //     webPreferences: {
+    //       nodeIntegration: false,
+    //     },
+    //   });
+    //   paymentWindow.loadURL(dashboard.url);
 
-      paymentWindow.on('closed', () => {
-        this.onCloseWindow();
-      });
-    }
+    //   paymentWindow.on('closed', () => {
+    //     this.onCloseWindow();
+    //   });
+    // }
+
+    const url = `${WEBSITE}/user/billing?token=${stores.user.authToken}&utm_source=app&utm_medium=edit_profile`;
+
+    actions.app.openExternalUrl({ url });
+  }
+
+  handleWebsiteLink(route) {
+    const { actions, stores } = this.props;
+
+    const url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
+    console.log(url);
+
+    actions.app.openExternalUrl({ url });
   }
 
   render() {
     const { user, payment } = this.props.stores;
-    const { openExternalUrl } = this.props.actions.app;
     const { user: userActions } = this.props.actions;
 
     const isLoadingUserInfo = user.getUserInfoRequest.isExecuting;
-    const isLoadingOrdersInfo = payment.ordersDataRequest.isExecuting;
     const isLoadingPlans = payment.plansRequest.isExecuting;
 
     return (
       <ErrorBoundary>
         <AccountDashboard
           user={user.data}
-          orders={payment.orders}
+          orders={payment.orders} // das muss raus
           isLoading={isLoadingUserInfo}
-          isLoadingOrdersInfo={isLoadingOrdersInfo}
           isLoadingPlans={isLoadingPlans}
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
           retryUserInfoRequest={() => this.reloadData()}
-          isCreatingPaymentDashboardUrl={payment.createDashboardUrlRequest.isExecuting}
-          openDashboard={price => this.handlePaymentDashboard(price)}
-          openExternalUrl={url => openExternalUrl({ url })}
           onCloseSubscriptionWindow={() => this.onCloseWindow()}
           deleteAccount={userActions.delete}
           isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
           isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
+          openEditAccount={() => this.handleWebsiteLink('/user/profile')}
+          openBilling={() => this.handleWebsiteLink('/user/billing')}
+          openInvoices={() => this.handleWebsiteLink('/user/invoices')}
         />
       </ErrorBoundary>
     );

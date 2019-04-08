@@ -62,13 +62,18 @@
     .account {
       .account__box { background: $dark-theme-gray-darker; }
 
-      .invoices {
-        td { border-bottom: 1px solid $dark-theme-gray-darker; }
-        .invoices__action button { color: $theme-brand-primary; }
+      .badge--premium {
+        margin-left: 10px;
+      }
+
+      .manage-user-links {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
       }
     }
 
-    .premium-info { 
+    .premium-info {
       background: $dark-theme-gray-darker;
       border: 2px solid $theme-brand-primary;
     }
