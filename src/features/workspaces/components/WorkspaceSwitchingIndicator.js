@@ -25,7 +25,7 @@ const styles = theme => ({
     marginTop: '20px',
   },
   wrapperWhenDrawerIsOpen: {
-    width: `calc(100% - ${theme.workspaceDrawerWidth}px)`,
+    width: `calc(100% - ${theme.workspaces.drawer.width}px)`,
   },
   component: {
     background: 'rgba(20, 20, 20, 0.4)',

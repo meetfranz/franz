@@ -45,24 +45,24 @@ const messages = defineMessages({
 
 const styles = theme => ({
   drawer: {
-    backgroundColor: theme.workspaceDrawerBackground,
-    width: `${theme.workspaceDrawerWidth}px`,
+    background: theme.workspaces.drawer.background,
+    width: `${theme.workspaces.drawer.width}px`,
   },
   headline: {
     fontSize: '24px',
     marginTop: '38px',
     marginBottom: '25px',
-    marginLeft: theme.workspaceDrawerPadding,
+    marginLeft: theme.workspaces.drawer.padding,
   },
   workspacesSettingsButton: {
     float: 'right',
-    marginRight: theme.workspaceDrawerPadding,
+    marginRight: theme.workspaces.drawer.padding,
     marginTop: '2px',
   },
   workspacesSettingsButtonIcon: {
-    fill: theme.workspaceDrawerAddButtonColor,
+    fill: theme.workspaces.drawer.buttons.color,
     '&:hover': {
-      fill: theme.workspaceDrawerAddButtonHoverColor,
+      fill: theme.workspaces.drawer.buttons.hoverColor,
     },
   },
   workspaces: {
@@ -80,11 +80,11 @@ const styles = theme => ({
   },
   addNewWorkspaceLabel: {
     height: 'auto',
-    color: theme.workspaces.drawer.addButton.color,
+    color: theme.workspaces.drawer.buttons.color,
     marginTop: 40,
     textAlign: 'center',
     '& > svg': {
-      fill: theme.workspaces.drawer.addButton.color,
+      fill: theme.workspaces.drawer.buttons.color,
     },
     '& > span': {
       fontSize: '13px',
@@ -93,9 +93,9 @@ const styles = theme => ({
       top: -3,
     },
     '&:hover': {
-      color: theme.workspaces.drawer.addButton.hoverColor,
+      color: theme.workspaces.drawer.buttons.hoverColor,
       '& > svg': {
-        fill: theme.workspaces.drawer.addButton.hoverColor,
+        fill: theme.workspaces.drawer.buttons.hoverColor,
       },
     },
   },

@@ -15,41 +15,41 @@ const messages = defineMessages({
 const styles = theme => ({
   item: {
     height: '67px',
-    padding: `15px ${theme.workspaceDrawerPadding}px`,
-    borderBottom: `1px solid ${theme.workspaceDrawerItemBorder}`,
+    padding: `15px ${theme.workspaces.drawer.padding}px`,
+    borderBottom: `1px solid ${theme.workspaces.drawer.listItem.border}`,
     transition: 'background-color 300ms ease-out',
     '&:first-child': {
-      borderTop: `1px solid ${theme.workspaceDrawerItemBorder}`,
+      borderTop: `1px solid ${theme.workspaces.drawer.listItem.border}`,
     },
     '&:hover': {
-      backgroundColor: theme.workspaceDrawerItemHoverBackground,
+      backgroundColor: theme.workspaces.drawer.listItem.hoverBackground,
     },
   },
   isActiveItem: {
-    backgroundColor: theme.workspaceDrawerItemActiveBackground,
+    backgroundColor: theme.workspaces.drawer.listItem.activeBackground,
     '&:hover': {
-      backgroundColor: theme.workspaceDrawerItemActiveBackground,
+      backgroundColor: theme.workspaces.drawer.listItem.activeBackground,
     },
   },
   name: {
     marginTop: '4px',
-    color: theme.workspaceDrawerItemNameColor,
+    color: theme.workspaces.drawer.listItem.name.color,
   },
   activeName: {
-    color: theme.workspaceDrawerItemNameActiveColor,
+    color: theme.workspaces.drawer.listItem.name.activeColor,
   },
   services: {
     display: 'block',
     fontSize: '11px',
     marginTop: '5px',
-    color: theme.workspaceDrawerServicesColor,
+    color: theme.workspaces.drawer.listItem.services.color,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     lineHeight: '15px',
   },
   activeServices: {
-    color: theme.workspaceDrawerServicesActiveColor,
+    color: theme.workspaces.drawer.listItem.services.active,
   },
 });
 

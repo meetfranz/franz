@@ -50,10 +50,10 @@ const messages = defineMessages({
 
 const styles = theme => ({
   appContent: {
-    width: `calc(100% + ${theme.workspaceDrawerWidth}px)`,
+    width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
     transition: 'transform 0.5s ease',
     transform() {
-      return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaceDrawerWidth}px)`;
+      return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
     },
   },
 });

@@ -157,6 +157,16 @@ export const services = {
   },
 };
 
+// Service Icon
+export const serviceIcon = {
+  width: 35,
+  isCustom: {
+    border: `1px solid ${legacyStyles.themeGrayLighter}`,
+    borderRadius: legacyStyles.themeBorderRadius,
+    width: 37,
+  },
+};
+
 // Workspaces
 const drawerBg = color(colorBackground).lighten(0.1).hex();
 
@@ -168,7 +178,7 @@ export const workspaces = {
     width: 300,
     padding: 20,
     background: drawerBg,
-    addButton: {
+    buttons: {
       color: color(legacyStyles.themeGrayLight).lighten(0.1).hex(),
       hoverColor: legacyStyles.themeGrayLight,
     },
@@ -188,32 +198,22 @@ export const workspaces = {
   },
 };
 
-export const workspaceSettings = {
-  listItemHeight: 57,
-  listItemBorderColor: legacyStyles.themeGrayLightest,
-  listItemHoverBgColor: legacyStyles.themeGrayLightest,
-};
-
-// Workspace Drawer
-export const workspaceDrawerWidth = 300;
-export const workspaceDrawerPadding = 20;
-export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
-export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
-export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();
-export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).darken(0.01).hex();
-export const workspaceDrawerItemActiveBackground = legacyStyles.themeGrayLightest;
-export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).darken(0.05).hex();
-export const workspaceDrawerItemNameColor = colorText;
-export const workspaceDrawerItemNameActiveColor = colorText;
-export const workspaceDrawerServicesColor = color(colorText).lighten(1.5).hex();
-export const workspaceDrawerServicesActiveColor = workspaceDrawerServicesColor;
-
-// Service Icon
-export const serviceIcon = {
-  width: 35,
-  isCustom: {
-    border: `1px solid ${legacyStyles.themeGrayLighter}`,
-    borderRadius: legacyStyles.themeBorderRadius,
-    width: 37,
-  },
-};
+// export const workspaceSettings = {
+//   listItemHeight: 57,
+//   listItemBorderColor: legacyStyles.themeGrayLightest,
+//   listItemHoverBgColor: legacyStyles.themeGrayLightest,
+// };
+//
+// // Workspace Drawer
+// export const workspaceDrawerWidth = 300;
+// export const workspaceDrawerPadding = 20;
+// export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
+// export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
+// export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();
+// export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).darken(0.01).hex();
+// export const workspaceDrawerItemActiveBackground = legacyStyles.themeGrayLightest;
+// export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).darken(0.05).hex();
+// export const workspaceDrawerItemNameColor = colorText;
+// export const workspaceDrawerItemNameActiveColor = colorText;
+// export const workspaceDrawerServicesColor = color(colorText).lighten(1.5).hex();
+// export const workspaceDrawerServicesActiveColor = workspaceDrawerServicesColor;
