@@ -3412,6 +3412,19 @@
           "column": 24,
           "line": 40
         }
+      },
+      {
+        "defaultMessage": "!!!Premium feature",
+        "end": {
+          "column": 3,
+          "line": 47
+        },
+        "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+        "id": "workspaceDrawer.proFeatureBadge",
+        "start": {
+          "column": 23,
+          "line": 44
+        }
       }
     ],
     "path": "src/features/workspaces/components/WorkspaceDrawer.json"

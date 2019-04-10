@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { defineMessages, FormattedHTMLMessage, intlShape } from 'react-intl';
-import { H1, Icon } from '@meetfranz/ui';
+import { H1, Icon, ProBadge } from '@meetfranz/ui';
 import { Button } from '@meetfranz/forms/lib';
 import ReactTooltip from 'react-tooltip';
 
@@ -41,6 +41,10 @@ const messages = defineMessages({
     id: 'workspaceDrawer.addNewWorkspaceLabel',
     defaultMessage: '!!!add new workspace',
   },
+  premiumFeatureBadge: {
+    id: 'workspaceDrawer.proFeatureBadge',
+    defaultMessage: '!!!Premium feature',
+  },
 });
 
 const styles = theme => ({
@@ -53,6 +57,9 @@ const styles = theme => ({
     marginTop: '38px',
     marginBottom: '25px',
     marginLeft: theme.workspaces.drawer.padding,
+  },
+  headlineProBadge: {
+    marginRight: 15,
   },
   workspacesSettingsButton: {
     float: 'right',
@@ -134,6 +141,14 @@ class WorkspaceDrawer extends Component {
     return (
       <div className={classes.drawer}>
         <H1 className={classes.headline}>
+          {workspaceStore.isPremiumUpgradeRequired && (
+            <span
+              className={classes.headlineProBadge}
+              data-tip={`${intl.formatMessage(messages.premiumFeatureBadge)}`}
+            >
+              <ProBadge />
+            </span>
+          )}
           {intl.formatMessage(messages.headline)}
           <span
             className={classes.workspacesSettingsButton}
@@ -203,24 +218,24 @@ class WorkspaceDrawer extends Component {
                 services={getServicesForWorkspace(workspace)}
               />
             ))}
+            <div
+              className={classes.addNewWorkspaceLabel}
+              onClick={() => {
+                workspaceActions.openWorkspaceSettings();
+                gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerAddLabel');
+              }}
+            >
+              <Icon
+                icon="mdiPlusBox"
+                size={1}
+                className={classes.workspacesSettingsButtonIcon}
+              />
+              <span>
+                {intl.formatMessage(messages.addNewWorkspaceLabel)}
+              </span>
+            </div>
           </div>
         )}
-        <div
-          className={classes.addNewWorkspaceLabel}
-          onClick={() => {
-            workspaceActions.openWorkspaceSettings();
-            gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerAddLabel');
-          }}
-        >
-          <Icon
-            icon="mdiPlusBox"
-            size={1}
-            className={classes.workspacesSettingsButtonIcon}
-          />
-          <span>
-            {intl.formatMessage(messages.addNewWorkspaceLabel)}
-          </span>
-        </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
       </div>
     );

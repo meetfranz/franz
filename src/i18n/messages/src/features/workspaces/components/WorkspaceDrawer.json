@@ -89,5 +89,18 @@
       "line": 43,
       "column": 3
     }
+  },
+  {
+    "id": "workspaceDrawer.proFeatureBadge",
+    "defaultMessage": "!!!Premium feature",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 44,
+      "column": 23
+    },
+    "end": {
+      "line": 47,
+      "column": 3
+    }
   }
 ]

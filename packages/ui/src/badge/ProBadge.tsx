@@ -47,7 +47,6 @@ class ProBadgeComponent extends Component<IProps> {
           inverted && classes.invertedBadge,
           badgeClasses,
         ])}
-        data-type="franz-badge"
       >
         <Icon
           icon="mdiStar"
