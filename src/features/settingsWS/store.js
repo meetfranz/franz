@@ -70,9 +70,6 @@ export class SettingsWSStore extends Store {
     debug('Heartbeat');
     clearTimeout(this.pingTimeout);
 
-    // Use `WebSocket#terminate()` and not `WebSocket#close()`. Delay should be
-    // equal to the interval at which your server sends out pings plus a
-    // conservative assumption of the latency.
     this.pingTimeout = setTimeout(() => {
       debug('Terminating connection reconnecting in 35');
       this.ws.terminate();
