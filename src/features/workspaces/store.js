@@ -36,6 +36,8 @@ export default class WorkspacesStore extends FeatureStore {
 
   @observable isWorkspaceDrawerOpen = false;
 
+  @observable isSettingsRouteActive = null;
+
   @computed get workspaces() {
     if (!this.isFeatureActive) return [];
     return getUserWorkspacesRequest.result || [];
@@ -103,8 +105,6 @@ export default class WorkspacesStore extends FeatureStore {
   // ========== PRIVATE ========= //
 
   _wasDrawerOpenBeforeSettingsRoute = null;
-
-  _isSettingsRouteActive = null;
 
   _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
 
@@ -239,17 +239,17 @@ export default class WorkspacesStore extends FeatureStore {
   _openDrawerWithSettingsReaction = () => {
     const { router } = this.stores;
     const isWorkspaceSettingsRoute = router.location.pathname.includes(WORKSPACES_ROUTES.ROOT);
-    const isSwitchingToSettingsRoute = !this._isSettingsRouteActive && isWorkspaceSettingsRoute;
-    const isLeavingSettingsRoute = !isWorkspaceSettingsRoute && this._isSettingsRouteActive;
+    const isSwitchingToSettingsRoute = !this.isSettingsRouteActive && isWorkspaceSettingsRoute;
+    const isLeavingSettingsRoute = !isWorkspaceSettingsRoute && this.isSettingsRouteActive;
 
     if (isSwitchingToSettingsRoute) {
-      this._isSettingsRouteActive = true;
+      this.isSettingsRouteActive = true;
       this._wasDrawerOpenBeforeSettingsRoute = this.isWorkspaceDrawerOpen;
       if (!this._wasDrawerOpenBeforeSettingsRoute) {
         workspaceActions.toggleWorkspaceDrawer();
       }
     } else if (isLeavingSettingsRoute) {
-      this._isSettingsRouteActive = false;
+      this.isSettingsRouteActive = false;
       if (!this._wasDrawerOpenBeforeSettingsRoute && this.isWorkspaceDrawerOpen) {
         workspaceActions.toggleWorkspaceDrawer();
       }

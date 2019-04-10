@@ -85,11 +85,6 @@
       .badge {
         background: $dark-theme-gray-lighter;
         color: $dark-theme-gray-smoke;
-
-        &.badge--pro {
-          background: $theme-brand-primary;
-          padding: 4px 6px 3px 7px;
-        }
       }
 
       &:hover {
@@ -98,11 +93,6 @@
         .badge {
           background: $dark-theme-gray-lighter;
           color: $dark-theme-gray-smoke;
-
-          &.badge--pro {
-            background: $theme-brand-primary;
-            padding: 4px 6px 3px 7px;
-          }
         }
       }
 
@@ -433,15 +423,6 @@
     text-decoration: none;
     transition: background $theme-transition-time, color $theme-transition-time;
 
-    .badge--pro {
-      background: $theme-brand-primary !important;
-      padding: 4px 6px 3px 7px;
-
-      .badge-icon-pro {
-        fill: white;
-      }
-    }
-
     &:hover {
       background: darken($theme-gray-lightest, 5%);
 
@@ -453,13 +434,6 @@
     &.is-active {
       background: $theme-brand-primary;
       color: #FFF;
-
-      .badge--pro {
-        background: white !important;
-        .badge-icon-pro {
-          fill: $theme-brand-primary;
-        }
-      }
 
       .badge {
         background: #FFF;

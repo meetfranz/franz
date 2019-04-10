@@ -1302,91 +1302,91 @@
         "defaultMessage": "!!!Available services",
         "end": {
           "column": 3,
-          "line": 14
+          "line": 15
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.availableServices",
         "start": {
           "column": 21,
-          "line": 11
+          "line": 12
         }
       },
       {
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourServices",
         "start": {
           "column": 16,
-          "line": 15
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.account",
         "start": {
           "column": 11,
-          "line": 23
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.settings",
         "start": {
           "column": 12,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Invite Friends",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.inviteFriends",
         "start": {
           "column": 17,
-          "line": 31
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Logout",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 39
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.logout",
         "start": {
           "column": 10,
-          "line": 35
+          "line": 36
         }
       }
     ],

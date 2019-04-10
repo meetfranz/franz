@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape } from 'react-intl';
 import { inject, observer } from 'mobx-react';
-import { Icon } from '@meetfranz/ui';
+import { ProBadge } from '@meetfranz/ui';
 
 import Link from '../../ui/Link';
 import { workspaceStore } from '../../../features/workspaces';
+import UIStore from '../../../stores/UIStore';
 
 const messages = defineMessages({
   availableServices: {
@@ -40,6 +41,9 @@ const messages = defineMessages({
 
 export default @inject('stores') @observer class SettingsNavigation extends Component {
   static propTypes = {
+    stores: PropTypes.shape({
+      ui: PropTypes.instanceOf(UIStore).isRequired,
+    }).isRequired,
     serviceCount: PropTypes.number.isRequired,
     workspaceCount: PropTypes.number.isRequired,
   };
@@ -49,7 +53,8 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
   };
 
   render() {
-    const { serviceCount, workspaceCount } = this.props;
+    const { serviceCount, workspaceCount, stores } = this.props;
+    const { isDarkThemeActive } = stores.ui;
     const { intl } = this.context;
 
     return (
@@ -79,9 +84,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
             {intl.formatMessage(messages.yourWorkspaces)}
             {' '}
             {workspaceStore.isPremiumUpgradeRequired ? (
-              <span className="badge badge--pro">
-                <Icon icon="mdiStar" className="badge-icon-pro" />
-              </span>
+              <ProBadge inverted={!isDarkThemeActive && workspaceStore.isSettingsRouteActive} />
             ) : (
               <span className="badge">{workspaceCount}</span>
             )}
