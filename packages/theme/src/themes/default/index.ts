@@ -169,8 +169,8 @@ export const workspaces = {
     padding: 20,
     background: drawerBg,
     addButton: {
-      color: legacyStyles.themeGrayLight,
-      hoverColor: color(legacyStyles.themeGrayLight).lighten(0.1).hex(),
+      color: color(legacyStyles.themeGrayLight).lighten(0.1).hex(),
+      hoverColor: legacyStyles.themeGrayLight,
     },
     listItem: {
       hoverBackground: color(drawerBg).darken(0.01).hex(),

@@ -80,9 +80,12 @@ const styles = theme => ({
   },
   addNewWorkspaceLabel: {
     height: 'auto',
-    color: theme.workspaceDrawerServicesColor,
-    marginTop: 20,
-    marginLeft: theme.workspaceDrawerPadding,
+    color: theme.workspaces.drawer.addButton.color,
+    marginTop: 40,
+    textAlign: 'center',
+    '& > svg': {
+      fill: theme.workspaces.drawer.addButton.color,
+    },
     '& > span': {
       fontSize: '13px',
       marginLeft: 10,
@@ -90,9 +93,9 @@ const styles = theme => ({
       top: -3,
     },
     '&:hover': {
-      color: theme.workspaceDrawerAddButtonHoverColor,
+      color: theme.workspaces.drawer.addButton.hoverColor,
       '& > svg': {
-        fill: theme.workspaceDrawerAddButtonHoverColor,
+        fill: theme.workspaces.drawer.addButton.hoverColor,
       },
     },
   },

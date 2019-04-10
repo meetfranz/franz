@@ -306,7 +306,7 @@
   "validation.url": "{field} is not a valid URL",
   "welcome.loginButton": "Login to your account",
   "welcome.signupButton": "Create a free account",
-  "workspaceDrawer.addNewWorkspaceLabel": "add new workspace",
+  "workspaceDrawer.addNewWorkspaceLabel": "Add new workspace",
   "workspaceDrawer.allServices": "All services",
   "workspaceDrawer.headline": "Workspaces",
   "workspaceDrawer.item.noServicesAddedYet": "No services added yet",
