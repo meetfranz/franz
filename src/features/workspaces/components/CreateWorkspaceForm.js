@@ -82,6 +82,7 @@ class CreateWorkspaceForm extends Component {
           {...form.$('name').bind()}
           showLabel={false}
           onEnterKey={this.submitForm.bind(this, form)}
+          focus
         />
         <Button
           className={classes.submitButton}
