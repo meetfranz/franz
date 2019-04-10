@@ -1,3 +1,4 @@
+import { remote } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
@@ -5,10 +6,16 @@ import injectSheet from 'react-jss';
 import classnames from 'classnames';
 import { defineMessages, intlShape } from 'react-intl';
 
+const { Menu } = remote;
+
 const messages = defineMessages({
   noServicesAddedYet: {
     id: 'workspaceDrawer.item.noServicesAddedYet',
     defaultMessage: '!!!No services added yet',
+  },
+  contextMenuEdit: {
+    id: 'workspaceDrawer.item.contextMenuEdit',
+    defaultMessage: '!!!edit',
   },
 });
 
@@ -61,6 +68,11 @@ class WorkspaceDrawerItem extends Component {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     services: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onContextMenuEditClick: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onContextMenuEditClick: null,
   };
 
   static contextTypes = {
@@ -73,9 +85,23 @@ class WorkspaceDrawerItem extends Component {
       isActive,
       name,
       onClick,
+      onContextMenuEditClick,
       services,
     } = this.props;
     const { intl } = this.context;
+
+    const contextMenuTemplate = [{
+      label: name,
+      enabled: false,
+    }, {
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(messages.contextMenuEdit),
+      click: onContextMenuEditClick,
+    }];
+
+    const contextMenu = Menu.buildFromTemplate(contextMenuTemplate);
+
     return (
       <div
         className={classnames([
@@ -83,6 +109,9 @@ class WorkspaceDrawerItem extends Component {
           isActive ? classes.isActiveItem : null,
         ])}
         onClick={onClick}
+        onContextMenu={() => (
+          onContextMenuEditClick && contextMenu.popup(remote.getCurrentWindow())
+        )}
       >
         <span
           className={classnames([

@@ -309,6 +309,7 @@
   "workspaceDrawer.addNewWorkspaceLabel": "Add new workspace",
   "workspaceDrawer.allServices": "All services",
   "workspaceDrawer.headline": "Workspaces",
+  "workspaceDrawer.item.contextMenuEdit": "edit",
   "workspaceDrawer.item.noServicesAddedYet": "No services added yet",
   "workspaceDrawer.premiumCtaButtonLabel": "Create your first workspace",
   "workspaceDrawer.proFeatureBadge": "Premium feature",

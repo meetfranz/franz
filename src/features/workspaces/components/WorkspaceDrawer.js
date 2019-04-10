@@ -215,6 +215,7 @@ class WorkspaceDrawer extends Component {
                   workspaceActions.toggleWorkspaceDrawer();
                   gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
                 }}
+                onContextMenuEditClick={() => workspaceActions.edit({ workspace })}
                 services={getServicesForWorkspace(workspace)}
               />
             ))}
