@@ -9,6 +9,7 @@ import styles from './styles';
 
 interface ILabel extends IFormField, React.LabelHTMLAttributes<HTMLLabelElement> {
   classes: Classes;
+  isRequired: boolean;
 }
 
 class LabelComponent extends Component<ILabel> {
@@ -24,6 +25,7 @@ class LabelComponent extends Component<ILabel> {
       className,
       children,
       htmlFor,
+      isRequired,
     } = this.props;
 
     if (!showLabel) return children;
@@ -36,7 +38,7 @@ class LabelComponent extends Component<ILabel> {
         htmlFor={htmlFor}
       >
         {showLabel && (
-          <span className={classes.label}>{title}</span>
+          <span className={classes.label}>{title}{isRequired && ' *'}</span>
         )}
         <div className={classes.content}>
           {children}

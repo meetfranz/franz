@@ -113,6 +113,7 @@ class InputComponent extends Component<IProps, IState> {
       min,
       max,
       step,
+      required,
     } = this.props;
 
     const {
@@ -132,6 +133,7 @@ class InputComponent extends Component<IProps, IState> {
           showLabel={showLabel}
           htmlFor={id}
           className={classes.label}
+          isRequired={required}
         >
           <div
             className={classnames({

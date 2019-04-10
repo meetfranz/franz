@@ -1,6 +1,9 @@
 {
   "packages": [
-    "packages/*"
+    "packages/theme",
+    "packages/forms",
+    "packages/ui",
+    "packages/typings"
   ],
   "version": "independent",
   "ignoreChanges": [
