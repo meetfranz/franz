@@ -74,6 +74,7 @@ export default class WorkspacesStore extends FeatureStore {
       this._setIsPremiumFeatureReaction,
       this._activateLastUsedWorkspaceReaction,
       this._openDrawerWithSettingsReaction,
+      this._cleanupInvalidServiceReferences,
     ]);
 
     getUserWorkspacesRequest.execute();
@@ -92,15 +93,16 @@ export default class WorkspacesStore extends FeatureStore {
 
   filterServicesByActiveWorkspace = (services) => {
     const { activeWorkspace, isFeatureActive } = this;
-
-    if (!isFeatureActive) return services;
-    if (activeWorkspace) {
-      return services.filter(s => (
-        activeWorkspace.services.includes(s.id)
-      ));
+    if (isFeatureActive && activeWorkspace) {
+      return this.getWorkspaceServices(activeWorkspace);
     }
     return services;
   };
+
+  getWorkspaceServices(workspace) {
+    const { services } = this.stores;
+    return workspace.services.map(id => services.one(id)).filter(s => !!s);
+  }
 
   // ========== PRIVATE ========= //
 
@@ -218,7 +220,8 @@ export default class WorkspacesStore extends FeatureStore {
     if (this.activeWorkspace) {
       const services = this.stores.services.allDisplayed;
       const activeService = services.find(s => s.isActive);
-      const workspaceServices = this.filterServicesByActiveWorkspace(services);
+      const workspaceServices = this.getWorkspaceServices(this.activeWorkspace);
+      if (workspaceServices.length <= 0) return;
       const isActiveServiceInWorkspace = workspaceServices.includes(activeService);
       if (!isActiveServiceInWorkspace) {
         this.actions.service.setActive({ serviceId: workspaceServices[0].id });
@@ -253,6 +256,21 @@ export default class WorkspacesStore extends FeatureStore {
       if (!this._wasDrawerOpenBeforeSettingsRoute && this.isWorkspaceDrawerOpen) {
         workspaceActions.toggleWorkspaceDrawer();
       }
+    }
+  };
+
+  _cleanupInvalidServiceReferences = () => {
+    const { services } = this.stores;
+    let invalidServiceReferencesExist = false;
+    this.workspaces.forEach((workspace) => {
+      workspace.services.forEach((serviceId) => {
+        if (!services.one(serviceId)) {
+          invalidServiceReferencesExist = true;
+        }
+      });
+    });
+    if (invalidServiceReferencesExist) {
+      getUserWorkspacesRequest.execute();
     }
   };
 }
