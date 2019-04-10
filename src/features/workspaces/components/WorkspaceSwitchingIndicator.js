@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
+import { Loader } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
 
-import LoaderComponent from '../../../components/ui/Loader';
 import { workspaceStore } from '../index';
 
 const messages = defineMessages({
@@ -39,12 +39,14 @@ const styles = theme => ({
     zIndex: 200,
   },
   spinner: {
-    width: '40px',
-    marginRight: '5px',
+    width: 40,
+    height: 40,
+    marginRight: 10,
   },
   message: {
     fontSize: 16,
     whiteSpace: 'nowrap',
+    color: theme.colorAppLoaderSpinner,
   },
 });
 
@@ -52,6 +54,7 @@ const styles = theme => ({
 class WorkspaceSwitchingIndicator extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
   };
 
   static contextTypes = {
@@ -59,7 +62,7 @@ class WorkspaceSwitchingIndicator extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const { intl } = this.context;
     const { isSwitchingWorkspace, isWorkspaceDrawerOpen, nextWorkspace } = workspaceStore;
     if (!isSwitchingWorkspace) return null;
@@ -72,9 +75,10 @@ class WorkspaceSwitchingIndicator extends Component {
         ])}
       >
         <div className={classes.component}>
-          <div className={classes.spinner}>
-            <LoaderComponent />
-          </div>
+          <Loader
+            className={classes.spinner}
+            color={theme.workspaces.switchingIndicator.spinnerColor}
+          />
           <p className={classes.message}>
             {`${intl.formatMessage(messages.switchingTo)} ${nextWorkspaceName}`}
           </p>

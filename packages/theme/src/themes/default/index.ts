@@ -196,6 +196,9 @@ export const workspaces = {
       },
     },
   },
+  switchingIndicator: {
+    spinnerColor: 'white',
+  },
 };
 
 // export const workspaceSettings = {
