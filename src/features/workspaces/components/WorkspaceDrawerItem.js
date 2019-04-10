@@ -17,6 +17,7 @@ const styles = theme => ({
     height: '67px',
     padding: `15px ${theme.workspaceDrawerPadding}px`,
     borderBottom: `1px solid ${theme.workspaceDrawerItemBorder}`,
+    transition: 'background-color 300ms ease-out',
     '&:first-child': {
       borderTop: `1px solid ${theme.workspaceDrawerItemBorder}`,
     },
