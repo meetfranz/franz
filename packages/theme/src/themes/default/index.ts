@@ -200,23 +200,3 @@ export const workspaces = {
     spinnerColor: 'white',
   },
 };
-
-// export const workspaceSettings = {
-//   listItemHeight: 57,
-//   listItemBorderColor: legacyStyles.themeGrayLightest,
-//   listItemHoverBgColor: legacyStyles.themeGrayLightest,
-// };
-//
-// // Workspace Drawer
-// export const workspaceDrawerWidth = 300;
-// export const workspaceDrawerPadding = 20;
-// export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
-// export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
-// export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();
-// export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).darken(0.01).hex();
-// export const workspaceDrawerItemActiveBackground = legacyStyles.themeGrayLightest;
-// export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).darken(0.05).hex();
-// export const workspaceDrawerItemNameColor = colorText;
-// export const workspaceDrawerItemNameActiveColor = colorText;
-// export const workspaceDrawerServicesColor = color(colorText).lighten(1.5).hex();
-// export const workspaceDrawerServicesActiveColor = workspaceDrawerServicesColor;

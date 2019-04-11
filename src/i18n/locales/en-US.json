@@ -1,7 +1,7 @@
 {
   "app.errorHandler.action": "Reload",
   "app.errorHandler.headline": "Something went wrong",
-  "feature.announcements.headline": "What's new in Franz {version}?",
+  "feature.announcements.changelog.headline": "Changes in Franz {version}",
   "feature.delayApp.action": "Get a Franz Supporter License",
   "feature.delayApp.headline": "Please purchase a Franz Supporter License to skip waiting",
   "feature.delayApp.text": "Franz will continue in {seconds} seconds.",
@@ -44,7 +44,7 @@
   "login.submit.label": "Sign in",
   "login.tokenExpired": "Your session expired, please login again.",
   "menu.app.about": "About Franz",
-  "menu.app.announcement": "What's new in Franz?",
+  "menu.app.announcement": "What's new?",
   "menu.app.hide": "Hide",
   "menu.app.hideOthers": "Hide Others",
   "menu.app.quit": "Quit",

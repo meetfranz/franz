@@ -1,96 +1,93 @@
-import { action, observable, reaction } from 'mobx';
+import {
+  action,
+  computed,
+  observable,
+  reaction,
+} from 'mobx';
 import semver from 'semver';
+import localStorage from 'mobx-localstorage';
+
 import { FeatureStore } from '../utils/FeatureStore';
-import { getAnnouncementRequest, getCurrentVersionRequest } from './api';
+import { getAnnouncementRequest, getChangelogRequest, getCurrentVersionRequest } from './api';
+import { announcementActions } from './actions';
+
+const LOCAL_STORAGE_KEY = 'announcements';
 
 const debug = require('debug')('Franz:feature:announcements:store');
 
 export class AnnouncementsStore extends FeatureStore {
-
-  @observable announcement = null;
-
-  @observable currentVersion = null;
-
-  @observable lastUsedVersion = null;
+  @observable targetVersion = null;
 
   @observable isAnnouncementVisible = false;
 
   @observable isFeatureActive = false;
 
+  @computed get changelog() {
+    return getChangelogRequest.result;
+  }
+
+  @computed get announcement() {
+    return getAnnouncementRequest.result;
+  }
+
+  @computed get settings() {
+    return localStorage.getItem(LOCAL_STORAGE_KEY) || {};
+  }
+
+  @computed get lastSeenAnnouncementVersion() {
+    return this.settings.lastSeenAnnouncementVersion || null;
+  }
+
+  @computed get currentVersion() {
+    return getCurrentVersionRequest.result;
+  }
+
+  @computed get isNewUser() {
+    return this.stores.settings.stats.appStarts <= 1;
+  }
+
   async start(stores, actions) {
     debug('AnnouncementsStore::start');
     this.stores = stores;
     this.actions = actions;
-    await this.fetchLastUsedVersion();
-    await this.fetchCurrentVersion();
-    await this.fetchReleaseAnnouncement();
-    this.showAnnouncementIfNotSeenYet();
+    getCurrentVersionRequest.execute();
 
-    this.actions.announcements.show.listen(this._showAnnouncement.bind(this));
+    this._registerActions([
+      [announcementActions.show, this._showAnnouncement],
+    ]);
+
+    this._registerReactions([
+      this._fetchAnnouncements,
+      this._showAnnouncementToUsersWhoUpdatedApp,
+    ]);
     this.isFeatureActive = true;
   }
 
   stop() {
+    super.stop();
     debug('AnnouncementsStore::stop');
     this.isFeatureActive = false;
     this.isAnnouncementVisible = false;
   }
 
-  // ====== PUBLIC ======
+  // ======= HELPERS ======= //
 
-  async fetchLastUsedVersion() {
-    debug('getting last used version from local storage');
-    const lastUsedVersion = window.localStorage.getItem('lastUsedVersion');
-    this._setLastUsedVersion(lastUsedVersion == null ? '0.0.0' : lastUsedVersion);
-  }
+  _updateSettings = (changes) => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, {
+      ...this.settings,
+      ...changes,
+    });
+  };
 
-  async fetchCurrentVersion() {
-    debug('getting current version from api');
-    const version = await getCurrentVersionRequest.execute();
-    this._setCurrentVersion(version);
-  }
+  // ======= ACTIONS ======= //
 
-  async fetchReleaseAnnouncement() {
-    debug('getting release announcement from api');
-    try {
-      const announcement = await getAnnouncementRequest.execute(this.currentVersion);
-      this._setAnnouncement(announcement);
-    } catch (error) {
-      this._setAnnouncement(null);
-    }
-  }
-
-  showAnnouncementIfNotSeenYet() {
-    const { announcement, currentVersion, lastUsedVersion } = this;
-    if (announcement && semver.gt(currentVersion, lastUsedVersion)) {
-      debug(`${currentVersion} < ${lastUsedVersion}: announcement is shown`);
-      this._showAnnouncement();
-    } else {
-      debug(`${currentVersion} >= ${lastUsedVersion}: announcement is hidden`);
-      this._hideAnnouncement();
-    }
-  }
-
-  // ====== PRIVATE ======
-
-  @action _setCurrentVersion(version) {
-    debug(`setting current version to ${version}`);
-    this.currentVersion = version;
-  }
-
-  @action _setLastUsedVersion(version) {
-    debug(`setting last used version to ${version}`);
-    this.lastUsedVersion = version;
-  }
-
-  @action _setAnnouncement(announcement) {
-    debug(`setting announcement to ${announcement}`);
-    this.announcement = announcement;
-  }
-
-  @action _showAnnouncement() {
+  @action _showAnnouncement = ({ targetVersion } = {}) => {
+    this.targetVersion = targetVersion || this.currentVersion;
     this.isAnnouncementVisible = true;
     this.actions.service.blurActive();
+    this._updateSettings({
+      lastSeenAnnouncementVersion: this.currentVersion,
+    });
     const dispose = reaction(
       () => this.stores.services.active,
       () => {
@@ -98,9 +95,37 @@ export class AnnouncementsStore extends FeatureStore {
         dispose();
       },
     );
-  }
+  };
 
   @action _hideAnnouncement() {
     this.isAnnouncementVisible = false;
+  }
+
+  // ======= REACTIONS ========
+
+  _showAnnouncementToUsersWhoUpdatedApp = () => {
+    const { announcement, isNewUser } = this;
+    console.log(announcement, isNewUser);
+    // Check if there is an announcement and on't show announcements to new users
+    if (!announcement || isNewUser) return;
+
+    this._showAnnouncement();
+
+    // Check if the user has already used current version (= has seen the announcement)
+    // const { currentVersion, lastSeenAnnouncementVersion } = this;
+    // if (semver.gt(currentVersion, lastSeenAnnouncementVersion)) {
+    //   debug(`${currentVersion} < ${lastSeenAnnouncementVersion}: announcement is shown`);
+    //   this._showAnnouncement();
+    // } else {
+    //   debug(`${currentVersion} >= ${lastSeenAnnouncementVersion}: announcement is hidden`);
+    //   this._hideAnnouncement();
+    // }
+  };
+
+  _fetchAnnouncements = () => {
+    const targetVersion = this.targetVersion || this.currentVersion;
+    if (!targetVersion) return;
+    getChangelogRequest.execute('5.0.1');
+    getAnnouncementRequest.execute('5.1.0');
   }
 }

@@ -3088,7 +3088,7 @@
           "line": 14
         },
         "file": "src/features/announcements/Component.js",
-        "id": "feature.announcements.headline",
+        "id": "feature.announcements.changelog.headline",
         "start": {
           "column": 12,
           "line": 11
@@ -3106,7 +3106,7 @@
           "line": 14
         },
         "file": "src/features/announcements/components/AnnouncementScreen.js",
-        "id": "feature.announcements.headline",
+        "id": "feature.announcements.changelog.headline",
         "start": {
           "column": 12,
           "line": 11

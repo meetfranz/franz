@@ -6,6 +6,7 @@ import { isMac, ctrlKey, cmdKey } from '../environment';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
 import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
+import announcementActions from '../features/announcements/actions';
 
 const { app, Menu, dialog } = remote;
 
@@ -160,7 +161,7 @@ const menuItems = defineMessages({
   },
   announcement: {
     id: 'menu.app.announcement',
-    defaultMessage: '!!!What\'s new in Franz?',
+    defaultMessage: '!!!What\'s new?',
   },
   settings: {
     id: 'menu.app.settings',
@@ -352,8 +353,10 @@ const _templateFactory = intl => [
         click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
-        label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
+        label: intl.formatMessage(menuItems.announcement),
+        click: () => {
+          announcementActions.show();
+        },
       },
       {
         type: 'separator',
@@ -620,12 +623,6 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(menuItems.about),
           role: 'about',
-        },
-        {
-          label: intl.formatMessage(menuItems.announcement),
-          click: () => {
-            this.actions.announcements.show();
-          },
         },
         {
           type: 'separator',

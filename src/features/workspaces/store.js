@@ -51,12 +51,16 @@ export default class WorkspacesStore extends FeatureStore {
     return getUserWorkspacesRequest.wasExecuted && this.workspaces.length > 0;
   }
 
+  @computed get isUserAllowedToUseFeature() {
+    return !this.isPremiumUpgradeRequired;
+  }
+
   start(stores, actions) {
     debug('WorkspacesStore::start');
     this.stores = stores;
     this.actions = actions;
 
-    this._listenToActions([
+    this._registerActions([
       [workspaceActions.edit, this._edit],
       [workspaceActions.create, this._create],
       [workspaceActions.delete, this._delete],
@@ -67,7 +71,7 @@ export default class WorkspacesStore extends FeatureStore {
       [workspaceActions.openWorkspaceSettings, this._openWorkspaceSettings],
     ]);
 
-    this._startReactions([
+    this._registerReactions([
       this._setWorkspaceBeingEditedReaction,
       this._setActiveServiceOnWorkspaceSwitchReaction,
       this._setFeatureEnabledReaction,
@@ -75,6 +79,7 @@ export default class WorkspacesStore extends FeatureStore {
       this._activateLastUsedWorkspaceReaction,
       this._openDrawerWithSettingsReaction,
       this._cleanupInvalidServiceReferences,
+      this._disableActionsForFreeUser,
     ]);
 
     getUserWorkspacesRequest.execute();
@@ -82,6 +87,7 @@ export default class WorkspacesStore extends FeatureStore {
   }
 
   stop() {
+    super.stop();
     debug('WorkspacesStore::stop');
     this.isFeatureActive = false;
     this.activeWorkspace = null;
@@ -273,4 +279,12 @@ export default class WorkspacesStore extends FeatureStore {
       getUserWorkspacesRequest.execute();
     }
   };
+
+  _disableActionsForFreeUser = () => {
+    if (!this.isUserAllowedToUseFeature) {
+      this._stopListeningToActions();
+    } else {
+      this._startListeningToActions();
+    }
+  }
 }

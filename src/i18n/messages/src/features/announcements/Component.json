@@ -1,6 +1,6 @@
 [
   {
-    "id": "feature.announcements.headline",
+    "id": "feature.announcements.changelog.headline",
     "defaultMessage": "!!!What's new in Franz {version}?",
     "file": "src/features/announcements/Component.js",
     "start": {

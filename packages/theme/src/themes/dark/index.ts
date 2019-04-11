@@ -111,22 +111,3 @@ export const workspaces = merge({}, defaultStyles.workspaces, {
     },
   },
 });
-
-// // Workspace settings
-// export const workspaceSettings = merge({}, defaultStyles.workspaceSettings, {
-//   listItemBorderColor: legacyStyles.darkThemeGrayDarker,
-//   listItemHoverBgColor: legacyStyles.darkThemeGrayDarker,
-// });
-//
-// // Workspace Drawer
-// export const workspaceDrawerBackground = color(colorBackground).lighten(0.3).hex();
-// export const workspaceDrawerAddButtonColor = legacyStyles.darkThemeGrayLighter;
-// export const workspaceDrawerAddButtonHoverColor = legacyStyles.darkThemeGraySmoke;
-// export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).lighten(0.2).hex();
-// export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).lighten(0.2).hex();
-// export const workspaceDrawerItemActiveBackground = defaultStyles.brandPrimary;
-// export const workspaceDrawerItemNameColor = colorText;
-// export const workspaceDrawerItemNameActiveColor = 'white';
-// export const workspaceDrawerServicesColor = color(colorText).darken(0.5).hex();
-// export const workspaceDrawerServicesActiveColor = color(defaultStyles.brandPrimary).lighten(0.5).hex();
-//
