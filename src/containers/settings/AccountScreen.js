@@ -11,14 +11,6 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { WEBSITE } from '../../environment';
 
 export default @inject('stores', 'actions') @observer class AccountScreen extends Component {
-  componentWillMount() {
-    const {
-      user,
-    } = this.props.stores;
-
-    user.getUserInfoRequest.invalidate({ immediately: true });
-  }
-
   onCloseWindow() {
     const { user } = this.props.stores;
     user.getUserInfoRequest.invalidate({ immediately: true });
