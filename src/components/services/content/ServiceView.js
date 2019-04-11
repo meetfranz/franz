@@ -35,11 +35,13 @@ export default @observer class ServiceView extends Component {
 
   autorunDisposer = null;
 
+  forceRepaintTimeout = null;
+
   componentDidMount() {
     this.autorunDisposer = autorun(() => {
       if (this.props.service.isActive) {
         this.setState({ forceRepaint: true });
-        setTimeout(() => {
+        this.forceRepaintTimeout = setTimeout(() => {
           this.setState({ forceRepaint: false });
         }, 100);
       }
@@ -48,6 +50,7 @@ export default @observer class ServiceView extends Component {
 
   componentWillUnmount() {
     this.autorunDisposer();
+    clearTimeout(this.forceRepaintTimeout);
   }
 
   updateTargetUrl = (event) => {

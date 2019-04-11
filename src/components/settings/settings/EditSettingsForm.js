@@ -170,6 +170,7 @@ export default @observer class EditSettingsForm extends Component {
             <Select field={form.$('locale')} showLabel={false} />
             <PremiumFeatureContainer
               condition={isSpellcheckerPremiumFeature}
+              gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
             >
               <Fragment>
                 <Toggle

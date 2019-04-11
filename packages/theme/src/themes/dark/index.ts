@@ -1,4 +1,5 @@
 import color from 'color';
+import { merge, cloneDeep } from 'lodash';
 
 import * as defaultStyles from '../default';
 import * as legacyStyles from '../legacy';
@@ -63,3 +64,69 @@ export const selectSearchColor = inputBackground;
 
 // Modal
 export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.8).rgb().string();
+
+// Services
+export const services = merge({}, defaultStyles.services, {
+  listItems: {
+    borderColor: legacyStyles.darkThemeGrayDarker,
+    hoverBgColor: legacyStyles.darkThemeGrayDarker,
+    disabled: {
+      color: legacyStyles.darkThemeGray,
+    },
+  },
+});
+
+// Service Icon
+export const serviceIcon = merge({}, defaultStyles.serviceIcon, {
+  isCustom: {
+    border: `1px solid ${legacyStyles.darkThemeGrayDark}`,
+  },
+});
+
+// Workspaces
+const drawerBg = color(colorBackground).lighten(0.3).hex();
+
+export const workspaces = merge({}, defaultStyles.workspaces, {
+  settings: {
+    listItems: cloneDeep(services.listItems),
+  },
+  drawer: {
+    background: drawerBg,
+    addButton: {
+      color: legacyStyles.darkThemeGrayLighter,
+      hoverColor: legacyStyles.darkThemeGraySmoke,
+    },
+    listItem: {
+      border: color(drawerBg).lighten(0.2).hex(),
+      hoverBackground: color(drawerBg).lighten(0.2).hex(),
+      activeBackground: defaultStyles.brandPrimary,
+      name: {
+        color: colorText,
+        activeColor: 'white',
+      },
+      services: {
+        color: color(colorText).darken(0.5).hex(),
+        active: color(defaultStyles.brandPrimary).lighten(0.5).hex(),
+      },
+    },
+  },
+});
+
+// // Workspace settings
+// export const workspaceSettings = merge({}, defaultStyles.workspaceSettings, {
+//   listItemBorderColor: legacyStyles.darkThemeGrayDarker,
+//   listItemHoverBgColor: legacyStyles.darkThemeGrayDarker,
+// });
+//
+// // Workspace Drawer
+// export const workspaceDrawerBackground = color(colorBackground).lighten(0.3).hex();
+// export const workspaceDrawerAddButtonColor = legacyStyles.darkThemeGrayLighter;
+// export const workspaceDrawerAddButtonHoverColor = legacyStyles.darkThemeGraySmoke;
+// export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).lighten(0.2).hex();
+// export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).lighten(0.2).hex();
+// export const workspaceDrawerItemActiveBackground = defaultStyles.brandPrimary;
+// export const workspaceDrawerItemNameColor = colorText;
+// export const workspaceDrawerItemNameActiveColor = 'white';
+// export const workspaceDrawerServicesColor = color(colorText).darken(0.5).hex();
+// export const workspaceDrawerServicesActiveColor = color(defaultStyles.brandPrimary).lighten(0.5).hex();
+//

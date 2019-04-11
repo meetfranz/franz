@@ -68,7 +68,7 @@
       }
     }
 
-    .premium-info { 
+    .premium-info {
       background: $dark-theme-gray-darker;
       border: 2px solid $theme-brand-primary;
     }
@@ -414,6 +414,7 @@
 
   .settings-navigation__link {
     align-items: center;
+    justify-content: space-between;
     color: $theme-text-color;
     display: flex;
     flex-shrink: 0;
@@ -425,7 +426,9 @@
     &:hover {
       background: darken($theme-gray-lightest, 5%);
 
-      .badge { background: #FFF; }
+      .badge {
+        background: #FFF;
+      }
     }
 
     &.is-active {
@@ -442,8 +445,8 @@
   .settings-navigation__expander { flex: 1; }
 
   .badge {
+
     display: initial;
-    margin-left: 5px;
     transition: background $theme-transition-time, color $theme-transition-time;
   }
 

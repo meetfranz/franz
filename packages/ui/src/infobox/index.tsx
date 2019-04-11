@@ -11,6 +11,7 @@ interface IProps extends IWithStyle {
   type?: string;
   dismissable?: boolean;
   onDismiss?: () => void;
+  onUnmount?: () => void;
   ctaOnClick?: () => void;
   ctaLabel?: string;
   ctaLoading?: boolean;
@@ -46,6 +47,7 @@ const styles = (theme: Theme) => ({
   wrapper: {
     position: 'relative',
     overflow: 'hidden',
+    height: 'auto',
   },
   infobox: {
     alignItems: 'center',
@@ -127,6 +129,11 @@ class InfoboxComponent extends Component<IProps, IState> {
         dismissed: true,
       });
     },         3000);
+  }
+
+  componentWillUnmount(): void {
+    const { onUnmount } = this.props;
+    if (onUnmount) onUnmount();
   }
 
   render() {

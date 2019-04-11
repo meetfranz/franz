@@ -7,6 +7,7 @@ import ServicesStore from '../../stores/ServicesStore';
 import Layout from '../../components/settings/SettingsLayout';
 import Navigation from '../../components/settings/navigation/SettingsNavigation';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
+import { workspaceStore } from '../../features/workspaces';
 
 export default @inject('stores', 'actions') @observer class SettingsContainer extends Component {
   render() {
@@ -16,6 +17,7 @@ export default @inject('stores', 'actions') @observer class SettingsContainer ex
     const navigation = (
       <Navigation
         serviceCount={stores.services.all.length}
+        workspaceCount={workspaceStore.workspaces.length}
       />
     );
 

@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Settings",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 11,
+      "line": 13,
       "column": 12
     },
     "end": {
-      "line": 14,
+      "line": 16,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Add new service",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 15,
+      "line": 17,
       "column": 17
     },
     "end": {
-      "line": 18,
+      "line": 20,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 19,
+      "line": 21,
       "column": 8
     },
     "end": {
-      "line": 22,
+      "line": 24,
       "column": 3
     }
   },
@@ -43,11 +43,37 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 23,
+      "line": 25,
       "column": 10
     },
     "end": {
-      "line": 26,
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.openWorkspaceDrawer",
+    "defaultMessage": "!!!Open workspace drawer",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 29,
+      "column": 23
+    },
+    "end": {
+      "line": 32,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.closeWorkspaceDrawer",
+    "defaultMessage": "!!!Close workspace drawer",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 33,
+      "column": 24
+    },
+    "end": {
+      "line": 36,
       "column": 3
     }
   }
