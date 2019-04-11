@@ -42,6 +42,8 @@ export const DEFAULT_FEATURES_CONFIG = {
   isServiceProxyEnabled: false,
   isServiceProxyPremiumFeature: true,
   isAnnouncementsEnabled: true,
+  isWorkspacePremiumFeature: true,
+  isWorkspaceEnabled: false,
 };
 
 export const DEFAULT_WINDOW_OPTIONS = {

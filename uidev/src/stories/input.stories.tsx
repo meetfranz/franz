@@ -66,6 +66,14 @@ storiesOf('Input')
       value="faulty input"
       error="This is a generic error message."
     />
+  ))
+  .add('Type number with min & max', () => (
+    <Input
+      {...defaultProps()}
+      type="number"
+      min={1}
+      max={10}
+    />
   ));
 
 storiesOf('Password')

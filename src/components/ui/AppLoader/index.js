@@ -23,11 +23,11 @@ export default @injectSheet(styles) @withTheme class AppLoader extends Component
   static propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
-  }
+  };
 
   state = {
     step: 0,
-  }
+  };
 
   interval = null;
 

@@ -56,6 +56,11 @@ const styles = (theme: Theme) => ({
     textAlign: 'left',
     color: theme.selectColor,
   },
+  label: {
+    '& > div': {
+      marginTop: 5,
+    }
+  },
   popup: {
     opacity: 0,
     height: 0,
@@ -306,6 +311,7 @@ class SelectComponent extends Component<IProps> {
       showLabel,
       showSearch,
       onChange,
+      required,
     } = this.props;
 
     const {
@@ -334,6 +340,8 @@ class SelectComponent extends Component<IProps> {
           title={label}
           showLabel={showLabel}
           htmlFor={id}
+          className={classes.label}
+          isRequired={required}
         >
           <div
             className={classnames({

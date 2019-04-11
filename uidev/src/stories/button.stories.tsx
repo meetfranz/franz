@@ -76,6 +76,11 @@ storiesOf('Button')
       busy: true,
     })} />
   ))
+  .add('With icon', () => (
+    <WithStoreButton store={createStore({
+      icon: 'mdiInformation',
+    })} />
+  ))
   .add('As link', () => (
     <WithStoreButton store={createStore({
       href: 'https://meetfranz.com',

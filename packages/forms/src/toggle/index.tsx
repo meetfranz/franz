@@ -1,7 +1,7 @@
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import CSS from 'csstype';
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
 import { IFormField, IWithStyle, Omit } from '../typings/generic';
@@ -45,11 +45,11 @@ const styles = (theme: Theme) => ({
   },
   toggleLabel: {
     display: 'flex',
+    alignItems: 'center',
 
     '& > span': {
       order: 1,
       marginLeft: 15,
-      marginTop: 2,
     },
   },
 });

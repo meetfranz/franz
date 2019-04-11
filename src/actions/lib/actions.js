@@ -9,6 +9,10 @@ export const createActionsFromDefinitions = (actionDefinitions, validate) => {
     actions[actionName] = action;
     action.listeners = [];
     action.listen = listener => action.listeners.push(listener);
+    action.off = (listener) => {
+      const { listeners } = action;
+      listeners.splice(listeners.indexOf(listener), 1);
+    };
     action.notify = params => action.listeners.forEach(listener => listener(params));
   });
   return actions;

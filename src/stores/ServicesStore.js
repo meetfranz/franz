@@ -12,6 +12,7 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent } from '../lib/analytics';
+import { workspaceStore } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -100,7 +101,6 @@ export default class ServicesStore extends Store {
         return observable(services.slice().slice().sort((a, b) => a.order - b.order));
       }
     }
-
     return [];
   }
 
@@ -109,13 +109,16 @@ export default class ServicesStore extends Store {
   }
 
   @computed get allDisplayed() {
-    return this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
+    const services = this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
+    return workspaceStore.filterServicesByActiveWorkspace(services);
   }
 
   // This is just used to avoid unnecessary rerendering of resource-heavy webviews
   @computed get allDisplayedUnordered() {
+    const { showDisabledServices } = this.stores.settings.all.app;
     const services = this.allServicesRequest.execute().result || [];
-    return this.stores.settings.all.app.showDisabledServices ? services : services.filter(service => service.isEnabled);
+    const filteredServices = showDisabledServices ? services : services.filter(service => service.isEnabled);
+    return workspaceStore.filterServicesByActiveWorkspace(filteredServices);
   }
 
   @computed get filtered() {

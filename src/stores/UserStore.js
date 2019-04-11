@@ -142,6 +142,10 @@ export default class UserStore extends Store {
     return this.getUserInfoRequest.execute().result || {};
   }
 
+  @computed get isPremium() {
+    return !!this.data.isPremium;
+  }
+
   @computed get legacyServices() {
     return this.getLegacyServicesRequest.execute() || {};
   }
