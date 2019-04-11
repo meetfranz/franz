@@ -1,5 +1,5 @@
 import color from 'color';
-import { merge, cloneDeep } from 'lodash';
+import { cloneDeep, merge } from 'lodash';
 
 import * as defaultStyles from '../default';
 import * as legacyStyles from '../legacy';
@@ -109,5 +109,13 @@ export const workspaces = merge({}, defaultStyles.workspaces, {
         active: color(defaultStyles.brandPrimary).lighten(0.5).hex(),
       },
     },
+  },
+});
+
+// Announcements
+
+export const announcements = merge({}, defaultStyles.workspaces, {
+  spotlight: {
+    background: legacyStyles.darkThemeGrayDark,
   },
 });

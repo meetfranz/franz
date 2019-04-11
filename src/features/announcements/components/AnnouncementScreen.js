@@ -8,6 +8,13 @@ import { Button } from '@meetfranz/forms';
 
 import { announcementsStore } from '../index';
 import UIStore from '../../../stores/UIStore';
+import { gaEvent } from '../../../lib/analytics';
+
+const renderer = new marked.Renderer();
+
+renderer.link = (href, title, text) => `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
+
+const markedOptions = { sanitize: true, renderer };
 
 const messages = defineMessages({
   headline: {
@@ -31,32 +38,42 @@ const styles = theme => ({
   headline: {
     color: theme.colorHeadline,
     margin: [25, 0, 40],
-    'max-width': 500,
+    // 'max-width': 500,
     'text-align': 'center',
     'line-height': '1.3em',
   },
   announcement: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    height: 'auto',
+
+    [`@media(min-width: ${smallScreen})`]: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100vh',
+    },
   },
   main: {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: 1,
+    justifyContent: 'center',
+
     '& h1': {
-      marginTop: 40,
-      fontSize: 50,
+      margin: [40, 0, 15],
+      fontSize: 70,
       color: theme.styleTypes.primary.accent,
       textAlign: 'center',
+
       [`@media(min-width: ${smallScreen})`]: {
-        marginTop: 75,
+        marginTop: 0,
       },
     },
     '& h2': {
-      fontSize: 24,
+      fontSize: 30,
       fontWeight: 300,
       color: theme.colorText,
       textAlign: 'center',
+      marginBottom: 60,
     },
   },
   mainBody: {
@@ -103,14 +120,64 @@ const styles = theme => ({
   },
   spotlight: {
     height: 'auto',
+    background: theme.announcements.spotlight.background,
+    padding: 60,
+    marginTop: 80,
+    [`@media(min-width: ${smallScreen})`]: {
+      marginTop: 0,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+  },
+  spotlightTopicContainer: {
+    textAlign: 'center',
+    marginBottom: 20,
+
+    [`@media(min-width: ${smallScreen})`]: {
+      marginBottom: 0,
+      minWidth: 250,
+      maxWidth: 400,
+      width: '100%',
+      textAlign: 'right',
+      paddingRight: 80,
+    },
+  },
+  spotlightContentContainer: {
+    textAlign: 'center',
+    [`@media(min-width: ${smallScreen})`]: {
+      height: 'auto',
+      maxWidth: 600,
+      textAlign: 'left',
+    },
+    '& p': {
+      lineHeight: '1.5em',
+    },
+  },
+  spotlightTopic: {
+    fontSize: 20,
+    marginBottom: 5,
+    letterSpacing: 0,
+    fontWeight: 100,
+  },
+  spotlightSubject: {
+    fontSize: 20,
   },
   changelog: {
+    maxWidth: 650,
+    margin: [100, 'auto'],
+    height: 'auto',
+
     '& h3': {
       fontSize: '24px',
       margin: '1.5em 0 1em 0',
     },
     '& li': {
       marginBottom: '1em',
+    },
+    '& div': {
+      height: 'auto',
     },
   },
 });
@@ -148,20 +215,49 @@ class AnnouncementScreen extends Component {
                 />
               </div>
               <div className={classes.mainText}>
-                <p
+                <div
                   dangerouslySetInnerHTML={{
-                    __html: marked(announcement.main.text, { sanitize: true }),
+                    __html: marked(announcement.main.text, markedOptions),
                   }}
                 />
                 <div className={classes.mainCtaButton}>
-                  <Button label={announcement.main.cta.label} />
+                  <Button
+                    label={announcement.main.cta.label}
+                    onClick={() => {
+                      const { analytics } = announcement.main.cta;
+                      window.location.href = `#${announcement.main.cta.href}`;
+
+                      gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
+                    }}
+                  />
                 </div>
               </div>
             </div>
           </div>
           {announcement.spotlight && (
             <div className={classes.spotlight}>
-              <h2>{announcement.spotlight.title}</h2>
+              <div className={classes.spotlightTopicContainer}>
+                <h2 className={classes.spotlightTopic}>{announcement.spotlight.title}</h2>
+                <h3 className={classes.spotlightSubject}>{announcement.spotlight.subject}</h3>
+              </div>
+              <div className={classes.spotlightContentContainer}>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: marked(announcement.spotlight.text, markedOptions),
+                  }}
+                />
+                <div className={classes.mainCtaButton}>
+                  <Button
+                    label={announcement.spotlight.cta.label}
+                    onClick={() => {
+                      const { analytics } = announcement.spotlight.cta;
+                      window.location.href = `#${announcement.spotlight.cta.href}`;
+
+                      gaEvent(analytics.category, analytics.action, announcement.spotlight.cta.label);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -174,7 +270,7 @@ class AnnouncementScreen extends Component {
             </h1>
             <div
               dangerouslySetInnerHTML={{
-                __html: marked(changelog, { sanitize: true }),
+                __html: marked(changelog, markedOptions),
               }}
             />
           </div>
