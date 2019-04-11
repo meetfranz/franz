@@ -1,8 +1,9 @@
 import { remote } from 'electron';
+import Request from '../../stores/lib/Request';
 
 const debug = require('debug')('Franz:feature:announcements:api');
 
-export default {
+export const announcementsApi = {
   async getCurrentVersion() {
     debug('getting current version of electron app');
     return Promise.resolve(remote.app.getVersion());
@@ -17,3 +18,6 @@ export default {
     return data.body;
   },
 };
+
+export const getCurrentVersionRequest = new Request(announcementsApi, 'getCurrentVersion');
+export const getAnnouncementRequest = new Request(announcementsApi, 'getAnnouncementForVersion');

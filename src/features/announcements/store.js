@@ -1,28 +1,39 @@
 import { action, observable, reaction } from 'mobx';
 import semver from 'semver';
-
-import Request from '../../stores/lib/Request';
-import Store from '../../stores/lib/Store';
+import { FeatureStore } from '../utils/FeatureStore';
+import { getAnnouncementRequest, getCurrentVersionRequest } from './api';
 
 const debug = require('debug')('Franz:feature:announcements:store');
 
-export class AnnouncementsStore extends Store {
-  @observable getCurrentVersion = new Request(this.api, 'getCurrentVersion');
+export class AnnouncementsStore extends FeatureStore {
 
-  @observable getAnnouncement = new Request(this.api, 'getAnnouncementForVersion');
+  @observable announcement = null;
 
-  constructor(stores, api, actions, state) {
-    super(stores, api, actions);
-    this.state = state;
-  }
+  @observable currentVersion = null;
 
-  async setup() {
+  @observable lastUsedVersion = null;
+
+  @observable isAnnouncementVisible = false;
+
+  @observable isFeatureActive = false;
+
+  async start(stores, actions) {
+    debug('AnnouncementsStore::start');
+    this.stores = stores;
+    this.actions = actions;
     await this.fetchLastUsedVersion();
     await this.fetchCurrentVersion();
     await this.fetchReleaseAnnouncement();
     this.showAnnouncementIfNotSeenYet();
 
     this.actions.announcements.show.listen(this._showAnnouncement.bind(this));
+    this.isFeatureActive = true;
+  }
+
+  stop() {
+    debug('AnnouncementsStore::stop');
+    this.isFeatureActive = false;
+    this.isAnnouncementVisible = false;
   }
 
   // ====== PUBLIC ======
@@ -35,14 +46,14 @@ export class AnnouncementsStore extends Store {
 
   async fetchCurrentVersion() {
     debug('getting current version from api');
-    const version = await this.getCurrentVersion.execute();
+    const version = await getCurrentVersionRequest.execute();
     this._setCurrentVersion(version);
   }
 
   async fetchReleaseAnnouncement() {
     debug('getting release announcement from api');
     try {
-      const announcement = await this.getAnnouncement.execute(this.state.currentVersion);
+      const announcement = await getAnnouncementRequest.execute(this.currentVersion);
       this._setAnnouncement(announcement);
     } catch (error) {
       this._setAnnouncement(null);
@@ -50,7 +61,7 @@ export class AnnouncementsStore extends Store {
   }
 
   showAnnouncementIfNotSeenYet() {
-    const { announcement, currentVersion, lastUsedVersion } = this.state;
+    const { announcement, currentVersion, lastUsedVersion } = this;
     if (announcement && semver.gt(currentVersion, lastUsedVersion)) {
       debug(`${currentVersion} < ${lastUsedVersion}: announcement is shown`);
       this._showAnnouncement();
@@ -64,21 +75,21 @@ export class AnnouncementsStore extends Store {
 
   @action _setCurrentVersion(version) {
     debug(`setting current version to ${version}`);
-    this.state.currentVersion = version;
+    this.currentVersion = version;
   }
 
   @action _setLastUsedVersion(version) {
     debug(`setting last used version to ${version}`);
-    this.state.lastUsedVersion = version;
+    this.lastUsedVersion = version;
   }
 
   @action _setAnnouncement(announcement) {
     debug(`setting announcement to ${announcement}`);
-    this.state.announcement = announcement;
+    this.announcement = announcement;
   }
 
   @action _showAnnouncement() {
-    this.state.isAnnouncementVisible = true;
+    this.isAnnouncementVisible = true;
     this.actions.service.blurActive();
     const dispose = reaction(
       () => this.stores.services.active,
@@ -90,6 +101,6 @@ export class AnnouncementsStore extends Store {
   }
 
   @action _hideAnnouncement() {
-    this.state.isAnnouncementVisible = false;
+    this.isAnnouncementVisible = false;
   }
 }

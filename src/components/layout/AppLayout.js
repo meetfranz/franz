@@ -14,7 +14,7 @@ import ErrorBoundary from '../util/ErrorBoundary';
 // import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
-import AnnouncementScreen from '../../features/announcements/Component';
+import AnnouncementScreen from '../../features/announcements/components/AnnouncementScreen';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
 

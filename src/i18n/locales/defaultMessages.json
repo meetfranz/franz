@@ -3100,6 +3100,24 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!What's new in Franz {version}?",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/features/announcements/components/AnnouncementScreen.js",
+        "id": "feature.announcements.headline",
+        "start": {
+          "column": 12,
+          "line": 11
+        }
+      }
+    ],
+    "path": "src/features/announcements/components/AnnouncementScreen.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Please purchase license to skip waiting",
         "end": {
           "column": 3,

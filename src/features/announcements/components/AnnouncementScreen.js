@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
-import { themeSidebarWidth } from '@meetfranz/theme/lib/themes/legacy';
-import state from './state';
+import { themeSidebarWidth } from '../../../../packages/theme/lib/themes/legacy';
+import { announcementsStore } from '../index';
 
 const messages = defineMessages({
   headline: {
@@ -61,12 +61,14 @@ class AnnouncementScreen extends Component {
     return (
       <div className={`${classes.container}`}>
         <h1 className={classes.headline}>
-          {intl.formatMessage(messages.headline, { version: state.currentVersion })}
+          {intl.formatMessage(messages.headline, {
+            version: announcementsStore.currentVersion,
+          })}
         </h1>
         <div
           className={classes.body}
           dangerouslySetInnerHTML={{
-            __html: marked(state.announcement, { sanitize: true }),
+            __html: marked(announcementsStore.announcement, { sanitize: true }),
           }}
         />
       </div>
