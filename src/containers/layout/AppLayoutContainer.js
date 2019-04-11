@@ -20,7 +20,6 @@ import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
 
 import { state as delayAppState } from '../../features/delayApp';
-import {  } from '../../features/announcements/store';
 import { workspaceActions } from '../../features/workspaces/actions';
 import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
 import { workspaceStore } from '../../features/workspaces';

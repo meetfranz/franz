@@ -6,7 +6,7 @@ import { isMac, ctrlKey, cmdKey } from '../environment';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
 import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
-import announcementActions from '../features/announcements/actions';
+import { announcementActions } from '../features/announcements/actions';
 
 const { app, Menu, dialog } = remote;
 

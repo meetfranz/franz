@@ -150,7 +150,7 @@ class AnnouncementScreen extends Component {
               <div className={classes.mainText}>
                 <p
                   dangerouslySetInnerHTML={{
-                    __html: marked(announcement.main.text,{ sanitize: true }),
+                    __html: marked(announcement.main.text, { sanitize: true }),
                   }}
                 />
                 <div className={classes.mainCtaButton}>
