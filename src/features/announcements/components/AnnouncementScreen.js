@@ -121,7 +121,7 @@ const styles = theme => ({
   spotlight: {
     height: 'auto',
     background: theme.announcements.spotlight.background,
-    padding: 60,
+    padding: [40, 0],
     marginTop: 80,
     [`@media(min-width: ${smallScreen})`]: {
       marginTop: 0,
@@ -138,10 +138,10 @@ const styles = theme => ({
     [`@media(min-width: ${smallScreen})`]: {
       marginBottom: 0,
       minWidth: 250,
-      maxWidth: 400,
+      maxWidth: 330,
       width: '100%',
       textAlign: 'right',
-      paddingRight: 80,
+      marginRight: 60,
     },
   },
   spotlightContentContainer: {
@@ -149,6 +149,7 @@ const styles = theme => ({
     [`@media(min-width: ${smallScreen})`]: {
       height: 'auto',
       maxWidth: 600,
+      paddingRight: 40,
       textAlign: 'left',
     },
     '& p': {
@@ -165,7 +166,8 @@ const styles = theme => ({
     fontSize: 20,
   },
   changelog: {
-    maxWidth: 650,
+    padding: [0, 60],
+    maxWidth: 700,
     margin: [100, 'auto'],
     height: 'auto',
 
@@ -175,6 +177,7 @@ const styles = theme => ({
     },
     '& li': {
       marginBottom: '1em',
+      lineHeight: '1.4em',
     },
     '& div': {
       height: 'auto',
