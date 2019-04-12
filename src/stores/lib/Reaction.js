@@ -4,21 +4,25 @@ import { autorun } from 'mobx';
 export default class Reaction {
   reaction;
 
-  hasBeenStarted;
+  isRunning = false;
 
   dispose;
 
   constructor(reaction) {
     this.reaction = reaction;
-    this.hasBeenStarted = false;
   }
 
   start() {
-    this.dispose = autorun(() => this.reaction());
-    this.hasBeenStarted = true;
+    if (!this.isRunning) {
+      this.dispose = autorun(() => this.reaction());
+      this.isRunning = true;
+    }
   }
 
   stop() {
-    if (this.hasBeenStarted) this.dispose();
+    if (this.isRunning) {
+      this.dispose();
+      this.isRunning = true;
+    }
   }
 }
