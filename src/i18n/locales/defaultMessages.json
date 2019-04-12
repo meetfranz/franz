@@ -2237,6 +2237,19 @@
           "column": 29,
           "line": 80
         }
+      },
+      {
+        "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
+        "end": {
+          "column": 3,
+          "line": 87
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.languageDisclaimer",
+        "start": {
+          "column": 22,
+          "line": 84
+        }
       }
     ],
     "path": "src/components/settings/settings/EditSettingsForm.json"
