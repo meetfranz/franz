@@ -1,0 +1,80 @@
+[
+  {
+    "id": "sidebar.settings",
+    "defaultMessage": "!!!Settings",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 13,
+      "column": 12
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.addNewService",
+    "defaultMessage": "!!!Add new service",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 17,
+      "column": 17
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.muteApp",
+    "defaultMessage": "!!!Disable notifications & audio",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 21,
+      "column": 8
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.unmuteApp",
+    "defaultMessage": "!!!Enable notifications & audio",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 25,
+      "column": 10
+    },
+    "end": {
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.openWorkspaceDrawer",
+    "defaultMessage": "!!!Open workspace drawer",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 29,
+      "column": 23
+    },
+    "end": {
+      "line": 32,
+      "column": 3
+    }
+  },
+  {
+    "id": "sidebar.closeWorkspaceDrawer",
+    "defaultMessage": "!!!Close workspace drawer",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 33,
+      "column": 24
+    },
+    "end": {
+      "line": 36,
+      "column": 3
+    }
+  }
+]

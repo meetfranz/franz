@@ -1,0 +1,236 @@
+[
+  {
+    "id": "settings.app.headline",
+    "defaultMessage": "!!!Settings",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 16,
+      "column": 12
+    },
+    "end": {
+      "line": 19,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.headlineGeneral",
+    "defaultMessage": "!!!General",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 20,
+      "column": 19
+    },
+    "end": {
+      "line": 23,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.headlineLanguage",
+    "defaultMessage": "!!!Language",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 24,
+      "column": 20
+    },
+    "end": {
+      "line": 27,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.headlineUpdates",
+    "defaultMessage": "!!!Updates",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 28,
+      "column": 19
+    },
+    "end": {
+      "line": 31,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.headlineAppearance",
+    "defaultMessage": "!!!Appearance",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 32,
+      "column": 22
+    },
+    "end": {
+      "line": 35,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.headlineAdvanced",
+    "defaultMessage": "!!!Advanced",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 36,
+      "column": 20
+    },
+    "end": {
+      "line": 39,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.translationHelp",
+    "defaultMessage": "!!!Help us to translate Franz into your language.",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 40,
+      "column": 19
+    },
+    "end": {
+      "line": 43,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.subheadlineCache",
+    "defaultMessage": "!!!Cache",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 44,
+      "column": 20
+    },
+    "end": {
+      "line": 47,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.cacheInfo",
+    "defaultMessage": "!!!Franz cache is currently using {size} of disk space.",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 48,
+      "column": 13
+    },
+    "end": {
+      "line": 51,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.buttonClearAllCache",
+    "defaultMessage": "!!!Clear cache",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 52,
+      "column": 23
+    },
+    "end": {
+      "line": 55,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.buttonSearchForUpdate",
+    "defaultMessage": "!!!Check for updates",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 56,
+      "column": 25
+    },
+    "end": {
+      "line": 59,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.buttonInstallUpdate",
+    "defaultMessage": "!!!Restart & install update",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 60,
+      "column": 23
+    },
+    "end": {
+      "line": 63,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.updateStatusSearching",
+    "defaultMessage": "!!!Is searching for update",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 64,
+      "column": 25
+    },
+    "end": {
+      "line": 67,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.updateStatusAvailable",
+    "defaultMessage": "!!!Update available, downloading...",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 68,
+      "column": 25
+    },
+    "end": {
+      "line": 71,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.updateStatusUpToDate",
+    "defaultMessage": "!!!You are using the latest version of Franz",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 72,
+      "column": 24
+    },
+    "end": {
+      "line": 75,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.currentVersion",
+    "defaultMessage": "!!!Current version:",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 76,
+      "column": 18
+    },
+    "end": {
+      "line": 79,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.restartRequired",
+    "defaultMessage": "!!!Changes require restart",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 80,
+      "column": 29
+    },
+    "end": {
+      "line": 83,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.languageDisclaimer",
+    "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 84,
+      "column": 22
+    },
+    "end": {
+      "line": 87,
+      "column": 3
+    }
+  }
+]

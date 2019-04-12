@@ -1,0 +1,15 @@
+[
+  {
+    "id": "premiumFeature.button.upgradeAccount",
+    "defaultMessage": "!!!Upgrade account",
+    "file": "src/components/ui/PremiumFeatureContainer/index.js",
+    "start": {
+      "line": 15,
+      "column": 10
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  }
+]

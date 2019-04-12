@@ -1,0 +1,93 @@
+[
+  {
+    "id": "feature.shareFranz.headline",
+    "defaultMessage": "!!!Franz is better together!",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 15,
+      "column": 12
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.shareFranz.text",
+    "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 19,
+      "column": 8
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.shareFranz.action.email",
+    "defaultMessage": "!!!Share as email",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 23,
+      "column": 16
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.shareFranz.action.facebook",
+    "defaultMessage": "!!!Share on Facebook",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 27,
+      "column": 19
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.shareFranz.action.twitter",
+    "defaultMessage": "!!!Share on Twitter",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 31,
+      "column": 18
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.shareFranz.shareText.email",
+    "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 35,
+      "column": 18
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.shareFranz.shareText.twitter",
+    "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
+    "file": "src/features/shareFranz/Component.js",
+    "start": {
+      "line": 39,
+      "column": 20
+    },
+    "end": {
+      "line": 42,
+      "column": 3
+    }
+  }
+]
