@@ -136,6 +136,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           isOnline={app.isOnline}
           showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
           appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
+          nextAppReleaseVersion={app.nextAppReleaseVersion}
           sidebar={sidebar}
           workspacesDrawer={workspacesDrawer}
           services={servicesContainer}

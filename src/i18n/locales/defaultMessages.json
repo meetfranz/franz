@@ -625,78 +625,78 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 26
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!A new update for Franz is available.",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 34
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.updateAvailable",
         "start": {
           "column": 19,
-          "line": 30
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 38
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 34
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!Changelog",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 42
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonChangelog",
         "start": {
           "column": 13,
-          "line": 38
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 46
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonInstallUpdate",
         "start": {
           "column": 23,
-          "line": 42
+          "line": 43
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 50
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 46
+          "line": 47
         }
       }
     ],

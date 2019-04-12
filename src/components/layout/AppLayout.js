@@ -17,6 +17,7 @@ import { isWindows } from '../../environment';
 import AnnouncementScreen from '../../features/announcements/components/AnnouncementScreen';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
+import { announcementActions } from '../../features/announcements/actions';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -72,6 +73,7 @@ class AppLayout extends Component {
     // isOnline: PropTypes.bool.isRequired,
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
+    nextAppReleaseVersion: PropTypes.string,
     removeNewsItem: PropTypes.func.isRequired,
     reloadServicesAfterUpdate: PropTypes.func.isRequired,
     installAppUpdate: PropTypes.func.isRequired,
@@ -86,6 +88,7 @@ class AppLayout extends Component {
 
   static defaultProps = {
     children: [],
+    nextAppReleaseVersion: null,
   };
 
   static contextTypes = {
@@ -104,6 +107,7 @@ class AppLayout extends Component {
       news,
       showServicesUpdatedInfoBar,
       appUpdateIsDownloaded,
+      nextAppReleaseVersion,
       removeNewsItem,
       reloadServicesAfterUpdate,
       installAppUpdate,
@@ -181,9 +185,13 @@ class AppLayout extends Component {
                     <span className="mdi mdi-information" />
                     {intl.formatMessage(messages.updateAvailable)}
                     {' '}
-                    <a href="https://meetfranz.com/changelog" target="_blank">
+                    <button
+                      className="info-bar__inline-button"
+                      type="button"
+                      onClick={() => announcementActions.show({ targetVersion: nextAppReleaseVersion })}
+                    >
                       <u>{intl.formatMessage(messages.changelog)}</u>
-                    </a>
+                    </button>
                   </InfoBar>
                 )}
                 {isDelayAppScreenVisible && (<DelayApp />)}
