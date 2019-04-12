@@ -1,4 +1,5 @@
 import color from 'color';
+import { cloneDeep } from 'lodash';
 
 import * as legacyStyles from '../legacy';
 
@@ -142,3 +143,80 @@ export const badgeBorderRadius = 50;
 
 // Modal
 export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
+
+// Services
+export const services = {
+  listItems: {
+    padding: 10,
+    height: 57,
+    borderColor: legacyStyles.themeGrayLightest,
+    hoverBgColor: legacyStyles.themeGrayLightest,
+    disabled: {
+      color: legacyStyles.themeGrayLight,
+    },
+  },
+};
+
+// Service Icon
+export const serviceIcon = {
+  width: 35,
+  isCustom: {
+    border: `1px solid ${legacyStyles.themeGrayLighter}`,
+    borderRadius: legacyStyles.themeBorderRadius,
+    width: 37,
+  },
+};
+
+// Workspaces
+const drawerBg = color(colorBackground).lighten(0.1).hex();
+
+export const workspaces = {
+  settings: {
+    listItems: cloneDeep(services.listItems),
+  },
+  drawer: {
+    width: 300,
+    padding: 20,
+    background: drawerBg,
+    buttons: {
+      color: color(legacyStyles.themeGrayLight).lighten(0.1).hex(),
+      hoverColor: legacyStyles.themeGrayLight,
+    },
+    listItem: {
+      hoverBackground: color(drawerBg).darken(0.01).hex(),
+      activeBackground: legacyStyles.themeGrayLightest,
+      border: color(drawerBg).darken(0.05).hex(),
+      name: {
+        color: colorText,
+        activeColor: colorText,
+      },
+      services: {
+        color: color(colorText).lighten(1.5).hex(),
+        active: color(colorText).lighten(1.5).hex(),
+      },
+    },
+  },
+  switchingIndicator: {
+    spinnerColor: 'white',
+  },
+};
+
+// export const workspaceSettings = {
+//   listItemHeight: 57,
+//   listItemBorderColor: legacyStyles.themeGrayLightest,
+//   listItemHoverBgColor: legacyStyles.themeGrayLightest,
+// };
+//
+// // Workspace Drawer
+// export const workspaceDrawerWidth = 300;
+// export const workspaceDrawerPadding = 20;
+// export const workspaceDrawerBackground = color(colorBackground).lighten(0.1).hex();
+// export const workspaceDrawerAddButtonColor = legacyStyles.themeGrayLight;
+// export const workspaceDrawerAddButtonHoverColor = color(legacyStyles.themeGrayLight).lighten(0.1).hex();
+// export const workspaceDrawerItemHoverBackground = color(workspaceDrawerBackground).darken(0.01).hex();
+// export const workspaceDrawerItemActiveBackground = legacyStyles.themeGrayLightest;
+// export const workspaceDrawerItemBorder = color(workspaceDrawerBackground).darken(0.05).hex();
+// export const workspaceDrawerItemNameColor = colorText;
+// export const workspaceDrawerItemNameActiveColor = colorText;
+// export const workspaceDrawerServicesColor = color(colorText).lighten(1.5).hex();
+// export const workspaceDrawerServicesActiveColor = workspaceDrawerServicesColor;

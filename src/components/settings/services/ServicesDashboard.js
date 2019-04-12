@@ -65,7 +65,7 @@ export default @observer class ServicesDashboard extends Component {
 
   static defaultProps = {
     searchNeedle: '',
-  }
+  };
 
   static contextTypes = {
     intl: intlShape,

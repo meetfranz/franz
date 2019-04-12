@@ -46,5 +46,6 @@ if (!isDevMode || (isDevMode && useLiveAPI)) {
 }
 
 export const API = api;
+export const API_VERSION = 'v1';
 export const WS_API = wsApi;
 export const WEBSITE = web;

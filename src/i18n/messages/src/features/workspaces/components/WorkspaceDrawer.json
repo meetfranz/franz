@@ -1,0 +1,106 @@
+[
+  {
+    "id": "workspaceDrawer.headline",
+    "defaultMessage": "!!!Workspaces",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 16,
+      "column": 12
+    },
+    "end": {
+      "line": 19,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.allServices",
+    "defaultMessage": "!!!All services",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 20,
+      "column": 15
+    },
+    "end": {
+      "line": 23,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.workspacesSettingsTooltip",
+    "defaultMessage": "!!!Workspaces settings",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 24,
+      "column": 29
+    },
+    "end": {
+      "line": 27,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.workspaceFeatureInfo",
+    "defaultMessage": "!!!Info about workspace feature",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 28,
+      "column": 24
+    },
+    "end": {
+      "line": 31,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.premiumCtaButtonLabel",
+    "defaultMessage": "!!!Create your first workspace",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 32,
+      "column": 25
+    },
+    "end": {
+      "line": 35,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.reactivatePremiumAccountLabel",
+    "defaultMessage": "!!!Reactivate premium account",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 36,
+      "column": 28
+    },
+    "end": {
+      "line": 39,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.addNewWorkspaceLabel",
+    "defaultMessage": "!!!add new workspace",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 40,
+      "column": 24
+    },
+    "end": {
+      "line": 43,
+      "column": 3
+    }
+  },
+  {
+    "id": "workspaceDrawer.proFeatureBadge",
+    "defaultMessage": "!!!Premium feature",
+    "file": "src/features/workspaces/components/WorkspaceDrawer.js",
+    "start": {
+      "line": 44,
+      "column": 23
+    },
+    "end": {
+      "line": 47,
+      "column": 3
+    }
+  }
+]

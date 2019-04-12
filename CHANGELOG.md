@@ -27,7 +27,6 @@
 
 [See 5.0.1 changelog.](#5-0-1--2019-03-25-)
 
-
 # [5.0.0](https://github.com/meetfranz/franz/compare/5.0.0-beta.24...5.0.0) (2019-02-15)
 
 ### General
