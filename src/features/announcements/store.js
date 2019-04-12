@@ -111,16 +111,11 @@ export class AnnouncementsStore extends FeatureStore {
     // Check if there is an announcement and on't show announcements to new users
     if (!announcement || isNewUser) return;
 
-    this._showAnnouncement();
-
     // Check if the user has already used current version (= has seen the announcement)
     const { currentVersion, lastSeenAnnouncementVersion } = this;
     if (semver.gt(currentVersion, lastSeenAnnouncementVersion)) {
       debug(`${currentVersion} < ${lastSeenAnnouncementVersion}: announcement is shown`);
       this._showAnnouncement();
-    } else {
-      debug(`${currentVersion} >= ${lastSeenAnnouncementVersion}: announcement is hidden`);
-      this._hideAnnouncement();
     }
   };
 

@@ -205,65 +205,65 @@ class AnnouncementScreen extends Component {
     const { changelog, announcement } = announcementsStore;
     const themeImage = stores.ui.isDarkThemeActive ? 'dark' : 'light';
     return (
-      <div className={`${classes.container}`}>
-        <div className={classes.announcement}>
-          <div className={classes.main}>
-            <h1>{announcement.main.headline}</h1>
-            <h2>{announcement.main.subHeadline}</h2>
-            <div className={classes.mainBody}>
-              <div className={classes.mainImage}>
-                <img
-                  src={announcement.main.image[themeImage]}
-                  alt=""
-                />
-              </div>
-              <div className={classes.mainText}>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: marked(announcement.main.text, markedOptions),
-                  }}
-                />
-                <div className={classes.mainCtaButton}>
-                  <Button
-                    label={announcement.main.cta.label}
-                    onClick={() => {
-                      const { analytics } = announcement.main.cta;
-                      window.location.href = `#${announcement.main.cta.href}`;
-
-                      gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
+      <div className={classes.container}>
+        {announcement && (
+          <div className={classes.announcement}>
+            <div className={classes.main}>
+              <h1>{announcement.main.headline}</h1>
+              <h2>{announcement.main.subHeadline}</h2>
+              <div className={classes.mainBody}>
+                <div className={classes.mainImage}>
+                  <img
+                    src={announcement.main.image[themeImage]}
+                    alt=""
+                  />
+                </div>
+                <div className={classes.mainText}>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: marked(announcement.main.text, markedOptions),
                     }}
                   />
+                  <div className={classes.mainCtaButton}>
+                    <Button
+                      label={announcement.main.cta.label}
+                      onClick={() => {
+                        const { analytics } = announcement.main.cta;
+                        window.location.href = `#${announcement.main.cta.href}`;
+                        gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+            {announcement.spotlight && (
+              <div className={classes.spotlight}>
+                <div className={classes.spotlightTopicContainer}>
+                  <h2 className={classes.spotlightTopic}>{announcement.spotlight.title}</h2>
+                  <h3 className={classes.spotlightSubject}>{announcement.spotlight.subject}</h3>
+                </div>
+                <div className={classes.spotlightContentContainer}>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: marked(announcement.spotlight.text, markedOptions),
+                    }}
+                  />
+                  <div className={classes.mainCtaButton}>
+                    <Button
+                      label={announcement.spotlight.cta.label}
+                      onClick={() => {
+                        const { analytics } = announcement.spotlight.cta;
+                        window.location.href = `#${announcement.spotlight.cta.href}`;
+                        gaEvent(analytics.category, analytics.action, announcement.spotlight.cta.label);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-          {announcement.spotlight && (
-            <div className={classes.spotlight}>
-              <div className={classes.spotlightTopicContainer}>
-                <h2 className={classes.spotlightTopic}>{announcement.spotlight.title}</h2>
-                <h3 className={classes.spotlightSubject}>{announcement.spotlight.subject}</h3>
-              </div>
-              <div className={classes.spotlightContentContainer}>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: marked(announcement.spotlight.text, markedOptions),
-                  }}
-                />
-                <div className={classes.mainCtaButton}>
-                  <Button
-                    label={announcement.spotlight.cta.label}
-                    onClick={() => {
-                      const { analytics } = announcement.spotlight.cta;
-                      window.location.href = `#${announcement.spotlight.cta.href}`;
-
-                      gaEvent(analytics.category, analytics.action, announcement.spotlight.cta.label);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        )}
         {changelog && (
           <div className={classes.changelog}>
             <h1 className={classes.headline}>

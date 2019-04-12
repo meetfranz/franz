@@ -18,7 +18,6 @@ export class FeatureStore {
   }
 
   _startActions(actions = this._actions) {
-    console.log(actions);
     actions.forEach(a => a.start());
   }
 
