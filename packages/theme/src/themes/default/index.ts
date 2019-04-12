@@ -1,7 +1,6 @@
 import color from 'color';
 import { cloneDeep } from 'lodash';
 
-import { theme } from '../..';
 import * as legacyStyles from '../legacy';
 
 export interface IStyleTypes {

@@ -164,6 +164,7 @@
   "settings.app.headlineGeneral": "General",
   "settings.app.headlineLanguage": "Language",
   "settings.app.headlineUpdates": "Updates",
+  "settings.app.languageDisclaimer": "Official translations are English & German. All other languages are community based translations.",
   "settings.app.restartRequired": "Changes require restart",
   "settings.app.subheadlineCache": "Cache",
   "settings.app.translationHelp": "Help us to translate Franz into your language.",

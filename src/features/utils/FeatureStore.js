@@ -1,4 +1,4 @@
-import Reaction from '../../stores/lib/Reaction';
+import { union } from 'lodash';
 
 export class FeatureStore {
   _actions = null;
@@ -13,25 +13,24 @@ export class FeatureStore {
   // ACTIONS
 
   _registerActions(actions) {
-    this._actions = [];
-    actions.forEach(a => this._actions.push(a));
-    this._startActions(this._actions);
+    this._actions = union(this._actions, actions);
+    this._startActions();
   }
 
   _startActions(actions = this._actions) {
-    actions.forEach(a => a[0].listen(a[1]));
+    console.log(actions);
+    actions.forEach(a => a.start());
   }
 
   _stopActions(actions = this._actions) {
-    actions.forEach(a => a[0].off(a[1]));
+    actions.forEach(a => a.stop());
   }
 
   // REACTIONS
 
   _registerReactions(reactions) {
-    this._reactions = [];
-    reactions.forEach(r => this._reactions.push(new Reaction(r)));
-    this._startReactions(this._reactions);
+    this._reactions = union(this._reactions, reactions);
+    this._startReactions();
   }
 
   _startReactions(reactions = this._reactions) {

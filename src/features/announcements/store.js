@@ -10,6 +10,8 @@ import localStorage from 'mobx-localstorage';
 import { FeatureStore } from '../utils/FeatureStore';
 import { getAnnouncementRequest, getChangelogRequest, getCurrentVersionRequest } from './api';
 import { announcementActions } from './actions';
+import { createActionBindings } from '../utils/ActionBinding';
+import { createReactions } from '../../stores/lib/Reaction';
 
 const LOCAL_STORAGE_KEY = 'announcements';
 
@@ -52,14 +54,15 @@ export class AnnouncementsStore extends FeatureStore {
     this.actions = actions;
     getCurrentVersionRequest.execute();
 
-    this._registerActions([
+    this._registerActions(createActionBindings([
       [announcementActions.show, this._showAnnouncement],
-    ]);
+    ]));
 
-    this._registerReactions([
+    this._reactions = createReactions([
       this._fetchAnnouncements,
       this._showAnnouncementToUsersWhoUpdatedApp,
     ]);
+    this._registerReactions(this._reactions);
     this.isFeatureActive = true;
   }
 
@@ -105,7 +108,6 @@ export class AnnouncementsStore extends FeatureStore {
 
   _showAnnouncementToUsersWhoUpdatedApp = () => {
     const { announcement, isNewUser } = this;
-    console.log(announcement, isNewUser);
     // Check if there is an announcement and on't show announcements to new users
     if (!announcement || isNewUser) return;
 
@@ -125,7 +127,7 @@ export class AnnouncementsStore extends FeatureStore {
   _fetchAnnouncements = () => {
     const targetVersion = this.targetVersion || this.currentVersion;
     if (!targetVersion) return;
-    getChangelogRequest.execute('5.0.1');
-    getAnnouncementRequest.execute('5.1.0');
+    getChangelogRequest.execute(targetVersion);
+    getAnnouncementRequest.execute(targetVersion);
   }
 }

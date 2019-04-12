@@ -14,6 +14,8 @@ import {
   updateWorkspaceRequest,
 } from './api';
 import { WORKSPACES_ROUTES } from './index';
+import { createReactions } from '../../stores/lib/Reaction';
+import { createActionBindings } from '../utils/ActionBinding';
 
 const debug = require('debug')('Franz:feature:workspaces:store');
 
@@ -80,40 +82,38 @@ export default class WorkspacesStore extends FeatureStore {
 
     // ACTIONS
 
-    this._freeUserActions = [
+    this._freeUserActions = createActionBindings([
       [workspaceActions.toggleWorkspaceDrawer, this._toggleWorkspaceDrawer],
       [workspaceActions.openWorkspaceSettings, this._openWorkspaceSettings],
-    ];
-    this._premiumUserActions = [
+    ]);
+    this._premiumUserActions = createActionBindings([
       [workspaceActions.edit, this._edit],
       [workspaceActions.create, this._create],
       [workspaceActions.delete, this._delete],
       [workspaceActions.update, this._update],
       [workspaceActions.activate, this._setActiveWorkspace],
       [workspaceActions.deactivate, this._deactivateActiveWorkspace],
-    ];
+    ]);
     this._allActions = this._freeUserActions.concat(this._premiumUserActions);
     this._registerActions(this._allActions);
 
     // REACTIONS
 
-    this._freeUserReactions = [
+    this._freeUserReactions = createReactions([
       this._stopPremiumActionsAndReactions,
       this._openDrawerWithSettingsReaction,
       this._setFeatureEnabledReaction,
       this._setIsPremiumFeatureReaction,
       this._cleanupInvalidServiceReferences,
-    ];
-    this._premiumUserReactions = [
+    ]);
+    this._premiumUserReactions = createReactions([
       this._setActiveServiceOnWorkspaceSwitchReaction,
       this._activateLastUsedWorkspaceReaction,
       this._setWorkspaceBeingEditedReaction,
-    ];
+    ]);
     this._allReactions = this._freeUserReactions.concat(this._premiumUserReactions);
 
     this._registerReactions(this._allReactions);
-
-    console.log(this._reactions);
 
     getUserWorkspacesRequest.execute();
     this.isFeatureActive = true;
