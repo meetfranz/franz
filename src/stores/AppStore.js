@@ -67,6 +67,8 @@ export default class AppStore extends Store {
 
   @observable isFocused = true;
 
+  @observable nextAppReleaseVersion = null;
+
   dictionaries = [];
 
   constructor(...args) {
@@ -123,7 +125,7 @@ export default class AppStore extends Store {
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
-
+        this.nextAppReleaseVersion = data.version;
         if (isMac) {
           app.dock.bounce();
         }
@@ -172,7 +174,6 @@ export default class AppStore extends Store {
     reaction(() => this.stores.router.location.pathname, (pathname) => {
       gaPage(pathname);
     });
-    console.log('router location', this.stores.router.location);
   }
 
   @computed get cacheSize() {

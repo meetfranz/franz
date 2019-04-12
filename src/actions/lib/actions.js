@@ -1,7 +1,7 @@
 export const createActionsFromDefinitions = (actionDefinitions, validate) => {
   const actions = {};
   Object.keys(actionDefinitions).forEach((actionName) => {
-    const action = (params) => {
+    const action = (params = {}) => {
       const schema = actionDefinitions[actionName];
       validate(schema, params, actionName);
       action.notify(params);

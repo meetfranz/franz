@@ -268,7 +268,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const features = data;
-    console.debug('ServerApi::getDefaultFeatures resolves', features);
+    debug('ServerApi::getDefaultFeatures resolves', features);
     return features;
   }
 
@@ -280,7 +280,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const features = data;
-    console.debug('ServerApi::getFeatures resolves', features);
+    debug('ServerApi::getFeatures resolves', features);
     return features;
   }
 
