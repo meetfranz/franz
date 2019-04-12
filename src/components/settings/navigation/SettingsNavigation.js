@@ -7,6 +7,7 @@ import { ProBadge } from '@meetfranz/ui';
 import Link from '../../ui/Link';
 import { workspaceStore } from '../../../features/workspaces';
 import UIStore from '../../../stores/UIStore';
+import UserStore from '../../../stores/UserStore';
 
 const messages = defineMessages({
   availableServices: {
@@ -47,6 +48,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
   static propTypes = {
     stores: PropTypes.shape({
       ui: PropTypes.instanceOf(UIStore).isRequired,
+      user: PropTypes.instanceOf(UserStore).isRequired,
     }).isRequired,
     serviceCount: PropTypes.number.isRequired,
     workspaceCount: PropTypes.number.isRequired,
@@ -59,6 +61,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
   render() {
     const { serviceCount, workspaceCount, stores } = this.props;
     const { isDarkThemeActive } = stores.ui;
+    const { router, user } = stores;
     const { intl } = this.context;
 
     return (
@@ -107,6 +110,9 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           activeClassName="is-active"
         >
           {intl.formatMessage(messages.team)}
+          {!user.data.isPremium && (
+            <ProBadge inverted={!isDarkThemeActive && router.location.pathname === '/settings/team'} />
+          )}
         </Link>
         <Link
           to="/settings/app"

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
+import { ProBadge } from '@meetfranz/ui';
 
 import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
@@ -143,14 +144,6 @@ export default @observer class AccountDashboard extends Component {
                         src="./assets/images/logo.svg"
                         alt=""
                       />
-                      {user.isPremium && (
-                        <span
-                          className="account__avatar-premium emoji"
-                          data-tip="Premium Supporter Account"
-                        >
-                          <img src="./assets/images/emoji/star.png" alt="" />
-                        </span>
-                      )}
                     </div>
                     <div className="account__info">
                       <h2>
@@ -158,6 +151,7 @@ export default @observer class AccountDashboard extends Component {
                         {user.isPremium && (
                           <>
                             {' '}
+                            <ProBadge />
                             <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
                           </>
                         )}

@@ -29,7 +29,7 @@ const messages = defineMessages({
   },
   manageButton: {
     id: 'settings.team.manageAction',
-    defaultMessage: '!!!Manage your Team',
+    defaultMessage: '!!!Manage your Team on meetfranz.com',
   },
   upgradeButton: {
     id: 'settings.team.upgradeAction',

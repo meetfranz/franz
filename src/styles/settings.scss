@@ -61,16 +61,6 @@
 
     .account {
       .account__box { background: $dark-theme-gray-darker; }
-
-      .badge--premium {
-        margin-left: 10px;
-      }
-
-      .manage-user-links {
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-      }
     }
 
     .premium-info {
@@ -334,15 +324,6 @@
     .account__avatar {
       margin-right: 20px;
       position: relative;
-
-      .emoji img { width: 30px; }
-    }
-
-    .account__avatar-premium {
-      font-size: 26px;
-      position: absolute;
-      right: 2px;
-      top: 2px;
     }
 
     .account__info {
@@ -357,6 +338,22 @@
       display: flex;
 
       .badge { margin-left: 10px; }
+    }
+
+    .badge--premium {
+      margin-left: 1px;
+      position: relative;
+      top: -3px;
+      padding-top: 4px;
+      color: #FFF;
+      border-radius: 3px;
+    }
+
+
+    .manage-user-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
     }
 
     .account__subscription-button { margin-left: auto; }

@@ -53,7 +53,7 @@
   },
   {
     "id": "settings.team.manageAction",
-    "defaultMessage": "!!!Manage your Team",
+    "defaultMessage": "!!!Manage your Team on meetfranz.com",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
       "line": 30,
