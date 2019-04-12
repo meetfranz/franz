@@ -172,7 +172,6 @@ export default class AppStore extends Store {
     reaction(() => this.stores.router.location.pathname, (pathname) => {
       gaPage(pathname);
     });
-    console.log('router location', this.stores.router.location);
   }
 
   @computed get cacheSize() {
