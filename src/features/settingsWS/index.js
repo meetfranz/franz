@@ -6,10 +6,10 @@ const debug = require('debug')('Franz:feature:settingsWS');
 
 let store = null;
 
-export default function initAnnouncements(stores, actions) {
+export default function initSettingsWebSocket(stores, actions) {
   const { features } = stores;
 
-  // Toggle workspace feature
+  // Toggle SettingsWebSocket feature
   reaction(
     () => (
       features.features.isSettingsWSEnabled
