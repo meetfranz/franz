@@ -22,8 +22,9 @@ export class SettingsWSStore extends Store {
   }
 
   setup() {
-    this.connect();
-
+    reaction(() => this.stores.user.data.id, this.connect.bind(this), {
+      fireImmediately: true,
+    });
     reaction(() => !this.connected, this.reconnect.bind(this));
   }
 
