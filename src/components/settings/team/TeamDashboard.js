@@ -46,7 +46,7 @@ const styles = {
     flexDirection: 'column',
     height: 'auto',
 
-    ['@media(min-width: 800px)']: {
+    '@media(min-width: 800px)': {
       flexDirection: 'row',
     },
   },
@@ -54,7 +54,7 @@ const styles = {
     height: 'auto',
     order: 1,
 
-    ['@media(min-width: 800px)']: {
+    '@media(min-width: 800px)': {
       order: 0,
     },
   },
@@ -64,17 +64,16 @@ const styles = {
     order: 0,
     margin: [0, 'auto', 40, 'auto'],
 
-    ['@media(min-width: 800px)']: {
+    '@media(min-width: 800px)': {
       marginLeft: 40,
       order: 1,
     },
-  }
+  },
 };
 
 
 export default @injectSheet(styles) @observer class TeamDashboard extends Component {
   static propTypes = {
-    user: MobxPropTypes.observableObject.isRequired,
     isLoading: PropTypes.bool.isRequired,
     userInfoRequestFailed: PropTypes.bool.isRequired,
     retryUserInfoRequest: PropTypes.func.isRequired,
@@ -88,7 +87,6 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
 
   render() {
     const {
-      user,
       isLoading,
       userInfoRequestFailed,
       retryUserInfoRequest,

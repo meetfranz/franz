@@ -27,7 +27,6 @@ export default @inject('stores', 'actions') @observer class TeamScreen extends C
     return (
       <ErrorBoundary>
         <TeamDashboard
-          user={user.data}
           isLoading={isLoadingUserInfo}
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
           retryUserInfoRequest={() => this.reloadData()}
