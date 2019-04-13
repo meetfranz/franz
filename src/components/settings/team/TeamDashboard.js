@@ -39,8 +39,36 @@ const messages = defineMessages({
 
 const styles = {
   cta: {
-    marginTop: 40,
+    margin: [40, 'auto'],
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 'auto',
+
+    ['@media(min-width: 800px)']: {
+      flexDirection: 'row',
+    },
+  },
+  content: {
+    height: 'auto',
+    order: 1,
+
+    ['@media(min-width: 800px)']: {
+      order: 0,
+    },
+  },
+  image: {
+    display: 'block',
+    height: 150,
+    order: 0,
+    margin: [0, 'auto', 40, 'auto'],
+
+    ['@media(min-width: 800px)']: {
+      marginLeft: 40,
+      order: 1,
+    },
+  }
 };
 
 
@@ -100,15 +128,18 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
                   <PremiumFeatureContainer>
                     <>
                       <h1>{intl.formatMessage(messages.contentHeadline)}</h1>
-                      <p>{intl.formatMessage(messages.intro)}</p>
-                      <p>{intl.formatMessage(messages.copy)}</p>
-                      {user.isSubscriptionOwner && (
-                        <Button
-                          label={intl.formatMessage(messages.manageButton)}
-                          onClick={openTeamManagement}
-                          className={classes.cta}
-                        />
-                      )}
+                      <div className={classes.container}>
+                        <div className={classes.content}>
+                          <p>{intl.formatMessage(messages.intro)}</p>
+                          <p>{intl.formatMessage(messages.copy)}</p>
+                        </div>
+                        <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Franz for Teams" />
+                      </div>
+                      <Button
+                        label={intl.formatMessage(messages.manageButton)}
+                        onClick={openTeamManagement}
+                        className={classes.cta}
+                      />
                     </>
                   </PremiumFeatureContainer>
                 </>
