@@ -1,4 +1,4 @@
-import { observable, reaction } from 'mobx';
+import { observable } from 'mobx';
 import WebSocket from 'ws';
 import ms from 'ms';
 
@@ -19,13 +19,12 @@ export class SettingsWSStore extends Store {
   constructor(stores, api, actions, state) {
     super(stores, api, actions);
     this.state = state;
-  }
 
-  setup() {
-    reaction(() => this.stores.user.data.id, this.connect.bind(this), {
-      fireImmediately: true,
-    });
-    reaction(() => !this.connected, this.reconnect.bind(this));
+    this.registerReactions([
+      this._initialize.bind(this),
+      this._reconnect.bind(this),
+      this._close.bind(this),
+    ]);
   }
 
   connect() {
@@ -72,7 +71,7 @@ export class SettingsWSStore extends Store {
     clearTimeout(this.pingTimeout);
 
     this.pingTimeout = setTimeout(() => {
-      debug('Terminating connection reconnecting in 35');
+      debug('Terminating connection, reconnecting in 35');
       this.ws.terminate();
 
       this.connected = false;
@@ -88,7 +87,15 @@ export class SettingsWSStore extends Store {
     }
   }
 
-  reconnect() {
+  // Reactions
+
+  _initialize() {
+    if (this.stores.user.data.id) {
+      this.connect();
+    }
+  }
+
+  _reconnect() {
     if (!this.connected) {
       debug('Trying to reconnect in 30s');
       this.reconnectTimeout = setInterval(() => {
@@ -98,6 +105,14 @@ export class SettingsWSStore extends Store {
     } else {
       debug('Clearing reconnect interval');
       clearInterval(this.reconnectTimeout);
+    }
+  }
+
+  _close() {
+    if (!this.stores.user.isLoggedIn && this.ws) {
+      debug('Terminating connection');
+      this.ws.terminate();
+      this.ws = null;
     }
   }
 }
