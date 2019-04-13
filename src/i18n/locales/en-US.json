@@ -1,6 +1,7 @@
 {
   "app.errorHandler.action": "Reload",
   "app.errorHandler.headline": "Something went wrong",
+  "feature.announcements.changelog.headline": "Changes in Franz {version}",
   "feature.delayApp.action": "Get a Franz Supporter License",
   "feature.delayApp.headline": "Please purchase a Franz Supporter License to skip waiting",
   "feature.delayApp.text": "Franz will continue in {seconds} seconds.",
@@ -43,6 +44,7 @@
   "login.submit.label": "Sign in",
   "login.tokenExpired": "Your session expired, please login again.",
   "menu.app.about": "About Franz",
+  "menu.app.announcement": "What's new?",
   "menu.app.hide": "Hide",
   "menu.app.hideOthers": "Hide Others",
   "menu.app.quit": "Quit",
@@ -162,6 +164,7 @@
   "settings.app.headlineGeneral": "General",
   "settings.app.headlineLanguage": "Language",
   "settings.app.headlineUpdates": "Updates",
+  "settings.app.languageDisclaimer": "Official translations are English & German. All other languages are community based translations.",
   "settings.app.restartRequired": "Changes require restart",
   "settings.app.subheadlineCache": "Cache",
   "settings.app.translationHelp": "Help us to translate Franz into your language.",

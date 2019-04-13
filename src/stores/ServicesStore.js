@@ -36,6 +36,7 @@ export default class ServicesStore extends Store {
 
     // Register action handlers
     this.actions.service.setActive.listen(this._setActive.bind(this));
+    this.actions.service.blurActive.listen(this._blurActive.bind(this));
     this.actions.service.setActiveNext.listen(this._setActiveNext.bind(this));
     this.actions.service.setActivePrev.listen(this._setActivePrev.bind(this));
     this.actions.service.showAddServiceInterface.listen(this._showAddServiceInterface.bind(this));
@@ -299,6 +300,11 @@ export default class ServicesStore extends Store {
     service.isActive = true;
 
     this._focusActiveService();
+  }
+
+  @action _blurActive() {
+    if (!this.active) return;
+    this.active.isActive = false;
   }
 
   @action _setActiveNext() {

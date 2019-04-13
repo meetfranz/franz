@@ -14,6 +14,7 @@ import serviceProxy from '../features/serviceProxy';
 import basicAuth from '../features/basicAuth';
 import workspaces from '../features/workspaces';
 import shareFranz from '../features/shareFranz';
+import announcements from '../features/announcements';
 import settingsWS from '../features/settingsWS';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
@@ -72,6 +73,7 @@ export default class FeaturesStore extends Store {
     basicAuth(this.stores, this.actions);
     workspaces(this.stores, this.actions);
     shareFranz(this.stores, this.actions);
+    announcements(this.stores, this.actions);
     settingsWS(this.stores, this.actions);
   }
 }

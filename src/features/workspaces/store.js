@@ -14,6 +14,8 @@ import {
   updateWorkspaceRequest,
 } from './api';
 import { WORKSPACES_ROUTES } from './index';
+import { createReactions } from '../../stores/lib/Reaction';
+import { createActionBindings } from '../utils/ActionBinding';
 
 const debug = require('debug')('Franz:feature:workspaces:store');
 
@@ -51,37 +53,74 @@ export default class WorkspacesStore extends FeatureStore {
     return getUserWorkspacesRequest.wasExecuted && this.workspaces.length > 0;
   }
 
+  @computed get isUserAllowedToUseFeature() {
+    return !this.isPremiumUpgradeRequired;
+  }
+
+  // ========== PRIVATE PROPERTIES ========= //
+
+  _wasDrawerOpenBeforeSettingsRoute = null;
+
+  _freeUserActions = [];
+
+  _premiumUserActions = [];
+
+  _allActions = [];
+
+  _freeUserReactions = [];
+
+  _premiumUserReactions = [];
+
+  _allReactions = [];
+
+  // ========== PUBLIC API ========= //
+
   start(stores, actions) {
     debug('WorkspacesStore::start');
     this.stores = stores;
     this.actions = actions;
 
-    this._listenToActions([
+    // ACTIONS
+
+    this._freeUserActions = createActionBindings([
+      [workspaceActions.toggleWorkspaceDrawer, this._toggleWorkspaceDrawer],
+      [workspaceActions.openWorkspaceSettings, this._openWorkspaceSettings],
+    ]);
+    this._premiumUserActions = createActionBindings([
       [workspaceActions.edit, this._edit],
       [workspaceActions.create, this._create],
       [workspaceActions.delete, this._delete],
       [workspaceActions.update, this._update],
       [workspaceActions.activate, this._setActiveWorkspace],
       [workspaceActions.deactivate, this._deactivateActiveWorkspace],
-      [workspaceActions.toggleWorkspaceDrawer, this._toggleWorkspaceDrawer],
-      [workspaceActions.openWorkspaceSettings, this._openWorkspaceSettings],
     ]);
+    this._allActions = this._freeUserActions.concat(this._premiumUserActions);
+    this._registerActions(this._allActions);
 
-    this._startReactions([
-      this._setWorkspaceBeingEditedReaction,
-      this._setActiveServiceOnWorkspaceSwitchReaction,
+    // REACTIONS
+
+    this._freeUserReactions = createReactions([
+      this._stopPremiumActionsAndReactions,
+      this._openDrawerWithSettingsReaction,
       this._setFeatureEnabledReaction,
       this._setIsPremiumFeatureReaction,
-      this._activateLastUsedWorkspaceReaction,
-      this._openDrawerWithSettingsReaction,
       this._cleanupInvalidServiceReferences,
     ]);
+    this._premiumUserReactions = createReactions([
+      this._setActiveServiceOnWorkspaceSwitchReaction,
+      this._activateLastUsedWorkspaceReaction,
+      this._setWorkspaceBeingEditedReaction,
+    ]);
+    this._allReactions = this._freeUserReactions.concat(this._premiumUserReactions);
+
+    this._registerReactions(this._allReactions);
 
     getUserWorkspacesRequest.execute();
     this.isFeatureActive = true;
   }
 
   stop() {
+    super.stop();
     debug('WorkspacesStore::stop');
     this.isFeatureActive = false;
     this.activeWorkspace = null;
@@ -104,9 +143,7 @@ export default class WorkspacesStore extends FeatureStore {
     return workspace.services.map(id => services.one(id)).filter(s => !!s);
   }
 
-  // ========== PRIVATE ========= //
-
-  _wasDrawerOpenBeforeSettingsRoute = null;
+  // ========== PRIVATE METHODS ========= //
 
   _getWorkspaceById = id => this.workspaces.find(w => w.id === id);
 
@@ -273,4 +310,14 @@ export default class WorkspacesStore extends FeatureStore {
       getUserWorkspacesRequest.execute();
     }
   };
+
+  _stopPremiumActionsAndReactions = () => {
+    if (!this.isUserAllowedToUseFeature) {
+      this._stopActions(this._premiumUserActions);
+      this._stopReactions(this._premiumUserReactions);
+    } else {
+      this._startActions(this._premiumUserActions);
+      this._startReactions(this._premiumUserReactions);
+    }
+  }
 }

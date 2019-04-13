@@ -1,21 +1,42 @@
-import Reaction from '../../stores/lib/Reaction';
+import { union } from 'lodash';
 
 export class FeatureStore {
   _actions = null;
 
   _reactions = null;
 
-  _listenToActions(actions) {
-    if (this._actions) this._actions.forEach(a => a[0].off(a[1]));
-    this._actions = [];
-    actions.forEach(a => this._actions.push(a));
-    this._actions.forEach(a => a[0].listen(a[1]));
+  stop() {
+    this._stopActions();
+    this._stopReactions();
   }
 
-  _startReactions(reactions) {
-    if (this._reactions) this._reactions.forEach(r => r.stop());
-    this._reactions = [];
-    reactions.forEach(r => this._reactions.push(new Reaction(r)));
-    this._reactions.forEach(r => r.start());
+  // ACTIONS
+
+  _registerActions(actions) {
+    this._actions = union(this._actions, actions);
+    this._startActions();
+  }
+
+  _startActions(actions = this._actions) {
+    actions.forEach(a => a.start());
+  }
+
+  _stopActions(actions = this._actions) {
+    actions.forEach(a => a.stop());
+  }
+
+  // REACTIONS
+
+  _registerReactions(reactions) {
+    this._reactions = union(this._reactions, reactions);
+    this._startReactions();
+  }
+
+  _startReactions(reactions = this._reactions) {
+    reactions.forEach(r => r.start());
+  }
+
+  _stopReactions(reactions = this._reactions) {
+    reactions.forEach(r => r.stop());
   }
 }

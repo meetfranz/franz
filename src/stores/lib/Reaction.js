@@ -1,24 +1,31 @@
-// @flow
 import { autorun } from 'mobx';
 
 export default class Reaction {
   reaction;
 
-  hasBeenStarted;
+  isRunning = false;
 
   dispose;
 
   constructor(reaction) {
     this.reaction = reaction;
-    this.hasBeenStarted = false;
   }
 
   start() {
-    this.dispose = autorun(() => this.reaction());
-    this.hasBeenStarted = true;
+    if (!this.isRunning) {
+      this.dispose = autorun(() => this.reaction());
+      this.isActive = true;
+    }
   }
 
   stop() {
-    if (this.hasBeenStarted) this.dispose();
+    if (this.isRunning) {
+      this.dispose();
+      this.isActive = false;
+    }
   }
 }
+
+export const createReactions = reactions => (
+  reactions.map(r => new Reaction(r))
+);
