@@ -147,7 +147,7 @@ export default @observer class AccountDashboard extends Component {
                     </div>
                     <div className="account__info">
                       <h2>
-                        {`${user.firstname} ${user.lastname}`}
+                        <span className="username">{`${user.firstname} ${user.lastname}`}</span>
                         {user.isPremium && (
                           <>
                             {' '}
