@@ -11,7 +11,7 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent } from '../lib/analytics';
+import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');
@@ -298,6 +298,8 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
+
+    statsEvent('activate-service', service.recipe.id);
 
     this._focusActiveService();
   }
