@@ -1,8 +1,5 @@
 import {
-  app,
-  BrowserWindow,
-  shell,
-  ipcMain,
+  app, BrowserWindow, shell, ipcMain, globalShortcut,
 } from 'electron';
 import isDevMode from 'electron-is-dev';
 import fs from 'fs-extra';
@@ -15,11 +12,7 @@ if (isDevMode) {
 }
 
 /* eslint-disable import/first */
-import {
-  isMac,
-  isWindows,
-  isLinux,
-} from './environment';
+import { isMac, isWindows, isLinux } from './environment';
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
@@ -29,10 +22,7 @@ import { isPositionValid } from './electron/windowUtils';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
-import {
-  DEFAULT_APP_SETTINGS,
-  DEFAULT_WINDOW_OPTIONS,
-} from './config';
+import { DEFAULT_APP_SETTINGS, DEFAULT_WINDOW_OPTIONS } from './config';
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 /* eslint-enable import/first */
@@ -90,8 +80,14 @@ if (!gotTheLock) {
             // Needs to be delayed to not interfere with mainWindow.restore();
             setTimeout(() => {
               debug('Resetting windows via Task');
-              window.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
-              window.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+              window.setPosition(
+                DEFAULT_WINDOW_OPTIONS.x + 100,
+                DEFAULT_WINDOW_OPTIONS.y + 100,
+              );
+              window.setSize(
+                DEFAULT_WINDOW_OPTIONS.width,
+                DEFAULT_WINDOW_OPTIONS.height,
+              );
             }, 1);
           } else if (argv.includes('--quit')) {
             // Needs to be delayed to not interfere with mainWindow.restore();
@@ -137,7 +133,10 @@ if (!gotTheLock) {
 
 // Fix Unity indicator issue
 // https://github.com/electron/electron/issues/9046
-if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1) {
+if (
+  isLinux
+  && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1
+) {
   process.env.XDG_CURRENT_DESKTOP = 'Unity';
 }
 
@@ -231,7 +230,11 @@ const createWindow = () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    if (!willQuitApp && (settings.get('runInBackground') === undefined || settings.get('runInBackground'))) {
+    if (
+      !willQuitApp
+      && (settings.get('runInBackground') === undefined
+        || settings.get('runInBackground'))
+    ) {
       e.preventDefault();
       if (isWindows) {
         debug('Window: minimize');
@@ -317,20 +320,38 @@ app.on('ready', () => {
   }
 
   if (process.platform === 'win32') {
-    app.setUserTasks([{
-      program: process.execPath,
-      arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
-      iconPath: asarPath(path.join(isDevMode ? `${__dirname}../src/` : __dirname, 'assets/images/taskbar/win32/display.ico')),
-      iconIndex: 0,
-      title: 'Move Franz to Current Display',
-      description: 'Restore the position and size of Franz',
-    }, {
-      program: process.execPath,
-      arguments: `${isDevMode ? `${__dirname} ` : ''}--quit`,
-      iconIndex: 0,
-      title: 'Quit Franz',
-    }]);
+    app.setUserTasks([
+      {
+        program: process.execPath,
+        arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
+        iconPath: asarPath(
+          path.join(
+            isDevMode ? `${__dirname}../src/` : __dirname,
+            'assets/images/taskbar/win32/display.ico',
+          ),
+        ),
+        iconIndex: 0,
+        title: 'Move Franz to Current Display',
+        description: 'Restore the position and size of Franz',
+      },
+      {
+        program: process.execPath,
+        arguments: `${isDevMode ? `${__dirname} ` : ''}--quit`,
+        iconIndex: 0,
+        title: 'Quit Franz',
+      },
+    ]);
   }
+
+  globalShortcut.register('Alt+Shift+F', () => {
+    if (app.mainWindow.isMinimized()) {
+      app.mainWindow.restore();
+      app.mainWindow.show();
+      app.mainWindow.focus();
+    } else {
+      app.mainWindow.minimize();
+    }
+  });
 
   createWindow();
 });
@@ -377,17 +398,21 @@ ipcMain.on('feature-basic-auth-cancel', () => {
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (settings.get('runInBackground') === undefined
-    || settings.get('runInBackground')) {
+  if (
+    settings.get('runInBackground') === undefined
+    || settings.get('runInBackground')
+  ) {
     debug('Window: all windows closed, quit app');
     app.quit();
   } else {
-    debug('Window: don\'t quit app');
+    debug("Window: don't quit app");
   }
 });
 
 app.on('before-quit', () => {
   willQuitApp = true;
+
+  globalShortcut.unregisterAll();
 });
 
 app.on('activate', () => {
