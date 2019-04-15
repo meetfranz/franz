@@ -63,5 +63,31 @@
       "line": 38,
       "column": 3
     }
+  },
+  {
+    "id": "settings.services.noServicesAdded",
+    "defaultMessage": "!!!You haven't added any services yet.",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 39,
+      "column": 19
+    },
+    "end": {
+      "line": 42,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.discoverServices",
+    "defaultMessage": "!!!Discover services",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 43,
+      "column": 20
+    },
+    "end": {
+      "line": 46,
+      "column": 3
+    }
   }
 ]

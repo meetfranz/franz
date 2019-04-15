@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -35,6 +35,14 @@ const messages = defineMessages({
   servicesInWorkspaceHeadline: {
     id: 'settings.workspace.form.servicesInWorkspaceHeadline',
     defaultMessage: '!!!Services in this Workspace',
+  },
+  noServicesAdded: {
+    id: 'settings.services.noServicesAdded',
+    defaultMessage: '!!!You haven\'t added any services yet.',
+  },
+  discoverServices: {
+    id: 'settings.services.discoverServices',
+    defaultMessage: '!!!Discover services',
   },
 });
 
@@ -150,14 +158,29 @@ class EditWorkspaceForm extends Component {
           </div>
           <h2>{intl.formatMessage(messages.servicesInWorkspaceHeadline)}</h2>
           <div className={classes.serviceList}>
-            {services.map(s => (
-              <WorkspaceServiceListItem
-                key={s.id}
-                service={s}
-                isInWorkspace={workspaceServices.includes(s.id)}
-                onToggle={() => this.toggleService(s)}
-              />
-            ))}
+            {services.length === 0 ? (
+              <div className="align-middle settings__empty-state">
+                {/* ===== Empty state ===== */}
+                <p className="settings__empty-text">
+                  <span className="emoji">
+                    <img src="./assets/images/emoji/sad.png" alt="" />
+                  </span>
+                  {intl.formatMessage(messages.noServicesAdded)}
+                </p>
+                <Link to="/settings/recipes" className="button">{intl.formatMessage(messages.discoverServices)}</Link>
+              </div>
+            ) : (
+              <Fragment>
+                {services.map(s => (
+                  <WorkspaceServiceListItem
+                    key={s.id}
+                    service={s}
+                    isInWorkspace={workspaceServices.includes(s.id)}
+                    onToggle={() => this.toggleService(s)}
+                  />
+                ))}
+              </Fragment>
+            )}
           </div>
         </div>
         <div className="settings__controls">
