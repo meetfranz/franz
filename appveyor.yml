@@ -17,6 +17,7 @@ cache:
 
 before_build:
   - npm run lint
+  - npm run test
 
 build_script:
   - npm run build

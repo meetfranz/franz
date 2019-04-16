@@ -14,7 +14,7 @@ matrix:
 
 language: node_js
 
-install: 
+install:
 - echo do nothing
 
 before_script:
@@ -22,7 +22,7 @@ before_script:
 - npm install node-sass -g
 
 script:
-# - npm run lint
+- npm run test
 - travis_wait 30 npm run build
 
 cache: npm
