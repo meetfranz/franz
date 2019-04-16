@@ -23,11 +23,7 @@ export default class UserStore extends Store {
 
   SIGNUP_ROUTE = `${this.BASE_ROUTE}/signup`;
 
-  PRICING_ROUTE = `${this.BASE_ROUTE}/signup/pricing`;
-
   IMPORT_ROUTE = `${this.BASE_ROUTE}/signup/import`;
-
-  INVITE_ROUTE = `${this.BASE_ROUTE}/signup/invite`;
 
   PASSWORD_ROUTE = `${this.BASE_ROUTE}/password`;
 
@@ -108,14 +104,6 @@ export default class UserStore extends Store {
     return this.SIGNUP_ROUTE;
   }
 
-  get pricingRoute() {
-    return this.PRICING_ROUTE;
-  }
-
-  get inviteRoute() {
-    return this.INVITE_ROUTE;
-  }
-
   get importRoute() {
     return this.IMPORT_ROUTE;
   }
@@ -181,11 +169,11 @@ export default class UserStore extends Store {
       locale: this.stores.app.locale,
     });
 
-    this.hasCompletedSignup = false;
+    this.hasCompletedSignup = true;
 
     this._setUserData(authToken);
 
-    this.stores.router.push(this.PRICING_ROUTE);
+    this.stores.router.push('/settings/recipes');
 
     gaEvent('User', 'signup');
   }
@@ -205,11 +193,6 @@ export default class UserStore extends Store {
     const response = await this.inviteRequest.execute(data)._promise;
 
     this.actionStatus = response.status || [];
-
-    // we do not wait for a server response before redirecting the user ONLY DURING SIGNUP
-    if (this.stores.router.location.pathname.includes(this.INVITE_ROUTE)) {
-      this.stores.router.push('/');
-    }
 
     gaEvent('User', 'inviteUsers');
   }

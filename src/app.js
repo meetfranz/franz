@@ -34,7 +34,6 @@ import WelcomeScreen from './containers/auth/WelcomeScreen';
 import LoginScreen from './containers/auth/LoginScreen';
 import PasswordScreen from './containers/auth/PasswordScreen';
 import SignupScreen from './containers/auth/SignupScreen';
-import ImportScreen from './containers/auth/ImportScreen';
 import PricingScreen from './containers/auth/PricingScreen';
 import InviteScreen from './containers/auth/InviteScreen';
 import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
@@ -90,13 +89,7 @@ window.addEventListener('load', () => {
                 <IndexRedirect to="/auth/welcome" />
                 <Route path="/auth/welcome" component={WelcomeScreen} />
                 <Route path="/auth/login" component={LoginScreen} />
-                <Route path="/auth/signup">
-                  <IndexRedirect to="/auth/signup/form" />
-                  <Route path="/auth/signup/form" component={SignupScreen} />
-                  <Route path="/auth/signup/pricing" component={PricingScreen} />
-                  <Route path="/auth/signup/import" component={ImportScreen} />
-                  <Route path="/auth/signup/invite" component={InviteScreen} />
-                </Route>
+                <Route path="/auth/signup" component={SignupScreen} />
                 <Route path="/auth/password" component={PasswordScreen} />
                 <Route path="/auth/logout" component={LoginScreen} />
               </Route>

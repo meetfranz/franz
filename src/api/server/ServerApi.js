@@ -486,7 +486,7 @@ export default class ServerApi {
         return services;
       }
     } catch (err) {
-      throw (new Error('ServerApi::getLegacyServices no config found'));
+      console.warn('ServerApi::getLegacyServices no config found');
     }
 
     return [];
