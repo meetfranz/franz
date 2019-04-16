@@ -2,29 +2,34 @@ import { observable } from 'mobx';
 import WebSocket from 'ws';
 import ms from 'ms';
 
-import Store from '../../stores/lib/Store';
+import { FeatureStore } from '../utils/FeatureStore';
+import { createReactions } from '../../stores/lib/Reaction';
 import { WS_API } from '../../environment';
 
 const debug = require('debug')('Franz:feature:settingsWS:store');
 
-export class SettingsWSStore extends Store {
-  ws = null;
+export class SettingsWSStore extends FeatureStore {
+  stores = null;
 
-  @observable connected = false;
+  actions = null;
+
+  ws = null;
 
   pingTimeout = null;
 
   reconnectTimeout = null;
 
-  constructor(stores, api, actions, state) {
-    super(stores, api, actions);
-    this.state = state;
+  @observable connected = false;
 
-    this.registerReactions([
+  start(stores, actions) {
+    this.stores = stores;
+    this.actions = actions;
+
+    this._registerReactions(createReactions([
       this._initialize.bind(this),
       this._reconnect.bind(this),
       this._close.bind(this),
-    ]);
+    ]));
   }
 
   connect() {
@@ -79,7 +84,7 @@ export class SettingsWSStore extends Store {
   }
 
   send(data) {
-    if (this.ws) {
+    if (this.ws && this.ws.readyState === 1) {
       this.ws.send(JSON.stringify(data));
       debug('Sending data', data);
     } else {
@@ -90,7 +95,7 @@ export class SettingsWSStore extends Store {
   // Reactions
 
   _initialize() {
-    if (this.stores.user.data.id) {
+    if (this.stores.user.data.id && !this.ws) {
       this.connect();
     }
   }
@@ -109,10 +114,15 @@ export class SettingsWSStore extends Store {
   }
 
   _close() {
-    if (!this.stores.user.isLoggedIn && this.ws) {
-      debug('Terminating connection');
-      this.ws.terminate();
-      this.ws = null;
+    if (!this.stores.user.isLoggedIn) {
+      debug('Stopping reactions');
+      this._stopReactions();
+
+      if (this.ws) {
+        debug('Terminating connection');
+        this.ws.terminate();
+        this.ws = null;
+      }
     }
   }
 }
