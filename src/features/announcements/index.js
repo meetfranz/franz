@@ -3,6 +3,8 @@ import { AnnouncementsStore } from './store';
 
 const debug = require('debug')('Franz:feature:announcements');
 
+export const GA_CATEGORY_ANNOUNCEMENTS = 'Announcements';
+
 export const announcementsStore = new AnnouncementsStore();
 
 export default function initAnnouncements(stores, actions) {

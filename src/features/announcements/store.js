@@ -8,10 +8,12 @@ import semver from 'semver';
 import localStorage from 'mobx-localstorage';
 
 import { FeatureStore } from '../utils/FeatureStore';
+import { GA_CATEGORY_ANNOUNCEMENTS } from '.';
 import { getAnnouncementRequest, getChangelogRequest, getCurrentVersionRequest } from './api';
 import { announcementActions } from './actions';
 import { createActionBindings } from '../utils/ActionBinding';
 import { createReactions } from '../../stores/lib/Reaction';
+import { gaEvent } from '../../lib/analytics';
 
 const LOCAL_STORAGE_KEY = 'announcements';
 
@@ -98,6 +100,8 @@ export class AnnouncementsStore extends FeatureStore {
         dispose();
       },
     );
+
+    gaEvent(GA_CATEGORY_ANNOUNCEMENTS, 'show');
   };
 
   @action _hideAnnouncement() {
@@ -113,7 +117,7 @@ export class AnnouncementsStore extends FeatureStore {
 
     // Check if the user has already used current version (= has seen the announcement)
     const { currentVersion, lastSeenAnnouncementVersion } = this;
-    if (semver.gt(currentVersion, lastSeenAnnouncementVersion)) {
+    if (semver.gt(currentVersion, lastSeenAnnouncementVersion || '0.0.0')) {
       debug(`${currentVersion} < ${lastSeenAnnouncementVersion}: announcement is shown`);
       this._showAnnouncement();
     }

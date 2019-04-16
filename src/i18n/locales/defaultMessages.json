@@ -2470,42 +2470,55 @@
         }
       },
       {
-        "defaultMessage": "!!!No ads, ever!",
+        "defaultMessage": "!!!Organize your services in workspaces",
         "end": {
           "column": 3,
           "line": 57
         },
         "file": "src/components/subscription/SubscriptionForm.js",
+        "id": "subscription.features.workspaces",
+        "start": {
+          "column": 14,
+          "line": 54
+        }
+      },
+      {
+        "defaultMessage": "!!!No ads, ever!",
+        "end": {
+          "column": 3,
+          "line": 61
+        },
+        "file": "src/components/subscription/SubscriptionForm.js",
         "id": "subscription.features.ads",
         "start": {
           "column": 7,
-          "line": 54
+          "line": 58
         }
       },
       {
         "defaultMessage": "!!!coming soon",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 65
         },
         "file": "src/components/subscription/SubscriptionForm.js",
         "id": "subscription.features.comingSoon",
         "start": {
           "column": 14,
-          "line": 58
+          "line": 62
         }
       },
       {
         "defaultMessage": "!!!EU residents: local sales tax may apply",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 69
         },
         "file": "src/components/subscription/SubscriptionForm.js",
         "id": "subscription.euTaxInfo",
         "start": {
           "column": 13,
-          "line": 62
+          "line": 66
         }
       }
     ],

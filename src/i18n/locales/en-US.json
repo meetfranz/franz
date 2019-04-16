@@ -285,6 +285,7 @@
   "subscription.features.onpremise.mattermost": "Add on-premise/hosted services like Mattermost",
   "subscription.features.proxy": "Proxy support for services",
   "subscription.features.spellchecker": "Support for spellchecker",
+  "subscription.features.workspaces": "Organize your services in workspaces",
   "subscription.includedFeatures": "Paid Franz Premium Supporter Account includes",
   "subscription.paymentSessionError": "Could not initialize payment form",
   "subscription.submit.label": "I want to support the development of Franz",
