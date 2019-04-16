@@ -1,9 +1,7 @@
-import { union } from 'lodash';
-
 export class FeatureStore {
-  _actions = null;
+  _actions = [];
 
-  _reactions = null;
+  _reactions = [];
 
   stop() {
     this._stopActions();
@@ -13,7 +11,7 @@ export class FeatureStore {
   // ACTIONS
 
   _registerActions(actions) {
-    this._actions = union(this._actions, actions);
+    this._actions = actions;
     this._startActions();
   }
 
@@ -28,7 +26,7 @@ export class FeatureStore {
   // REACTIONS
 
   _registerReactions(reactions) {
-    this._reactions = union(this._reactions, reactions);
+    this._reactions = reactions;
     this._startReactions();
   }
 
