@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { observable } from 'mobx';
 import { FeatureStore } from './FeatureStore';
 import { createActionsFromDefinitions } from '../../actions/lib/actions';
+import { createActionBindings } from './ActionBinding';
+import { createReactions } from '../../stores/lib/Reaction';
 
 const actions = createActionsFromDefinitions({
   countUp: {},
@@ -13,12 +15,12 @@ class TestFeatureStore extends FeatureStore {
   reactionInvokedCount = 0;
 
   start() {
-    this._registerActions([
+    this._registerActions(createActionBindings([
       [actions.countUp, this._countUp],
-    ]);
-    this._registerReactions([
+    ]));
+    this._registerReactions(createReactions([
       this._countReaction,
-    ]);
+    ]));
   }
 
   _countUp = () => {
