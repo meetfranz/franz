@@ -1,5 +1,8 @@
 import { remote } from 'electron';
-import { GA_ID } from '../config';
+import querystring from 'querystring';
+
+import { GA_ID, STATS_API } from '../config';
+import { isDevMode } from '../environment';
 
 const debug = require('debug')('Franz:Analytics');
 
@@ -34,4 +37,19 @@ export function gaPage(page) {
 export function gaEvent(category, action, label) {
   ga('send', 'event', category, action, label);
   debug('GA track event', category, action, label);
+}
+
+export function statsEvent(key, value) {
+  const params = {
+    key,
+    value,
+    platform: process.platform,
+    version: remote.app.getVersion(),
+  };
+
+  debug('Send Franz stats event', params);
+
+  if (!isDevMode) {
+    window.fetch(`${STATS_API}/event/?${querystring.stringify(params)}`);
+  }
 }

@@ -3443,6 +3443,32 @@
           "column": 31,
           "line": 35
         }
+      },
+      {
+        "defaultMessage": "!!!You haven't added any services yet.",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+        "id": "settings.services.noServicesAdded",
+        "start": {
+          "column": 19,
+          "line": 39
+        }
+      },
+      {
+        "defaultMessage": "!!!Discover services",
+        "end": {
+          "column": 3,
+          "line": 46
+        },
+        "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+        "id": "settings.services.discoverServices",
+        "start": {
+          "column": 20,
+          "line": 43
+        }
       }
     ],
     "path": "src/features/workspaces/components/EditWorkspaceForm.json"
