@@ -34,6 +34,12 @@ export class AnnouncementsStore extends FeatureStore {
     return getAnnouncementRequest.result;
   }
 
+  @computed get areNewsAvailable() {
+    const isChangelogAvailable = getChangelogRequest.wasExecuted && !!this.changelog;
+    const isAnnouncementAvailable = getAnnouncementRequest.wasExecuted && !!this.announcement;
+    return isChangelogAvailable || isAnnouncementAvailable;
+  }
+
   @computed get settings() {
     return localStorage.getItem(LOCAL_STORAGE_KEY) || {};
   }
@@ -87,6 +93,7 @@ export class AnnouncementsStore extends FeatureStore {
   // ======= ACTIONS ======= //
 
   @action _showAnnouncement = ({ targetVersion } = {}) => {
+    if (!this.areNewsAvailable) return;
     this.targetVersion = targetVersion || this.currentVersion;
     this.isAnnouncementVisible = true;
     this.actions.service.blurActive();

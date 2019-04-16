@@ -7,6 +7,7 @@ import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/i
 import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
 import { announcementActions } from '../features/announcements/actions';
+import { announcementsStore } from '../features/announcements';
 
 const { app, Menu, dialog } = remote;
 
@@ -357,6 +358,7 @@ const _templateFactory = intl => [
         click: () => {
           announcementActions.show();
         },
+        visible: window.franz.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
       },
       {
         type: 'separator',
