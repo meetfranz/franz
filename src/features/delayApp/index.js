@@ -55,7 +55,7 @@ export default function init(stores) {
 
             setVisibility(true);
             gaPage('/delayApp');
-            gaEvent('delayApp', 'show', 'Delay App Feature');
+            gaEvent('DelayApp', 'show', 'Delay App Feature');
 
             timeLastDelay = moment();
             shownAfterLaunch = true;

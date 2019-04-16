@@ -8,6 +8,7 @@ import { IWithStyle } from '../typings/generic';
 
 interface IProps extends IWithStyle {
   className?: string;
+  color?: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -22,6 +23,7 @@ class LoaderComponent extends Component<IProps> {
     const {
       classes,
       className,
+      color,
       theme,
     } = this.props;
 
@@ -37,7 +39,7 @@ class LoaderComponent extends Component<IProps> {
           loaded={false}
           width={4}
           scale={0.75}
-          color={theme.colorText}
+          color={color || theme.colorText}
           parentClassName={classes.loader}
         />
       </div>

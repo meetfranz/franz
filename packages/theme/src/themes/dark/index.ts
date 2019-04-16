@@ -1,4 +1,5 @@
 import color from 'color';
+import { cloneDeep, merge } from 'lodash';
 
 import * as defaultStyles from '../default';
 import * as legacyStyles from '../legacy';
@@ -63,3 +64,57 @@ export const selectSearchColor = inputBackground;
 
 // Modal
 export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.8).rgb().string();
+
+// Services
+export const services = merge({}, defaultStyles.services, {
+  listItems: {
+    borderColor: legacyStyles.darkThemeGrayDarker,
+    hoverBgColor: legacyStyles.darkThemeGrayDarker,
+    disabled: {
+      color: legacyStyles.darkThemeGray,
+    },
+  },
+});
+
+// Service Icon
+export const serviceIcon = merge({}, defaultStyles.serviceIcon, {
+  isCustom: {
+    border: `1px solid ${legacyStyles.darkThemeGrayDark}`,
+  },
+});
+
+// Workspaces
+const drawerBg = color(colorBackground).lighten(0.3).hex();
+
+export const workspaces = merge({}, defaultStyles.workspaces, {
+  settings: {
+    listItems: cloneDeep(services.listItems),
+  },
+  drawer: {
+    background: drawerBg,
+    addButton: {
+      color: legacyStyles.darkThemeGrayLighter,
+      hoverColor: legacyStyles.darkThemeGraySmoke,
+    },
+    listItem: {
+      border: color(drawerBg).lighten(0.2).hex(),
+      hoverBackground: color(drawerBg).lighten(0.2).hex(),
+      activeBackground: defaultStyles.brandPrimary,
+      name: {
+        color: colorText,
+        activeColor: 'white',
+      },
+      services: {
+        color: color(colorText).darken(0.5).hex(),
+        active: color(defaultStyles.brandPrimary).lighten(0.5).hex(),
+      },
+    },
+  },
+});
+
+// Announcements
+export const announcements = merge({}, defaultStyles.workspaces, {
+  spotlight: {
+    background: legacyStyles.darkThemeGrayDark,
+  },
+});

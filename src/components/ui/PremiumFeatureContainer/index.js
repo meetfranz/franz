@@ -9,6 +9,7 @@ import { oneOrManyChildElements } from '../../../prop-types';
 import UserStore from '../../../stores/UserStore';
 
 import styles from './styles';
+import { gaEvent } from '../../../lib/analytics';
 
 const messages = defineMessages({
   action: {
@@ -17,14 +18,21 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('stores', 'actions') @injectSheet(styles) @observer class PremiumFeatureContainer extends Component {
+@inject('stores', 'actions') @injectSheet(styles) @observer
+class PremiumFeatureContainer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     condition: PropTypes.bool,
+    gaEventInfo: PropTypes.shape({
+      category: PropTypes.string.isRequired,
+      event: PropTypes.string.isRequired,
+      label: PropTypes.string,
+    }),
   };
 
   static defaultProps = {
     condition: true,
+    gaEventInfo: null,
   };
 
   static contextTypes = {
@@ -38,6 +46,7 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
       actions,
       condition,
       stores,
+      gaEventInfo,
     } = this.props;
 
     const { intl } = this.context;
@@ -49,7 +58,13 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
           <button
             className={classes.actionButton}
             type="button"
-            onClick={() => actions.ui.openSettings({ path: 'user' })}
+            onClick={() => {
+              actions.ui.openSettings({ path: 'user' });
+              if (gaEventInfo) {
+                const { category, event, label } = gaEventInfo;
+                gaEvent(category, event, label);
+              }
+            }}
           >
             {intl.formatMessage(messages.action)}
           </button>
@@ -73,3 +88,5 @@ PremiumFeatureContainer.wrappedComponent.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+export default PremiumFeatureContainer;

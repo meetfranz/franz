@@ -12,6 +12,7 @@ export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
 export const LOCAL_API = 'http://localhost:3000';
 export const DEV_API = 'https://dev.franzinfra.com';
 export const LIVE_API = 'https://api.franzinfra.com';
+export const STATS_API = 'https://stats.franzinfra.com';
 export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
 
 export const DEFAULT_APP_SETTINGS = {
@@ -41,6 +42,9 @@ export const DEFAULT_FEATURES_CONFIG = {
   },
   isServiceProxyEnabled: false,
   isServiceProxyPremiumFeature: true,
+  isAnnouncementsEnabled: true,
+  isWorkspacePremiumFeature: true,
+  isWorkspaceEnabled: false,
 };
 
 export const DEFAULT_WINDOW_OPTIONS = {

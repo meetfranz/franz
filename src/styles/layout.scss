@@ -18,8 +18,14 @@ html { overflow: hidden; }
       font-size: 22px;
 
       &:hover,
-      &:active { color: $dark-theme-gray-smoke; }
-      &.is-muted { color: $theme-brand-primary; }
+      &:active {
+        color: $dark-theme-gray-smoke;
+      }
+
+      &.is-muted,
+      &.is-active {
+        color: $theme-brand-primary;
+      }
     }
   }
 
@@ -33,6 +39,7 @@ html { overflow: hidden; }
   .app__content { display: flex; }
 
   .app__service {
+    position: relative;
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -84,7 +91,7 @@ html { overflow: hidden; }
 
     &:hover,
     &:active { color: lighten($theme-gray-light, 10%); }
-    &.is-muted { color: $theme-brand-primary; }
+    &.is-muted, &.is-active { color: $theme-brand-primary; }
     &--new-service { padding-bottom: 6px; }
   }
 

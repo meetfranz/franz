@@ -44,6 +44,7 @@ const styles = (theme: Theme) => ({
     width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
+    height: theme.buttonHeight,
 
     '&:hover': {
       opacity: 0.8,

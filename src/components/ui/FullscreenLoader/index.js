@@ -16,13 +16,13 @@ export default @observer @withTheme @injectSheet(styles) class FullscreenLoader 
     theme: PropTypes.object.isRequired,
     spinnerColor: PropTypes.string,
     children: PropTypes.node,
-  }
+  };
 
   static defaultProps = {
     className: null,
     spinnerColor: null,
     children: null,
-  }
+  };
 
   render() {
     const {

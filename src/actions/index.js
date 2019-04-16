@@ -11,6 +11,8 @@ import payment from './payment';
 import news from './news';
 import settings from './settings';
 import requests from './requests';
+import announcements from '../features/announcements/actions';
+import workspaces from '../features/workspaces/actions';
 
 const actions = Object.assign({}, {
   service,
@@ -25,4 +27,8 @@ const actions = Object.assign({}, {
   requests,
 });
 
-export default defineActions(actions, PropTypes.checkPropTypes);
+export default Object.assign(
+  defineActions(actions, PropTypes.checkPropTypes),
+  { announcements },
+  { workspaces },
+);

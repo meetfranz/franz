@@ -35,7 +35,7 @@ export default function initialize(stores) {
     () => stores.user.isLoggedIn,
     () => {
       setTimeout(() => {
-        if (stores.settings.stats.appStarts % 30 === 0) {
+        if (stores.settings.stats.appStarts % 50 === 0) {
           if (delayAppState.isDelayAppScreenVisible) {
             debug('Delaying share modal by 5 minutes');
             setTimeout(() => showModal(), ms('5m'));

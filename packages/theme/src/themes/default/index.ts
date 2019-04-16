@@ -1,4 +1,5 @@
 import color from 'color';
+import { cloneDeep } from 'lodash';
 
 import * as legacyStyles from '../legacy';
 
@@ -42,7 +43,7 @@ export const colorWebviewLoaderBackground = color(legacyStyles.themeGrayLighter)
 // Input
 export const labelColor = legacyStyles.themeGrayLight;
 export const inputColor = legacyStyles.themeGray;
-export const inputHeight = '35px';
+export const inputHeight = 40;
 export const inputBackground = legacyStyles.themeGrayLightest;
 export const inputBorder = `1px solid ${legacyStyles.themeGrayLighter}`;
 export const inputModifierColor = legacyStyles.themeGrayLight;
@@ -108,6 +109,8 @@ export const buttonInvertedBackground = 'none';
 export const buttonInvertedTextColor = brandPrimary;
 export const buttonInvertedBorder = `1px solid ${brandPrimary}`;
 
+export const buttonHeight = inputHeight;
+
 export const buttonLoaderColor = {
   primary: '#FFF',
   secondary: buttonSecondaryTextColor,
@@ -140,3 +143,67 @@ export const badgeBorderRadius = 50;
 
 // Modal
 export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
+
+// Services
+export const services = {
+  listItems: {
+    padding: 10,
+    height: 57,
+    borderColor: legacyStyles.themeGrayLightest,
+    hoverBgColor: legacyStyles.themeGrayLightest,
+    disabled: {
+      color: legacyStyles.themeGrayLight,
+    },
+  },
+};
+
+// Service Icon
+export const serviceIcon = {
+  width: 35,
+  isCustom: {
+    border: `1px solid ${legacyStyles.themeGrayLighter}`,
+    borderRadius: legacyStyles.themeBorderRadius,
+    width: 37,
+  },
+};
+
+// Workspaces
+const drawerBg = color(colorBackground).lighten(0.1).hex();
+
+export const workspaces = {
+  settings: {
+    listItems: cloneDeep(services.listItems),
+  },
+  drawer: {
+    width: 300,
+    padding: 20,
+    background: drawerBg,
+    buttons: {
+      color: color(legacyStyles.themeGrayLight).lighten(0.1).hex(),
+      hoverColor: legacyStyles.themeGrayLight,
+    },
+    listItem: {
+      hoverBackground: color(drawerBg).darken(0.01).hex(),
+      activeBackground: legacyStyles.themeGrayLightest,
+      border: color(drawerBg).darken(0.05).hex(),
+      name: {
+        color: colorText,
+        activeColor: colorText,
+      },
+      services: {
+        color: color(colorText).lighten(1.5).hex(),
+        active: color(colorText).lighten(1.5).hex(),
+      },
+    },
+  },
+  switchingIndicator: {
+    spinnerColor: 'white',
+  },
+};
+
+// Announcements
+export const announcements = {
+  spotlight: {
+    background: legacyStyles.themeGrayLightest,
+  },
+};

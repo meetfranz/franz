@@ -85,6 +85,8 @@ export default class Request {
     return this.execute(...this._currentApiCall.args);
   }
 
+  retry = () => this.reload();
+
   isExecutingWithArgs(...args) {
     return this.isExecuting && this._currentApiCall && isEqual(this._currentApiCall.args, args);
   }
@@ -107,7 +109,7 @@ export default class Request {
     Request._hooks.forEach(hook => hook(this));
   }
 
-  reset() {
+  reset = () => {
     this.result = null;
     this.isExecuting = false;
     this.isError = false;
@@ -116,5 +118,5 @@ export default class Request {
     this._promise = Promise;
 
     return this;
-  }
+  };
 }

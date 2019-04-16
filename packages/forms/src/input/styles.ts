@@ -4,12 +4,17 @@ import CSS from 'csstype';
 const prefixStyles = (theme: Theme) => ({
   background: theme.inputPrefixBackground,
   color: theme.inputPrefixColor,
-  lineHeight: theme.inputHeight,
+  lineHeight: `${theme.inputHeight}px`,
   padding: '0 10px',
   fontSize: theme.uiFontSize,
 });
 
 export default (theme: Theme) => ({
+  label: {
+    '& > div': {
+      marginTop: 5,
+    }
+  },
   disabled: {
     opacity: theme.inputDisabledOpacity,
   },

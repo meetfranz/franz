@@ -1,0 +1,93 @@
+[
+  {
+    "id": "settings.workspace.form.buttonDelete",
+    "defaultMessage": "!!!Delete workspace",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 19,
+      "column": 16
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.buttonSave",
+    "defaultMessage": "!!!Save workspace",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 23,
+      "column": 14
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.name",
+    "defaultMessage": "!!!Name",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 27,
+      "column": 8
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.yourWorkspaces",
+    "defaultMessage": "!!!Your workspaces",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 31,
+      "column": 18
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.servicesInWorkspaceHeadline",
+    "defaultMessage": "!!!Services in this Workspace",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 35,
+      "column": 31
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.noServicesAdded",
+    "defaultMessage": "!!!You haven't added any services yet.",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 39,
+      "column": 19
+    },
+    "end": {
+      "line": 42,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.services.discoverServices",
+    "defaultMessage": "!!!Discover services",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 43,
+      "column": 20
+    },
+    "end": {
+      "line": 46,
+      "column": 3
+    }
+  }
+]
