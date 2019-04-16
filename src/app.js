@@ -27,6 +27,7 @@ import RecipesScreen from './containers/settings/RecipesScreen';
 import ServicesScreen from './containers/settings/ServicesScreen';
 import EditServiceScreen from './containers/settings/EditServiceScreen';
 import AccountScreen from './containers/settings/AccountScreen';
+import TeamScreen from './containers/settings/TeamScreen';
 import EditUserScreen from './containers/settings/EditUserScreen';
 import EditSettingsScreen from './containers/settings/EditSettingsScreen';
 import InviteSettingsScreen from './containers/settings/InviteScreen';
@@ -82,6 +83,7 @@ window.addEventListener('load', () => {
                   <Route path={WORKSPACES_ROUTES.EDIT} component={EditWorkspaceScreen} />
                   <Route path="/settings/user" component={AccountScreen} />
                   <Route path="/settings/user/edit" component={EditUserScreen} />
+                  <Route path="/settings/team" component={TeamScreen} />
                   <Route path="/settings/app" component={EditSettingsScreen} />
                   <Route path="/settings/invite" component={InviteSettingsScreen} />
                 </Route>

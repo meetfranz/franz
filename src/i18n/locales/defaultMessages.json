@@ -1102,195 +1102,195 @@
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 16
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headline",
         "start": {
           "column": 12,
-          "line": 15
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!Your Subscription",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 20
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineSubscription",
         "start": {
           "column": 24,
-          "line": 19
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Upgrade your Account",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 24
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineUpgrade",
         "start": {
           "column": 19,
-          "line": 23
-        }
-      },
-      {
-        "defaultMessage": "!!Invoices",
-        "end": {
-          "column": 3,
-          "line": 30
-        },
-        "file": "src/components/settings/account/AccountDashboard.js",
-        "id": "settings.account.headlineInvoices",
-        "start": {
-          "column": 20,
-          "line": 27
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!Danger Zone",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 28
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineDangerZone",
         "start": {
           "column": 22,
-          "line": 31
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Manage your subscription",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 32
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.manageSubscription.label",
         "start": {
           "column": 33,
-          "line": 35
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Basic Account",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 36
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.basic",
         "start": {
           "column": 20,
-          "line": 39
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Premium Supporter Account",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 40
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.premium",
         "start": {
           "column": 22,
-          "line": 43
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Edit Account",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 44
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.account.editButton",
         "start": {
           "column": 21,
-          "line": 47
+          "line": 41
+        }
+      },
+      {
+        "defaultMessage": "!!Invoices",
+        "end": {
+          "column": 3,
+          "line": 48
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.headlineInvoices",
+        "start": {
+          "column": 18,
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!Download",
         "end": {
           "column": 3,
-          "line": 54
+          "line": 52
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.invoiceDownload",
         "start": {
           "column": 19,
-          "line": 51
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Could not load user information",
         "end": {
           "column": 3,
-          "line": 58
+          "line": 56
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.userInfoRequestFailed",
         "start": {
           "column": 25,
-          "line": 55
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 62
+          "line": 60
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.tryReloadUserInfoRequest",
         "start": {
           "column": 28,
-          "line": 59
+          "line": 57
         }
       },
       {
         "defaultMessage": "!!!Delete account",
         "end": {
           "column": 3,
-          "line": 66
+          "line": 64
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteAccount",
         "start": {
           "column": 17,
-          "line": 63
+          "line": 61
         }
       },
       {
         "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
-          "line": 70
+          "line": 68
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteInfo",
         "start": {
           "column": 14,
-          "line": 67
+          "line": 65
         }
       },
       {
         "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
         "end": {
           "column": 3,
-          "line": 74
+          "line": 72
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteEmailSent",
         "start": {
           "column": 19,
-          "line": 71
+          "line": 69
         }
       }
     ],
@@ -1351,10 +1351,23 @@
         }
       },
       {
-        "defaultMessage": "!!!Settings",
+        "defaultMessage": "!!!Manage Team",
         "end": {
           "column": 3,
           "line": 31
+        },
+        "file": "src/components/settings/navigation/SettingsNavigation.js",
+        "id": "settings.navigation.team",
+        "start": {
+          "column": 8,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Settings",
+        "end": {
+          "column": 3,
+          "line": 28
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.settings",
@@ -2253,6 +2266,89 @@
       }
     ],
     "path": "src/components/settings/settings/EditSettingsForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Team",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/settings/team/TeamDashboard.js",
+        "id": "settings.team.headline",
+        "start": {
+          "column": 12,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz for Teams",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/settings/team/TeamDashboard.js",
+        "id": "settings.team.contentHeadline",
+        "start": {
+          "column": 19,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!You and your team use Franz? You can now manage Premium subscriptions for as many colleagues, friends or family members as you want, all from within one account.",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/settings/team/TeamDashboard.js",
+        "id": "settings.team.intro",
+        "start": {
+          "column": 9,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/settings/team/TeamDashboard.js",
+        "id": "settings.team.copy",
+        "start": {
+          "column": 8,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!Manage your Team",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/settings/team/TeamDashboard.js",
+        "id": "settings.team.manageAction",
+        "start": {
+          "column": 16,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade your Account",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/settings/team/TeamDashboard.js",
+        "id": "settings.team.upgradeAction",
+        "start": {
+          "column": 17,
+          "line": 34
+        }
+      }
+    ],
+    "path": "src/components/settings/team/TeamDashboard.json"
   },
   {
     "descriptors": [
