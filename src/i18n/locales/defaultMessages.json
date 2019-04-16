@@ -1102,195 +1102,195 @@
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 17
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headline",
         "start": {
           "column": 12,
-          "line": 13
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!Your Subscription",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 21
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineSubscription",
         "start": {
           "column": 24,
-          "line": 17
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Upgrade your Account",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 25
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineUpgrade",
         "start": {
           "column": 19,
-          "line": 21
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!Danger Zone",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 29
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineDangerZone",
         "start": {
           "column": 22,
-          "line": 25
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Manage your subscription",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 33
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.manageSubscription.label",
         "start": {
           "column": 33,
-          "line": 29
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Basic Account",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 37
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.basic",
         "start": {
           "column": 20,
-          "line": 33
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!!Premium Supporter Account",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 41
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.premium",
         "start": {
           "column": 22,
-          "line": 37
+          "line": 38
         }
       },
       {
         "defaultMessage": "!!!Edit Account",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 45
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.account.editButton",
         "start": {
           "column": 21,
-          "line": 41
+          "line": 42
         }
       },
       {
         "defaultMessage": "!!Invoices",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 49
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineInvoices",
         "start": {
           "column": 18,
-          "line": 45
+          "line": 46
         }
       },
       {
         "defaultMessage": "!!!Download",
         "end": {
           "column": 3,
-          "line": 52
+          "line": 53
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.invoiceDownload",
         "start": {
           "column": 19,
-          "line": 49
+          "line": 50
         }
       },
       {
         "defaultMessage": "!!!Could not load user information",
         "end": {
           "column": 3,
-          "line": 56
+          "line": 57
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.userInfoRequestFailed",
         "start": {
           "column": 25,
-          "line": 53
+          "line": 54
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 60
+          "line": 61
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.tryReloadUserInfoRequest",
         "start": {
           "column": 28,
-          "line": 57
+          "line": 58
         }
       },
       {
         "defaultMessage": "!!!Delete account",
         "end": {
           "column": 3,
-          "line": 64
+          "line": 65
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteAccount",
         "start": {
           "column": 17,
-          "line": 61
+          "line": 62
         }
       },
       {
         "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
-          "line": 68
+          "line": 69
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteInfo",
         "start": {
           "column": 14,
-          "line": 65
+          "line": 66
         }
       },
       {
         "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
         "end": {
           "column": 3,
-          "line": 72
+          "line": 73
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteEmailSent",
         "start": {
           "column": 19,
-          "line": 69
+          "line": 70
         }
       }
     ],
@@ -1302,104 +1302,104 @@
         "defaultMessage": "!!!Available services",
         "end": {
           "column": 3,
-          "line": 15
+          "line": 16
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.availableServices",
         "start": {
           "column": 21,
-          "line": 12
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourServices",
         "start": {
           "column": 16,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.account",
         "start": {
           "column": 11,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Manage Team",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.team",
         "start": {
           "column": 8,
-          "line": 21
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 36
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.settings",
         "start": {
           "column": 12,
-          "line": 28
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Invite Friends",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 40
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.inviteFriends",
         "start": {
           "column": 17,
-          "line": 32
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Logout",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 44
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.logout",
         "start": {
           "column": 10,
-          "line": 36
+          "line": 41
         }
       }
     ],
@@ -2322,7 +2322,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Manage your Team",
+        "defaultMessage": "!!!Manage your Team on meetfranz.com",
         "end": {
           "column": 3,
           "line": 33
