@@ -1,3 +1,19 @@
+# [5.1.0-beta.1](https://github.com/meetfranz/franz/compare/v5.0.1-beta.1...v5.1.0-beta.1) (2019-04-16)
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+### Features
+
+* **App:** Added Workspaces for all your daily routines 🎉 ([47c1c99](https://github.com/meetfranz/franz/commit/47c1c99))
+* **App:** Added [Team Management](https://meetfranz.com/user/team) 🎉 ([47c1c99](https://github.com/meetfranz/franz/commit/47c1c99))
+* **App:** Added Kerberos Support via Command Line Switches ([#1331](https://github.com/meetfranz/franz/issues/1331)) ([@frumania](https://github.com/frumania)) ([a1950d7](https://github.com/meetfranz/franz/commit/a1950d7))
+* **App:** Open changelog in app
+* **App:** Various small fixes and improvements 
+* **App:** Update electron to 4.1.4 ([2604914](https://github.com/meetfranz/franz/commit/2604914))
+
+
 # [5.0.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1) (2019-03-25)
 
 ### General
