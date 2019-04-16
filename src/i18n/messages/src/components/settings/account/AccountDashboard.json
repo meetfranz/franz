@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Account",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 15,
+      "line": 14,
       "column": 12
     },
     "end": {
-      "line": 18,
+      "line": 17,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Your Subscription",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 19,
+      "line": 18,
       "column": 24
     },
     "end": {
-      "line": 22,
+      "line": 21,
       "column": 3
     }
   },
@@ -30,24 +30,11 @@
     "defaultMessage": "!!!Upgrade your Account",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 23,
+      "line": 22,
       "column": 19
     },
     "end": {
-      "line": 26,
-      "column": 3
-    }
-  },
-  {
-    "id": "settings.account.headlineInvoices",
-    "defaultMessage": "!!Invoices",
-    "file": "src/components/settings/account/AccountDashboard.js",
-    "start": {
-      "line": 27,
-      "column": 20
-    },
-    "end": {
-      "line": 30,
+      "line": 25,
       "column": 3
     }
   },
@@ -56,11 +43,11 @@
     "defaultMessage": "!!Danger Zone",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 31,
+      "line": 26,
       "column": 22
     },
     "end": {
-      "line": 34,
+      "line": 29,
       "column": 3
     }
   },
@@ -69,11 +56,11 @@
     "defaultMessage": "!!!Manage your subscription",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 35,
+      "line": 30,
       "column": 33
     },
     "end": {
-      "line": 38,
+      "line": 33,
       "column": 3
     }
   },
@@ -82,11 +69,11 @@
     "defaultMessage": "!!!Basic Account",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 39,
+      "line": 34,
       "column": 20
     },
     "end": {
-      "line": 42,
+      "line": 37,
       "column": 3
     }
   },
@@ -95,11 +82,11 @@
     "defaultMessage": "!!!Premium Supporter Account",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 43,
+      "line": 38,
       "column": 22
     },
     "end": {
-      "line": 46,
+      "line": 41,
       "column": 3
     }
   },
@@ -108,11 +95,24 @@
     "defaultMessage": "!!!Edit Account",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 47,
+      "line": 42,
       "column": 21
     },
     "end": {
-      "line": 50,
+      "line": 45,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.headlineInvoices",
+    "defaultMessage": "!!Invoices",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 46,
+      "column": 18
+    },
+    "end": {
+      "line": 49,
       "column": 3
     }
   },
@@ -121,11 +121,11 @@
     "defaultMessage": "!!!Download",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 51,
+      "line": 50,
       "column": 19
     },
     "end": {
-      "line": 54,
+      "line": 53,
       "column": 3
     }
   },
@@ -134,11 +134,11 @@
     "defaultMessage": "!!!Could not load user information",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 55,
+      "line": 54,
       "column": 25
     },
     "end": {
-      "line": 58,
+      "line": 57,
       "column": 3
     }
   },
@@ -147,11 +147,11 @@
     "defaultMessage": "!!!Try again",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 59,
+      "line": 58,
       "column": 28
     },
     "end": {
-      "line": 62,
+      "line": 61,
       "column": 3
     }
   },
@@ -160,11 +160,11 @@
     "defaultMessage": "!!!Delete account",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 63,
+      "line": 62,
       "column": 17
     },
     "end": {
-      "line": 66,
+      "line": 65,
       "column": 3
     }
   },
@@ -173,11 +173,11 @@
     "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 67,
+      "line": 66,
       "column": 14
     },
     "end": {
-      "line": 70,
+      "line": 69,
       "column": 3
     }
   },
@@ -186,11 +186,11 @@
     "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
-      "line": 71,
+      "line": 70,
       "column": 19
     },
     "end": {
-      "line": 74,
+      "line": 73,
       "column": 3
     }
   }
