@@ -1,7 +1,7 @@
 ﻿{
    "app.errorHandler.action" : "Recharger",
    "app.errorHandler.headline" : "Une erreur s'est produite",
-   "feature.announcements.changelog.headline" : "Changements dans Franz",
+   "feature.announcements.changelog.headline" : "Changements dans Franz {version}",
    "feature.delayApp.action" : "Obtenez une licence de Supporter Franz",
    "feature.delayApp.headline" : "Veuillez acheter une licence de Supporter Franz pour sauter le temps d'attente",
    "feature.delayApp.text" : "Franz reprendra dans {seconds} secondes.",
@@ -260,7 +260,7 @@
    "settings.workspace.form.servicesInWorkspaceHeadline" : "Services in this Workspace",
    "settings.workspace.form.yourWorkspaces" : "Tes espaces de travail",
    "settings.workspaces.deletedInfo" : "Workspace has been deleted",
-   "settings.workspaces.headline" : "Tes espaces de travail",
+   "settings.workspaces.headline" : "Vos espaces de travails",
    "settings.workspaces.noWorkspacesAdded" : "You haven't added any workspaces yet.",
    "settings.workspaces.tryReloadWorkspaces" : "Réessayer",
    "settings.workspaces.updatedInfo" : "Vos modifications ont été enregistrées",
