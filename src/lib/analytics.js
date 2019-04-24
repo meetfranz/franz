@@ -42,7 +42,7 @@ export function gaEvent(category, action, label) {
 export function statsEvent(key, value) {
   const params = {
     key,
-    value,
+    value: value || key,
     platform: process.platform,
     version: remote.app.getVersion(),
   };
