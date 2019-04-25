@@ -1,5 +1,4 @@
-# [5.1.0-beta.1](https://github.com/meetfranz/franz/compare/v5.0.1-beta.1...v5.1.0-beta.1) (2019-04-16)
-
+# [5.1.0](https://github.com/meetfranz/franz/compare/v5.1.0...v5.1.0-beta.1) (2019-04-16)
 
 ### Features
 
@@ -14,6 +13,10 @@
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 * **App:** Update electron to 4.1.4 ([2604914](https://github.com/meetfranz/franz/commit/2604914))
 
+
+# [5.1.0-beta.1](https://github.com/meetfranz/franz/compare/v5.0.1-beta.1...v5.1.0-beta.1) (2019-04-16)
+
+[See 5.1.0 changelog.](#5-1-0--2019-04-16-)
 
 # [5.0.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1) (2019-03-25)
 
