@@ -17,6 +17,8 @@ import ImageUpload from '../../ui/ImageUpload';
 import Select from '../../ui/Select';
 
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
+import LimitReachedInfobox from '../../../features/serviceLimit/components/LimitReachedInfobox';
+import { serviceLimitStore } from '../../../features/serviceLimit';
 
 const messages = defineMessages({
   saveService: {
@@ -252,6 +254,7 @@ export default @observer class EditServiceForm extends Component {
             )}
           </span>
         </div>
+        <LimitReachedInfobox />
         <div className="settings__body">
           <form onSubmit={e => this.submit(e)} id="form">
             <div className="service-name">
@@ -418,7 +421,7 @@ export default @observer class EditServiceForm extends Component {
               type="submit"
               label={intl.formatMessage(messages.saveService)}
               htmlForm="form"
-              disabled={action !== 'edit' && form.isPristine && requiresUserInput}
+              disabled={action !== 'edit' && ((form.isPristine && requiresUserInput) || serviceLimitStore.userHasReachedServiceLimit)}
             />
           )}
         </div>

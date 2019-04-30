@@ -13,6 +13,7 @@ import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
+import { serviceLimitStore } from '../features/serviceLimit';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -164,6 +165,8 @@ export default class ServicesStore extends Store {
 
   // Actions
   @action async _createService({ recipeId, serviceData, redirect = true }) {
+    if (serviceLimitStore.userHasReachedServiceLimit) return;
+
     const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;

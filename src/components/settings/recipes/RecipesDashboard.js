@@ -10,6 +10,7 @@ import RecipeItem from './RecipeItem';
 import Loader from '../../ui/Loader';
 import Appear from '../../ui/effects/Appear';
 import { FRANZ_SERVICE_REQUEST } from '../../../config';
+import LimitReachedInfobox from '../../../features/serviceLimit/components/LimitReachedInfobox';
 
 const messages = defineMessages({
   headline: {
@@ -86,6 +87,7 @@ export default @observer class RecipesDashboard extends Component {
         <div className="settings__header">
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
+        <LimitReachedInfobox />
         <div className="settings__body recipes">
           {serviceStatus.length > 0 && serviceStatus.includes('created') && (
             <Appear>

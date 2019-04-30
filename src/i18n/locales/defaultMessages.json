@@ -1411,104 +1411,104 @@
         "defaultMessage": "!!!Available Services",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.headline",
         "start": {
           "column": 12,
-          "line": 15
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Search service",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.searchService",
         "start": {
           "column": 17,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Most popular",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.mostPopular",
         "start": {
           "column": 22,
-          "line": 23
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!All services",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.all",
         "start": {
           "column": 14,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Development",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.dev",
         "start": {
           "column": 14,
-          "line": 31
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Sorry, but no service matched your search term.",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 39
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.nothingFound",
         "start": {
           "column": 16,
-          "line": 35
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!Service successfully added",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 43
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.servicesSuccessfulAddedInfo",
         "start": {
           "column": 31,
-          "line": 39
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Missing a service?",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 47
         },
         "file": "src/components/settings/recipes/RecipesDashboard.js",
         "id": "settings.recipes.missingService",
         "start": {
           "column": 18,
-          "line": 43
+          "line": 44
         }
       }
     ],
@@ -1520,286 +1520,286 @@
         "defaultMessage": "!!!Save service",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 26
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.saveButton",
         "start": {
           "column": 15,
-          "line": 22
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!Delete Service",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.deleteButton",
         "start": {
           "column": 17,
-          "line": 26
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Available services",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 34
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.availableServices",
         "start": {
           "column": 21,
-          "line": 30
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 38
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.yourServices",
         "start": {
           "column": 16,
-          "line": 34
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!Add {name}",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 42
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.addServiceHeadline",
         "start": {
           "column": 22,
-          "line": 38
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Edit {name}",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 46
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.editServiceHeadline",
         "start": {
           "column": 23,
-          "line": 42
+          "line": 43
         }
       },
       {
         "defaultMessage": "!!!Hosted",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 50
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.tabHosted",
         "start": {
           "column": 13,
-          "line": 46
+          "line": 47
         }
       },
       {
         "defaultMessage": "!!!Self hosted ⭐️",
         "end": {
           "column": 3,
-          "line": 53
+          "line": 54
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.tabOnPremise",
         "start": {
           "column": 16,
-          "line": 50
+          "line": 51
         }
       },
       {
         "defaultMessage": "!!!Use the hosted {name} service.",
         "end": {
           "column": 3,
-          "line": 57
+          "line": 58
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.useHostedService",
         "start": {
           "column": 20,
-          "line": 54
+          "line": 55
         }
       },
       {
         "defaultMessage": "!!!Could not validate custom {name} server.",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 62
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.customUrlValidationError",
         "start": {
           "column": 28,
-          "line": 58
+          "line": 59
         }
       },
       {
         "defaultMessage": "!!!To add self hosted services, you need a Franz Premium Supporter Account.",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 66
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.customUrlPremiumInfo",
         "start": {
           "column": 24,
-          "line": 62
+          "line": 63
         }
       },
       {
         "defaultMessage": "!!!Upgrade your account",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 70
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.customUrlUpgradeAccount",
         "start": {
           "column": 27,
-          "line": 66
+          "line": 67
         }
       },
       {
         "defaultMessage": "!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...",
         "end": {
           "column": 3,
-          "line": 73
+          "line": 74
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.indirectMessageInfo",
         "start": {
           "column": 23,
-          "line": 70
+          "line": 71
         }
       },
       {
         "defaultMessage": "!!!When disabled, all notification sounds and audio playback are muted",
         "end": {
           "column": 3,
-          "line": 77
+          "line": 78
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.isMutedInfo",
         "start": {
           "column": 15,
-          "line": 74
+          "line": 75
         }
       },
       {
         "defaultMessage": "!!!Notifications",
         "end": {
           "column": 3,
-          "line": 81
+          "line": 82
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.headlineNotifications",
         "start": {
           "column": 25,
-          "line": 78
+          "line": 79
         }
       },
       {
         "defaultMessage": "!!!Unread message badges",
         "end": {
           "column": 3,
-          "line": 85
+          "line": 86
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.headlineBadges",
         "start": {
           "column": 18,
-          "line": 82
+          "line": 83
         }
       },
       {
         "defaultMessage": "!!!General",
         "end": {
           "column": 3,
-          "line": 89
+          "line": 90
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.headlineGeneral",
         "start": {
           "column": 19,
-          "line": 86
+          "line": 87
         }
       },
       {
         "defaultMessage": "!!!Delete",
         "end": {
           "column": 3,
-          "line": 93
+          "line": 94
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.iconDelete",
         "start": {
           "column": 14,
-          "line": 90
+          "line": 91
         }
       },
       {
         "defaultMessage": "!!!Drop your image, or click here",
         "end": {
           "column": 3,
-          "line": 97
+          "line": 98
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.iconUpload",
         "start": {
           "column": 14,
-          "line": 94
+          "line": 95
         }
       },
       {
         "defaultMessage": "!!!HTTP/HTTPS Proxy Settings",
         "end": {
           "column": 3,
-          "line": 101
+          "line": 102
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.proxy.headline",
         "start": {
           "column": 17,
-          "line": 98
+          "line": 99
         }
       },
       {
         "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
         "end": {
           "column": 3,
-          "line": 105
+          "line": 106
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.proxy.restartInfo",
         "start": {
           "column": 20,
-          "line": 102
+          "line": 103
         }
       },
       {
         "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
         "end": {
           "column": 3,
-          "line": 109
+          "line": 110
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.proxy.info",
         "start": {
           "column": 13,
-          "line": 106
+          "line": 107
         }
       }
     ],
@@ -1912,117 +1912,117 @@
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 18
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.services.headline",
         "start": {
           "column": 12,
-          "line": 14
+          "line": 15
         }
       },
       {
         "defaultMessage": "!!!Search service",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 22
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.searchService",
         "start": {
           "column": 17,
-          "line": 18
+          "line": 19
         }
       },
       {
         "defaultMessage": "!!!You haven't added any services yet.",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 26
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.services.noServicesAdded",
         "start": {
           "column": 19,
-          "line": 22
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!Sorry, but no service matched your search term.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.recipes.nothingFound",
         "start": {
           "column": 18,
-          "line": 26
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Discover services",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 34
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.services.discoverServices",
         "start": {
           "column": 20,
-          "line": 30
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Could not load your services",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 38
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.services.servicesRequestFailed",
         "start": {
           "column": 25,
-          "line": 34
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 42
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.account.tryReloadServices",
         "start": {
           "column": 21,
-          "line": 38
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Your changes have been saved",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 46
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.services.updatedInfo",
         "start": {
           "column": 15,
-          "line": 42
+          "line": 43
         }
       },
       {
         "defaultMessage": "!!!Service has been deleted",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 50
         },
         "file": "src/components/settings/services/ServicesDashboard.js",
         "id": "settings.services.deletedInfo",
         "start": {
           "column": 15,
-          "line": 46
+          "line": 47
         }
       }
     ],
@@ -3262,6 +3262,55 @@
       }
     ],
     "path": "src/features/delayApp/Component.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Changes in Franz {version}",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/features/serviceLimit/components/AnnouncementScreen.js",
+        "id": "feature.announcements.changelog.headline",
+        "start": {
+          "column": 12,
+          "line": 20
+        }
+      }
+    ],
+    "path": "src/features/serviceLimit/components/AnnouncementScreen.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!You have added {amount} of {amount} services. Please upgrade your account to add more services.",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
+        "id": "feature.serviceLimit.limitReached",
+        "start": {
+          "column": 16,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade account",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
+        "id": "premiumFeature.button.upgradeAccount",
+        "start": {
+          "column": 10,
+          "line": 17
+        }
+      }
+    ],
+    "path": "src/features/serviceLimit/components/LimitReachedInfobox.json"
   },
   {
     "descriptors": [
