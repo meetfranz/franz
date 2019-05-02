@@ -16,6 +16,7 @@ import workspaces from '../features/workspaces';
 import shareFranz from '../features/shareFranz';
 import announcements from '../features/announcements';
 import settingsWS from '../features/settingsWS';
+import communityRecipes from '../features/communityRecipes';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -75,5 +76,6 @@ export default class FeaturesStore extends Store {
     shareFranz(this.stores, this.actions);
     announcements(this.stores, this.actions);
     settingsWS(this.stores, this.actions);
+    communityRecipes(this.stores, this.actions);
   }
 }
