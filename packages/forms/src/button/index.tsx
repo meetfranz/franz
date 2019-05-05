@@ -9,14 +9,24 @@ import Loader from 'react-loader';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
-type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'inverted';
+type ButtonType =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'danger'
+  | 'warning'
+  | 'inverted';
 
 interface IProps extends IFormField, IWithStyle {
   className?: string;
   disabled?: boolean;
   id?: string;
-  type?: any;
-  onClick: (event: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => void;
+  type?: 'submit' | 'reset' | 'button';
+  onClick: (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLAnchorElement>,
+  ) => void;
   buttonType?: ButtonType;
   stretch?: boolean;
   loaded?: boolean;
@@ -41,7 +51,8 @@ const styles = (theme: Theme) => ({
     outline: 'none',
     alignItems: 'center',
     padding: 0,
-    width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
+    width: (props: IProps) =>
+      (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
     height: theme.buttonHeight,
@@ -124,9 +135,10 @@ const styles = (theme: Theme) => ({
     height: 20,
     overflow: 'hidden',
     transition: 'all 0.3s',
-    marginLeft: (props: IProps): number => !props.busy ? 10 : 20,
-    marginRight: (props: IProps): number => !props.busy ? -10 : -20,
-    position: (props: IProps): CSS.PositionProperty => props.stretch ? 'absolute' : 'inherit',
+    marginLeft: (props: IProps): number => (!props.busy ? 10 : 20),
+    marginRight: (props: IProps): number => (!props.busy ? -10 : -20),
+    position: (props: IProps): CSS.PositionProperty =>
+      props.stretch ? 'absolute' : 'inherit',
   },
   icon: {
     marginLeft: -5,
@@ -183,9 +195,7 @@ class ButtonComponent extends Component<IProps> {
       target,
     } = this.props;
 
-    const {
-      busy,
-    } = this.state;
+    const { busy } = this.state;
 
     let icon = '';
     if (iconName && mdiIcons[iconName]) {
@@ -197,7 +207,9 @@ class ButtonComponent extends Component<IProps> {
     let showLoader = false;
     if (loaded) {
       showLoader = !loaded;
-      console.warn('Franz Button prop `loaded` will be deprecated in the future. Please use `busy` instead');
+      console.warn(
+        'Franz Button prop `loaded` will be deprecated in the future. Please use `busy` instead',
+      );
     }
     if (busy) {
       showLoader = busy;
@@ -217,13 +229,7 @@ class ButtonComponent extends Component<IProps> {
           )}
         </div>
         <div className={classes.label}>
-          {icon && (
-            <Icon
-              path={icon}
-              size={1}
-              className={classes.icon}
-            />
-          )}
+          {icon && <Icon path={icon} size={1} className={classes.icon} />}
           {label}
         </div>
       </>
