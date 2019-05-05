@@ -10,6 +10,8 @@ import PaymentStore from './PaymentStore';
 import NewsStore from './NewsStore';
 import RequestStore from './RequestStore';
 import GlobalErrorStore from './GlobalErrorStore';
+import { workspaceStore } from '../features/workspaces';
+import { announcementsStore } from '../features/announcements';
 
 export default (api, actions, router) => {
   const stores = {};
@@ -27,6 +29,8 @@ export default (api, actions, router) => {
     news: new NewsStore(stores, api, actions),
     requests: new RequestStore(stores, api, actions),
     globalError: new GlobalErrorStore(stores, api, actions),
+    workspaces: workspaceStore,
+    announcements: announcementsStore,
   });
   // Initialize all stores
   Object.keys(stores).forEach((name) => {

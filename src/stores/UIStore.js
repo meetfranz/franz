@@ -21,11 +21,12 @@ export default class UIStore extends Store {
     return (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted) || !settings.isAppMuted;
   }
 
-  @computed get theme() {
-    if (this.stores.settings.all.app.darkMode) {
-      return theme('dark');
-    }
+  @computed get isDarkThemeActive() {
+    return this.stores.settings.all.app.darkMode;
+  }
 
+  @computed get theme() {
+    if (this.isDarkThemeActive) return theme('dark');
     return theme('default');
   }
 

@@ -14,7 +14,7 @@ import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac } from '../environment';
 import locales from '../i18n/translations';
-import { gaEvent, gaPage } from '../lib/analytics';
+import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
 import { onVisibilityChange } from '../helpers/visibility-helper';
 import { getLocale } from '../helpers/i18n-helpers';
 
@@ -66,6 +66,8 @@ export default class AppStore extends Store {
   @observable isFullScreen = mainWindow.isFullScreen();
 
   @observable isFocused = true;
+
+  @observable nextAppReleaseVersion = null;
 
   dictionaries = [];
 
@@ -123,7 +125,7 @@ export default class AppStore extends Store {
     ipcRenderer.on('autoUpdate', (event, data) => {
       if (data.available) {
         this.updateStatus = this.updateStatusTypes.AVAILABLE;
-
+        this.nextAppReleaseVersion = data.version;
         if (isMac) {
           app.dock.bounce();
         }
@@ -172,7 +174,8 @@ export default class AppStore extends Store {
     reaction(() => this.stores.router.location.pathname, (pathname) => {
       gaPage(pathname);
     });
-    console.log('router location', this.stores.router.location);
+
+    statsEvent('app-start');
   }
 
   @computed get cacheSize() {

@@ -11,12 +11,4 @@ export default class PaymentApi {
   getHostedPage(planId) {
     return this.server.getHostedPage(planId);
   }
-
-  getDashboardUrl() {
-    return this.server.getPaymentDashboardUrl();
-  }
-
-  getOrders() {
-    return this.server.getSubscriptionOrders();
-  }
 }

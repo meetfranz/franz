@@ -1,7 +1,9 @@
 {
   "parser": "babel-eslint",
   "extends": "eslint-config-airbnb",
+  "plugins": ["jest"],
   "rules": {
+    "consistent-return": 0,
     "no-param-reassign": 0,
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
@@ -14,7 +16,7 @@
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
     }],
-    "react/forbid-prop-types": 1,
+    "react/forbid-prop-types": 0,
     "react/destructuring-assignment": 1,
     "prefer-destructuring": 1,
     "no-underscore-dangle": 0,
@@ -54,5 +56,8 @@
     "btoa": true,
     "ga": true,
     "mocha": true
+  },
+  "env": {
+    "jest/globals": true
   }
 }

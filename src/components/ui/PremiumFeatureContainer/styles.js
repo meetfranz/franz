@@ -6,6 +6,7 @@ export default theme => ({
     padding: 20,
     'border-radius': theme.borderRadius,
     pointerEvents: 'none',
+    height: 'auto',
   },
   titleContainer: {
     display: 'flex',
@@ -19,14 +20,14 @@ export default theme => ({
     color: theme.colorSubscriptionContainerActionButtonColor,
     'margin-left': 'auto',
     'border-radius': theme.borderRadiusSmall,
-    padding: [2, 4],
+    padding: [4, 8],
     'font-size': 12,
     pointerEvents: 'initial',
   },
   content: {
     opacity: 0.5,
     'margin-top': 20,
-    '& :last-child': {
+    '& > :last-child': {
       'margin-bottom': 0,
     },
   },

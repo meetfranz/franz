@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape } from 'react-intl';
 import { inject, observer } from 'mobx-react';
+import { ProBadge } from '@meetfranz/ui';
 
 import Link from '../../ui/Link';
+import { workspaceStore } from '../../../features/workspaces';
+import UIStore from '../../../stores/UIStore';
+import UserStore from '../../../stores/UserStore';
 
 const messages = defineMessages({
   availableServices: {
@@ -14,9 +18,17 @@ const messages = defineMessages({
     id: 'settings.navigation.yourServices',
     defaultMessage: '!!!Your services',
   },
+  yourWorkspaces: {
+    id: 'settings.navigation.yourWorkspaces',
+    defaultMessage: '!!!Your workspaces',
+  },
   account: {
     id: 'settings.navigation.account',
     defaultMessage: '!!!Account',
+  },
+  team: {
+    id: 'settings.navigation.team',
+    defaultMessage: '!!!Manage Team',
   },
   settings: {
     id: 'settings.navigation.settings',
@@ -34,7 +46,12 @@ const messages = defineMessages({
 
 export default @inject('stores') @observer class SettingsNavigation extends Component {
   static propTypes = {
+    stores: PropTypes.shape({
+      ui: PropTypes.instanceOf(UIStore).isRequired,
+      user: PropTypes.instanceOf(UserStore).isRequired,
+    }).isRequired,
     serviceCount: PropTypes.number.isRequired,
+    workspaceCount: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
@@ -42,7 +59,9 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
   };
 
   render() {
-    const { serviceCount } = this.props;
+    const { serviceCount, workspaceCount, stores } = this.props;
+    const { isDarkThemeActive } = stores.ui;
+    const { router, user } = stores;
     const { intl } = this.context;
 
     return (
@@ -63,12 +82,37 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
           {' '}
           <span className="badge">{serviceCount}</span>
         </Link>
+        {workspaceStore.isFeatureEnabled ? (
+          <Link
+            to="/settings/workspaces"
+            className="settings-navigation__link"
+            activeClassName="is-active"
+          >
+            {intl.formatMessage(messages.yourWorkspaces)}
+            {' '}
+            {workspaceStore.isPremiumUpgradeRequired ? (
+              <ProBadge inverted={!isDarkThemeActive && workspaceStore.isSettingsRouteActive} />
+            ) : (
+              <span className="badge">{workspaceCount}</span>
+            )}
+          </Link>
+        ) : null}
         <Link
           to="/settings/user"
           className="settings-navigation__link"
           activeClassName="is-active"
         >
           {intl.formatMessage(messages.account)}
+        </Link>
+        <Link
+          to="/settings/team"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+        >
+          {intl.formatMessage(messages.team)}
+          {!user.data.isPremium && (
+            <ProBadge inverted={!isDarkThemeActive && router.location.pathname === '/settings/team'} />
+          )}
         </Link>
         <Link
           to="/settings/app"

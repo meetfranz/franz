@@ -11,10 +11,12 @@ interface IProps extends IWithStyle {
   type?: string;
   dismissable?: boolean;
   onDismiss?: () => void;
+  onUnmount?: () => void;
   ctaOnClick?: () => void;
   ctaLabel?: string;
   ctaLoading?: boolean;
   children: React.ReactNode;
+  className: string;
 }
 
 interface IState {
@@ -45,6 +47,7 @@ const styles = (theme: Theme) => ({
   wrapper: {
     position: 'relative',
     overflow: 'hidden',
+    height: 'auto',
   },
   infobox: {
     alignItems: 'center',
@@ -128,6 +131,11 @@ class InfoboxComponent extends Component<IProps, IState> {
     },         3000);
   }
 
+  componentWillUnmount(): void {
+    const { onUnmount } = this.props;
+    if (onUnmount) onUnmount();
+  }
+
   render() {
     const {
       classes,
@@ -138,6 +146,7 @@ class InfoboxComponent extends Component<IProps, IState> {
       ctaLoading,
       ctaOnClick,
       dismissable,
+      className,
     } = this.props;
 
     const {
@@ -150,7 +159,10 @@ class InfoboxComponent extends Component<IProps, IState> {
     }
 
     return (
-      <div className={classes.wrapper}>
+      <div className={classnames({
+        [classes.wrapper]: true,
+        [`${className}`]: className,
+      })}>
         <div
           className={classnames({
             [classes.infobox]: true,

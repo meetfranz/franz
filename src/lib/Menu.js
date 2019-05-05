@@ -3,6 +3,11 @@ import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
+import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
+import { workspaceActions } from '../features/workspaces/actions';
+import { gaEvent } from './analytics';
+import { announcementActions } from '../features/announcements/actions';
+import { announcementsStore } from '../features/announcements';
 
 const { app, Menu, dialog } = remote;
 
@@ -155,6 +160,10 @@ const menuItems = defineMessages({
     id: 'menu.app.about',
     defaultMessage: '!!!About Franz',
   },
+  announcement: {
+    id: 'menu.app.announcement',
+    defaultMessage: '!!!What\'s new?',
+  },
   settings: {
     id: 'menu.app.settings',
     defaultMessage: '!!!Settings',
@@ -179,6 +188,18 @@ const menuItems = defineMessages({
     id: 'menu.services.addNewService',
     defaultMessage: '!!!Add New Service...',
   },
+  addNewWorkspace: {
+    id: 'menu.workspaces.addNewWorkspace',
+    defaultMessage: '!!!Add New Workspace...',
+  },
+  openWorkspaceDrawer: {
+    id: 'menu.workspaces.openWorkspaceDrawer',
+    defaultMessage: '!!!Open workspace drawer',
+  },
+  closeWorkspaceDrawer: {
+    id: 'menu.workspaces.closeWorkspaceDrawer',
+    defaultMessage: '!!!Close workspace drawer',
+  },
   activateNextService: {
     id: 'menu.services.setNextServiceActive',
     defaultMessage: '!!!Activate next service...',
@@ -194,6 +215,14 @@ const menuItems = defineMessages({
   unmuteApp: {
     id: 'sidebar.unmuteApp',
     defaultMessage: '!!!Enable notifications & audio',
+  },
+  workspaces: {
+    id: 'menu.workspaces',
+    defaultMessage: '!!!Workspaces',
+  },
+  defaultWorkspace: {
+    id: 'menu.workspaces.defaultWorkspace',
+    defaultMessage: '!!!Default',
   },
 });
 
@@ -298,6 +327,11 @@ const _templateFactory = intl => [
     submenu: [],
   },
   {
+    label: intl.formatMessage(menuItems.workspaces),
+    submenu: [],
+    visible: workspaceStore.isFeatureEnabled,
+  },
+  {
     label: intl.formatMessage(menuItems.window),
     role: 'window',
     submenu: [
@@ -320,8 +354,11 @@ const _templateFactory = intl => [
         click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
-        label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
+        label: intl.formatMessage(menuItems.announcement),
+        click: () => {
+          announcementActions.show();
+        },
+        visible: window.franz.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
       },
       {
         type: 'separator',
@@ -669,7 +706,7 @@ export default class FranzMenu {
         },
       );
 
-      tpl[4].submenu.unshift(about, {
+      tpl[5].submenu.unshift(about, {
         type: 'separator',
       });
     } else {
@@ -702,6 +739,10 @@ export default class FranzMenu {
 
     if (serviceTpl.length > 0) {
       tpl[3].submenu = serviceTpl;
+    }
+
+    if (workspaceStore.isFeatureEnabled) {
+      tpl[4].submenu = this.workspacesMenu();
     }
 
     this.currentTemplate = tpl;
@@ -750,6 +791,66 @@ export default class FranzMenu {
         this.actions.service.setActive({ serviceId: service.id });
       },
     })));
+
+    return menu;
+  }
+
+  workspacesMenu() {
+    const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
+    const { intl } = window.franz;
+    const menu = [];
+
+    // Add new workspace item:
+    menu.push({
+      label: intl.formatMessage(menuItems.addNewWorkspace),
+      accelerator: `${cmdKey}+Shift+N`,
+      click: () => {
+        workspaceActions.openWorkspaceSettings();
+      },
+      enabled: this.stores.user.isLoggedIn,
+    });
+
+    // Open workspace drawer:
+    const drawerLabel = (
+      isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
+    );
+    menu.push({
+      label: intl.formatMessage(drawerLabel),
+      accelerator: `${cmdKey}+D`,
+      click: () => {
+        workspaceActions.toggleWorkspaceDrawer();
+        gaEvent(GA_CATEGORY_WORKSPACES, 'toggleDrawer', 'menu');
+      },
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    });
+
+    // Default workspace
+    menu.push({
+      label: intl.formatMessage(menuItems.defaultWorkspace),
+      accelerator: `${cmdKey}+Alt+0`,
+      type: 'radio',
+      checked: !activeWorkspace,
+      click: () => {
+        workspaceActions.deactivate();
+        gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+      },
+    });
+
+    // Workspace items
+    if (this.stores.user.isPremium) {
+      workspaces.forEach((workspace, i) => menu.push({
+        label: workspace.name,
+        accelerator: i < 9 ? `${cmdKey}+Alt+${i + 1}` : null,
+        type: 'radio',
+        checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
+        click: () => {
+          workspaceActions.activate({ workspace });
+          gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+        },
+      }));
+    }
 
     return menu;
   }

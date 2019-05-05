@@ -5,6 +5,7 @@ export default {
   setActive: {
     serviceId: PropTypes.string.isRequired,
   },
+  blurActive: {},
   setActiveNext: {},
   setActivePrev: {},
   showAddServiceInterface: {
