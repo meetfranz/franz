@@ -23,7 +23,7 @@
     "url": "https://github.com/meetfranz/franz/issues"
   },
   "dependencies": {
-    "color": "^3.1.0"
+    "color": "3.1.1"
   },
   "gitHead": "e9b9079dc921e85961954727a7b2a8eabe5b9798"
 }
