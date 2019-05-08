@@ -255,13 +255,15 @@ export default class WorkspacesStore extends FeatureStore {
   _setActiveServiceOnWorkspaceSwitchReaction = () => {
     if (!this.isFeatureActive) return;
     if (this.activeWorkspace) {
-      const services = this.stores.services.allDisplayed;
-      const activeService = services.find(s => s.isActive);
+      const activeService = this.stores.services.active;
       const workspaceServices = this.getWorkspaceServices(this.activeWorkspace);
       if (workspaceServices.length <= 0) return;
       const isActiveServiceInWorkspace = workspaceServices.includes(activeService);
       if (!isActiveServiceInWorkspace) {
-        this.actions.service.setActive({ serviceId: workspaceServices[0].id });
+        this.actions.service.setActive({
+          serviceId: workspaceServices[0].id,
+          keepActiveRoute: true,
+        });
       }
     }
   };

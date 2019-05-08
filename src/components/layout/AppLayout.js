@@ -83,7 +83,6 @@ class AppLayout extends Component {
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
     isDelayAppScreenVisible: PropTypes.bool.isRequired,
-    isAnnouncementVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -117,7 +116,6 @@ class AppLayout extends Component {
       areRequiredRequestsLoading,
       darkMode,
       isDelayAppScreenVisible,
-      isAnnouncementVisible,
     } = this.props;
 
     const { intl } = this.context;
@@ -197,12 +195,11 @@ class AppLayout extends Component {
                 {isDelayAppScreenVisible && (<DelayApp />)}
                 <BasicAuth />
                 <ShareFranz />
-                {isAnnouncementVisible && (<AnnouncementScreen />)}
                 {services}
+                {children}
               </div>
             </div>
           </div>
-          {children}
         </div>
       </ErrorBoundary>
     );

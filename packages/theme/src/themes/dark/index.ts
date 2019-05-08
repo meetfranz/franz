@@ -113,7 +113,7 @@ export const workspaces = merge({}, defaultStyles.workspaces, {
 });
 
 // Announcements
-export const announcements = merge({}, defaultStyles.workspaces, {
+export const announcements = merge({}, defaultStyles.announcements, {
   spotlight: {
     background: legacyStyles.darkThemeGrayDark,
   },

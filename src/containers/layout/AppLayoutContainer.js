@@ -151,7 +151,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
           darkMode={settings.all.app.darkMode}
           isDelayAppScreenVisible={delayAppState.isDelayAppScreenVisible}
-          isAnnouncementVisible={announcementsStore.isAnnouncementVisible}
         >
           {React.Children.count(children) > 0 ? children : null}
         </AppLayout>

@@ -8,12 +8,13 @@ import semver from 'semver';
 import localStorage from 'mobx-localstorage';
 
 import { FeatureStore } from '../utils/FeatureStore';
-import { GA_CATEGORY_ANNOUNCEMENTS } from '.';
+import { ANNOUNCEMENTS_ROUTES, GA_CATEGORY_ANNOUNCEMENTS } from '.';
 import { getAnnouncementRequest, getChangelogRequest, getCurrentVersionRequest } from './api';
 import { announcementActions } from './actions';
 import { createActionBindings } from '../utils/ActionBinding';
 import { createReactions } from '../../stores/lib/Reaction';
 import { gaEvent } from '../../lib/analytics';
+import { matchRoute } from '../../helpers/routing-helpers';
 
 const LOCAL_STORAGE_KEY = 'announcements';
 
@@ -21,8 +22,6 @@ const debug = require('debug')('Franz:feature:announcements:store');
 
 export class AnnouncementsStore extends FeatureStore {
   @observable targetVersion = null;
-
-  @observable isAnnouncementVisible = false;
 
   @observable isFeatureActive = false;
 
@@ -37,6 +36,7 @@ export class AnnouncementsStore extends FeatureStore {
   @computed get areNewsAvailable() {
     const isChangelogAvailable = getChangelogRequest.wasExecuted && !!this.changelog;
     const isAnnouncementAvailable = getAnnouncementRequest.wasExecuted && !!this.announcement;
+    console.log(isChangelogAvailable, isAnnouncementAvailable);
     return isChangelogAvailable || isAnnouncementAvailable;
   }
 
@@ -67,8 +67,9 @@ export class AnnouncementsStore extends FeatureStore {
     ]));
 
     this._reactions = createReactions([
-      this._fetchAnnouncements,
+      this._showAnnouncementOnRouteMatch,
       this._showAnnouncementToUsersWhoUpdatedApp,
+      this._fetchAnnouncements,
     ]);
     this._registerReactions(this._reactions);
     this.isFeatureActive = true;
@@ -78,7 +79,6 @@ export class AnnouncementsStore extends FeatureStore {
     super.stop();
     debug('AnnouncementsStore::stop');
     this.isFeatureActive = false;
-    this.isAnnouncementVisible = false;
   }
 
   // ======= HELPERS ======= //
@@ -93,33 +93,23 @@ export class AnnouncementsStore extends FeatureStore {
   // ======= ACTIONS ======= //
 
   @action _showAnnouncement = ({ targetVersion } = {}) => {
-    if (!this.areNewsAvailable) return;
+    const { router } = this.stores;
     this.targetVersion = targetVersion || this.currentVersion;
-    this.isAnnouncementVisible = true;
-    this.actions.service.blurActive();
     this._updateSettings({
       lastSeenAnnouncementVersion: this.currentVersion,
     });
-    const dispose = reaction(
-      () => this.stores.services.active,
-      () => {
-        this._hideAnnouncement();
-        dispose();
-      },
-    );
-
+    const targetRoute = `/announcements/${this.targetVersion}`;
+    if (router.location.pathname !== targetRoute) {
+      this.stores.router.push(targetRoute);
+    }
     gaEvent(GA_CATEGORY_ANNOUNCEMENTS, 'show');
   };
-
-  @action _hideAnnouncement() {
-    this.isAnnouncementVisible = false;
-  }
 
   // ======= REACTIONS ========
 
   _showAnnouncementToUsersWhoUpdatedApp = () => {
     const { announcement, isNewUser } = this;
-    // Check if there is an announcement and on't show announcements to new users
+    // Check if there is an announcement and don't show announcements to new users
     if (!announcement || isNewUser) return;
 
     // Check if the user has already used current version (= has seen the announcement)
@@ -139,6 +129,15 @@ export class AnnouncementsStore extends FeatureStore {
       getAnnouncementRequest.execute(targetVersion);
     } else {
       getAnnouncementRequest.reset();
+    }
+  };
+
+  _showAnnouncementOnRouteMatch = () => {
+    const { router } = this.stores;
+    const match = matchRoute(ANNOUNCEMENTS_ROUTES.TARGET, router.location.pathname);
+    if (match) {
+      const targetVersion = match.id;
+      this._showAnnouncement({ targetVersion });
     }
   }
 }
