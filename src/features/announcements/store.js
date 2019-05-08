@@ -125,7 +125,7 @@ export class AnnouncementsStore extends FeatureStore {
     // Check if the user has already used current version (= has seen the announcement)
     const { currentVersion, lastSeenAnnouncementVersion } = this;
     if (semver.gt(currentVersion, lastSeenAnnouncementVersion || '0.0.0')) {
-      debug(`${currentVersion} < ${lastSeenAnnouncementVersion}: announcement is shown`);
+      debug(`${currentVersion} > ${lastSeenAnnouncementVersion}: announcement is shown`);
       this._showAnnouncement();
     }
   };
