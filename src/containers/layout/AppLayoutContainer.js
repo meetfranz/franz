@@ -23,7 +23,6 @@ import { state as delayAppState } from '../../features/delayApp';
 import { workspaceActions } from '../../features/workspaces/actions';
 import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
 import { workspaceStore } from '../../features/workspaces';
-import { announcementsStore } from '../../features/announcements';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {

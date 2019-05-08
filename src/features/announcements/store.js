@@ -2,7 +2,6 @@ import {
   action,
   computed,
   observable,
-  reaction,
 } from 'mobx';
 import semver from 'semver';
 import localStorage from 'mobx-localstorage';
