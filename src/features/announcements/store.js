@@ -35,7 +35,6 @@ export class AnnouncementsStore extends FeatureStore {
   @computed get areNewsAvailable() {
     const isChangelogAvailable = getChangelogRequest.wasExecuted && !!this.changelog;
     const isAnnouncementAvailable = getAnnouncementRequest.wasExecuted && !!this.announcement;
-    console.log(isChangelogAvailable, isAnnouncementAvailable);
     return isChangelogAvailable || isAnnouncementAvailable;
   }
 
