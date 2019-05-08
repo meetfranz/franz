@@ -122,12 +122,7 @@ export class AnnouncementsStore extends FeatureStore {
     const targetVersion = this.targetVersion || this.currentVersion;
     if (!targetVersion) return;
     getChangelogRequest.execute(targetVersion);
-    // We only fetch announcements for current / older versions
-    if (targetVersion <= this.currentVersion) {
-      getAnnouncementRequest.execute(targetVersion);
-    } else {
-      getAnnouncementRequest.reset();
-    }
+    getAnnouncementRequest.execute(targetVersion);
   };
 
   _showAnnouncementOnRouteMatch = () => {
