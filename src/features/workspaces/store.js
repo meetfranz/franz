@@ -57,6 +57,10 @@ export default class WorkspacesStore extends FeatureStore {
     return !this.isPremiumUpgradeRequired;
   }
 
+  @computed get isAnyWorkspaceActive() {
+    return !!this.activeWorkspace;
+  }
+
   // ========== PRIVATE PROPERTIES ========= //
 
   _wasDrawerOpenBeforeSettingsRoute = null;
@@ -227,6 +231,14 @@ export default class WorkspacesStore extends FeatureStore {
 
   @action _openWorkspaceSettings = () => {
     this.actions.ui.openSettings({ path: 'workspaces' });
+  };
+
+  @action reorderServicesOfActiveWorkspace = async ({ oldIndex, newIndex }) => {
+    const { activeWorkspace } = this;
+    const { services } = activeWorkspace;
+    // Move services from the old to the new position
+    services.splice(newIndex, 0, services.splice(oldIndex, 1)[0]);
+    await updateWorkspaceRequest.execute(activeWorkspace);
   };
 
   // Reactions
