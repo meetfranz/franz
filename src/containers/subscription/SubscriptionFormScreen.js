@@ -43,26 +43,31 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     });
 
     const hostedPage = await stores.payment.createHostedPageRequest;
-    const url = `file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPage.url)}`;
 
     if (hostedPage.url) {
-      const paymentWindow = new BrowserWindow({
-        parent: remote.getCurrentWindow(),
-        modal: true,
-        title: '🔒 Franz Supporter License',
-        width: 600,
-        height: window.innerHeight - 100,
-        maxWidth: 600,
-        minWidth: 600,
-        webPreferences: {
-          nodeIntegration: true,
-        },
-      });
-      paymentWindow.loadURL(url);
+      if (hostedPage.legacyCheckoutFlow) {
+        const paymentWindow = new BrowserWindow({
+          parent: remote.getCurrentWindow(),
+          modal: true,
+          title: '🔒 Franz Supporter License',
+          width: 600,
+          height: window.innerHeight - 100,
+          maxWidth: 600,
+          minWidth: 600,
+          webPreferences: {
+            nodeIntegration: true,
+          },
+        });
+        paymentWindow.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPage.url)}`);
 
-      paymentWindow.on('closed', () => {
-        onCloseWindow();
-      });
+        paymentWindow.on('closed', () => {
+          onCloseWindow();
+        });
+      } else {
+        actions.app.openExternalUrl({
+          url: hostedPage.url,
+        });
+      }
     }
   }
 

@@ -1,4 +1,5 @@
 import { action, computed, observable } from 'mobx';
+import ms from 'ms';
 
 import Store from './lib/Store';
 
@@ -13,7 +14,7 @@ export default class RequestStore extends Store {
 
   retries = 0;
 
-  retryDelay = 2000;
+  retryDelay = ms('2s');
 
   constructor(...args) {
     super(...args);

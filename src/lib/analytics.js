@@ -1,5 +1,8 @@
 import { remote } from 'electron';
-import { GA_ID } from '../config';
+import querystring from 'querystring';
+
+import { GA_ID, STATS_API } from '../config';
+import { isDevMode } from '../environment';
 
 const debug = require('debug')('Franz:Analytics');
 
@@ -28,16 +31,25 @@ ga('send', 'App');
 
 export function gaPage(page) {
   ga('send', 'pageview', page);
-
   debug('GA track page', page);
 }
 
 export function gaEvent(category, action, label) {
   ga('send', 'event', category, action, label);
-
-  debug('GA track event', category, action);
+  debug('GA track event', category, action, label);
 }
 
-setTimeout(() => {
-  ga('send', 'Ping');
-}, 1000 * 60 * 10); // Ping GA every 10 Minutes
+export function statsEvent(key, value) {
+  const params = {
+    key,
+    value: value || key,
+    platform: process.platform,
+    version: remote.app.getVersion(),
+  };
+
+  debug('Send Franz stats event', params);
+
+  if (!isDevMode) {
+    window.fetch(`${STATS_API}/event/?${querystring.stringify(params)}`);
+  }
+}

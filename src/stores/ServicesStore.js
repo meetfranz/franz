@@ -5,12 +5,14 @@ import {
   observable,
 } from 'mobx';
 import { debounce, remove } from 'lodash';
+import ms from 'ms';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent } from '../lib/analytics';
+import { gaEvent, statsEvent } from '../lib/analytics';
+import { workspaceStore } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -34,6 +36,7 @@ export default class ServicesStore extends Store {
 
     // Register action handlers
     this.actions.service.setActive.listen(this._setActive.bind(this));
+    this.actions.service.blurActive.listen(this._blurActive.bind(this));
     this.actions.service.setActiveNext.listen(this._setActiveNext.bind(this));
     this.actions.service.setActivePrev.listen(this._setActivePrev.bind(this));
     this.actions.service.showAddServiceInterface.listen(this._showAddServiceInterface.bind(this));
@@ -43,6 +46,7 @@ export default class ServicesStore extends Store {
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
+    this.actions.service.detachService.listen(this._detachService.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
     this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
@@ -97,7 +101,6 @@ export default class ServicesStore extends Store {
         return observable(services.slice().slice().sort((a, b) => a.order - b.order));
       }
     }
-
     return [];
   }
 
@@ -106,13 +109,16 @@ export default class ServicesStore extends Store {
   }
 
   @computed get allDisplayed() {
-    return this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
+    const services = this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
+    return workspaceStore.filterServicesByActiveWorkspace(services);
   }
 
   // This is just used to avoid unnecessary rerendering of resource-heavy webviews
   @computed get allDisplayedUnordered() {
+    const { showDisabledServices } = this.stores.settings.all.app;
     const services = this.allServicesRequest.execute().result || [];
-    return this.stores.settings.all.app.showDisabledServices ? services : services.filter(service => service.isEnabled);
+    const filteredServices = showDisabledServices ? services : services.filter(service => service.isEnabled);
+    return workspaceStore.filterServicesByActiveWorkspace(filteredServices);
   }
 
   @computed get filtered() {
@@ -293,7 +299,14 @@ export default class ServicesStore extends Store {
     });
     service.isActive = true;
 
+    statsEvent('activate-service', service.recipe.id);
+
     this._focusActiveService();
+  }
+
+  @action _blurActive() {
+    if (!this.active) return;
+    this.active.isActive = false;
   }
 
   @action _setActiveNext() {
@@ -338,6 +351,11 @@ export default class ServicesStore extends Store {
     }
 
     service.isAttached = true;
+  }
+
+  @action _detachService({ service }) {
+    service.webview = null;
+    service.isAttached = false;
   }
 
   @action _focusService({ serviceId }) {
@@ -679,7 +697,7 @@ export default class ServicesStore extends Store {
   _initRecipePolling(serviceId) {
     const service = this.one(serviceId);
 
-    const delay = 2000;
+    const delay = ms('2s');
 
     if (service) {
       if (service.timer !== null) {
@@ -700,7 +718,7 @@ export default class ServicesStore extends Store {
 
   _reorderAnalytics = debounce(() => {
     gaEvent('Service', 'order');
-  }, 5000);
+  }, ms('5s'));
 
   _wrapIndex(index, delta, size) {
     return (((index + delta) % size) + size) % size;

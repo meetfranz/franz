@@ -6,7 +6,7 @@ import BasicAuthComponent from './Component';
 const debug = require('debug')('Franz:feature:basicAuth');
 
 const defaultState = {
-  isModalVisible: false,
+  isModalVisible: true,
   service: null,
   authInfo: null,
 };
@@ -15,7 +15,6 @@ export const state = observable(defaultState);
 
 export function resetState() {
   Object.assign(state, defaultState);
-  console.log('reset state', state);
 }
 
 export default function initialize() {
@@ -31,15 +30,6 @@ export default function initialize() {
     state.authInfo = data.authInfo;
     state.isModalVisible = true;
   });
-
-  // autorun(() => {
-  //   // if (state.serviceId) {
-  //   // const service = stores.services.one(state.serviceId);
-  //   // if (service) {
-  //   //   state.service = service;
-  //   // }
-  //   // }
-  // });
 }
 
 export function mainIpcHandler(mainWindow, authInfo) {

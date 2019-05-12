@@ -4,7 +4,6 @@ import { inject, observer } from 'mobx-react';
 
 import Signup from '../../components/auth/Signup';
 import UserStore from '../../stores/UserStore';
-import { gaPage } from '../../lib/analytics';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
@@ -12,10 +11,6 @@ export default @inject('stores', 'actions') @observer class SignupScreen extends
   static propTypes = {
     error: globalErrorPropType.isRequired,
   };
-
-  componentDidMount() {
-    gaPage('Auth/Signup');
-  }
 
   render() {
     const { actions, stores, error } = this.props;

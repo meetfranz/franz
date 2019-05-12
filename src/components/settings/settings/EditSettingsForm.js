@@ -81,6 +81,10 @@ const messages = defineMessages({
     id: 'settings.app.restartRequired',
     defaultMessage: '!!!Changes require restart',
   },
+  languageDisclaimer: {
+    id: 'settings.app.languageDisclaimer',
+    defaultMessage: '!!!Official translations are English & German. All other languages are community based translations.',
+  },
 });
 
 export default @observer class EditSettingsForm extends Component {
@@ -170,6 +174,7 @@ export default @observer class EditSettingsForm extends Component {
             <Select field={form.$('locale')} showLabel={false} />
             <PremiumFeatureContainer
               condition={isSpellcheckerPremiumFeature}
+              gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
             >
               <Fragment>
                 <Toggle
@@ -238,6 +243,10 @@ export default @observer class EditSettingsForm extends Component {
             {intl.formatMessage(messages.currentVersion)}
             {' '}
             {remote.app.getVersion()}
+            <p className="settings__message">
+              <span className="mdi mdi-information" />
+              {intl.formatMessage(messages.languageDisclaimer)}
+            </p>
           </form>
         </div>
       </div>

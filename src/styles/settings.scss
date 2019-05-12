@@ -61,14 +61,9 @@
 
     .account {
       .account__box { background: $dark-theme-gray-darker; }
-
-      .invoices {
-        td { border-bottom: 1px solid $dark-theme-gray-darker; }
-        .invoices__action button { color: $theme-brand-primary; }
-      }
     }
 
-    .premium-info { 
+    .premium-info {
       background: $dark-theme-gray-darker;
       border: 2px solid $theme-brand-primary;
     }
@@ -329,15 +324,6 @@
     .account__avatar {
       margin-right: 20px;
       position: relative;
-
-      .emoji img { width: 30px; }
-    }
-
-    .account__avatar-premium {
-      font-size: 26px;
-      position: absolute;
-      right: 2px;
-      top: 2px;
     }
 
     .account__info {
@@ -345,6 +331,7 @@
 
       h2 { margin-bottom: 5px; }
       .badge { margin-top: 5px; }
+      .username { margin-right: 10 }
     }
 
     .account__subscription {
@@ -352,6 +339,22 @@
       display: flex;
 
       .badge { margin-left: 10px; }
+    }
+
+    .badge--premium {
+      margin-left: 1px;
+      position: relative;
+      top: -3px;
+      padding-top: 4px;
+      color: #FFF;
+      border-radius: 3px;
+    }
+
+
+    .manage-user-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
     }
 
     .account__subscription-button { margin-left: auto; }
@@ -414,6 +417,7 @@
 
   .settings-navigation__link {
     align-items: center;
+    justify-content: space-between;
     color: $theme-text-color;
     display: flex;
     flex-shrink: 0;
@@ -425,7 +429,9 @@
     &:hover {
       background: darken($theme-gray-lightest, 5%);
 
-      .badge { background: #FFF; }
+      .badge {
+        background: #FFF;
+      }
     }
 
     &.is-active {
@@ -442,8 +448,8 @@
   .settings-navigation__expander { flex: 1; }
 
   .badge {
+
     display: initial;
-    margin-left: 5px;
     transition: background $theme-transition-time, color $theme-transition-time;
   }
 

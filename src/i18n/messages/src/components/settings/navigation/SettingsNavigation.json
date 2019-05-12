@@ -1,0 +1,106 @@
+[
+  {
+    "id": "settings.navigation.availableServices",
+    "defaultMessage": "!!!Available services",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 13,
+      "column": 21
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.yourServices",
+    "defaultMessage": "!!!Your services",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 17,
+      "column": 16
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.yourWorkspaces",
+    "defaultMessage": "!!!Your workspaces",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 21,
+      "column": 18
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.account",
+    "defaultMessage": "!!!Account",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 25,
+      "column": 11
+    },
+    "end": {
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.team",
+    "defaultMessage": "!!!Manage Team",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 29,
+      "column": 8
+    },
+    "end": {
+      "line": 32,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.settings",
+    "defaultMessage": "!!!Settings",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 33,
+      "column": 12
+    },
+    "end": {
+      "line": 36,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.inviteFriends",
+    "defaultMessage": "!!!Invite Friends",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 37,
+      "column": 17
+    },
+    "end": {
+      "line": 40,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.navigation.logout",
+    "defaultMessage": "!!!Logout",
+    "file": "src/components/settings/navigation/SettingsNavigation.js",
+    "start": {
+      "line": 41,
+      "column": 10
+    },
+    "end": {
+      "line": 44,
+      "column": 3
+    }
+  }
+]

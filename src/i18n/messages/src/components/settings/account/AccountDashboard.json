@@ -1,0 +1,197 @@
+[
+  {
+    "id": "settings.account.headline",
+    "defaultMessage": "!!!Account",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 14,
+      "column": 12
+    },
+    "end": {
+      "line": 17,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.headlineSubscription",
+    "defaultMessage": "!!!Your Subscription",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 18,
+      "column": 24
+    },
+    "end": {
+      "line": 21,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.headlineUpgrade",
+    "defaultMessage": "!!!Upgrade your Account",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 22,
+      "column": 19
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.headlineDangerZone",
+    "defaultMessage": "!!Danger Zone",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 26,
+      "column": 22
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.manageSubscription.label",
+    "defaultMessage": "!!!Manage your subscription",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 30,
+      "column": 33
+    },
+    "end": {
+      "line": 33,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.accountType.basic",
+    "defaultMessage": "!!!Basic Account",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 34,
+      "column": 20
+    },
+    "end": {
+      "line": 37,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.accountType.premium",
+    "defaultMessage": "!!!Premium Supporter Account",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 38,
+      "column": 22
+    },
+    "end": {
+      "line": 41,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.account.editButton",
+    "defaultMessage": "!!!Edit Account",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 42,
+      "column": 21
+    },
+    "end": {
+      "line": 45,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.headlineInvoices",
+    "defaultMessage": "!!Invoices",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 46,
+      "column": 18
+    },
+    "end": {
+      "line": 49,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.invoiceDownload",
+    "defaultMessage": "!!!Download",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 50,
+      "column": 19
+    },
+    "end": {
+      "line": 53,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.userInfoRequestFailed",
+    "defaultMessage": "!!!Could not load user information",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 54,
+      "column": 25
+    },
+    "end": {
+      "line": 57,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.tryReloadUserInfoRequest",
+    "defaultMessage": "!!!Try again",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 58,
+      "column": 28
+    },
+    "end": {
+      "line": 61,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.deleteAccount",
+    "defaultMessage": "!!!Delete account",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 62,
+      "column": 17
+    },
+    "end": {
+      "line": 65,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.deleteInfo",
+    "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 66,
+      "column": 14
+    },
+    "end": {
+      "line": 69,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.deleteEmailSent",
+    "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
+    "file": "src/components/settings/account/AccountDashboard.js",
+    "start": {
+      "line": 70,
+      "column": 19
+    },
+    "end": {
+      "line": 73,
+      "column": 3
+    }
+  }
+]

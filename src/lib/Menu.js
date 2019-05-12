@@ -1,8 +1,13 @@
 import { remote, shell } from 'electron';
-import { observable, autorun, computed } from 'mobx';
+import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
+import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
+import { workspaceActions } from '../features/workspaces/actions';
+import { gaEvent } from './analytics';
+import { announcementActions } from '../features/announcements/actions';
+import { announcementsStore } from '../features/announcements';
 
 const { app, Menu, dialog } = remote;
 
@@ -155,6 +160,10 @@ const menuItems = defineMessages({
     id: 'menu.app.about',
     defaultMessage: '!!!About Franz',
   },
+  announcement: {
+    id: 'menu.app.announcement',
+    defaultMessage: '!!!What\'s new?',
+  },
   settings: {
     id: 'menu.app.settings',
     defaultMessage: '!!!Settings',
@@ -178,6 +187,42 @@ const menuItems = defineMessages({
   addNewService: {
     id: 'menu.services.addNewService',
     defaultMessage: '!!!Add New Service...',
+  },
+  addNewWorkspace: {
+    id: 'menu.workspaces.addNewWorkspace',
+    defaultMessage: '!!!Add New Workspace...',
+  },
+  openWorkspaceDrawer: {
+    id: 'menu.workspaces.openWorkspaceDrawer',
+    defaultMessage: '!!!Open workspace drawer',
+  },
+  closeWorkspaceDrawer: {
+    id: 'menu.workspaces.closeWorkspaceDrawer',
+    defaultMessage: '!!!Close workspace drawer',
+  },
+  activateNextService: {
+    id: 'menu.services.setNextServiceActive',
+    defaultMessage: '!!!Activate next service...',
+  },
+  activatePreviousService: {
+    id: 'menu.services.activatePreviousService',
+    defaultMessage: '!!!Activate previous service...',
+  },
+  muteApp: {
+    id: 'sidebar.muteApp',
+    defaultMessage: '!!!Disable notifications & audio',
+  },
+  unmuteApp: {
+    id: 'sidebar.unmuteApp',
+    defaultMessage: '!!!Enable notifications & audio',
+  },
+  workspaces: {
+    id: 'menu.workspaces',
+    defaultMessage: '!!!Workspaces',
+  },
+  defaultWorkspace: {
+    id: 'menu.workspaces.defaultWorkspace',
+    defaultMessage: '!!!Default',
   },
 });
 
@@ -239,16 +284,32 @@ const _templateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.resetZoom),
-        role: 'resetzoom',
+        accelerator: 'Cmd+0',
+        click() {
+          getActiveWebview().setZoomLevel(0);
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        // accelerator: 'Cmd+=',
-        role: 'zoomin',
+        accelerator: 'Cmd+plus',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
+          });
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomOut),
-        role: 'zoomout',
+        accelerator: 'Cmd+-',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
+          });
+        },
       },
       {
         type: 'separator',
@@ -264,6 +325,11 @@ const _templateFactory = intl => [
   {
     label: intl.formatMessage(menuItems.services),
     submenu: [],
+  },
+  {
+    label: intl.formatMessage(menuItems.workspaces),
+    submenu: [],
+    visible: workspaceStore.isFeatureEnabled,
   },
   {
     label: intl.formatMessage(menuItems.window),
@@ -288,8 +354,11 @@ const _templateFactory = intl => [
         click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
-        label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
+        label: intl.formatMessage(menuItems.announcement),
+        click: () => {
+          announcementActions.show();
+        },
+        visible: window.franz.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
       },
       {
         type: 'separator',
@@ -392,10 +461,12 @@ const _titleBarTemplateFactory = intl => [
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${ctrlKey}+Plus`,
+        accelerator: `${ctrlKey}+=`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === 5 ? zoomLevel : zoomLevel + 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+            if (level < 9) activeService.setZoomLevel(level + 1);
           });
         },
       },
@@ -403,8 +474,10 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${ctrlKey}+-`,
         click() {
-          getActiveWebview().getZoomLevel((zoomLevel) => {
-            getActiveWebview().setZoomLevel(zoomLevel === -5 ? zoomLevel : zoomLevel - 1);
+          const activeService = getActiveWebview();
+          activeService.getZoomLevel((level) => {
+            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+            if (level > -9) activeService.setZoomLevel(level - 1);
           });
         },
       },
@@ -499,13 +572,14 @@ export default class FranzMenu {
   }
 
   _build() {
-    const serviceTpl = Object.assign([], this.serviceTpl); // need to clone object so we don't modify computed (cached) object
+    // need to clone object so we don't modify computed (cached) object
+    const serviceTpl = Object.assign([], this.serviceTpl());
 
     if (window.franz === undefined) {
       return;
     }
 
-    const intl = window.franz.intl;
+    const { intl } = window.franz;
     const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
 
     tpl[1].submenu.push({
@@ -632,7 +706,7 @@ export default class FranzMenu {
         },
       );
 
-      tpl[4].submenu.unshift(about, {
+      tpl[5].submenu.unshift(about, {
         type: 'separator',
       });
     } else {
@@ -663,19 +737,12 @@ export default class FranzMenu {
       }, about);
     }
 
-    serviceTpl.unshift({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${cmdKey}+N`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
-      },
-      enabled: this.stores.user.isLoggedIn,
-    }, {
-      type: 'separator',
-    });
-
     if (serviceTpl.length > 0) {
       tpl[3].submenu = serviceTpl;
+    }
+
+    if (workspaceStore.isFeatureEnabled) {
+      tpl[4].submenu = this.workspacesMenu();
     }
 
     this.currentTemplate = tpl;
@@ -683,22 +750,109 @@ export default class FranzMenu {
     Menu.setApplicationMenu(menu);
   }
 
-  @computed get serviceTpl() {
-    const services = this.stores.services.allDisplayed;
+  serviceTpl() {
+    const { intl } = window.franz;
+    const { user, services, settings } = this.stores;
+    if (!user.isLoggedIn) return [];
+    const menu = [];
 
-    if (this.stores.user.isLoggedIn) {
-      return services.map((service, i) => ({
-        label: this._getServiceName(service),
-        accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
+    menu.push({
+      label: intl.formatMessage(menuItems.addNewService),
+      accelerator: `${cmdKey}+N`,
+      click: () => {
+        this.actions.ui.openSettings({ path: 'recipes' });
+      },
+    }, {
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.activateNextService),
+      accelerator: `${cmdKey}+alt+right`,
+      click: () => this.actions.service.setActiveNext(),
+    }, {
+      label: intl.formatMessage(menuItems.activatePreviousService),
+      accelerator: `${cmdKey}+alt+left`,
+      click: () => this.actions.service.setActivePrev(),
+    }, {
+      label: intl.formatMessage(
+        settings.all.app.isAppMuted ? menuItems.unmuteApp : menuItems.muteApp,
+      ).replace('&', '&&'),
+      accelerator: `${cmdKey}+shift+m`,
+      click: () => this.actions.app.toggleMuteApp(),
+    }, {
+      type: 'separator',
+    });
+
+    services.allDisplayed.forEach((service, i) => (menu.push({
+      label: this._getServiceName(service),
+      accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
+      type: 'radio',
+      checked: service.isActive,
+      click: () => {
+        this.actions.service.setActive({ serviceId: service.id });
+      },
+    })));
+
+    return menu;
+  }
+
+  workspacesMenu() {
+    const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
+    const { intl } = window.franz;
+    const menu = [];
+
+    // Add new workspace item:
+    menu.push({
+      label: intl.formatMessage(menuItems.addNewWorkspace),
+      accelerator: `${cmdKey}+Shift+N`,
+      click: () => {
+        workspaceActions.openWorkspaceSettings();
+      },
+      enabled: this.stores.user.isLoggedIn,
+    });
+
+    // Open workspace drawer:
+    const drawerLabel = (
+      isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
+    );
+    menu.push({
+      label: intl.formatMessage(drawerLabel),
+      accelerator: `${cmdKey}+D`,
+      click: () => {
+        workspaceActions.toggleWorkspaceDrawer();
+        gaEvent(GA_CATEGORY_WORKSPACES, 'toggleDrawer', 'menu');
+      },
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    });
+
+    // Default workspace
+    menu.push({
+      label: intl.formatMessage(menuItems.defaultWorkspace),
+      accelerator: `${cmdKey}+Alt+0`,
+      type: 'radio',
+      checked: !activeWorkspace,
+      click: () => {
+        workspaceActions.deactivate();
+        gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+      },
+    });
+
+    // Workspace items
+    if (this.stores.user.isPremium) {
+      workspaces.forEach((workspace, i) => menu.push({
+        label: workspace.name,
+        accelerator: i < 9 ? `${cmdKey}+Alt+${i + 1}` : null,
         type: 'radio',
-        checked: service.isActive,
+        checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
         click: () => {
-          this.actions.service.setActive({ serviceId: service.id });
+          workspaceActions.activate({ workspace });
+          gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
         },
       }));
     }
 
-    return [];
+    return menu;
   }
 
   _getServiceName(service) {

@@ -4,7 +4,7 @@ import { autoUpdater } from 'electron-updater';
 const debug = require('debug')('Franz:ipcApi:autoUpdate');
 
 export default (params) => {
-  if (process.platform === 'darwin' || process.platform === 'win32') {
+  if (process.platform === 'darwin' || process.platform === 'win32' || process.env.APPIMAGE) {
     ipcMain.on('autoUpdate', (event, args) => {
       try {
         autoUpdater.autoInstallOnAppQuit = false;
@@ -30,9 +30,12 @@ export default (params) => {
       params.mainWindow.webContents.send('autoUpdate', { available: false });
     });
 
-    autoUpdater.on('update-available', () => {
+    autoUpdater.on('update-available', (event) => {
       debug('update-available');
-      params.mainWindow.webContents.send('autoUpdate', { available: true });
+      params.mainWindow.webContents.send('autoUpdate', {
+        version: event.version,
+        available: true,
+      });
     });
 
     autoUpdater.on('download-progress', (progressObj) => {

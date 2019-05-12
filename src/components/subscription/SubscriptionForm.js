@@ -35,31 +35,33 @@ const messages = defineMessages({
     id: 'subscription.includedFeatures',
     defaultMessage: '!!!The Franz Premium Supporter Account includes',
   },
-  features: {
-    onpremise: {
-      id: 'subscription.features.onpremise.mattermost',
-      defaultMessage: '!!!Add on-premise/hosted services like Mattermost',
-    },
-    noInterruptions: {
-      id: 'subscription.features.noInterruptions',
-      defaultMessage: '!!!No app delays & nagging to upgrade license',
-    },
-    proxy: {
-      id: 'subscription.features.proxy',
-      defaultMessage: '!!!Proxy support for services',
-    },
-    spellchecker: {
-      id: 'subscription.features.spellchecker',
-      defaultMessage: '!!!Support for Spellchecker',
-    },
-    ads: {
-      id: 'subscription.features.ads',
-      defaultMessage: '!!!No ads, ever!',
-    },
-    comingSoon: {
-      id: 'subscription.features.comingSoon',
-      defaultMessage: '!!!coming soon',
-    },
+  onpremise: {
+    id: 'subscription.features.onpremise.mattermost',
+    defaultMessage: '!!!Add on-premise/hosted services like Mattermost',
+  },
+  noInterruptions: {
+    id: 'subscription.features.noInterruptions',
+    defaultMessage: '!!!No app delays & nagging to upgrade license',
+  },
+  proxy: {
+    id: 'subscription.features.proxy',
+    defaultMessage: '!!!Proxy support for services',
+  },
+  spellchecker: {
+    id: 'subscription.features.spellchecker',
+    defaultMessage: '!!!Support for Spellchecker',
+  },
+  workspaces: {
+    id: 'subscription.features.workspaces',
+    defaultMessage: '!!!Organize your services in workspaces',
+  },
+  ads: {
+    id: 'subscription.features.ads',
+    defaultMessage: '!!!No ads, ever!',
+  },
+  comingSoon: {
+    id: 'subscription.features.comingSoon',
+    defaultMessage: '!!!coming soon',
   },
   euTaxInfo: {
     id: 'subscription.euTaxInfo',
@@ -85,7 +87,7 @@ export default @observer class SubscriptionForm extends Component {
     showSkipOption: false,
     skipAction: () => null,
     skipButtonLabel: '',
-  }
+  };
 
   static contextTypes = {
     intl: intlShape,
@@ -162,18 +164,21 @@ export default @observer class SubscriptionForm extends Component {
             </p>
             <div className="subscription">
               <ul className="subscription__premium-features">
-                <li>{intl.formatMessage(messages.features.onpremise)}</li>
+                <li>{intl.formatMessage(messages.onpremise)}</li>
                 <li>
-                  {intl.formatMessage(messages.features.noInterruptions)}
+                  {intl.formatMessage(messages.noInterruptions)}
                 </li>
                 <li>
-                  {intl.formatMessage(messages.features.spellchecker)}
+                  {intl.formatMessage(messages.spellchecker)}
                 </li>
                 <li>
-                  {intl.formatMessage(messages.features.proxy)}
+                  {intl.formatMessage(messages.proxy)}
                 </li>
                 <li>
-                  {intl.formatMessage(messages.features.ads)}
+                  {intl.formatMessage(messages.workspaces)}
+                </li>
+                <li>
+                  {intl.formatMessage(messages.ads)}
                 </li>
               </ul>
             </div>
