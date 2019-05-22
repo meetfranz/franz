@@ -268,7 +268,7 @@ class AnnouncementScreen extends Component {
           <div className={classes.changelog}>
             <h1 className={classes.headline}>
               {intl.formatMessage(messages.headline, {
-                version: announcementsStore.currentVersion,
+                version: announcementsStore.targetVersion,
               })}
             </h1>
             <div
