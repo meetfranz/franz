@@ -4,6 +4,7 @@ import ServiceModel from '../models/Service';
 export default {
   setActive: {
     serviceId: PropTypes.string.isRequired,
+    keepActiveRoute: PropTypes.bool,
   },
   blurActive: {},
   setActiveNext: {},

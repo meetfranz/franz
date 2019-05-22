@@ -291,7 +291,8 @@ export default class ServicesStore extends Store {
     gaEvent('Service', 'clear cache');
   }
 
-  @action _setActive({ serviceId }) {
+  @action _setActive({ serviceId, keepActiveRoute }) {
+    if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
     this.all.forEach((s, index) => {

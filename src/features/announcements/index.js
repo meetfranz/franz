@@ -7,6 +7,10 @@ export const GA_CATEGORY_ANNOUNCEMENTS = 'Announcements';
 
 export const announcementsStore = new AnnouncementsStore();
 
+export const ANNOUNCEMENTS_ROUTES = {
+  TARGET: '/announcements/:id',
+};
+
 export default function initAnnouncements(stores, actions) {
   // const { features } = stores;
 
