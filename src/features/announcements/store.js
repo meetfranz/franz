@@ -29,7 +29,15 @@ export class AnnouncementsStore extends FeatureStore {
   }
 
   @computed get announcement() {
-    return getAnnouncementRequest.result;
+    if (!this.stores || !getAnnouncementRequest.result) return null;
+    const { locale, defaultLocale } = this.stores.app;
+    const announcement = getAnnouncementRequest.result;
+    // User locale
+    if (announcement[locale]) return announcement[locale];
+    // Default locale
+    if (announcement[defaultLocale]) return announcement[defaultLocale];
+    // No locales specified
+    return announcement;
   }
 
   @computed get areNewsAvailable() {
@@ -121,8 +129,8 @@ export class AnnouncementsStore extends FeatureStore {
   _fetchAnnouncements = () => {
     const targetVersion = this.targetVersion || this.currentVersion;
     if (!targetVersion) return;
-    getChangelogRequest.execute(targetVersion);
-    getAnnouncementRequest.execute(targetVersion);
+    getChangelogRequest.reset().execute(targetVersion);
+    getAnnouncementRequest.reset().execute(targetVersion);
   };
 
   _showAnnouncementOnRouteMatch = () => {
