@@ -860,7 +860,7 @@ export default class FranzMenu {
       return service.name;
     }
 
-    let name = service.recipe.name;
+    let { name } = service.recipe;
 
     if (service.team) {
       name = `${name} (${service.team})`;

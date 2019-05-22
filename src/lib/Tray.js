@@ -84,7 +84,7 @@ export default class TrayIcon {
   }
 
   _getAsset(type, asset) {
-    let platform = process.platform;
+    let { platform } = process;
 
     if (platform === 'darwin' && systemPreferences.isDarkMode()) {
       platform = `${platform}-dark`;

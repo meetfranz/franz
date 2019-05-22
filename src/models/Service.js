@@ -161,7 +161,7 @@ export default class Service {
   }
 
   @computed get userAgent() {
-    let userAgent = window.navigator.userAgent;
+    let { userAgent } = window.navigator;
     if (typeof this.recipe.overrideUserAgent === 'function') {
       userAgent = this.recipe.overrideUserAgent();
     }

@@ -153,7 +153,7 @@ export default @observer class EditServiceForm extends Component {
         const values = form.values();
         let isValid = true;
 
-        const files = form.$('customIcon').files;
+        const { files } = form.$('customIcon');
         if (files) {
           values.iconFile = files[0];
         }
