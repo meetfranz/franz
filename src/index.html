@@ -17,7 +17,7 @@
     if (isDevMode) {
       const debugging = require('debug');
       debugging.enable(process.env.DEBUG);
-      
+
       const debug = debugging('Index');
 
       document.querySelector('body').classList.add('isDevMode');
@@ -36,7 +36,7 @@
           window._onLiveReloadFileChanged = (file) => {
             if (!file.path.includes('/build/webview/') && !file.path.includes('/build/index.js') && !file.path.includes('/build/electron/')) {
               originalReloadBehaviour(file);
-            } else {              
+            } else {
               if (file.path.includes('/build/webview/')) {
                 debug('Livereload: Reloading all webvies');
                 const webviews = document.querySelectorAll('webview').forEach(webview => webview.reload());
