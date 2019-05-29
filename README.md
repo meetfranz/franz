@@ -12,3 +12,9 @@ $ npm run build
 ```
 
 Distributables will be available in the `./out` folder.
+
+## Features
+
+- [x] Removes the fullscreen app delay inviting users to upgrade
+- [ ] [#5](https://github.com/kytwb/ferdi/issues/5) Makes it optional to create an account
+- [ ] [#6](https://github.com/kytwb/ferdi/issues/6) Makes RocketChat self-hosted generally available
