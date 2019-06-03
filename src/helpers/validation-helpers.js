@@ -33,7 +33,7 @@ export function email({ field }) {
   let isValid = false;
 
   if (value !== '') {
-    isValid = Boolean(value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}/i));
+    isValid = Boolean(value.match(/[A-Z0-9._^%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}/i));
   } else {
     isValid = true;
   }
