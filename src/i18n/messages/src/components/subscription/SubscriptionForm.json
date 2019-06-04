@@ -130,15 +130,28 @@
     }
   },
   {
+    "id": "subscription.features.workspaces",
+    "defaultMessage": "!!!Organize your services in workspaces",
+    "file": "src/components/subscription/SubscriptionForm.js",
+    "start": {
+      "line": 54,
+      "column": 14
+    },
+    "end": {
+      "line": 57,
+      "column": 3
+    }
+  },
+  {
     "id": "subscription.features.ads",
     "defaultMessage": "!!!No ads, ever!",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 54,
+      "line": 58,
       "column": 7
     },
     "end": {
-      "line": 57,
+      "line": 61,
       "column": 3
     }
   },
@@ -147,11 +160,11 @@
     "defaultMessage": "!!!coming soon",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 58,
+      "line": 62,
       "column": 14
     },
     "end": {
-      "line": 61,
+      "line": 65,
       "column": 3
     }
   },
@@ -160,11 +173,11 @@
     "defaultMessage": "!!!EU residents: local sales tax may apply",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 62,
+      "line": 66,
       "column": 13
     },
     "end": {
-      "line": 65,
+      "line": 69,
       "column": 3
     }
   }

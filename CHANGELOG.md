@@ -1,14 +1,28 @@
-# [5.0.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1) (2019-03-25)
+# [5.1.0](https://github.com/meetfranz/franz/compare/v5.1.0...v5.1.0-beta.1) (2019-04-16)
+
+### Features
+
+* **App:** Added Workspaces for all your daily routines 🎉 ([47c1c99](https://github.com/meetfranz/franz/commit/47c1c99))
+* **App:** Added [Team Management](https://meetfranz.com/user/team) 🎉 ([47c1c99](https://github.com/meetfranz/franz/commit/47c1c99))
+* **App:** Added Kerberos Support via Command Line Switches ([#1331](https://github.com/meetfranz/franz/issues/1331)) ([@frumania](https://github.com/frumania)) ([a1950d7](https://github.com/meetfranz/franz/commit/a1950d7))
+* **App:** Open changelog in app
+* **App:** Various small fixes and improvements 
 
 ### General
 
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+* **App:** Update electron to 4.1.4 ([2604914](https://github.com/meetfranz/franz/commit/2604914))
 
+
+# [5.1.0-beta.1](https://github.com/meetfranz/franz/compare/v5.0.1-beta.1...v5.1.0-beta.1) (2019-04-16)
+
+[See 5.1.0 changelog.](#5-1-0--2019-04-16-)
+
+# [5.0.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1) (2019-03-25)
 
 ### Features
 
 * **App:** Add security checks for external URLs ([6e5531a](https://github.com/meetfranz/franz/commit/6e5531a))
-* **App:** Update electron to 4.0.8 ([8336d17](https://github.com/meetfranz/franz/commit/8336d17))
 * **Linux:** Add auto updater for Linux AppImage builds ([d641b4e](https://github.com/meetfranz/franz/commit/d641b4e))
 * **Spell check:** Add British English as spell check language ([#1306](https://github.com/meetfranz/franz/issues/1306)) ([67fa325](https://github.com/meetfranz/franz/commit/67fa325))
 * **Windows:** Add option to quit Franz from Taskbar icon ([952fc8b](https://github.com/meetfranz/franz/commit/952fc8b))
@@ -22,16 +36,17 @@
 * **Windows:** Fix copy & paste in service context menus ([e66fcaa](https://github.com/meetfranz/franz/commit/e66fcaa)), closes [#1316](https://github.com/meetfranz/franz/issues/1316)
 * **Windows:** Fix losing window when "Keep Franz in background" is enabled ([78a3722](https://github.com/meetfranz/franz/commit/78a3722))
 
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+* **App:** Update electron to 4.0.8 ([8336d17](https://github.com/meetfranz/franz/commit/8336d17))
+
 
 # [5.0.1-beta.1](https://github.com/meetfranz/franz/compare/v5.0.0...v5.0.1-beta.1) (2019-03-18)
 
 [See 5.0.1 changelog.](#5-0-1--2019-03-25-)
 
 # [5.0.0](https://github.com/meetfranz/franz/compare/5.0.0-beta.24...5.0.0) (2019-02-15)
-
-### General
-
-* **App:** Updated electron to 4.0.4
 
 ### Features
 
@@ -41,6 +56,10 @@
 ### Bug Fixes
 
 * **App:** Various bugfixes and improvements
+
+### General
+
+* **App:** Updated electron to 4.0.4
 
 
 

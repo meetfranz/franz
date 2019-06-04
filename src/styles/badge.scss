@@ -8,7 +8,7 @@
   &.badge--primary,
   &.badge--premium {
     background: $theme-brand-primary;
-    color: $dark-theme-gray-smoke;
+    color: $dark-theme-gray-lightest;
   }
 }
 
@@ -19,6 +19,7 @@
   display: inline-block;
   font-size: 14px;
   padding: 5px 10px;
+  letter-spacing: 0;
 
   &.badge--primary,
   &.badge--premium {

@@ -268,7 +268,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const features = data;
-    console.debug('ServerApi::getDefaultFeatures resolves', features);
+    debug('ServerApi::getDefaultFeatures resolves', features);
     return features;
   }
 
@@ -280,7 +280,7 @@ export default class ServerApi {
     const data = await request.json();
 
     const features = data;
-    console.debug('ServerApi::getFeatures resolves', features);
+    debug('ServerApi::getFeatures resolves', features);
     return features;
   }
 
@@ -416,23 +416,6 @@ export default class ServerApi {
 
     debug('ServerApi::getHostedPage resolves', data);
     return data;
-  }
-
-  async getPaymentDashboardUrl() {
-    const request = await sendAuthRequest(`${API_URL}/me/billing`);
-    if (!request.ok) throw request;
-    const data = await request.json();
-    debug('ServerApi::getPaymentDashboardUrl resolves', data);
-    return data;
-  }
-
-  async getSubscriptionOrders() {
-    const request = await sendAuthRequest(`${API_URL}/me/subscription`);
-    if (!request.ok) throw request;
-    const data = await request.json();
-    const orders = this._mapOrderModels(data);
-    debug('ServerApi::getSubscriptionOrders resolves', orders);
-    return orders;
   }
 
   // News

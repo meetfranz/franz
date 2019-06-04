@@ -51,6 +51,10 @@ const messages = defineMessages({
     id: 'subscription.features.spellchecker',
     defaultMessage: '!!!Support for Spellchecker',
   },
+  workspaces: {
+    id: 'subscription.features.workspaces',
+    defaultMessage: '!!!Organize your services in workspaces',
+  },
   ads: {
     id: 'subscription.features.ads',
     defaultMessage: '!!!No ads, ever!',
@@ -169,6 +173,9 @@ export default @observer class SubscriptionForm extends Component {
                 </li>
                 <li>
                   {intl.formatMessage(messages.proxy)}
+                </li>
+                <li>
+                  {intl.formatMessage(messages.workspaces)}
                 </li>
                 <li>
                   {intl.formatMessage(messages.ads)}

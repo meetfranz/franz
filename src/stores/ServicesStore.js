@@ -11,7 +11,7 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent } from '../lib/analytics';
+import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');
@@ -36,6 +36,7 @@ export default class ServicesStore extends Store {
 
     // Register action handlers
     this.actions.service.setActive.listen(this._setActive.bind(this));
+    this.actions.service.blurActive.listen(this._blurActive.bind(this));
     this.actions.service.setActiveNext.listen(this._setActiveNext.bind(this));
     this.actions.service.setActivePrev.listen(this._setActivePrev.bind(this));
     this.actions.service.showAddServiceInterface.listen(this._showAddServiceInterface.bind(this));
@@ -290,7 +291,8 @@ export default class ServicesStore extends Store {
     gaEvent('Service', 'clear cache');
   }
 
-  @action _setActive({ serviceId }) {
+  @action _setActive({ serviceId, keepActiveRoute }) {
+    if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
     this.all.forEach((s, index) => {
@@ -298,7 +300,14 @@ export default class ServicesStore extends Store {
     });
     service.isActive = true;
 
+    statsEvent('activate-service', service.recipe.id);
+
     this._focusActiveService();
+  }
+
+  @action _blurActive() {
+    if (!this.active) return;
+    this.active.isActive = false;
   }
 
   @action _setActiveNext() {
@@ -509,7 +518,16 @@ export default class ServicesStore extends Store {
     this.actions.ui.toggleServiceUpdatedInfoBar({ visible: false });
   }
 
-  @action _reorder({ oldIndex, newIndex }) {
+  @action _reorder(params) {
+    const { workspaces } = this.stores;
+    if (workspaces.isAnyWorkspaceActive) {
+      workspaces.reorderServicesOfActiveWorkspace(params);
+    } else {
+      this._reorderService(params);
+    }
+  }
+
+  @action _reorderService({ oldIndex, newIndex }) {
     const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);

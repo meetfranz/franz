@@ -7,7 +7,7 @@ import injectSheet from 'react-jss';
 import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
 import { gaEvent } from '../../../lib/analytics';
-import { GA_CATEGORY_WORKSPACES } from '../index';
+import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
 
 const messages = defineMessages({
   submitButton: {
@@ -82,7 +82,7 @@ class CreateWorkspaceForm extends Component {
           {...form.$('name').bind()}
           showLabel={false}
           onEnterKey={this.submitForm.bind(this, form)}
-          focus
+          focus={workspaceStore.isUserAllowedToUseFeature}
         />
         <Button
           className={classes.submitButton}

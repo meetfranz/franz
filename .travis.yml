@@ -14,7 +14,7 @@ matrix:
 
 language: node_js
 
-install: 
+install:
 - echo do nothing
 
 before_script:
@@ -22,7 +22,7 @@ before_script:
 - npm install node-sass -g
 
 script:
-# - npm run lint
+- npm run test
 - travis_wait 30 npm run build
 
 cache: npm
@@ -30,7 +30,7 @@ cache: npm
 notifications:
   email: false
   slack:
-    secure: NjEDG+6YvJvFNwRT8t8XyVR145m+Pb1pmYgdBeuhqtJbMAr0IOb0lLLW9ixKEsL1NU+0R58QGiG9qqY+lLnMNpDYjzluFo0gQtl2NJrULT4xUFDSu65XTwoutKyvj+hoCsHiwrSrO2dHTx3ZK2vsSueg+8jM/xss7dTLA6BcTYl14wTOU37PqFQZk9JYR+Dfq1Jjhy/mq4BiAsb/1clNIulkjmRjSm6R0XT4ZsZZfj0ifXhL4cLGsUv2n+iePiX6bLwZPFjXV1COYTBafbCu17gw3nRMdNMMTDLbwrXXdJZFS/EjFOPgOhwF7CkZ3kSpB2ZIcAJxG7iAUl5j+jHBXc5dafRbjzE4oYve1vPexLoV3NjV76uANUFkcli6eHYD0uJoUJGBRbRGWp+8Bbw9EcBsn4s3vbf5XqHX3S46zvGgqX+LyhyMJQtEG/iv+9XOsOql18ryyejij0z1K7DxpI0gLV1ATZCphY1Fyz1yZDGlYN4ej/Rl2P1Q3yXilweJRF7Ts04w4U9iuP1u598/w++CKSu4q4EeEuqT/hIeFQUKUkwCEsO4xa39vhLPaxKrG9UEUH8OXN+NPZyTAK/LKuIX7C56O1kwvWNMWlPmTcvsq2RghvNTwgSGUIO0EKZKrQYAEG3Y/veSt5CgZoNzLgc/6Xj+g7daxUo9heLy26A=
+    secure: GMiD9uhGUNkJbasOMvfUmQx/SKG8wd/MC4IPtiZZnlLkiN6eJQnV3p9OeMaiSCcq19gQ65z898h55PXwFX5pFqmGMQF0zdA3VXlVh7wrUU/Z8cYxCBaZTIOgNwtrteT9V9easV/5BuUGLHVgAFYEhS5tJDu2GU4UKdm6mko4YyxKHdsCsvkRpv+zpFF1a+G2ZUwWHDhTZsBJbx7SW7xzPKYI+vq+bNnbyC6p0kpeTehf29A8CoIgQlDctzk4aOHkj35WHIiKS5yzr/nb8oY/B6vCdfFHCrCkZxQrxPEagyYTfEusWwQRJ4rvwt8dgBO1A3ckO+AC1MEAYRYHgQMI5K86tcQ7/su5iOhu9NDbZ/BfriaTDlrurKMWPhZ/RVnFUT4tn7XVVcMxz6/FYFDYIDSHEn5E20a7qV1ixF7XKoJU6eOfo3qZ7euxiZIbDbHBH+Y2ZmzUGfrQ7DFlefMEM/6Laa0jNGOSvfc6mvk1x63bVTT5KfYEX4ztXnBY77haG4/h5bIHyNDzLsZ5vxXbvmHZb6ToMVn9UT6HS0sZQ/B4bghJbdZuOrPFlz8UNRpwoBS4HpLUndhYCo0ppxd3yCd5gqEhIJzEiJNoMq+LA9/iheLbWlJVdjP2WRQ2/m9VCSxnivTdNhnp6lSATiXAgq2WN2LGhTSGtXgqtcYGXhk=
 
 deploy:
   provider: s3

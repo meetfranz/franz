@@ -178,6 +178,7 @@ export default class UserStore extends Store {
       password,
       accountType,
       company,
+      locale: this.stores.app.locale,
     });
 
     this.hasCompletedSignup = false;

@@ -170,18 +170,32 @@ class WorkspacesDashboard extends Component {
                     {intl.formatMessage(messages.workspacesRequestFailed)}
                   </Infobox>
                 ) : (
-                  <table className={classes.table}>
-                    {/* ===== Workspaces list ===== */}
-                    <tbody>
-                      {workspaces.map(workspace => (
-                        <WorkspaceItem
-                          key={workspace.id}
-                          workspace={workspace}
-                          onItemClick={w => onWorkspaceClick(w)}
-                        />
-                      ))}
-                    </tbody>
-                  </table>
+                  <Fragment>
+                    {workspaces.length === 0 ? (
+                      <div className="align-middle settings__empty-state">
+                        {/* ===== Workspaces empty state ===== */}
+                        <p className="settings__empty-text">
+                          <span className="emoji">
+                            <img src="./assets/images/emoji/sad.png" alt="" />
+                          </span>
+                          {intl.formatMessage(messages.noServicesAdded)}
+                        </p>
+                      </div>
+                    ) : (
+                      <table className={classes.table}>
+                        {/* ===== Workspaces list ===== */}
+                        <tbody>
+                          {workspaces.map(workspace => (
+                            <WorkspaceItem
+                              key={workspace.id}
+                              workspace={workspace}
+                              onItemClick={w => onWorkspaceClick(w)}
+                            />
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </Fragment>
                 )}
               </Fragment>
             )}

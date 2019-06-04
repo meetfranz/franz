@@ -219,5 +219,18 @@
       "line": 83,
       "column": 3
     }
+  },
+  {
+    "id": "settings.app.languageDisclaimer",
+    "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 84,
+      "column": 22
+    },
+    "end": {
+      "line": 87,
+      "column": 3
+    }
   }
 ]

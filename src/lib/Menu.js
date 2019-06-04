@@ -6,6 +6,8 @@ import { isMac, ctrlKey, cmdKey } from '../environment';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
 import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
+import { announcementActions } from '../features/announcements/actions';
+import { announcementsStore } from '../features/announcements';
 
 const { app, Menu, dialog } = remote;
 
@@ -157,6 +159,10 @@ const menuItems = defineMessages({
   about: {
     id: 'menu.app.about',
     defaultMessage: '!!!About Franz',
+  },
+  announcement: {
+    id: 'menu.app.announcement',
+    defaultMessage: '!!!What\'s new?',
   },
   settings: {
     id: 'menu.app.settings',
@@ -348,8 +354,11 @@ const _templateFactory = intl => [
         click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
-        label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
+        label: intl.formatMessage(menuItems.announcement),
+        click: () => {
+          announcementActions.show();
+        },
+        visible: window.franz.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
       },
       {
         type: 'separator',
