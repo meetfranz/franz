@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import isEmail from 'validator/lib/isEmail';
 
 const messages = defineMessages({
   required: {
@@ -33,7 +34,7 @@ export function email({ field }) {
   let isValid = false;
 
   if (value !== '') {
-    isValid = Boolean(value.match(/[A-Z0-9._^%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}/i));
+    isValid = validator.isEmail(value);
   } else {
     isValid = true;
   }
