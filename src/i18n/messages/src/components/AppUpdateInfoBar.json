@@ -1,0 +1,41 @@
+[
+  {
+    "id": "infobar.updateAvailable",
+    "defaultMessage": "!!!A new update for Franz is available.",
+    "file": "src/components/AppUpdateInfoBar.js",
+    "start": {
+      "line": 9,
+      "column": 19
+    },
+    "end": {
+      "line": 12,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.buttonChangelog",
+    "defaultMessage": "!!!Changelog",
+    "file": "src/components/AppUpdateInfoBar.js",
+    "start": {
+      "line": 13,
+      "column": 13
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "infobar.buttonInstallUpdate",
+    "defaultMessage": "!!!Restart & install update",
+    "file": "src/components/AppUpdateInfoBar.js",
+    "start": {
+      "line": 17,
+      "column": 23
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  }
+]
