@@ -508,7 +508,7 @@
   },
   {
     "id": "menu.app.checkForUpdates",
-    "defaultMessage": "!!!Check for Updates",
+    "defaultMessage": "!!!Check for updates",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 171,

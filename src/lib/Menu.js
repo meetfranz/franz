@@ -170,7 +170,7 @@ const menuItems = defineMessages({
   },
   checkForUpdates: {
     id: 'menu.app.checkForUpdates',
-    defaultMessage: '!!!Check for Updates',
+    defaultMessage: '!!!Check for updates',
   },
   hide: {
     id: 'menu.app.hide',
