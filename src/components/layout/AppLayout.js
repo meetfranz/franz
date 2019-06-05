@@ -16,7 +16,6 @@ import ErrorBoundary from '../util/ErrorBoundary';
 import { isWindows } from '../../environment';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
-import { announcementActions } from '../../features/announcements/actions';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 
 function createMarkup(HTMLString) {

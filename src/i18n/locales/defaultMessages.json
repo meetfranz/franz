@@ -669,39 +669,39 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 29
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 27
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 33
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 31
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 37
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 35
+          "line": 34
         }
       }
     ],

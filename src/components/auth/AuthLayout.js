@@ -48,7 +48,7 @@ export default @observer class AuthLayout extends Component {
       darkMode,
       nextAppReleaseVersion,
       installAppUpdate,
-      appUpdateIsDownloaded
+      appUpdateIsDownloaded,
     } = this.props;
     const { intl } = this.context;
 
