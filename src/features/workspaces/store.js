@@ -312,17 +312,13 @@ export default class WorkspacesStore extends FeatureStore {
 
   _cleanupInvalidServiceReferences = () => {
     const { services } = this.stores;
-    let invalidServiceReferencesExist = false;
     this.workspaces.forEach((workspace) => {
       workspace.services.forEach((serviceId) => {
-        if (!services.one(serviceId)) {
-          invalidServiceReferencesExist = true;
+        if (services.allServicesRequest.wasExecuted && !services.one(serviceId)) {
+          workspace.services.remove(serviceId);
         }
       });
     });
-    if (invalidServiceReferencesExist) {
-      getUserWorkspacesRequest.execute();
-    }
   };
 
   _stopPremiumActionsAndReactions = () => {
