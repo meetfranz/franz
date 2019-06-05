@@ -312,9 +312,12 @@ export default class WorkspacesStore extends FeatureStore {
 
   _cleanupInvalidServiceReferences = () => {
     const { services } = this.stores;
+    const { allServicesRequest } = services;
+    const servicesHaveBeenLoaded = allServicesRequest.wasExecuted && !allServicesRequest.isError;
+    // Loop through all workspaces and remove invalid service ids (locally)
     this.workspaces.forEach((workspace) => {
       workspace.services.forEach((serviceId) => {
-        if (services.allServicesRequest.wasExecuted && !services.one(serviceId)) {
+        if (servicesHaveBeenLoaded && !services.one(serviceId)) {
           workspace.services.remove(serviceId);
         }
       });
