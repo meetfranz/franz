@@ -86,6 +86,7 @@
     "smoothscroll-polyfill": "^0.3.4",
     "tar": "^4.0.2",
     "uuid": "^3.0.1",
+    "validator": "11.0.0",
     "ws": "6.2.1"
   },
   "devDependencies": {

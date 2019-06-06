@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import isEmail from 'validator/lib/isEmail';
 
 const messages = defineMessages({
   required: {
@@ -30,14 +31,7 @@ export function required({ field }) {
 
 export function email({ field }) {
   const value = field.value.trim();
-  let isValid = false;
-
-  if (value !== '') {
-    isValid = Boolean(value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}/i));
-  } else {
-    isValid = true;
-  }
-
+  const isValid = isEmail(value);
   return [isValid, window.franz.intl.formatMessage(messages.email, { field: field.label })];
 }
 

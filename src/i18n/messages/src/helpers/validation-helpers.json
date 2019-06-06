@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Field is required",
     "file": "src/helpers/validation-helpers.js",
     "start": {
-      "line": 4,
+      "line": 5,
       "column": 12
     },
     "end": {
-      "line": 7,
+      "line": 8,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Email not valid",
     "file": "src/helpers/validation-helpers.js",
     "start": {
-      "line": 8,
+      "line": 9,
       "column": 9
     },
     "end": {
-      "line": 11,
+      "line": 12,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Not a valid URL",
     "file": "src/helpers/validation-helpers.js",
     "start": {
-      "line": 12,
+      "line": 13,
       "column": 7
     },
     "end": {
-      "line": 15,
+      "line": 16,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Too few characters",
     "file": "src/helpers/validation-helpers.js",
     "start": {
-      "line": 16,
+      "line": 17,
       "column": 13
     },
     "end": {
-      "line": 19,
+      "line": 20,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!At least one is required",
     "file": "src/helpers/validation-helpers.js",
     "start": {
-      "line": 20,
+      "line": 21,
       "column": 15
     },
     "end": {
-      "line": 23,
+      "line": 24,
       "column": 3
     }
   }
