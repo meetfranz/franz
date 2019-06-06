@@ -34,8 +34,8 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "@babel/runtime": "^7.0.0",
+    "@babel/polyfill": "7.4.4",
+    "@babel/runtime": "7.4.5",
     "@meetfranz/electron-notification-state": "^1.0.0",
     "@meetfranz/forms": "file:packages/forms",
     "@meetfranz/theme": "file:packages/theme",
