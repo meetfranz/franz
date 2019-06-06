@@ -3759,65 +3759,65 @@
         "defaultMessage": "!!!Field is required",
         "end": {
           "column": 3,
-          "line": 7
+          "line": 8
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.required",
         "start": {
           "column": 12,
-          "line": 4
+          "line": 5
         }
       },
       {
         "defaultMessage": "!!!Email not valid",
         "end": {
           "column": 3,
-          "line": 11
+          "line": 12
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.email",
         "start": {
           "column": 9,
-          "line": 8
+          "line": 9
         }
       },
       {
         "defaultMessage": "!!!Not a valid URL",
         "end": {
           "column": 3,
-          "line": 15
+          "line": 16
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.url",
         "start": {
           "column": 7,
-          "line": 12
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!Too few characters",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.minLength",
         "start": {
           "column": 13,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!At least one is required",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.oneRequired",
         "start": {
           "column": 15,
-          "line": 20
+          "line": 21
         }
       }
     ],
