@@ -13,7 +13,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionPopupScr
   completeCheck(event) {
     const { url } = event;
 
-    if (url.includes('recurly') && url.includes('confirmation')) {
+    if ((url.includes('recurly') && url.includes('confirmation')) || (url.includes('meetfranz') && url.includes('success'))) {
       this.setState({
         complete: true,
       });
