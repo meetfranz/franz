@@ -180,6 +180,7 @@ const createWindow = () => {
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
     webPreferences: {
       nodeIntegration: true,
+      webviewTag: true,
     },
   });
 
