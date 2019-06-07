@@ -56,6 +56,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
           minWidth: 600,
           webPreferences: {
             nodeIntegration: true,
+            webviewTag: true,
           },
         });
         paymentWindow.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPage.url)}`);
