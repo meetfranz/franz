@@ -183,7 +183,9 @@ export default class Service {
       options,
     }));
 
-    this.webview.addEventListener('did-start-loading', () => {
+    this.webview.addEventListener('did-start-loading', (event) => {
+      debug('Did start load', this.name, event);
+
       this.hasCrashed = false;
       this.isLoading = true;
       this.isError = false;
