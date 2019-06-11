@@ -116,6 +116,7 @@ export default class Service {
 
   @computed get shareWithWebview() {
     return {
+      id: this.id,
       spellcheckerLanguage: this.spellcheckerLanguage,
       isDarkModeEnabled: this.isDarkModeEnabled,
     };

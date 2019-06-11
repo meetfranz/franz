@@ -127,6 +127,7 @@ class RecipeController {
   }
 
   serviceIdEcho(event) {
+    debug('Received a service echo ping');
     event.sender.send('service-id', this.settings.service.id);
   }
 
@@ -136,8 +137,6 @@ class RecipeController {
 
     window.addEventListener('keyup', debounce((e) => {
       const element = e.target;
-
-      console.log(element);
 
       if (!element) return;
 
