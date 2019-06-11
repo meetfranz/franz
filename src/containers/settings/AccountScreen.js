@@ -27,7 +27,6 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
     const { actions, stores } = this.props;
 
     const url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
-    console.log(url);
 
     actions.app.openExternalUrl({ url });
   }

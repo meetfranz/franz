@@ -69,7 +69,6 @@ export default async function initialize(languageCode = 'en-us') {
     debug('Available spellchecker dictionaries', provider.availableDictionaries);
 
     attached.switchLanguage(locale);
-    console.log('seas oida', attached, provider);
 
     return provider;
   } catch (err) {
