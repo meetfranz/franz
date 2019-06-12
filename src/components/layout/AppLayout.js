@@ -14,10 +14,9 @@ import ErrorBoundary from '../util/ErrorBoundary';
 // import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
-import AnnouncementScreen from '../../features/announcements/components/AnnouncementScreen';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
-import { announcementActions } from '../../features/announcements/actions';
+import AppUpdateInfoBar from '../AppUpdateInfoBar';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -28,21 +27,9 @@ const messages = defineMessages({
     id: 'infobar.servicesUpdated',
     defaultMessage: '!!!Your services have been updated.',
   },
-  updateAvailable: {
-    id: 'infobar.updateAvailable',
-    defaultMessage: '!!!A new update for Franz is available.',
-  },
   buttonReloadServices: {
     id: 'infobar.buttonReloadServices',
     defaultMessage: '!!!Reload services',
-  },
-  changelog: {
-    id: 'infobar.buttonChangelog',
-    defaultMessage: '!!!Changelog',
-  },
-  buttonInstallUpdate: {
-    id: 'infobar.buttonInstallUpdate',
-    defaultMessage: '!!!Restart & install update',
   },
   requiredRequestsFailed: {
     id: 'infobar.requiredRequestsFailed',
@@ -83,7 +70,6 @@ class AppLayout extends Component {
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
     isDelayAppScreenVisible: PropTypes.bool.isRequired,
-    isAnnouncementVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -117,7 +103,6 @@ class AppLayout extends Component {
       areRequiredRequestsLoading,
       darkMode,
       isDelayAppScreenVisible,
-      isAnnouncementVisible,
     } = this.props;
 
     const { intl } = this.context;
@@ -176,33 +161,19 @@ class AppLayout extends Component {
                   </InfoBar>
                 )}
                 {appUpdateIsDownloaded && (
-                  <InfoBar
-                    type="primary"
-                    ctaLabel={intl.formatMessage(messages.buttonInstallUpdate)}
-                    onClick={installAppUpdate}
-                    sticky
-                  >
-                    <span className="mdi mdi-information" />
-                    {intl.formatMessage(messages.updateAvailable)}
-                    {' '}
-                    <button
-                      className="info-bar__inline-button"
-                      type="button"
-                      onClick={() => announcementActions.show({ targetVersion: nextAppReleaseVersion })}
-                    >
-                      <u>{intl.formatMessage(messages.changelog)}</u>
-                    </button>
-                  </InfoBar>
+                  <AppUpdateInfoBar
+                    nextAppReleaseVersion={nextAppReleaseVersion}
+                    onInstallUpdate={installAppUpdate}
+                  />
                 )}
                 {isDelayAppScreenVisible && (<DelayApp />)}
                 <BasicAuth />
                 <ShareFranz />
-                {isAnnouncementVisible && (<AnnouncementScreen />)}
                 {services}
+                {children}
               </div>
             </div>
           </div>
-          {children}
         </div>
       </ErrorBoundary>
     );

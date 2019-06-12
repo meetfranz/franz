@@ -83,7 +83,7 @@ class InputComponent extends Component<IProps, IState> {
   }
 
   onInputKeyPress(e: React.KeyboardEvent) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       const { onEnterKey } = this.props;
       onEnterKey && onEnterKey();
     }
@@ -114,6 +114,7 @@ class InputComponent extends Component<IProps, IState> {
       max,
       step,
       required,
+      noMargin,
     } = this.props;
 
     const {
@@ -127,6 +128,7 @@ class InputComponent extends Component<IProps, IState> {
       <Wrapper
         className={className}
         identifier="franz-input"
+        noMargin={noMargin}
       >
         <Label
           title={label}

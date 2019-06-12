@@ -2,6 +2,50 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!A new update for Franz is available.",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/components/AppUpdateInfoBar.js",
+        "id": "infobar.updateAvailable",
+        "start": {
+          "column": 19,
+          "line": 9
+        }
+      },
+      {
+        "defaultMessage": "!!!Changelog",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/AppUpdateInfoBar.js",
+        "id": "infobar.buttonChangelog",
+        "start": {
+          "column": 13,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Restart & install update",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/AppUpdateInfoBar.js",
+        "id": "infobar.buttonInstallUpdate",
+        "start": {
+          "column": 23,
+          "line": 17
+        }
+      }
+    ],
+    "path": "src/components/AppUpdateInfoBar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Import your Franz 4 services",
         "end": {
           "column": 3,
@@ -625,78 +669,39 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 29
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 27
-        }
-      },
-      {
-        "defaultMessage": "!!!A new update for Franz is available.",
-        "end": {
-          "column": 3,
-          "line": 34
-        },
-        "file": "src/components/layout/AppLayout.js",
-        "id": "infobar.updateAvailable",
-        "start": {
-          "column": 19,
-          "line": 31
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 33
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 35
-        }
-      },
-      {
-        "defaultMessage": "!!!Changelog",
-        "end": {
-          "column": 3,
-          "line": 42
-        },
-        "file": "src/components/layout/AppLayout.js",
-        "id": "infobar.buttonChangelog",
-        "start": {
-          "column": 13,
-          "line": 39
-        }
-      },
-      {
-        "defaultMessage": "!!!Restart & install update",
-        "end": {
-          "column": 3,
-          "line": 46
-        },
-        "file": "src/components/layout/AppLayout.js",
-        "id": "infobar.buttonInstallUpdate",
-        "start": {
-          "column": 23,
-          "line": 43
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 37
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 47
+          "line": 34
         }
       }
     ],
@@ -3759,65 +3764,65 @@
         "defaultMessage": "!!!Field is required",
         "end": {
           "column": 3,
-          "line": 7
+          "line": 8
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.required",
         "start": {
           "column": 12,
-          "line": 4
+          "line": 5
         }
       },
       {
         "defaultMessage": "!!!Email not valid",
         "end": {
           "column": 3,
-          "line": 11
+          "line": 12
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.email",
         "start": {
           "column": 9,
-          "line": 8
+          "line": 9
         }
       },
       {
         "defaultMessage": "!!!Not a valid URL",
         "end": {
           "column": 3,
-          "line": 15
+          "line": 16
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.url",
         "start": {
           "column": 7,
-          "line": 12
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!Too few characters",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.minLength",
         "start": {
           "column": 13,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!At least one is required",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/helpers/validation-helpers.js",
         "id": "validation.oneRequired",
         "start": {
           "column": 15,
-          "line": 20
+          "line": 21
         }
       }
     ],
@@ -4416,185 +4421,198 @@
         }
       },
       {
-        "defaultMessage": "!!!Hide",
+        "defaultMessage": "!!!Check for updates",
         "end": {
           "column": 3,
           "line": 174
         },
         "file": "src/lib/Menu.js",
+        "id": "menu.app.checkForUpdates",
+        "start": {
+          "column": 19,
+          "line": 171
+        }
+      },
+      {
+        "defaultMessage": "!!!Hide",
+        "end": {
+          "column": 3,
+          "line": 178
+        },
+        "file": "src/lib/Menu.js",
         "id": "menu.app.hide",
         "start": {
           "column": 8,
-          "line": 171
+          "line": 175
         }
       },
       {
         "defaultMessage": "!!!Hide Others",
         "end": {
           "column": 3,
-          "line": 178
+          "line": 182
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.hideOthers",
         "start": {
           "column": 14,
-          "line": 175
+          "line": 179
         }
       },
       {
         "defaultMessage": "!!!Unhide",
         "end": {
           "column": 3,
-          "line": 182
+          "line": 186
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.unhide",
         "start": {
           "column": 10,
-          "line": 179
+          "line": 183
         }
       },
       {
         "defaultMessage": "!!!Quit",
         "end": {
           "column": 3,
-          "line": 186
+          "line": 190
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.quit",
         "start": {
           "column": 8,
-          "line": 183
+          "line": 187
         }
       },
       {
         "defaultMessage": "!!!Add New Service...",
         "end": {
           "column": 3,
-          "line": 190
+          "line": 194
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.addNewService",
         "start": {
           "column": 17,
-          "line": 187
+          "line": 191
         }
       },
       {
         "defaultMessage": "!!!Add New Workspace...",
         "end": {
           "column": 3,
-          "line": 194
+          "line": 198
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.addNewWorkspace",
         "start": {
           "column": 19,
-          "line": 191
+          "line": 195
         }
       },
       {
         "defaultMessage": "!!!Open workspace drawer",
         "end": {
           "column": 3,
-          "line": 198
+          "line": 202
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.openWorkspaceDrawer",
         "start": {
           "column": 23,
-          "line": 195
+          "line": 199
         }
       },
       {
         "defaultMessage": "!!!Close workspace drawer",
         "end": {
           "column": 3,
-          "line": 202
+          "line": 206
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.closeWorkspaceDrawer",
         "start": {
           "column": 24,
-          "line": 199
+          "line": 203
         }
       },
       {
         "defaultMessage": "!!!Activate next service...",
         "end": {
           "column": 3,
-          "line": 206
+          "line": 210
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.setNextServiceActive",
         "start": {
           "column": 23,
-          "line": 203
+          "line": 207
         }
       },
       {
         "defaultMessage": "!!!Activate previous service...",
         "end": {
           "column": 3,
-          "line": 210
+          "line": 214
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.activatePreviousService",
         "start": {
           "column": 27,
-          "line": 207
+          "line": 211
         }
       },
       {
         "defaultMessage": "!!!Disable notifications & audio",
         "end": {
           "column": 3,
-          "line": 214
+          "line": 218
         },
         "file": "src/lib/Menu.js",
         "id": "sidebar.muteApp",
         "start": {
           "column": 11,
-          "line": 211
+          "line": 215
         }
       },
       {
         "defaultMessage": "!!!Enable notifications & audio",
         "end": {
           "column": 3,
-          "line": 218
+          "line": 222
         },
         "file": "src/lib/Menu.js",
         "id": "sidebar.unmuteApp",
         "start": {
           "column": 13,
-          "line": 215
+          "line": 219
         }
       },
       {
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 222
+          "line": 226
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces",
         "start": {
           "column": 14,
-          "line": 219
+          "line": 223
         }
       },
       {
         "defaultMessage": "!!!Default",
         "end": {
           "column": 3,
-          "line": 226
+          "line": 230
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.defaultWorkspace",
         "start": {
           "column": 20,
-          "line": 223
+          "line": 227
         }
       }
     ],

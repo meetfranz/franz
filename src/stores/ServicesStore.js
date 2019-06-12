@@ -291,7 +291,8 @@ export default class ServicesStore extends Store {
     gaEvent('Service', 'clear cache');
   }
 
-  @action _setActive({ serviceId }) {
+  @action _setActive({ serviceId, keepActiveRoute }) {
+    if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
     this.all.forEach((s, index) => {
@@ -517,7 +518,16 @@ export default class ServicesStore extends Store {
     this.actions.ui.toggleServiceUpdatedInfoBar({ visible: false });
   }
 
-  @action _reorder({ oldIndex, newIndex }) {
+  @action _reorder(params) {
+    const { workspaces } = this.stores;
+    if (workspaces.isAnyWorkspaceActive) {
+      workspaces.reorderServicesOfActiveWorkspace(params);
+    } else {
+      this._reorderService(params);
+    }
+  }
+
+  @action _reorderService({ oldIndex, newIndex }) {
     const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
