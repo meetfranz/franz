@@ -1,3 +1,12 @@
+# [5.2.0-beta.2](https://github.com/meetfranz/franz/compare/v5.2.0-beta.1...v5.2.0-beta.2) (2019-06-12)
+
+
+### Bug Fixes
+
+* **Recipes:** Fix recipe install when directly accessing recipe ([eba50bc](https://github.com/meetfranz/franz/commit/eba50bc))
+
+
+
 # [5.2.0-beta.1](https://github.com/meetfranz/franz/compare/v5.1.0...v5.2.0-beta.1) (2019-06-11)
 
 

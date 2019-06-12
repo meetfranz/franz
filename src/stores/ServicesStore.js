@@ -148,18 +148,7 @@ export default class ServicesStore extends Store {
   }
 
   async _showAddServiceInterface({ recipeId }) {
-    const recipesStore = this.stores.recipes;
-
-    if (recipesStore.isInstalled(recipeId)) {
-      debug(`Recipe ${recipeId} is installed`);
-      this._redirectToAddServiceRoute(recipeId);
-    } else {
-      debug(`Recipe ${recipeId} is not installed`);
-      // We access the RecipeStore action directly
-      // returns Promise instead of action
-      await this.stores.recipes._install({ recipeId });
-      this._redirectToAddServiceRoute(recipeId);
-    }
+    this.stores.router.push(`/settings/services/add/${recipeId}`);
   }
 
   // Actions
@@ -690,11 +679,6 @@ export default class ServicesStore extends Store {
   }
 
   // Helper
-  _redirectToAddServiceRoute(recipeId) {
-    const route = `/settings/services/add/${recipeId}`;
-    this.stores.router.push(route);
-  }
-
   _initializeServiceRecipeInWebview(serviceId) {
     const service = this.one(serviceId);
 
