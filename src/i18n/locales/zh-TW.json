@@ -45,6 +45,7 @@
    "login.tokenExpired" : "您的登入已過期，請重新登入。",
    "menu.app.about" : "關於 Franz",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "檢查更新",
    "menu.app.hide" : "隱藏",
    "menu.app.hideOthers" : "隱藏其他",
    "menu.app.quit" : "結束",

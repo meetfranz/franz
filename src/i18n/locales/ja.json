@@ -45,6 +45,7 @@
    "login.tokenExpired" : "セッションの期限が切れました。ログインし直して下さい。",
    "menu.app.about" : "バージョン情報",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "更新の確認",
    "menu.app.hide" : "隠す",
    "menu.app.hideOthers" : "他を隠す",
    "menu.app.quit" : "終了",

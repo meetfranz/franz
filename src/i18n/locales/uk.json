@@ -45,6 +45,7 @@
    "login.tokenExpired" : "Ваша сесія закінчилась, будь ласка, увійдіть знову.",
    "menu.app.about" : "Про Franz",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "Перевірити наявність оновлень",
    "menu.app.hide" : "Приховати",
    "menu.app.hideOthers" : "Приховати інші",
    "menu.app.quit" : "Вийти",

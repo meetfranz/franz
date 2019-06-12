@@ -45,6 +45,7 @@
    "login.tokenExpired" : "Sesi Anda telah kedaluwarsa, silakan masuk kembali.",
    "menu.app.about" : "Tentang Franz",
    "menu.app.announcement" : "Yang baru",
+   "menu.app.checkForUpdates" : "Periksa versi baru",
    "menu.app.hide" : "Sembunyikan",
    "menu.app.hideOthers" : "Sembunyikan Lainnya",
    "menu.app.quit" : "Keluar",
