@@ -15,7 +15,7 @@ export default function initServiceLimit(stores, actions) {
   // Toggle serviceLimit feature
   reaction(
     () => (
-      features.features.hasServiceLimit
+      features.features.isServiceLimitEnabled
     ),
     (isEnabled) => {
       if (isEnabled) {

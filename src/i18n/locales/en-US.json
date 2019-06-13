@@ -5,7 +5,7 @@
   "feature.delayApp.action": "Get a Franz Supporter License",
   "feature.delayApp.headline": "Please purchase a Franz Supporter License to skip waiting",
   "feature.delayApp.text": "Franz will continue in {seconds} seconds.",
-  "feature.serviceLimit.limitReached": "You have added {amount} of {limit} services. Please upgrade your account to add more services.",
+  "feature.serviceLimit.limitReached": "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
   "feature.shareFranz.action.email": "Send as email",
   "feature.shareFranz.action.facebook": "Share on Facebook",
   "feature.shareFranz.action.twitter": "Share on Twitter",

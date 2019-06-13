@@ -26,6 +26,10 @@ const styles = theme => ({
     borderRadius: 0,
     marginBottom: 0,
 
+    '& > div': {
+      marginBottom: 0,
+    },
+
     '& button': {
       color: theme.styleTypes.primary.contrast,
     },

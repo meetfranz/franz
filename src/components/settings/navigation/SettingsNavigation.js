@@ -8,6 +8,7 @@ import Link from '../../ui/Link';
 import { workspaceStore } from '../../../features/workspaces';
 import UIStore from '../../../stores/UIStore';
 import UserStore from '../../../stores/UserStore';
+import { serviceLimitStore } from '../../../features/serviceLimit';
 
 const messages = defineMessages({
   availableServices: {
@@ -80,7 +81,12 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
         >
           {intl.formatMessage(messages.yourServices)}
           {' '}
-          <span className="badge">{serviceCount}</span>
+          <span className="badge">
+            {serviceCount}
+            {serviceLimitStore.serviceLimit !== 0 && (
+              `/${serviceLimitStore.serviceLimit}`
+            )}
+          </span>
         </Link>
         {workspaceStore.isFeatureEnabled ? (
           <Link
