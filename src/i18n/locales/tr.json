@@ -45,6 +45,7 @@
    "login.tokenExpired" : "Oturum zaman aşımına uğradı, lütfen tekrar giriş yapın.",
    "menu.app.about" : "Franz Hakkında",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "Güncellemeleri kontrol et",
    "menu.app.hide" : "Gizle",
    "menu.app.hideOthers" : "Diğerlerini Gizle",
    "menu.app.quit" : "Çıkış",

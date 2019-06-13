@@ -51,6 +51,9 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
           isHealthCheckLoading={app.healthCheckRequest.isExecuting}
           isFullScreen={app.isFullScreen}
           darkMode={app.isSystemDarkModeEnabled}
+          installAppUpdate={actions.app.installUpdate}
+          nextAppReleaseVersion={app.nextAppReleaseVersion}
+          appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
         >
           {children}
         </AuthLayout>

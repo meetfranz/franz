@@ -43,6 +43,8 @@ import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopup
 import WorkspacesScreen from './features/workspaces/containers/WorkspacesScreen';
 import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceScreen';
 import { WORKSPACES_ROUTES } from './features/workspaces';
+import AnnouncementScreen from './features/announcements/components/AnnouncementScreen';
+import { ANNOUNCEMENTS_ROUTES } from './features/announcements';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -73,6 +75,7 @@ window.addEventListener('load', () => {
           <I18N>
             <Router history={history}>
               <Route path="/" component={AppLayoutContainer}>
+                <Route path={ANNOUNCEMENTS_ROUTES.TARGET} component={AnnouncementScreen} />
                 <Route path="/settings" component={SettingsWindow}>
                   <IndexRedirect to="/settings/recipes" />
                   <Route path="/settings/recipes" component={RecipesScreen} />

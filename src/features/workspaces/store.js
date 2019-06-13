@@ -57,6 +57,10 @@ export default class WorkspacesStore extends FeatureStore {
     return !this.isPremiumUpgradeRequired;
   }
 
+  @computed get isAnyWorkspaceActive() {
+    return !!this.activeWorkspace;
+  }
+
   // ========== PRIVATE PROPERTIES ========= //
 
   _wasDrawerOpenBeforeSettingsRoute = null;
@@ -229,6 +233,14 @@ export default class WorkspacesStore extends FeatureStore {
     this.actions.ui.openSettings({ path: 'workspaces' });
   };
 
+  @action reorderServicesOfActiveWorkspace = async ({ oldIndex, newIndex }) => {
+    const { activeWorkspace } = this;
+    const { services } = activeWorkspace;
+    // Move services from the old to the new position
+    services.splice(newIndex, 0, services.splice(oldIndex, 1)[0]);
+    await updateWorkspaceRequest.execute(activeWorkspace);
+  };
+
   // Reactions
 
   _setFeatureEnabledReaction = () => {
@@ -255,13 +267,15 @@ export default class WorkspacesStore extends FeatureStore {
   _setActiveServiceOnWorkspaceSwitchReaction = () => {
     if (!this.isFeatureActive) return;
     if (this.activeWorkspace) {
-      const services = this.stores.services.allDisplayed;
-      const activeService = services.find(s => s.isActive);
+      const activeService = this.stores.services.active;
       const workspaceServices = this.getWorkspaceServices(this.activeWorkspace);
       if (workspaceServices.length <= 0) return;
       const isActiveServiceInWorkspace = workspaceServices.includes(activeService);
       if (!isActiveServiceInWorkspace) {
-        this.actions.service.setActive({ serviceId: workspaceServices[0].id });
+        this.actions.service.setActive({
+          serviceId: workspaceServices[0].id,
+          keepActiveRoute: true,
+        });
       }
     }
   };
@@ -298,17 +312,16 @@ export default class WorkspacesStore extends FeatureStore {
 
   _cleanupInvalidServiceReferences = () => {
     const { services } = this.stores;
-    let invalidServiceReferencesExist = false;
+    const { allServicesRequest } = services;
+    const servicesHaveBeenLoaded = allServicesRequest.wasExecuted && !allServicesRequest.isError;
+    // Loop through all workspaces and remove invalid service ids (locally)
     this.workspaces.forEach((workspace) => {
       workspace.services.forEach((serviceId) => {
-        if (!services.one(serviceId)) {
-          invalidServiceReferencesExist = true;
+        if (servicesHaveBeenLoaded && !services.one(serviceId)) {
+          workspace.services.remove(serviceId);
         }
       });
     });
-    if (invalidServiceReferencesExist) {
-      getUserWorkspacesRequest.execute();
-    }
   };
 
   _stopPremiumActionsAndReactions = () => {

@@ -116,6 +116,7 @@ export default class Service {
 
   @computed get shareWithWebview() {
     return {
+      id: this.id,
       spellcheckerLanguage: this.spellcheckerLanguage,
       isDarkModeEnabled: this.isDarkModeEnabled,
     };
@@ -183,7 +184,9 @@ export default class Service {
       options,
     }));
 
-    this.webview.addEventListener('did-start-loading', () => {
+    this.webview.addEventListener('did-start-loading', (event) => {
+      debug('Did start load', this.name, event);
+
       this.hasCrashed = false;
       this.isLoading = true;
       this.isError = false;

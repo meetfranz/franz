@@ -20,6 +20,11 @@ export default class RecipesStore extends Store {
     // Register action handlers
     this.actions.recipe.install.listen(this._install.bind(this));
     this.actions.recipe.update.listen(this._update.bind(this));
+
+    // Reactions
+    this.registerReactions([
+      this._checkIfRecipeIsInstalled.bind(this),
+    ]);
   }
 
   setup() {
@@ -97,6 +102,28 @@ export default class RecipesStore extends Store {
 
     if (length >= 0) {
       syncUpdate(0);
+    }
+  }
+
+  async _checkIfRecipeIsInstalled() {
+    const { router } = this.stores;
+
+    const match = matchRoute('/settings/services/add/:id', router.location.pathname);
+    if (match) {
+      const recipeId = match.id;
+
+      if (!this.stores.recipes.isInstalled(recipeId)) {
+        router.push('/settings/recipes');
+        debug(`Recipe ${recipeId} is not installed, trying to install it`);
+
+        const recipe = await this.installRecipeRequest.execute(recipeId)._promise;
+        if (recipe) {
+          await this.allRecipesRequest.invalidate({ immediately: true })._promise;
+          router.push(`/settings/services/add/${recipeId}`);
+        } else {
+          router.push('/settings/recipes');
+        }
+      }
     }
   }
 }

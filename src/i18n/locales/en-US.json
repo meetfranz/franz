@@ -45,6 +45,7 @@
   "login.tokenExpired": "Your session expired, please login again.",
   "menu.app.about": "About Franz",
   "menu.app.announcement": "What's new?",
+  "menu.app.checkForUpdates": "Check for updates",
   "menu.app.hide": "Hide",
   "menu.app.hideOthers": "Hide Others",
   "menu.app.quit": "Quit",

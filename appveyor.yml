@@ -5,6 +5,7 @@ environment:
     secure: NEYFWgUIAB//y2GR4AJOaegwuNjkxyNsdDf5A40dYovebTUsnIB5k4GCbU3I6JKW9iwH2ldU7Z+QawfyFerNgw==
   CSC_KEY_PASSWORD:
     secure: t8ypNTPKTmvRfd3hHA4aMOtC5KOFqOw3AsKhpU7140Q=
+  APPVEYOR_CACHE_SKIP_RESTORE: true
 
 version: 5.0.1.{build}
 
@@ -25,7 +26,7 @@ build_script:
 notifications:
   - provider: Slack
     incoming_webhook:
-      secure: 2NnhP/L7Jk9PDE0JvdNnYVBnmDHFRWHmTQBQ1492ZQ5O0Ok/97FAbk/FbGZVEalli8xcaPkVu3jiOD7IPVvHLKUrmyvficRgmL+qf4lhD1s=
+      secure: 2NnhP/L7Jk9PDE0JvdNnYVBnmDHFRWHmTQBQ1492ZQ7TpD2xQ/cXi3+G1Spr8zN5O8H+MQi4oMn3Ih2w0e8ZkHgQw138jvK/OfZO+FlF/mI=
 
 artifacts:
   - path: out\*.exe
