@@ -89,6 +89,7 @@ export default @observer class Services extends Component {
               },
               redirect: false,
             })}
+            upgrade={() => openSettings({ path: 'user' })}
           />
         ))}
       </div>

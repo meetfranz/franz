@@ -1,0 +1,41 @@
+[
+  {
+    "id": "service.restrictedHandler.headline",
+    "defaultMessage": "!!!You have reached your service limit.",
+    "file": "src/components/services/content/ServiceRestricted.js",
+    "start": {
+      "line": 10,
+      "column": 12
+    },
+    "end": {
+      "line": 13,
+      "column": 3
+    }
+  },
+  {
+    "id": "service.restrictedHandler.text",
+    "defaultMessage": "!!!Please upgrade your account to use more than {count} services.",
+    "file": "src/components/services/content/ServiceRestricted.js",
+    "start": {
+      "line": 14,
+      "column": 8
+    },
+    "end": {
+      "line": 17,
+      "column": 3
+    }
+  },
+  {
+    "id": "service.restrictedHandler.action",
+    "defaultMessage": "!!!Upgrade Account",
+    "file": "src/components/services/content/ServiceRestricted.js",
+    "start": {
+      "line": 18,
+      "column": 10
+    },
+    "end": {
+      "line": 21,
+      "column": 3
+    }
+  }
+]

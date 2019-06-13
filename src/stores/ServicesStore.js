@@ -93,13 +93,21 @@ export default class ServicesStore extends Store {
       () => this.stores.settings.app.spellcheckerLanguage,
       () => this._shareSettingsWithServiceProcess(),
     );
+
+    reaction(
+      () => this.all,
+      () => this._restrictServiceAccess(),
+    );
   }
 
   @computed get all() {
     if (this.stores.user.isLoggedIn) {
       const services = this.allServicesRequest.execute().result;
       if (services) {
-        return observable(services.slice().slice().sort((a, b) => a.order - b.order));
+        return observable(services.slice().slice().sort((a, b) => a.order - b.order).map((s, index) => {
+          s.index = index;
+          return s;
+        }));
       }
     }
     return [];
@@ -679,6 +687,20 @@ export default class ServicesStore extends Store {
     }
 
     return serviceData;
+  }
+
+  _restrictServiceAccess() {
+    const services = this.all;
+    const { userHasReachedServiceLimit, serviceLimit } = this.stores.serviceLimit;
+
+    if (userHasReachedServiceLimit) {
+      services.map((service, index) => {
+        console.log('restrictServiceAcceess', index >= serviceLimit);
+        service.isServiceAccessRestricted = index >= serviceLimit;
+
+        return service;
+      });
+    }
   }
 
   // Helper

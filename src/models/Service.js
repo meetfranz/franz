@@ -104,6 +104,8 @@ export default class Service {
 
     this.recipe = recipe;
 
+    this.isServiceAccessRestricted = false;
+
     autorun(() => {
       if (!this.isEnabled) {
         this.webview = null;

@@ -894,6 +894,50 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!You have reached your service limit.",
+        "end": {
+          "column": 3,
+          "line": 13
+        },
+        "file": "src/components/services/content/ServiceRestricted.js",
+        "id": "service.restrictedHandler.headline",
+        "start": {
+          "column": 12,
+          "line": 10
+        }
+      },
+      {
+        "defaultMessage": "!!!Please upgrade your account to use more than {count} services.",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/services/content/ServiceRestricted.js",
+        "id": "service.restrictedHandler.text",
+        "start": {
+          "column": 8,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade Account",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/services/content/ServiceRestricted.js",
+        "id": "service.restrictedHandler.action",
+        "start": {
+          "column": 10,
+          "line": 18
+        }
+      }
+    ],
+    "path": "src/components/services/content/ServiceRestricted.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Welcome to Franz",
         "end": {
           "column": 3,
@@ -1307,104 +1351,104 @@
         "defaultMessage": "!!!Available services",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 17
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.availableServices",
         "start": {
           "column": 21,
-          "line": 13
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 21
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourServices",
         "start": {
           "column": 16,
-          "line": 17
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 25
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 21
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 29
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.account",
         "start": {
           "column": 11,
-          "line": 25
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Manage Team",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 33
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.team",
         "start": {
           "column": 8,
-          "line": 29
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 37
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.settings",
         "start": {
           "column": 12,
-          "line": 33
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!!Invite Friends",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 41
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.inviteFriends",
         "start": {
           "column": 17,
-          "line": 37
+          "line": 38
         }
       },
       {
         "defaultMessage": "!!!Logout",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 45
         },
         "file": "src/components/settings/navigation/SettingsNavigation.js",
         "id": "settings.navigation.logout",
         "start": {
           "column": 10,
-          "line": 41
+          "line": 42
         }
       }
     ],
@@ -1525,286 +1569,286 @@
         "defaultMessage": "!!!Save service",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.saveButton",
         "start": {
           "column": 15,
-          "line": 23
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Delete Service",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.deleteButton",
         "start": {
           "column": 17,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Available services",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.availableServices",
         "start": {
           "column": 21,
-          "line": 31
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Your services",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 39
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.yourServices",
         "start": {
           "column": 16,
-          "line": 35
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!Add {name}",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 43
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.addServiceHeadline",
         "start": {
           "column": 22,
-          "line": 39
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Edit {name}",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 47
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.editServiceHeadline",
         "start": {
           "column": 23,
-          "line": 43
+          "line": 44
         }
       },
       {
         "defaultMessage": "!!!Hosted",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 51
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.tabHosted",
         "start": {
           "column": 13,
-          "line": 47
+          "line": 48
         }
       },
       {
         "defaultMessage": "!!!Self hosted ⭐️",
         "end": {
           "column": 3,
-          "line": 54
+          "line": 55
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.tabOnPremise",
         "start": {
           "column": 16,
-          "line": 51
+          "line": 52
         }
       },
       {
         "defaultMessage": "!!!Use the hosted {name} service.",
         "end": {
           "column": 3,
-          "line": 58
+          "line": 59
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.useHostedService",
         "start": {
           "column": 20,
-          "line": 55
+          "line": 56
         }
       },
       {
         "defaultMessage": "!!!Could not validate custom {name} server.",
         "end": {
           "column": 3,
-          "line": 62
+          "line": 63
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.customUrlValidationError",
         "start": {
           "column": 28,
-          "line": 59
+          "line": 60
         }
       },
       {
         "defaultMessage": "!!!To add self hosted services, you need a Franz Premium Supporter Account.",
         "end": {
           "column": 3,
-          "line": 66
+          "line": 67
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.customUrlPremiumInfo",
         "start": {
           "column": 24,
-          "line": 63
+          "line": 64
         }
       },
       {
         "defaultMessage": "!!!Upgrade your account",
         "end": {
           "column": 3,
-          "line": 70
+          "line": 71
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.customUrlUpgradeAccount",
         "start": {
           "column": 27,
-          "line": 67
+          "line": 68
         }
       },
       {
         "defaultMessage": "!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...",
         "end": {
           "column": 3,
-          "line": 74
+          "line": 75
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.indirectMessageInfo",
         "start": {
           "column": 23,
-          "line": 71
+          "line": 72
         }
       },
       {
         "defaultMessage": "!!!When disabled, all notification sounds and audio playback are muted",
         "end": {
           "column": 3,
-          "line": 78
+          "line": 79
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.isMutedInfo",
         "start": {
           "column": 15,
-          "line": 75
+          "line": 76
         }
       },
       {
         "defaultMessage": "!!!Notifications",
         "end": {
           "column": 3,
-          "line": 82
+          "line": 83
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.headlineNotifications",
         "start": {
           "column": 25,
-          "line": 79
+          "line": 80
         }
       },
       {
         "defaultMessage": "!!!Unread message badges",
         "end": {
           "column": 3,
-          "line": 86
+          "line": 87
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.headlineBadges",
         "start": {
           "column": 18,
-          "line": 83
+          "line": 84
         }
       },
       {
         "defaultMessage": "!!!General",
         "end": {
           "column": 3,
-          "line": 90
+          "line": 91
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.headlineGeneral",
         "start": {
           "column": 19,
-          "line": 87
+          "line": 88
         }
       },
       {
         "defaultMessage": "!!!Delete",
         "end": {
           "column": 3,
-          "line": 94
+          "line": 95
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.iconDelete",
         "start": {
           "column": 14,
-          "line": 91
+          "line": 92
         }
       },
       {
         "defaultMessage": "!!!Drop your image, or click here",
         "end": {
           "column": 3,
-          "line": 98
+          "line": 99
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.iconUpload",
         "start": {
           "column": 14,
-          "line": 95
+          "line": 96
         }
       },
       {
         "defaultMessage": "!!!HTTP/HTTPS Proxy Settings",
         "end": {
           "column": 3,
-          "line": 102
+          "line": 103
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.proxy.headline",
         "start": {
           "column": 17,
-          "line": 99
+          "line": 100
         }
       },
       {
         "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
         "end": {
           "column": 3,
-          "line": 106
+          "line": 107
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.proxy.restartInfo",
         "start": {
           "column": 20,
-          "line": 103
+          "line": 104
         }
       },
       {
         "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
         "end": {
           "column": 3,
-          "line": 110
+          "line": 111
         },
         "file": "src/components/settings/services/EditServiceForm.js",
         "id": "settings.service.form.proxy.info",
         "start": {
           "column": 13,
-          "line": 107
+          "line": 108
         }
       }
     ],
@@ -3289,29 +3333,29 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!You have added {amount} of {amount} services. Please upgrade your account to add more services.",
+        "defaultMessage": "!!!You have added {amount} of {limit} services. Please upgrade your account to add more services.",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 14
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "feature.serviceLimit.limitReached",
         "start": {
           "column": 16,
-          "line": 13
+          "line": 11
         }
       },
       {
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 18
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 17
+          "line": 15
         }
       }
     ],
