@@ -45,6 +45,7 @@
    "login.tokenExpired" : "De sessie is verlopen, log opnieuw in alsjeblieft.",
    "menu.app.about" : "Over Franz",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "Controleer op updates",
    "menu.app.hide" : "Verbergen",
    "menu.app.hideOthers" : "Andere Verbergen",
    "menu.app.quit" : "Afsluiten",

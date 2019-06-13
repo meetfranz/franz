@@ -2,7 +2,7 @@ import CSS from 'csstype';
 import { Classes } from 'jss';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
-import React, { Component } from 'react';
+import React from 'react';
 import injectSheet from 'react-jss';
 
 import { WithTheme } from './withTheme';

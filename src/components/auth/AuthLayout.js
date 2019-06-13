@@ -11,6 +11,7 @@ import { oneOrManyChildElements, globalError as globalErrorPropType } from '../.
 import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
+import AppUpdateInfoBar from '../AppUpdateInfoBar';
 
 export default @observer class AuthLayout extends Component {
   static propTypes = {
@@ -22,6 +23,13 @@ export default @observer class AuthLayout extends Component {
     isHealthCheckLoading: PropTypes.bool.isRequired,
     isFullScreen: PropTypes.bool.isRequired,
     darkMode: PropTypes.bool.isRequired,
+    nextAppReleaseVersion: PropTypes.string,
+    installAppUpdate: PropTypes.func.isRequired,
+    appUpdateIsDownloaded: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    nextAppReleaseVersion: null,
   };
 
   static contextTypes = {
@@ -38,6 +46,9 @@ export default @observer class AuthLayout extends Component {
       isHealthCheckLoading,
       isFullScreen,
       darkMode,
+      nextAppReleaseVersion,
+      installAppUpdate,
+      appUpdateIsDownloaded,
     } = this.props;
     const { intl } = this.context;
 
@@ -52,6 +63,12 @@ export default @observer class AuthLayout extends Component {
               <span className="mdi mdi-flash" />
               {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
             </InfoBar>
+          )}
+          {appUpdateIsDownloaded && (
+            <AppUpdateInfoBar
+              nextAppReleaseVersion={nextAppReleaseVersion}
+              onInstallUpdate={installAppUpdate}
+            />
           )}
           {isOnline && !isAPIHealthy && (
             <InfoBar

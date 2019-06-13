@@ -180,6 +180,7 @@ const createWindow = () => {
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
     webPreferences: {
       nodeIntegration: true,
+      webviewTag: true,
     },
   });
 
@@ -353,18 +354,26 @@ app.on('ready', () => {
 // TODO: rewrite to handle multiple login calls
 const noop = () => null;
 let authCallback = noop;
+
 app.on('login', (event, webContents, request, authInfo, callback) => {
   authCallback = callback;
   debug('browser login event', authInfo);
   event.preventDefault();
+
   if (authInfo.isProxy && authInfo.scheme === 'basic') {
+    debug('Sending service echo ping');
     webContents.send('get-service-id');
 
     ipcMain.once('service-id', (e, id) => {
       debug('Received service id', id);
 
       const ps = proxySettings.get(id);
-      callback(ps.user, ps.password);
+      if (ps) {
+        debug('Sending proxy auth callback for service', id);
+        callback(ps.user, ps.password);
+      } else {
+        debug('No proxy auth config found for', id);
+      }
     });
   } else if (authInfo.scheme === 'basic') {
     debug('basic auth handler', authInfo);

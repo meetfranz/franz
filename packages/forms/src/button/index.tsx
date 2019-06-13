@@ -44,7 +44,7 @@ const styles = (theme: Theme) => ({
     width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
-    height: theme.buttonHeight,
+    // height: theme.buttonHeight,
 
     '&:hover': {
       opacity: 0.8,
@@ -129,8 +129,7 @@ const styles = (theme: Theme) => ({
     position: (props: IProps): CSS.PositionProperty => props.stretch ? 'absolute' : 'inherit',
   },
   icon: {
-    marginLeft: -5,
-    marginRight: 10,
+    margin: [1, 10, 0, -5],
   },
 });
 
@@ -142,7 +141,6 @@ class ButtonComponent extends Component<IProps> {
     buttonType: 'primary' as ButtonType,
     stretch: false,
     busy: false,
-    // target: '_self'
   };
 
   state = {
@@ -220,7 +218,7 @@ class ButtonComponent extends Component<IProps> {
           {icon && (
             <Icon
               path={icon}
-              size={1}
+              size={0.8}
               className={classes.icon}
             />
           )}
