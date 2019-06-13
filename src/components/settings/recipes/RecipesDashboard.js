@@ -118,7 +118,6 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
     openDevDocs: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     isCommunityRecipesPremiumFeature: PropTypes.bool.isRequired,
-    isUserPremiumUser: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -146,7 +145,6 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
       openDevDocs,
       classes,
       isCommunityRecipesPremiumFeature,
-      isUserPremiumUser,
     } = this.props;
     const { intl } = this.context;
 
@@ -218,7 +216,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                 <>
                   <H2>
                     {intl.formatMessage(messages.headlineCustomRecipes)}
-                    {!isUserPremiumUser && (
+                    {isCommunityRecipesPremiumFeature && (
                       <ProBadge className={classes.proBadge} />
                     )}
                   </H2>
@@ -253,13 +251,13 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                   <H3>{intl.formatMessage(messages.headlineCommunityRecipes)}</H3>
                 )}
                 <div className="recipes__list">
-                  {hasLoadedRecipes && recipes.length === 0 && recipeFilter !== 'dev'(
+                  {hasLoadedRecipes && recipes.length === 0 && recipeFilter !== 'dev' && (
                     <p className="align-middle settings__empty-state">
                       <span className="emoji">
                         <img src="./assets/images/emoji/dontknow.png" alt="" />
                       </span>
                       {intl.formatMessage(messages.nothingFound)}
-                    </p>,
+                    </p>
                   )}
                   {communityRecipes.map(recipe => (
                     <RecipeItem
