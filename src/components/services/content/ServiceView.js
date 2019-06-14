@@ -133,8 +133,8 @@ export default @observer class ServiceView extends Component {
             {service.isServiceAccessRestricted ? (
               <ServiceRestricted
                 name={service.recipe.name}
-                webview={service.webview}
                 upgrade={upgrade}
+                type={service.restrictionType}
               />
             ) : (
               <ServiceWebview

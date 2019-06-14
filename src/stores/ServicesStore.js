@@ -14,6 +14,7 @@ import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
+import { RESTRICTION_TYPES } from '../models/Service';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -76,6 +77,7 @@ export default class ServicesStore extends Store {
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
       this._handleMuteSettings.bind(this),
+      this._restrictServiceAccess.bind(this),
     ]);
 
     // Just bind this
@@ -92,11 +94,6 @@ export default class ServicesStore extends Store {
     reaction(
       () => this.stores.settings.app.spellcheckerLanguage,
       () => this._shareSettingsWithServiceProcess(),
-    );
-
-    reaction(
-      () => this.all,
-      () => this._restrictServiceAccess(),
     );
   }
 
@@ -690,17 +687,30 @@ export default class ServicesStore extends Store {
   }
 
   _restrictServiceAccess() {
-    const services = this.all;
+    const { features } = this.stores.features;
     const { userHasReachedServiceLimit, serviceLimit } = this.stores.serviceLimit;
 
-    if (userHasReachedServiceLimit) {
-      services.map((service, index) => {
-        console.log('restrictServiceAcceess', index >= serviceLimit);
+    this.all.map((service, index) => {
+      if (userHasReachedServiceLimit) {
         service.isServiceAccessRestricted = index >= serviceLimit;
+        service.restrictionType = RESTRICTION_TYPES.SERVICE_LIMIT;
 
-        return service;
-      });
-    }
+        if (index >= serviceLimit) {
+          debug('Restricting access to server due to service limit');
+        }
+      }
+
+      if (service.isUsingCustomUrl) {
+        service.isServiceAccessRestricted = features.isCustomUrlPremiumFeature;
+        service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
+
+        if (features.isCustomUrlPremiumFeature) {
+          debug('Restricting access to server due to custom url');
+        }
+      }
+
+      return service;
+    });
   }
 
   // Helper

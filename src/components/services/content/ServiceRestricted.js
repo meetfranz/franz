@@ -5,15 +5,24 @@ import { defineMessages, intlShape } from 'react-intl';
 
 import { serviceLimitStore } from '../../../features/serviceLimit';
 import Button from '../../ui/Button';
+import { RESTRICTION_TYPES } from '../../../models/Service';
 
 const messages = defineMessages({
-  headline: {
-    id: 'service.restrictedHandler.headline',
+  headlineServiceLimit: {
+    id: 'service.restrictedHandler.serviceLimit.headline',
     defaultMessage: '!!!You have reached your service limit.',
   },
-  text: {
-    id: 'service.restrictedHandler.text',
+  textServiceLimit: {
+    id: 'service.restrictedHandler.serviceLimit.text',
     defaultMessage: '!!!Please upgrade your account to use more than {count} services.',
+  },
+  headlineCustomUrl: {
+    id: 'service.restrictedHandler.customUrl.headline',
+    defaultMessage: '!!!Franz Professional Plan required',
+  },
+  textCustomUrl: {
+    id: 'service.restrictedHandler.customUrl.text',
+    defaultMessage: '!!!Please upgrade to the Franz Professional plan to use custom urls & self hosted services.',
   },
   action: {
     id: 'service.restrictedHandler.action',
@@ -25,6 +34,7 @@ export default @observer class ServiceRestricted extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     upgrade: PropTypes.func.isRequired,
+    type: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
@@ -36,13 +46,27 @@ export default @observer class ServiceRestricted extends Component {
   countdownIntervalTimeout = 1000;
 
   render() {
-    const { name, upgrade } = this.props;
+    const {
+      name,
+      upgrade,
+      type,
+    } = this.props;
     const { intl } = this.context;
 
     return (
       <div className="services__info-layer">
-        <h1>{intl.formatMessage(messages.headline)}</h1>
-        <p>{intl.formatMessage(messages.text, { count: serviceLimitStore.serviceLimit })}</p>
+        {type === RESTRICTION_TYPES.SERVICE_LIMIT && (
+          <>
+            <h1>{intl.formatMessage(messages.headlineServiceLimit)}</h1>
+            <p>{intl.formatMessage(messages.textServiceLimit, { count: serviceLimitStore.serviceLimit })}</p>
+          </>
+        )}
+        {type === RESTRICTION_TYPES.CUSTOM_URL && (
+          <>
+            <h1>{intl.formatMessage(messages.headlineCustomUrl)}</h1>
+            <p>{intl.formatMessage(messages.textCustomUrl)}</p>
+          </>
+        )}
         <Button
           label={intl.formatMessage(messages.action, { name })}
           buttonType="inverted"

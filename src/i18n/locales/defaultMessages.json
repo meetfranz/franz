@@ -897,39 +897,65 @@
         "defaultMessage": "!!!You have reached your service limit.",
         "end": {
           "column": 3,
-          "line": 13
+          "line": 14
         },
         "file": "src/components/services/content/ServiceRestricted.js",
-        "id": "service.restrictedHandler.headline",
+        "id": "service.restrictedHandler.serviceLimit.headline",
         "start": {
-          "column": 12,
-          "line": 10
+          "column": 24,
+          "line": 11
         }
       },
       {
         "defaultMessage": "!!!Please upgrade your account to use more than {count} services.",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 18
         },
         "file": "src/components/services/content/ServiceRestricted.js",
-        "id": "service.restrictedHandler.text",
+        "id": "service.restrictedHandler.serviceLimit.text",
         "start": {
-          "column": 8,
-          "line": 14
+          "column": 20,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Professional Plan required",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/services/content/ServiceRestricted.js",
+        "id": "service.restrictedHandler.customUrl.headline",
+        "start": {
+          "column": 21,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Please upgrade to the Franz Professional plan to use custom urls & self hosted services.",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/services/content/ServiceRestricted.js",
+        "id": "service.restrictedHandler.customUrl.text",
+        "start": {
+          "column": 17,
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!Upgrade Account",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 30
         },
         "file": "src/components/services/content/ServiceRestricted.js",
         "id": "service.restrictedHandler.action",
         "start": {
           "column": 10,
-          "line": 18
+          "line": 27
         }
       }
     ],
