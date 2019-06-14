@@ -67,6 +67,7 @@ export const DEFAULT_WINDOW_OPTIONS = {
 
 export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-plugin-docs';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
+export const FRANZ_DEV_DOCS = 'http://bit.ly/franz-dev-hub';
 
 export const FILE_SYSTEM_SETTINGS_TYPES = [
   'app',

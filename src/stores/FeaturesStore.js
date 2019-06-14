@@ -17,6 +17,7 @@ import shareFranz from '../features/shareFranz';
 import announcements from '../features/announcements';
 import settingsWS from '../features/settingsWS';
 import serviceLimit from '../features/serviceLimit';
+import communityRecipes from '../features/communityRecipes';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -77,5 +78,6 @@ export default class FeaturesStore extends Store {
     announcements(this.stores, this.actions);
     settingsWS(this.stores, this.actions);
     serviceLimit(this.stores, this.actions);
+    communityRecipes(this.stores, this.actions);
   }
 }
