@@ -15,11 +15,11 @@ export default function initCommunityRecipes(stores, actions) {
   // Toggle communityRecipe premium status
   reaction(
     () => (
-      features.features.isCommunityRecipesPremiumFeature
+      features.features.isCommunityRecipesIncludedInCurrentPlan
     ),
     (isPremiumFeature) => {
       debug('Community recipes is premium feature: ', isPremiumFeature);
-      communityRecipesStore.isCommunityRecipesPremiumFeature = isPremiumFeature;
+      communityRecipesStore.isCommunityRecipesIncludedInCurrentPlan = isPremiumFeature;
     },
     {
       fireImmediately: true,

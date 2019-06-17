@@ -118,7 +118,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
     openRecipeDirectory: PropTypes.func.isRequired,
     openDevDocs: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
-    isCommunityRecipesPremiumFeature: PropTypes.bool.isRequired,
+    isCommunityRecipesIncludedInCurrentPlan: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -145,7 +145,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
       openRecipeDirectory,
       openDevDocs,
       classes,
-      isCommunityRecipesPremiumFeature,
+      isCommunityRecipesIncludedInCurrentPlan,
     } = this.props;
     const { intl } = this.context;
 
@@ -218,7 +218,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                 <>
                   <H2>
                     {intl.formatMessage(messages.headlineCustomRecipes)}
-                    {isCommunityRecipesPremiumFeature && (
+                    {isCommunityRecipesIncludedInCurrentPlan && (
                       <ProBadge className={classes.proBadge} />
                     )}
                   </H2>
@@ -247,7 +247,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                 </>
               )}
               <PremiumFeatureContainer
-                condition={(recipeFilter === 'dev' && communityRecipes.length > 0) && isCommunityRecipesPremiumFeature}
+                condition={(recipeFilter === 'dev' && communityRecipes.length > 0) && isCommunityRecipesIncludedInCurrentPlan}
               >
                 {recipeFilter === 'dev' && communityRecipes.length > 0 && (
                   <H3>{intl.formatMessage(messages.headlineCommunityRecipes)}</H3>

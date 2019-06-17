@@ -128,7 +128,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
             appActions.openExternalUrl({ url: FRANZ_DEV_DOCS });
             gaEvent('Recipe', 'open-dev-docs', 'Developer Documentation');
           }}
-          isCommunityRecipesPremiumFeature={communityRecipesStore.isCommunityRecipesPremiumFeature}
+          isCommunityRecipesIncludedInCurrentPlan={communityRecipesStore.isCommunityRecipesIncludedInCurrentPlan}
           isUserPremiumUser={user.isPremium}
         />
       </ErrorBoundary>

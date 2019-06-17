@@ -130,8 +130,8 @@ export default @observer class EditServiceForm extends Component {
     isSaving: PropTypes.bool.isRequired,
     isDeleting: PropTypes.bool.isRequired,
     isProxyFeatureEnabled: PropTypes.bool.isRequired,
-    isProxyPremiumFeature: PropTypes.bool.isRequired,
-    isSpellcheckerPremiumFeature: PropTypes.bool.isRequired,
+    isServiceProxyIncludedInCurrentPlan: PropTypes.bool.isRequired,
+    isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -194,8 +194,8 @@ export default @observer class EditServiceForm extends Component {
       isDeleting,
       onDelete,
       isProxyFeatureEnabled,
-      isProxyPremiumFeature,
-      isSpellcheckerPremiumFeature,
+      isServiceProxyIncludedInCurrentPlan,
+      isSpellcheckerIncludedInCurrentPlan,
     } = this.props;
     const { intl } = this.context;
 
@@ -345,7 +345,7 @@ export default @observer class EditServiceForm extends Component {
             </div>
 
             <PremiumFeatureContainer
-              condition={isSpellcheckerPremiumFeature}
+              condition={!isSpellcheckerIncludedInCurrentPlan}
               gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
             >
               <div className="settings__settings-group">
@@ -355,7 +355,7 @@ export default @observer class EditServiceForm extends Component {
 
             {isProxyFeatureEnabled && (
               <PremiumFeatureContainer
-                condition={isProxyPremiumFeature}
+                condition={!isServiceProxyIncludedInCurrentPlan}
                 gaEventInfo={{ category: 'User', event: 'upgrade', label: 'proxy' }}
               >
                 <div className="settings__settings-group">

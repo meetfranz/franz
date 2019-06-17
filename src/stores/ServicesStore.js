@@ -701,10 +701,10 @@ export default class ServicesStore extends Store {
       }
 
       if (service.isUsingCustomUrl) {
-        service.isServiceAccessRestricted = features.isCustomUrlPremiumFeature;
+        service.isServiceAccessRestricted = features.isCustomUrlIncludedInCurrentPlan;
         service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
 
-        if (features.isCustomUrlPremiumFeature) {
+        if (features.isCustomUrlIncludedInCurrentPlan) {
           debug('Restricting access to server due to custom url');
         }
       }
