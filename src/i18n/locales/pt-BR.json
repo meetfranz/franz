@@ -144,7 +144,7 @@
    "settings.account.userInfoRequestFailed" : "Não foi possível carregar as informações do usuário",
    "settings.app.buttonClearAllCache" : "Limpar cache",
    "settings.app.buttonInstallUpdate" : "Reiniciar e instalar atualização",
-   "settings.app.buttonSearchForUpdate" : "Verificar se há atualizações",
+   "settings.app.buttonSearchForUpdate" : "Verificar por atualizações",
    "settings.app.cacheInfo" : "O cache do Franz está usando {size} de espaço em disco atualmente.",
    "settings.app.currentVersion" : "Versão atual:",
    "settings.app.form.autoLaunchInBackground" : "Abrir em segundo plano",
