@@ -39,6 +39,10 @@ const messages = defineMessages({
     id: 'settings.app.form.minimizeToSystemTray',
     defaultMessage: '!!!Minimize Franz to system tray',
   },
+  keepAllWorkspacesLoaded: {
+    id: 'settings.app.form.keepAllWorkspacesLoaded',
+    defaultMessage: '!!!Keep all workspaces loaded',
+  },
   language: {
     id: 'settings.app.form.language',
     defaultMessage: '!!!Language',
@@ -88,6 +92,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        keepAllWorkspacesLoaded: settingsData.keepAllWorkspacesLoaded,
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         darkMode: settingsData.darkMode,
@@ -141,6 +146,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.enableSystemTray),
           value: settings.all.app.enableSystemTray,
           default: DEFAULT_APP_SETTINGS.enableSystemTray,
+        },
+        keepAllWorkspacesLoaded: {
+          label: intl.formatMessage(messages.keepAllWorkspacesLoaded),
+          value: settings.all.app.keepAllWorkspacesLoaded,
+          default: DEFAULT_APP_SETTINGS.keepAllWorkspacesLoaded,
         },
         minimizeToSystemTray: {
           label: intl.formatMessage(messages.minimizeToSystemTray),

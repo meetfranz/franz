@@ -2991,94 +2991,107 @@
         }
       },
       {
-        "defaultMessage": "!!!Language",
+        "defaultMessage": "!!!Keep all workspaces loaded",
         "end": {
           "column": 3,
           "line": 45
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.language",
+        "id": "settings.app.form.keepAllWorkspacesLoaded",
         "start": {
-          "column": 12,
+          "column": 27,
           "line": 42
         }
       },
       {
-        "defaultMessage": "!!!Dark Mode",
+        "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
           "line": 49
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.darkMode",
+        "id": "settings.app.form.language",
         "start": {
           "column": 12,
           "line": 46
         }
       },
       {
-        "defaultMessage": "!!!Display disabled services tabs",
+        "defaultMessage": "!!!Dark Mode",
         "end": {
           "column": 3,
           "line": 53
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.darkMode",
+        "start": {
+          "column": 12,
+          "line": 50
+        }
+      },
+      {
+        "defaultMessage": "!!!Display disabled services tabs",
+        "end": {
+          "column": 3,
+          "line": 57
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showDisabledServices",
         "start": {
           "column": 24,
-          "line": 50
+          "line": 54
         }
       },
       {
         "defaultMessage": "!!!Show unread message badge when notifications are disabled",
         "end": {
           "column": 3,
-          "line": 57
+          "line": 61
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showMessagesBadgesWhenMuted",
         "start": {
           "column": 29,
-          "line": 54
+          "line": 58
         }
       },
       {
         "defaultMessage": "!!!Enable spell checking",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 65
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSpellchecking",
         "start": {
           "column": 23,
-          "line": 58
+          "line": 62
         }
       },
       {
         "defaultMessage": "!!!Enable GPU Acceleration",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 69
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableGPUAcceleration",
         "start": {
           "column": 25,
-          "line": 62
+          "line": 66
         }
       },
       {
         "defaultMessage": "!!!Include beta versions",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 73
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.beta",
         "start": {
           "column": 8,
-          "line": 66
+          "line": 70
         }
       }
     ],

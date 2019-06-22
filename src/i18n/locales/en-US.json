@@ -154,6 +154,7 @@
   "settings.app.form.enableGPUAcceleration": "Enable GPU Acceleration",
   "settings.app.form.enableSpellchecking": "Enable spell checking",
   "settings.app.form.enableSystemTray": "Show Franz in system tray",
+  "settings.app.form.keepAllWorkspacesLoaded": "Keep all workspaces loaded",
   "settings.app.form.language": "Language",
   "settings.app.form.minimizeToSystemTray": "Minimize Franz to system tray",
   "settings.app.form.runInBackground": "Keep Franz in background when closing the window",

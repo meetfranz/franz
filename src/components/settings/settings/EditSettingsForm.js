@@ -162,6 +162,7 @@ export default @observer class EditSettingsForm extends Component {
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
             )}
+            <Toggle field={form.$('keepAllWorkspacesLoaded')} />
 
             {/* Appearance */}
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
