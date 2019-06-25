@@ -280,13 +280,12 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
 };
 
 export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
-  webContents.on('context-menu', async (e, props) => {
+  webContents.on('context-menu', (e, props) => {
     e.preventDefault();
 
     let suggestions = [];
     if (spellcheckProvider && props.misspelledWord) {
-      debug('Mispelled word', props.misspelledWord);
-      suggestions = await spellcheckProvider.getSuggestion(props.misspelledWord);
+      suggestions = spellcheckProvider.getSuggestion(props.misspelledWord);
 
       debug('Suggestions', suggestions);
     }

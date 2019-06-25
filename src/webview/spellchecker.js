@@ -1,8 +1,6 @@
 import { webFrame } from 'electron';
-import { attachSpellCheckProvider, SpellCheckerProvider } from 'electron-hunspell';
-import { ENVIRONMENT } from 'hunspell-asm';
+import { SpellCheckerProvider } from 'electron-hunspell';
 import path from 'path';
-import { readFileSync } from 'fs';
 
 import { DICTIONARY_PATH } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
@@ -12,12 +10,11 @@ const debug = require('debug')('Franz:spellchecker');
 let provider;
 let currentDict;
 let _isEnabled = false;
-let attached;
 
 async function loadDictionary(locale) {
   try {
     const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
-    await provider.loadDictionary(locale, readFileSync(`${fileLocation}.dic`), readFileSync(`${fileLocation}.aff`));
+    await provider.loadDictionary(locale, `${fileLocation}.dic`, `${fileLocation}.aff`);
     debug('Loaded dictionary', locale, 'from', fileLocation);
   } catch (err) {
     console.error('Could not load dictionary', err);
@@ -44,7 +41,7 @@ export async function switchDict(locale) {
       provider.unloadDictionary(locale);
     }
     loadDictionary(locale);
-    attached.switchLanguage(locale);
+    provider.switchDictionary(locale);
 
     debug('Switched dictionary to', locale);
 
@@ -61,14 +58,12 @@ export default async function initialize(languageCode = 'en-us') {
     const locale = languageCode.toLowerCase();
 
     debug('Init spellchecker');
-    await provider.initialize({ environment: ENVIRONMENT.NODE });
-
-    debug('Attaching spellcheck provider');
-    attached = await attachSpellCheckProvider(provider);
+    await provider.initialize();
+    // await loadDictionaries();
 
     debug('Available spellchecker dictionaries', provider.availableDictionaries);
 
-    attached.switchLanguage(locale);
+    switchDict(locale);
 
     return provider;
   } catch (err) {
