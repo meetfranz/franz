@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { ThemeProvider } from 'react-jss';
-import { theme } from '@meetfranz/theme';
 
 import AuthLayout from '../../components/auth/AuthLayout';
 import AppStore from '../../stores/AppStore';
@@ -48,7 +47,6 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
           retryHealthCheck={actions.app.healthCheck}
           isHealthCheckLoading={app.healthCheckRequest.isExecuting}
           isFullScreen={app.isFullScreen}
-          darkMode={app.isSystemDarkModeEnabled}
           installAppUpdate={actions.app.installUpdate}
           nextAppReleaseVersion={app.nextAppReleaseVersion}
           appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}

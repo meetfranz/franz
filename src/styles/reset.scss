@@ -64,7 +64,7 @@ body {
   font-size: 1.4rem;
   line-height: 1;
 
-  .theme__dark { color: $dark-theme-gray-smoke; }
+  &.theme__dark { color: $dark-theme-gray-smoke; }
 }
 
 * {

@@ -22,7 +22,6 @@ export default @observer class AuthLayout extends Component {
     retryHealthCheck: PropTypes.func.isRequired,
     isHealthCheckLoading: PropTypes.bool.isRequired,
     isFullScreen: PropTypes.bool.isRequired,
-    darkMode: PropTypes.bool.isRequired,
     nextAppReleaseVersion: PropTypes.string,
     installAppUpdate: PropTypes.func.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
@@ -45,7 +44,6 @@ export default @observer class AuthLayout extends Component {
       retryHealthCheck,
       isHealthCheckLoading,
       isFullScreen,
-      darkMode,
       nextAppReleaseVersion,
       installAppUpdate,
       appUpdateIsDownloaded,
@@ -53,7 +51,7 @@ export default @observer class AuthLayout extends Component {
     const { intl } = this.context;
 
     return (
-      <div className={darkMode ? 'theme__dark' : ''}>
+      <>
         {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
         <div className="auth">
           {!isOnline && (
@@ -93,7 +91,7 @@ export default @observer class AuthLayout extends Component {
             <img src="./assets/images/adlk.svg" alt="" />
           </Link>
         </div>
-      </div>
+      </>
     );
   }
 }
