@@ -24,24 +24,22 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
       stores, actions, children, location,
     } = this.props;
     const {
-      app, features, globalError, settings,
+      app, features, globalError,
     } = stores;
 
     const isLoadingBaseFeatures = features.defaultFeaturesRequest.isExecuting
       && !features.defaultFeaturesRequest.wasExecuted;
 
-    const themeType = theme(settings.app.darkMode ? 'dark' : 'default');
-
     if (isLoadingBaseFeatures) {
       return (
-        <ThemeProvider theme={theme(themeType)}>
+        <ThemeProvider theme={stores.ui.theme}>
           <AppLoader />
         </ThemeProvider>
       );
     }
 
     return (
-      <ThemeProvider theme={theme(themeType)}>
+      <ThemeProvider theme={stores.ui.theme}>
         <AuthLayout
           error={globalError.response}
           pathname={location.pathname}
