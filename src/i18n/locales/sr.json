@@ -45,6 +45,7 @@
    "login.tokenExpired" : "Vaša sesija je istekla, prijavite se ponovo.",
    "menu.app.about" : "O Francu",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "Potraži ažuriranja",
    "menu.app.hide" : "Sakrij",
    "menu.app.hideOthers" : "Sakrij ostale",
    "menu.app.quit" : "Izađi",

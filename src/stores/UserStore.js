@@ -329,8 +329,7 @@ export default class UserStore extends Store {
         authToken,
       });
     } catch (err) {
-      console.error('AccessToken Invalid');
-
+      this._logout();
       return false;
     }
   }

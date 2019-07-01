@@ -28,7 +28,7 @@ const smallScreen = '1000px';
 const styles = theme => ({
   container: {
     background: theme.colorBackground,
-    position: 'absolute',
+    position: 'relative',
     top: 0,
     zIndex: 140,
     width: '100%',
@@ -268,7 +268,7 @@ class AnnouncementScreen extends Component {
           <div className={classes.changelog}>
             <h1 className={classes.headline}>
               {intl.formatMessage(messages.headline, {
-                version: announcementsStore.currentVersion,
+                version: announcementsStore.targetVersion,
               })}
             </h1>
             <div

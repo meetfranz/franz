@@ -45,6 +45,7 @@
    "login.tokenExpired" : "თქვენს სესიას ვადა გაუვიდა, შედით ანგარიშში ხელახლა.",
    "menu.app.about" : "Franz-ის შესახებ",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "განახლებების შემოწმება",
    "menu.app.hide" : "Hide",
    "menu.app.hideOthers" : "სხვების დამალვა",
    "menu.app.quit" : "გამოსვლა",

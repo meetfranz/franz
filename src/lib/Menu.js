@@ -168,6 +168,10 @@ const menuItems = defineMessages({
     id: 'menu.app.settings',
     defaultMessage: '!!!Settings',
   },
+  checkForUpdates: {
+    id: 'menu.app.checkForUpdates',
+    defaultMessage: '!!!Check for updates',
+  },
   hide: {
     id: 'menu.app.hide',
     defaultMessage: '!!!Hide',
@@ -500,6 +504,11 @@ const _titleBarTemplateFactory = intl => [
     submenu: [],
   },
   {
+    label: intl.formatMessage(menuItems.workspaces),
+    submenu: [],
+    visible: workspaceStore.isFeatureEnabled,
+  },
+  {
     label: intl.formatMessage(menuItems.window),
     submenu: [
       {
@@ -636,6 +645,12 @@ export default class FranzMenu {
             this.actions.ui.openSettings({ path: 'app' });
           },
           enabled: this.stores.user.isLoggedIn,
+        },
+        {
+          label: intl.formatMessage(menuItems.checkForUpdates),
+          click: () => {
+            this.actions.app.checkForUpdates();
+          },
         },
         {
           type: 'separator',

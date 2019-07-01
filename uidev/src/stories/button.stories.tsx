@@ -1,8 +1,11 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
+import injectSheet from 'react-jss';
 
-import { Button } from '@meetfranz/forms';
+import { Button, Input } from '@meetfranz/forms';
+import { classes } from 'istanbul-lib-coverage';
+import { Classes } from 'jss';
 import { storiesOf } from '../stores/stories';
 
 const defaultProps = {
@@ -11,6 +14,17 @@ const defaultProps = {
   name: 'test1',
   type: 'button',
   disabled: false,
+};
+
+const styles = {
+  combinedElements: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  input: {
+    flex: 1,
+    marginRight: 20,
+  },
 };
 
 const createStore = (args?: any) => {
@@ -99,4 +113,26 @@ storiesOf('Button')
         e.preventDefault();
         alert('Click event');
       },
-    })} />));
+    })}/>
+  ))
+  .add('Long multi-line button', () => (
+    <WithStoreButton store={createStore({
+      label: 'But there is something that I must say to my people, who stand on the warm threshold which leads into the palace of justice: In the process of gaining our rightful place, we must not be guilty of wrongful deeds. Let us not seek to satisfy our thirst for freedom by drinking from the cup of bitterness and hatred. We must forever conduct our struggle on the high plane of dignity and discipline. We must not allow our creative protest to degenerate into physical violence. Again and again, we must rise to the majestic heights of meeting physical force with soul force.',
+    })} />
+  ))
+  .add('Button with Input', injectSheet(styles)(observer(({ classes }: { classes: Classes }) => (
+      <div className={classes.combinedElements}>
+        <Input showLabel={false} className={classes.input} noMargin />
+        <WithStoreButton store={createStore({})} />
+      </div>
+    )),
+  ))
+  .add('Icon Button with Input', injectSheet(styles)(observer(({ classes }: { classes: Classes }) => (
+      <div className={classes.combinedElements}>
+        <Input showLabel={false} className={classes.input} noMargin />
+        <WithStoreButton store={createStore({
+          icon: 'mdiInformation',
+        })} />
+      </div>
+    )),
+  ));

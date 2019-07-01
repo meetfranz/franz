@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/ui",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "React UI components for Franz",
   "main": "lib/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
-    "@meetfranz/theme": "^1.0.13",
+    "@meetfranz/theme": "^1.0.14",
     "react-loader": "^2.4.5"
   },
   "peerDependencies": {
@@ -34,5 +34,5 @@
     "react-dom": "16.7.0",
     "react-jss": "^8.6.1"
   },
-  "gitHead": "e9b9079dc921e85961954727a7b2a8eabe5b9798"
+  "gitHead": "9f2ab40b7602bc3df26ebb093b484b9917768f69"
 }

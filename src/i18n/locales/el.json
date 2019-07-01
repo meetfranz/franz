@@ -45,6 +45,7 @@
    "login.tokenExpired" : "Η συνεδρία σας έληξε, συνδεθείτε ξανά.",
    "menu.app.about" : "Σχετικά με το Franz",
    "menu.app.announcement" : "What's new?",
+   "menu.app.checkForUpdates" : "Έλεγχος για ενημερώσεις",
    "menu.app.hide" : "Απόκρυψη",
    "menu.app.hideOthers" : "Απόκρυψη των άλλων",
    "menu.app.quit" : "Έξοδος",
