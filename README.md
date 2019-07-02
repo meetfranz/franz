@@ -11,7 +11,11 @@ $ npm install
 $ npm run build
 ```
 
-Distributables will be available in the `./out` folder.
+Deliverables will be available in the `./out` folder.
+
+## Releases
+
+You can find the binaries for Linux, MacOS and Windows in the [latest release](https://github.com/kytwb/ferdi/releases/tag/Ferdi-5.2.0-beta.3) assets. Assets are continuously delivered through [Travis](https://travis-ci.org/kytwb/ferdi) for Linux/MacOS and [Appveyor](https://ci.appveyor.com/project/kytwb/ferdi) for Windows.
 
 ## Features
 
