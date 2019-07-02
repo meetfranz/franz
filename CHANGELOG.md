@@ -1,3 +1,16 @@
+# [5.2.0-beta.4](https://github.com/meetfranz/franz/compare/v5.2.0-beta.3...v5.2.0-beta.4) (2019-07-01)
+
+
+### Bug Fixes
+
+* **Notifications:** Don't show notification badges when app is muted ([e844a64](https://github.com/meetfranz/franz/commit/e844a64))
+* **Settings:** Fix position of settings window
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
 # [5.2.0-beta.3](https://github.com/meetfranz/franz/compare/v5.2.0-beta.2...v5.2.0-beta.3) (2019-06-24)
 
 ### General
