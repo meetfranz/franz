@@ -297,7 +297,7 @@
    "subscription.includedFeatures" : "Franz 高級支援帳戶包含",
    "subscription.paymentSessionError" : "無法初始化付款表單",
    "subscription.submit.label" : "我想支持 Franz 開發",
-   "subscription.type.free" : "自由",
+   "subscription.type.free" : "免費",
    "subscription.type.month" : "月",
    "subscription.type.year" : "年",
    "subscriptionPopup.buttonCancel" : "取消",
