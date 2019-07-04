@@ -10,6 +10,7 @@ import FeaturesStore from '../../stores/FeaturesStore';
 import UIStore from '../../stores/UIStore';
 import NewsStore from '../../stores/NewsStore';
 import SettingsStore from '../../stores/SettingsStore';
+import UserStore from '../../stores/UserStore';
 import RequestStore from '../../stores/RequestStore';
 import GlobalErrorStore from '../../stores/GlobalErrorStore';
 
@@ -39,6 +40,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       settings,
       globalError,
       requests,
+      user,
     } = this.props.stores;
 
     const {
@@ -125,6 +127,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         reload={reload}
         openSettings={openSettings}
         update={updateService}
+        userHasCompletedSignup={user.hasCompletedSignup}
       />
     );
 
@@ -166,6 +169,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
     ui: PropTypes.instanceOf(UIStore).isRequired,
     news: PropTypes.instanceOf(NewsStore).isRequired,
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
+    user: PropTypes.instanceOf(UserStore).isRequired,
     requests: PropTypes.instanceOf(RequestStore).isRequired,
     globalError: PropTypes.instanceOf(GlobalErrorStore).isRequired,
   }).isRequired,

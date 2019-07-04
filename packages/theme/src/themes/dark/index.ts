@@ -118,3 +118,13 @@ export const announcements = merge({}, defaultStyles.announcements, {
     background: legacyStyles.darkThemeGrayDark,
   },
 });
+
+// Signup
+export const signup = merge({}, defaultStyles.signup, {
+  pricing: {
+    feature: {
+      background: legacyStyles.darkThemeGrayLight,
+      border: color(legacyStyles.darkThemeGrayLight).lighten(0.2).hex(),
+    },
+  },
+});

@@ -207,3 +207,13 @@ export const announcements = {
     background: legacyStyles.themeGrayLightest,
   },
 };
+
+// Signup
+export const signup = {
+  pricing: {
+    feature: {
+      background: legacyStyles.themeGrayLightest,
+      border: legacyStyles.themeGrayLighter,
+    },
+  },
+};

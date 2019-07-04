@@ -17,6 +17,9 @@ export default {
   retrievePassword: {
     email: PropTypes.string.isRequired,
   },
+  activateTrial: {
+    planId: PropTypes.string.isRequired,
+  },
   invite: {
     invites: PropTypes.array.isRequired,
   },

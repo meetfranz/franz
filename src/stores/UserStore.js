@@ -37,6 +37,8 @@ export default class UserStore extends Store {
 
   @observable passwordRequest = new Request(this.api.user, 'password');
 
+  @observable activateTrialRequest = new Request(this.api.user, 'activateTrial');
+
   @observable inviteRequest = new Request(this.api.user, 'invite');
 
   @observable getUserInfoRequest = new CachedRequest(this.api.user, 'getInfo');
@@ -57,7 +59,7 @@ export default class UserStore extends Store {
 
   @observable accountType;
 
-  @observable hasCompletedSignup = null;
+  @observable hasCompletedSignup = false;
 
   @observable userData = {};
 
@@ -77,6 +79,7 @@ export default class UserStore extends Store {
     this.actions.user.retrievePassword.listen(this._retrievePassword.bind(this));
     this.actions.user.logout.listen(this._logout.bind(this));
     this.actions.user.signup.listen(this._signup.bind(this));
+    this.actions.user.activateTrial.listen(this._activateTrial.bind(this));
     this.actions.user.invite.listen(this._invite.bind(this));
     this.actions.user.update.listen(this._update.bind(this));
     this.actions.user.resetStatus.listen(this._resetStatus.bind(this));
@@ -197,6 +200,20 @@ export default class UserStore extends Store {
     this.actionStatus = request.result.status || [];
 
     gaEvent('User', 'retrievePassword');
+  }
+
+  @action async _activateTrial({ planId }) {
+    debug('activate trial', planId);
+
+    this.activateTrialRequest.execute({
+      plan: planId,
+    });
+
+    await this.activateTrialRequest._promise;
+
+    this.stores.features.featuresRequest.invalidate({ immediately: true });
+
+    gaEvent('User', 'activateTrial');
   }
 
   @action async _invite({ invites }) {

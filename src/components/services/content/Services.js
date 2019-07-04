@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
+import Confetti from 'react-confetti';
+import ms from 'ms';
+import injectSheet from 'react-jss';
 
 import ServiceView from './ServiceView';
 import Appear from '../../ui/effects/Appear';
@@ -18,7 +21,16 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class Services extends Component {
+
+const styles = {
+  confettiContainer: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 0,
+  },
+};
+
+export default @observer @injectSheet(styles) class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray,
     setWebviewReference: PropTypes.func.isRequired,
@@ -28,6 +40,8 @@ export default @observer class Services extends Component {
     reload: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
+    userHasCompletedSignup: PropTypes.bool.isRequired,
+    classes: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
@@ -37,6 +51,18 @@ export default @observer class Services extends Component {
   static contextTypes = {
     intl: intlShape,
   };
+
+  state = {
+    showConfetti: true,
+  }
+
+  componentDidMount() {
+    window.setTimeout(() => {
+      this.setState({
+        showConfetti: false,
+      });
+    }, ms('8s'));
+  }
 
   render() {
     const {
@@ -48,29 +74,47 @@ export default @observer class Services extends Component {
       reload,
       openSettings,
       update,
+      userHasCompletedSignup,
+      classes,
     } = this.props;
+
+    const {
+      showConfetti,
+    } = this.state;
+
     const { intl } = this.context;
 
     return (
       <div className="services">
         {services.length === 0 && (
-          <Appear
-            timeout={1500}
-            transitionName="slideUp"
-          >
-            <div className="services__no-service">
-              <img src="./assets/images/logo.svg" alt="" />
-              <h1>{intl.formatMessage(messages.welcome)}</h1>
-              <Appear
-                timeout={300}
-                transitionName="slideUp"
-              >
-                <Link to="/settings/recipes" className="button">
-                  {intl.formatMessage(messages.getStarted)}
-                </Link>
-              </Appear>
-            </div>
-          </Appear>
+          <>
+            {userHasCompletedSignup && (
+              <div className={classes.confettiContainer}>
+                <Confetti
+                  width={window.width}
+                  height={window.height}
+                  numberOfPieces={showConfetti ? 200 : 0}
+                />
+              </div>
+            )}
+            <Appear
+              timeout={1500}
+              transitionName="slideUp"
+            >
+              <div className="services__no-service">
+                <img src="./assets/images/logo.svg" alt="" />
+                <h1>{intl.formatMessage(messages.welcome)}</h1>
+                <Appear
+                  timeout={300}
+                  transitionName="slideUp"
+                >
+                  <Link to="/settings/recipes" className="button">
+                    {intl.formatMessage(messages.getStarted)}
+                  </Link>
+                </Appear>
+              </div>
+            </Appear>
+          </>
         )}
         {services.map(service => (
           <ServiceView
