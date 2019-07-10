@@ -12,6 +12,7 @@ import NewsStore from '../../stores/NewsStore';
 import SettingsStore from '../../stores/SettingsStore';
 import RequestStore from '../../stores/RequestStore';
 import GlobalErrorStore from '../../stores/GlobalErrorStore';
+import UserStore from '../../stores/UserStore';
 
 import { oneOrManyChildElements } from '../../prop-types';
 import AppLayout from '../../components/layout/AppLayout';
@@ -39,6 +40,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       settings,
       globalError,
       requests,
+      user,
     } = this.props.stores;
 
     const {
@@ -131,6 +133,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
     return (
       <ThemeProvider theme={ui.theme}>
         <AppLayout
+          authToken={user.authToken}
           isFullScreen={app.isFullScreen}
           isOnline={app.isOnline}
           showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
@@ -169,6 +172,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
     requests: PropTypes.instanceOf(RequestStore).isRequired,
     globalError: PropTypes.instanceOf(GlobalErrorStore).isRequired,
+    user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     service: PropTypes.shape({

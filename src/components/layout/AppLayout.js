@@ -17,6 +17,7 @@ import { isWindows } from '../../environment';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
+import TodosWebview from '../../features/todos/components/TodosWebview';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -39,7 +40,8 @@ const messages = defineMessages({
 
 const styles = theme => ({
   appContent: {
-    width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
+    // width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
+    width: '100%',
     transition: 'transform 0.5s ease',
     transform() {
       return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
@@ -50,6 +52,7 @@ const styles = theme => ({
 @injectSheet(styles) @observer
 class AppLayout extends Component {
   static propTypes = {
+    authToken: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
     isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
@@ -83,6 +86,7 @@ class AppLayout extends Component {
 
   render() {
     const {
+      authToken,
       classes,
       isFullScreen,
       workspacesDrawer,
@@ -173,6 +177,7 @@ class AppLayout extends Component {
                 {children}
               </div>
             </div>
+            <TodosWebview authToken={authToken} />
           </div>
         </div>
       </ErrorBoundary>

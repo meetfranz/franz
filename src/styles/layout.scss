@@ -33,10 +33,11 @@ html { overflow: hidden; }
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
+  //display: flex;
 
-  .app__content { display: flex; }
+  .app__content {
+    display: flex;
+  }
 
   .app__service {
     position: relative;
