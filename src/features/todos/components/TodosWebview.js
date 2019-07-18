@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import Webview from 'react-electron-web-view';
+import * as environment from '../../../environment';
 
 const styles = theme => ({
   root: {
@@ -31,7 +32,7 @@ class TodosWebview extends Component {
       <div className={classes.root}>
         <Webview
           className={classes.webview}
-          src={`http://localhost:4000?authToken=${authToken}`}
+          src={`${environment.TODOS_FRONTEND}?authToken=${authToken}`}
         />
       </div>
     );
