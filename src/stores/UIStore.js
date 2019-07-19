@@ -1,4 +1,9 @@
-import { action, observable, computed } from 'mobx';
+import {
+  action,
+  observable,
+  computed,
+  reaction,
+} from 'mobx';
 import { theme } from '@meetfranz/theme';
 
 import Store from './lib/Store';
@@ -15,10 +20,18 @@ export default class UIStore extends Store {
     this.actions.ui.toggleServiceUpdatedInfoBar.listen(this._toggleServiceUpdatedInfoBar.bind(this));
   }
 
+  setup() {
+    reaction(
+      () => this.isDarkThemeActive,
+      () => this._setupThemeInDOM(),
+      { fireImmediately: true },
+    );
+  }
+
   @computed get showMessageBadgesEvenWhenMuted() {
     const settings = this.stores.settings.all;
 
-    return (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted) || !settings.isAppMuted;
+    return (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted) || !settings.app.isAppMuted;
   }
 
   @computed get isDarkThemeActive() {
@@ -26,7 +39,7 @@ export default class UIStore extends Store {
   }
 
   @computed get theme() {
-    if (this.isDarkThemeActive) return theme('dark');
+    if (this.isDarkThemeActive || this.stores.settings.app.darkMode) return theme('dark');
     return theme('default');
   }
 
@@ -46,5 +59,16 @@ export default class UIStore extends Store {
       visibility = !this.showServicesUpdatedInfoBar;
     }
     this.showServicesUpdatedInfoBar = visibility;
+  }
+
+  // Reactions
+  _setupThemeInDOM() {
+    const body = document.querySelector('body');
+
+    if (!this.isDarkThemeActive) {
+      body.classList.remove('theme__dark');
+    } else {
+      body.classList.add('theme__dark');
+    }
   }
 }

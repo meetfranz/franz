@@ -28,7 +28,7 @@ const smallScreen = '1000px';
 const styles = theme => ({
   container: {
     background: theme.colorBackground,
-    position: 'absolute',
+    position: 'relative',
     top: 0,
     zIndex: 140,
     width: '100%',
