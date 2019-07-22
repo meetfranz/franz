@@ -12,7 +12,7 @@ const styles = theme => ({
     width: 300,
     position: 'absolute',
     top: 0,
-    right: 0,
+    right: -300,
   },
   webview: {
     height: '100%',
