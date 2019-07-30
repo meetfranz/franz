@@ -37,10 +37,15 @@ html { overflow: hidden; }
 
   .app__content {
     display: flex;
+    width: calc(100% + 300px);
+  }
+
+  .app__main-content {
+    display: flex;
+    width: 100%;
   }
 
   .app__service {
-    // position: relative;
     display: flex;
     flex: 1;
     flex-direction: column;

@@ -207,3 +207,10 @@ export const announcements = {
     background: legacyStyles.themeGrayLightest,
   },
 };
+
+// Todos
+export const todos = {
+  dragIndicator: {
+    background: legacyStyles.themeGrayLight,
+  },
+};

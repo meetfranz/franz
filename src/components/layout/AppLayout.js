@@ -17,7 +17,7 @@ import { isWindows } from '../../environment';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
-import TodosWebview from '../../features/todos/components/TodosWebview';
+import Todos from '../../features/todos/containers/TodosScreen';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -52,7 +52,6 @@ const styles = theme => ({
 @injectSheet(styles) @observer
 class AppLayout extends Component {
   static propTypes = {
-    authToken: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
     isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
@@ -60,7 +59,6 @@ class AppLayout extends Component {
     services: PropTypes.element.isRequired,
     children: PropTypes.element,
     news: MobxPropTypes.arrayOrObservableArray.isRequired,
-    // isOnline: PropTypes.bool.isRequired,
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
     nextAppReleaseVersion: PropTypes.string,
@@ -85,7 +83,6 @@ class AppLayout extends Component {
 
   render() {
     const {
-      authToken,
       classes,
       isFullScreen,
       workspacesDrawer,
@@ -129,15 +126,6 @@ class AppLayout extends Component {
                   <span dangerouslySetInnerHTML={createMarkup(item.message)} />
                 </InfoBar>
               ))}
-              {/* {!isOnline && (
-                <InfoBar
-                  type="danger"
-                  sticky
-                >
-                  <span className="mdi mdi-flash" />
-                  {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
-                </InfoBar>
-              )} */}
               {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
                 <InfoBar
                   type="danger"
@@ -173,7 +161,7 @@ class AppLayout extends Component {
               {services}
               {children}
             </div>
-            <TodosWebview authToken={authToken} />
+            <Todos />
           </div>
         </div>
       </ErrorBoundary>
