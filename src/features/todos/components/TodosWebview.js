@@ -35,6 +35,8 @@ class TodosWebview extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     authToken: PropTypes.string.isRequired,
+    handleClientMessage: PropTypes.func.isRequired,
+    setTodosWebview: PropTypes.func.isRequired,
     resize: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired,
     minWidth: PropTypes.number.isRequired,
@@ -43,7 +45,7 @@ class TodosWebview extends Component {
   state = {
     isDragging: false,
     width: 300,
-  }
+  };
 
   componentWillMount() {
     const { width } = this.props;
@@ -65,7 +67,7 @@ class TodosWebview extends Component {
       initialPos: event.clientX,
       delta: 0,
     });
-  }
+  };
 
   resizePanel(e) {
     const { minWidth } = this.props;
@@ -113,10 +115,15 @@ class TodosWebview extends Component {
     }
   }
 
+  startListeningToIpcMessages() {
+    const { handleClientMessage } = this.props;
+    if (!this.webview) return;
+    this.webview.addEventListener('ipc-message', e => handleClientMessage(e.args[0]));
+  }
+
   render() {
     const { authToken, classes } = this.props;
     const { width, delta, isDragging } = this.state;
-
     return (
       <>
         <div
@@ -138,6 +145,13 @@ class TodosWebview extends Component {
           )}
           <Webview
             className={classes.webview}
+            onDidAttach={() => {
+              this.props.setTodosWebview(this.webview);
+              this.startListeningToIpcMessages();
+            }}
+            partition="persist:todos"
+            preload="./features/todos/preload.js"
+            ref={(webview) => { this.webview = webview ? webview.view : null; }}
             src={`${environment.TODOS_FRONTEND}?authToken=${authToken}`}
           />
         </div>

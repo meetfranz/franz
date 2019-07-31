@@ -18,6 +18,8 @@ export default class TodoStore extends FeatureStore {
 
   @observable isFeatureActive = false;
 
+  webview = null;
+
   @computed get width() {
     const width = this.settings.width || DEFAULT_TODOS_WIDTH;
 
@@ -39,6 +41,9 @@ export default class TodoStore extends FeatureStore {
 
     this._registerActions(createActionBindings([
       [todoActions.resize, this._resize],
+      [todoActions.setTodosWebview, this._setTodosWebview],
+      [todoActions.handleHostMessage, this._handleHostMessage],
+      [todoActions.handleClientMessage, this._handleClientMessage],
     ]));
 
     // REACTIONS
@@ -74,6 +79,30 @@ export default class TodoStore extends FeatureStore {
     this._updateSettings({
       width,
     });
+  };
+
+  @action _setTodosWebview = ({ webview }) => {
+    debug('_setTodosWebview', webview);
+    this.webview = webview;
+  };
+
+  @action _handleHostMessage = (message) => {
+    debug('_handleHostMessage', message);
+    if (message.action === 'create:todo') {
+      console.log(this.webview);
+      this.webview.send('hostMessage', message);
+    }
+  };
+
+  @action _handleClientMessage = (message) => {
+    debug('_handleClientMessage', message);
+    if (message.action === 'goToService') {
+      const { url, serviceId } = message.data;
+      if (url) {
+        this.stores.services.one(serviceId).webview.loadURL(url);
+      }
+      this.actions.service.setActive({ serviceId });
+    }
   };
 
   // Reactions

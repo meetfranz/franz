@@ -96,6 +96,10 @@ const menuItems = defineMessages({
     id: 'menu.view.toggleDevTools',
     defaultMessage: '!!!Toggle Developer Tools',
   },
+  toggleTodosDevTools: {
+    id: 'menu.view.toggleTodosDevTools',
+    defaultMessage: '!!!Toggle Todos Developer Tools',
+  },
   toggleServiceDevTools: {
     id: 'menu.view.toggleServiceDevTools',
     defaultMessage: '!!!Toggle Service Developer Tools',
@@ -240,6 +244,7 @@ const menuItems = defineMessages({
     id: 'menu.workspaces.defaultWorkspace',
     defaultMessage: '!!!Default',
   },
+
 });
 
 function getActiveWebview() {
@@ -619,6 +624,17 @@ export default class FranzMenu {
       },
       enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
     });
+
+    if (this.stores.features.features.isTodosEnabled) {
+      tpl[1].submenu.push({
+        label: intl.formatMessage(menuItems.toggleTodosDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+O`,
+        click: () => {
+          const webview = document.querySelector('webview[partition="persist:todos"]');
+          if (webview) webview.openDevTools();
+        },
+      });
+    }
 
     tpl[1].submenu.unshift({
       label: intl.formatMessage(menuItems.reloadService),

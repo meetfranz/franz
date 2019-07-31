@@ -18,6 +18,7 @@ class TodosScreen extends Component {
     actions: PropTypes.shape({
       todos: PropTypes.shape({
         resize: PropTypes.func.isRequired,
+        handleIPCMessage: PropTypes.func.isRequired,
       }),
     }).isRequired,
   };
@@ -33,6 +34,8 @@ class TodosScreen extends Component {
       <ErrorBoundary>
         <TodosWebview
           authToken={stores.user.authToken}
+          handleClientMessage={actions.todos.handleClientMessage}
+          setTodosWebview={webview => actions.todos.setTodosWebview({ webview })}
           width={stores.todos.width}
           minWidth={TODOS_MIN_WIDTH}
           resize={width => actions.todos.resize({ width })}
