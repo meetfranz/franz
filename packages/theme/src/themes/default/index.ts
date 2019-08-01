@@ -210,6 +210,9 @@ export const announcements = {
 
 // Todos
 export const todos = {
+  todosLayer: {
+    borderLeftColor: legacyStyles.themeGrayDark,
+  },
   dragIndicator: {
     background: legacyStyles.themeGrayLight,
   },

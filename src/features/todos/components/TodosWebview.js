@@ -9,6 +9,7 @@ const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
+    borderLeft: [1, 'solid', theme.todos.todosLayer.borderLeftColor],
   },
   webview: {
     height: '100%',
