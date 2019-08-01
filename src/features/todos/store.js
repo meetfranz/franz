@@ -89,7 +89,6 @@ export default class TodoStore extends FeatureStore {
   @action _handleHostMessage = (message) => {
     debug('_handleHostMessage', message);
     if (message.action === 'create:todo') {
-      console.log(this.webview);
       this.webview.send('hostMessage', message);
     }
   };
