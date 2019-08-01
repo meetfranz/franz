@@ -8,10 +8,10 @@ export const GA_CATEGORY_TODOS = 'Todos';
 export const DEFAULT_TODOS_WIDTH = 300;
 export const TODOS_MIN_WIDTH = 200;
 
-export const todoStore = new TodoStore();
+export const todosStore = new TodoStore();
 
 export default function initTodos(stores, actions) {
-  stores.todos = todoStore;
+  stores.todos = todosStore;
   const { features } = stores;
 
   // Toggle todos feature
@@ -20,10 +20,10 @@ export default function initTodos(stores, actions) {
     (isEnabled) => {
       if (isEnabled) {
         debug('Initializing `todos` feature');
-        todoStore.start(stores, actions);
-      } else if (todoStore.isFeatureActive) {
+        todosStore.start(stores, actions);
+      } else if (todosStore.isFeatureActive) {
         debug('Disabling `todos` feature');
-        todoStore.stop();
+        todosStore.stop();
       }
     },
     {

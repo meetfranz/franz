@@ -5,26 +5,19 @@ import PropTypes from 'prop-types';
 import TodosWebview from '../components/TodosWebview';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import UserStore from '../../../stores/UserStore';
-import TodoStore from '../store';
-import { TODOS_MIN_WIDTH } from '..';
+import { TODOS_MIN_WIDTH, todosStore } from '..';
+import { todoActions } from '../actions';
 
-@inject('stores', 'actions') @observer
+@inject('stores') @observer
 class TodosScreen extends Component {
   static propTypes = {
     stores: PropTypes.shape({
       user: PropTypes.instanceOf(UserStore).isRequired,
-      todos: PropTypes.instanceOf(TodoStore).isRequired,
-    }).isRequired,
-    actions: PropTypes.shape({
-      todos: PropTypes.shape({
-        resize: PropTypes.func.isRequired,
-        handleIPCMessage: PropTypes.func.isRequired,
-      }),
     }).isRequired,
   };
 
   render() {
-    const { stores, actions } = this.props;
+    const { stores } = this.props;
 
     if (!stores.todos || !stores.todos.isFeatureActive) {
       return null;
@@ -34,11 +27,11 @@ class TodosScreen extends Component {
       <ErrorBoundary>
         <TodosWebview
           authToken={stores.user.authToken}
-          handleClientMessage={actions.todos.handleClientMessage}
-          setTodosWebview={webview => actions.todos.setTodosWebview({ webview })}
-          width={stores.todos.width}
+          handleClientMessage={todoActions.handleClientMessage}
+          setTodosWebview={webview => todoActions.setTodosWebview({ webview })}
+          width={todosStore.width}
           minWidth={TODOS_MIN_WIDTH}
-          resize={width => actions.todos.resize({ width })}
+          resize={width => todoActions.resize({ width })}
         />
       </ErrorBoundary>
     );

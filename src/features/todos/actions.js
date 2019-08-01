@@ -6,7 +6,7 @@ export const todoActions = createActionsFromDefinitions({
     width: PropTypes.number.isRequired,
   },
   setTodosWebview: {
-    webview: PropTypes.element.isRequired,
+    webview: PropTypes.instanceOf(Element).isRequired,
   },
   handleHostMessage: {
     action: PropTypes.string.isRequired,
