@@ -55,7 +55,8 @@
     "atob": true,
     "btoa": true,
     "ga": true,
-    "mocha": true
+    "mocha": true,
+    "Element": true
   },
   "env": {
     "jest/globals": true
