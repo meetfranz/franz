@@ -146,7 +146,8 @@ class TodosWebview extends Component {
           <Webview
             className={classes.webview}
             onDidAttach={() => {
-              this.props.setTodosWebview(this.webview);
+              const { setTodosWebview } = this.props;
+              setTodosWebview(this.webview);
               this.startListeningToIpcMessages();
             }}
             partition="persist:todos"
