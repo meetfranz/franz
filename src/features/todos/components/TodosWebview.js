@@ -3,16 +3,31 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import Webview from 'react-electron-web-view';
+import { Icon } from '@meetfranz/ui';
 import * as environment from '../../../environment';
+
+const TOGGLE_SIZE = 45;
 
 const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
     borderLeft: [1, 'solid', theme.todos.todosLayer.borderLeftColor],
+    zIndex: 300,
+
+    transition: 'all 0.5s',
+    transform: props => `translateX(${props.isVisible ? 0 : props.width}px)`,
+
+    '&:hover $toggleTodosButton': {
+      opacity: 1,
+    },
   },
   webview: {
     height: '100%',
+
+    '& webview': {
+      height: '100%',
+    },
   },
   resizeHandler: {
     position: 'absolute',
@@ -29,6 +44,31 @@ const styles = theme => ({
     zIndex: 400,
     background: theme.todos.dragIndicator.background,
   },
+  toggleTodosButton: {
+    width: TOGGLE_SIZE,
+    height: TOGGLE_SIZE,
+    background: theme.todos.toggleButton.background,
+    position: 'absolute',
+    bottom: 80,
+    right: props => (props.width + (props.isVisible ? -TOGGLE_SIZE / 2 : 0)),
+    borderRadius: TOGGLE_SIZE / 2,
+    opacity: props => (props.isVisible ? 0 : 1),
+    transition: 'all 0.5s',
+    zIndex: 600,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: [0, 0, 10, theme.todos.toggleButton.shadowColor],
+    // border: [1, 'solid', theme.todos.toggleButton.borderColor],
+
+    borderTopRightRadius: props => (props.isVisible ? null : 0),
+    borderBottomRightRadius: props => (props.isVisible ? null : 0),
+
+    '& svg': {
+      fill: theme.todos.toggleButton.textColor,
+      transition: 'all 0.5s',
+    },
+  },
 });
 
 @injectSheet(styles) @observer
@@ -36,6 +76,8 @@ class TodosWebview extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     authToken: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    togglePanel: PropTypes.func.isRequired,
     handleClientMessage: PropTypes.func.isRequired,
     setTodosWebview: PropTypes.func.isRequired,
     resize: PropTypes.func.isRequired,
@@ -123,16 +165,26 @@ class TodosWebview extends Component {
   }
 
   render() {
-    const { authToken, classes } = this.props;
+    const {
+      authToken, classes, isVisible, togglePanel,
+    } = this.props;
     const { width, delta, isDragging } = this.state;
+
     return (
       <>
         <div
           className={classes.root}
-          style={{ width }}
+          style={{ width: isVisible ? width : 0 }}
           onMouseUp={() => this.stopResize()}
           ref={(node) => { this.node = node; }}
         >
+          <button
+            onClick={() => togglePanel()}
+            className={classes.toggleTodosButton}
+            type="button"
+          >
+            <Icon icon={isVisible ? 'mdiChevronRight' : 'mdiCheckAll'} size={2} />
+          </button>
           <div
             className={classes.resizeHandler}
             style={Object.assign({ left: delta }, isDragging ? { width: 600, marginLeft: -200 } : {})} // This hack is required as resizing with webviews beneath behaves quite bad

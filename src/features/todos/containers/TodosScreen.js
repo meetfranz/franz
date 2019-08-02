@@ -27,6 +27,8 @@ class TodosScreen extends Component {
       <ErrorBoundary>
         <TodosWebview
           authToken={stores.user.authToken}
+          isVisible={todosStore.isTodosPanelVisible}
+          togglePanel={todoActions.toggleTodosPanel}
           handleClientMessage={todoActions.handleClientMessage}
           setTodosWebview={webview => todoActions.setTodosWebview({ webview })}
           width={todosStore.width}
