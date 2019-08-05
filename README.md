@@ -2,7 +2,7 @@
 
 # Ferdi
 
-👛 Hard-fork of [Franz](https://github.com/meetfranz/franz) removing the non-skippable app delay frequently inviting you to buy a licence
+👛 Hard-fork of [Franz](https://github.com/meetfranz/franz) removing the non-skippable app delay (too) frequently inviting you to buy a licence
 
 ## Packaging
 
