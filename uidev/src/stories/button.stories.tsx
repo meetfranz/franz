@@ -1,10 +1,10 @@
+import { mdiInformation } from '@mdi/js';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import injectSheet from 'react-jss';
 
 import { Button, Input } from '@meetfranz/forms';
-import { classes } from 'istanbul-lib-coverage';
 import { Classes } from 'jss';
 import { storiesOf } from '../stores/stories';
 
@@ -92,7 +92,7 @@ storiesOf('Button')
   ))
   .add('With icon', () => (
     <WithStoreButton store={createStore({
-      icon: 'mdiInformation',
+      icon: mdiInformation,
     })} />
   ))
   .add('As link', () => (
@@ -131,7 +131,7 @@ storiesOf('Button')
       <div className={classes.combinedElements}>
         <Input showLabel={false} className={classes.input} noMargin />
         <WithStoreButton store={createStore({
-          icon: 'mdiInformation',
+          icon: mdiInformation,
         })} />
       </div>
     )),

@@ -1,3 +1,4 @@
+import { mdiStar } from '@mdi/js';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
@@ -49,7 +50,7 @@ class ProBadgeComponent extends Component<IProps> {
         ])}
       >
         <Icon
-          icon="mdiStar"
+          icon={mdiStar}
           className={classnames([
             classes.icon,
             inverted && classes.invertedIcon,
