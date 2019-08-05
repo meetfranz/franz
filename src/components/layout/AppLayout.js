@@ -17,6 +17,7 @@ import { isWindows } from '../../environment';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
+import TrialActivationInfoBar from '../TrialActivationInfoBar';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -57,7 +58,6 @@ class AppLayout extends Component {
     services: PropTypes.element.isRequired,
     children: PropTypes.element,
     news: MobxPropTypes.arrayOrObservableArray.isRequired,
-    // isOnline: PropTypes.bool.isRequired,
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
     nextAppReleaseVersion: PropTypes.string,
@@ -69,6 +69,7 @@ class AppLayout extends Component {
     retryRequiredRequests: PropTypes.func.isRequired,
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     isDelayAppScreenVisible: PropTypes.bool.isRequired,
+    hasActivatedTrial: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -88,7 +89,6 @@ class AppLayout extends Component {
       sidebar,
       services,
       children,
-      // isOnline,
       news,
       showServicesUpdatedInfoBar,
       appUpdateIsDownloaded,
@@ -101,6 +101,7 @@ class AppLayout extends Component {
       retryRequiredRequests,
       areRequiredRequestsLoading,
       isDelayAppScreenVisible,
+      hasActivatedTrial,
     } = this.props;
 
     const { intl } = this.context;
@@ -125,26 +126,20 @@ class AppLayout extends Component {
                   <span dangerouslySetInnerHTML={createMarkup(item.message)} />
                 </InfoBar>
               ))}
-              {/* {!isOnline && (
-                <InfoBar
-                  type="danger"
-                  sticky
-                >
-                  <span className="mdi mdi-flash" />
-                  {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
-                </InfoBar>
-              )} */}
+              {hasActivatedTrial && (
+                <TrialActivationInfoBar />
+              )}
               {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
-                <InfoBar
-                  type="danger"
-                  ctaLabel="Try again"
-                  ctaLoading={areRequiredRequestsLoading}
-                  sticky
-                  onClick={retryRequiredRequests}
-                >
-                  <span className="mdi mdi-flash" />
-                  {intl.formatMessage(messages.requiredRequestsFailed)}
-                </InfoBar>
+              <InfoBar
+                type="danger"
+                ctaLabel="Try again"
+                ctaLoading={areRequiredRequestsLoading}
+                sticky
+                onClick={retryRequiredRequests}
+              >
+                <span className="mdi mdi-flash" />
+                {intl.formatMessage(messages.requiredRequestsFailed)}
+              </InfoBar>
               )}
               {showServicesUpdatedInfoBar && (
                 <InfoBar

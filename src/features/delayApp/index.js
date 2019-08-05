@@ -44,7 +44,7 @@ export default function init(stores) {
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
-          if (stores.services.all.length === 0) {
+          if (stores.services.allDisplayed.length === 0) {
             debug('seas', stores.services.all.length);
             shownAfterLaunch = true;
             return;

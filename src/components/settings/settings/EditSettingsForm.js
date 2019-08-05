@@ -143,8 +143,6 @@ export default @observer class EditSettingsForm extends Component {
       updateButtonLabelMessage = messages.buttonSearchForUpdate;
     }
 
-    console.log('isSpellcheckerIncludedInCurrentPlan', isSpellcheckerIncludedInCurrentPlan);
-
     return (
       <div className="settings__main">
         <div className="settings__header">

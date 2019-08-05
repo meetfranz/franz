@@ -417,55 +417,120 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Support Franz",
+        "defaultMessage": "!!!Franz Professional",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 18
         },
         "file": "src/components/auth/Pricing.js",
-        "id": "pricing.headline",
+        "id": "pricing.trial.headline",
         "start": {
           "column": 12,
-          "line": 13
+          "line": 15
         }
       },
       {
-        "defaultMessage": "!!!Select your support plan",
+        "defaultMessage": "!!!Your personal welcome offer:",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 22
         },
         "file": "src/components/auth/Pricing.js",
-        "id": "pricing.support.label",
+        "id": "pricing.trial.subheadline",
         "start": {
-          "column": 23,
-          "line": 17
+          "column": 17,
+          "line": 19
         }
       },
       {
-        "defaultMessage": "!!!Support the development of Franz",
+        "defaultMessage": "!!!No strings attached",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 26
         },
         "file": "src/components/auth/Pricing.js",
-        "id": "pricing.submit.label",
+        "id": "pricing.trial.terms.headline",
+        "start": {
+          "column": 29,
+          "line": 23
+        }
+      },
+      {
+        "defaultMessage": "!!!No credit card required",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.trial.terms.noCreditCard",
+        "start": {
+          "column": 16,
+          "line": 27
+        }
+      },
+      {
+        "defaultMessage": "!!!Your free trial ends automatically after 14 days",
+        "end": {
+          "column": 3,
+          "line": 34
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.trial.terms.automaticTrialEnd",
         "start": {
           "column": 21,
-          "line": 21
+          "line": 31
         }
       },
       {
-        "defaultMessage": "!!!I don't want to support the development of Franz.",
+        "defaultMessage": "!!!Sorry, we could not activate your trial!",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 38
         },
         "file": "src/components/auth/Pricing.js",
-        "id": "pricing.link.skipPayment",
+        "id": "pricing.trial.error",
         "start": {
-          "column": 15,
-          "line": 25
+          "column": 19,
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!!Yes, upgrade my account to Franz Professional",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.trial.cta.accept",
+        "start": {
+          "column": 13,
+          "line": 39
+        }
+      },
+      {
+        "defaultMessage": "!!!Continue to Franz",
+        "end": {
+          "column": 3,
+          "line": 46
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.trial.cta.skip",
+        "start": {
+          "column": 11,
+          "line": 43
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Professional includes:",
+        "end": {
+          "column": 3,
+          "line": 50
+        },
+        "file": "src/components/auth/Pricing.js",
+        "id": "pricing.trial.features.headline",
+        "start": {
+          "column": 20,
+          "line": 47
         }
       }
     ],
@@ -967,26 +1032,26 @@
         "defaultMessage": "!!!Welcome to Franz",
         "end": {
           "column": 3,
-          "line": 14
+          "line": 17
         },
         "file": "src/components/services/content/Services.js",
         "id": "services.welcome",
         "start": {
           "column": 11,
-          "line": 11
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!Get started",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 21
         },
         "file": "src/components/services/content/Services.js",
         "id": "services.getStarted",
         "start": {
           "column": 14,
-          "line": 15
+          "line": 18
         }
       }
     ],
@@ -2807,6 +2872,141 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!Add unlimited services",
+        "end": {
+          "column": 3,
+          "line": 11
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.unlimitedServices",
+        "start": {
+          "column": 21,
+          "line": 8
+        }
+      },
+      {
+        "defaultMessage": "!!!Spellchecker support",
+        "end": {
+          "column": 3,
+          "line": 15
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.spellchecker",
+        "start": {
+          "column": 16,
+          "line": 12
+        }
+      },
+      {
+        "defaultMessage": "!!!Workspaces",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.workspaces",
+        "start": {
+          "column": 14,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!Add Custom Websites",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.customWebsites",
+        "start": {
+          "column": 18,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!On-premise & other Hosted Services",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.onPremise",
+        "start": {
+          "column": 13,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Install 3rd party services",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.thirdPartyServices",
+        "start": {
+          "column": 22,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Service Proxies",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.serviceProxies",
+        "start": {
+          "column": 18,
+          "line": 32
+        }
+      },
+      {
+        "defaultMessage": "!!!Team Management",
+        "end": {
+          "column": 3,
+          "line": 39
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.teamManagement",
+        "start": {
+          "column": 18,
+          "line": 36
+        }
+      },
+      {
+        "defaultMessage": "!!!No Waiting Screens",
+        "end": {
+          "column": 3,
+          "line": 43
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.appDelays",
+        "start": {
+          "column": 13,
+          "line": 40
+        }
+      },
+      {
+        "defaultMessage": "!!!Forever ad-free",
+        "end": {
+          "column": 3,
+          "line": 47
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.adFree",
+        "start": {
+          "column": 10,
+          "line": 44
+        }
+      }
+    ],
+    "path": "src/components/ui/FeatureList.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
@@ -3378,39 +3578,65 @@
         "defaultMessage": "!!!Please purchase license to skip waiting",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.headline",
         "start": {
           "column": 12,
-          "line": 15
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!Get the free Franz Professional 14 day trial and skip the line",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.trial.headline",
+        "start": {
+          "column": 17,
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Get a Franz Supporter License",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 27
         },
         "file": "src/features/delayApp/Component.js",
-        "id": "feature.delayApp.action",
+        "id": "feature.delayApp.upgrade.action",
         "start": {
           "column": 10,
-          "line": 19
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.trial.action",
+        "start": {
+          "column": 15,
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 35
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.text",
         "start": {
           "column": 8,
-          "line": 23
+          "line": 32
         }
       }
     ],

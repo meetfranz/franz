@@ -87,8 +87,6 @@ export default class ServerApi {
     }
     const trial = await request.json();
 
-    console.log(trial);
-
     debug('ServerApi::signup resolves', trial);
     return true;
   }

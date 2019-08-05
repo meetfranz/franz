@@ -128,6 +128,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         openSettings={openSettings}
         update={updateService}
         userHasCompletedSignup={user.hasCompletedSignup}
+        hasActivatedTrial={user.hasActivatedTrial}
       />
     );
 
@@ -152,6 +153,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           retryRequiredRequests={retryRequiredRequests}
           areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
           isDelayAppScreenVisible={delayAppState.isDelayAppScreenVisible}
+          hasActivatedTrial={user.hasActivatedTrial}
         >
           {React.Children.count(children) > 0 ? children : null}
         </AppLayout>

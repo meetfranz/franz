@@ -26,7 +26,8 @@ const styles = {
   confettiContainer: {
     position: 'absolute',
     width: '100%',
-    zIndex: 0,
+    zIndex: 9999,
+    pointerEvents: 'none',
   },
 };
 
@@ -41,6 +42,7 @@ export default @observer @injectSheet(styles) class Services extends Component {
     openSettings: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     userHasCompletedSignup: PropTypes.bool.isRequired,
+    hasActivatedTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
   };
 
@@ -75,6 +77,7 @@ export default @observer @injectSheet(styles) class Services extends Component {
       openSettings,
       update,
       userHasCompletedSignup,
+      hasActivatedTrial,
       classes,
     } = this.props;
 
@@ -84,37 +87,37 @@ export default @observer @injectSheet(styles) class Services extends Component {
 
     const { intl } = this.context;
 
+    console.log('hasActivatedTrial', hasActivatedTrial, (userHasCompletedSignup || hasActivatedTrial));
+
     return (
       <div className="services">
+        {(userHasCompletedSignup || hasActivatedTrial) && (
+          <div className={classes.confettiContainer}>
+            <Confetti
+              width={window.width}
+              height={window.height}
+              numberOfPieces={showConfetti ? 200 : 0}
+            />
+          </div>
+        )}
         {services.length === 0 && (
-          <>
-            {userHasCompletedSignup && (
-              <div className={classes.confettiContainer}>
-                <Confetti
-                  width={window.width}
-                  height={window.height}
-                  numberOfPieces={showConfetti ? 200 : 0}
-                />
-              </div>
-            )}
-            <Appear
-              timeout={1500}
-              transitionName="slideUp"
-            >
-              <div className="services__no-service">
-                <img src="./assets/images/logo.svg" alt="" />
-                <h1>{intl.formatMessage(messages.welcome)}</h1>
-                <Appear
-                  timeout={300}
-                  transitionName="slideUp"
-                >
-                  <Link to="/settings/recipes" className="button">
-                    {intl.formatMessage(messages.getStarted)}
-                  </Link>
-                </Appear>
-              </div>
-            </Appear>
-          </>
+          <Appear
+            timeout={1500}
+            transitionName="slideUp"
+          >
+            <div className="services__no-service">
+              <img src="./assets/images/logo.svg" alt="" />
+              <h1>{intl.formatMessage(messages.welcome)}</h1>
+              <Appear
+                timeout={300}
+                transitionName="slideUp"
+              >
+                <Link to="/settings/recipes" className="button">
+                  {intl.formatMessage(messages.getStarted)}
+                </Link>
+              </Appear>
+            </div>
+          </Appear>
         )}
         {services.map(service => (
           <ServiceView

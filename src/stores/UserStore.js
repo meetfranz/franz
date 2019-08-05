@@ -2,12 +2,14 @@ import { observable, computed, action } from 'mobx';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import localStorage from 'mobx-localstorage';
+import ms from 'ms';
 
 import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
+import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:UserStore');
 
@@ -61,6 +63,8 @@ export default class UserStore extends Store {
 
   @observable hasCompletedSignup = false;
 
+  @observable hasActivatedTrial = false;
+
   @observable userData = {};
 
   @observable actionStatus = [];
@@ -90,6 +94,7 @@ export default class UserStore extends Store {
     this.registerReactions([
       this._requireAuthenticatedUser,
       this._getUserData.bind(this),
+      this._resetTrialActivationState.bind(this),
     ]);
   }
 
@@ -211,7 +216,13 @@ export default class UserStore extends Store {
 
     await this.activateTrialRequest._promise;
 
+    this.hasActivatedTrial = true;
+
+    console.log('hasActivatedTrial', this.hasActivatedTrial);
+
     this.stores.features.featuresRequest.invalidate({ immediately: true });
+    this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+
 
     gaEvent('User', 'activateTrial');
   }
@@ -332,6 +343,16 @@ export default class UserStore extends Store {
           locale: data.locale,
         },
       });
+    }
+  }
+
+  async _resetTrialActivationState() {
+    if (this.hasActivatedTrial) {
+      await sleep(ms('12s'));
+
+      console.log('resetting this.hasActivatedTrial', this.hasActivatedTrial);
+
+      this.hasActivatedTrial = false;
     }
   }
 

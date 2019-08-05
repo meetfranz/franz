@@ -135,62 +135,96 @@ export default @observer class AccountDashboard extends Component {
           )}
 
           {!userInfoRequestFailed && (
-            <Fragment>
+            <>
               {!isLoading && (
-                <div className="account">
-                  <div className="account__box account__box--flex">
-                    <div className="account__avatar">
-                      <img
-                        src="./assets/images/logo.svg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="account__info">
-                      <h2>
-                        <span className="username">{`${user.firstname} ${user.lastname}`}</span>
-                        {user.isPremium && (
-                          <>
-                            {' '}
-                            <ProBadge />
-                            <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
-                          </>
-                        )}
-                      </h2>
-                      {user.organization && `${user.organization}, `}
-                      {user.email}
-                      {user.isPremium && (
-                        <div className="manage-user-links">
-                          <Button
-                            label={intl.formatMessage(messages.accountEditButton)}
-                            className="franz-form__button--inverted"
-                            onClick={openEditAccount}
-                          />
-                          {user.isSubscriptionOwner && (
+                <>
+                  <div className="account">
+                    <div className="account__box account__box--flex">
+                      <div className="account__avatar">
+                        <img
+                          src="./assets/images/logo.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div className="account__info">
+                        <h2>
+                          <span className="username">{`${user.firstname} ${user.lastname}`}</span>
+                          {user.isPremium && (
                             <>
-                              <Button
-                                label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
-                                className="franz-form__button--inverted"
-                                onClick={openBilling}
-                              />
-                              <Button
-                                label={intl.formatMessage(messages.invoicesButton)}
-                                className="franz-form__button--inverted"
-                                onClick={openInvoices}
-                              />
+                              {' '}
+                              <ProBadge />
+                              {/* <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span> */}
                             </>
                           )}
-                        </div>
+                        </h2>
+                        <p>
+                          {user.organization && `${user.organization}, `}
+                          {user.email}
+                        </p>
+                        {user.isPremium && (
+                          <div className="manage-user-links">
+                            <Button
+                              label={intl.formatMessage(messages.accountEditButton)}
+                              className="franz-form__button--inverted"
+                              onClick={openEditAccount}
+                            />
+                            {/* {user.isSubscriptionOwner && (
+                              <>
+                                <Button
+                                  label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
+                                  className="franz-form__button--inverted"
+                                  onClick={openBilling}
+                                />
+                                <Button
+                                  label={intl.formatMessage(messages.invoicesButton)}
+                                  className="franz-form__button--inverted"
+                                  onClick={openInvoices}
+                                />
+                              </>
+                            )} */}
+                          </div>
+                        )}
+                      </div>
+                      {!user.isPremium && (
+                        <Button
+                          label={intl.formatMessage(messages.accountEditButton)}
+                          className="franz-form__button--inverted"
+                          onClick={openEditAccount}
+                        />
                       )}
                     </div>
-                    {!user.isPremium && (
-                      <Button
-                        label={intl.formatMessage(messages.accountEditButton)}
-                        className="franz-form__button--inverted"
-                        onClick={openEditAccount}
-                      />
-                    )}
                   </div>
-                </div>
+                  {user.isSubscriptionOwner && (
+                    <div className="account">
+                      <div className="account__box">
+                        <h2>
+                          Your license: {user.team.plan}
+                        </h2>
+                        {user.team.isTrial && (
+                          <>
+                            <p>
+                              Trial ends in 14 days
+                            </p>
+                          </>
+                        )}
+                        {user.isPremium && (
+                          <div className="manage-user-links">
+                            <Button
+                              label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
+                              className="franz-form__button--inverted"
+                              onClick={openBilling}
+                            />
+                            <Button
+                              label={intl.formatMessage(messages.invoicesButton)}
+                              className="franz-form__button--inverted"
+                              onClick={openInvoices}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {!user.isPremium && (
@@ -227,7 +261,7 @@ export default @observer class AccountDashboard extends Component {
                   )}
                 </div>
               </div>
-            </Fragment>
+            </>
           )}
         </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
