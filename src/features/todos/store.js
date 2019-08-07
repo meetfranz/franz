@@ -1,3 +1,4 @@
+import { ThemeType } from '@meetfranz/theme';
 import {
   computed,
   action,
@@ -10,6 +11,7 @@ import { FeatureStore } from '../utils/FeatureStore';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
 import { DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE } from '.';
+import { IPC } from './constants';
 
 const debug = require('debug')('Franz:feature:todos:store');
 
@@ -101,20 +103,38 @@ export default class TodoStore extends FeatureStore {
 
   @action _handleHostMessage = (message) => {
     debug('_handleHostMessage', message);
-    if (message.action === 'create:todo') {
-      this.webview.send('hostMessage', message);
+    if (message.action === 'todos:create') {
+      this.webview.send(IPC.TODOS_HOST_CHANNEL, message);
     }
   };
 
   @action _handleClientMessage = (message) => {
     debug('_handleClientMessage', message);
-    if (message.action === 'goToService') {
-      const { url, serviceId } = message.data;
-      if (url) {
-        this.stores.services.one(serviceId).webview.loadURL(url);
-      }
-      this.actions.service.setActive({ serviceId });
+    switch (message.action) {
+      case 'todos:initialized': this._onTodosClientInitialized(); break;
+      case 'todos:goToService': this._goToService(message.data); break;
+      default:
+        debug('Unknown client message reiceived', message);
     }
+  };
+
+  // Todos client message handlers
+
+  _onTodosClientInitialized = () => {
+    this.webview.send(IPC.TODOS_HOST_CHANNEL, {
+      action: 'todos:configure',
+      data: {
+        authToken: this.stores.user.authToken,
+        theme: this.stores.ui.isDarkThemeActive ? ThemeType.dark : ThemeType.default,
+      },
+    });
+  };
+
+  _goToService = ({ url, serviceId }) => {
+    if (url) {
+      this.stores.services.one(serviceId).webview.loadURL(url);
+    }
+    this.actions.service.setActive({ serviceId });
   };
 
   // Reactions
