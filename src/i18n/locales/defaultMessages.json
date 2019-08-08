@@ -734,39 +734,39 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 26
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 34
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 30
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 38
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 34
+          "line": 35
         }
       }
     ],
@@ -1242,195 +1242,247 @@
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 19
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headline",
         "start": {
           "column": 12,
-          "line": 14
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Your Subscription",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 23
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineSubscription",
         "start": {
           "column": 24,
-          "line": 18
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Upgrade your Account",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 27
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineUpgrade",
         "start": {
           "column": 19,
-          "line": 22
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!Danger Zone",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 31
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineDangerZone",
         "start": {
           "column": 22,
-          "line": 26
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Manage your subscription",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 35
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.manageSubscription.label",
         "start": {
           "column": 33,
-          "line": 30
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Basic Account",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 39
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.basic",
         "start": {
           "column": 20,
-          "line": 34
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!Premium Supporter Account",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 43
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.premium",
         "start": {
           "column": 22,
-          "line": 38
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Edit Account",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 47
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.account.editButton",
         "start": {
           "column": 21,
-          "line": 42
+          "line": 44
         }
       },
       {
         "defaultMessage": "!!Invoices",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 51
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineInvoices",
         "start": {
           "column": 18,
-          "line": 46
+          "line": 48
         }
       },
       {
         "defaultMessage": "!!!Download",
         "end": {
           "column": 3,
-          "line": 53
+          "line": 55
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.invoiceDownload",
         "start": {
           "column": 19,
-          "line": 50
+          "line": 52
         }
       },
       {
         "defaultMessage": "!!!Could not load user information",
         "end": {
           "column": 3,
-          "line": 57
+          "line": 59
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.userInfoRequestFailed",
         "start": {
           "column": 25,
-          "line": 54
+          "line": 56
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 63
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.tryReloadUserInfoRequest",
         "start": {
           "column": 28,
-          "line": 58
+          "line": 60
         }
       },
       {
         "defaultMessage": "!!!Delete account",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 67
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteAccount",
         "start": {
           "column": 17,
-          "line": 62
+          "line": 64
         }
       },
       {
         "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 71
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteInfo",
         "start": {
           "column": 14,
-          "line": 66
+          "line": 68
         }
       },
       {
         "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
         "end": {
           "column": 3,
-          "line": 73
+          "line": 75
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteEmailSent",
         "start": {
           "column": 19,
-          "line": 70
+          "line": 72
+        }
+      },
+      {
+        "defaultMessage": "!!!Free Trial",
+        "end": {
+          "column": 3,
+          "line": 79
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.trial",
+        "start": {
+          "column": 9,
+          "line": 76
+        }
+      },
+      {
+        "defaultMessage": "!!!Your license:",
+        "end": {
+          "column": 3,
+          "line": 83
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.yourLicense",
+        "start": {
+          "column": 15,
+          "line": 80
+        }
+      },
+      {
+        "defaultMessage": "!!!Your free trial ends in {duration}.",
+        "end": {
+          "column": 3,
+          "line": 87
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.trialEndsIn",
+        "start": {
+          "column": 15,
+          "line": 84
+        }
+      },
+      {
+        "defaultMessage": "!!!Please update your billing info to continue using {license} after your trial period.",
+        "end": {
+          "column": 3,
+          "line": 91
+        },
+        "file": "src/components/settings/account/AccountDashboard.js",
+        "id": "settings.account.trialUpdateBillingInfo",
+        "start": {
+          "column": 33,
+          "line": 88
         }
       }
     ],
@@ -2872,6 +2924,24 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!Your trial was successfully activated. Happy messaging!",
+        "end": {
+          "column": 3,
+          "line": 14
+        },
+        "file": "src/components/TrialActivationInfoBar.js",
+        "id": "infobar.trialActivated",
+        "start": {
+          "column": 11,
+          "line": 11
+        }
+      }
+    ],
+    "path": "src/components/TrialActivationInfoBar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Add unlimited services",
         "end": {
           "column": 3,
@@ -3578,65 +3648,65 @@
         "defaultMessage": "!!!Please purchase license to skip waiting",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.headline",
         "start": {
           "column": 12,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Get the free Franz Professional 14 day trial and skip the line",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.trial.headline",
         "start": {
           "column": 17,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Get a Franz Supporter License",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.upgrade.action",
         "start": {
           "column": 10,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.trial.action",
         "start": {
           "column": 15,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.text",
         "start": {
           "column": 8,
-          "line": 32
+          "line": 33
         }
       }
     ],
@@ -4180,6 +4250,172 @@
       }
     ],
     "path": "src/features/workspaces/components/WorkspaceSwitchingIndicator.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Franz Professional Yearly",
+        "end": {
+          "column": 3,
+          "line": 8
+        },
+        "file": "src/helpers/plan-helpers.js",
+        "id": "pricing.plan.pro-yearly",
+        "start": {
+          "column": 22,
+          "line": 5
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Professional Monthly",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/helpers/plan-helpers.js",
+        "id": "pricing.plan.pro-monthly",
+        "start": {
+          "column": 23,
+          "line": 9
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Personal Yearly",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/helpers/plan-helpers.js",
+        "id": "pricing.plan.personal-yearly",
+        "start": {
+          "column": 27,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Personal Monthly",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/helpers/plan-helpers.js",
+        "id": "pricing.plan.personal-monthly",
+        "start": {
+          "column": 28,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Free",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/helpers/plan-helpers.js",
+        "id": "pricing.plan.free",
+        "start": {
+          "column": 16,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Premium",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/helpers/plan-helpers.js",
+        "id": "pricing.plan.legacy",
+        "start": {
+          "column": 18,
+          "line": 25
+        }
+      }
+    ],
+    "path": "src/helpers/plan-helpers.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Franz Professional Yearly",
+        "end": {
+          "column": 3,
+          "line": 8
+        },
+        "file": "src/helpers/pricing-helpers.js",
+        "id": "pricing.plan.pro-yearly",
+        "start": {
+          "column": 22,
+          "line": 5
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Professional Monthly",
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "file": "src/helpers/pricing-helpers.js",
+        "id": "pricing.plan.pro-monthly",
+        "start": {
+          "column": 23,
+          "line": 9
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Personal Yearly",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/helpers/pricing-helpers.js",
+        "id": "pricing.plan.personal-yearly",
+        "start": {
+          "column": 27,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Personal Monthly",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/helpers/pricing-helpers.js",
+        "id": "pricing.plan.personal-monthly",
+        "start": {
+          "column": 28,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Free",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/helpers/pricing-helpers.js",
+        "id": "pricing.plan.free",
+        "start": {
+          "column": 16,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Premium",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/helpers/pricing-helpers.js",
+        "id": "pricing.plan.legacy",
+        "start": {
+          "column": 18,
+          "line": 25
+        }
+      }
+    ],
+    "path": "src/helpers/pricing-helpers.json"
   },
   {
     "descriptors": [

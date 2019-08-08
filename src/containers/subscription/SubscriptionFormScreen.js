@@ -74,28 +74,14 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
 
   render() {
     const {
-      content,
       actions,
       stores,
-      showSkipOption,
-      skipAction,
-      skipButtonLabel,
-      hideInfo,
     } = this.props;
     return (
       <SubscriptionForm
         plan={stores.payment.plan}
-        isLoading={stores.payment.plansRequest.isExecuting}
-        retryPlanRequest={() => stores.payment.plansRequest.reload()}
-        isCreatingHostedPage={stores.payment.createHostedPageRequest.isExecuting}
-        handlePayment={price => this.handlePayment(price)}
-        content={content}
-        error={stores.payment.plansRequest.isError}
-        showSkipOption={showSkipOption}
-        skipAction={skipAction}
-        skipButtonLabel={skipButtonLabel}
-        hideInfo={hideInfo}
-        openExternalUrl={actions.app.openExternalUrl}
+        activateTrial={() => actions.user.activateTrial({ planId: stores.features.features.defaultTrialPlan })}
+        isActivatingTrial={stores.user.activateTrialRequest.isExecuting || stores.user.getUserInfoRequest.isExecuting}
       />
     );
   }

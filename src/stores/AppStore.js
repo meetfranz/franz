@@ -334,6 +334,8 @@ export default class AppStore extends Store {
       this.locale = this._getDefaultLocale();
     }
 
+    moment.locale(this.locale);
+
     debug(`Set locale to "${this.locale}"`);
   }
 

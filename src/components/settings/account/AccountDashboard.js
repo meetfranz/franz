@@ -1,14 +1,18 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
-import { ProBadge } from '@meetfranz/ui';
+import {
+  ProBadge, H2, H1, H3,
+} from '@meetfranz/ui';
+import moment from 'moment';
 
 import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
 import Infobox from '../../ui/Infobox';
 import SubscriptionForm from '../../../containers/subscription/SubscriptionFormScreen';
+import { i18nPlanName } from '../../../helpers/plan-helpers';
 
 const messages = defineMessages({
   headline: {
@@ -20,8 +24,8 @@ const messages = defineMessages({
     defaultMessage: '!!!Your Subscription',
   },
   headlineUpgrade: {
-    id: 'settings.account.headlineUpgrade',
-    defaultMessage: '!!!Upgrade your Account',
+    id: 'settings.account.headlineTrialUpgrade',
+    defaultMessage: '!!!Get the free 14 day Franz Professional Trial',
   },
   headlineDangerZone: {
     id: 'settings.account.headlineDangerZone',
@@ -71,6 +75,22 @@ const messages = defineMessages({
     id: 'settings.account.deleteEmailSent',
     defaultMessage: '!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!',
   },
+  trial: {
+    id: 'settings.account.trial',
+    defaultMessage: '!!!Free Trial',
+  },
+  yourLicense: {
+    id: 'settings.account.yourLicense',
+    defaultMessage: '!!!Your license:',
+  },
+  trialEndsIn: {
+    id: 'settings.account.trialEndsIn',
+    defaultMessage: '!!!Your free trial ends in {duration}.',
+  },
+  trialUpdateBillingInformation: {
+    id: 'settings.account.trialUpdateBillingInfo',
+    defaultMessage: '!!!Please update your billing info to continue using {license} after your trial period.',
+  },
 });
 
 export default @observer class AccountDashboard extends Component {
@@ -110,6 +130,13 @@ export default @observer class AccountDashboard extends Component {
     } = this.props;
     const { intl } = this.context;
 
+    let planName = '';
+
+    if (user.team && user.team.plan) {
+      planName = i18nPlanName(user.team.plan, intl);
+      console.log(planName);
+    }
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -147,7 +174,7 @@ export default @observer class AccountDashboard extends Component {
                         />
                       </div>
                       <div className="account__info">
-                        <h2>
+                        <H1>
                           <span className="username">{`${user.firstname} ${user.lastname}`}</span>
                           {user.isPremium && (
                             <>
@@ -156,7 +183,7 @@ export default @observer class AccountDashboard extends Component {
                               {/* <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span> */}
                             </>
                           )}
-                        </h2>
+                        </H1>
                         <p>
                           {user.organization && `${user.organization}, `}
                           {user.email}
@@ -197,54 +224,61 @@ export default @observer class AccountDashboard extends Component {
                   {user.isSubscriptionOwner && (
                     <div className="account">
                       <div className="account__box">
-                        <h2>
-                          Your license: {user.team.plan}
-                        </h2>
+                        <H2>
+                          {intl.formatMessage(messages.yourLicense)}
+                        </H2>
+                        <H3>
+                          {planName}
+                          {user.team.isTrial && (
+                            <>
+                              {' – '}
+                              {intl.formatMessage(messages.trial)}
+                            </>
+                          )}
+                        </H3>
                         {user.team.isTrial && (
                           <>
                             <p>
-                              Trial ends in 14 days
+                              {intl.formatMessage(messages.trialEndsIn, {
+                                duration: moment.duration(moment().diff(user.team.trialEnd)).humanize(),
+                              })}
+                            </p>
+                            <p>
+                              {intl.formatMessage(messages.trialUpdateBillingInformation, {
+                                license: planName,
+                              })}
                             </p>
                           </>
                         )}
-                        {user.isPremium && (
-                          <div className="manage-user-links">
-                            <Button
-                              label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
-                              className="franz-form__button--inverted"
-                              onClick={openBilling}
-                            />
-                            <Button
-                              label={intl.formatMessage(messages.invoicesButton)}
-                              className="franz-form__button--inverted"
-                              onClick={openInvoices}
-                            />
-                          </div>
-                        )}
+                        <div className="manage-user-links">
+                          <Button
+                            label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
+                            className="franz-form__button--inverted"
+                            onClick={openBilling}
+                          />
+                          <Button
+                            label={intl.formatMessage(messages.invoicesButton)}
+                            className="franz-form__button--inverted"
+                            onClick={openInvoices}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {!user.isPremium && (
+                    <div className="account franz-form">
+                      <div className="account__box">
+                        <H2>{intl.formatMessage(messages.headlineUpgrade)}</H2>
+                        <SubscriptionForm />
                       </div>
                     </div>
                   )}
                 </>
               )}
 
-              {!user.isPremium && (
-                isLoadingPlans ? (
-                  <Loader />
-                ) : (
-                  <div className="account franz-form">
-                    <div className="account__box">
-                      <h2>{intl.formatMessage(messages.headlineUpgrade)}</h2>
-                      <SubscriptionForm
-                        onCloseWindow={onCloseSubscriptionWindow}
-                      />
-                    </div>
-                  </div>
-                )
-              )}
-
               <div className="account franz-form">
                 <div className="account__box">
-                  <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
+                  <H2>{intl.formatMessage(messages.headlineDangerZone)}</H2>
                   {!isDeleteAccountSuccessful && (
                   <div className="account__subscription">
                     <p>{intl.formatMessage(messages.deleteInfo)}</p>

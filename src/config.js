@@ -84,3 +84,27 @@ export const ALLOWED_PROTOCOLS = [
   'http:',
   'ftp:',
 ];
+
+export const PLANS = {
+  PERSONAL_MONTHLY: 'PERSONAL_MONTHLY',
+  PERSONAL_YEARLY: 'PERSONAL_YEARLY',
+  PRO_MONTHLY: 'PRO_MONTHLY',
+  PRO_YEARLY: 'PRO_YEARLY',
+  LEGACY: 'LEGACY',
+  FREE: 'FREE',
+};
+
+export const PLANS_MAPPING = {
+  'franz-personal-monthly': PLANS.PERSONAL_MONTHLY,
+  'franz-personal-yearly': PLANS.PERSONAL_YEARLY,
+  'franz-pro-monthly': PLANS.PRO_MONTHLY,
+  'franz-pro-yearly': PLANS.PRO_YEARLY,
+  'franz-supporter-license': PLANS.LEGACY,
+  'franz-supporter-license-x1': PLANS.LEGACY,
+  'franz-supporter-license-x2': PLANS.LEGACY,
+  'franz-supporter-license-year': PLANS.LEGACY,
+  'franz-supporter-license-year-x1': PLANS.LEGACY,
+  'franz-supporter-license-year-x2': PLANS.LEGACY,
+  'franz-supporter-license-year-2019': PLANS.LEGACY,
+  free: PLANS.FREE,
+};

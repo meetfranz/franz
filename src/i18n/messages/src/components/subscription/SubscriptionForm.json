@@ -1,7 +1,7 @@
 [
   {
-    "id": "subscription.submit.label",
-    "defaultMessage": "!!!Support the development of Franz",
+    "id": "subscription.cta.activateTrial",
+    "defaultMessage": "!!!Yes, upgrade my account to Franz Professional",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
       "line": 14,
@@ -13,12 +13,12 @@
     }
   },
   {
-    "id": "subscription.paymentSessionError",
-    "defaultMessage": "!!!Could not initialize payment form",
+    "id": "subscription.includedProFeatures",
+    "defaultMessage": "!!!The Franz Professional Plan includes:",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
       "line": 18,
-      "column": 23
+      "column": 20
     },
     "end": {
       "line": 21,
@@ -26,12 +26,12 @@
     }
   },
   {
-    "id": "subscription.type.free",
-    "defaultMessage": "!!!free",
+    "id": "pricing.trial.terms.headline",
+    "defaultMessage": "!!!No strings attached",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
       "line": 22,
-      "column": 12
+      "column": 29
     },
     "end": {
       "line": 25,
@@ -39,12 +39,12 @@
     }
   },
   {
-    "id": "subscription.type.month",
-    "defaultMessage": "!!!month",
+    "id": "pricing.trial.terms.noCreditCard",
+    "defaultMessage": "!!!No credit card required",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
       "line": 26,
-      "column": 15
+      "column": 16
     },
     "end": {
       "line": 29,
@@ -52,132 +52,15 @@
     }
   },
   {
-    "id": "subscription.type.year",
-    "defaultMessage": "!!!year",
+    "id": "pricing.trial.terms.automaticTrialEnd",
+    "defaultMessage": "!!!Your free trial ends automatically after 14 days",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
       "line": 30,
-      "column": 14
+      "column": 21
     },
     "end": {
       "line": 33,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.includedFeatures",
-    "defaultMessage": "!!!The Franz Premium Supporter Account includes",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 34,
-      "column": 20
-    },
-    "end": {
-      "line": 37,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.onpremise.mattermost",
-    "defaultMessage": "!!!Add on-premise/hosted services like Mattermost",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 38,
-      "column": 13
-    },
-    "end": {
-      "line": 41,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.noInterruptions",
-    "defaultMessage": "!!!No app delays & nagging to upgrade license",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 42,
-      "column": 19
-    },
-    "end": {
-      "line": 45,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.proxy",
-    "defaultMessage": "!!!Proxy support for services",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 46,
-      "column": 9
-    },
-    "end": {
-      "line": 49,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.spellchecker",
-    "defaultMessage": "!!!Support for Spellchecker",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 50,
-      "column": 16
-    },
-    "end": {
-      "line": 53,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.workspaces",
-    "defaultMessage": "!!!Organize your services in workspaces",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 54,
-      "column": 14
-    },
-    "end": {
-      "line": 57,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.ads",
-    "defaultMessage": "!!!No ads, ever!",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 58,
-      "column": 7
-    },
-    "end": {
-      "line": 61,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.comingSoon",
-    "defaultMessage": "!!!coming soon",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 62,
-      "column": 14
-    },
-    "end": {
-      "line": 65,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.euTaxInfo",
-    "defaultMessage": "!!!EU residents: local sales tax may apply",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 66,
-      "column": 13
-    },
-    "end": {
-      "line": 69,
       "column": 3
     }
   }

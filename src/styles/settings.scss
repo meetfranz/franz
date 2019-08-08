@@ -360,6 +360,7 @@
     .account__subscription-button { margin-left: auto; }
     .franz-form__button { white-space: nowrap; }
     div { height: auto; }
+    [data-type="franz-button"] div { height: 100% }
 
     .invoices {
       width: 100%;
