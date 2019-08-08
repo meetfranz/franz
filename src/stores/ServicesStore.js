@@ -693,18 +693,20 @@ export default class ServicesStore extends Store {
     this.all.map((service, index) => {
       if (userHasReachedServiceLimit) {
         service.isServiceAccessRestricted = index >= serviceLimit;
-        service.restrictionType = RESTRICTION_TYPES.SERVICE_LIMIT;
 
-        if (index >= serviceLimit) {
+        if (service.isServiceAccessRestricted) {
+          service.restrictionType = RESTRICTION_TYPES.SERVICE_LIMIT;
+
           debug('Restricting access to server due to service limit');
         }
       }
 
       if (service.isUsingCustomUrl) {
-        service.isServiceAccessRestricted = features.isCustomUrlIncludedInCurrentPlan;
-        service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
+        service.isServiceAccessRestricted = !features.isCustomUrlIncludedInCurrentPlan;
 
-        if (features.isCustomUrlIncludedInCurrentPlan) {
+        if (service.isServiceAccessRestricted) {
+          service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
+
           debug('Restricting access to server due to custom url');
         }
       }
