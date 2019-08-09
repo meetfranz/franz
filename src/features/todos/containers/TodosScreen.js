@@ -1,32 +1,21 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
 import TodosWebview from '../components/TodosWebview';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
-import UserStore from '../../../stores/UserStore';
 import { TODOS_MIN_WIDTH, todosStore } from '..';
 import { todoActions } from '../actions';
 
-@inject('stores') @observer
+@observer
 class TodosScreen extends Component {
-  static propTypes = {
-    stores: PropTypes.shape({
-      user: PropTypes.instanceOf(UserStore).isRequired,
-    }).isRequired,
-  };
-
   render() {
-    const { stores } = this.props;
-
-    if (!stores.todos || !stores.todos.isFeatureActive) {
+    if (!todosStore || !todosStore.isFeatureActive) {
       return null;
     }
 
     return (
       <ErrorBoundary>
         <TodosWebview
-          authToken={stores.user.authToken}
           isVisible={todosStore.isTodosPanelVisible}
           togglePanel={todoActions.toggleTodosPanel}
           handleClientMessage={todoActions.handleClientMessage}

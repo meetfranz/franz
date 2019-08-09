@@ -75,7 +75,6 @@ const styles = theme => ({
 class TodosWebview extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    authToken: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
     togglePanel: PropTypes.func.isRequired,
     handleClientMessage: PropTypes.func.isRequired,
@@ -166,7 +165,7 @@ class TodosWebview extends Component {
 
   render() {
     const {
-      authToken, classes, isVisible, togglePanel,
+      classes, isVisible, togglePanel,
     } = this.props;
     const { width, delta, isDragging } = this.state;
 
@@ -206,7 +205,7 @@ class TodosWebview extends Component {
             partition="persist:todos"
             preload="./features/todos/preload.js"
             ref={(webview) => { this.webview = webview ? webview.view : null; }}
-            src={`${environment.TODOS_FRONTEND}?authToken=${authToken}`}
+            src={environment.TODOS_FRONTEND}
           />
         </div>
       </>
