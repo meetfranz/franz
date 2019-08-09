@@ -1,3 +1,4 @@
+import { mdiClose } from '@mdi/js';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
@@ -192,7 +193,7 @@ class InfoboxComponent extends Component<IProps, IState> {
               onClick={this.dismiss.bind(this)}
               className={classes.close}
             >
-              <Icon icon="mdiClose" />
+              <Icon icon={mdiClose} />
             </button>
           )}
         </div>

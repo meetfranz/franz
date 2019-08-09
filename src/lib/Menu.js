@@ -1,4 +1,4 @@
-import { remote, shell } from 'electron';
+import { remote, shell, clipboard } from 'electron';
 import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
@@ -127,6 +127,18 @@ const menuItems = defineMessages({
   support: {
     id: 'menu.help.support',
     defaultMessage: '!!!Support',
+  },
+  debugInfo: {
+    id: 'menu.help.debugInfo',
+    defaultMessage: '!!!Copy Debug Information',
+  },
+  debugInfoCopiedHeadline: {
+    id: 'menu.help.debugInfoCopiedHeadline',
+    defaultMessage: '!!!Franz Debug Information',
+  },
+  debugInfoCopiedBody: {
+    id: 'menu.help.debugInfoCopiedBody',
+    defaultMessage: '!!!Your Debug Information has been copied to your clipboard.',
   },
   tos: {
     id: 'menu.help.tos',
@@ -760,6 +772,10 @@ export default class FranzMenu {
       tpl[4].submenu = this.workspacesMenu();
     }
 
+    tpl[tpl.length - 1].submenu.push({
+      type: 'separator',
+    }, this.debugMenu());
+
     this.currentTemplate = tpl;
     const menu = Menu.buildFromTemplate(tpl);
     Menu.setApplicationMenu(menu);
@@ -868,6 +884,28 @@ export default class FranzMenu {
     }
 
     return menu;
+  }
+
+  debugMenu() {
+    const { intl } = window.franz;
+
+    return {
+      label: intl.formatMessage(menuItems.debugInfo),
+      click: () => {
+        const { debugInfo } = this.stores.app;
+
+        clipboard.write({
+          text: JSON.stringify(debugInfo),
+        });
+
+        this.actions.app.notify({
+          title: intl.formatMessage(menuItems.debugInfoCopiedHeadline),
+          options: {
+            body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+          },
+        });
+      },
+    };
   }
 
   _getServiceName(service) {
