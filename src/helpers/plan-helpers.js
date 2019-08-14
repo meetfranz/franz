@@ -2,21 +2,13 @@ import { defineMessages } from 'react-intl';
 import { PLANS_MAPPING, PLANS } from '../config';
 
 const messages = defineMessages({
-  [PLANS.PRO_YEARLY]: {
-    id: 'pricing.plan.pro-yearly',
-    defaultMessage: '!!!Franz Professional Yearly',
+  [PLANS.PRO]: {
+    id: 'pricing.plan.pro',
+    defaultMessage: '!!!Franz Professional',
   },
-  [PLANS.PRO_MONTHLY]: {
-    id: 'pricing.plan.pro-monthly',
-    defaultMessage: '!!!Franz Professional Monthly',
-  },
-  [PLANS.PERSONAL_YEARLY]: {
-    id: 'pricing.plan.personal-yearly',
-    defaultMessage: '!!!Franz Personal Yearly',
-  },
-  [PLANS.PERSONAL_MONTHLY]: {
-    id: 'pricing.plan.personal-monthly',
-    defaultMessage: '!!!Franz Personal Monthly',
+  [PLANS.PERSONAL]: {
+    id: 'pricing.plan.personal',
+    defaultMessage: '!!!Franz Personal',
   },
   [PLANS.FREE]: {
     id: 'pricing.plan.free',
