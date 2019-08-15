@@ -1,5 +1,5 @@
 ﻿{
-   "app.errorHandler.action" : "Recharger",
+   "app.errorHandler.action" : "Rafraîchir",
    "app.errorHandler.headline" : "Une erreur s'est produite",
    "feature.announcements.changelog.headline" : "Changements dans Franz {version}",
    "feature.delayApp.action" : "Obtenez une licence de Supporter Franz",
