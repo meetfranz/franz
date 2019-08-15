@@ -11,6 +11,11 @@
 * **App:** Add option to copy debug information via the help menu ([4666e85](https://github.com/meetfranz/franz/commit/4666e85))
 
 
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
 ## [5.2.1-beta.1](https://github.com/meetfranz/franz/compare/v5.2.0...v5.2.1-beta.1) (2019-07-30)
 
 [See 5.2.1 changelog.](#5-2-1--2019-08-14-)
