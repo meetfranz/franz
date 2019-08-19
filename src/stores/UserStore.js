@@ -218,8 +218,6 @@ export default class UserStore extends Store {
 
     this.hasActivatedTrial = true;
 
-    console.log('hasActivatedTrial', this.hasActivatedTrial);
-
     this.stores.features.featuresRequest.invalidate({ immediately: true });
     this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
 

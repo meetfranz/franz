@@ -28,8 +28,6 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     hostedPageURL = `${url.origin}${url.pathname}?${params.toString()}`;
 
     actions.app.openExternalUrl({ url: hostedPageURL });
-
-    console.log('hostedPage', hostedPageURL);
   }
 
   render() {

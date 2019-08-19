@@ -65,8 +65,6 @@ export default @observer @injectSheet(styles) class TrialForm extends Component 
     } = this.props;
     const { intl } = this.context;
 
-    console.log('isActivatingTrial', isActivatingTrial);
-
     return (
       <>
         <H2>{intl.formatMessage(messages.teaserHeadline)}</H2>

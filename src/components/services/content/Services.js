@@ -87,8 +87,6 @@ export default @observer @injectSheet(styles) class Services extends Component {
 
     const { intl } = this.context;
 
-    console.log('hasActivatedTrial', hasActivatedTrial, (userHasCompletedSignup || hasActivatedTrial));
-
     return (
       <div className="services">
         {(userHasCompletedSignup || hasActivatedTrial) && (

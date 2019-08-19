@@ -61,8 +61,6 @@ export default @observer class SubscriptionPopup extends Component {
             autosize
             src={encodeURI(url)}
             onDidNavigate={completeCheck}
-            // webpreferences="allowpopups"
-            // onNewWindow={(event, url, frameName, options) => console.log(event, url)}
           />
         </div>
         <div className="subscription-popup__toolbar franz-form">
