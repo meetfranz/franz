@@ -1,35 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, intlShape, IntlProvider } from 'react-intl';
 import injectSheet from 'react-jss';
 
-import { H3 } from '@meetfranz/ui';
+import { H3, H2 } from '@meetfranz/ui';
 
 import { Button } from '@meetfranz/forms';
 import { FeatureList } from '../ui/FeatureList';
-import { FeatureItem } from '../ui/FeatureItem';
 
 const messages = defineMessages({
   submitButtonLabel: {
-    id: 'subscription.cta.activateTrial',
-    defaultMessage: '!!!Yes, upgrade my account to Franz Professional',
+    id: 'subscription.cta.choosePlan',
+    defaultMessage: '!!!Choose your plan',
+  },
+  teaserHeadline: {
+    id: 'settings.account.headlineUpgradeAccount',
+    defaultMessage: '!!!Upgrade your account and get the full Franz experience',
+  },
+  teaserText: {
+    id: 'subscription.teaser.intro',
+    defaultMessage: '!!!Franz 5 comes with a wide range of new features to boost up your everyday communication - batteries included. Check out our new plans and find out which one suits you most!',
   },
   includedFeatures: {
-    id: 'subscription.includedProFeatures',
-    defaultMessage: '!!!The Franz Professional Plan includes:',
-  },
-  noStringsAttachedHeadline: {
-    id: 'pricing.trial.terms.headline',
-    defaultMessage: '!!!No strings attached',
-  },
-  noCreditCard: {
-    id: 'pricing.trial.terms.noCreditCard',
-    defaultMessage: '!!!No credit card required',
-  },
-  automaticTrialEnd: {
-    id: 'pricing.trial.terms.automaticTrialEnd',
-    defaultMessage: '!!!Your free trial ends automatically after 14 days',
+    id: 'subscription.teaser.includedFeatures',
+    defaultMessage: '!!!Paid Franz Plans include:',
   },
 });
 
@@ -37,14 +32,11 @@ const styles = () => ({
   activateTrialButton: {
     margin: [40, 0, 50],
   },
-  keyTerms: {
-    marginTop: 20,
-  },
 });
 
 export default @observer @injectSheet(styles) class SubscriptionForm extends Component {
   static propTypes = {
-    activateTrial: PropTypes.func.isRequired,
+    selectPlan: PropTypes.func.isRequired,
     isActivatingTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
   };
@@ -56,28 +48,20 @@ export default @observer @injectSheet(styles) class SubscriptionForm extends Com
   render() {
     const {
       isActivatingTrial,
-      activateTrial,
+      selectPlan,
       classes,
     } = this.props;
     const { intl } = this.context;
 
-    console.log('isActivatingTrial', isActivatingTrial);
-
     return (
       <>
-        <H3 className={classes.keyTerms}>
-          {intl.formatMessage(messages.noStringsAttachedHeadline)}
-        </H3>
-        <ul>
-          <FeatureItem icon="👉" name={intl.formatMessage(messages.noCreditCard)} />
-          <FeatureItem icon="👉" name={intl.formatMessage(messages.automaticTrialEnd)} />
-        </ul>
-
+        <H2>{intl.formatMessage(messages.teaserHeadline)}</H2>
+        <p>{intl.formatMessage(messages.teaserText)}</p>
         <Button
           label={intl.formatMessage(messages.submitButtonLabel)}
           className={classes.activateTrialButton}
           busy={isActivatingTrial}
-          onClick={activateTrial}
+          onClick={selectPlan}
           stretch
         />
         <div className="subscription__premium-info">

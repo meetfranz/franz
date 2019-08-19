@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
 import SubscriptionPopup from '../../components/subscription/SubscriptionPopup';
+import { isDevMode } from '../../environment';
 
 
 export default @inject('stores', 'actions') @observer class SubscriptionPopupScreen extends Component {
@@ -13,7 +14,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionPopupScr
   completeCheck(event) {
     const { url } = event;
 
-    if ((url.includes('recurly') && url.includes('confirmation')) || (url.includes('meetfranz') && url.includes('success'))) {
+    if ((url.includes('recurly') && url.includes('confirmation')) || ((url.includes('meetfranz') || isDevMode) && url.includes('success'))) {
       this.setState({
         complete: true,
       });

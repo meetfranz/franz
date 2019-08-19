@@ -256,8 +256,8 @@ export default class WorkspacesStore extends FeatureStore {
     const { features, user } = this.stores;
     const { isPremium } = user.data;
     const { isWorkspaceIncludedInCurrentPlan } = features.features;
-    this.isPremiumFeature = isWorkspaceIncludedInCurrentPlan;
-    this.isPremiumUpgradeRequired = isWorkspaceIncludedInCurrentPlan && !isPremium;
+    this.isPremiumFeature = !isWorkspaceIncludedInCurrentPlan;
+    this.isPremiumUpgradeRequired = !isWorkspaceIncludedInCurrentPlan && !isPremium;
   };
 
   _setWorkspaceBeingEditedReaction = () => {

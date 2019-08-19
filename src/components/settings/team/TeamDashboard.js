@@ -133,13 +133,13 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
                         </div>
                         <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Franz for Teams" />
                       </div>
-                      <Button
-                        label={intl.formatMessage(messages.manageButton)}
-                        onClick={openTeamManagement}
-                        className={classes.cta}
-                      />
                     </>
                   </PremiumFeatureContainer>
+                  <Button
+                    label={intl.formatMessage(messages.manageButton)}
+                    onClick={openTeamManagement}
+                    className={classes.cta}
+                  />
                 </>
               )}
             </>

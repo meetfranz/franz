@@ -23,10 +23,6 @@ const messages = defineMessages({
     id: 'settings.account.headlineSubscription',
     defaultMessage: '!!!Your Subscription',
   },
-  headlineUpgrade: {
-    id: 'settings.account.headlineTrialUpgrade',
-    defaultMessage: '!!!Get the free 14 day Franz Professional Trial',
-  },
   headlineDangerZone: {
     id: 'settings.account.headlineDangerZone',
     defaultMessage: '!!Danger Zone',
@@ -97,10 +93,8 @@ export default @observer class AccountDashboard extends Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    isLoadingPlans: PropTypes.bool.isRequired,
     userInfoRequestFailed: PropTypes.bool.isRequired,
     retryUserInfoRequest: PropTypes.func.isRequired,
-    onCloseSubscriptionWindow: PropTypes.func.isRequired,
     deleteAccount: PropTypes.func.isRequired,
     isLoadingDeleteAccount: PropTypes.bool.isRequired,
     isDeleteAccountSuccessful: PropTypes.bool.isRequired,
@@ -117,10 +111,8 @@ export default @observer class AccountDashboard extends Component {
     const {
       user,
       isLoading,
-      isLoadingPlans,
       userInfoRequestFailed,
       retryUserInfoRequest,
-      onCloseSubscriptionWindow,
       deleteAccount,
       isLoadingDeleteAccount,
       isDeleteAccountSuccessful,
@@ -134,7 +126,6 @@ export default @observer class AccountDashboard extends Component {
 
     if (user.team && user.team.plan) {
       planName = i18nPlanName(user.team.plan, intl);
-      console.log(planName);
     }
 
     return (
@@ -221,7 +212,7 @@ export default @observer class AccountDashboard extends Component {
                       )}
                     </div>
                   </div>
-                  {user.isSubscriptionOwner && (
+                  {user.isPremium && user.isSubscriptionOwner && (
                     <div className="account">
                       <div className="account__box">
                         <H2>
@@ -268,7 +259,6 @@ export default @observer class AccountDashboard extends Component {
                   {!user.isPremium && (
                     <div className="account franz-form">
                       <div className="account__box">
-                        <H2>{intl.formatMessage(messages.headlineUpgrade)}</H2>
                         <SubscriptionForm />
                       </div>
                     </div>

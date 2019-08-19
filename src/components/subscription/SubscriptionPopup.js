@@ -43,7 +43,7 @@ export default @observer class SubscriptionPopup extends Component {
 
     setTimeout(() => {
       this.props.closeWindow();
-    }, ms('4s'));
+    }, ms('1s'));
   }
 
   render() {
@@ -61,8 +61,8 @@ export default @observer class SubscriptionPopup extends Component {
             autosize
             src={encodeURI(url)}
             onDidNavigate={completeCheck}
-            // onNewWindow={(event, url, frameName, options) =>
-            //   openWindow({ event, url, frameName, options })}
+            // webpreferences="allowpopups"
+            // onNewWindow={(event, url, frameName, options) => console.log(event, url)}
           />
         </div>
         <div className="subscription-popup__toolbar franz-form">

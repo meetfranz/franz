@@ -1242,247 +1242,234 @@
         "defaultMessage": "!!!Account",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 21
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headline",
         "start": {
           "column": 12,
-          "line": 16
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Your Subscription",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 25
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineSubscription",
         "start": {
           "column": 24,
-          "line": 20
-        }
-      },
-      {
-        "defaultMessage": "!!!Upgrade your Account",
-        "end": {
-          "column": 3,
-          "line": 27
-        },
-        "file": "src/components/settings/account/AccountDashboard.js",
-        "id": "settings.account.headlineUpgrade",
-        "start": {
-          "column": 19,
-          "line": 24
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!Danger Zone",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 29
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineDangerZone",
         "start": {
           "column": 22,
-          "line": 28
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Manage your subscription",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 33
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.manageSubscription.label",
         "start": {
           "column": 33,
-          "line": 32
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Basic Account",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 37
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.basic",
         "start": {
           "column": 20,
-          "line": 36
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!!Premium Supporter Account",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 41
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.accountType.premium",
         "start": {
           "column": 22,
-          "line": 40
+          "line": 38
         }
       },
       {
         "defaultMessage": "!!!Edit Account",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 45
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.account.editButton",
         "start": {
           "column": 21,
-          "line": 44
+          "line": 42
         }
       },
       {
         "defaultMessage": "!!Invoices",
         "end": {
           "column": 3,
-          "line": 51
+          "line": 49
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.headlineInvoices",
         "start": {
           "column": 18,
-          "line": 48
+          "line": 46
         }
       },
       {
         "defaultMessage": "!!!Download",
         "end": {
           "column": 3,
-          "line": 55
+          "line": 53
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.invoiceDownload",
         "start": {
           "column": 19,
-          "line": 52
+          "line": 50
         }
       },
       {
         "defaultMessage": "!!!Could not load user information",
         "end": {
           "column": 3,
-          "line": 59
+          "line": 57
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.userInfoRequestFailed",
         "start": {
           "column": 25,
-          "line": 56
+          "line": 54
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 63
+          "line": 61
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.tryReloadUserInfoRequest",
         "start": {
           "column": 28,
-          "line": 60
+          "line": 58
         }
       },
       {
         "defaultMessage": "!!!Delete account",
         "end": {
           "column": 3,
-          "line": 67
+          "line": 65
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteAccount",
         "start": {
           "column": 17,
-          "line": 64
+          "line": 62
         }
       },
       {
         "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
-          "line": 71
+          "line": 69
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteInfo",
         "start": {
           "column": 14,
-          "line": 68
+          "line": 66
         }
       },
       {
         "defaultMessage": "!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!",
         "end": {
           "column": 3,
-          "line": 75
+          "line": 73
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.deleteEmailSent",
         "start": {
           "column": 19,
-          "line": 72
+          "line": 70
         }
       },
       {
         "defaultMessage": "!!!Free Trial",
         "end": {
           "column": 3,
-          "line": 79
+          "line": 77
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.trial",
         "start": {
           "column": 9,
-          "line": 76
+          "line": 74
         }
       },
       {
         "defaultMessage": "!!!Your license:",
         "end": {
           "column": 3,
-          "line": 83
+          "line": 81
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.yourLicense",
         "start": {
           "column": 15,
-          "line": 80
+          "line": 78
         }
       },
       {
         "defaultMessage": "!!!Your free trial ends in {duration}.",
         "end": {
           "column": 3,
-          "line": 87
+          "line": 85
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.trialEndsIn",
         "start": {
           "column": 15,
-          "line": 84
+          "line": 82
         }
       },
       {
         "defaultMessage": "!!!Please update your billing info to continue using {license} after your trial period.",
         "end": {
           "column": 3,
-          "line": 91
+          "line": 89
         },
         "file": "src/components/settings/account/AccountDashboard.js",
         "id": "settings.account.trialUpdateBillingInfo",
         "start": {
           "column": 33,
-          "line": 88
+          "line": 86
         }
       }
     ],
@@ -2706,185 +2693,55 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Support the development of Franz",
+        "defaultMessage": "!!!Choose your plan",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 16
         },
         "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.submit.label",
+        "id": "subscription.cta.choosePlan",
         "start": {
           "column": 21,
-          "line": 14
+          "line": 13
         }
       },
       {
-        "defaultMessage": "!!!Could not initialize payment form",
+        "defaultMessage": "!!!Upgrade your account and get the full Franz experience",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 20
         },
         "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.paymentSessionError",
+        "id": "settings.account.headlineUpgradeAccount",
         "start": {
-          "column": 23,
-          "line": 18
+          "column": 18,
+          "line": 17
         }
       },
       {
-        "defaultMessage": "!!!free",
+        "defaultMessage": "!!!Franz 5 comes with a wide range of new features to boost up your everyday communication - batteries included. Check out our new plans and find out which one suits you most!",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 24
         },
         "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.type.free",
-        "start": {
-          "column": 12,
-          "line": 22
-        }
-      },
-      {
-        "defaultMessage": "!!!month",
-        "end": {
-          "column": 3,
-          "line": 29
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.type.month",
-        "start": {
-          "column": 15,
-          "line": 26
-        }
-      },
-      {
-        "defaultMessage": "!!!year",
-        "end": {
-          "column": 3,
-          "line": 33
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.type.year",
+        "id": "subscription.teaser.intro",
         "start": {
           "column": 14,
-          "line": 30
+          "line": 21
         }
       },
       {
-        "defaultMessage": "!!!The Franz Premium Supporter Account includes",
+        "defaultMessage": "!!!Paid Franz Plans include:",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 28
         },
         "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.includedFeatures",
+        "id": "subscription.teaser.includedFeatures",
         "start": {
           "column": 20,
-          "line": 34
-        }
-      },
-      {
-        "defaultMessage": "!!!Add on-premise/hosted services like Mattermost",
-        "end": {
-          "column": 3,
-          "line": 41
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.onpremise.mattermost",
-        "start": {
-          "column": 13,
-          "line": 38
-        }
-      },
-      {
-        "defaultMessage": "!!!No app delays & nagging to upgrade license",
-        "end": {
-          "column": 3,
-          "line": 45
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.noInterruptions",
-        "start": {
-          "column": 19,
-          "line": 42
-        }
-      },
-      {
-        "defaultMessage": "!!!Proxy support for services",
-        "end": {
-          "column": 3,
-          "line": 49
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.proxy",
-        "start": {
-          "column": 9,
-          "line": 46
-        }
-      },
-      {
-        "defaultMessage": "!!!Support for Spellchecker",
-        "end": {
-          "column": 3,
-          "line": 53
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.spellchecker",
-        "start": {
-          "column": 16,
-          "line": 50
-        }
-      },
-      {
-        "defaultMessage": "!!!Organize your services in workspaces",
-        "end": {
-          "column": 3,
-          "line": 57
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.workspaces",
-        "start": {
-          "column": 14,
-          "line": 54
-        }
-      },
-      {
-        "defaultMessage": "!!!No ads, ever!",
-        "end": {
-          "column": 3,
-          "line": 61
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.ads",
-        "start": {
-          "column": 7,
-          "line": 58
-        }
-      },
-      {
-        "defaultMessage": "!!!coming soon",
-        "end": {
-          "column": 3,
-          "line": 65
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.features.comingSoon",
-        "start": {
-          "column": 14,
-          "line": 62
-        }
-      },
-      {
-        "defaultMessage": "!!!EU residents: local sales tax may apply",
-        "end": {
-          "column": 3,
-          "line": 69
-        },
-        "file": "src/components/subscription/SubscriptionForm.js",
-        "id": "subscription.euTaxInfo",
-        "start": {
-          "column": 13,
-          "line": 66
+          "line": 25
         }
       }
     ],
@@ -2920,6 +2777,89 @@
       }
     ],
     "path": "src/components/subscription/SubscriptionPopup.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Yes, start the free Franz Professional trial",
+        "end": {
+          "column": 3,
+          "line": 17
+        },
+        "file": "src/components/subscription/TrialForm.js",
+        "id": "subscription.cta.activateTrial",
+        "start": {
+          "column": 21,
+          "line": 14
+        }
+      },
+      {
+        "defaultMessage": "!!!Get the free 14 day Franz Professional Trial",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/components/subscription/TrialForm.js",
+        "id": "settings.account.headlineTrialUpgrade",
+        "start": {
+          "column": 18,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!The Franz Professional Plan includes:",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/subscription/TrialForm.js",
+        "id": "subscription.includedProFeatures",
+        "start": {
+          "column": 20,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!No strings attached",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/subscription/TrialForm.js",
+        "id": "pricing.trial.terms.headline",
+        "start": {
+          "column": 29,
+          "line": 26
+        }
+      },
+      {
+        "defaultMessage": "!!!No credit card required",
+        "end": {
+          "column": 3,
+          "line": 33
+        },
+        "file": "src/components/subscription/TrialForm.js",
+        "id": "pricing.trial.terms.noCreditCard",
+        "start": {
+          "column": 16,
+          "line": 30
+        }
+      },
+      {
+        "defaultMessage": "!!!Your free trial ends automatically after 14 days",
+        "end": {
+          "column": 3,
+          "line": 37
+        },
+        "file": "src/components/subscription/TrialForm.js",
+        "id": "pricing.trial.terms.automaticTrialEnd",
+        "start": {
+          "column": 21,
+          "line": 34
+        }
+      }
+    ],
+    "path": "src/components/subscription/TrialForm.json"
   },
   {
     "descriptors": [
@@ -4254,81 +4194,55 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Franz Professional Yearly",
+        "defaultMessage": "!!!Franz Professional",
         "end": {
           "column": 3,
           "line": 8
         },
         "file": "src/helpers/plan-helpers.js",
-        "id": "pricing.plan.pro-yearly",
+        "id": "pricing.plan.pro",
         "start": {
-          "column": 22,
+          "column": 15,
           "line": 5
         }
       },
       {
-        "defaultMessage": "!!!Franz Professional Monthly",
+        "defaultMessage": "!!!Franz Personal",
         "end": {
           "column": 3,
           "line": 12
         },
         "file": "src/helpers/plan-helpers.js",
-        "id": "pricing.plan.pro-monthly",
+        "id": "pricing.plan.personal",
         "start": {
-          "column": 23,
+          "column": 20,
           "line": 9
-        }
-      },
-      {
-        "defaultMessage": "!!!Franz Personal Yearly",
-        "end": {
-          "column": 3,
-          "line": 16
-        },
-        "file": "src/helpers/plan-helpers.js",
-        "id": "pricing.plan.personal-yearly",
-        "start": {
-          "column": 27,
-          "line": 13
-        }
-      },
-      {
-        "defaultMessage": "!!!Franz Personal Monthly",
-        "end": {
-          "column": 3,
-          "line": 20
-        },
-        "file": "src/helpers/plan-helpers.js",
-        "id": "pricing.plan.personal-monthly",
-        "start": {
-          "column": 28,
-          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Franz Free",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 16
         },
         "file": "src/helpers/plan-helpers.js",
         "id": "pricing.plan.free",
         "start": {
           "column": 16,
-          "line": 21
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!Franz Premium",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 20
         },
         "file": "src/helpers/plan-helpers.js",
         "id": "pricing.plan.legacy",
         "start": {
           "column": 18,
-          "line": 25
+          "line": 17
         }
       }
     ],

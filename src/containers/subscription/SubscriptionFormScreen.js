@@ -1,4 +1,3 @@
-import { remote } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
@@ -6,70 +5,31 @@ import { inject, observer } from 'mobx-react';
 import PaymentStore from '../../stores/PaymentStore';
 
 import SubscriptionForm from '../../components/subscription/SubscriptionForm';
-
-const { BrowserWindow } = remote;
+import TrialForm from '../../components/subscription/TrialForm';
 
 export default @inject('stores', 'actions') @observer class SubscriptionFormScreen extends Component {
-  static propTypes = {
-    onCloseWindow: PropTypes.func,
-    content: PropTypes.node,
-    showSkipOption: PropTypes.bool,
-    skipAction: PropTypes.func,
-    skipButtonLabel: PropTypes.string,
-    hideInfo: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    onCloseWindow: () => null,
-    content: '',
-    showSkipOption: false,
-    skipAction: () => null,
-    skipButtonLabel: '',
-    hideInfo: false,
-  }
-
-  async handlePayment(plan) {
+  async openBrowser() {
     const {
       actions,
       stores,
-      onCloseWindow,
     } = this.props;
 
-    const interval = plan;
+    const {
+      user,
+      features,
+    } = stores;
 
-    const { id } = stores.payment.plan[interval];
-    actions.payment.createHostedPage({
-      planId: id,
-    });
+    let hostedPageURL = user.data.hadSubscription ? features.features.planSelectionURL : features.features.subscribeURL;
+    const url = new URL(hostedPageURL);
+    const params = new URLSearchParams(url.search.slice(1));
 
-    const hostedPage = await stores.payment.createHostedPageRequest;
+    params.append('authToken', user.authToken);
 
-    if (hostedPage.url) {
-      if (hostedPage.legacyCheckoutFlow) {
-        const paymentWindow = new BrowserWindow({
-          parent: remote.getCurrentWindow(),
-          modal: true,
-          title: '🔒 Franz Supporter License',
-          width: 600,
-          height: window.innerHeight - 100,
-          maxWidth: 600,
-          minWidth: 600,
-          webPreferences: {
-            nodeIntegration: true,
-            webviewTag: true,
-          },
-        });
-        paymentWindow.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPage.url)}`);
+    hostedPageURL = `${url.origin}${url.pathname}?${params.toString()}`;
 
-        paymentWindow.on('closed', () => {
-          onCloseWindow();
-        });
-      } else {
-        actions.app.openExternalUrl({
-          url: hostedPage.url,
-        });
-      }
-    }
+    actions.app.openExternalUrl({ url: hostedPageURL });
+
+    console.log('hostedPage', hostedPageURL);
   }
 
   render() {
@@ -77,8 +37,21 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
       actions,
       stores,
     } = this.props;
+
+    const { data: user } = stores.user;
+
+    if (user.hadSubscription) {
+      return (
+        <SubscriptionForm
+          plan={stores.payment.plan}
+          selectPlan={() => this.openBrowser()}
+          isActivatingTrial={stores.user.activateTrialRequest.isExecuting || stores.user.getUserInfoRequest.isExecuting}
+        />
+      );
+    }
+
     return (
-      <SubscriptionForm
+      <TrialForm
         plan={stores.payment.plan}
         activateTrial={() => actions.user.activateTrial({ planId: stores.features.features.defaultTrialPlan })}
         isActivatingTrial={stores.user.activateTrialRequest.isExecuting || stores.user.getUserInfoRequest.isExecuting}

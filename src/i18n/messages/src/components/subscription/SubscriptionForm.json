@@ -1,66 +1,53 @@
 [
   {
-    "id": "subscription.cta.activateTrial",
-    "defaultMessage": "!!!Yes, upgrade my account to Franz Professional",
+    "id": "subscription.cta.choosePlan",
+    "defaultMessage": "!!!Choose your plan",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 14,
+      "line": 13,
       "column": 21
     },
     "end": {
-      "line": 17,
+      "line": 16,
       "column": 3
     }
   },
   {
-    "id": "subscription.includedProFeatures",
-    "defaultMessage": "!!!The Franz Professional Plan includes:",
+    "id": "settings.account.headlineUpgradeAccount",
+    "defaultMessage": "!!!Upgrade your account and get the full Franz experience",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 18,
+      "line": 17,
+      "column": 18
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
+    "id": "subscription.teaser.intro",
+    "defaultMessage": "!!!Franz 5 comes with a wide range of new features to boost up your everyday communication - batteries included. Check out our new plans and find out which one suits you most!",
+    "file": "src/components/subscription/SubscriptionForm.js",
+    "start": {
+      "line": 21,
+      "column": 14
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "subscription.teaser.includedFeatures",
+    "defaultMessage": "!!!Paid Franz Plans include:",
+    "file": "src/components/subscription/SubscriptionForm.js",
+    "start": {
+      "line": 25,
       "column": 20
     },
     "end": {
-      "line": 21,
-      "column": 3
-    }
-  },
-  {
-    "id": "pricing.trial.terms.headline",
-    "defaultMessage": "!!!No strings attached",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 22,
-      "column": 29
-    },
-    "end": {
-      "line": 25,
-      "column": 3
-    }
-  },
-  {
-    "id": "pricing.trial.terms.noCreditCard",
-    "defaultMessage": "!!!No credit card required",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 26,
-      "column": 16
-    },
-    "end": {
-      "line": 29,
-      "column": 3
-    }
-  },
-  {
-    "id": "pricing.trial.terms.automaticTrialEnd",
-    "defaultMessage": "!!!Your free trial ends automatically after 14 days",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 30,
-      "column": 21
-    },
-    "end": {
-      "line": 33,
+      "line": 28,
       "column": 3
     }
   }

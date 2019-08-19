@@ -350,8 +350,6 @@ export default class UserStore extends Store {
     if (this.hasActivatedTrial) {
       await sleep(ms('12s'));
 
-      console.log('resetting this.hasActivatedTrial', this.hasActivatedTrial);
-
       this.hasActivatedTrial = false;
     }
   }
