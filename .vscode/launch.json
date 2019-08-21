@@ -4,7 +4,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Franz - Test API",
+            "name": "Ferdi - Test API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
@@ -16,7 +16,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Franz – Live API",
+            "name": "Ferdi – Live API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",    
@@ -28,7 +28,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Franz – Local API",
+            "name": "Ferdi – Local API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
@@ -40,7 +40,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "(Win Sim) Franz - Test API",
+            "name": "(Win Sim) Ferdi - Test API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
@@ -53,7 +53,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "(Win Sim) Franz – Live API",
+            "name": "(Win Sim) Ferdi – Live API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",    
@@ -66,7 +66,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "(Win Sim) Franz – Local API",
+            "name": "(Win Sim) Ferdi – Local API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",

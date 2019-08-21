@@ -27,7 +27,7 @@ export default function init(stores) {
   let shownAfterLaunch = false;
   let timeLastDelay = moment();
 
-  window.franz.features.delayApp = {
+  window.ferdi.features.delayApp = {
     state,
   };
 

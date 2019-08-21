@@ -170,7 +170,7 @@
   },
   {
     "id": "settings.account.deleteInfo",
-    "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
+    "defaultMessage": "!!!If you don't need your Ferdi account any longer, you can delete your account and all related data here.",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
       "line": 66,

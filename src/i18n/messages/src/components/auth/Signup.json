@@ -79,7 +79,7 @@
   },
   {
     "id": "signup.legal.info",
-    "defaultMessage": "!!!By creating a Franz account you accept the",
+    "defaultMessage": "!!!By creating a Ferdi account you accept the",
     "file": "src/components/auth/Signup.js",
     "start": {
       "line": 42,

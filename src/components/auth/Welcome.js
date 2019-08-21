@@ -41,7 +41,7 @@ export default @observer class Login extends Component {
           <img src="./assets/images/logo.svg" className="welcome__logo" alt="" />
           {/* <img src="./assets/images/welcome.png" className="welcome__services" alt="" /> */}
           <div className="welcome__text">
-            <h1>Franz</h1>
+            <h1>Ferdi</h1>
           </div>
         </div>
         <div className="welcome__buttons">

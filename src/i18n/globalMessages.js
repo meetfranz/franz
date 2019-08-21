@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   APIUnhealthy: {
     id: 'global.api.unhealthy',
-    defaultMessage: '!!!Can\'t connect to Franz Online Services',
+    defaultMessage: '!!!Can\'t connect to Ferdi Online Services',
   },
   notConnectedToTheInternet: {
     id: 'global.notConnectedToTheInternet',

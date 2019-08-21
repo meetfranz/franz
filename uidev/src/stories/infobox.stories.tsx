@@ -68,7 +68,7 @@ storiesOf('Infobox')
         ctaLabel: 'Ok, hi!',
       })}
     >
-      Franz is your messaging app / former Emperor of Austria and combines chat & messaging services into one application. Franz currently supports Slack, WhatsApp, WeChat, HipChat, Facebook Messenger, Telegram, Google Hangouts,GroupMe, Skype and many more.
+      Ferdi is your messaging app / former Emperor of Austria and combines chat & messaging services into one application. Ferdi currently supports Slack, WhatsApp, WeChat, HipChat, Facebook Messenger, Telegram, Google Hangouts,GroupMe, Skype and many more.
     </WithStoreInfobox>
   ))
   .add('Secondary', () => (

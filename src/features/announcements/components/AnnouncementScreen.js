@@ -18,7 +18,7 @@ const markedOptions = { sanitize: true, renderer };
 const messages = defineMessages({
   headline: {
     id: 'feature.announcements.changelog.headline',
-    defaultMessage: '!!!Changes in Franz {version}',
+    defaultMessage: '!!!Changes in Ferdi {version}',
   },
 });
 

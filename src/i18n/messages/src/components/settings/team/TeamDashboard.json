@@ -14,7 +14,7 @@
   },
   {
     "id": "settings.team.contentHeadline",
-    "defaultMessage": "!!!Franz for Teams",
+    "defaultMessage": "!!!Ferdi for Teams",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
       "line": 18,
@@ -40,7 +40,7 @@
   },
   {
     "id": "settings.team.copy",
-    "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
+    "defaultMessage": "!!!Ferdi for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
       "line": 26,

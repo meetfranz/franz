@@ -133,7 +133,7 @@ const menuItems = defineMessages({
   },
   debugInfoCopiedHeadline: {
     id: 'menu.help.debugInfoCopiedHeadline',
-    defaultMessage: '!!!Franz Debug Information',
+    defaultMessage: '!!!Ferdi Debug Information',
   },
   debugInfoCopiedBody: {
     id: 'menu.help.debugInfoCopiedBody',
@@ -242,7 +242,7 @@ const menuItems = defineMessages({
 });
 
 function getActiveWebview() {
-  return window.franz.stores.services.active.webview;
+  return window.ferdi.stores.services.active.webview;
 }
 
 const _templateFactory = intl => [
@@ -373,7 +373,7 @@ const _templateFactory = intl => [
         click: () => {
           announcementActions.show();
         },
-        visible: window.franz.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
+        visible: window.ferdi.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
       },
       {
         type: 'separator',
@@ -595,11 +595,11 @@ export default class FranzMenu {
     // need to clone object so we don't modify computed (cached) object
     const serviceTpl = Object.assign([], this.serviceTpl());
 
-    if (window.franz === undefined) {
+    if (window.ferdi === undefined) {
       return;
     }
 
-    const { intl } = window.franz;
+    const { intl } = window.ferdi;
     const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
 
     tpl[1].submenu.push({
@@ -781,7 +781,7 @@ export default class FranzMenu {
   }
 
   serviceTpl() {
-    const { intl } = window.franz;
+    const { intl } = window.ferdi;
     const { user, services, settings } = this.stores;
     if (!user.isLoggedIn) return [];
     const menu = [];
@@ -827,7 +827,7 @@ export default class FranzMenu {
 
   workspacesMenu() {
     const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
-    const { intl } = window.franz;
+    const { intl } = window.ferdi;
     const menu = [];
 
     // Add new workspace item:
@@ -883,7 +883,7 @@ export default class FranzMenu {
   }
 
   debugMenu() {
-    const { intl } = window.franz;
+    const { intl } = window.ferdi;
 
     return {
       label: intl.formatMessage(menuItems.debugInfo),

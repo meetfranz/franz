@@ -39,7 +39,7 @@ const messages = defineMessages({
   },
   translationHelp: {
     id: 'settings.app.translationHelp',
-    defaultMessage: '!!!Help us to translate Franz into your language.',
+    defaultMessage: '!!!Help us to translate Ferdi into your language.',
   },
   subheadlineCache: {
     id: 'settings.app.subheadlineCache',
@@ -47,7 +47,7 @@ const messages = defineMessages({
   },
   cacheInfo: {
     id: 'settings.app.cacheInfo',
-    defaultMessage: '!!!Franz cache is currently using {size} of disk space.',
+    defaultMessage: '!!!Ferdi cache is currently using {size} of disk space.',
   },
   buttonClearAllCache: {
     id: 'settings.app.buttonClearAllCache',

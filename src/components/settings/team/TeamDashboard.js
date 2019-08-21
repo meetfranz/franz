@@ -17,7 +17,7 @@ const messages = defineMessages({
   },
   contentHeadline: {
     id: 'settings.team.contentHeadline',
-    defaultMessage: '!!!Franz for Teams',
+    defaultMessage: '!!!Ferdi for Teams',
   },
   intro: {
     id: 'settings.team.intro',
@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
   copy: {
     id: 'settings.team.copy',
-    defaultMessage: '!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!',
+    defaultMessage: '!!!Ferdi for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!',
   },
   manageButton: {
     id: 'settings.team.manageAction',
@@ -131,7 +131,7 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
                           <p>{intl.formatMessage(messages.intro)}</p>
                           <p>{intl.formatMessage(messages.copy)}</p>
                         </div>
-                        <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Franz for Teams" />
+                        <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Ferdi for Teams" />
                       </div>
                       <Button
                         label={intl.formatMessage(messages.manageButton)}

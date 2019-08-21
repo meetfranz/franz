@@ -1,7 +1,7 @@
 [
   {
     "id": "feature.announcements.changelog.headline",
-    "defaultMessage": "!!!Changes in Franz {version}",
+    "defaultMessage": "!!!Changes in Ferdi {version}",
     "file": "src/features/announcements/components/AnnouncementScreen.js",
     "start": {
       "line": 19,

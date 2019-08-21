@@ -2,7 +2,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!A new update for Franz is available.",
+        "defaultMessage": "!!!A new update for Ferdi is available.",
         "end": {
           "column": 3,
           "line": 12
@@ -46,7 +46,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Import your Franz 4 services",
+        "defaultMessage": "!!!Import your Ferdi 4 services",
         "end": {
           "column": 3,
           "line": 16
@@ -59,7 +59,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Services not yet supported in Franz 5",
+        "defaultMessage": "!!!Services not yet supported in Ferdi 5",
         "end": {
           "column": 3,
           "line": 20
@@ -552,7 +552,7 @@
         }
       },
       {
-        "defaultMessage": "!!!By creating a Franz account you accept the",
+        "defaultMessage": "!!!By creating a Ferdi account you accept the",
         "end": {
           "column": 3,
           "line": 45
@@ -1273,7 +1273,7 @@
         }
       },
       {
-        "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
+        "defaultMessage": "!!!If you don't need your Ferdi account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
           "line": 69
@@ -1652,7 +1652,7 @@
         }
       },
       {
-        "defaultMessage": "!!!To add self hosted services, you need a Franz Premium Supporter Account.",
+        "defaultMessage": "!!!To add self hosted services, you need a Ferdi Premium Supporter Account.",
         "end": {
           "column": 3,
           "line": 65
@@ -1782,7 +1782,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
+        "defaultMessage": "!!!Please restart Ferdi after changing proxy Settings.",
         "end": {
           "column": 3,
           "line": 105
@@ -1795,7 +1795,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
+        "defaultMessage": "!!!Proxy settings will not be synchronized with the Ferdi servers.",
         "end": {
           "column": 3,
           "line": 109
@@ -2114,7 +2114,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Help us to translate Franz into your language.",
+        "defaultMessage": "!!!Help us to translate Ferdi into your language.",
         "end": {
           "column": 3,
           "line": 43
@@ -2140,7 +2140,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz cache is currently using {size} of disk space.",
+        "defaultMessage": "!!!Ferdi cache is currently using {size} of disk space.",
         "end": {
           "column": 3,
           "line": 51
@@ -2288,7 +2288,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz for Teams",
+        "defaultMessage": "!!!Ferdi for Teams",
         "end": {
           "column": 3,
           "line": 21
@@ -2314,7 +2314,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
+        "defaultMessage": "!!!Ferdi for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
         "end": {
           "column": 3,
           "line": 29
@@ -2506,7 +2506,7 @@
         }
       },
       {
-        "defaultMessage": "!!!The Franz Premium Supporter Account includes",
+        "defaultMessage": "!!!The Ferdi Premium Supporter Account includes",
         "end": {
           "column": 3,
           "line": 37
@@ -2926,7 +2926,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Launch Franz on start",
+        "defaultMessage": "!!!Launch Ferdi on start",
         "end": {
           "column": 3,
           "line": 25
@@ -2952,7 +2952,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Keep Franz in background when closing the window",
+        "defaultMessage": "!!!Keep Ferdi in background when closing the window",
         "end": {
           "column": 3,
           "line": 33
@@ -2965,7 +2965,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Show Franz in system tray",
+        "defaultMessage": "!!!Show Ferdi in system tray",
         "end": {
           "column": 3,
           "line": 37
@@ -2978,7 +2978,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Minimize Franz to system tray",
+        "defaultMessage": "!!!Minimize Ferdi to system tray",
         "end": {
           "column": 3,
           "line": 41
@@ -3209,7 +3209,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Changes in Franz {version}",
+        "defaultMessage": "!!!Changes in Ferdi {version}",
         "end": {
           "column": 3,
           "line": 22
@@ -3240,7 +3240,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Get a Franz Supporter License",
+        "defaultMessage": "!!!Get a Ferdi Supporter License",
         "end": {
           "column": 3,
           "line": 20
@@ -3253,7 +3253,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
+        "defaultMessage": "!!!Ferdi will continue in {seconds} seconds.",
         "end": {
           "column": 3,
           "line": 24
@@ -3271,7 +3271,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Franz is better together!",
+        "defaultMessage": "!!!Ferdi is better together!",
         "end": {
           "column": 3,
           "line": 17
@@ -3284,7 +3284,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
+        "defaultMessage": "!!!Tell your friends and colleagues how awesome Ferdi is and help us to spread the word.",
         "end": {
           "column": 3,
           "line": 21
@@ -3725,7 +3725,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Less is More: Introducing Franz Workspaces",
+        "defaultMessage": "!!!Less is More: Introducing Ferdi Workspaces",
         "end": {
           "column": 3,
           "line": 48
@@ -3831,7 +3831,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Can't connect to Franz Online Services",
+        "defaultMessage": "!!!Can't connect to Ferdi Online Services",
         "end": {
           "column": 3,
           "line": 7
@@ -4304,7 +4304,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz Debug Information",
+        "defaultMessage": "!!!Ferdi Debug Information",
         "end": {
           "column": 3,
           "line": 137

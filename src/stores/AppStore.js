@@ -111,7 +111,7 @@ export default class AppStore extends Store {
 
     this.isOnline = navigator.onLine;
 
-    // Check if Franz should launch on start
+    // Check if Ferdi should launch on start
     // Needs to be delayed a bit
     this._autoStart();
 

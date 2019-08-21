@@ -42,7 +42,7 @@ export default class Recipe {
     }
 
     if (!data.id) {
-      // Franz 4 recipes do not have an Id
+      // Ferdi 4 recipes do not have an Id
       throw Error(`Recipe '${data.name}' requires Id`);
     }
 

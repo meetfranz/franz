@@ -33,7 +33,7 @@ const messages = defineMessages({
   },
   includedFeatures: {
     id: 'subscription.includedFeatures',
-    defaultMessage: '!!!The Franz Premium Supporter Account includes',
+    defaultMessage: '!!!The Ferdi Premium Supporter Account includes',
   },
   onpremise: {
     id: 'subscription.features.onpremise.mattermost',

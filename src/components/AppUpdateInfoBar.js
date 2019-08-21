@@ -8,7 +8,7 @@ import InfoBar from './ui/InfoBar';
 const messages = defineMessages({
   updateAvailable: {
     id: 'infobar.updateAvailable',
-    defaultMessage: '!!!A new update for Franz is available.',
+    defaultMessage: '!!!A new update for Ferdi is available.',
   },
   changelog: {
     id: 'infobar.buttonChangelog',

@@ -15,9 +15,9 @@ const defaultState = {
 export const state = observable(defaultState);
 
 export default function initialize(stores) {
-  debug('Initialize shareFranz feature');
+  debug('Initialize shareFerdi feature');
 
-  window.franz.features.shareFranz = {
+  window.ferdi.features.shareFerdi = {
     state,
   };
 

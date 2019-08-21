@@ -391,7 +391,7 @@
   },
   {
     "id": "menu.help.debugInfoCopiedHeadline",
-    "defaultMessage": "!!!Franz Debug Information",
+    "defaultMessage": "!!!Ferdi Debug Information",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 134,

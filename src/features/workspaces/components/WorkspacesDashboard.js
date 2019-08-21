@@ -44,7 +44,7 @@ const messages = defineMessages({
   },
   workspaceFeatureHeadline: {
     id: 'settings.workspaces.workspaceFeatureHeadline',
-    defaultMessage: '!!!Less is More: Introducing Franz Workspaces',
+    defaultMessage: '!!!Less is More: Introducing Ferdi Workspaces',
   },
 });
 

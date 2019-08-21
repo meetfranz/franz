@@ -9,7 +9,7 @@ import UserStore from './stores/UserStore';
 
 export default @inject('stores') @observer class I18N extends Component {
   componentDidUpdate() {
-    window.franz.menu.rebuild();
+    window.ferdi.menu.rebuild();
   }
 
   render() {
@@ -18,7 +18,7 @@ export default @inject('stores') @observer class I18N extends Component {
     return (
       <IntlProvider
         {...{ locale, key: locale, messages: translations[locale] }}
-        ref={(intlProvider) => { window.franz.intl = intlProvider ? intlProvider.getChildContext().intl : null; }}
+        ref={(intlProvider) => { window.ferdi.intl = intlProvider ? intlProvider.getChildContext().intl : null; }}
       >
         {children}
       </IntlProvider>

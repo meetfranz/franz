@@ -52,7 +52,7 @@ export default @observer class AuthLayout extends Component {
 
     return (
       <>
-        {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+        {isWindows && !isFullScreen && <TitleBar menu={window.ferdi.menu.template} icon="assets/images/logo.svg" />}
         <div className="auth">
           {!isOnline && (
             <InfoBar

@@ -21,7 +21,7 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   autoLaunchOnStart: {
     id: 'settings.app.form.autoLaunchOnStart',
-    defaultMessage: '!!!Launch Franz on start',
+    defaultMessage: '!!!Launch Ferdi on start',
   },
   autoLaunchInBackground: {
     id: 'settings.app.form.autoLaunchInBackground',
@@ -29,15 +29,15 @@ const messages = defineMessages({
   },
   runInBackground: {
     id: 'settings.app.form.runInBackground',
-    defaultMessage: '!!!Keep Franz in background when closing the window',
+    defaultMessage: '!!!Keep Ferdi in background when closing the window',
   },
   enableSystemTray: {
     id: 'settings.app.form.enableSystemTray',
-    defaultMessage: '!!!Show Franz in system tray',
+    defaultMessage: '!!!Show Ferdi in system tray',
   },
   minimizeToSystemTray: {
     id: 'settings.app.form.minimizeToSystemTray',
-    defaultMessage: '!!!Minimize Franz to system tray',
+    defaultMessage: '!!!Minimize Ferdi to system tray',
   },
   language: {
     id: 'settings.app.form.language',

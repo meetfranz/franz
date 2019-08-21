@@ -65,7 +65,7 @@ const messages = defineMessages({
   },
   deleteInfo: {
     id: 'settings.account.deleteInfo',
-    defaultMessage: '!!!If you don\'t need your Franz account any longer, you can delete your account and all related data here.',
+    defaultMessage: '!!!If you don\'t need your Ferdi account any longer, you can delete your account and all related data here.',
   },
   deleteEmailSent: {
     id: 'settings.account.deleteEmailSent',

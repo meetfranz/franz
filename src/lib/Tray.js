@@ -20,7 +20,7 @@ export default class TrayIcon {
     this.trayIcon = new Tray(this._getAsset('tray', INDICATOR_TRAY_PLAIN));
     const trayMenuTemplate = [
       {
-        label: 'Show Franz',
+        label: 'Show Ferdi',
         click() {
           if (app.mainWindow.isMinimized()) {
             app.mainWindow.restore();
@@ -29,7 +29,7 @@ export default class TrayIcon {
           app.mainWindow.focus();
         },
       }, {
-        label: 'Quit Franz',
+        label: 'Quit Ferdi',
         click() {
           app.quit();
         },

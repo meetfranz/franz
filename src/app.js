@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
   const menu = new MenuFactory(stores, actions);
   const touchBar = new TouchBarFactory(stores, actions);
 
-  window.franz = {
+  window.ferdi = {
     stores,
     actions,
     api,
@@ -112,7 +112,7 @@ window.addEventListener('load', () => {
       render(preparedApp, document.getElementById('root'));
     },
   };
-  window.franz.render();
+  window.ferdi.render();
 });
 
 // Prevent drag and drop into window from redirecting

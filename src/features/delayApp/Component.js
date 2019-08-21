@@ -16,11 +16,11 @@ const messages = defineMessages({
   },
   action: {
     id: 'feature.delayApp.action',
-    defaultMessage: '!!!Get a Franz Supporter License',
+    defaultMessage: '!!!Get a Ferdi Supporter License',
   },
   text: {
     id: 'feature.delayApp.text',
-    defaultMessage: '!!!Franz will continue in {seconds} seconds.',
+    defaultMessage: '!!!Ferdi will continue in {seconds} seconds.',
   },
 });
 

@@ -1,7 +1,7 @@
 [
   {
     "id": "feature.shareFranz.headline",
-    "defaultMessage": "!!!Franz is better together!",
+    "defaultMessage": "!!!Ferdi is better together!",
     "file": "src/features/shareFranz/Component.js",
     "start": {
       "line": 14,
@@ -14,7 +14,7 @@
   },
   {
     "id": "feature.shareFranz.text",
-    "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
+    "defaultMessage": "!!!Tell your friends and colleagues how awesome Ferdi is and help us to spread the word.",
     "file": "src/features/shareFranz/Component.js",
     "start": {
       "line": 18,

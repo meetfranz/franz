@@ -92,7 +92,7 @@
   },
   {
     "id": "settings.workspaces.workspaceFeatureHeadline",
-    "defaultMessage": "!!!Less is More: Introducing Franz Workspaces",
+    "defaultMessage": "!!!Less is More: Introducing Ferdi Workspaces",
     "file": "src/features/workspaces/components/WorkspacesDashboard.js",
     "start": {
       "line": 45,

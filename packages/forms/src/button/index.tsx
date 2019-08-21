@@ -195,7 +195,7 @@ class ButtonComponent extends Component<IProps> {
     let showLoader = false;
     if (loaded) {
       showLoader = !loaded;
-      console.warn('Franz Button prop `loaded` will be deprecated in the future. Please use `busy` instead');
+      console.warn('Ferdi Button prop `loaded` will be deprecated in the future. Please use `busy` instead');
     }
     if (busy) {
       showLoader = busy;
