@@ -2,7 +2,14 @@
 
 # Ferdi 
 
-👛 Hard-fork of [Franz](https://github.com/meetfranz/franz) removing the non-skippable app delay (too) frequently inviting you to buy a licence
+👛 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
+
+## Changes
+- [x] Removes the fullscreen app delay inviting users to upgrade
+- [x] Removes pages begging you to donate afte registration
+- [ ] [#5](https://github.com/kytwb/Ferdi/issues/5) Makes it optional to create an account
+- [ ] [#6](https://github.com/kytwb/Ferdi/issues/6) Makes RocketChat self-hosted generally available
+- [ ] Add option to change server to a custom [ferdi-server](https://github.com/vantezzen/ferdi-server) 
 
 ## Packaging
 

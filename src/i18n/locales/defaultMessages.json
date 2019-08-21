@@ -417,7 +417,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Support Franz",
+        "defaultMessage": "!!!Support Ferdi",
         "end": {
           "column": 3,
           "line": 16
@@ -443,7 +443,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Support the development of Franz",
+        "defaultMessage": "!!!Support the development of Ferdi",
         "end": {
           "column": 3,
           "line": 24
@@ -456,7 +456,7 @@
         }
       },
       {
-        "defaultMessage": "!!!I don't want to support the development of Franz.",
+        "defaultMessage": "!!!I don't want to support the development of Ferdi.",
         "end": {
           "column": 3,
           "line": 28
@@ -894,7 +894,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Welcome to Franz",
+        "defaultMessage": "!!!Welcome to Ferdi",
         "end": {
           "column": 3,
           "line": 14

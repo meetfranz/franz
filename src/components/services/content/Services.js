@@ -10,7 +10,7 @@ import Appear from '../../ui/effects/Appear';
 const messages = defineMessages({
   welcome: {
     id: 'services.welcome',
-    defaultMessage: '!!!Welcome to Franz',
+    defaultMessage: '!!!Welcome to Ferdi',
   },
   getStarted: {
     id: 'services.getStarted',

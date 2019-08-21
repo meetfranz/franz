@@ -1,7 +1,7 @@
 [
   {
     "id": "services.welcome",
-    "defaultMessage": "!!!Welcome to Franz",
+    "defaultMessage": "!!!Welcome to Ferdi",
     "file": "src/components/services/content/Services.js",
     "start": {
       "line": 11,
