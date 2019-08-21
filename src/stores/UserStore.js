@@ -176,11 +176,11 @@ export default class UserStore extends Store {
       locale: this.stores.app.locale,
     });
 
-    this.hasCompletedSignup = false;
+    this.hasCompletedSignup = true;
 
     this._setUserData(authToken);
 
-    this.stores.router.push(this.PRICING_ROUTE);
+    this.stores.router.push('/');
   }
 
   @action async _retrievePassword({ email }) {
