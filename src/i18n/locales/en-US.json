@@ -181,7 +181,7 @@
   "settings.account.tryReloadServices": "Try again",
   "settings.account.tryReloadUserInfoRequest": "Try again",
   "settings.account.userInfoRequestFailed": "Could not load user information",
-  "settings.account.yourLicense": "Your license:",
+  "settings.account.yourLicense": "Your Franz License",
   "settings.app.buttonClearAllCache": "Clear cache",
   "settings.app.buttonInstallUpdate": "Restart & install update",
   "settings.app.buttonSearchForUpdate": "Check for updates",

@@ -196,7 +196,7 @@
   },
   {
     "id": "settings.account.yourLicense",
-    "defaultMessage": "!!!Your license:",
+    "defaultMessage": "!!!Your Franz License:",
     "file": "src/components/settings/account/AccountDashboard.js",
     "start": {
       "line": 78,

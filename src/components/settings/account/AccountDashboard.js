@@ -77,7 +77,7 @@ const messages = defineMessages({
   },
   yourLicense: {
     id: 'settings.account.yourLicense',
-    defaultMessage: '!!!Your license:',
+    defaultMessage: '!!!Your Franz License:',
   },
   trialEndsIn: {
     id: 'settings.account.trialEndsIn',
@@ -171,7 +171,6 @@ export default @observer class AccountDashboard extends Component {
                             <>
                               {' '}
                               <ProBadge />
-                              {/* <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span> */}
                             </>
                           )}
                         </H1>
@@ -186,20 +185,6 @@ export default @observer class AccountDashboard extends Component {
                               className="franz-form__button--inverted"
                               onClick={openEditAccount}
                             />
-                            {/* {user.isSubscriptionOwner && (
-                              <>
-                                <Button
-                                  label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
-                                  className="franz-form__button--inverted"
-                                  onClick={openBilling}
-                                />
-                                <Button
-                                  label={intl.formatMessage(messages.invoicesButton)}
-                                  className="franz-form__button--inverted"
-                                  onClick={openInvoices}
-                                />
-                              </>
-                            )} */}
                           </div>
                         )}
                       </div>
@@ -218,7 +203,7 @@ export default @observer class AccountDashboard extends Component {
                         <H2>
                           {intl.formatMessage(messages.yourLicense)}
                         </H2>
-                        <H3>
+                        <p>
                           {planName}
                           {user.team.isTrial && (
                             <>
@@ -226,9 +211,10 @@ export default @observer class AccountDashboard extends Component {
                               {intl.formatMessage(messages.trial)}
                             </>
                           )}
-                        </H3>
+                        </p>
                         {user.team.isTrial && (
                           <>
+                            <br />
                             <p>
                               {intl.formatMessage(messages.trialEndsIn, {
                                 duration: moment.duration(moment().diff(user.team.trialEnd)).humanize(),
