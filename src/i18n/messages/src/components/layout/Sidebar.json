@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Settings",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 13,
+      "line": 12,
       "column": 12
     },
     "end": {
-      "line": 16,
+      "line": 15,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Add new service",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 17,
+      "line": 16,
       "column": 17
     },
     "end": {
-      "line": 20,
+      "line": 19,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 21,
+      "line": 20,
       "column": 8
     },
     "end": {
-      "line": 24,
+      "line": 23,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 25,
+      "line": 24,
       "column": 10
     },
     "end": {
-      "line": 28,
+      "line": 27,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Open workspace drawer",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 29,
+      "line": 28,
       "column": 23
     },
     "end": {
-      "line": 32,
+      "line": 31,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!Close workspace drawer",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 33,
+      "line": 32,
       "column": 24
     },
     "end": {
-      "line": 36,
+      "line": 35,
       "column": 3
     }
   }

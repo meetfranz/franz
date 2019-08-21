@@ -17,7 +17,6 @@ import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac } from '../environment';
 import locales from '../i18n/translations';
-import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
 import { onVisibilityChange } from '../helpers/visibility-helper';
 import { getLocale } from '../helpers/i18n-helpers';
 
@@ -172,13 +171,6 @@ export default class AppStore extends Store {
 
       debug('Window is visible/focused', isVisible);
     });
-
-    // analytics autorun
-    reaction(() => this.stores.router.location.pathname, (pathname) => {
-      gaPage(pathname);
-    });
-
-    statsEvent('app-start');
   }
 
   @computed get cacheSize() {
@@ -266,8 +258,6 @@ export default class AppStore extends Store {
     } catch (err) {
       console.warn(err);
     }
-
-    gaEvent('App', enable ? 'enable autostart' : 'disable autostart');
   }
 
   @action _openExternalUrl({ url }) {
@@ -277,8 +267,6 @@ export default class AppStore extends Store {
     if (isValidExternalURL(url)) {
       shell.openExternal(url);
     }
-
-    gaEvent('External URL', 'open', parsedUrl.host);
   }
 
   @action _checkForUpdates() {

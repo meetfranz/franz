@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Changes in Franz {version}",
     "file": "src/features/announcements/components/AnnouncementScreen.js",
     "start": {
-      "line": 20,
+      "line": 19,
       "column": 12
     },
     "end": {
-      "line": 23,
+      "line": 22,
       "column": 3
     }
   }

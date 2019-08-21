@@ -12,7 +12,6 @@ import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
 import WorkspaceServiceListItem from './WorkspaceServiceListItem';
 import Request from '../../../stores/lib/Request';
-import { gaEvent } from '../../../lib/analytics';
 import { GA_CATEGORY_WORKSPACES } from '../index';
 
 const messages = defineMessages({
@@ -103,7 +102,6 @@ class EditWorkspaceForm extends Component {
         const { onSave } = this.props;
         const values = f.values();
         onSave(values);
-        gaEvent(GA_CATEGORY_WORKSPACES, 'save');
       },
       onError: async () => {},
     });
@@ -112,7 +110,6 @@ class EditWorkspaceForm extends Component {
   delete() {
     const { onDelete } = this.props;
     onDelete();
-    gaEvent(GA_CATEGORY_WORKSPACES, 'delete');
   }
 
   toggleService(service) {

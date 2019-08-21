@@ -12,7 +12,6 @@ import { getAnnouncementRequest, getChangelogRequest, getCurrentVersionRequest }
 import { announcementActions } from './actions';
 import { createActionBindings } from '../utils/ActionBinding';
 import { createReactions } from '../../stores/lib/Reaction';
-import { gaEvent } from '../../lib/analytics';
 import { matchRoute } from '../../helpers/routing-helpers';
 import { DEFAULT_APP_SETTINGS } from '../../config';
 
@@ -109,7 +108,6 @@ export class AnnouncementsStore extends FeatureStore {
     if (router.location.pathname !== targetRoute) {
       this.stores.router.push(targetRoute);
     }
-    gaEvent(GA_CATEGORY_ANNOUNCEMENTS, 'show');
   };
 
   // ======= REACTIONS ========
