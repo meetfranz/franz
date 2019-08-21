@@ -20,6 +20,27 @@ $ npm run build
 
 Deliverables will be available in the `./out` folder.
 
+## Developing
+### Preparations
+- [Install Linux dependencies](docs/linux.md) if you are developing on Linux
+- Make sure you are running NodeJS v10. Versions above will throw an errow when trying to install due to an [old fsevent dependency](https://github.com/fsevents/fsevents/issues/278)
+
+### Setup
+1. Fix native modules to match current electron node version
+    ```
+    npm run rebuild
+    ```
+2. Install dependencies using lerna
+    ```
+    npx lerna bootstrap
+    ```
+3. Run Ferdi Development App
+    Run these two commands *simultaneously* in different console tabs.
+    ```
+    npm run dev
+    npm run start
+    ```
+
 ## Releases
 
 You can find the binaries for Linux, MacOS and Windows in the [latest release](https://github.com/kytwb/Ferdi/releases/tag/Ferdi-5.2.0-beta.3) assets. Assets are continuously delivered through [Travis](https://travis-ci.org/kytwb/Ferdi) for Linux/MacOS and [Appveyor](https://ci.appveyor.com/project/kytwb/Ferdi) for Windows.
