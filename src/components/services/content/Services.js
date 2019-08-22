@@ -50,6 +50,7 @@ export default @observer class Services extends Component {
       update,
     } = this.props;
     const { intl } = this.context;
+    const isLoggedIn = Boolean(localStorage.getItem('authToken'));
 
     return (
       <div className="services">
@@ -59,14 +60,17 @@ export default @observer class Services extends Component {
             transitionName="slideUp"
           >
             <div className="services__no-service">
-              <img src="./assets/images/logo.svg" alt="" />
+              <img src="./assets/images/logo.svg" alt="Logo" style={{ maxHeight: '50vh' }} />
               <h1>{intl.formatMessage(messages.welcome)}</h1>
+              { !isLoggedIn && (
+                <p>Please open settings, choose a Ferdi server and click "Login" in the bottom left corner.</p>
+              ) }
               <Appear
                 timeout={300}
                 transitionName="slideUp"
               >
-                <Link to="/settings/recipes" className="button">
-                  {intl.formatMessage(messages.getStarted)}
+                <Link to={ isLoggedIn ? '/settings/services' : '/settings/app' } className="button">
+                  { isLoggedIn ? intl.formatMessage(messages.getStarted) : 'Open settings' }
                 </Link>
               </Appear>
             </div>

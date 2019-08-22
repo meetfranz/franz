@@ -51,6 +51,17 @@ export default @observer class Login extends Component {
           <Link to={loginRoute} className="button">
             {intl.formatMessage(messages.loginButton)}
           </Link>
+          <br /><br />
+
+          <Link to="settings/app">
+            <span style={{
+              textAlign: 'center',
+              width: '100%',
+              cursor: 'pointer'
+            }}>
+              Change server
+            </span>
+          </Link>
         </div>
         <div className="welcome__featured-services">
           {recipes.map(recipe => (

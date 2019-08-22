@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { defineMessages, intlShape } from 'react-intl';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router';
 
 import Tabbar from '../services/tabs/Tabbar';
 import { ctrlKey } from '../../environment';
@@ -81,6 +82,7 @@ export default @observer class Sidebar extends Component {
     const workspaceToggleMessage = (
       isWorkspaceDrawerOpen ? messages.closeWorkspaceDrawer : messages.openWorkspaceDrawer
     );
+    const isLoggedIn = Boolean(localStorage.getItem('authToken'));
 
     return (
       <div className="sidebar">
@@ -89,38 +91,53 @@ export default @observer class Sidebar extends Component {
           enableToolTip={() => this.enableToolTip()}
           disableToolTip={() => this.disableToolTip()}
         />
-        {workspaceStore.isFeatureEnabled ? (
-          <button
-            type="button"
-            onClick={() => {
-              toggleWorkspaceDrawer();
-              this.updateToolTip();
-            }}
-            className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
-            data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+D)`}
-          >
-            <i className="mdi mdi-view-grid" />
-          </button>
-        ) : null}
-        <button
-          type="button"
-          onClick={() => {
-            toggleMuteApp();
-            this.updateToolTip();
-          }}
-          className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
-          data-tip={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)} (${ctrlKey}+Shift+M)`}
-        >
-          <i className={`mdi mdi-bell${isAppMuted ? '-off' : ''}`} />
-        </button>
-        <button
-          type="button"
-          onClick={() => openSettings({ path: 'recipes' })}
-          className="sidebar__button sidebar__button--new-service"
-          data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
-        >
-          <i className="mdi mdi-plus-box" />
-        </button>
+        {
+          isLoggedIn ? (
+            <>
+              {workspaceStore.isFeatureEnabled ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    toggleWorkspaceDrawer();
+                    this.updateToolTip();
+                  }}
+                  className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
+                  data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+D)`}
+                >
+                  <i className="mdi mdi-view-grid" />
+                </button>
+              ) : null}
+          
+                <button
+                type="button"
+                onClick={() => {
+                  toggleMuteApp();
+                  this.updateToolTip();
+                }}
+                className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
+                data-tip={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)} (${ctrlKey}+Shift+M)`}
+              >
+                <i className={`mdi mdi-bell${isAppMuted ? '-off' : ''}`} />
+              </button>
+              <button
+                type="button"
+                onClick={() => openSettings({ path: 'recipes' })}
+                className="sidebar__button sidebar__button--new-service"
+                data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
+              >
+                <i className="mdi mdi-plus-box" />
+              </button>
+            </>
+          ) : (
+            <Link 
+              to="/auth/welcome" 
+              className="sidebar__button sidebar__button--new-service"
+              data-tip="Login">
+                <i className="mdi mdi-login-variant" />
+            </Link>
+          )
+        }
+        
         <button
           type="button"
           onClick={() => openSettings({ path: 'app' })}
