@@ -713,78 +713,78 @@
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 15
+          "line": 16
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.settings",
         "start": {
           "column": 12,
-          "line": 12
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!Add new service",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.addNewService",
         "start": {
           "column": 17,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Disable notifications & audio",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.muteApp",
         "start": {
           "column": 8,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Enable notifications & audio",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.unmuteApp",
         "start": {
           "column": 10,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Open workspace drawer",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.openWorkspaceDrawer",
         "start": {
           "column": 23,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Close workspace drawer",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/components/layout/Sidebar.js",
         "id": "sidebar.closeWorkspaceDrawer",
         "start": {
           "column": 24,
-          "line": 32
+          "line": 33
         }
       }
     ],
