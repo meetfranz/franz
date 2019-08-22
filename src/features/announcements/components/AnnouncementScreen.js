@@ -227,7 +227,6 @@ class AnnouncementScreen extends Component {
                     <Button
                       label={announcement.main.cta.label}
                       onClick={() => {
-                        const { analytics } = announcement.main.cta;
                         window.location.href = `#${announcement.main.cta.href}`;
                       }}
                     />
@@ -251,7 +250,6 @@ class AnnouncementScreen extends Component {
                     <Button
                       label={announcement.spotlight.cta.label}
                       onClick={() => {
-                        const { analytics } = announcement.spotlight.cta;
                         window.location.href = `#${announcement.spotlight.cta.href}`;
                       }}
                     />

@@ -68,7 +68,7 @@ export default @observer class Input extends Component {
 
     const { passwordScore } = this.state;
 
-    let type = field.type;
+    let { type } = field;
     if (type === 'password' && this.state.showPassword) {
       type = 'text';
     }

@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 
 import Tabbar from '../services/tabs/Tabbar';
 import { ctrlKey } from '../../environment';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../../features/workspaces';
+import { workspaceStore } from '../../features/workspaces';
 
 const messages = defineMessages({
   settings: {
@@ -107,8 +107,8 @@ export default @observer class Sidebar extends Component {
                   <i className="mdi mdi-view-grid" />
                 </button>
               ) : null}
-          
-                <button
+
+              <button
                 type="button"
                 onClick={() => {
                   toggleMuteApp();
@@ -129,15 +129,16 @@ export default @observer class Sidebar extends Component {
               </button>
             </>
           ) : (
-            <Link 
-              to="/auth/welcome" 
+            <Link
+              to="/auth/welcome"
               className="sidebar__button sidebar__button--new-service"
-              data-tip="Login">
-                <i className="mdi mdi-login-variant" />
+              data-tip="Login"
+            >
+              <i className="mdi mdi-login-variant" />
             </Link>
           )
         }
-        
+
         <button
           type="button"
           onClick={() => openSettings({ path: 'app' })}

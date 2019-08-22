@@ -39,7 +39,6 @@ const { default: fetch } = remote.require('electron-fetch');
 
 const SERVER_URL = API;
 const API_VERSION = 'v1';
-const API_URL = `${SERVER_URL}/${API_VERSION}`;
 
 export default class ServerApi {
   recipePreviews = [];
@@ -56,15 +55,15 @@ export default class ServerApi {
     let url;
     if (!this.stores.settings) {
       // Stores have not yet been loaded - send invalid URL to force a retry when stores are loaded
-      url = 'https://localhost:9999'
+      url = 'https://localhost:9999';
     } else if (this.stores.settings.all.app.server) {
       // Load URL from store
       url = this.stores.settings.all.app.server;
     } else {
       // Use default server url
-      url = SERVER_URL;
+      url = SERVER_URL;
     }
-    
+
     return `${url}/${API_VERSION}`;
   }
 

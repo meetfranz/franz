@@ -45,7 +45,6 @@ class PremiumFeatureContainer extends Component {
       actions,
       condition,
       stores,
-      gaEventInfo,
     } = this.props;
 
     const { intl } = this.context;

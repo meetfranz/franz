@@ -152,8 +152,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         server: {
           label: 'Server',
-          value: settings.all.app.server || API,
-          default: API
+          value: settings.all.app.server || API,
+          default: API,
         },
         showDisabledServices: {
           label: intl.formatMessage(messages.showDisabledServices),

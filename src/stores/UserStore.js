@@ -232,12 +232,12 @@ export default class UserStore extends Store {
     const recipes = services.filter((obj, pos, arr) => arr.map(mapObj => mapObj.recipe.id).indexOf(obj.recipe.id) === pos).map(s => s.recipe.id);
 
     // Install recipes
-    for (const recipe of recipes) {
+    for (const recipe of recipes) { // eslint-disable-line no-unused-vars
       // eslint-disable-next-line
       await this.stores.recipes._install({ recipeId: recipe });
     }
 
-    for (const service of services) {
+    for (const service of services) { // eslint-disable-line no-unused-vars
       this.actions.service.createFromLegacyService({
         data: service,
       });

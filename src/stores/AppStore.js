@@ -1,6 +1,6 @@
 import { remote, ipcRenderer, shell } from 'electron';
 import {
-  action, computed, observable, reaction,
+  action, computed, observable,
 } from 'mobx';
 import moment from 'moment';
 import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
@@ -358,7 +358,7 @@ export default class AppStore extends Store {
   }
 
   _muteAppHandler() {
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+    const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     if (!showMessageBadgesEvenWhenMuted) {
       this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });

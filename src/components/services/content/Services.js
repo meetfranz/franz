@@ -63,13 +63,13 @@ export default @observer class Services extends Component {
               <img src="./assets/images/logo.svg" alt="Logo" style={{ maxHeight: '50vh' }} />
               <h1>{intl.formatMessage(messages.welcome)}</h1>
               { !isLoggedIn && (
-                <p>Please open settings, choose a Ferdi server and click "Login" in the bottom left corner.</p>
+                <p>Please open settings, choose a Ferdi server and click &quot;Login&quot; in the bottom left corner.</p>
               ) }
               <Appear
                 timeout={300}
                 transitionName="slideUp"
               >
-                <Link to={ isLoggedIn ? '/settings/services' : '/settings/app' } className="button">
+                <Link to={isLoggedIn ? '/settings/services' : '/settings/app'} className="button">
                   { isLoggedIn ? intl.formatMessage(messages.getStarted) : 'Open settings' }
                 </Link>
               </Appear>

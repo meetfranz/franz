@@ -2,7 +2,7 @@ import path from 'path';
 import { remote } from 'electron';
 import fs from 'fs-extra';
 
-const app = remote.app;
+const { app } = remote;
 
 export function getServicePartitionsDirectory() {
   return path.join(app.getPath('userData'), 'Partitions');

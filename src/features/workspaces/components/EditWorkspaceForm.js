@@ -12,7 +12,6 @@ import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
 import WorkspaceServiceListItem from './WorkspaceServiceListItem';
 import Request from '../../../stores/lib/Request';
-import { GA_CATEGORY_WORKSPACES } from '../index';
 
 const messages = defineMessages({
   buttonDelete: {

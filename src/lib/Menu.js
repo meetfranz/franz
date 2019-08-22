@@ -3,7 +3,7 @@ import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
 import { isMac, ctrlKey, cmdKey } from '../environment';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
+import { workspaceStore } from '../features/workspaces/index';
 import { workspaceActions } from '../features/workspaces/actions';
 import { announcementActions } from '../features/announcements/actions';
 import { announcementsStore } from '../features/announcements';
@@ -909,7 +909,7 @@ export default class FranzMenu {
       return service.name;
     }
 
-    let name = service.recipe.name;
+    let { name } = service.recipe;
 
     if (service.team) {
       name = `${name} (${service.team})`;

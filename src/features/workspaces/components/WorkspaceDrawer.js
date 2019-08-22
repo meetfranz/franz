@@ -9,7 +9,7 @@ import ReactTooltip from 'react-tooltip';
 
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
+import { workspaceStore } from '../index';
 
 const messages = defineMessages({
   headline: {

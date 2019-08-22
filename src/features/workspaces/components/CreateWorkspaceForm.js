@@ -6,7 +6,7 @@ import { Input, Button } from '@meetfranz/forms';
 import injectSheet from 'react-jss';
 import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
+import { workspaceStore } from '../index';
 
 const messages = defineMessages({
   submitButton: {

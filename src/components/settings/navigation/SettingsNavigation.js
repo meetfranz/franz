@@ -131,7 +131,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
         </Link>
         <span className="settings-navigation__expander" />
         <Link
-          to={ isLoggedIn ? "/auth/logout" : '/auth/welcome'}
+          to={isLoggedIn ? '/auth/logout' : '/auth/welcome'}
           className="settings-navigation__link"
         >
           { isLoggedIn ? intl.formatMessage(messages.logout) : 'Login'}
