@@ -87,7 +87,7 @@ export default @observer class AuthLayout extends Component {
             })}
           </div>
           {/* </div> */}
-          <Link to="https://adlk.io" className="auth__adlk" target="_blank">
+          <Link to="https://github.com/kytwb/ferdi" className="auth__adlk" target="_blank">
             <img src="./assets/images/adlk.svg" alt="" />
           </Link>
         </div>
