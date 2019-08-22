@@ -16,6 +16,8 @@ import { getSelectOptions } from '../../helpers/i18n-helpers';
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
+import { API } from '../../environment';
+
 import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
@@ -88,6 +90,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        server: settingsData.server,
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         darkMode: settingsData.darkMode,
@@ -146,6 +149,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.minimizeToSystemTray),
           value: settings.all.app.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+        },
+        server: {
+          label: 'Server',
+          value: settings.all.app.server || API,
+          default: API
         },
         showDisabledServices: {
           label: intl.formatMessage(messages.showDisabledServices),

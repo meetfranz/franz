@@ -63,6 +63,7 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
     const { isDarkThemeActive } = stores.ui;
     const { router, user } = stores;
     const { intl } = this.context;
+    const isLoggedIn = Boolean(localStorage.getItem('authToken'));
 
     return (
       <div className="settings-navigation">
@@ -130,10 +131,10 @@ export default @inject('stores') @observer class SettingsNavigation extends Comp
         </Link>
         <span className="settings-navigation__expander" />
         <Link
-          to="/auth/logout"
+          to={ isLoggedIn ? "/auth/logout" : '/auth/welcome'}
           className="settings-navigation__link"
         >
-          {intl.formatMessage(messages.logout)}
+          { isLoggedIn ? intl.formatMessage(messages.logout) : 'Login'}
         </Link>
       </div>
     );

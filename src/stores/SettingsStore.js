@@ -8,6 +8,7 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { getLocale } from '../helpers/i18n-helpers';
+import { API } from '../environment';
 
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
@@ -147,6 +148,7 @@ export default class SettingsStore extends Store {
           runInBackground: legacySettings.runInBackground,
           enableSystemTray: legacySettings.enableSystemTray,
           minimizeToSystemTray: legacySettings.minimizeToSystemTray,
+          server: API,
           isAppMuted: legacySettings.isAppMuted,
           enableGPUAcceleration: legacySettings.enableGPUAcceleration,
           showMessageBadgeWhenMuted: legacySettings.showMessageBadgeWhenMuted,

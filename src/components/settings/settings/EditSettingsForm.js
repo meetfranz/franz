@@ -9,6 +9,7 @@ import Button from '../../ui/Button';
 import Toggle from '../../ui/Toggle';
 import Select from '../../ui/Select';
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
+import Input from '../../ui/Input';
 
 import { FRANZ_TRANSLATION } from '../../../config';
 
@@ -162,6 +163,12 @@ export default @observer class EditSettingsForm extends Component {
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
             )}
+            <Input
+              placeholder="Server"
+              onChange={e => this.submit(e)}
+              field={form.$('server')}
+              autoFocus
+            />
 
             {/* Appearance */}
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>

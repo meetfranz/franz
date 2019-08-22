@@ -84,7 +84,7 @@ export default class UserStore extends Store {
 
     // Reactions
     this.registerReactions([
-      this._requireAuthenticatedUser,
+      // this._requireAuthenticatedUser,
       this._getUserData.bind(this),
     ]);
   }
