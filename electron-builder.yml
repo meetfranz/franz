@@ -2,7 +2,7 @@ directories:
   app: ./build
   output: ./out
 
-appId: "com.meetfranz.franz"
+appId: "com.kytwb.ferdi"
 
 compression: maximum
 
