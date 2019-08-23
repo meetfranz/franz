@@ -1,14 +1,14 @@
 import { pick } from 'lodash';
 import { sendAuthRequest } from '../../api/utils/auth';
-import { API, API_VERSION } from '../../environment';
 import Request from '../../stores/lib/Request';
 import Workspace from './models/Workspace';
+import apiBase from '../apiBase'
 
 const debug = require('debug')('Franz:feature:workspaces:api');
 
 export const workspaceApi = {
   getUserWorkspaces: async () => {
-    const url = `${API}/${API_VERSION}/workspace`;
+    const url = `${apiBase()}/workspace`;
     debug('getUserWorkspaces GET', url);
     const result = await sendAuthRequest(url, { method: 'GET' });
     debug('getUserWorkspaces RESULT', result);
@@ -18,7 +18,7 @@ export const workspaceApi = {
   },
 
   createWorkspace: async (name) => {
-    const url = `${API}/${API_VERSION}/workspace`;
+    const url = `${apiBase()}/workspace`;
     const options = {
       method: 'POST',
       body: JSON.stringify({ name }),
@@ -31,7 +31,7 @@ export const workspaceApi = {
   },
 
   deleteWorkspace: async (workspace) => {
-    const url = `${API}/${API_VERSION}/workspace/${workspace.id}`;
+    const url = `${apiBase()}/workspace/${workspace.id}`;
     debug('deleteWorkspace DELETE', url);
     const result = await sendAuthRequest(url, { method: 'DELETE' });
     debug('deleteWorkspace RESULT', result);
@@ -40,7 +40,7 @@ export const workspaceApi = {
   },
 
   updateWorkspace: async (workspace) => {
-    const url = `${API}/${API_VERSION}/workspace/${workspace.id}`;
+    const url = `${apiBase()}/workspace/${workspace.id}`;
     const options = {
       method: 'PUT',
       body: JSON.stringify(pick(workspace, ['name', 'services'])),
