@@ -2,7 +2,8 @@
  * Get API base URL from store
  */
 import {
-  API_VERSION
+  API_VERSION,
+  API,
 } from '../environment';
 
 const apiBase = () => {
@@ -15,10 +16,10 @@ const apiBase = () => {
     url = window.ferdi.stores.settings.all.app.server;
   } else {
     // Use default server url
-    url = SERVER_URL;
+    url = API;
   }
 
   return `${url}/${API_VERSION}`;
-}
+};
 
-export default apiBase
+export default apiBase;
