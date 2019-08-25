@@ -29,7 +29,8 @@ export default class NewsStore extends Store {
   }
 
   @computed get latest() {
-    return this.latestNewsRequest.execute().result || [];
+    // return this.latestNewsRequest.execute().result || [];
+    return []
   }
 
   // Actions
