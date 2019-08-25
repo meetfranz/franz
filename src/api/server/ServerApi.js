@@ -44,7 +44,7 @@ export default class ServerApi {
   recipePreviews = [];
 
   recipes = [];
-  
+
   // User
   async login(email, passwordHash) {
     const request = await sendAuthRequest(`${apiBase()}/auth/login`, {

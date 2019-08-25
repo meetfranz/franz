@@ -204,7 +204,7 @@ export default @observer class Signup extends Component {
             </p>
           </form>
           <div className="auth__links">
-            <Link to='/settings/app'>Change server</Link>
+            <Link to="/settings/app">Change server</Link>
             <Link to={loginRoute}>{intl.formatMessage(messages.loginLink)}</Link>
           </div>
         </div>
