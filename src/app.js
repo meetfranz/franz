@@ -57,11 +57,9 @@ window.addEventListener('load', () => {
   const api = apiFactory(serverApi, new LocalApi());
   const router = new RouterStore();
   const stores = storeFactory(api, actions, router);
-  serverApi.setStores(stores);
   const history = syncHistoryWithStore(hashHistory, router);
   const menu = new MenuFactory(stores, actions);
   const touchBar = new TouchBarFactory(stores, actions);
-
 
   window.ferdi = {
     stores,

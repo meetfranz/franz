@@ -2,7 +2,7 @@ import { pick } from 'lodash';
 import { sendAuthRequest } from '../../api/utils/auth';
 import Request from '../../stores/lib/Request';
 import Workspace from './models/Workspace';
-import apiBase from '../apiBase';
+import apiBase from '../../api/apiBase';
 
 const debug = require('debug')('Franz:feature:workspaces:api');
 

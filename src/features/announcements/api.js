@@ -1,6 +1,6 @@
 import { remote } from 'electron';
 import Request from '../../stores/lib/Request';
-import apiBase from '../apiBase';
+import apiBase from '../../api/apiBase';
 
 const debug = require('debug')('Franz:feature:announcements:api');
 

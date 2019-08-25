@@ -8,7 +8,7 @@ import {
 
 const apiBase = () => {
   let url;
-  if (!window.ferdi.stores.settings) {
+  if (!window.ferdi.stores.settings || !window.ferdi.stores.settings.all) {
     // Stores have not yet been loaded - send invalid URL to force a retry when stores are loaded
     url = 'https://localhost:9999';
   } else if (window.ferdi.stores.settings.all.app.server) {

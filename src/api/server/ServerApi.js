@@ -15,6 +15,7 @@ import OrderModel from '../../models/Order';
 import { sleep } from '../../helpers/async-helpers';
 
 import { API } from '../../environment';
+import apiBase from '../apiBase';
 import { prepareAuthRequest, sendAuthRequest } from '../utils/auth';
 
 import {
@@ -38,38 +39,15 @@ const { app } = remote;
 const { default: fetch } = remote.require('electron-fetch');
 
 const SERVER_URL = API;
-const API_VERSION = 'v1';
 
 export default class ServerApi {
   recipePreviews = [];
 
   recipes = [];
-
-  stores = {};
-
-  setStores(stores) {
-    this.stores = stores;
-  }
-
-  apiUrl() {
-    let url;
-    if (!this.stores.settings) {
-      // Stores have not yet been loaded - send invalid URL to force a retry when stores are loaded
-      url = 'https://localhost:9999';
-    } else if (this.stores.settings.all.app.server) {
-      // Load URL from store
-      url = this.stores.settings.all.app.server;
-    } else {
-      // Use default server url
-      url = SERVER_URL;
-    }
-
-    return `${url}/${API_VERSION}`;
-  }
-
+  
   // User
   async login(email, passwordHash) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/auth/login`, {
+    const request = await sendAuthRequest(`${apiBase()}/auth/login`, {
       method: 'POST',
       headers: {
         Authorization: `Basic ${window.btoa(`${email}:${passwordHash}`)}`,
@@ -85,7 +63,7 @@ export default class ServerApi {
   }
 
   async signup(data) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/auth/signup`, {
+    const request = await sendAuthRequest(`${apiBase()}/auth/signup`, {
       method: 'POST',
       body: JSON.stringify(data),
     }, false);
@@ -99,7 +77,7 @@ export default class ServerApi {
   }
 
   async inviteUser(data) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/invite`, {
+    const request = await sendAuthRequest(`${apiBase()}/invite`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -112,7 +90,7 @@ export default class ServerApi {
   }
 
   async retrievePassword(email) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/auth/password`, {
+    const request = await sendAuthRequest(`${apiBase()}/auth/password`, {
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -128,7 +106,7 @@ export default class ServerApi {
   }
 
   async userInfo() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/me`);
+    const request = await sendAuthRequest(`${apiBase()}/me`);
     if (!request.ok) {
       throw request;
     }
@@ -141,7 +119,7 @@ export default class ServerApi {
   }
 
   async updateUserInfo(data) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/me`, {
+    const request = await sendAuthRequest(`${apiBase()}/me`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
@@ -156,7 +134,7 @@ export default class ServerApi {
   }
 
   async deleteAccount() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/me`, {
+    const request = await sendAuthRequest(`${apiBase()}/me`, {
       method: 'DELETE',
     });
     if (!request.ok) {
@@ -170,7 +148,7 @@ export default class ServerApi {
 
   // Services
   async getServices() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/me/services`);
+    const request = await sendAuthRequest(`${apiBase()}/me/services`);
     if (!request.ok) {
       throw request;
     }
@@ -183,7 +161,7 @@ export default class ServerApi {
   }
 
   async createService(recipeId, data) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/service`, {
+    const request = await sendAuthRequest(`${apiBase()}/service`, {
       method: 'POST',
       body: JSON.stringify(Object.assign({
         recipeId,
@@ -213,7 +191,7 @@ export default class ServerApi {
       await this.uploadServiceIcon(serviceId, data.iconFile);
     }
 
-    const request = await sendAuthRequest(`${this.apiUrl()}/service/${serviceId}`, {
+    const request = await sendAuthRequest(`${apiBase()}/service/${serviceId}`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
@@ -241,7 +219,7 @@ export default class ServerApi {
 
     delete requestData.headers['Content-Type'];
 
-    const request = await window.fetch(`${this.apiUrl()}/service/${serviceId}`, requestData);
+    const request = await window.fetch(`${apiBase()}/service/${serviceId}`, requestData);
 
     if (!request.ok) {
       throw request;
@@ -253,7 +231,7 @@ export default class ServerApi {
   }
 
   async reorderService(data) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/service/reorder`, {
+    const request = await sendAuthRequest(`${apiBase()}/service/reorder`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
@@ -266,7 +244,7 @@ export default class ServerApi {
   }
 
   async deleteService(id) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/service/${id}`, {
+    const request = await sendAuthRequest(`${apiBase()}/service/${id}`, {
       method: 'DELETE',
     });
     if (!request.ok) {
@@ -282,7 +260,7 @@ export default class ServerApi {
 
   // Features
   async getDefaultFeatures() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/features/default`);
+    const request = await sendAuthRequest(`${apiBase()}/features/default`);
     if (!request.ok) {
       throw request;
     }
@@ -294,7 +272,7 @@ export default class ServerApi {
   }
 
   async getFeatures() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/features`);
+    const request = await sendAuthRequest(`${apiBase()}/features`);
     if (!request.ok) {
       throw request;
     }
@@ -328,7 +306,7 @@ export default class ServerApi {
   }
 
   async getRecipeUpdates(recipeVersions) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/recipes/update`, {
+    const request = await sendAuthRequest(`${apiBase()}/recipes/update`, {
       method: 'POST',
       body: JSON.stringify(recipeVersions),
     });
@@ -342,7 +320,7 @@ export default class ServerApi {
 
   // Recipes Previews
   async getRecipePreviews() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/recipes`);
+    const request = await sendAuthRequest(`${apiBase()}/recipes`);
     if (!request.ok) throw request;
     const data = await request.json();
     const recipePreviews = this._mapRecipePreviewModel(data);
@@ -351,7 +329,7 @@ export default class ServerApi {
   }
 
   async getFeaturedRecipePreviews() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/recipes/popular`);
+    const request = await sendAuthRequest(`${apiBase()}/recipes/popular`);
     if (!request.ok) throw request;
 
     const data = await request.json();
@@ -363,7 +341,7 @@ export default class ServerApi {
   }
 
   async searchRecipePreviews(needle) {
-    const url = `${this.apiUrl()}/recipes/search?needle=${needle}`;
+    const url = `${apiBase()}/recipes/search?needle=${needle}`;
     const request = await sendAuthRequest(url);
     if (!request.ok) throw request;
 
@@ -378,7 +356,7 @@ export default class ServerApi {
       const recipesDirectory = path.join(app.getPath('userData'), 'recipes');
       const recipeTempDirectory = path.join(recipesDirectory, 'temp', recipeId);
       const archivePath = path.join(recipeTempDirectory, 'recipe.tar.gz');
-      const packageUrl = `${this.apiUrl()}/recipes/download/${recipeId}`;
+      const packageUrl = `${apiBase()}/recipes/download/${recipeId}`;
 
       fs.ensureDirSync(recipeTempDirectory);
       const res = await fetch(packageUrl);
@@ -415,7 +393,7 @@ export default class ServerApi {
 
   // Payment
   async getPlans() {
-    const request = await sendAuthRequest(`${this.apiUrl()}/payment/plans`);
+    const request = await sendAuthRequest(`${apiBase()}/payment/plans`);
     if (!request.ok) throw request;
     const data = await request.json();
     const plan = new PlanModel(data);
@@ -424,7 +402,7 @@ export default class ServerApi {
   }
 
   async getHostedPage(planId) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/payment/init`, {
+    const request = await sendAuthRequest(`${apiBase()}/payment/init`, {
       method: 'POST',
       body: JSON.stringify({
         planId,
@@ -441,7 +419,7 @@ export default class ServerApi {
 
   // News
   async getLatestNews() {
-    const url = `${this.apiUrl()}/news?platform=${os.platform()}&arch=${os.arch()}&version=${app.getVersion()}`;
+    const url = `${apiBase()}/news?platform=${os.platform()}&arch=${os.arch()}&version=${app.getVersion()}`;
     const request = await sendAuthRequest(url);
     if (!request.ok) throw request;
     const data = await request.json();
@@ -451,7 +429,7 @@ export default class ServerApi {
   }
 
   async hideNews(id) {
-    const request = await sendAuthRequest(`${this.apiUrl()}/news/${id}/read`);
+    const request = await sendAuthRequest(`${apiBase()}/news/${id}/read`);
     if (!request.ok) throw request;
     debug('ServerApi::hideNews resolves', id);
   }
@@ -476,7 +454,7 @@ export default class ServerApi {
       if (Object.prototype.hasOwnProperty.call(config, 'services')) {
         const services = await Promise.all(config.services.map(async (s) => {
           const service = s;
-          const request = await sendAuthRequest(`${this.apiUrl()}/recipes/${s.service}`);
+          const request = await sendAuthRequest(`${apiBase()}/recipes/${s.service}`);
 
           if (request.status === 200) {
             const data = await request.json();
