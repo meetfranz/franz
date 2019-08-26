@@ -3,7 +3,6 @@
  */
 import {
   API_VERSION,
-  API,
 } from '../environment';
 
 const apiBase = () => {
