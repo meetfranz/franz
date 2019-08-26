@@ -22,9 +22,9 @@ export default function initialize(stores) {
   };
 
   function showModal() {
-    debug('Showing share window');
+    debug('Would have showed share window');
 
-    state.isModalVisible = true;
+    // state.isModalVisible = true;
   }
 
   reaction(
