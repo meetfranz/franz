@@ -60,6 +60,7 @@ class AppLayout extends Component {
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
     nextAppReleaseVersion: PropTypes.string,
+    authRequestFailed: PropTypes.bool.isRequired,
     removeNewsItem: PropTypes.func.isRequired,
     reloadServicesAfterUpdate: PropTypes.func.isRequired,
     installAppUpdate: PropTypes.func.isRequired,
@@ -91,6 +92,7 @@ class AppLayout extends Component {
       showServicesUpdatedInfoBar,
       appUpdateIsDownloaded,
       nextAppReleaseVersion,
+      authRequestFailed,
       removeNewsItem,
       reloadServicesAfterUpdate,
       installAppUpdate,
@@ -141,6 +143,18 @@ class AppLayout extends Component {
                 >
                   <span className="mdi mdi-flash" />
                   {intl.formatMessage(messages.requiredRequestsFailed)}
+                </InfoBar>
+              )}
+              {authRequestFailed && (
+                <InfoBar
+                  type="danger"
+                  ctaLabel="Try again"
+                  ctaLoading={areRequiredRequestsLoading}
+                  sticky
+                  onClick={retryRequiredRequests}
+                >
+                  <span className="mdi mdi-flash" />
+                  There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.
                 </InfoBar>
               )}
               {showServicesUpdatedInfoBar && (

@@ -24,9 +24,12 @@ export default class GlobalErrorStore extends Store {
           this.response = {};
         }
         if (this.error.status === 401) {
-          this.actions.user.logout({ serverLogout: true });
+          window.ferdi.stores.app.authRequestFailed = true;
+          // this.actions.user.logout({ serverLogout: true });
         }
       }
+    } else {
+      window.ferdi.stores.app.authRequestFailed = false;
     }
   });
 }

@@ -53,6 +53,8 @@ export default class AppStore extends Store {
 
   @observable isOnline = navigator.onLine;
 
+  @observable authRequestFailed = false;
+
   @observable timeOfflineStart;
 
   @observable updateStatus = null;

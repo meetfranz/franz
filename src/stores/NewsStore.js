@@ -29,9 +29,7 @@ export default class NewsStore extends Store {
   }
 
   @computed get latest() {
-    // TODO: fix random logout issues and reactivate news
-    // return this.latestNewsRequest.execute().result || [];
-    return [];
+    return this.latestNewsRequest.execute().result || [];
   }
 
   // Actions
