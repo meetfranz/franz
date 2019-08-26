@@ -6,9 +6,10 @@
 
 ## Features
 - [x] Removes the fullscreen app delay inviting users to upgrade
-- [x] Removes pages begging you to donate afte registration
+- [x] Removes pages begging you to donate after registration
 - [x] Makes all users premium
 - [x] Add option to change server to a custom [ferdi-server](https://github.com/vantezzen/ferdi-server) 
+- [x] Custom branding
 - [ ] [#5](https://github.com/kytwb/Ferdi/issues/5) Makes it optional to create an account
 - [ ] [#6](https://github.com/kytwb/Ferdi/issues/6) Makes RocketChat self-hosted generally available
 
