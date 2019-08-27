@@ -5,9 +5,9 @@ export const themeBrandInfo = '#5bc0de';
 export const themeBrandWarning = '#FF9F00';
 export const themeBrandDanger = '#d9534f';
 
-export const themeGrayDark = '#373a3c';
-export const themeGray = '#55595c';
-export const themeGrayLight = '#818a91';
+export const themeGrayDark = '#7367F0';
+export const themeGray = '#7367F0';
+export const themeGrayLight = '#CE9FFC';
 export const themeGrayLighter = '#eceeef';
 export const themeGrayLightest = '#f7f7f9';
 

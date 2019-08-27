@@ -16,7 +16,7 @@ export default class LoaderComponent extends Component {
     children: null,
     loaded: false,
     className: '',
-    color: '#373a3c',
+    color: '#7367F0',
   };
 
   render() {
