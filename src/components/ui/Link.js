@@ -25,6 +25,7 @@ export default @inject('stores') @observer class Link extends Component {
       className,
       activeClassName,
       strictFilter,
+      style,
     } = this.props;
     const { router } = stores;
 
@@ -44,6 +45,7 @@ export default @inject('stores') @observer class Link extends Component {
       <a
         href={router.history.createHref(to)}
         className={linkClasses}
+        style={style}
         onClick={e => this.onClick(e)}
       >
         {children}
@@ -65,6 +67,7 @@ Link.wrappedComponent.propTypes = {
   activeClassName: PropTypes.string,
   strictFilter: PropTypes.bool,
   target: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Link.wrappedComponent.defaultProps = {
@@ -72,4 +75,5 @@ Link.wrappedComponent.defaultProps = {
   activeClassName: '',
   strictFilter: false,
   target: '',
+  style: {}
 };
