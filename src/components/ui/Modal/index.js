@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import injectCSS from 'react-jss';
 import { Icon } from '@meetfranz/ui';
 
+import { mdiClose } from '@mdi/js';
 import styles from './styles';
 
 // ReactModal.setAppElement('#root');
@@ -59,7 +60,7 @@ export default @injectCSS(styles) class Modal extends Component {
             className={classes.close}
             onClick={close}
           >
-            <Icon icon="mdiClose" size={1.5} />
+            <Icon icon={mdiClose} size={1.5} />
           </button>
         )}
         <div className={classes.content}>

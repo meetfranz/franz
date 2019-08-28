@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/polyfill": "7.4.4",
     "@babel/runtime": "7.4.5",
+    "@mdi/js": "4.2.95",
     "@meetfranz/electron-notification-state": "1.0.0",
     "@meetfranz/forms": "file:packages/forms",
     "@meetfranz/theme": "file:packages/theme",

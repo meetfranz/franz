@@ -2,6 +2,7 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { Icon } from '@meetfranz/ui';
 import classnames from 'classnames';
+import { mdiCheckCircle } from '@mdi/js';
 
 const styles = theme => ({
   featureItem: {
@@ -27,7 +28,7 @@ export const FeatureItem = injectSheet(styles)(({
     {icon ? (
       <span className={classes.featureIcon}>{icon}</span>
     ) : (
-      <Icon icon="mdiCheckCircle" className={classes.featureIcon} size={1.5} />
+      <Icon icon={mdiCheckCircle} className={classes.featureIcon} size={1.5} />
     )}
     {name}
   </li>
