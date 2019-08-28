@@ -4,7 +4,7 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import {
-  ProBadge, H2, H1, H3,
+  ProBadge, H1, H2,
 } from '@meetfranz/ui';
 import moment from 'moment';
 

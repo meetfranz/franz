@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape, IntlProvider } from 'react-intl';
+import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
 import { H3, H2 } from '@meetfranz/ui';
