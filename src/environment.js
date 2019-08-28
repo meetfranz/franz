@@ -1,13 +1,13 @@
 import isDev from 'electron-is-dev';
 
 import {
-  LIVE_API,
+  // LIVE_API,
   DEV_API,
   LOCAL_API,
   LOCAL_API_WEBSITE,
   DEV_API_WEBSITE,
-  LIVE_API_WEBSITE,
-  LIVE_WS_API,
+  // LIVE_API_WEBSITE,
+  // LIVE_WS_API,
   LOCAL_WS_API,
   DEV_WS_API,
 } from './config';
@@ -32,9 +32,13 @@ let api;
 let wsApi;
 let web;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
-  api = LIVE_API;
-  wsApi = LIVE_WS_API;
-  web = LIVE_API_WEBSITE;
+  // api = LIVE_API;
+  // wsApi = LIVE_WS_API;
+  // web = LIVE_API_WEBSITE;
+  // TODO: switch back to live API
+  api = DEV_API;
+  wsApi = DEV_WS_API;
+  web = DEV_API_WEBSITE;
 } else if (isDevMode && useLocalAPI) {
   api = LOCAL_API;
   wsApi = LOCAL_WS_API;
