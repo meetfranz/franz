@@ -8,11 +8,19 @@
 - [x] Removes the fullscreen app delay inviting users to upgrade
 - [x] Removes pages begging you to donate after registration
 - [x] Makes all users premium
-- [x] Add option to change server to a custom [ferdi-server](https://github.com/vantezzen/ferdi-server)
+- [x] [Add option to change server to a custom](#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Remove "Franz is better together"(shareFranz) popup
 - [x] Custom branding
 - [ ] [#5](https://github.com/kytwb/Ferdi/issues/5) Makes it optional to create an account
 - [ ] [#6](https://github.com/kytwb/Ferdi/issues/6) Makes RocketChat self-hosted generally available
+
+## Servers
+Ferdi adds the option to change your Ferdi server. By default, this will be `https://api.franzinfra.com` - the official Franz server. This allows Ferdi to stay compatible with your current Franz account.
+
+If you want to experience all Ferdi features, you may want to use a custom [ferdi-server](https://github.com/vantezzen/ferdi-server). ferdi-server allows you to use Premium features without restrictions and adds the ability to package and add additional recipes. You can also import your existing Franz account into your ferdi-server to start right where you left off.
+
+More information on how to set up a ferdi-server can be found at <https://github.com/vantezzen/ferdi-server/blob/master/README.md>.
+
 
 ## Packaging
 
