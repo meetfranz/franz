@@ -1434,7 +1434,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Your license:",
+        "defaultMessage": "!!!Your Franz License:",
         "end": {
           "column": 3,
           "line": 81
