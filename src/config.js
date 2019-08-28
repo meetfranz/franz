@@ -31,6 +31,7 @@ export const DEFAULT_APP_SETTINGS = {
   runInBackground: true,
   enableSystemTray: true,
   minimizeToSystemTray: false,
+  server: LIVE_API,
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
