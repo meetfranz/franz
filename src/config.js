@@ -19,7 +19,8 @@ export const DEV_WS_API = 'wss://dev.franzinfra.com';
 export const LIVE_WS_API = 'wss://api.franzinfra.com';
 
 export const LOCAL_API_WEBSITE = 'http://localhost:3333';
-export const DEV_API_WEBSITE = 'https://meetfranz.com';
+// export const DEV_API_WEBSITE = 'https://meetfranz.com';
+export const DEV_API_WEBSITE = 'http://hash-3ac3ccd2472269cf585c58a4f6973d86f3c9e7bd.franzstaging.com/'; // TODO: revert me
 export const LIVE_API_WEBSITE = 'https://meetfranz.com';
 
 export const STATS_API = 'https://stats.franzinfra.com';
