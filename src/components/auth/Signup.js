@@ -188,7 +188,7 @@ export default @observer class Signup extends Component {
               {intl.formatMessage(messages.legalInfo)}
               <br />
               <Link
-                to={ termsBase + '/terms' }
+                to={`${termsBase}/terms`}
                 target="_blank"
                 className="link"
               >
@@ -196,7 +196,7 @@ export default @observer class Signup extends Component {
               </Link>
               &nbsp;&amp;&nbsp;
               <Link
-                to={ termsBase + '/privacy' }
+                to={`${termsBase}/privacy`}
                 target="_blank"
                 className="link"
               >

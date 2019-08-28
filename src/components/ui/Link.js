@@ -75,5 +75,5 @@ Link.wrappedComponent.defaultProps = {
   activeClassName: '',
   strictFilter: false,
   target: '',
-  style: {}
+  style: {},
 };

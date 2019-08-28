@@ -141,11 +141,15 @@ export default @observer class Login extends Component {
               <p className="error-message center">{intl.formatMessage(messages.invalidCredentials)}</p>
               { window.ferdi.stores.settings.all.app.server !== 'https://api.franzinfra.com' && (
                 <p className="error-message center">
-                    Using a custom Ferdi server? Try{' '}
-                    <Link 
-                      to={ window.ferdi.stores.settings.all.app.server.replace('v1', '') + '/import' } 
-                      target="_blank"
-                      style={{ cursor: 'pointer', textDecoration: 'underline' }}>importing your Franz account</Link>
+                    Using a custom Ferdi server? Try
+                  {' '}
+                  <Link
+                    to={`${window.ferdi.stores.settings.all.app.server.replace('v1', '')}/import`}
+                    target="_blank"
+                    style={{ cursor: 'pointer', textDecoration: 'underline' }}
+                  >
+importing your Franz account
+                  </Link>
                 </p>
               )}
             </>
