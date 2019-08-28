@@ -136,6 +136,8 @@ export default @observer class Signup extends Component {
     const { intl } = this.context;
     const { isSubmitting, loginRoute, error } = this.props;
 
+    const termsBase = window.ferdi.stores.settings.all.app.server !== 'https://api.franzinfra.com' ? window.ferdi.stores.settings.all.app.server : 'https://meetfranz.com';
+
     return (
       <div className="auth__scroll-container">
         <div className="auth__container auth__container--signup">
@@ -186,7 +188,7 @@ export default @observer class Signup extends Component {
               {intl.formatMessage(messages.legalInfo)}
               <br />
               <Link
-                to="https://meetfranz.com/terms"
+                to={ termsBase + '/terms' }
                 target="_blank"
                 className="link"
               >
@@ -194,7 +196,7 @@ export default @observer class Signup extends Component {
               </Link>
               &nbsp;&amp;&nbsp;
               <Link
-                to="https://meetfranz.com/privacy"
+                to={ termsBase + '/privacy' }
                 target="_blank"
                 className="link"
               >
