@@ -325,10 +325,10 @@ if (argv['auth-negotiate-delegate-whitelist']) {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   // Register App URL
-  app.setAsDefaultProtocolClient('franz');
+  app.setAsDefaultProtocolClient('ferdi');
 
   if (isDevMode) {
-    app.setAsDefaultProtocolClient('franz-dev');
+    app.setAsDefaultProtocolClient('ferdi-dev');
   }
 
   if (process.platform === 'win32') {
