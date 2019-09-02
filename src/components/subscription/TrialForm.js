@@ -15,6 +15,10 @@ const messages = defineMessages({
     id: 'subscription.cta.activateTrial',
     defaultMessage: '!!!Yes, start the free Franz Professional trial',
   },
+  allOptionsButton: {
+    id: 'subscription.cta.allOptions',
+    defaultMessage: '!!!See all options',
+  },
   teaserHeadline: {
     id: 'settings.account.headlineTrialUpgrade',
     defaultMessage: '!!!Get the free 14 day Franz Professional Trial',
@@ -39,7 +43,12 @@ const messages = defineMessages({
 
 const styles = () => ({
   activateTrialButton: {
-    margin: [40, 0, 50],
+    margin: [40, 0, 10],
+  },
+  allOptionsButton: {
+    margin: [0, 0, 40],
+    background: 'none',
+    border: 'none',
   },
   keyTerms: {
     marginTop: 20,
@@ -50,6 +59,7 @@ export default @observer @injectSheet(styles) class TrialForm extends Component 
   static propTypes = {
     activateTrial: PropTypes.func.isRequired,
     isActivatingTrial: PropTypes.bool.isRequired,
+    showAllOptions: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
   };
 
@@ -61,6 +71,7 @@ export default @observer @injectSheet(styles) class TrialForm extends Component 
     const {
       isActivatingTrial,
       activateTrial,
+      showAllOptions,
       classes,
     } = this.props;
     const { intl } = this.context;
@@ -81,6 +92,12 @@ export default @observer @injectSheet(styles) class TrialForm extends Component 
           className={classes.activateTrialButton}
           busy={isActivatingTrial}
           onClick={activateTrial}
+          stretch
+        />
+        <Button
+          label={intl.formatMessage(messages.allOptionsButton)}
+          className={classes.allOptionsButton}
+          onClick={showAllOptions}
           stretch
         />
         <div className="subscription__premium-info">

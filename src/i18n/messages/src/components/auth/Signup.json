@@ -52,19 +52,6 @@
     }
   },
   {
-    "id": "signup.company.label",
-    "defaultMessage": "!!!Company",
-    "file": "src/components/auth/Signup.js",
-    "start": {
-      "line": 34,
-      "column": 16
-    },
-    "end": {
-      "line": 37,
-      "column": 3
-    }
-  },
-  {
     "id": "signup.password.label",
     "defaultMessage": "!!!Password",
     "file": "src/components/auth/Signup.js",
