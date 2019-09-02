@@ -591,19 +591,6 @@
         }
       },
       {
-        "defaultMessage": "!!!Company",
-        "end": {
-          "column": 3,
-          "line": 37
-        },
-        "file": "src/components/auth/Signup.js",
-        "id": "signup.company.label",
-        "start": {
-          "column": 16,
-          "line": 34
-        }
-      },
-      {
         "defaultMessage": "!!!Password",
         "end": {
           "column": 3,
@@ -2794,68 +2781,81 @@
         }
       },
       {
-        "defaultMessage": "!!!Get the free 14 day Franz Professional Trial",
+        "defaultMessage": "!!!See all options",
         "end": {
           "column": 3,
           "line": 21
         },
         "file": "src/components/subscription/TrialForm.js",
+        "id": "subscription.cta.allOptions",
+        "start": {
+          "column": 20,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Get the free 14 day Franz Professional Trial",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/subscription/TrialForm.js",
         "id": "settings.account.headlineTrialUpgrade",
         "start": {
           "column": 18,
-          "line": 18
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!The Franz Professional Plan includes:",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 29
         },
         "file": "src/components/subscription/TrialForm.js",
         "id": "subscription.includedProFeatures",
         "start": {
           "column": 20,
-          "line": 22
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!No strings attached",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 33
         },
         "file": "src/components/subscription/TrialForm.js",
         "id": "pricing.trial.terms.headline",
         "start": {
           "column": 29,
-          "line": 26
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!No credit card required",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 37
         },
         "file": "src/components/subscription/TrialForm.js",
         "id": "pricing.trial.terms.noCreditCard",
         "start": {
           "column": 16,
-          "line": 30
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!!Your free trial ends automatically after 14 days",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 41
         },
         "file": "src/components/subscription/TrialForm.js",
         "id": "pricing.trial.terms.automaticTrialEnd",
         "start": {
           "column": 21,
-          "line": 34
+          "line": 38
         }
       }
     ],
@@ -3707,91 +3707,91 @@
         "defaultMessage": "!!!Franz is better together!",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.headline",
         "start": {
           "column": 12,
-          "line": 15
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.text",
         "start": {
           "column": 8,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Share as email",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.email",
         "start": {
           "column": 16,
-          "line": 23
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Share on Facebook",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.facebook",
         "start": {
           "column": 19,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Share on Twitter",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.twitter",
         "start": {
           "column": 18,
-          "line": 31
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 39
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.email",
         "start": {
           "column": 18,
-          "line": 35
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 43
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.twitter",
         "start": {
           "column": 20,
-          "line": 39
+          "line": 40
         }
       }
     ],

@@ -19,7 +19,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
       features,
     } = stores;
 
-    let hostedPageURL = user.data.hadSubscription ? features.features.planSelectionURL : features.features.subscribeURL;
+    let hostedPageURL = !user.data.hadSubscription ? features.features.planSelectionURL : features.features.subscribeURL;
     const url = new URL(hostedPageURL);
     const params = new URLSearchParams(url.search.slice(1));
 
@@ -52,6 +52,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
       <TrialForm
         plan={stores.payment.plan}
         activateTrial={() => actions.user.activateTrial({ planId: stores.features.features.defaultTrialPlan })}
+        showAllOptions={() => this.openBrowser()}
         isActivatingTrial={stores.user.activateTrialRequest.isExecuting || stores.user.getUserInfoRequest.isExecuting}
       />
     );
