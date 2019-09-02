@@ -221,4 +221,7 @@ export const todos = {
   dragIndicator: {
     background: legacyStyles.themeGrayLight,
   },
+  resizeHandler: {
+    backgroundHover: styleTypes.primary.accent,
+  }
 };
