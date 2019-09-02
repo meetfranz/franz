@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import localStorage from 'mobx-localstorage';
 import ms from 'ms';
 
-import { isDevMode } from '../environment';
+import { isDevMode, WEBSITE } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
@@ -379,6 +379,15 @@ export default class UserStore extends Store {
       this.authToken = null;
       this.id = null;
     }
+  }
+
+  getAuthURL(url) {
+    const parsedUrl = new URL(url);
+    const params = new URLSearchParams(parsedUrl.search.slice(1));
+
+    params.append('authToken', this.authToken);
+
+    return `${parsedUrl.origin}${parsedUrl.pathname}?${params.toString()}`;
   }
 
   async _migrateUserLocale() {

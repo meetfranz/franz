@@ -180,6 +180,7 @@
   "settings.account.trialUpdateBillingInfo": "Please update your billing info to continue using {license} after your trial period.",
   "settings.account.tryReloadServices": "Try again",
   "settings.account.tryReloadUserInfoRequest": "Try again",
+  "settings.account.upgradeToPro.label": "Upgrade to Franz Professional",
   "settings.account.userInfoRequestFailed": "Could not load user information",
   "settings.account.yourLicense": "Your Franz License",
   "settings.app.buttonClearAllCache": "Clear cache",

@@ -20,12 +20,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     } = stores;
 
     let hostedPageURL = !user.data.hadSubscription ? features.features.planSelectionURL : features.features.subscribeURL;
-    const url = new URL(hostedPageURL);
-    const params = new URLSearchParams(url.search.slice(1));
-
-    params.append('authToken', user.authToken);
-
-    hostedPageURL = `${url.origin}${url.pathname}?${params.toString()}`;
+    hostedPageURL = user.getAuthURL(hostedPageURL);
 
     actions.app.openExternalUrl({ url: hostedPageURL });
   }

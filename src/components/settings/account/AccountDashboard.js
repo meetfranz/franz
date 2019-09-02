@@ -31,6 +31,10 @@ const messages = defineMessages({
     id: 'settings.account.manageSubscription.label',
     defaultMessage: '!!!Manage your subscription',
   },
+  upgradeAccountToPro: {
+    id: 'settings.account.upgradeToPro.label',
+    defaultMessage: '!!!Upgrade to Franz Professional',
+  },
   accountTypeBasic: {
     id: 'settings.account.accountType.basic',
     defaultMessage: '!!!Basic Account',
@@ -100,6 +104,7 @@ export default @observer class AccountDashboard extends Component {
     isDeleteAccountSuccessful: PropTypes.bool.isRequired,
     openEditAccount: PropTypes.func.isRequired,
     openBilling: PropTypes.func.isRequired,
+    upgradeToPro: PropTypes.func.isRequired,
     openInvoices: PropTypes.func.isRequired,
   };
 
@@ -118,6 +123,7 @@ export default @observer class AccountDashboard extends Component {
       isDeleteAccountSuccessful,
       openEditAccount,
       openBilling,
+      upgradeToPro,
       openInvoices,
     } = this.props;
     const { intl } = this.context;
@@ -228,6 +234,11 @@ export default @observer class AccountDashboard extends Component {
                           </>
                         )}
                         <div className="manage-user-links">
+                          <Button
+                            label={intl.formatMessage(messages.upgradeAccountToPro)}
+                            className="franz-form__button--primary"
+                            onClick={upgradeToPro}
+                          />
                           <Button
                             label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
                             className="franz-form__button--inverted"
