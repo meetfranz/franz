@@ -149,7 +149,8 @@ export default @observer class Login extends Component {
               <p className="error-message center">{intl.formatMessage(messages.invalidCredentials)}</p>
               { window.ferdi.stores.settings.all.app.server !== 'https://api.franzinfra.com' && (
                 <p className="error-message center">
-                    {intl.formatMessage(messages.customServerQuestion)}{' '}
+                    {intl.formatMessage(messages.customServerQuestion)}
+                  {' '}
                   <Link
                     to={`${window.ferdi.stores.settings.all.app.server.replace('v1', '')}/import`}
                     target="_blank"

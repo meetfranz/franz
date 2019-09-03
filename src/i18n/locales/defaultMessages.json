@@ -264,55 +264,81 @@
         }
       },
       {
-        "defaultMessage": "!!!Your session expired, please login again.",
+        "defaultMessage": "!!!Using a custom Ferdi server?",
         "end": {
           "column": 3,
           "line": 40
         },
         "file": "src/components/auth/Login.js",
-        "id": "login.tokenExpired",
+        "id": "login.customServerQuestion",
         "start": {
-          "column": 16,
+          "column": 24,
           "line": 37
+        }
+      },
+      {
+        "defaultMessage": "!!!Try importing your Franz account",
+        "end": {
+          "column": 3,
+          "line": 44
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.customServerSuggestion",
+        "start": {
+          "column": 26,
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Your session expired, please login again.",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 48
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.tokenExpired",
+        "start": {
+          "column": 16,
+          "line": 45
+        }
+      },
+      {
+        "defaultMessage": "!!!Your session expired, please login again.",
+        "end": {
+          "column": 3,
+          "line": 52
         },
         "file": "src/components/auth/Login.js",
         "id": "login.serverLogout",
         "start": {
           "column": 16,
-          "line": 41
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Create a free account",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 56
         },
         "file": "src/components/auth/Login.js",
         "id": "login.link.signup",
         "start": {
           "column": 14,
-          "line": 45
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Forgot password",
         "end": {
           "column": 3,
-          "line": 52
+          "line": 60
         },
         "file": "src/components/auth/Login.js",
         "id": "login.link.password",
         "start": {
           "column": 16,
-          "line": 49
+          "line": 57
         }
       }
     ],
@@ -703,6 +729,19 @@
           "column": 26,
           "line": 33
         }
+      },
+      {
+        "defaultMessage": "!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.",
+        "end": {
+          "column": 3,
+          "line": 40
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.authRequestFailed",
+        "start": {
+          "column": 21,
+          "line": 37
+        }
       }
     ],
     "path": "src/components/layout/AppLayout.json"
@@ -917,6 +956,32 @@
         "start": {
           "column": 14,
           "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!Please login to use Ferdi.",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/services/content/Services.js",
+        "id": "services.login",
+        "start": {
+          "column": 9,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/services/content/Services.js",
+        "id": "services.serverInfo",
+        "start": {
+          "column": 14,
+          "line": 23
         }
       }
     ],
@@ -2991,94 +3056,107 @@
         }
       },
       {
-        "defaultMessage": "!!!Language",
+        "defaultMessage": "!!!Server",
         "end": {
           "column": 3,
           "line": 47
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.language",
+        "id": "settings.app.form.server",
         "start": {
-          "column": 12,
+          "column": 10,
           "line": 44
         }
       },
       {
-        "defaultMessage": "!!!Dark Mode",
+        "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
           "line": 51
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.darkMode",
+        "id": "settings.app.form.language",
         "start": {
           "column": 12,
           "line": 48
         }
       },
       {
-        "defaultMessage": "!!!Display disabled services tabs",
+        "defaultMessage": "!!!Dark Mode",
         "end": {
           "column": 3,
           "line": 55
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.darkMode",
+        "start": {
+          "column": 12,
+          "line": 52
+        }
+      },
+      {
+        "defaultMessage": "!!!Display disabled services tabs",
+        "end": {
+          "column": 3,
+          "line": 59
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showDisabledServices",
         "start": {
           "column": 24,
-          "line": 52
+          "line": 56
         }
       },
       {
         "defaultMessage": "!!!Show unread message badge when notifications are disabled",
         "end": {
           "column": 3,
-          "line": 59
+          "line": 63
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showMessagesBadgesWhenMuted",
         "start": {
           "column": 29,
-          "line": 56
+          "line": 60
         }
       },
       {
         "defaultMessage": "!!!Enable spell checking",
         "end": {
           "column": 3,
-          "line": 63
+          "line": 67
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSpellchecking",
         "start": {
           "column": 23,
-          "line": 60
+          "line": 64
         }
       },
       {
         "defaultMessage": "!!!Enable GPU Acceleration",
         "end": {
           "column": 3,
-          "line": 67
+          "line": 71
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableGPUAcceleration",
         "start": {
           "column": 25,
-          "line": 64
+          "line": 68
         }
       },
       {
         "defaultMessage": "!!!Include beta versions",
         "end": {
           "column": 3,
-          "line": 71
+          "line": 75
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.beta",
         "start": {
           "column": 8,
-          "line": 68
+          "line": 72
         }
       }
     ],
