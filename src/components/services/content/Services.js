@@ -16,6 +16,14 @@ const messages = defineMessages({
     id: 'services.getStarted',
     defaultMessage: '!!!Get started',
   },
+  login: {
+    id: 'services.login',
+    defaultMessage: '!!!Please login to use Ferdi.',
+  },
+  serverInfo: {
+    id: 'services.serverInfo',
+    defaultMessage: '!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.',
+  },
 });
 
 export default @observer class Services extends Component {
@@ -64,8 +72,8 @@ export default @observer class Services extends Component {
               <h1>{intl.formatMessage(messages.welcome)}</h1>
               { !isLoggedIn && (
                 <>
-                  <p>Please login to use Ferdi.</p>
-                  <p>Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.</p>
+                  <p>{intl.formatMessage(messages.login)}</p>
+                  <p>{intl.formatMessage(messages.serverInfo)}</p>
                 </>
               ) }
               <Appear

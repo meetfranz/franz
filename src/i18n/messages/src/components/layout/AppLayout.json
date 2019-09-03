@@ -37,5 +37,18 @@
       "line": 36,
       "column": 3
     }
+  },
+  {
+    "id": "infobar.authRequestFailed",
+    "defaultMessage": "!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.",
+    "file": "src/components/layout/AppLayout.js",
+    "start": {
+      "line": 37,
+      "column": 21
+    },
+    "end": {
+      "line": 40,
+      "column": 3
+    }
   }
 ]

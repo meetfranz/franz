@@ -34,6 +34,14 @@ const messages = defineMessages({
     id: 'login.invalidCredentials',
     defaultMessage: '!!!Email or password not valid',
   },
+  customServerQuestion: {
+    id: 'login.customServerQuestion',
+    defaultMessage: '!!!Using a custom Ferdi server?',
+  },
+  customServerSuggestion: {
+    id: 'login.customServerSuggestion',
+    defaultMessage: '!!!Try importing your Franz account',
+  },
   tokenExpired: {
     id: 'login.tokenExpired',
     defaultMessage: '!!!Your session expired, please login again.',
@@ -141,14 +149,13 @@ export default @observer class Login extends Component {
               <p className="error-message center">{intl.formatMessage(messages.invalidCredentials)}</p>
               { window.ferdi.stores.settings.all.app.server !== 'https://api.franzinfra.com' && (
                 <p className="error-message center">
-                    Using a custom Ferdi server? Try
-                  {' '}
+                    {intl.formatMessage(messages.customServerQuestion)}{' '}
                   <Link
                     to={`${window.ferdi.stores.settings.all.app.server.replace('v1', '')}/import`}
                     target="_blank"
                     style={{ cursor: 'pointer', textDecoration: 'underline' }}
                   >
-importing your Franz account
+                    {intl.formatMessage(messages.customServerSuggestion)}
                   </Link>
                 </p>
               )}

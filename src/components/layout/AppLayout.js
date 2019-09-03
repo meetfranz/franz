@@ -34,6 +34,10 @@ const messages = defineMessages({
     id: 'infobar.requiredRequestsFailed',
     defaultMessage: '!!!Could not load services and user information',
   },
+  authRequestFailed: {
+    id: 'infobar.authRequestFailed',
+    defaultMessage: '!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.',
+  },
 });
 
 const styles = theme => ({
@@ -154,7 +158,7 @@ class AppLayout extends Component {
                   onClick={retryRequiredRequests}
                 >
                   <span className="mdi mdi-flash" />
-                  There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.
+                  {intl.formatMessage(messages.authRequestFailed)}
                 </InfoBar>
               )}
               {showServicesUpdatedInfoBar && (

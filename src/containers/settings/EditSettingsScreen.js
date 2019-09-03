@@ -41,6 +41,10 @@ const messages = defineMessages({
     id: 'settings.app.form.minimizeToSystemTray',
     defaultMessage: '!!!Minimize Ferdi to system tray',
   },
+  server: {
+    id: 'settings.app.form.server',
+    defaultMessage: '!!!Server',
+  },
   language: {
     id: 'settings.app.form.language',
     defaultMessage: '!!!Language',
@@ -151,7 +155,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
         },
         server: {
-          label: 'Server',
+          label: intl.formatMessage(messages.server),
           value: settings.all.app.server || API,
           default: API,
         },

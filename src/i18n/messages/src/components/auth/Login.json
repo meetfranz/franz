@@ -65,15 +65,41 @@
     }
   },
   {
+    "id": "login.customServerQuestion",
+    "defaultMessage": "!!!Using a custom Ferdi server?",
+    "file": "src/components/auth/Login.js",
+    "start": {
+      "line": 37,
+      "column": 24
+    },
+    "end": {
+      "line": 40,
+      "column": 3
+    }
+  },
+  {
+    "id": "login.customServerSuggestion",
+    "defaultMessage": "!!!Try importing your Franz account",
+    "file": "src/components/auth/Login.js",
+    "start": {
+      "line": 41,
+      "column": 26
+    },
+    "end": {
+      "line": 44,
+      "column": 3
+    }
+  },
+  {
     "id": "login.tokenExpired",
     "defaultMessage": "!!!Your session expired, please login again.",
     "file": "src/components/auth/Login.js",
     "start": {
-      "line": 37,
+      "line": 45,
       "column": 16
     },
     "end": {
-      "line": 40,
+      "line": 48,
       "column": 3
     }
   },
@@ -82,11 +108,11 @@
     "defaultMessage": "!!!Your session expired, please login again.",
     "file": "src/components/auth/Login.js",
     "start": {
-      "line": 41,
+      "line": 49,
       "column": 16
     },
     "end": {
-      "line": 44,
+      "line": 52,
       "column": 3
     }
   },
@@ -95,11 +121,11 @@
     "defaultMessage": "!!!Create a free account",
     "file": "src/components/auth/Login.js",
     "start": {
-      "line": 45,
+      "line": 53,
       "column": 14
     },
     "end": {
-      "line": 48,
+      "line": 56,
       "column": 3
     }
   },
@@ -108,11 +134,11 @@
     "defaultMessage": "!!!Forgot password",
     "file": "src/components/auth/Login.js",
     "start": {
-      "line": 49,
+      "line": 57,
       "column": 16
     },
     "end": {
-      "line": 52,
+      "line": 60,
       "column": 3
     }
   }

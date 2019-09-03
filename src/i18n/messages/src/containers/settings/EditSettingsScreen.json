@@ -65,12 +65,12 @@
     }
   },
   {
-    "id": "settings.app.form.language",
-    "defaultMessage": "!!!Language",
+    "id": "settings.app.form.server",
+    "defaultMessage": "!!!Server",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
       "line": 44,
-      "column": 12
+      "column": 10
     },
     "end": {
       "line": 47,
@@ -78,8 +78,8 @@
     }
   },
   {
-    "id": "settings.app.form.darkMode",
-    "defaultMessage": "!!!Dark Mode",
+    "id": "settings.app.form.language",
+    "defaultMessage": "!!!Language",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
       "line": 48,
@@ -91,15 +91,28 @@
     }
   },
   {
+    "id": "settings.app.form.darkMode",
+    "defaultMessage": "!!!Dark Mode",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 52,
+      "column": 12
+    },
+    "end": {
+      "line": 55,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.app.form.showDisabledServices",
     "defaultMessage": "!!!Display disabled services tabs",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 52,
+      "line": 56,
       "column": 24
     },
     "end": {
-      "line": 55,
+      "line": 59,
       "column": 3
     }
   },
@@ -108,11 +121,11 @@
     "defaultMessage": "!!!Show unread message badge when notifications are disabled",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 56,
+      "line": 60,
       "column": 29
     },
     "end": {
-      "line": 59,
+      "line": 63,
       "column": 3
     }
   },
@@ -121,11 +134,11 @@
     "defaultMessage": "!!!Enable spell checking",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 60,
+      "line": 64,
       "column": 23
     },
     "end": {
-      "line": 63,
+      "line": 67,
       "column": 3
     }
   },
@@ -134,11 +147,11 @@
     "defaultMessage": "!!!Enable GPU Acceleration",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 64,
+      "line": 68,
       "column": 25
     },
     "end": {
-      "line": 67,
+      "line": 71,
       "column": 3
     }
   },
@@ -147,11 +160,11 @@
     "defaultMessage": "!!!Include beta versions",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 68,
+      "line": 72,
       "column": 8
     },
     "end": {
-      "line": 71,
+      "line": 75,
       "column": 3
     }
   }
