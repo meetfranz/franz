@@ -7,7 +7,6 @@ import { isDevMode, useLiveAPI } from '../../environment';
 import Form from '../../lib/Form';
 import { required, email, minLength } from '../../helpers/validation-helpers';
 import Input from '../ui/Input';
-import Radio from '../ui/Radio';
 import Button from '../ui/Button';
 import Link from '../ui/Link';
 import Infobox from '../ui/Infobox';

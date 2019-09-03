@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import localStorage from 'mobx-localstorage';
 import ms from 'ms';
 
-import { isDevMode, WEBSITE } from '../environment';
+import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
