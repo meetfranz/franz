@@ -159,8 +159,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
-          value: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremium ? false : settings.all.app.enableSpellchecking,
-          default: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremium ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
+          value: !this.props.stores.user.data.isPremium && !spellcheckerConfig.isIncludedInCurrentPlan ? false : settings.all.app.enableSpellchecking,
+          default: !this.props.stores.user.data.isPremium && !spellcheckerConfig.isIncludedInCurrentPlan ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
         spellcheckerLanguage: {
           label: intl.formatMessage(globalMessages.spellcheckerLanguage),
@@ -223,7 +223,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           cacheSize={cacheSize}
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}
-          isSpellcheckerPremiumFeature={spellcheckerConfig.isPremium}
+          isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
         />
       </ErrorBoundary>
     );

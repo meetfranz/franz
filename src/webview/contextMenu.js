@@ -39,6 +39,23 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     {
       type: 'separator',
     }, {
+      id: 'createTodo',
+      label: `Create todo: "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
+      visible: hasText,
+      click() {
+        debug('Create todo from selected text', textSelection);
+        ipcRenderer.sendToHost('feature:todos', {
+          action: 'create:todo',
+          data: {
+            title: textSelection,
+            url: window.location.href,
+          },
+        });
+      },
+    },
+    {
+      type: 'separator',
+    }, {
       id: 'lookup',
       label: `Look Up "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
       visible: isMac && props.mediaType === 'none' && hasText,
@@ -280,13 +297,12 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
 };
 
 export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
-  webContents.on('context-menu', async (e, props) => {
+  webContents.on('context-menu', (e, props) => {
     e.preventDefault();
 
     let suggestions = [];
     if (spellcheckProvider && props.misspelledWord) {
-      debug('Mispelled word', props.misspelledWord);
-      suggestions = await spellcheckProvider.getSuggestion(props.misspelledWord);
+      suggestions = spellcheckProvider.getSuggestion(props.misspelledWord);
 
       debug('Suggestions', suggestions);
     }

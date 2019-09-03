@@ -19,7 +19,7 @@ export default @observer class RecipeItem extends Component {
         className="recipe-teaser"
         onClick={onClick}
       >
-        {recipe.local && (
+        {recipe.isDevRecipe && (
           <span className="recipe-teaser__dev-badge">dev</span>
         )}
         <img

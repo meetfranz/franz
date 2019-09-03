@@ -6,6 +6,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { Button } from '@meetfranz/forms';
 import { H1, Icon } from '@meetfranz/ui';
 
+import { mdiHeart } from '@mdi/js';
 import Modal from '../../components/ui/Modal';
 import { state } from '.';
 import { gaEvent } from '../../lib/analytics';
@@ -116,7 +117,7 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
         close={this.close.bind(this)}
       >
         <div className={classes.heartContainer}>
-          <Icon icon="mdiHeart" className={classes.heart} size={4} />
+          <Icon icon={mdiHeart} className={classes.heart} size={4} />
         </div>
         <H1 className={classes.headline}>
           {intl.formatMessage(messages.headline)}

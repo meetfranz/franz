@@ -1,4 +1,4 @@
-import { remote, shell } from 'electron';
+import { remote, shell, clipboard } from 'electron';
 import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
@@ -8,6 +8,9 @@ import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
 import { announcementActions } from '../features/announcements/actions';
 import { announcementsStore } from '../features/announcements';
+import TodoStore from '../features/todos/store';
+import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
+import { todoActions } from '../features/todos/actions';
 
 const { app, Menu, dialog } = remote;
 
@@ -96,6 +99,10 @@ const menuItems = defineMessages({
     id: 'menu.view.toggleDevTools',
     defaultMessage: '!!!Toggle Developer Tools',
   },
+  toggleTodosDevTools: {
+    id: 'menu.view.toggleTodosDevTools',
+    defaultMessage: '!!!Toggle Todos Developer Tools',
+  },
   toggleServiceDevTools: {
     id: 'menu.view.toggleServiceDevTools',
     defaultMessage: '!!!Toggle Service Developer Tools',
@@ -127,6 +134,18 @@ const menuItems = defineMessages({
   support: {
     id: 'menu.help.support',
     defaultMessage: '!!!Support',
+  },
+  debugInfo: {
+    id: 'menu.help.debugInfo',
+    defaultMessage: '!!!Copy Debug Information',
+  },
+  debugInfoCopiedHeadline: {
+    id: 'menu.help.debugInfoCopiedHeadline',
+    defaultMessage: '!!!Franz Debug Information',
+  },
+  debugInfoCopiedBody: {
+    id: 'menu.help.debugInfoCopiedBody',
+    defaultMessage: '!!!Your Debug Information has been copied to your clipboard.',
   },
   tos: {
     id: 'menu.help.tos',
@@ -227,6 +246,18 @@ const menuItems = defineMessages({
   defaultWorkspace: {
     id: 'menu.workspaces.defaultWorkspace',
     defaultMessage: '!!!Default',
+  },
+  todos: {
+    id: 'menu.todos',
+    defaultMessage: '!!!Todos',
+  },
+  openTodosDrawer: {
+    id: 'menu.Todoss.openTodosDrawer',
+    defaultMessage: '!!!Open Todos drawer',
+  },
+  closeTodosDrawer: {
+    id: 'menu.Todoss.closeTodosDrawer',
+    defaultMessage: '!!!Close Todos drawer',
   },
 });
 
@@ -334,6 +365,11 @@ const _templateFactory = intl => [
     label: intl.formatMessage(menuItems.workspaces),
     submenu: [],
     visible: workspaceStore.isFeatureEnabled,
+  },
+  {
+    label: intl.formatMessage(menuItems.todos),
+    submenu: [],
+    visible: todosStore.isFeatureEnabled,
   },
   {
     label: intl.formatMessage(menuItems.window),
@@ -608,6 +644,17 @@ export default class FranzMenu {
       enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
     });
 
+    if (this.stores.features.features.isTodosEnabled) {
+      tpl[1].submenu.push({
+        label: intl.formatMessage(menuItems.toggleTodosDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+O`,
+        click: () => {
+          const webview = document.querySelector('webview[partition="persist:todos"]');
+          if (webview) webview.openDevTools();
+        },
+      });
+    }
+
     tpl[1].submenu.unshift({
       label: intl.formatMessage(menuItems.reloadService),
       id: 'reloadService', // TODO: needed?
@@ -760,6 +807,14 @@ export default class FranzMenu {
       tpl[4].submenu = this.workspacesMenu();
     }
 
+    if (todosStore.isFeatureEnabled) {
+      tpl[5].submenu = this.todosMenu();
+    }
+
+    tpl[tpl.length - 1].submenu.push({
+      type: 'separator',
+    }, this.debugMenu());
+
     this.currentTemplate = tpl;
     const menu = Menu.buildFromTemplate(tpl);
     Menu.setApplicationMenu(menu);
@@ -868,6 +923,53 @@ export default class FranzMenu {
     }
 
     return menu;
+  }
+
+  todosMenu() {
+    const { isTodosPanelVisible } = TodoStore;
+    const { intl } = window.franz;
+    const menu = [];
+
+    // Open todos drawer:
+    const drawerLabel = (
+      isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer
+    );
+    menu.push({
+      label: intl.formatMessage(drawerLabel),
+      accelerator: `${cmdKey}+T`,
+      click: () => {
+        todoActions.toggleTodosPanel();
+        gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
+      },
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    });
+
+    return menu;
+  }
+
+
+  debugMenu() {
+    const { intl } = window.franz;
+
+    return {
+      label: intl.formatMessage(menuItems.debugInfo),
+      click: () => {
+        const { debugInfo } = this.stores.app;
+
+        clipboard.write({
+          text: JSON.stringify(debugInfo),
+        });
+
+        this.actions.app.notify({
+          title: intl.formatMessage(menuItems.debugInfoCopiedHeadline),
+          options: {
+            body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+          },
+        });
+      },
+    };
   }
 
   _getServiceName(service) {

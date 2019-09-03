@@ -1,7 +1,9 @@
+import { remote, shell } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
+import path from 'path';
 
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import RecipeStore from '../../stores/RecipesStore';
@@ -10,6 +12,11 @@ import UserStore from '../../stores/UserStore';
 
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
+import { FRANZ_DEV_DOCS } from '../../config';
+import { gaEvent } from '../../lib/analytics';
+import { communityRecipesStore } from '../../features/communityRecipes';
+
+const { app } = remote;
 
 export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {
@@ -67,9 +74,16 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
   render() {
     const {
-      recipePreviews, recipes, services, user,
+      recipePreviews,
+      recipes,
+      services,
+      user,
     } = this.props.stores;
-    const { showAddServiceInterface } = this.props.actions.service;
+
+    const {
+      app: appActions,
+      service: serviceActions,
+    } = this.props.actions;
 
     const { filter } = this.props.params;
     let recipeFilter;
@@ -77,7 +91,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     if (filter === 'all') {
       recipeFilter = recipePreviews.all;
     } else if (filter === 'dev') {
-      recipeFilter = recipePreviews.dev;
+      recipeFilter = communityRecipesStore.communityRecipes;
     } else {
       recipeFilter = recipePreviews.featured;
     }
@@ -89,6 +103,8 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       || recipes.installRecipeRequest.isExecuting
       || recipePreviews.searchRecipePreviewsRequest.isExecuting;
 
+    const recipeDirectory = path.join(app.getPath('userData'), 'recipes', 'dev');
+
     return (
       <ErrorBoundary>
         <RecipesDashboard
@@ -97,12 +113,23 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           addedServiceCount={services.all.length}
           isPremium={user.data.isPremium}
           hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
-          showAddServiceInterface={showAddServiceInterface}
+          showAddServiceInterface={serviceActions.showAddServiceInterface}
           searchRecipes={e => this.searchRecipes(e)}
           resetSearch={() => this.resetSearch()}
           searchNeedle={this.state.needle}
           serviceStatus={services.actionStatus}
-          devRecipesCount={recipePreviews.dev.length}
+          recipeFilter={filter}
+          recipeDirectory={recipeDirectory}
+          openRecipeDirectory={() => {
+            shell.openItem(recipeDirectory);
+            gaEvent('Recipe', 'open-recipe-folder', 'Open Folder');
+          }}
+          openDevDocs={() => {
+            appActions.openExternalUrl({ url: FRANZ_DEV_DOCS });
+            gaEvent('Recipe', 'open-dev-docs', 'Developer Documentation');
+          }}
+          isCommunityRecipesIncludedInCurrentPlan={communityRecipesStore.isCommunityRecipesIncludedInCurrentPlan}
+          isUserPremiumUser={user.isPremium}
         />
       </ErrorBoundary>
     );
@@ -117,6 +144,9 @@ RecipesScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
+    app: PropTypes.shape({
+      openExternalUrl: PropTypes.func.isRequired,
+    }).isRequired,
     service: PropTypes.shape({
       showAddServiceInterface: PropTypes.func.isRequired,
     }).isRequired,

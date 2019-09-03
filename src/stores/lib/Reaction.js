@@ -13,15 +13,15 @@ export default class Reaction {
 
   start() {
     if (!this.isRunning) {
-      this.dispose = autorun(() => this.reaction());
-      this.isActive = true;
+      this.dispose = autorun(this.reaction);
+      this.isRunning = true;
     }
   }
 
   stop() {
     if (this.isRunning) {
       this.dispose();
-      this.isActive = false;
+      this.isRunning = false;
     }
   }
 }

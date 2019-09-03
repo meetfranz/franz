@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Welcome to Franz",
     "file": "src/components/services/content/Services.js",
     "start": {
-      "line": 11,
+      "line": 14,
       "column": 11
     },
     "end": {
-      "line": 14,
+      "line": 17,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Get started",
     "file": "src/components/services/content/Services.js",
     "start": {
-      "line": 15,
+      "line": 18,
       "column": 14
     },
     "end": {
-      "line": 18,
+      "line": 21,
       "column": 3
     }
   }

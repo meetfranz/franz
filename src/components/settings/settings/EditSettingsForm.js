@@ -100,7 +100,7 @@ export default @observer class EditSettingsForm extends Component {
     isClearingAllCache: PropTypes.bool.isRequired,
     onClearAllCache: PropTypes.func.isRequired,
     cacheSize: PropTypes.string.isRequired,
-    isSpellcheckerPremiumFeature: PropTypes.bool.isRequired,
+    isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -130,7 +130,7 @@ export default @observer class EditSettingsForm extends Component {
       isClearingAllCache,
       onClearAllCache,
       cacheSize,
-      isSpellcheckerPremiumFeature,
+      isSpellcheckerIncludedInCurrentPlan,
     } = this.props;
     const { intl } = this.context;
 
@@ -173,7 +173,7 @@ export default @observer class EditSettingsForm extends Component {
             <h2 id="language">{intl.formatMessage(messages.headlineLanguage)}</h2>
             <Select field={form.$('locale')} showLabel={false} />
             <PremiumFeatureContainer
-              condition={isSpellcheckerPremiumFeature}
+              condition={!isSpellcheckerIncludedInCurrentPlan}
               gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
             >
               <Fragment>

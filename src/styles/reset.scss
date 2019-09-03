@@ -51,7 +51,6 @@ button {
   padding: 0;
 
   &:focus { outline: 0; }
-  .theme__dark & { color: $dark-theme-gray-smoke; }
 }
 
 html {
@@ -64,7 +63,7 @@ body {
   font-size: 1.4rem;
   line-height: 1;
 
-  .theme__dark { color: $dark-theme-gray-smoke; }
+  &.theme__dark { color: $dark-theme-gray-smoke; }
 }
 
 * {

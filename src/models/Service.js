@@ -4,6 +4,11 @@ import normalizeUrl from 'normalize-url';
 
 const debug = require('debug')('Franz:Service');
 
+export const RESTRICTION_TYPES = {
+  SERVICE_LIMIT: 0,
+  CUSTOM_URL: 1,
+};
+
 export default class Service {
   id = '';
 
@@ -59,6 +64,12 @@ export default class Service {
 
   @observable errorMessage = '';
 
+  @observable isUsingCustomUrl = false;
+
+  @observable isServiceAccessRestricted = false;
+
+  @observable restrictionType = null;
+
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
@@ -110,6 +121,10 @@ export default class Service {
         this.isAttached = false;
         this.unreadDirectMessageCount = 0;
         this.unreadIndirectMessageCount = 0;
+      }
+
+      if (this.recipe.hasCustomUrl && this.customUrl) {
+        this.isUsingCustomUrl = true;
       }
     });
   }

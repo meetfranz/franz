@@ -9,6 +9,7 @@ import Infobox from '../../ui/Infobox';
 import Loader from '../../ui/Loader';
 import ServiceItem from './ServiceItem';
 import Appear from '../../ui/effects/Appear';
+import LimitReachedInfobox from '../../../features/serviceLimit/components/LimitReachedInfobox';
 
 const messages = defineMessages({
   headline: {
@@ -91,6 +92,7 @@ export default @observer class ServicesDashboard extends Component {
         <div className="settings__header">
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
+        <LimitReachedInfobox />
         <div className="settings__body">
           {!isLoading && (
             <SearchInput

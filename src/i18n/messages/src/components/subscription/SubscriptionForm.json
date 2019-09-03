@@ -1,183 +1,53 @@
 [
   {
-    "id": "subscription.submit.label",
-    "defaultMessage": "!!!Support the development of Franz",
+    "id": "subscription.cta.choosePlan",
+    "defaultMessage": "!!!Choose your plan",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 14,
+      "line": 13,
       "column": 21
     },
     "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.account.headlineUpgradeAccount",
+    "defaultMessage": "!!!Upgrade your account and get the full Franz experience",
+    "file": "src/components/subscription/SubscriptionForm.js",
+    "start": {
       "line": 17,
+      "column": 18
+    },
+    "end": {
+      "line": 20,
       "column": 3
     }
   },
   {
-    "id": "subscription.paymentSessionError",
-    "defaultMessage": "!!!Could not initialize payment form",
+    "id": "subscription.teaser.intro",
+    "defaultMessage": "!!!Franz 5 comes with a wide range of new features to boost up your everyday communication - batteries included. Check out our new plans and find out which one suits you most!",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 18,
-      "column": 23
-    },
-    "end": {
       "line": 21,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.type.free",
-    "defaultMessage": "!!!free",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 22,
-      "column": 12
-    },
-    "end": {
-      "line": 25,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.type.month",
-    "defaultMessage": "!!!month",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 26,
-      "column": 15
-    },
-    "end": {
-      "line": 29,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.type.year",
-    "defaultMessage": "!!!year",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 30,
       "column": 14
     },
     "end": {
-      "line": 33,
+      "line": 24,
       "column": 3
     }
   },
   {
-    "id": "subscription.includedFeatures",
-    "defaultMessage": "!!!The Franz Premium Supporter Account includes",
+    "id": "subscription.teaser.includedFeatures",
+    "defaultMessage": "!!!Paid Franz Plans include:",
     "file": "src/components/subscription/SubscriptionForm.js",
     "start": {
-      "line": 34,
+      "line": 25,
       "column": 20
     },
     "end": {
-      "line": 37,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.onpremise.mattermost",
-    "defaultMessage": "!!!Add on-premise/hosted services like Mattermost",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 38,
-      "column": 13
-    },
-    "end": {
-      "line": 41,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.noInterruptions",
-    "defaultMessage": "!!!No app delays & nagging to upgrade license",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 42,
-      "column": 19
-    },
-    "end": {
-      "line": 45,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.proxy",
-    "defaultMessage": "!!!Proxy support for services",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 46,
-      "column": 9
-    },
-    "end": {
-      "line": 49,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.spellchecker",
-    "defaultMessage": "!!!Support for Spellchecker",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 50,
-      "column": 16
-    },
-    "end": {
-      "line": 53,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.workspaces",
-    "defaultMessage": "!!!Organize your services in workspaces",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 54,
-      "column": 14
-    },
-    "end": {
-      "line": 57,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.ads",
-    "defaultMessage": "!!!No ads, ever!",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 58,
-      "column": 7
-    },
-    "end": {
-      "line": 61,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.features.comingSoon",
-    "defaultMessage": "!!!coming soon",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 62,
-      "column": 14
-    },
-    "end": {
-      "line": 65,
-      "column": 3
-    }
-  },
-  {
-    "id": "subscription.euTaxInfo",
-    "defaultMessage": "!!!EU residents: local sales tax may apply",
-    "file": "src/components/subscription/SubscriptionForm.js",
-    "start": {
-      "line": 66,
-      "column": 13
-    },
-    "end": {
-      "line": 69,
+      "line": 28,
       "column": 3
     }
   }

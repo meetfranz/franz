@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Sign up",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 18,
+      "line": 17,
       "column": 12
     },
     "end": {
-      "line": 21,
+      "line": 20,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Firstname",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 22,
+      "line": 21,
       "column": 18
     },
     "end": {
-      "line": 25,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Lastname",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 26,
+      "line": 25,
       "column": 17
     },
     "end": {
-      "line": 29,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,24 +43,11 @@
     "defaultMessage": "!!!Email address",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 30,
+      "line": 29,
       "column": 14
     },
     "end": {
-      "line": 33,
-      "column": 3
-    }
-  },
-  {
-    "id": "signup.company.label",
-    "defaultMessage": "!!!Company",
-    "file": "src/components/auth/Signup.js",
-    "start": {
-      "line": 34,
-      "column": 16
-    },
-    "end": {
-      "line": 37,
+      "line": 32,
       "column": 3
     }
   },
@@ -69,11 +56,11 @@
     "defaultMessage": "!!!Password",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 38,
+      "line": 37,
       "column": 17
     },
     "end": {
-      "line": 41,
+      "line": 40,
       "column": 3
     }
   },
@@ -82,11 +69,11 @@
     "defaultMessage": "!!!By creating a Franz account you accept the",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 42,
+      "line": 41,
       "column": 13
     },
     "end": {
-      "line": 45,
+      "line": 44,
       "column": 3
     }
   },
@@ -95,11 +82,11 @@
     "defaultMessage": "!!!Terms of service",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 46,
+      "line": 45,
       "column": 9
     },
     "end": {
-      "line": 49,
+      "line": 48,
       "column": 3
     }
   },
@@ -108,11 +95,11 @@
     "defaultMessage": "!!!Privacy Statement",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 50,
+      "line": 49,
       "column": 11
     },
     "end": {
-      "line": 53,
+      "line": 52,
       "column": 3
     }
   },
@@ -121,11 +108,11 @@
     "defaultMessage": "!!!Create account",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 54,
+      "line": 53,
       "column": 21
     },
     "end": {
-      "line": 57,
+      "line": 56,
       "column": 3
     }
   },
@@ -134,11 +121,11 @@
     "defaultMessage": "!!!Already have an account, sign in?",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 58,
+      "line": 57,
       "column": 13
     },
     "end": {
-      "line": 61,
+      "line": 60,
       "column": 3
     }
   },
@@ -147,11 +134,11 @@
     "defaultMessage": "!!!A user with that email address already exists",
     "file": "src/components/auth/Signup.js",
     "start": {
-      "line": 62,
+      "line": 61,
       "column": 18
     },
     "end": {
-      "line": 65,
+      "line": 64,
       "column": 3
     }
   }

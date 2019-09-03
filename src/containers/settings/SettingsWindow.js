@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 
@@ -10,9 +11,22 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { workspaceStore } from '../../features/workspaces';
 
 export default @inject('stores', 'actions') @observer class SettingsContainer extends Component {
+  portalRoot = document.querySelector('#portalContainer');
+
+  el = document.createElement('div');
+
+  componentDidMount() {
+    this.portalRoot.appendChild(this.el);
+  }
+
+  componentWillUnmount() {
+    this.portalRoot.removeChild(this.el);
+  }
+
   render() {
     const { children, stores } = this.props;
     const { closeSettings } = this.props.actions.ui;
+
 
     const navigation = (
       <Navigation
@@ -21,15 +35,18 @@ export default @inject('stores', 'actions') @observer class SettingsContainer ex
       />
     );
 
-    return (
-      <ErrorBoundary>
-        <Layout
-          navigation={navigation}
-          closeSettings={closeSettings}
-        >
-          {children}
-        </Layout>
-      </ErrorBoundary>
+    return ReactDOM.createPortal(
+      (
+        <ErrorBoundary>
+          <Layout
+            navigation={navigation}
+            closeSettings={closeSettings}
+          >
+            {children}
+          </Layout>
+        </ErrorBoundary>
+      ),
+      this.el,
     );
   }
 }

@@ -19,10 +19,15 @@ export const DEV_WS_API = 'wss://dev.franzinfra.com';
 export const LIVE_WS_API = 'wss://api.franzinfra.com';
 
 export const LOCAL_API_WEBSITE = 'http://localhost:3333';
-export const DEV_API_WEBSITE = 'https://meetfranz.com';
+// export const DEV_API_WEBSITE = 'https://meetfranz.com';t
+export const DEV_API_WEBSITE = 'http://hash-3ac3ccd2472269cf585c58a4f6973d86f3c9e7bd.franzstaging.com/'; // TODO: revert me
 export const LIVE_API_WEBSITE = 'https://meetfranz.com';
 
 export const STATS_API = 'https://stats.franzinfra.com';
+
+export const LOCAL_TODOS_FRONTEND_URL = 'http://localhost:4000';
+export const PRODUCTION_TODOS_FRONTEND_URL = 'https://app.franztodos.com';
+export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.netlify.com';
 
 export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
 
@@ -45,16 +50,16 @@ export const DEFAULT_APP_SETTINGS = {
 };
 
 export const DEFAULT_FEATURES_CONFIG = {
-  isSpellcheckerPremiumFeature: false,
+  isSpellcheckerIncludedInCurrentPlan: true,
   needToWaitToProceed: false,
   needToWaitToProceedConfig: {
     delayOffset: ms('1h'),
     wait: ms('10s'),
   },
   isServiceProxyEnabled: false,
-  isServiceProxyPremiumFeature: true,
+  isServiceProxyIncludedInCurrentPlan: false,
   isAnnouncementsEnabled: true,
-  isWorkspacePremiumFeature: true,
+  isWorkspaceIncludedInCurrentPlan: true,
   isWorkspaceEnabled: false,
 };
 
@@ -67,6 +72,7 @@ export const DEFAULT_WINDOW_OPTIONS = {
 
 export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-plugin-docs';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
+export const FRANZ_DEV_DOCS = 'http://bit.ly/franz-dev-hub';
 
 export const FILE_SYSTEM_SETTINGS_TYPES = [
   'app',
@@ -83,3 +89,25 @@ export const ALLOWED_PROTOCOLS = [
   'http:',
   'ftp:',
 ];
+
+export const PLANS = {
+  PERSONAL: 'PERSONAL_MONTHLY',
+  PRO: 'PRO_MONTHLY',
+  LEGACY: 'LEGACY',
+  FREE: 'FREE',
+};
+
+export const PLANS_MAPPING = {
+  'franz-personal-monthly': PLANS.PERSONAL,
+  'franz-personal-yearly': PLANS.PERSONAL,
+  'franz-pro-monthly': PLANS.PRO,
+  'franz-pro-yearly': PLANS.PRO,
+  'franz-supporter-license': PLANS.LEGACY,
+  'franz-supporter-license-x1': PLANS.LEGACY,
+  'franz-supporter-license-x2': PLANS.LEGACY,
+  'franz-supporter-license-year': PLANS.LEGACY,
+  'franz-supporter-license-year-x1': PLANS.LEGACY,
+  'franz-supporter-license-year-x2': PLANS.LEGACY,
+  'franz-supporter-license-year-2019': PLANS.LEGACY,
+  free: PLANS.FREE,
+};

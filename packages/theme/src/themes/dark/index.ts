@@ -118,3 +118,28 @@ export const announcements = merge({}, defaultStyles.announcements, {
     background: legacyStyles.darkThemeGrayDark,
   },
 });
+
+// Signup
+export const signup = merge({}, defaultStyles.signup, {
+  pricing: {
+    feature: {
+      background: legacyStyles.darkThemeGrayLight,
+      border: color(legacyStyles.darkThemeGrayLight).lighten(0.2).hex(),
+    },
+  },
+});
+
+// Todos
+export const todos = merge({}, defaultStyles.todos, {
+  todosLayer: {
+    borderLeftColor: legacyStyles.darkThemeGrayDarker,
+  },
+  toggleButton: {
+    background: defaultStyles.styleTypes.primary.accent,
+    textColor: defaultStyles.styleTypes.primary.contrast,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  dragIndicator: {
+    background: legacyStyles.themeGrayLight,
+  },
+});

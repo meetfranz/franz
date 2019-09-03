@@ -33,7 +33,7 @@ export default function init(stores) {
   };
 
   reaction(
-    () => stores.user.isLoggedIn && stores.features.features.needToWaitToProceed && !stores.user.data.isPremium,
+    () => stores.user.isLoggedIn && stores.services.allServicesRequest.wasExecuted && stores.features.features.needToWaitToProceed && !stores.user.data.isPremium,
     (isEnabled) => {
       if (isEnabled) {
         debug('Enabling `delayApp` feature');
@@ -44,7 +44,8 @@ export default function init(stores) {
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
-          if (stores.services.all.length === 0) {
+          if (stores.services.allDisplayed.length === 0) {
+            debug('seas', stores.services.all.length);
             shownAfterLaunch = true;
             return;
           }
@@ -64,7 +65,7 @@ export default function init(stores) {
               debug('Resetting app delay');
 
               setVisibility(false);
-            }, DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait + 1000); // timer needs to be able to hit 0
+            }, config.delayDuration + 1000); // timer needs to be able to hit 0
           }
         });
       } else {

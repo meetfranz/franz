@@ -26,7 +26,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
   handleWebsiteLink(route) {
     const { actions, stores } = this.props;
 
-    const url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
+    const url = stores.user.getAuthURL(`${WEBSITE}${route}?utm_source=app&utm_medium=account_dashboard`);
 
     actions.app.openExternalUrl({ url });
   }
@@ -51,6 +51,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
           isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
           isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
           openEditAccount={() => this.handleWebsiteLink('/user/profile')}
+          upgradeToPro={() => this.handleWebsiteLink('/inapp/user/licenses')}
           openBilling={() => this.handleWebsiteLink('/user/billing')}
           openInvoices={() => this.handleWebsiteLink('/user/invoices')}
         />

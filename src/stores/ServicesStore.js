@@ -13,6 +13,8 @@ import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
+import { serviceLimitStore } from '../features/serviceLimit';
+import { RESTRICTION_TYPES } from '../models/Service';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -75,6 +77,7 @@ export default class ServicesStore extends Store {
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
       this._handleMuteSettings.bind(this),
+      this._restrictServiceAccess.bind(this),
     ]);
 
     // Just bind this
@@ -98,7 +101,10 @@ export default class ServicesStore extends Store {
     if (this.stores.user.isLoggedIn) {
       const services = this.allServicesRequest.execute().result;
       if (services) {
-        return observable(services.slice().slice().sort((a, b) => a.order - b.order));
+        return observable(services.slice().slice().sort((a, b) => a.order - b.order).map((s, index) => {
+          s.index = index;
+          return s;
+        }));
       }
     }
     return [];
@@ -148,22 +154,13 @@ export default class ServicesStore extends Store {
   }
 
   async _showAddServiceInterface({ recipeId }) {
-    const recipesStore = this.stores.recipes;
-
-    if (recipesStore.isInstalled(recipeId)) {
-      debug(`Recipe ${recipeId} is installed`);
-      this._redirectToAddServiceRoute(recipeId);
-    } else {
-      debug(`Recipe ${recipeId} is not installed`);
-      // We access the RecipeStore action directly
-      // returns Promise instead of action
-      await this.stores.recipes._install({ recipeId });
-      this._redirectToAddServiceRoute(recipeId);
-    }
+    this.stores.router.push(`/settings/services/add/${recipeId}`);
   }
 
   // Actions
   @action async _createService({ recipeId, serviceData, redirect = true }) {
+    if (serviceLimitStore.userHasReachedServiceLimit) return;
+
     const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
@@ -451,6 +448,9 @@ export default class ServicesStore extends Store {
           redirect: false,
         });
       }
+    } else if (channel === 'feature:todos') {
+      Object.assign(args[0].data, { serviceId });
+      this.actions.todos.handleHostMessage(args[0]);
     }
   }
 
@@ -689,12 +689,36 @@ export default class ServicesStore extends Store {
     return serviceData;
   }
 
-  // Helper
-  _redirectToAddServiceRoute(recipeId) {
-    const route = `/settings/services/add/${recipeId}`;
-    this.stores.router.push(route);
+  _restrictServiceAccess() {
+    const { features } = this.stores.features;
+    const { userHasReachedServiceLimit, serviceLimit } = this.stores.serviceLimit;
+
+    this.all.map((service, index) => {
+      if (userHasReachedServiceLimit) {
+        service.isServiceAccessRestricted = index >= serviceLimit;
+
+        if (service.isServiceAccessRestricted) {
+          service.restrictionType = RESTRICTION_TYPES.SERVICE_LIMIT;
+
+          debug('Restricting access to server due to service limit');
+        }
+      }
+
+      if (service.isUsingCustomUrl) {
+        service.isServiceAccessRestricted = !features.isCustomUrlIncludedInCurrentPlan;
+
+        if (service.isServiceAccessRestricted) {
+          service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
+
+          debug('Restricting access to server due to custom url');
+        }
+      }
+
+      return service;
+    });
   }
 
+  // Helper
   _initializeServiceRecipeInWebview(serviceId) {
     const service = this.one(serviceId);
 
