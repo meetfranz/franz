@@ -448,6 +448,9 @@ export default class ServicesStore extends Store {
           redirect: false,
         });
       }
+    } else if (channel === 'feature:todos') {
+      Object.assign(args[0].data, { serviceId });
+      this.actions.todos.handleHostMessage(args[0]);
     }
   }
 

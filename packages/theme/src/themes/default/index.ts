@@ -217,3 +217,21 @@ export const signup = {
     },
   },
 };
+
+// Todos
+export const todos = {
+  todosLayer: {
+    borderLeftColor: legacyStyles.themeGrayLighter,
+  },
+  toggleButton: {
+    background: styleTypes.primary.accent,
+    textColor: styleTypes.primary.contrast,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  dragIndicator: {
+    background: legacyStyles.themeGrayLight,
+  },
+  resizeHandler: {
+    backgroundHover: styleTypes.primary.accent,
+  },
+};

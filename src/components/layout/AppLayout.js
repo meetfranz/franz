@@ -18,6 +18,7 @@ import WorkspaceSwitchingIndicator from '../../features/workspaces/components/Wo
 import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import TrialActivationInfoBar from '../TrialActivationInfoBar';
+import Todos from '../../features/todos/containers/TodosScreen';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -40,7 +41,8 @@ const messages = defineMessages({
 
 const styles = theme => ({
   appContent: {
-    width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
+    // width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
+    width: '100%',
     transition: 'transform 0.5s ease',
     transform() {
       return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
@@ -164,6 +166,7 @@ class AppLayout extends Component {
               {services}
               {children}
             </div>
+            <Todos />
           </div>
         </div>
       </ErrorBoundary>
