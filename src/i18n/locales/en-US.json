@@ -95,7 +95,7 @@
   "menu.view.toggleDevTools": "Toggle Developer Tools",
   "menu.view.toggleFullScreen": "Toggle Full Screen",
   "menu.view.toggleServiceDevTools": "Toggle Service Developer Tools",
-  "menu.view.toggleTodosDevTools": "!!!Toggle Todos Developer Tools",
+  "menu.view.toggleTodosDevTools": "Toggle Todos Developer Tools",
   "menu.view.zoomIn": "Zoom In",
   "menu.view.zoomOut": "Zoom Out",
   "menu.window": "Window",

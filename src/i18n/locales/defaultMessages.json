@@ -542,143 +542,143 @@
         "defaultMessage": "!!!Sign up",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 20
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.headline",
         "start": {
           "column": 12,
-          "line": 18
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Firstname",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 24
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.firstname.label",
         "start": {
           "column": 18,
-          "line": 22
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Lastname",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 28
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.lastname.label",
         "start": {
           "column": 17,
-          "line": 26
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Email address",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 32
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.email.label",
         "start": {
           "column": 14,
-          "line": 30
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Password",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 40
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.password.label",
         "start": {
           "column": 17,
-          "line": 38
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!By creating a Franz account you accept the",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 44
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.legal.info",
         "start": {
           "column": 13,
-          "line": 42
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Terms of service",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 48
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.legal.terms",
         "start": {
           "column": 9,
-          "line": 46
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!Privacy Statement",
         "end": {
           "column": 3,
-          "line": 53
+          "line": 52
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.legal.privacy",
         "start": {
           "column": 11,
-          "line": 50
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Create account",
         "end": {
           "column": 3,
-          "line": 57
+          "line": 56
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.submit.label",
         "start": {
           "column": 21,
-          "line": 54
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Already have an account, sign in?",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 60
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.link.login",
         "start": {
           "column": 13,
-          "line": 58
+          "line": 57
         }
       },
       {
         "defaultMessage": "!!!A user with that email address already exists",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 64
         },
         "file": "src/components/auth/Signup.js",
         "id": "signup.emailDuplicate",
         "start": {
           "column": 18,
-          "line": 62
+          "line": 61
         }
       }
     ],
@@ -721,39 +721,39 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 31
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 39
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 35
+          "line": 36
         }
       }
     ],
