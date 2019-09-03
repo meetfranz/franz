@@ -118,3 +118,18 @@ export const announcements = merge({}, defaultStyles.announcements, {
     background: legacyStyles.darkThemeGrayDark,
   },
 });
+
+// Todos
+export const todos = merge({}, defaultStyles.todos, {
+  todosLayer: {
+    borderLeftColor: legacyStyles.darkThemeGrayDarker,
+  },
+  toggleButton: {
+    background: defaultStyles.styleTypes.primary.accent,
+    textColor: defaultStyles.styleTypes.primary.contrast,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  dragIndicator: {
+    background: legacyStyles.themeGrayLight,
+  },
+});

@@ -33,13 +33,19 @@ html { overflow: hidden; }
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
+  //display: flex;
 
-  .app__content { display: flex; }
+  .app__content {
+    display: flex;
+    width: calc(100% + 300px);
+  }
+
+  .app__main-content {
+    display: flex;
+    width: 100%;
+  }
 
   .app__service {
-    // position: relative;
     display: flex;
     flex: 1;
     flex-direction: column;

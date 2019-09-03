@@ -8,6 +8,9 @@ import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
 import { announcementActions } from '../features/announcements/actions';
 import { announcementsStore } from '../features/announcements';
+import TodoStore from '../features/todos/store';
+import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
+import { todoActions } from '../features/todos/actions';
 
 const { app, Menu, dialog } = remote;
 
@@ -95,6 +98,10 @@ const menuItems = defineMessages({
   toggleDevTools: {
     id: 'menu.view.toggleDevTools',
     defaultMessage: '!!!Toggle Developer Tools',
+  },
+  toggleTodosDevTools: {
+    id: 'menu.view.toggleTodosDevTools',
+    defaultMessage: '!!!Toggle Todos Developer Tools',
   },
   toggleServiceDevTools: {
     id: 'menu.view.toggleServiceDevTools',
@@ -240,6 +247,18 @@ const menuItems = defineMessages({
     id: 'menu.workspaces.defaultWorkspace',
     defaultMessage: '!!!Default',
   },
+  todos: {
+    id: 'menu.todos',
+    defaultMessage: '!!!Todos',
+  },
+  openTodosDrawer: {
+    id: 'menu.Todoss.openTodosDrawer',
+    defaultMessage: '!!!Open Todos drawer',
+  },
+  closeTodosDrawer: {
+    id: 'menu.Todoss.closeTodosDrawer',
+    defaultMessage: '!!!Close Todos drawer',
+  },
 });
 
 function getActiveWebview() {
@@ -346,6 +365,11 @@ const _templateFactory = intl => [
     label: intl.formatMessage(menuItems.workspaces),
     submenu: [],
     visible: workspaceStore.isFeatureEnabled,
+  },
+  {
+    label: intl.formatMessage(menuItems.todos),
+    submenu: [],
+    visible: todosStore.isFeatureEnabled,
   },
   {
     label: intl.formatMessage(menuItems.window),
@@ -620,6 +644,17 @@ export default class FranzMenu {
       enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
     });
 
+    if (this.stores.features.features.isTodosEnabled) {
+      tpl[1].submenu.push({
+        label: intl.formatMessage(menuItems.toggleTodosDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+O`,
+        click: () => {
+          const webview = document.querySelector('webview[partition="persist:todos"]');
+          if (webview) webview.openDevTools();
+        },
+      });
+    }
+
     tpl[1].submenu.unshift({
       label: intl.formatMessage(menuItems.reloadService),
       id: 'reloadService', // TODO: needed?
@@ -772,6 +807,10 @@ export default class FranzMenu {
       tpl[4].submenu = this.workspacesMenu();
     }
 
+    if (todosStore.isFeatureEnabled) {
+      tpl[5].submenu = this.todosMenu();
+    }
+
     tpl[tpl.length - 1].submenu.push({
       type: 'separator',
     }, this.debugMenu());
@@ -885,6 +924,31 @@ export default class FranzMenu {
 
     return menu;
   }
+
+  todosMenu() {
+    const { isTodosPanelVisible } = TodoStore;
+    const { intl } = window.franz;
+    const menu = [];
+
+    // Open todos drawer:
+    const drawerLabel = (
+      isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer
+    );
+    menu.push({
+      label: intl.formatMessage(drawerLabel),
+      accelerator: `${cmdKey}+T`,
+      click: () => {
+        todoActions.toggleTodosPanel();
+        gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
+      },
+      enabled: this.stores.user.isLoggedIn,
+    }, {
+      type: 'separator',
+    });
+
+    return menu;
+  }
+
 
   debugMenu() {
     const { intl } = window.franz;
