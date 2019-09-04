@@ -4,11 +4,30 @@ import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import Webview from 'react-electron-web-view';
 import { Icon } from '@meetfranz/ui';
+import { defineMessages, intlShape } from 'react-intl';
 
+import { mdiChevronRight, mdiCheckAll } from '@mdi/js';
+import { Button } from '@meetfranz/forms';
 import * as environment from '../../../environment';
+import Appear from '../../../components/ui/effects/Appear';
 
 const OPEN_TODOS_BUTTON_SIZE = 45;
 const CLOSE_TODOS_BUTTON_SIZE = 35;
+
+const messages = defineMessages({
+  premiumInfo: {
+    id: 'feature.todos.premium.info',
+    defaultMessage: '!!!The Franz Todos Preview is currently only available for Franz Premium accounts.',
+  },
+  upgradeCTA: {
+    id: 'feature.todos.premium.upgrade',
+    defaultMessage: '!!!Upgrade Account',
+  },
+  rolloutInfo: {
+    id: 'feature.todos.premium.rollout',
+    defaultMessage: '!!!Franz Todos will be available to everyone soon.',
+  },
+});
 
 const styles = theme => ({
   root: {
@@ -78,7 +97,7 @@ const styles = theme => ({
     bottom: 80,
     right: ({ width }) => (width + -CLOSE_TODOS_BUTTON_SIZE / 2),
     borderRadius: CLOSE_TODOS_BUTTON_SIZE / 2,
-    opacity: 0,
+    opacity: ({ isTodosIncludedInCurrentPlan }) => (!isTodosIncludedInCurrentPlan ? 1 : 0),
     transition: 'opacity 0.5s',
     zIndex: 600,
     display: 'flex',
@@ -89,6 +108,26 @@ const styles = theme => ({
     '& svg': {
       fill: theme.todos.toggleButton.textColor,
     },
+  },
+  premiumContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '80%',
+    maxWidth: 300,
+    margin: [-50, 'auto', 0],
+    textAlign: 'center',
+  },
+  premiumIcon: {
+    marginBottom: 40,
+    background: theme.styleTypes.primary.accent,
+    fill: theme.styleTypes.primary.contrast,
+    padding: 10,
+    borderRadius: 10,
+  },
+  premiumCTA: {
+    marginTop: 40,
   },
 });
 
@@ -103,11 +142,17 @@ class TodosWebview extends Component {
     resize: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired,
     minWidth: PropTypes.number.isRequired,
+    isTodosIncludedInCurrentPlan: PropTypes.bool.isRequired,
+    upgradeAccount: PropTypes.func.isRequired,
   };
 
   state = {
     isDragging: false,
     width: 300,
+  };
+
+  static contextTypes = {
+    intl: intlShape,
   };
 
   componentWillMount() {
@@ -186,9 +231,20 @@ class TodosWebview extends Component {
 
   render() {
     const {
-      classes, isVisible, togglePanel,
+      classes,
+      isVisible,
+      togglePanel,
+      isTodosIncludedInCurrentPlan,
+      upgradeAccount,
     } = this.props;
-    const { width, delta, isDragging } = this.state;
+
+    const {
+      width,
+      delta,
+      isDragging,
+    } = this.state;
+
+    const { intl } = this.context;
 
     return (
       <>
@@ -203,7 +259,7 @@ class TodosWebview extends Component {
             className={isVisible ? classes.closeTodosButton : classes.openTodosButton}
             type="button"
           >
-            <Icon icon={isVisible ? 'mdiChevronRight' : 'mdiCheckAll'} size={2} />
+            <Icon icon={isVisible ? mdiChevronRight : mdiCheckAll} size={2} />
           </button>
           <div
             className={classes.resizeHandler}
@@ -216,18 +272,34 @@ class TodosWebview extends Component {
               style={{ left: delta }} // This hack is required as resizing with webviews beneath behaves quite bad
             />
           )}
-          <Webview
-            className={classes.webview}
-            onDidAttach={() => {
-              const { setTodosWebview } = this.props;
-              setTodosWebview(this.webview);
-              this.startListeningToIpcMessages();
-            }}
-            partition="persist:todos"
-            preload="./features/todos/preload.js"
-            ref={(webview) => { this.webview = webview ? webview.view : null; }}
-            src={environment.TODOS_FRONTEND}
-          />
+          {isTodosIncludedInCurrentPlan ? (
+            <Webview
+              className={classes.webview}
+              onDidAttach={() => {
+                const { setTodosWebview } = this.props;
+                setTodosWebview(this.webview);
+                this.startListeningToIpcMessages();
+              }}
+              partition="persist:todos"
+              preload="./features/todos/preload.js"
+              ref={(webview) => { this.webview = webview ? webview.view : null; }}
+              src={environment.TODOS_FRONTEND}
+            />
+          ) : (
+            <Appear>
+              <div className={classes.premiumContainer}>
+                <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={5} />
+                <p>{intl.formatMessage(messages.premiumInfo)}</p>
+                <p>{intl.formatMessage(messages.rolloutInfo)}</p>
+                <Button
+                  label={intl.formatMessage(messages.upgradeCTA)}
+                  className={classes.premiumCTA}
+                  onClick={upgradeAccount}
+                  buttonType="inverted"
+                />
+              </div>
+            </Appear>
+          )}
         </div>
       </>
     );

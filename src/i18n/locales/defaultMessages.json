@@ -3813,6 +3813,50 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!The Franz Todos Preview is currently only available for Franz Premium accounts.",
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "file": "src/features/todos/components/TodosWebview.js",
+        "id": "feature.todos.premium.info",
+        "start": {
+          "column": 15,
+          "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade Account",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/features/todos/components/TodosWebview.js",
+        "id": "feature.todos.premium.upgrade",
+        "start": {
+          "column": 14,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz Todos will be available to everyone soon.",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/features/todos/components/TodosWebview.js",
+        "id": "feature.todos.premium.rollout",
+        "start": {
+          "column": 15,
+          "line": 26
+        }
+      }
+    ],
+    "path": "src/features/todos/components/TodosWebview.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Create workspace",
         "end": {
           "column": 3,
@@ -3943,104 +3987,104 @@
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.headline",
         "start": {
           "column": 12,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!All services",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.allServices",
         "start": {
           "column": 15,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Workspaces settings",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.workspacesSettingsTooltip",
         "start": {
           "column": 29,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Info about workspace feature",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.workspaceFeatureInfo",
         "start": {
           "column": 24,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Create your first workspace",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.premiumCtaButtonLabel",
         "start": {
           "column": 25,
-          "line": 32
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Reactivate premium account",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 40
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.reactivatePremiumAccountLabel",
         "start": {
           "column": 28,
-          "line": 36
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!add new workspace",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 44
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.addNewWorkspaceLabel",
         "start": {
           "column": 24,
-          "line": 40
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Premium feature",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 48
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.proFeatureBadge",
         "start": {
           "column": 23,
-          "line": 44
+          "line": 45
         }
       }
     ],

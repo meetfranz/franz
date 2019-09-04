@@ -29,6 +29,7 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isTodosPanelVisible() {
+    if (this.stores.services.all.length === 0) return false;
     if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
 
     return this.settings.isTodosPanelVisible;
