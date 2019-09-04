@@ -1,4 +1,6 @@
-<img src="./build-helpers/images/icon.png" alt="" width="150"/>
+<p align="center">
+    <img src="./build-helpers/images/icon.png" alt="" width="200"/>
+</p>
 
 # Ferdi 
 
