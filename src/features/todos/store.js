@@ -124,11 +124,13 @@ export default class TodoStore extends FeatureStore {
   _onTodosClientInitialized = () => {
     const { authToken } = this.stores.user;
     const { isDarkThemeActive } = this.stores.ui;
+    const { locale } = this.stores.app;
     if (!this.webview) return;
     this.webview.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
       data: {
         authToken,
+        locale,
         theme: isDarkThemeActive ? ThemeType.dark : ThemeType.default,
       },
     });
