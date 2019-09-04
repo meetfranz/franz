@@ -7,7 +7,7 @@ import { Button } from '@meetfranz/forms';
 import { H1, Icon } from '@meetfranz/ui';
 
 import {
- mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter
+  mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter,
 } from '@mdi/js';
 import Modal from '../../components/ui/Modal';
 import { state } from '.';

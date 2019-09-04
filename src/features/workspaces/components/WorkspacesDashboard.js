@@ -13,7 +13,7 @@ import Appear from '../../../components/ui/effects/Appear';
 import { workspaceStore } from '../index';
 import PremiumFeatureContainer from '../../../components/ui/PremiumFeatureContainer';
 import UIStore from '../../../stores/UIStore';
-import ActivateTrialButton from '../../../components/ui/activateTrialButton';
+import ActivateTrialButton from '../../../components/ui/ActivateTrialButton';
 
 const messages = defineMessages({
   headline: {

@@ -4,11 +4,11 @@
     "defaultMessage": "!!!The Franz Todos Preview is currently only available for Franz Premium accounts.",
     "file": "src/features/todos/components/TodosWebview.js",
     "start": {
-      "line": 19,
+      "line": 18,
       "column": 15
     },
     "end": {
-      "line": 22,
+      "line": 21,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Upgrade Account",
     "file": "src/features/todos/components/TodosWebview.js",
     "start": {
-      "line": 23,
+      "line": 22,
       "column": 14
     },
     "end": {
-      "line": 26,
+      "line": 25,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Franz Todos will be available to everyone soon.",
     "file": "src/features/todos/components/TodosWebview.js",
     "start": {
-      "line": 27,
+      "line": 26,
       "column": 15
     },
     "end": {
-      "line": 30,
+      "line": 29,
       "column": 3
     }
   }
