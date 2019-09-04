@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import PropTypes from 'prop-types';
 
+import FeaturesStore from '../../../stores/FeaturesStore';
 import TodosWebview from '../components/TodosWebview';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { TODOS_MIN_WIDTH, todosStore } from '..';
 import { todoActions } from '../actions';
 
-@observer
+@inject('stores', 'actions') @observer
 class TodosScreen extends Component {
   render() {
     if (!todosStore || !todosStore.isFeatureActive) {
@@ -23,6 +25,8 @@ class TodosScreen extends Component {
           width={todosStore.width}
           minWidth={TODOS_MIN_WIDTH}
           resize={width => todoActions.resize({ width })}
+          isTodosIncludedInCurrentPlan={this.props.stores.features.features.isTodosIncludedInCurrentPlan || false}
+          upgradeAccount={() => this.props.actions.ui.openSettings({ path: 'user' })}
         />
       </ErrorBoundary>
     );
@@ -30,3 +34,14 @@ class TodosScreen extends Component {
 }
 
 export default TodosScreen;
+
+TodosScreen.wrappedComponent.propTypes = {
+  stores: PropTypes.shape({
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
+  }).isRequired,
+  actions: PropTypes.shape({
+    ui: PropTypes.shape({
+      openSettings: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
+};

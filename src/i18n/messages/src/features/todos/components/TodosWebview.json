@@ -1,0 +1,41 @@
+[
+  {
+    "id": "feature.todos.premium.info",
+    "defaultMessage": "!!!The Franz Todos Preview is currently only available for Franz Premium accounts.",
+    "file": "src/features/todos/components/TodosWebview.js",
+    "start": {
+      "line": 18,
+      "column": 15
+    },
+    "end": {
+      "line": 21,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.todos.premium.upgrade",
+    "defaultMessage": "!!!Upgrade Account",
+    "file": "src/features/todos/components/TodosWebview.js",
+    "start": {
+      "line": 22,
+      "column": 14
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.todos.premium.rollout",
+    "defaultMessage": "!!!Franz Todos will be available to everyone soon.",
+    "file": "src/features/todos/components/TodosWebview.js",
+    "start": {
+      "line": 26,
+      "column": 15
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  }
+]

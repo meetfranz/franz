@@ -7,6 +7,7 @@ import { H1, Icon, ProBadge } from '@meetfranz/ui';
 import { Button } from '@meetfranz/forms/lib';
 import ReactTooltip from 'react-tooltip';
 
+import { mdiPlusBox, mdiSettings } from '@mdi/js';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
@@ -159,7 +160,7 @@ class WorkspaceDrawer extends Component {
             data-tip={`${intl.formatMessage(messages.workspacesSettingsTooltip)}`}
           >
             <Icon
-              icon="mdiSettings"
+              icon={mdiSettings}
               size={1.5}
               className={classes.workspacesSettingsButtonIcon}
             />
@@ -184,7 +185,7 @@ class WorkspaceDrawer extends Component {
                 className={classes.premiumCtaButton}
                 buttonType="primary"
                 label={intl.formatMessage(messages.premiumCtaButtonLabel)}
-                icon="mdiPlusBox"
+                icon={mdiPlusBox}
                 onClick={() => {
                   workspaceActions.openWorkspaceSettings();
                   gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerPremiumCta');
@@ -227,7 +228,7 @@ class WorkspaceDrawer extends Component {
               }}
             >
               <Icon
-                icon="mdiPlusBox"
+                icon={mdiPlusBox}
                 size={1}
                 className={classes.workspacesSettingsButtonIcon}
               />
