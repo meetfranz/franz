@@ -41,10 +41,6 @@ const styles = theme => ({
     '&:hover $closeTodosButton': {
       opacity: 1,
     },
-  },
-  webview: {
-    height: '100%',
-
     '& webview': {
       height: '100%',
     },
@@ -245,60 +241,58 @@ class TodosWebview extends Component {
     const { intl } = this.context;
 
     return (
-      <>
-        <div
-          className={classes.root}
-          style={{ width: isVisible ? width : 0 }}
-          onMouseUp={() => this.stopResize()}
-          ref={(node) => { this.node = node; }}
+      <div
+        className={classes.root}
+        style={{ width: isVisible ? width : 0 }}
+        onMouseUp={() => this.stopResize()}
+        ref={(node) => { this.node = node; }}
+      >
+        <button
+          onClick={() => togglePanel()}
+          className={isVisible ? classes.closeTodosButton : classes.openTodosButton}
+          type="button"
         >
-          <button
-            onClick={() => togglePanel()}
-            className={isVisible ? classes.closeTodosButton : classes.openTodosButton}
-            type="button"
-          >
-            <Icon icon={isVisible ? mdiChevronRight : mdiCheckAll} size={2} />
-          </button>
+          <Icon icon={isVisible ? mdiChevronRight : mdiCheckAll} size={2} />
+        </button>
+        <div
+          className={classes.resizeHandler}
+          style={Object.assign({ left: delta }, isDragging ? { width: 600, marginLeft: -200 } : {})} // This hack is required as resizing with webviews beneath behaves quite bad
+          onMouseDown={e => this.startResize(e)}
+        />
+        {isDragging && (
           <div
-            className={classes.resizeHandler}
-            style={Object.assign({ left: delta }, isDragging ? { width: 600, marginLeft: -200 } : {})} // This hack is required as resizing with webviews beneath behaves quite bad
-            onMouseDown={e => this.startResize(e)}
+            className={classes.dragIndicator}
+            style={{ left: delta }} // This hack is required as resizing with webviews beneath behaves quite bad
           />
-          {isDragging && (
-            <div
-              className={classes.dragIndicator}
-              style={{ left: delta }} // This hack is required as resizing with webviews beneath behaves quite bad
-            />
-          )}
-          {isTodosIncludedInCurrentPlan ? (
-            <Webview
-              className={classes.webview}
-              onDidAttach={() => {
-                const { setTodosWebview } = this.props;
-                setTodosWebview(this.webview);
-                this.startListeningToIpcMessages();
-              }}
-              partition="persist:todos"
-              preload="./features/todos/preload.js"
-              ref={(webview) => { this.webview = webview ? webview.view : null; }}
-              src={environment.TODOS_FRONTEND}
-            />
-          ) : (
-            <Appear>
-              <div className={classes.premiumContainer}>
-                <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={5} />
-                <p>{intl.formatMessage(messages.premiumInfo)}</p>
-                <p>{intl.formatMessage(messages.rolloutInfo)}</p>
-                <ActivateTrialButton
-                  className={classes.premiumCTA}
-                  gaEventInfo={{ category: 'Todos', event: 'upgrade' }}
-                  short
-                />
-              </div>
-            </Appear>
-          )}
-        </div>
-      </>
+        )}
+        {isTodosIncludedInCurrentPlan ? (
+          <Webview
+            className={classes.webview}
+            onDidAttach={() => {
+              const { setTodosWebview } = this.props;
+              setTodosWebview(this.webview);
+              this.startListeningToIpcMessages();
+            }}
+            partition="persist:todos"
+            preload="./features/todos/preload.js"
+            ref={(webview) => { this.webview = webview ? webview.view : null; }}
+            src={environment.TODOS_FRONTEND}
+          />
+        ) : (
+          <Appear>
+            <div className={classes.premiumContainer}>
+              <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={5} />
+              <p>{intl.formatMessage(messages.premiumInfo)}</p>
+              <p>{intl.formatMessage(messages.rolloutInfo)}</p>
+              <ActivateTrialButton
+                className={classes.premiumCTA}
+                gaEventInfo={{ category: 'Todos', event: 'upgrade' }}
+                short
+              />
+            </div>
+          </Appear>
+        )}
+      </div>
     );
   }
 }
