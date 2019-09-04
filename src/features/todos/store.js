@@ -59,6 +59,7 @@ export default class TodoStore extends FeatureStore {
 
     this._allReactions = createReactions([
       this._setFeatureEnabledReaction,
+      this._updateTodosConfig,
     ]);
 
     this._registerReactions(this._allReactions);
@@ -121,11 +122,14 @@ export default class TodoStore extends FeatureStore {
   // Todos client message handlers
 
   _onTodosClientInitialized = () => {
+    const { authToken } = this.stores.user;
+    const { isDarkThemeActive } = this.stores.ui;
+    if (!this.webview) return;
     this.webview.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
       data: {
-        authToken: this.stores.user.authToken,
-        theme: this.stores.ui.isDarkThemeActive ? ThemeType.dark : ThemeType.default,
+        authToken,
+        theme: isDarkThemeActive ? ThemeType.dark : ThemeType.default,
       },
     });
   };
@@ -144,4 +148,9 @@ export default class TodoStore extends FeatureStore {
 
     this.isFeatureEnabled = isTodosEnabled;
   };
+
+  _updateTodosConfig = () => {
+    // Resend the config if any part changes in Franz:
+    this._onTodosClientInitialized();
+  }
 }
