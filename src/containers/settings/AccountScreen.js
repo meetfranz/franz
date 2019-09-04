@@ -26,7 +26,14 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
   handleWebsiteLink(route) {
     const { actions, stores } = this.props;
 
-    const url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
+    const api = stores.settings.all.app.server;
+
+    let url;
+    if (api == 'https://api.franzinfra.com') {
+      url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
+    } else {
+      url = `${api}${route}`;
+    }
 
     actions.app.openExternalUrl({ url });
   }
