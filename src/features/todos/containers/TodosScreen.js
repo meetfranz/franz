@@ -26,7 +26,6 @@ class TodosScreen extends Component {
           minWidth={TODOS_MIN_WIDTH}
           resize={width => todoActions.resize({ width })}
           isTodosIncludedInCurrentPlan={this.props.stores.features.features.isTodosIncludedInCurrentPlan || false}
-          upgradeAccount={() => this.props.actions.ui.openSettings({ path: 'user' })}
         />
       </ErrorBoundary>
     );
@@ -38,10 +37,5 @@ export default TodosScreen;
 TodosScreen.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     features: PropTypes.instanceOf(FeaturesStore).isRequired,
-  }).isRequired,
-  actions: PropTypes.shape({
-    ui: PropTypes.shape({
-      openSettings: PropTypes.func.isRequired,
-    }).isRequired,
   }).isRequired,
 };

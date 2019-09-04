@@ -12,6 +12,7 @@ import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
 import { DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE } from '.';
 import { IPC } from './constants';
+import { state as delayAppState } from '../delayApp';
 
 const debug = require('debug')('Franz:feature:todos:store');
 
@@ -29,7 +30,7 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isTodosPanelVisible() {
-    if (this.stores.services.all.length === 0) return false;
+    if (this.stores.services.all.length === 0 || delayAppState.isDelayAppScreenVisible) return false;
     if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
 
     return this.settings.isTodosPanelVisible;

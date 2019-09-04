@@ -41,7 +41,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = () => ({
+const styles = theme => ({
   activateTrialButton: {
     margin: [40, 0, 10],
   },
@@ -49,6 +49,7 @@ const styles = () => ({
     margin: [0, 0, 40],
     background: 'none',
     border: 'none',
+    color: theme.colorText,
   },
   keyTerms: {
     marginTop: 20,

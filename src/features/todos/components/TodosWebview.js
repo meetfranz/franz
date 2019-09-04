@@ -10,6 +10,7 @@ import { mdiChevronRight, mdiCheckAll } from '@mdi/js';
 import { Button } from '@meetfranz/forms';
 import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
+import ActivateTrialButton from '../../../components/ui/activateTrialButton';
 
 const OPEN_TODOS_BUTTON_SIZE = 45;
 const CLOSE_TODOS_BUTTON_SIZE = 35;
@@ -70,7 +71,7 @@ const styles = theme => ({
     height: OPEN_TODOS_BUTTON_SIZE,
     background: theme.todos.toggleButton.background,
     position: 'absolute',
-    bottom: 80,
+    bottom: 120,
     right: props => (props.width + (props.isVisible ? -OPEN_TODOS_BUTTON_SIZE / 2 : 0)),
     borderRadius: OPEN_TODOS_BUTTON_SIZE / 2,
     opacity: props => (props.isVisible ? 0 : 1),
@@ -94,7 +95,7 @@ const styles = theme => ({
     height: CLOSE_TODOS_BUTTON_SIZE,
     background: theme.todos.toggleButton.background,
     position: 'absolute',
-    bottom: 80,
+    bottom: 120,
     right: ({ width }) => (width + -CLOSE_TODOS_BUTTON_SIZE / 2),
     borderRadius: CLOSE_TODOS_BUTTON_SIZE / 2,
     opacity: ({ isTodosIncludedInCurrentPlan }) => (!isTodosIncludedInCurrentPlan ? 1 : 0),
@@ -143,7 +144,6 @@ class TodosWebview extends Component {
     width: PropTypes.number.isRequired,
     minWidth: PropTypes.number.isRequired,
     isTodosIncludedInCurrentPlan: PropTypes.bool.isRequired,
-    upgradeAccount: PropTypes.func.isRequired,
   };
 
   state = {
@@ -235,7 +235,6 @@ class TodosWebview extends Component {
       isVisible,
       togglePanel,
       isTodosIncludedInCurrentPlan,
-      upgradeAccount,
     } = this.props;
 
     const {
@@ -291,11 +290,10 @@ class TodosWebview extends Component {
                 <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={5} />
                 <p>{intl.formatMessage(messages.premiumInfo)}</p>
                 <p>{intl.formatMessage(messages.rolloutInfo)}</p>
-                <Button
-                  label={intl.formatMessage(messages.upgradeCTA)}
+                <ActivateTrialButton
                   className={classes.premiumCTA}
-                  onClick={upgradeAccount}
-                  buttonType="inverted"
+                  gaEventInfo={{ category: 'Todos', event: 'upgrade' }}
+                  short
                 />
               </div>
             </Appear>

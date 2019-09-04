@@ -42,6 +42,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
       <ErrorBoundary>
         <AccountDashboard
           user={user.data}
+          isProUser={user.isPro}
           isLoading={isLoadingUserInfo}
           isLoadingPlans={isLoadingPlans}
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}

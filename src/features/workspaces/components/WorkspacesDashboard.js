@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer, PropTypes as MobxPropTypes, inject } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 import { Infobox } from '@meetfranz/ui';
@@ -12,6 +12,8 @@ import Request from '../../../stores/lib/Request';
 import Appear from '../../../components/ui/effects/Appear';
 import { workspaceStore } from '../index';
 import PremiumFeatureContainer from '../../../components/ui/PremiumFeatureContainer';
+import UIStore from '../../../stores/UIStore';
+import ActivateTrialButton from '../../../components/ui/activateTrialButton';
 
 const messages = defineMessages({
   headline: {
@@ -62,17 +64,27 @@ const styles = theme => ({
     height: 'auto',
   },
   premiumAnnouncement: {
-    padding: '20px',
-    backgroundColor: '#3498db',
-    marginLeft: '-20px',
-    marginBottom: '20px',
+    padding: 20,
+    // backgroundColor: '#3498db',
+    marginLeft: -20,
+    marginBottom: 40,
+    paddingBottom: 40,
     height: 'auto',
-    color: 'white',
-    borderRadius: theme.borderRadius,
+    display: 'flex',
+    borderBottom: [1, 'solid', theme.inputBackground],
+  },
+  teaserImage: {
+    width: 200,
+    height: '100%',
+    float: 'left',
+    margin: [-8, 0, 0, -20],
+  },
+  upgradeCTA: {
+    marginTop: 20,
   },
 });
 
-@injectSheet(styles) @observer
+@inject('stores') @injectSheet(styles) @observer
 class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -100,7 +112,9 @@ class WorkspacesDashboard extends Component {
       onWorkspaceClick,
       workspaces,
     } = this.props;
+
     const { intl } = this.context;
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -138,13 +152,21 @@ class WorkspacesDashboard extends Component {
 
           {workspaceStore.isPremiumUpgradeRequired && (
             <div className={classes.premiumAnnouncement}>
-              <h2>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h2>
-              <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
+              <img src={`./assets/images/workspaces/teaser_${this.props.stores.ui.isDarkThemeActive ? 'dark' : 'light'}.png`} className={classes.teaserImage} alt="" />
+              <div>
+                <h2>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h2>
+                <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
+                <ActivateTrialButton
+                  className={classes.upgradeCTA}
+                  gaEventInfo={{ category: 'Workspaces', event: 'upgrade' }}
+                  short
+                />
+              </div>
             </div>
           )}
 
           <PremiumFeatureContainer
-            condition={workspaceStore.isPremiumFeature}
+            condition={() => workspaceStore.isPremiumUpgradeRequired}
             gaEventInfo={{ category: 'User', event: 'upgrade', label: 'workspaces' }}
           >
             {/* ===== Create workspace form ===== */}
@@ -207,3 +229,9 @@ class WorkspacesDashboard extends Component {
 }
 
 export default WorkspacesDashboard;
+
+WorkspacesDashboard.wrappedComponent.propTypes = {
+  stores: PropTypes.shape({
+    ui: PropTypes.instanceOf(UIStore).isRequired,
+  }).isRequired,
+};

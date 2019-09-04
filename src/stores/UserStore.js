@@ -10,6 +10,8 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { gaEvent } from '../lib/analytics';
 import { sleep } from '../helpers/async-helpers';
+import { getPlan } from '../helpers/plan-helpers';
+import { PLANS } from '../config';
 
 const debug = require('debug')('Franz:UserStore');
 
@@ -150,8 +152,28 @@ export default class UserStore extends Store {
     return this.getUserInfoRequest.execute().result || {};
   }
 
+  @computed get team() {
+    return this.data.team || null;
+  }
+
   @computed get isPremium() {
     return !!this.data.isPremium;
+  }
+
+  @computed get isPersonal() {
+    if (!this.team.plan) return false;
+    const plan = getPlan(this.team.plan);
+
+    return plan === PLANS.PERSONAL;
+  }
+
+  @computed get isPro() {
+    if (!this.team.plan && this.isPremium) return true;
+
+    if (!this.team.plan) return false;
+    const plan = getPlan(this.team.plan);
+
+    return plan === PLANS.PRO;
   }
 
   @computed get legacyServices() {

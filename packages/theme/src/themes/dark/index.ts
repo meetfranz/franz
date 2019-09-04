@@ -11,6 +11,8 @@ export const colorBackgroundSubscriptionContainer = legacyStyles.themeBrandInfo;
 export const colorHeadline = legacyStyles.darkThemeTextColor;
 export const colorText = legacyStyles.darkThemeTextColor;
 
+export const defaultContentBorder = legacyStyles.themeGrayDark;
+
 // Loader
 export const colorFullscreenLoaderSpinner = '#FFF';
 export const colorWebviewLoaderBackground = color(legacyStyles.darkThemeGrayDarkest).alpha(0.5).rgb().string();

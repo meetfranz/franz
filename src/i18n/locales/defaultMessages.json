@@ -2895,6 +2895,63 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!Get a Franz Supporter License",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "feature.delayApp.upgrade.action",
+        "start": {
+          "column": 10,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "feature.delayApp.trial.action",
+        "start": {
+          "column": 15,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade account",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "feature.delayApp.upgrade.actionShort",
+        "start": {
+          "column": 15,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Activate the free Franz Professional trial",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "feature.delayApp.trial.actionShort",
+        "start": {
+          "column": 20,
+          "line": 25
+        }
+      }
+    ],
+    "path": "src/components/ui/ActivateTrialButton/index.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Add unlimited services",
         "end": {
           "column": 3,
@@ -3033,13 +3090,13 @@
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/components/ui/PremiumFeatureContainer/index.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 15
+          "line": 16
         }
       }
     ],
@@ -3720,91 +3777,91 @@
         "defaultMessage": "!!!Franz is better together!",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 21
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.headline",
         "start": {
           "column": 12,
-          "line": 16
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 25
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.text",
         "start": {
           "column": 8,
-          "line": 20
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!Share as email",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 29
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.email",
         "start": {
           "column": 16,
-          "line": 24
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Share on Facebook",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 33
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.facebook",
         "start": {
           "column": 19,
-          "line": 28
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Share on Twitter",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 37
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.twitter",
         "start": {
           "column": 18,
-          "line": 32
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 41
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.email",
         "start": {
           "column": 18,
-          "line": 36
+          "line": 38
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 45
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.twitter",
         "start": {
           "column": 20,
-          "line": 40
+          "line": 42
         }
       }
     ],
@@ -3816,39 +3873,39 @@
         "defaultMessage": "!!!The Franz Todos Preview is currently only available for Franz Premium accounts.",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 22
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.info",
         "start": {
           "column": 15,
-          "line": 18
+          "line": 19
         }
       },
       {
         "defaultMessage": "!!!Upgrade Account",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 26
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.upgrade",
         "start": {
           "column": 14,
-          "line": 22
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!Franz Todos will be available to everyone soon.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 30
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.rollout",
         "start": {
           "column": 15,
-          "line": 26
+          "line": 27
         }
       }
     ],
@@ -4127,104 +4184,104 @@
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 22
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.headline",
         "start": {
           "column": 12,
-          "line": 17
+          "line": 19
         }
       },
       {
         "defaultMessage": "!!!You haven't added any workspaces yet.",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 26
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.noWorkspacesAdded",
         "start": {
           "column": 19,
-          "line": 21
+          "line": 23
         }
       },
       {
         "defaultMessage": "!!!Could not load your workspaces",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 30
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspacesRequestFailed",
         "start": {
           "column": 27,
-          "line": 25
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 34
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.tryReloadWorkspaces",
         "start": {
           "column": 23,
-          "line": 29
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Your changes have been saved",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 38
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.updatedInfo",
         "start": {
           "column": 15,
-          "line": 33
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!Workspace has been deleted",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 42
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.deletedInfo",
         "start": {
           "column": 15,
-          "line": 37
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Info about workspace feature",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 46
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspaceFeatureInfo",
         "start": {
           "column": 24,
-          "line": 41
+          "line": 43
         }
       },
       {
         "defaultMessage": "!!!Less is More: Introducing Franz Workspaces",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 50
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspaceFeatureHeadline",
         "start": {
           "column": 28,
-          "line": 45
+          "line": 47
         }
       }
     ],

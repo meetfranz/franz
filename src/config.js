@@ -91,8 +91,8 @@ export const ALLOWED_PROTOCOLS = [
 ];
 
 export const PLANS = {
-  PERSONAL: 'PERSONAL_MONTHLY',
-  PRO: 'PRO_MONTHLY',
+  PERSONAL: 'PERSONAL',
+  PRO: 'PRO',
   LEGACY: 'LEGACY',
   FREE: 'FREE',
 };
