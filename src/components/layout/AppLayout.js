@@ -125,7 +125,15 @@ class AppLayout extends Component {
                   sticky={item.sticky}
                   onHide={() => removeNewsItem({ newsId: item.id })}
                 >
-                  <span dangerouslySetInnerHTML={createMarkup(item.message)} />
+                  <span
+                    dangerouslySetInnerHTML={createMarkup(item.message)}
+                    onClick={(event) => {
+                      const { target } = event;
+                      if (target && target.hasAttribute('data-is-news-cta')) {
+                        removeNewsItem({ newsId: item.id });
+                      }
+                    }}
+                  />
                 </InfoBar>
               ))}
               {hasActivatedTrial && (
