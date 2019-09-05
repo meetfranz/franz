@@ -50,7 +50,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = () => ({
   table: {
     width: '100%',
     '& td': {
@@ -96,8 +96,6 @@ class WorkspacesDashboard extends Component {
     onCreateWorkspaceSubmit: PropTypes.func.isRequired,
     onWorkspaceClick: PropTypes.func.isRequired,
     workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
-    isPersonalUser: PropTypes.bool.isRequired,
-    onUpgradeAccount: PropTypes.func.isRequired,
   };
 
   static contextTypes = {

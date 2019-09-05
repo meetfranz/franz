@@ -9,9 +9,7 @@ import { Badge } from '@meetfranz/ui';
 import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
 import Infobox from '../../ui/Infobox';
-import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 import globalMessages from '../../../i18n/globalMessages';
-import ActivateTrialButton from '../../ui/ActivateTrialButton';
 import UpgradeButton from '../../ui/UpgradeButton';
 
 const messages = defineMessages({

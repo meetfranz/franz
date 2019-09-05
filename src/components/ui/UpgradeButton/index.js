@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
-import classnames from 'classnames';
 
 import { Button } from '@meetfranz/forms';
 import { gaEvent } from '../../../lib/analytics';

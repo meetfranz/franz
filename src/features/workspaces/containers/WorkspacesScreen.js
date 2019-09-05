@@ -10,38 +10,29 @@ import {
   getUserWorkspacesRequest,
   updateWorkspaceRequest,
 } from '../api';
-import UserStore from '../../../stores/UserStore';
 
 @inject('stores', 'actions') @observer
 class WorkspacesScreen extends Component {
   static propTypes = {
-    stores: PropTypes.shape({
-      user: PropTypes.instanceOf(UserStore),
-    }).isRequired,
     actions: PropTypes.shape({
       workspace: PropTypes.shape({
         edit: PropTypes.func.isRequired,
-      }),
-      ui: PropTypes.shape({
-        openSettings: PropTypes.func.isRequired,
       }),
     }).isRequired,
   };
 
   render() {
-    const { stores, actions } = this.props;
+    const { actions } = this.props;
     return (
       <ErrorBoundary>
         <WorkspacesDashboard
           workspaces={workspaceStore.workspaces}
-          isPersonalUser={stores.user.isPersonal}
           getUserWorkspacesRequest={getUserWorkspacesRequest}
           createWorkspaceRequest={createWorkspaceRequest}
           deleteWorkspaceRequest={deleteWorkspaceRequest}
           updateWorkspaceRequest={updateWorkspaceRequest}
           onCreateWorkspaceSubmit={data => actions.workspaces.create(data)}
           onWorkspaceClick={w => actions.workspaces.edit({ workspace: w })}
-          onUpgradeAccount={() => actions.ui.openSettings({ path: 'user' })}
         />
       </ErrorBoundary>
     );
