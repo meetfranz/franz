@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import injectSheet from 'react-jss';
+import classnames from 'classnames';
 
 import { Badge } from '@meetfranz/ui';
 import Loader from '../../ui/Loader';
@@ -75,6 +76,9 @@ const styles = {
   headline: {
     marginBottom: 0,
   },
+  headlineWithSpacing: {
+    marginBottom: 'inherit',
+  },
   proRequired: {
     margin: [10, 0, 40],
     height: 'auto',
@@ -140,7 +144,14 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
               {!isLoading && (
                 <>
                   <>
-                    <h1 className={classes.headline}>{intl.formatMessage(messages.contentHeadline)}</h1>
+                    <h1 className={classnames({
+                      [classes.headline]: true,
+                      [classes.headlineWithSpacing]: isProUser,
+                    })}
+                    >
+                      {intl.formatMessage(messages.contentHeadline)}
+
+                    </h1>
                     {!isProUser && (
                       <Badge className={classes.proRequired}>{intl.formatMessage(globalMessages.proRequired)}</Badge>
                     )}
