@@ -20,7 +20,7 @@ const styles = {
     position: 'absolute',
     top: -50,
     transition: 'top 0.3s',
-    zIndex: 300,
+    zIndex: 500,
     width: 'calc(100% - 300px)',
   },
   show: {

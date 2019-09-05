@@ -77,7 +77,6 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
     const { defaultTrialPlan } = stores.features.features;
 
     if (!hadSubscription) {
-      console.log('directly activate trial');
       actions.user.activateTrial({ planId: defaultTrialPlan });
 
       gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');

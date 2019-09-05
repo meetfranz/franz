@@ -30,6 +30,7 @@ export default @inject('stores', 'actions') @observer class TeamScreen extends C
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
           retryUserInfoRequest={() => this.reloadData()}
           openTeamManagement={() => this.handleWebsiteLink('/user/team')}
+          isProUser={user.isPro}
         />
       </ErrorBoundary>
     );

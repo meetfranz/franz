@@ -9,7 +9,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { mdiChevronRight, mdiCheckAll } from '@mdi/js';
 import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
-import ActivateTrialButton from '../../../components/ui/ActivateTrialButton';
+import UpgradeButton from '../../../components/ui/UpgradeButton';
 
 const OPEN_TODOS_BUTTON_SIZE = 45;
 const CLOSE_TODOS_BUTTON_SIZE = 35;
@@ -17,7 +17,7 @@ const CLOSE_TODOS_BUTTON_SIZE = 35;
 const messages = defineMessages({
   premiumInfo: {
     id: 'feature.todos.premium.info',
-    defaultMessage: '!!!The Franz Todos Preview is currently only available for Franz Premium accounts.',
+    defaultMessage: '!!!Franz Todos are available to premium users now!',
   },
   upgradeCTA: {
     id: 'feature.todos.premium.upgrade',
@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
   rolloutInfo: {
     id: 'feature.todos.premium.rollout',
-    defaultMessage: '!!!Franz Todos will be available to everyone soon.',
+    defaultMessage: '!!!Everyone else will have to wait a little longer.',
   },
 });
 
@@ -112,7 +112,7 @@ const styles = theme => ({
     alignItems: 'center',
     width: '80%',
     maxWidth: 300,
-    margin: [-50, 'auto', 0],
+    margin: [0, 'auto'],
     textAlign: 'center',
   },
   premiumIcon: {
@@ -281,10 +281,10 @@ class TodosWebview extends Component {
         ) : (
           <Appear>
             <div className={classes.premiumContainer}>
-              <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={5} />
+              <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={4} />
               <p>{intl.formatMessage(messages.premiumInfo)}</p>
               <p>{intl.formatMessage(messages.rolloutInfo)}</p>
-              <ActivateTrialButton
+              <UpgradeButton
                 className={classes.premiumCTA}
                 gaEventInfo={{ category: 'Todos', event: 'upgrade' }}
                 short

@@ -11,7 +11,7 @@ import {
   updateWorkspaceRequest,
 } from '../api';
 
-@inject('actions') @observer
+@inject('stores', 'actions') @observer
 class WorkspacesScreen extends Component {
   static propTypes = {
     actions: PropTypes.shape({

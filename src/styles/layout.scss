@@ -32,9 +32,11 @@ html { overflow: hidden; }
   .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
 }
 
-.app {
-  //display: flex;
+body.win32:not(.isFullScreen) .app .app__content {
+  height: calc(100% - 28px);
+}
 
+.app {
   .app__content {
     display: flex;
     width: calc(100% + 300px);

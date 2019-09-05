@@ -97,6 +97,7 @@ const messages = defineMessages({
 class AccountDashboard extends Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
+    isPremiumOverrideUser: PropTypes.bool.isRequired,
     isProUser: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired,
     userInfoRequestFailed: PropTypes.bool.isRequired,
@@ -117,6 +118,7 @@ class AccountDashboard extends Component {
   render() {
     const {
       user,
+      isPremiumOverrideUser,
       isProUser,
       isLoading,
       userInfoRequestFailed,
@@ -213,7 +215,7 @@ class AccountDashboard extends Component {
                           {intl.formatMessage(messages.yourLicense)}
                         </H2>
                         <p>
-                          {planName}
+                          {isPremiumOverrideUser ? 'Franz Premium' : planName}
                           {user.team.isTrial && (
                             <>
                               {' – '}

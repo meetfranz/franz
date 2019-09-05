@@ -25,4 +25,8 @@ export default defineMessages({
     id: 'global.spellchecking.autodetect.short',
     defaultMessage: '!!!Automatic',
   },
+  proRequired: {
+    id: 'global.franzProRequired',
+    defaultMessage: '!!!Franz Professional Required',
+  },
 });

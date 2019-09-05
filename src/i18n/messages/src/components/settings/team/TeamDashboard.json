@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Team",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
-      "line": 14,
+      "line": 17,
       "column": 12
     },
     "end": {
-      "line": 17,
+      "line": 20,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Franz for Teams",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
-      "line": 18,
+      "line": 21,
       "column": 19
     },
     "end": {
-      "line": 21,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!You and your team use Franz? You can now manage Premium subscriptions for as many colleagues, friends or family members as you want, all from within one account.",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
-      "line": 22,
+      "line": 25,
       "column": 9
     },
     "end": {
-      "line": 25,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
-      "line": 26,
+      "line": 29,
       "column": 8
     },
     "end": {
-      "line": 29,
+      "line": 32,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Manage your Team on meetfranz.com",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
-      "line": 30,
+      "line": 33,
       "column": 16
     },
     "end": {
-      "line": 33,
+      "line": 36,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!Upgrade your Account",
     "file": "src/components/settings/team/TeamDashboard.js",
     "start": {
-      "line": 34,
+      "line": 37,
       "column": 17
     },
     "end": {
-      "line": 37,
+      "line": 40,
       "column": 3
     }
   }
