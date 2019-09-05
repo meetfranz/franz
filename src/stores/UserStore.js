@@ -160,6 +160,10 @@ export default class UserStore extends Store {
     return !!this.data.isPremium;
   }
 
+  @computed get isPremiumOverride() {
+    return (!this.team.plan && this.isPremium) || (this.team.state === 'expired' && this.isPremium);
+  }
+
   @computed get isPersonal() {
     if (!this.team.plan) return false;
     const plan = getPlan(this.team.plan);
@@ -168,7 +172,7 @@ export default class UserStore extends Store {
   }
 
   @computed get isPro() {
-    if ((!this.team.plan || this.team.state !== 'expired') && this.isPremium) return true;
+    if (this.isPremiumOverride) return true;
 
     if ((!this.team.plan || this.team.state === 'expired')) return false;
     const plan = getPlan(this.team.plan);
