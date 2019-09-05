@@ -1,12 +1,12 @@
 import isDev from 'electron-is-dev';
 
 import {
-  LIVE_API,
+  // LIVE_API,
   DEV_API,
   LOCAL_API,
   LOCAL_API_WEBSITE,
   DEV_API_WEBSITE,
-  LIVE_API_WEBSITE,
+  // LIVE_API_WEBSITE,
   LIVE_WS_API,
   LOCAL_WS_API,
   DEV_WS_API,
