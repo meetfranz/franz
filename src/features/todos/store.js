@@ -30,7 +30,6 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isTodosPanelVisible() {
-    console.log('isTodosPanelVisible', 'delayAppState.isDelayAppScreenVisible', delayAppState.isDelayAppScreenVisible);
     if (delayAppState.isDelayAppScreenVisible) return false;
     if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
 
