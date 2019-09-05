@@ -29,10 +29,13 @@ export default class TodoStore extends FeatureStore {
     return width < TODOS_MIN_WIDTH ? TODOS_MIN_WIDTH : width;
   }
 
-  @computed get isTodosPanelVisible() {
-    if (delayAppState.isDelayAppScreenVisible) return false;
-    if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
+  @computed get isTodosPanelForceHidden() {
+    const { isAnnouncementShown } = this.stores.announcements;
+    return delayAppState.isDelayAppScreenVisible || isAnnouncementShown;
+  }
 
+  @computed get isTodosPanelVisible() {
+    if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
     return this.settings.isTodosPanelVisible;
   }
 
