@@ -2530,78 +2530,78 @@
         "defaultMessage": "!!!Team",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 19
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.headline",
         "start": {
           "column": 12,
-          "line": 18
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Franz for Teams",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 23
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.contentHeadline",
         "start": {
           "column": 19,
-          "line": 22
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!You and your team use Franz? You can now manage Premium subscriptions for as many colleagues, friends or family members as you want, all from within one account.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 27
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.intro",
         "start": {
           "column": 9,
-          "line": 26
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 31
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.copy",
         "start": {
           "column": 8,
-          "line": 30
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Manage your Team on meetfranz.com",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 35
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.manageAction",
         "start": {
           "column": 16,
-          "line": 34
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Upgrade your Account",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 39
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.upgradeAction",
         "start": {
           "column": 17,
-          "line": 38
+          "line": 36
         }
       }
     ],
@@ -3108,13 +3108,13 @@
         "defaultMessage": "!!!Upgrade to Franz Professional",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 16
         },
         "file": "src/components/ui/UpgradeButton/index.js",
         "id": "global.upgradeButton.upgradeToPro",
         "start": {
           "column": 16,
-          "line": 14
+          "line": 13
         }
       }
     ],
