@@ -17,7 +17,7 @@ const CLOSE_TODOS_BUTTON_SIZE = 35;
 const messages = defineMessages({
   premiumInfo: {
     id: 'feature.todos.premium.info',
-    defaultMessage: '!!!The Franz Todos Preview is currently only available for Franz Premium accounts.',
+    defaultMessage: '!!!Franz Todos are available to premium users now!',
   },
   upgradeCTA: {
     id: 'feature.todos.premium.upgrade',
@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
   rolloutInfo: {
     id: 'feature.todos.premium.rollout',
-    defaultMessage: '!!!Franz Todos will be available to everyone soon.',
+    defaultMessage: '!!!Everyone else will have to wait a little longer.',
   },
 });
 
