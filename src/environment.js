@@ -36,9 +36,11 @@ let wsApi;
 let web;
 let todos;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
-  api = LIVE_API;
+  // api = LIVE_API;
+  api = DEV_API;
   wsApi = LIVE_WS_API;
-  web = LIVE_API_WEBSITE;
+  // web = LIVE_API_WEBSITE;
+  web = DEV_API_WEBSITE;
   todos = PRODUCTION_TODOS_FRONTEND_URL;
 } else if (isDevMode && useLocalAPI) {
   api = LOCAL_API;

@@ -30,7 +30,7 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isTodosPanelVisible() {
-    if (this.stores.services.all.length === 0 || delayAppState.isDelayAppScreenVisible) return false;
+    if (delayAppState.isDelayAppScreenVisible) return false;
     if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
 
     return this.settings.isTodosPanelVisible;
@@ -61,6 +61,7 @@ export default class TodoStore extends FeatureStore {
 
     this._allReactions = createReactions([
       this._setFeatureEnabledReaction,
+      this._firstLaunchReaction,
     ]);
 
     this._registerReactions(this._allReactions);
@@ -145,5 +146,20 @@ export default class TodoStore extends FeatureStore {
     const { isTodosEnabled } = this.stores.features.features;
 
     this.isFeatureEnabled = isTodosEnabled;
+  };
+
+  _firstLaunchReaction = () => {
+    const { stats } = this.stores.settings.all;
+
+    // Hide todos layer on first app start but show on second
+    if (stats.appStarts <= 1) {
+      this._updateSettings({
+        isTodosPanelVisible: false,
+      });
+    } else if (stats.appStarts <= 2) {
+      this._updateSettings({
+        isTodosPanelVisible: true,
+      });
+    }
   };
 }

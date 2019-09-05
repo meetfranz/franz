@@ -168,9 +168,9 @@ export default class UserStore extends Store {
   }
 
   @computed get isPro() {
-    if (!this.team.plan && this.isPremium) return true;
+    if ((!this.team.plan || this.team.state !== 'expired') && this.isPremium) return true;
 
-    if (!this.team.plan) return false;
+    if ((!this.team.plan || this.team.state === 'expired')) return false;
     const plan = getPlan(this.team.plan);
 
     return plan === PLANS.PRO;
