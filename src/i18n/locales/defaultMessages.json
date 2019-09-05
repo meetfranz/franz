@@ -3888,7 +3888,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!The Franz Todos Preview is currently only available for Franz Premium accounts.",
+        "defaultMessage": "!!!Franz Todos are available to premium users now!",
         "end": {
           "column": 3,
           "line": 21
@@ -3914,7 +3914,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz Todos will be available to everyone soon.",
+        "defaultMessage": "!!!Everyone else will have to wait a little longer.",
         "end": {
           "column": 3,
           "line": 29
