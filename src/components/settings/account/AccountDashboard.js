@@ -93,9 +93,12 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class AccountDashboard extends Component {
+@observer
+class AccountDashboard extends Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
+    isPremiumOverrideUser: PropTypes.bool.isRequired,
+    isProUser: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired,
     userInfoRequestFailed: PropTypes.bool.isRequired,
     retryUserInfoRequest: PropTypes.func.isRequired,
@@ -115,6 +118,8 @@ export default @observer class AccountDashboard extends Component {
   render() {
     const {
       user,
+      isPremiumOverrideUser,
+      isProUser,
       isLoading,
       userInfoRequestFailed,
       retryUserInfoRequest,
@@ -210,7 +215,7 @@ export default @observer class AccountDashboard extends Component {
                           {intl.formatMessage(messages.yourLicense)}
                         </H2>
                         <p>
-                          {planName}
+                          {isPremiumOverrideUser ? 'Franz Premium' : planName}
                           {user.team.isTrial && (
                             <>
                               {' – '}
@@ -234,11 +239,13 @@ export default @observer class AccountDashboard extends Component {
                           </>
                         )}
                         <div className="manage-user-links">
-                          <Button
-                            label={intl.formatMessage(messages.upgradeAccountToPro)}
-                            className="franz-form__button--primary"
-                            onClick={upgradeToPro}
-                          />
+                          {!isProUser && (
+                            <Button
+                              label={intl.formatMessage(messages.upgradeAccountToPro)}
+                              className="franz-form__button--primary"
+                              onClick={upgradeToPro}
+                            />
+                          )}
                           <Button
                             label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
                             className="franz-form__button--inverted"
@@ -290,3 +297,5 @@ export default @observer class AccountDashboard extends Component {
     );
   }
 }
+
+export default AccountDashboard;

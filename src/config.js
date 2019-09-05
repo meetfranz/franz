@@ -20,7 +20,7 @@ export const LIVE_WS_API = 'wss://api.franzinfra.com';
 
 export const LOCAL_API_WEBSITE = 'http://localhost:3333';
 // export const DEV_API_WEBSITE = 'https://meetfranz.com';t
-export const DEV_API_WEBSITE = 'http://hash-3ac3ccd2472269cf585c58a4f6973d86f3c9e7bd.franzstaging.com/'; // TODO: revert me
+export const DEV_API_WEBSITE = 'http://hash-58883791519ef6288c952316bdce7fb462283893.franzstaging.com/'; // TODO: revert me
 export const LIVE_API_WEBSITE = 'https://meetfranz.com';
 
 export const STATS_API = 'https://stats.franzinfra.com';
@@ -91,8 +91,8 @@ export const ALLOWED_PROTOCOLS = [
 ];
 
 export const PLANS = {
-  PERSONAL: 'PERSONAL_MONTHLY',
-  PRO: 'PRO_MONTHLY',
+  PERSONAL: 'PERSONAL',
+  PRO: 'PRO',
   LEGACY: 'LEGACY',
   FREE: 'FREE',
 };

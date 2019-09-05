@@ -218,7 +218,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                 <>
                   <H2>
                     {intl.formatMessage(messages.headlineCustomRecipes)}
-                    {isCommunityRecipesIncludedInCurrentPlan && (
+                    {!isCommunityRecipesIncludedInCurrentPlan && (
                       <ProBadge className={classes.proBadge} />
                     )}
                   </H2>
@@ -247,7 +247,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                 </>
               )}
               <PremiumFeatureContainer
-                condition={(recipeFilter === 'dev' && communityRecipes.length > 0) && isCommunityRecipesIncludedInCurrentPlan}
+                condition={(recipeFilter === 'dev' && communityRecipes.length > 0) && !isCommunityRecipesIncludedInCurrentPlan}
               >
                 {recipeFilter === 'dev' && communityRecipes.length > 0 && (
                   <H3>{intl.formatMessage(messages.headlineCommunityRecipes)}</H3>

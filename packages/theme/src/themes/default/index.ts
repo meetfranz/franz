@@ -28,6 +28,8 @@ export const colorHeadline = legacyStyles.themeGrayDark;
 
 export const colorText = legacyStyles.themeTextColor;
 
+export const defaultContentBorder = color(legacyStyles.themeGrayLighter).darken(0.1).rgb().string();
+
 // Subscription Container Component
 export const colorSubscriptionContainerBackground = 'none';
 export const colorSubscriptionContainerBorder = `1px solid ${brandPrimary}`;

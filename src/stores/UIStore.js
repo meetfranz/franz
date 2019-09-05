@@ -46,7 +46,6 @@ export default class UIStore extends Store {
   // Actions
   @action _openSettings({ path = '/settings' }) {
     const settingsPath = path !== '/settings' ? `/settings/${path}` : path;
-    console.log(settingsPath);
     this.stores.router.push(settingsPath);
   }
 
