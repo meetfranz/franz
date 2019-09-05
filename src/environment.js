@@ -1,12 +1,12 @@
 import isDev from 'electron-is-dev';
 
 import {
-  // LIVE_API,
+  LIVE_API,
   DEV_API,
   LOCAL_API,
   LOCAL_API_WEBSITE,
   DEV_API_WEBSITE,
-  // LIVE_API_WEBSITE,
+  LIVE_API_WEBSITE,
   LIVE_WS_API,
   LOCAL_WS_API,
   DEV_WS_API,
@@ -36,11 +36,11 @@ let wsApi;
 let web;
 let todos;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
-  // api = LIVE_API;
-  api = DEV_API;
+  api = LIVE_API;
+  // api = DEV_API;
   wsApi = LIVE_WS_API;
-  // web = LIVE_API_WEBSITE;
-  web = DEV_API_WEBSITE;
+  web = LIVE_API_WEBSITE;
+  // web = DEV_API_WEBSITE;
   todos = PRODUCTION_TODOS_FRONTEND_URL;
 } else if (isDevMode && useLocalAPI) {
   api = LOCAL_API;
