@@ -177,7 +177,7 @@ export default class UserStore extends Store {
     if ((!this.team.plan || this.team.state === 'expired')) return false;
     const plan = getPlan(this.team.plan);
 
-    return plan === PLANS.PRO;
+    return plan === PLANS.PRO || plan === PLANS.LEGACY;
   }
 
   @computed get legacyServices() {
