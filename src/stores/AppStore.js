@@ -94,6 +94,7 @@ export default class AppStore extends Store {
       this._offlineCheck.bind(this),
       this._setLocale.bind(this),
       this._muteAppHandler.bind(this),
+      this._handleFullScreen.bind(this),
     ]);
   }
 
@@ -376,6 +377,16 @@ export default class AppStore extends Store {
 
     if (!showMessageBadgesEvenWhenMuted) {
       this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
+    }
+  }
+
+  _handleFullScreen() {
+    const body = document.querySelector('body');
+
+    if (this.isFullScreen) {
+      body.classList.add('isFullScreen');
+    } else {
+      body.classList.remove('isFullScreen');
     }
   }
 

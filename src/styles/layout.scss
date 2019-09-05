@@ -32,7 +32,7 @@ html { overflow: hidden; }
   .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
 }
 
-body.win32 .app .app__content {
+body.win32:not(.isFullScreen) .app .app__content {
   height: calc(100% - 28px);
 }
 
