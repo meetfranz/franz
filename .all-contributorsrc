@@ -25,6 +25,19 @@
         "projectManagement",
         "review"
       ]
+    },
+    {
+      "login": "vantezzen",
+      "name": "Bennett",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/10333196?v=4",
+      "profile": "https://vantezzen.io",
+      "contributions": [
+        "code",
+        "design",
+        "doc",
+        "ideas",
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7
