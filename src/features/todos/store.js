@@ -186,6 +186,7 @@ export default class TodoStore extends FeatureStore {
     if (pathname === TODOS_ROUTES.TARGET) {
       debug('Router is on todos route, show todos panel');
       // todosStore.start(stores, actions);
+      this.stores.router.push('/');
 
       if (!this.isTodosPanelVisible) {
         this._updateSettings({
