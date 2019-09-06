@@ -1,15 +1,24 @@
-## [5.2.1-beta.1](https://github.com/meetfranz/franz/compare/v5.2.0...v5.2.1-beta.1) (2019-07-30)
+# [5.3.0](https://github.com/meetfranz/franz/compare/v5.2.1-beta.1...v5.3.0) (2019-09-06)
+
+### Features
+
+* **Todos:** 🥳🥳🥳 Manage your daily tasks with **Franz Todos** 🥳🥳🥳
+* **App:** Add option to copy debug information via the help menu ([4666e85](https://github.com/meetfranz/franz/commit/4666e85))
+* **App:** Updated Pricing, more infos can be found on  ([meetfranz.com/pricing](https://meetfranz.com/pricing))
+* **App:** Improved Settings UX
+* **3rd Party Services:** Added option to open custom recipes folder
 
 
 ### Bug Fixes
 
+* **Windows:** Fix app size in fullscreen ([e210701](https://github.com/meetfranz/franz/commit/e210701))
+* **Windows:** Fix app to be cropped at the bottom on Windows ([42f97b4](https://github.com/meetfranz/franz/commit/42f97b4))
 * **Notifications:** Fix issue that blocked notifications from e.g. Slack ([44c413b](https://github.com/meetfranz/franz/commit/44c413b))
+* **App:** A ton of various bugfixes and improvements
 
+### General
 
-### Features
-
-* **App:** Add option to copy debug information via the help menu ([4666e85](https://github.com/meetfranz/franz/commit/4666e85))
-
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 
 # [5.2.0](https://github.com/meetfranz/franz/compare/v5.2.0-beta.4...v5.2.0) (2019-07-19)
