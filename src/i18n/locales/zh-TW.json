@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "啟用 GPU 加速",
    "settings.app.form.enableSpellchecking" : "啟用拼字檢查",
    "settings.app.form.enableSystemTray" : "在系統列顯示 Franz",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "語言",
    "settings.app.form.minimizeToSystemTray" : "最小化 Franz 到系統列",
    "settings.app.form.runInBackground" : "當關閉視窗時，保持 Franz 在背景運作",

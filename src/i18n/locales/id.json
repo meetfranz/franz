@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Aktifkan Akselerasi GPU",
    "settings.app.form.enableSpellchecking" : "Aktifkan pemeriksaan ejaan",
    "settings.app.form.enableSystemTray" : "Tampilkan Franz di baki sistem",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Bahasa",
    "settings.app.form.minimizeToSystemTray" : "Perkecil Franz ke baki sistem",
    "settings.app.form.runInBackground" : "Tetap jalankan Franz di latar belakang saat menutup jendela",

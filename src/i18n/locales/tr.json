@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Grafik İşlemci Ünitesi (GPU) Hızlandırıcısını Aktif et",
    "settings.app.form.enableSpellchecking" : "Yazım denetimini etkinleştir",
    "settings.app.form.enableSystemTray" : "Franz'ı sistem tepsisinde göster",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Dil",
    "settings.app.form.minimizeToSystemTray" : "Franz'ı sistem tepsisine küçült",
    "settings.app.form.runInBackground" : "Pencereyi kapatırken Franz'ı arka planda tut",

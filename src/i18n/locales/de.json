@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Hardwarebeschleunigung aktivieren",
    "settings.app.form.enableSpellchecking" : "Rechtschreibprüfung aktivieren",
    "settings.app.form.enableSystemTray" : "Franz im Infobereich anzeigen",
+   "settings.app.form.enableTodos" : "Franz Todos aktivieren",
    "settings.app.form.language" : "Sprache",
    "settings.app.form.minimizeToSystemTray" : "Franz in den Infobereich minimieren",
    "settings.app.form.runInBackground" : "Franz im Hintergrund behalten, wenn das Fenster geschlossen wird",

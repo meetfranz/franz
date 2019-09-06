@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableSpellchecking" : "Omogući provjeru pravopisa",
    "settings.app.form.enableSystemTray" : "Prikaži aplikaciju u sustavskoj traci",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Jezik",
    "settings.app.form.minimizeToSystemTray" : "Smanji Franca u sustavsku traku",
    "settings.app.form.runInBackground" : "Neka se Franc održava u pozadini i ako je prozor zatvoren",

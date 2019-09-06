@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Enable GPU Acceleration",
    "settings.app.form.enableSpellchecking" : "Enable spell checking",
    "settings.app.form.enableSystemTray" : "აჩვენეთ Franz სისტემის უჯრაში",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "ენა",
    "settings.app.form.minimizeToSystemTray" : "ჩაკეცეთ Franz სისტემის უჯრაში",
    "settings.app.form.runInBackground" : "დატოვეთ Franz გაშვებული როდესაც ფანჯარა დაიხურება",

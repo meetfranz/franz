@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Schakel videokaart-acceleratie in ",
    "settings.app.form.enableSpellchecking" : "Zet spellingcontrole aan",
    "settings.app.form.enableSystemTray" : "Pictogram voor Franz in systeemvak tonen",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Taal",
    "settings.app.form.minimizeToSystemTray" : "Minimaliseer Franz naar systeemvak",
    "settings.app.form.runInBackground" : "Houd Franz open op de achtergrond wanneer het venster gesloten wordt",

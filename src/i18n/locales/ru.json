@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Включить ускорение GPU",
    "settings.app.form.enableSpellchecking" : "Включить проверку правописания",
    "settings.app.form.enableSystemTray" : "Показывать Franz в системном трее",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Язык",
    "settings.app.form.minimizeToSystemTray" : "Сворачивать Franz в системный трей",
    "settings.app.form.runInBackground" : "Оставлять Franz в фоне при закрытии окна",

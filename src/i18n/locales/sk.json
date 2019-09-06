@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Zapnúť GPU zrýchlenie",
    "settings.app.form.enableSpellchecking" : "Zapnúť kontrolu pravopisu",
    "settings.app.form.enableSystemTray" : "Zobrazovať Franz v systémovej lište",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Jazyk",
    "settings.app.form.minimizeToSystemTray" : "Minimalizovať Franz do systémovej lišty",
    "settings.app.form.runInBackground" : "Po zatvorení okna ponechať Franz spustený na pozadí",

@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Ввімкнути прискорення GPU",
    "settings.app.form.enableSpellchecking" : "Увімкнути перевірку орфографії",
    "settings.app.form.enableSystemTray" : "Показувати Franz у системному лотку",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Мова",
    "settings.app.form.minimizeToSystemTray" : "Мінімізувати Franz до системного лотка",
    "settings.app.form.runInBackground" : "Тримати Franz в фоні при закритті вікна",

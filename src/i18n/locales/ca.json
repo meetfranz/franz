@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Activar acceleració GPU",
    "settings.app.form.enableSpellchecking" : "Habilita la comprobació ortogràfica",
    "settings.app.form.enableSystemTray" : "Mostra Franz a la safata del sistema",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Idioma",
    "settings.app.form.minimizeToSystemTray" : "Minimitza Franz a la safata del sistema",
    "settings.app.form.runInBackground" : "Mantén a Franz en segon pla en tancar la finestra",

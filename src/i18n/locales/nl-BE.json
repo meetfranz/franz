@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "GPU Acceleratie Activeren",
    "settings.app.form.enableSpellchecking" : "Spellingcontrole inschakelen",
    "settings.app.form.enableSystemTray" : "Toon Franz in de systeembalk",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Taal",
    "settings.app.form.minimizeToSystemTray" : "Minimaliseer Franz naar de systeembalk",
    "settings.app.form.runInBackground" : "Houd Franz op de achtergrond wanneer het venster gesloten wordt",

@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Ενεργοποιήση Ενίσχυσης GPU ",
    "settings.app.form.enableSpellchecking" : "Ενεργοποίηση ορθογραφικού ελέγχου",
    "settings.app.form.enableSystemTray" : "Εμφάνιση του Franz στη γραμμή ειδοποιήσεων",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Γλώσσα",
    "settings.app.form.minimizeToSystemTray" : "Ελαχιστοποίηση του Franz στη γραμμή ειδοποιήσεων",
    "settings.app.form.runInBackground" : "Κρατήστε το Franz στο παρασκήνιο κατά το κλείσιμο του παραθύρου",

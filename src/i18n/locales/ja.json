@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "GPUアクセラレーションを有効にする",
    "settings.app.form.enableSpellchecking" : "スペルチェックを有効にする",
    "settings.app.form.enableSystemTray" : "Franzをシステムトレイに表示する",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "言語",
    "settings.app.form.minimizeToSystemTray" : "Franzをシステムトレイに最小化する",
    "settings.app.form.runInBackground" : "ウインドウを閉じた際にFranzをバックグラウンドで実行させておく",

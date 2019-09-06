@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Hardveres gyorsítás engedélyezése",
    "settings.app.form.enableSpellchecking" : "Helyesírás-ellenőrzés engedélyezése",
    "settings.app.form.enableSystemTray" : "Franz mutatása a tálcán",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Nyelv",
    "settings.app.form.minimizeToSystemTray" : "Franz kicsinyítése a tálcára",
    "settings.app.form.runInBackground" : "Franz fusson a háttérben az ablak bezárásakor",

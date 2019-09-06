@@ -206,6 +206,7 @@
    "settings.app.form.enableGPUAcceleration" : "Cumasaigh luasghéarú APG",
    "settings.app.form.enableSpellchecking" : "Cumasaigh seiceáil litrithe",
    "settings.app.form.enableSystemTray" : "Taispeáin Franz i dtráidire an chórais",
+   "settings.app.form.enableTodos" : "Enable Franz Todos",
    "settings.app.form.language" : "Teanga",
    "settings.app.form.minimizeToSystemTray" : "Íoslaghdaigh Franz chuig tráidire an chórais",
    "settings.app.form.runInBackground" : "Coimeád Franz sa chúlra nuair a dhúntar an fhuinneog",
