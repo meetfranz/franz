@@ -29,10 +29,13 @@ export default class TodoStore extends FeatureStore {
     return width < TODOS_MIN_WIDTH ? TODOS_MIN_WIDTH : width;
   }
 
-  @computed get isTodosPanelVisible() {
-    if (delayAppState.isDelayAppScreenVisible) return false;
-    if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
+  @computed get isTodosPanelForceHidden() {
+    const { isAnnouncementShown } = this.stores.announcements;
+    return delayAppState.isDelayAppScreenVisible || isAnnouncementShown;
+  }
 
+  @computed get isTodosPanelVisible() {
+    if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
     return this.settings.isTodosPanelVisible;
   }
 
@@ -61,6 +64,7 @@ export default class TodoStore extends FeatureStore {
 
     this._allReactions = createReactions([
       this._setFeatureEnabledReaction,
+      this._updateTodosConfig,
       this._firstLaunchReaction,
     ]);
 
@@ -124,11 +128,16 @@ export default class TodoStore extends FeatureStore {
   // Todos client message handlers
 
   _onTodosClientInitialized = () => {
+    const { authToken } = this.stores.user;
+    const { isDarkThemeActive } = this.stores.ui;
+    const { locale } = this.stores.app;
+    if (!this.webview) return;
     this.webview.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
       data: {
-        authToken: this.stores.user.authToken,
-        theme: this.stores.ui.isDarkThemeActive ? ThemeType.dark : ThemeType.default,
+        authToken,
+        locale,
+        theme: isDarkThemeActive ? ThemeType.dark : ThemeType.default,
       },
     });
   };
@@ -146,6 +155,11 @@ export default class TodoStore extends FeatureStore {
     const { isTodosEnabled } = this.stores.features.features;
 
     this.isFeatureEnabled = isTodosEnabled;
+  };
+
+  _updateTodosConfig = () => {
+    // Resend the config if any part changes in Franz:
+    this._onTodosClientInitialized();
   };
 
   _firstLaunchReaction = () => {

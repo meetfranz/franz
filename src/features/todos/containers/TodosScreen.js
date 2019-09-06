@@ -11,7 +11,7 @@ import { todoActions } from '../actions';
 @inject('stores', 'actions') @observer
 class TodosScreen extends Component {
   render() {
-    if (!todosStore || !todosStore.isFeatureActive) {
+    if (!todosStore || !todosStore.isFeatureActive || todosStore.isTodosPanelForceHidden) {
       return null;
     }
 

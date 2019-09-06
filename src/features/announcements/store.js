@@ -63,6 +63,11 @@ export class AnnouncementsStore extends FeatureStore {
     return this.stores.settings.stats.appStarts <= 1;
   }
 
+  @computed get isAnnouncementShown() {
+    const { router } = this.stores;
+    return router.location.pathname.includes('/announcements');
+  }
+
   async start(stores, actions) {
     debug('AnnouncementsStore::start');
     this.stores = stores;
