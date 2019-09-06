@@ -4,7 +4,7 @@
 
 # Ferdi 
 
-👛 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
+🤴🏽 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
 
 ## Features
 - [x] Removes the fullscreen app delay inviting users to upgrade
