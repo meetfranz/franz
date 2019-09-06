@@ -10,11 +10,19 @@ import Appear from '../../ui/effects/Appear';
 const messages = defineMessages({
   welcome: {
     id: 'services.welcome',
-    defaultMessage: '!!!Welcome to Franz',
+    defaultMessage: '!!!Welcome to Ferdi',
   },
   getStarted: {
     id: 'services.getStarted',
     defaultMessage: '!!!Get started',
+  },
+  login: {
+    id: 'services.login',
+    defaultMessage: '!!!Please login to use Ferdi.',
+  },
+  serverInfo: {
+    id: 'services.serverInfo',
+    defaultMessage: '!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.',
   },
 });
 
@@ -50,6 +58,7 @@ export default @observer class Services extends Component {
       update,
     } = this.props;
     const { intl } = this.context;
+    const isLoggedIn = Boolean(localStorage.getItem('authToken'));
 
     return (
       <div className="services">
@@ -59,14 +68,20 @@ export default @observer class Services extends Component {
             transitionName="slideUp"
           >
             <div className="services__no-service">
-              <img src="./assets/images/logo.svg" alt="" />
+              <img src="./assets/images/logo.svg" alt="Logo" style={{ maxHeight: '50vh' }} />
               <h1>{intl.formatMessage(messages.welcome)}</h1>
+              { !isLoggedIn && (
+                <>
+                  <p>{intl.formatMessage(messages.login)}</p>
+                  <p>{intl.formatMessage(messages.serverInfo)}</p>
+                </>
+              ) }
               <Appear
                 timeout={300}
                 transitionName="slideUp"
               >
-                <Link to="/settings/recipes" className="button">
-                  {intl.formatMessage(messages.getStarted)}
+                <Link to={isLoggedIn ? '/settings/services' : '/auth/welcome'} className="button">
+                  { isLoggedIn ? intl.formatMessage(messages.getStarted) : 'Login' }
                 </Link>
               </Appear>
             </div>

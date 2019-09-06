@@ -1,7 +1,7 @@
 [
   {
     "id": "services.welcome",
-    "defaultMessage": "!!!Welcome to Franz",
+    "defaultMessage": "!!!Welcome to Ferdi",
     "file": "src/components/services/content/Services.js",
     "start": {
       "line": 11,
@@ -22,6 +22,32 @@
     },
     "end": {
       "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "services.login",
+    "defaultMessage": "!!!Please login to use Ferdi.",
+    "file": "src/components/services/content/Services.js",
+    "start": {
+      "line": 19,
+      "column": 9
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "services.serverInfo",
+    "defaultMessage": "!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.",
+    "file": "src/components/services/content/Services.js",
+    "start": {
+      "line": 23,
+      "column": 14
+    },
+    "end": {
+      "line": 26,
       "column": 3
     }
   }

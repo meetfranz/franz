@@ -20,7 +20,7 @@ export function resetState() {
 export default function initialize() {
   debug('Initialize basicAuth feature');
 
-  window.franz.features.basicAuth = {
+  window.ferdi.features.basicAuth = {
     state,
   };
 

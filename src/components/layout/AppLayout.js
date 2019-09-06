@@ -34,6 +34,10 @@ const messages = defineMessages({
     id: 'infobar.requiredRequestsFailed',
     defaultMessage: '!!!Could not load services and user information',
   },
+  authRequestFailed: {
+    id: 'infobar.authRequestFailed',
+    defaultMessage: '!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.',
+  },
 });
 
 const styles = theme => ({
@@ -60,6 +64,7 @@ class AppLayout extends Component {
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
     nextAppReleaseVersion: PropTypes.string,
+    authRequestFailed: PropTypes.bool.isRequired,
     removeNewsItem: PropTypes.func.isRequired,
     reloadServicesAfterUpdate: PropTypes.func.isRequired,
     installAppUpdate: PropTypes.func.isRequired,
@@ -91,6 +96,7 @@ class AppLayout extends Component {
       showServicesUpdatedInfoBar,
       appUpdateIsDownloaded,
       nextAppReleaseVersion,
+      authRequestFailed,
       removeNewsItem,
       reloadServicesAfterUpdate,
       installAppUpdate,
@@ -105,7 +111,7 @@ class AppLayout extends Component {
     return (
       <ErrorBoundary>
         <div className="app">
-          {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+          {isWindows && !isFullScreen && <TitleBar menu={window.ferdi.menu.template} icon="assets/images/logo.svg" />}
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}
             {sidebar}
@@ -141,6 +147,18 @@ class AppLayout extends Component {
                 >
                   <span className="mdi mdi-flash" />
                   {intl.formatMessage(messages.requiredRequestsFailed)}
+                </InfoBar>
+              )}
+              {authRequestFailed && (
+                <InfoBar
+                  type="danger"
+                  ctaLabel="Try again"
+                  ctaLoading={areRequiredRequestsLoading}
+                  sticky
+                  onClick={retryRequiredRequests}
+                >
+                  <span className="mdi mdi-flash" />
+                  {intl.formatMessage(messages.authRequestFailed)}
                 </InfoBar>
               )}
               {showServicesUpdatedInfoBar && (

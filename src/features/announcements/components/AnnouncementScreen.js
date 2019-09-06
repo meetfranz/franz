@@ -8,7 +8,6 @@ import { Button } from '@meetfranz/forms';
 
 import { announcementsStore } from '../index';
 import UIStore from '../../../stores/UIStore';
-import { gaEvent } from '../../../lib/analytics';
 
 const renderer = new marked.Renderer();
 
@@ -19,7 +18,7 @@ const markedOptions = { sanitize: true, renderer };
 const messages = defineMessages({
   headline: {
     id: 'feature.announcements.changelog.headline',
-    defaultMessage: '!!!Changes in Franz {version}',
+    defaultMessage: '!!!Changes in Ferdi {version}',
   },
 });
 
@@ -228,9 +227,7 @@ class AnnouncementScreen extends Component {
                     <Button
                       label={announcement.main.cta.label}
                       onClick={() => {
-                        const { analytics } = announcement.main.cta;
                         window.location.href = `#${announcement.main.cta.href}`;
-                        gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
                       }}
                     />
                   </div>
@@ -253,9 +250,7 @@ class AnnouncementScreen extends Component {
                     <Button
                       label={announcement.spotlight.cta.label}
                       onClick={() => {
-                        const { analytics } = announcement.spotlight.cta;
                         window.location.href = `#${announcement.spotlight.cta.href}`;
-                        gaEvent(analytics.category, analytics.action, announcement.spotlight.cta.label);
                       }}
                     />
                   </div>

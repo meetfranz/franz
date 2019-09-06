@@ -34,6 +34,14 @@ const messages = defineMessages({
     id: 'login.invalidCredentials',
     defaultMessage: '!!!Email or password not valid',
   },
+  customServerQuestion: {
+    id: 'login.customServerQuestion',
+    defaultMessage: '!!!Using a custom Ferdi server?',
+  },
+  customServerSuggestion: {
+    id: 'login.customServerSuggestion',
+    defaultMessage: '!!!Try importing your Franz account',
+  },
   tokenExpired: {
     id: 'login.tokenExpired',
     defaultMessage: '!!!Your session expired, please login again.',
@@ -137,7 +145,22 @@ export default @observer class Login extends Component {
             showPasswordToggle
           />
           {error.code === 'invalid-credentials' && (
-            <p className="error-message center">{intl.formatMessage(messages.invalidCredentials)}</p>
+            <>
+              <p className="error-message center">{intl.formatMessage(messages.invalidCredentials)}</p>
+              { window.ferdi.stores.settings.all.app.server !== 'https://api.franzinfra.com' && (
+                <p className="error-message center">
+                    {intl.formatMessage(messages.customServerQuestion)}
+                  {' '}
+                  <Link
+                    to={`${window.ferdi.stores.settings.all.app.server.replace('v1', '')}/import`}
+                    target="_blank"
+                    style={{ cursor: 'pointer', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.customServerSuggestion)}
+                  </Link>
+                </p>
+              )}
+            </>
           )}
           {isSubmitting ? (
             <Button
@@ -156,6 +179,7 @@ export default @observer class Login extends Component {
           )}
         </form>
         <div className="auth__links">
+          <Link to="/settings/app">Change server</Link>
           <Link to={signupRoute}>{intl.formatMessage(messages.signupLink)}</Link>
           <Link to={passwordRoute}>{intl.formatMessage(messages.passwordLink)}</Link>
         </div>

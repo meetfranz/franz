@@ -3,7 +3,7 @@ import { remote } from 'electron';
 
 // import ServiceModel from '../models/Service';
 
-const app = remote.app;
+const { app } = remote;
 
 export function getRecipeDirectory(id = '') {
   return path.join(app.getPath('userData'), 'recipes', id);

@@ -1,7 +1,7 @@
 [
   {
     "id": "infobar.updateAvailable",
-    "defaultMessage": "!!!A new update for Franz is available.",
+    "defaultMessage": "!!!A new update for Ferdi is available.",
     "file": "src/components/AppUpdateInfoBar.js",
     "start": {
       "line": 9,

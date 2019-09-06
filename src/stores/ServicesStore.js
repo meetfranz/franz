@@ -4,14 +4,13 @@ import {
   computed,
   observable,
 } from 'mobx';
-import { debounce, remove } from 'lodash';
+import { remove } from 'lodash';
 import ms from 'ms';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 
 const debug = require('debug')('Franz:ServiceStore');
@@ -173,7 +172,6 @@ export default class ServicesStore extends Store {
 
     if (redirect) {
       this.stores.router.push('/settings/recipes');
-      gaEvent('Service', 'create', recipeId);
     }
   }
 
@@ -250,7 +248,6 @@ export default class ServicesStore extends Store {
 
     if (redirect) {
       this.stores.router.push('/settings/services');
-      gaEvent('Service', 'update', service.recipe.id);
     }
   }
 
@@ -265,19 +262,14 @@ export default class ServicesStore extends Store {
       remove(result, c => c.id === serviceId);
     });
 
-    const service = this.one(serviceId);
-
     await request._promise;
     this.actionStatus = request.result.status;
-
-    gaEvent('Service', 'delete', service.recipe.id);
   }
 
   @action async _clearCache({ serviceId }) {
     this.clearCacheRequest.reset();
     const request = this.clearCacheRequest.execute(serviceId);
     await request._promise;
-    gaEvent('Service', 'clear cache');
   }
 
   @action _setActive({ serviceId, keepActiveRoute }) {
@@ -288,8 +280,6 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
-
-    statsEvent('activate-service', service.recipe.id);
 
     this._focusActiveService();
   }
@@ -393,7 +383,7 @@ export default class ServicesStore extends Store {
         },
       });
     } else if (channel === 'notification') {
-      const options = args[0].options;
+      const { options } = args[0];
       if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
         Object.assign(options, {
           silent: true,
@@ -517,7 +507,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _reorderService({ oldIndex, newIndex }) {
-    const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
+    const { showDisabledServices } = this.stores.settings.all.app;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
 
@@ -536,8 +526,6 @@ export default class ServicesStore extends Store {
         service.order = services[s.id];
       });
     });
-
-    this._reorderAnalytics();
   }
 
   @action _toggleNotifications({ serviceId }) {
@@ -613,8 +601,8 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
-    const showMessageBadgeWhenMuted = this.stores.settings.all.app.showMessageBadgeWhenMuted;
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+    const { showMessageBadgeWhenMuted } = this.stores.settings.all.app;
+    const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     const unreadDirectMessageCount = this.allDisplayed
       .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
@@ -709,10 +697,6 @@ export default class ServicesStore extends Store {
       loop();
     }
   }
-
-  _reorderAnalytics = debounce(() => {
-    gaEvent('Service', 'order');
-  }, ms('5s'));
 
   _wrapIndex(index, delta, size) {
     return (((index + delta) % size) + size) % size;

@@ -111,7 +111,7 @@
 * **App:** Add security checks for external URLs ([6e5531a](https://github.com/meetfranz/franz/commit/6e5531a))
 * **Linux:** Add auto updater for Linux AppImage builds ([d641b4e](https://github.com/meetfranz/franz/commit/d641b4e))
 * **Spell check:** Add British English as spell check language ([#1306](https://github.com/meetfranz/franz/issues/1306)) ([67fa325](https://github.com/meetfranz/franz/commit/67fa325))
-* **Windows:** Add option to quit Franz from Taskbar icon ([952fc8b](https://github.com/meetfranz/franz/commit/952fc8b))
+* **Windows:** Add option to quit Ferdi from Taskbar icon ([952fc8b](https://github.com/meetfranz/franz/commit/952fc8b))
 
 ### Bug Fixes
 
@@ -120,7 +120,7 @@
 * **Service:** Fix service zoom (cmd/ctrl+ & cmd/ctrl-) ([91a0f59](https://github.com/meetfranz/franz/commit/91a0f59))
 * **Service:** Fix shortcut for (un)muting notifications & audio ([1df3342](https://github.com/meetfranz/franz/commit/1df3342))
 * **Windows:** Fix copy & paste in service context menus ([e66fcaa](https://github.com/meetfranz/franz/commit/e66fcaa)), closes [#1316](https://github.com/meetfranz/franz/issues/1316)
-* **Windows:** Fix losing window when "Keep Franz in background" is enabled ([78a3722](https://github.com/meetfranz/franz/commit/78a3722))
+* **Windows:** Fix losing window when "Keep Ferdi in background" is enabled ([78a3722](https://github.com/meetfranz/franz/commit/78a3722))
 
 ### General
 
@@ -137,7 +137,7 @@
 ### Features
 
 * **Spellchecker:** Add automatic spellcheck language detection ([a5e7171](https://github.com/meetfranz/franz/commit/a5e7171))
-* **Windows:** Add option to quit Franz from Taskbar ([8808601](https://github.com/meetfranz/franz/commit/8808601))
+* **Windows:** Add option to quit Ferdi from Taskbar ([8808601](https://github.com/meetfranz/franz/commit/8808601))
 
 ### Bug Fixes
 
@@ -219,7 +219,7 @@
 
 ### Features
 
-* **Windows:** Add taskbar action to reset Franz window ([08fa75a](https://github.com/meetfranz/franz/commit/08fa75a))
+* **Windows:** Add taskbar action to reset Ferdi window ([08fa75a](https://github.com/meetfranz/franz/commit/08fa75a))
 * **Context Menu:** Add "Go Back" and "Go Forward" ([5c18595](https://github.com/meetfranz/franz/commit/5c18595))
 * **Context Menu:** Add Lookup, Search Google for ([5d5aa0c](https://github.com/meetfranz/franz/commit/5d5aa0c))
 * **App:** Add `--devtools` command line arg to automatically open Dev Tools ([84fc3a0](https://github.com/meetfranz/franz/commit/84fc3a0))
@@ -314,7 +314,7 @@
 
 * **App:** Fix memory leak in recipe polling loop ([c99848f](https://github.com/meetfranz/franz/commit/c99848f))
 * **App:** Fix validation for side-by-side teamId & customURL ([bd51150](https://github.com/meetfranz/franz/commit/bd51150))
-* **App:** Reload Franz instead of all services one by one on sleep resume ([4e5f7af](https://github.com/meetfranz/franz/commit/4e5f7af))
+* **App:** Reload Ferdi instead of all services one by one on sleep resume ([4e5f7af](https://github.com/meetfranz/franz/commit/4e5f7af))
 * **App:** Fix toggle buttons shown during import ([1220e2c](https://github.com/meetfranz/franz/commit/1220e2c))
 fix(App): Bugfix Fix memory leak in recipe polling loop
 * **App:** Fix invite screen [object Object] values ([81c4e99](https://github.com/meetfranz/franz/commit/81c4e99))
@@ -413,8 +413,8 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 ### Bug Fixes
 
 * **App:** Add checks to service url validation to prevent app freeze  ([db8515f](https://github.com/meetfranz/franz/commit/db8515f))
-* **macOS:** Fix disable launch Franz on start ([34bba09](https://github.com/meetfranz/franz/commit/34bba09))
-* **Windows:** Launch Franz on start when selected ([34bba09](https://github.com/meetfranz/franz/commit/34bba09))
+* **macOS:** Fix disable launch Ferdi on start ([34bba09](https://github.com/meetfranz/franz/commit/34bba09))
+* **Windows:** Launch Ferdi on start when selected ([34bba09](https://github.com/meetfranz/franz/commit/34bba09))
 * **Onboarding:** Fix issue with import of on-premise services ([7c7d27d](https://github.com/meetfranz/franz/commit/7c7d27d))
 * **Shortcuts:** Flip shortcut to navigate to next/previous service ([37d5923](https://github.com/meetfranz/franz/commit/37d5923))
 * **Windows:** Open Window when app is pinned to taskbar and minimized to system tray ([777814a](https://github.com/meetfranz/franz/commit/777814a))
@@ -444,10 +444,10 @@ e58f558)) ([GustavoKatel](https://github.com/GustavoKatel))
 
 ### Bug Fixes
 
-* **App:** Force Franz to use single window ([2ae409e](https://github.com/meetfranz/franz/commit/2ae409e))
+* **App:** Force Ferdi to use single window ([2ae409e](https://github.com/meetfranz/franz/commit/2ae409e))
 * **Onboarding:** Fix enable/disable service import toggle ([23174f9](https://github.com/meetfranz/franz/commit/23174f9))
 * **Onboarding:** Fix service import ([99d1c01](https://github.com/meetfranz/franz/commit/99d1c01))
 * **Payment:** Fix payment window when name contains special character ([a854614](https://github.com/meetfranz/franz/commit/a854614))
 * **macOS:** Add macOS dark theme system tray icon ([55805f1](https://github.com/meetfranz/franz/commit/55805f1))
 * **Windows:** Fix enable/disable autostart on login ([eca7f3b](https://github.com/meetfranz/franz/commit/eca7f3b))
-* **Windows:** Fix multiple system tray icons when opening/closing Franz ([5b9b0c7](https://github.com/meetfranz/franz/commit/5b9b0c7))
+* **Windows:** Fix multiple system tray icons when opening/closing Ferdi ([5b9b0c7](https://github.com/meetfranz/franz/commit/5b9b0c7))

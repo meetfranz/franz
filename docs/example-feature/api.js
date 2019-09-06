@@ -1,5 +1,5 @@
 export default {
   async getName() {
-    return Promise.resolve('Franz');
+    return Promise.resolve('Ferdi');
   },
 };

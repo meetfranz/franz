@@ -12,7 +12,7 @@ import SubscriptionForm from '../../containers/subscription/SubscriptionFormScre
 const messages = defineMessages({
   headline: {
     id: 'pricing.headline',
-    defaultMessage: '!!!Support Franz',
+    defaultMessage: '!!!Support Ferdi',
   },
   monthlySupportLabel: {
     id: 'pricing.support.label',
@@ -20,11 +20,11 @@ const messages = defineMessages({
   },
   submitButtonLabel: {
     id: 'pricing.submit.label',
-    defaultMessage: '!!!Support the development of Franz',
+    defaultMessage: '!!!Support the development of Ferdi',
   },
   skipPayment: {
     id: 'pricing.link.skipPayment',
-    defaultMessage: '!!!I don\'t want to support the development of Franz.',
+    defaultMessage: '!!!I don\'t want to support the development of Ferdi.',
   },
 });
 
@@ -54,7 +54,7 @@ export default @observer class Signup extends Component {
     return (
       <div className="auth__scroll-container">
         <div className="auth__container auth__container--signup">
-          <form className="franz-form auth__form">
+          <form className="Ferdi-form auth__form">
             <img
               src="./assets/images/sm.png"
               className="auth__logo auth__logo--sm"
@@ -97,12 +97,12 @@ export default @observer class Signup extends Component {
                 ) : (
                   <span>
                     <p>
-                      We built Franz with a lot of effort, manpower and love,
+                      We built Ferdi with a lot of effort, manpower and love,
                       to bring you the best messaging experience.
                       <br />
                     </p>
                     <p>
-                      Getting a Franz Premium Supporter License will allow us to keep improving Franz for you.
+                      Getting a Ferdi Premium Supporter License will allow us to keep improving Ferdi for you.
                     </p>
                   </span>
                 )

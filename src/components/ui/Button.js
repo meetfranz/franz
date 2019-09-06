@@ -69,7 +69,7 @@ export default @observer class Button extends Component {
           loaded={loaded}
           lines={10}
           scale={0.4}
-          color={buttonType !== 'secondary' ? '#FFF' : '#373a3c'}
+          color={buttonType !== 'secondary' ? '#FFF' : '#7367F0'}
           component="span"
         />
         {label}

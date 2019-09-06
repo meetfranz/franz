@@ -18,7 +18,6 @@ import apiFactory from './api';
 import actions from './actions';
 import MenuFactory from './lib/Menu';
 import TouchBarFactory from './lib/TouchBar';
-import * as analytics from './lib/analytics';
 
 import I18N from './I18n';
 import AppLayoutContainer from './containers/layout/AppLayoutContainer';
@@ -54,20 +53,20 @@ webFrame.setVisualZoomLevelLimits(1, 1);
 webFrame.setLayoutZoomLevelLimits(0, 0);
 
 window.addEventListener('load', () => {
-  const api = apiFactory(new ServerApi(), new LocalApi());
+  const serverApi = new ServerApi();
+  const api = apiFactory(serverApi, new LocalApi());
   const router = new RouterStore();
-  const history = syncHistoryWithStore(hashHistory, router);
   const stores = storeFactory(api, actions, router);
+  const history = syncHistoryWithStore(hashHistory, router);
   const menu = new MenuFactory(stores, actions);
   const touchBar = new TouchBarFactory(stores, actions);
 
-  window.franz = {
+  window.ferdi = {
     stores,
     actions,
     api,
     menu,
     touchBar,
-    analytics,
     features: {},
     render() {
       const preparedApp = (
@@ -114,7 +113,7 @@ window.addEventListener('load', () => {
       render(preparedApp, document.getElementById('root'));
     },
   };
-  window.franz.render();
+  window.ferdi.render();
 });
 
 // Prevent drag and drop into window from redirecting

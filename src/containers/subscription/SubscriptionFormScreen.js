@@ -49,7 +49,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
         const paymentWindow = new BrowserWindow({
           parent: remote.getCurrentWindow(),
           modal: true,
-          title: '🔒 Franz Supporter License',
+          title: '🔒 Ferdi Supporter License',
           width: 600,
           height: window.innerHeight - 100,
           maxWidth: 600,

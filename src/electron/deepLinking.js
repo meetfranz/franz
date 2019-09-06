@@ -1,5 +1,5 @@
 export default function handleDeepLink(window, rawUrl) {
-  const url = rawUrl.replace('franz://', '');
+  const url = rawUrl.replace('ferdi://', '');
 
   if (!url) return;
 

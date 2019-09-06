@@ -1,7 +1,7 @@
 [
   {
     "id": "import.headline",
-    "defaultMessage": "!!!Import your Franz 4 services",
+    "defaultMessage": "!!!Import your Ferdi 4 services",
     "file": "src/components/auth/Import.js",
     "start": {
       "line": 13,
@@ -14,7 +14,7 @@
   },
   {
     "id": "import.notSupportedHeadline",
-    "defaultMessage": "!!!Services not yet supported in Franz 5",
+    "defaultMessage": "!!!Services not yet supported in Ferdi 5",
     "file": "src/components/auth/Import.js",
     "start": {
       "line": 17,

@@ -9,7 +9,6 @@ import { oneOrManyChildElements } from '../../../prop-types';
 import UserStore from '../../../stores/UserStore';
 
 import styles from './styles';
-import { gaEvent } from '../../../lib/analytics';
 
 const messages = defineMessages({
   action: {
@@ -46,7 +45,6 @@ class PremiumFeatureContainer extends Component {
       actions,
       condition,
       stores,
-      gaEventInfo,
     } = this.props;
 
     const { intl } = this.context;
@@ -60,10 +58,6 @@ class PremiumFeatureContainer extends Component {
             type="button"
             onClick={() => {
               actions.ui.openSettings({ path: 'user' });
-              if (gaEventInfo) {
-                const { category, event, label } = gaEventInfo;
-                gaEvent(category, event, label);
-              }
             }}
           >
             {intl.formatMessage(messages.action)}

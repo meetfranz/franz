@@ -1,7 +1,7 @@
 [
   {
     "id": "global.api.unhealthy",
-    "defaultMessage": "!!!Can't connect to Franz Online Services",
+    "defaultMessage": "!!!Can't connect to Ferdi Online Services",
     "file": "src/i18n/globalMessages.js",
     "start": {
       "line": 4,

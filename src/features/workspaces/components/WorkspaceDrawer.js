@@ -9,8 +9,7 @@ import ReactTooltip from 'react-tooltip';
 
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
-import { gaEvent } from '../../../lib/analytics';
+import { workspaceStore } from '../index';
 
 const messages = defineMessages({
   headline: {
@@ -154,7 +153,6 @@ class WorkspaceDrawer extends Component {
             className={classes.workspacesSettingsButton}
             onClick={() => {
               workspaceActions.openWorkspaceSettings();
-              gaEvent(GA_CATEGORY_WORKSPACES, 'settings', 'drawerHeadline');
             }}
             data-tip={`${intl.formatMessage(messages.workspacesSettingsTooltip)}`}
           >
@@ -176,7 +174,6 @@ class WorkspaceDrawer extends Component {
                 icon="mdiStar"
                 onClick={() => {
                   onUpgradeAccountClick();
-                  gaEvent('User', 'upgrade', 'workspaceDrawer');
                 }}
               />
             ) : (
@@ -187,7 +184,6 @@ class WorkspaceDrawer extends Component {
                 icon="mdiPlusBox"
                 onClick={() => {
                   workspaceActions.openWorkspaceSettings();
-                  gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerPremiumCta');
                 }}
               />
             )}
@@ -199,7 +195,6 @@ class WorkspaceDrawer extends Component {
               onClick={() => {
                 workspaceActions.deactivate();
                 workspaceActions.toggleWorkspaceDrawer();
-                gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
               }}
               services={getServicesForWorkspace(null)}
               isActive={actualWorkspace == null}
@@ -213,7 +208,6 @@ class WorkspaceDrawer extends Component {
                   if (actualWorkspace === workspace) return;
                   workspaceActions.activate({ workspace });
                   workspaceActions.toggleWorkspaceDrawer();
-                  gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'drawer');
                 }}
                 onContextMenuEditClick={() => workspaceActions.edit({ workspace })}
                 services={getServicesForWorkspace(workspace)}
@@ -223,7 +217,6 @@ class WorkspaceDrawer extends Component {
               className={classes.addNewWorkspaceLabel}
               onClick={() => {
                 workspaceActions.openWorkspaceSettings();
-                gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerAddLabel');
               }}
             >
               <Icon

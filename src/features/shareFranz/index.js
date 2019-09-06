@@ -2,7 +2,6 @@ import { observable, reaction } from 'mobx';
 import ms from 'ms';
 
 import { state as delayAppState } from '../delayApp';
-import { gaEvent, gaPage } from '../../lib/analytics';
 
 export { default as Component } from './Component';
 
@@ -16,19 +15,16 @@ const defaultState = {
 export const state = observable(defaultState);
 
 export default function initialize(stores) {
-  debug('Initialize shareFranz feature');
+  debug('Initialize shareFerdi feature');
 
-  window.franz.features.shareFranz = {
+  window.ferdi.features.shareFerdi = {
     state,
   };
 
   function showModal() {
-    debug('Showing share window');
+    debug('Would have showed share window');
 
-    state.isModalVisible = true;
-
-    gaEvent('Share Franz', 'show');
-    gaPage('/share-modal');
+    // state.isModalVisible = true;
   }
 
   reaction(

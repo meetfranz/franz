@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Delete workspace",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 19,
+      "line": 17,
       "column": 16
     },
     "end": {
-      "line": 22,
+      "line": 20,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Save workspace",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 23,
+      "line": 21,
       "column": 14
     },
     "end": {
-      "line": 26,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Name",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 27,
+      "line": 25,
       "column": 8
     },
     "end": {
-      "line": 30,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Your workspaces",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 31,
+      "line": 29,
       "column": 18
     },
     "end": {
-      "line": 34,
+      "line": 32,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Services in this Workspace",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 35,
+      "line": 33,
       "column": 31
     },
     "end": {
-      "line": 38,
+      "line": 36,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!You haven't added any services yet.",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 39,
+      "line": 37,
       "column": 19
     },
     "end": {
-      "line": 42,
+      "line": 40,
       "column": 3
     }
   },
@@ -82,11 +82,11 @@
     "defaultMessage": "!!!Discover services",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 43,
+      "line": 41,
       "column": 20
     },
     "end": {
-      "line": 46,
+      "line": 44,
       "column": 3
     }
   }

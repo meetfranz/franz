@@ -6,7 +6,7 @@
 ### Motivation and Context
 <!---
 * Why is this change required?
-* How is this improving the Franz experience?
+* How is this improving the Ferdi experience?
 * What problem does it solve?
 -->
 

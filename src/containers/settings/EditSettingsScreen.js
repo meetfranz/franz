@@ -16,12 +16,14 @@ import { getSelectOptions } from '../../helpers/i18n-helpers';
 import EditSettingsForm from '../../components/settings/settings/EditSettingsForm';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
+import { API } from '../../environment';
+
 import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
     id: 'settings.app.form.autoLaunchOnStart',
-    defaultMessage: '!!!Launch Franz on start',
+    defaultMessage: '!!!Launch Ferdi on start',
   },
   autoLaunchInBackground: {
     id: 'settings.app.form.autoLaunchInBackground',
@@ -29,15 +31,19 @@ const messages = defineMessages({
   },
   runInBackground: {
     id: 'settings.app.form.runInBackground',
-    defaultMessage: '!!!Keep Franz in background when closing the window',
+    defaultMessage: '!!!Keep Ferdi in background when closing the window',
   },
   enableSystemTray: {
     id: 'settings.app.form.enableSystemTray',
-    defaultMessage: '!!!Show Franz in system tray',
+    defaultMessage: '!!!Show Ferdi in system tray',
   },
   minimizeToSystemTray: {
     id: 'settings.app.form.minimizeToSystemTray',
-    defaultMessage: '!!!Minimize Franz to system tray',
+    defaultMessage: '!!!Minimize Ferdi to system tray',
+  },
+  server: {
+    id: 'settings.app.form.server',
+    defaultMessage: '!!!Server',
   },
   language: {
     id: 'settings.app.form.language',
@@ -88,6 +94,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        server: settingsData.server,
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         darkMode: settingsData.darkMode,
@@ -146,6 +153,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.minimizeToSystemTray),
           value: settings.all.app.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+        },
+        server: {
+          label: intl.formatMessage(messages.server),
+          value: settings.all.app.server || API,
+          default: API,
         },
         showDisabledServices: {
           label: intl.formatMessage(messages.showDisabledServices),

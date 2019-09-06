@@ -7,7 +7,6 @@ import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
-import { gaEvent } from '../lib/analytics';
 
 const debug = require('debug')('Franz:UserStore');
 
@@ -85,7 +84,7 @@ export default class UserStore extends Store {
 
     // Reactions
     this.registerReactions([
-      this._requireAuthenticatedUser,
+      // this._requireAuthenticatedUser,
       this._getUserData.bind(this),
     ]);
   }
@@ -156,16 +155,12 @@ export default class UserStore extends Store {
     this._setUserData(authToken);
 
     this.stores.router.push('/');
-
-    gaEvent('User', 'login');
   }
 
   @action _tokenLogin(authToken) {
     this._setUserData(authToken);
 
     this.stores.router.push('/');
-
-    gaEvent('User', 'tokenLogin');
   }
 
   @action async _signup({
@@ -181,13 +176,11 @@ export default class UserStore extends Store {
       locale: this.stores.app.locale,
     });
 
-    this.hasCompletedSignup = false;
+    this.hasCompletedSignup = true;
 
     this._setUserData(authToken);
 
-    this.stores.router.push(this.PRICING_ROUTE);
-
-    gaEvent('User', 'signup');
+    this.stores.router.push('/');
   }
 
   @action async _retrievePassword({ email }) {
@@ -195,8 +188,6 @@ export default class UserStore extends Store {
 
     await request._promise;
     this.actionStatus = request.result.status || [];
-
-    gaEvent('User', 'retrievePassword');
   }
 
   @action async _invite({ invites }) {
@@ -210,8 +201,6 @@ export default class UserStore extends Store {
     if (this.stores.router.location.pathname.includes(this.INVITE_ROUTE)) {
       this.stores.router.push('/');
     }
-
-    gaEvent('User', 'inviteUsers');
   }
 
   @action async _update({ userData }) {
@@ -221,8 +210,6 @@ export default class UserStore extends Store {
 
     this.getUserInfoRequest.patch(() => response.data);
     this.actionStatus = response.status || [];
-
-    gaEvent('User', 'update');
   }
 
   @action _resetStatus() {
@@ -245,12 +232,12 @@ export default class UserStore extends Store {
     const recipes = services.filter((obj, pos, arr) => arr.map(mapObj => mapObj.recipe.id).indexOf(obj.recipe.id) === pos).map(s => s.recipe.id);
 
     // Install recipes
-    for (const recipe of recipes) {
+    for (const recipe of recipes) { // eslint-disable-line no-unused-vars
       // eslint-disable-next-line
       await this.stores.recipes._install({ recipeId: recipe });
     }
 
-    for (const service of services) {
+    for (const service of services) { // eslint-disable-line no-unused-vars
       this.actions.service.createFromLegacyService({
         data: service,
       });

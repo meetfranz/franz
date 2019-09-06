@@ -1,11 +1,8 @@
 import { action, computed, observable } from 'mobx';
-import { debounce } from 'lodash';
-import ms from 'ms';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
-import { gaEvent } from '../lib/analytics';
 
 export default class RecipePreviewsStore extends Store {
   @observable allRecipePreviewsRequest = new CachedRequest(this.api.recipePreviews, 'all');
@@ -41,13 +38,6 @@ export default class RecipePreviewsStore extends Store {
   @action _search({ needle }) {
     if (needle !== '') {
       this.searchRecipePreviewsRequest.execute(needle);
-
-      this._analyticsSearch(needle);
     }
   }
-
-  // Helper
-  _analyticsSearch = debounce((needle) => {
-    gaEvent('Recipe', 'search', needle);
-  }, ms('3s'));
 }

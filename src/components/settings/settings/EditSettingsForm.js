@@ -9,6 +9,7 @@ import Button from '../../ui/Button';
 import Toggle from '../../ui/Toggle';
 import Select from '../../ui/Select';
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
+import Input from '../../ui/Input';
 
 import { FRANZ_TRANSLATION } from '../../../config';
 
@@ -20,6 +21,10 @@ const messages = defineMessages({
   headlineGeneral: {
     id: 'settings.app.headlineGeneral',
     defaultMessage: '!!!General',
+  },
+  serverInfo: {
+    id: 'settings.app.serverInfo',
+    defaultMessage: '!!!We advice you to logout after changing your server as your settings might not be saved otherwise.',
   },
   headlineLanguage: {
     id: 'settings.app.headlineLanguage',
@@ -39,7 +44,7 @@ const messages = defineMessages({
   },
   translationHelp: {
     id: 'settings.app.translationHelp',
-    defaultMessage: '!!!Help us to translate Franz into your language.',
+    defaultMessage: '!!!Help us to translate Ferdi into your language.',
   },
   subheadlineCache: {
     id: 'settings.app.subheadlineCache',
@@ -47,7 +52,7 @@ const messages = defineMessages({
   },
   cacheInfo: {
     id: 'settings.app.cacheInfo',
-    defaultMessage: '!!!Franz cache is currently using {size} of disk space.',
+    defaultMessage: '!!!Ferdi cache is currently using {size} of disk space.',
   },
   buttonClearAllCache: {
     id: 'settings.app.buttonClearAllCache',
@@ -143,6 +148,8 @@ export default @observer class EditSettingsForm extends Component {
       updateButtonLabelMessage = messages.buttonSearchForUpdate;
     }
 
+    const isLoggedIn = Boolean(localStorage.getItem('authToken'));
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -161,6 +168,15 @@ export default @observer class EditSettingsForm extends Component {
             <Toggle field={form.$('enableSystemTray')} />
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
+            )}
+            <Input
+              placeholder="Server"
+              onChange={e => this.submit(e)}
+              field={form.$('server')}
+              autoFocus
+            />
+            { isLoggedIn && (
+              <p>{ intl.formatMessage(messages.serverInfo) }</p>
             )}
 
             {/* Appearance */}
@@ -246,6 +262,16 @@ export default @observer class EditSettingsForm extends Component {
             <p className="settings__message">
               <span className="mdi mdi-information" />
               {intl.formatMessage(messages.languageDisclaimer)}
+            </p>
+            <p className="settings__message">
+              <span className="mdi mdi-github-face" />
+              Ferdi is based on
+              {' '}
+              <a href="https://github.com/meetfranz/franz" target="_blank">Franz</a>
+              , a project published
+              under the
+              {' '}
+              <a href="https://github.com/meetfranz/franz/blob/master/LICENSE" target="_blank">Apache-2.0 License</a>
             </p>
           </form>
         </div>

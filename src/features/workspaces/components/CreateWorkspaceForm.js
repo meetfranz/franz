@@ -6,8 +6,7 @@ import { Input, Button } from '@meetfranz/forms';
 import injectSheet from 'react-jss';
 import Form from '../../../lib/Form';
 import { required } from '../../../helpers/validation-helpers';
-import { gaEvent } from '../../../lib/analytics';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
+import { workspaceStore } from '../index';
 
 const messages = defineMessages({
   submitButton: {
@@ -66,7 +65,6 @@ class CreateWorkspaceForm extends Component {
         const { onSubmit } = this.props;
         const values = f.values();
         onSubmit(values);
-        gaEvent(GA_CATEGORY_WORKSPACES, 'create', values.name);
       },
     });
   }

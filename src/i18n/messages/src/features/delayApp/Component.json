@@ -4,37 +4,37 @@
     "defaultMessage": "!!!Please purchase license to skip waiting",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 15,
+      "line": 13,
       "column": 12
     },
     "end": {
-      "line": 18,
+      "line": 16,
       "column": 3
     }
   },
   {
     "id": "feature.delayApp.action",
-    "defaultMessage": "!!!Get a Franz Supporter License",
+    "defaultMessage": "!!!Get a Ferdi Supporter License",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 19,
+      "line": 17,
       "column": 10
     },
     "end": {
-      "line": 22,
+      "line": 20,
       "column": 3
     }
   },
   {
     "id": "feature.delayApp.text",
-    "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
+    "defaultMessage": "!!!Ferdi will continue in {seconds} seconds.",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 23,
+      "line": 21,
       "column": 8
     },
     "end": {
-      "line": 26,
+      "line": 24,
       "column": 3
     }
   }

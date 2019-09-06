@@ -1,7 +1,7 @@
 [
   {
     "id": "pricing.headline",
-    "defaultMessage": "!!!Support Franz",
+    "defaultMessage": "!!!Support Ferdi",
     "file": "src/components/auth/Pricing.js",
     "start": {
       "line": 13,
@@ -27,7 +27,7 @@
   },
   {
     "id": "pricing.submit.label",
-    "defaultMessage": "!!!Support the development of Franz",
+    "defaultMessage": "!!!Support the development of Ferdi",
     "file": "src/components/auth/Pricing.js",
     "start": {
       "line": 21,
@@ -40,7 +40,7 @@
   },
   {
     "id": "pricing.link.skipPayment",
-    "defaultMessage": "!!!I don't want to support the development of Franz.",
+    "defaultMessage": "!!!I don't want to support the development of Ferdi.",
     "file": "src/components/auth/Pricing.js",
     "start": {
       "line": 25,

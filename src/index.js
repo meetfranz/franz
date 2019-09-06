@@ -96,7 +96,7 @@ if (!gotTheLock) {
           } else if (argv.includes('--quit')) {
             // Needs to be delayed to not interfere with mainWindow.restore();
             setTimeout(() => {
-              debug('Quitting Franz via Task');
+              debug('Quitting Ferdi via Task');
               app.quit();
             }, 1);
           }
@@ -131,7 +131,7 @@ if (!gotTheLock) {
 // });
 
 // if (isSecondInstance) {
-//   console.log('An instance of Franz is already running. Exiting...');
+//   console.log('An instance of Ferdi is already running. Exiting...');
 //   app.exit();
 // }
 
@@ -177,7 +177,7 @@ const createWindow = () => {
     minHeight: 500,
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
-    backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
+    backgroundColor: !settings.get('darkMode') ? '#7367F0' : '#1E1E1E',
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
@@ -187,7 +187,7 @@ const createWindow = () => {
   mainWindow.webContents.on('did-finish-load', () => {
     const fns = onDidLoadFns;
     onDidLoadFns = null;
-    for (const fn of fns) {
+    for (const fn of fns) { // eslint-disable-line no-unused-vars
       fn(mainWindow);
     }
   });
@@ -310,7 +310,7 @@ const createWindow = () => {
 // https://electronjs.org/docs/api/chrome-command-line-switches
 // used for Kerberos support
 // Usage e.g. MACOS
-// $ Franz.app/Contents/MacOS/Franz --auth-server-whitelist *.mydomain.com --auth-negotiate-delegate-whitelist *.mydomain.com
+// $ Franz.app/Contents/MacOS/Ferdi --auth-server-whitelist *.mydomain.com --auth-negotiate-delegate-whitelist *.mydomain.com
 const argv = require('minimist')(process.argv.slice(1));
 
 if (argv['auth-server-whitelist']) {
@@ -325,10 +325,10 @@ if (argv['auth-negotiate-delegate-whitelist']) {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   // Register App URL
-  app.setAsDefaultProtocolClient('franz');
+  app.setAsDefaultProtocolClient('ferdi');
 
   if (isDevMode) {
-    app.setAsDefaultProtocolClient('franz-dev');
+    app.setAsDefaultProtocolClient('ferdi-dev');
   }
 
   if (process.platform === 'win32') {
@@ -337,13 +337,13 @@ app.on('ready', () => {
       arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
       iconPath: asarPath(path.join(isDevMode ? `${__dirname}../src/` : __dirname, 'assets/images/taskbar/win32/display.ico')),
       iconIndex: 0,
-      title: 'Move Franz to Current Display',
-      description: 'Restore the position and size of Franz',
+      title: 'Move Ferdi to Current Display',
+      description: 'Restore the position and size of Ferdi',
     }, {
       program: process.execPath,
       arguments: `${isDevMode ? `${__dirname} ` : ''}--quit`,
       iconIndex: 0,
-      title: 'Quit Franz',
+      title: 'Quit Ferdi',
     }]);
   }
 

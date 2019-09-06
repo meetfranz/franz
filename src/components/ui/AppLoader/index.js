@@ -49,7 +49,7 @@ export default @injectSheet(styles) @withTheme class AppLoader extends Component
 
     return (
       <FullscreenLoader
-        title="Franz"
+        title="Ferdi"
         className={classes.component}
         spinnerColor={theme.colorAppLoaderSpinner}
       >

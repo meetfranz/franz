@@ -4,8 +4,6 @@ import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
-import { gaEvent } from '../../lib/analytics';
-
 import Button from '../../components/ui/Button';
 
 import { config } from '.';
@@ -18,11 +16,11 @@ const messages = defineMessages({
   },
   action: {
     id: 'feature.delayApp.action',
-    defaultMessage: '!!!Get a Franz Supporter License',
+    defaultMessage: '!!!Get a Ferdi Supporter License',
   },
   text: {
     id: 'feature.delayApp.text',
-    defaultMessage: '!!!Franz will continue in {seconds} seconds.',
+    defaultMessage: '!!!Ferdi will continue in {seconds} seconds.',
   },
 });
 
@@ -65,8 +63,6 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
     const { actions } = this.props;
 
     actions.ui.openSettings({ path: 'user' });
-
-    gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
   }
 
   render() {
