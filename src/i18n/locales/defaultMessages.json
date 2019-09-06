@@ -1730,7 +1730,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Custom Service Recipes",
+        "defaultMessage": "!!!Custom 3rd Party Recipes",
         "end": {
           "column": 3,
           "line": 67
@@ -1743,7 +1743,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Community Services",
+        "defaultMessage": "!!!Community 3rd Party Recipes",
         "end": {
           "column": 3,
           "line": 71
