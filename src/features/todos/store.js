@@ -11,7 +11,7 @@ import { FeatureStore } from '../utils/FeatureStore';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
 import {
-  DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE, TODOS_ROUTES,
+  DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE, TODOS_ROUTES, DEFAULT_IS_FEATURE_ENABLED_BY_USER,
 } from '.';
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
@@ -33,7 +33,7 @@ export default class TodoStore extends FeatureStore {
 
   @computed get isTodosPanelForceHidden() {
     const { isAnnouncementShown } = this.stores.announcements;
-    return delayAppState.isDelayAppScreenVisible || isAnnouncementShown;
+    return delayAppState.isDelayAppScreenVisible || !this.settings.isFeatureEnabledByUser || isAnnouncementShown;
   }
 
   @computed get isTodosPanelVisible() {
@@ -60,6 +60,7 @@ export default class TodoStore extends FeatureStore {
       [todoActions.setTodosWebview, this._setTodosWebview],
       [todoActions.handleHostMessage, this._handleHostMessage],
       [todoActions.handleClientMessage, this._handleClientMessage],
+      [todoActions.toggleTodosFeatureVisibility, this._toggleTodosFeatureVisibility],
     ]));
 
     // REACTIONS
@@ -74,6 +75,12 @@ export default class TodoStore extends FeatureStore {
     this._registerReactions(this._allReactions);
 
     this.isFeatureActive = true;
+
+    if (this.settings.isFeatureEnabledByUser === undefined) {
+      this._updateSettings({
+        isFeatureEnabledByUser: DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+      });
+    }
   }
 
   @action stop() {
@@ -126,6 +133,14 @@ export default class TodoStore extends FeatureStore {
       default:
         debug('Unknown client message reiceived', message);
     }
+  };
+
+  @action _toggleTodosFeatureVisibility = () => {
+    debug('_toggleTodosFeatureVisibility');
+
+    this._updateSettings({
+      isFeatureEnabledByUser: !this.settings.isFeatureEnabledByUser,
+    });
   };
 
   // Todos client message handlers

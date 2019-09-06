@@ -2945,6 +2945,45 @@
           "column": 20,
           "line": 25
         }
+      },
+      {
+        "defaultMessage": "!!!No strings attached",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "pricing.trial.terms.headline",
+        "start": {
+          "column": 29,
+          "line": 29
+        }
+      },
+      {
+        "defaultMessage": "!!!No credit card required",
+        "end": {
+          "column": 3,
+          "line": 36
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "pricing.trial.terms.noCreditCard",
+        "start": {
+          "column": 16,
+          "line": 33
+        }
+      },
+      {
+        "defaultMessage": "!!!Your free trial ends automatically after 14 days",
+        "end": {
+          "column": 3,
+          "line": 40
+        },
+        "file": "src/components/ui/ActivateTrialButton/index.js",
+        "id": "pricing.trial.terms.automaticTrialEnd",
+        "start": {
+          "column": 21,
+          "line": 37
+        }
       }
     ],
     "path": "src/components/ui/ActivateTrialButton/index.json"
@@ -3375,156 +3414,169 @@
         "defaultMessage": "!!!Launch Franz on start",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 27
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.autoLaunchOnStart",
         "start": {
           "column": 21,
-          "line": 22
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Open in background",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 31
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.autoLaunchInBackground",
         "start": {
           "column": 26,
-          "line": 26
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Keep Franz in background when closing the window",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 35
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.runInBackground",
         "start": {
           "column": 19,
-          "line": 30
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Show Franz in system tray",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 39
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSystemTray",
         "start": {
           "column": 20,
-          "line": 34
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!Minimize Franz to system tray",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 43
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.minimizeToSystemTray",
         "start": {
           "column": 24,
-          "line": 38
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 47
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.language",
         "start": {
           "column": 12,
-          "line": 42
+          "line": 44
         }
       },
       {
         "defaultMessage": "!!!Dark Mode",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 51
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.darkMode",
         "start": {
           "column": 12,
-          "line": 46
+          "line": 48
         }
       },
       {
         "defaultMessage": "!!!Display disabled services tabs",
         "end": {
           "column": 3,
-          "line": 53
+          "line": 55
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showDisabledServices",
         "start": {
           "column": 24,
-          "line": 50
+          "line": 52
         }
       },
       {
         "defaultMessage": "!!!Show unread message badge when notifications are disabled",
         "end": {
           "column": 3,
-          "line": 57
+          "line": 59
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showMessagesBadgesWhenMuted",
         "start": {
           "column": 29,
-          "line": 54
+          "line": 56
         }
       },
       {
         "defaultMessage": "!!!Enable spell checking",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 63
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSpellchecking",
         "start": {
           "column": 23,
-          "line": 58
+          "line": 60
         }
       },
       {
         "defaultMessage": "!!!Enable GPU Acceleration",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 67
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableGPUAcceleration",
         "start": {
           "column": 25,
-          "line": 62
+          "line": 64
         }
       },
       {
         "defaultMessage": "!!!Include beta versions",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 71
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.beta",
         "start": {
           "column": 8,
-          "line": 66
+          "line": 68
+        }
+      },
+      {
+        "defaultMessage": "!!!Enable Franz Todos",
+        "end": {
+          "column": 3,
+          "line": 75
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.enableTodos",
+        "start": {
+          "column": 15,
+          "line": 72
         }
       }
     ],

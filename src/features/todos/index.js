@@ -8,6 +8,7 @@ export const GA_CATEGORY_TODOS = 'Todos';
 export const DEFAULT_TODOS_WIDTH = 300;
 export const TODOS_MIN_WIDTH = 200;
 export const DEFAULT_TODOS_VISIBLE = true;
+export const DEFAULT_IS_FEATURE_ENABLED_BY_USER = true;
 
 export const TODOS_ROUTES = {
   TARGET: '/todos',

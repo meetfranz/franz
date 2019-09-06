@@ -6,6 +6,7 @@ export const todoActions = createActionsFromDefinitions({
     width: PropTypes.number.isRequired,
   },
   toggleTodosPanel: {},
+  toggleTodosFeatureVisibility: {},
   setTodosWebview: {
     webview: PropTypes.instanceOf(Element).isRequired,
   },
