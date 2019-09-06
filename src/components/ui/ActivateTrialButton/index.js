@@ -5,11 +5,9 @@ import { defineMessages, intlShape } from 'react-intl';
 import classnames from 'classnames';
 
 import { Button } from '@meetfranz/forms';
-import { H2 } from '@meetfranz/ui';
 import { gaEvent } from '../../../lib/analytics';
 
 import UserStore from '../../../stores/UserStore';
-import FeatureItem from '../FeatureItem';
 
 const messages = defineMessages({
   action: {
