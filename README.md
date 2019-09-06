@@ -7,14 +7,13 @@
 🤴🏽 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
 
 ## Features
-- [x] Removes the fullscreen app delay inviting users to upgrade
+- [x] Removes the counter-productive fullscreen app delay inviting users to upgrade
 - [x] Removes pages begging you to donate after registration
-- [x] Makes all users premium
+- [x] Makes all users Premium by default
 - [x] [Add option to change server to a custom](#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
-- [x] Remove "Franz is better together"(shareFranz) popup
-- [x] Custom branding
-- [ ] [#5](https://github.com/kytwb/Ferdi/issues/5) Makes it optional to create an account
-- [ ] [#6](https://github.com/kytwb/Ferdi/issues/6) Makes RocketChat self-hosted generally available
+- [x] Remove "Franz is better together" popup
+- [x] Makes RocketChat self-hosted generally available
+- [x] Comes with a custom branding proper to Ferdi
 
 ## Servers
 Ferdi adds the option to change your Ferdi server. By default, this will be `https://api.franzinfra.com` - the official Franz server. This allows Ferdi to stay compatible with your current Franz account.
