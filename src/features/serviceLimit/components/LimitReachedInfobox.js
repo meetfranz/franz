@@ -21,8 +21,8 @@ const messages = defineMessages({
 const styles = theme => ({
   container: {
     height: 'auto',
-    background: theme.styleTypes.primary.accent,
-    color: theme.styleTypes.primary.contrast,
+    background: theme.styleTypes.warning.accent,
+    color: theme.styleTypes.warning.contrast,
     borderRadius: 0,
     marginBottom: 0,
 
@@ -62,6 +62,7 @@ class LimitReachedInfobox extends Component {
     return (
       <Infobox
         icon="mdiInformation"
+        type="warning"
         className={classes.container}
         ctaLabel={intl.formatMessage(messages.action)}
         ctaOnClick={() => {
