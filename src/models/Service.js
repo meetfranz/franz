@@ -167,6 +167,10 @@ export default class Service {
       userAgent = this.recipe.overrideUserAgent();
     }
 
+    // Remove Ferdi as it can cause incompatabilities with services.
+    // This way, Ferdi will look like a normal Chrome instance
+    userAgent = userAgent.replace(/(Ferdi|Electron)([^\s]+\s)/g, '');
+
     return userAgent;
   }
 
