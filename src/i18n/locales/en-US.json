@@ -172,6 +172,7 @@
   "settings.app.headlineAdvanced": "Advanced",
   "settings.app.headlineAppearance": "Appearance",
   "settings.app.headlineGeneral": "General",
+  "settings.app.serverInfo": "We advice you to logout after changing your server as your settings might not be saved otherwise.",
   "settings.app.headlineLanguage": "Language",
   "settings.app.headlineUpdates": "Updates",
   "settings.app.languageDisclaimer": "Official translations are English & German. All other languages are community based translations.",

@@ -22,6 +22,10 @@ const messages = defineMessages({
     id: 'settings.app.headlineGeneral',
     defaultMessage: '!!!General',
   },
+  serverInfo: {
+    id: 'settings.app.serverInfo',
+    defaultMessage: '!!!We advice you to logout after changing your server as your settings might not be saved otherwise.',
+  },
   headlineLanguage: {
     id: 'settings.app.headlineLanguage',
     defaultMessage: '!!!Language',
@@ -144,6 +148,8 @@ export default @observer class EditSettingsForm extends Component {
       updateButtonLabelMessage = messages.buttonSearchForUpdate;
     }
 
+    const isLoggedIn = Boolean(localStorage.getItem('authToken'));
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -169,6 +175,9 @@ export default @observer class EditSettingsForm extends Component {
               field={form.$('server')}
               autoFocus
             />
+            { isLoggedIn && (
+              <p>{ intl.formatMessage(messages.serverInfo) }</p>
+            )}
 
             {/* Appearance */}
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
