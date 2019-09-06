@@ -45,7 +45,7 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
       click() {
         debug('Create todo from selected text', textSelection);
         ipcRenderer.sendToHost('feature:todos', {
-          action: 'create:todo',
+          action: 'todos:create',
           data: {
             title: textSelection,
             url: window.location.href,
