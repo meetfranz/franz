@@ -3,6 +3,7 @@
 ### Features
 
 * **App:** Add second confirmation step for the free 14 day trial.
+* **Todos:** Add option to disable todos ([5d03b91](https://github.com/meetfranz/franz/commit/5d03b91))
 
 # [5.3.0](https://github.com/meetfranz/franz/compare/v5.2.1-beta.1...v5.3.0) (2019-09-06)
 
