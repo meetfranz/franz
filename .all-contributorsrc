@@ -38,6 +38,23 @@
         "ideas",
         "translation"
       ]
+    },
+    {
+      "login": "adlk",
+      "name": "Stefan Malzner",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3265004?v=4",
+      "profile": "http://www.adlk.io",
+      "contributions": [
+        "code",
+        "content",
+        "design",
+        "doc",
+        "ideas",
+        "infra",
+        "projectManagement",
+        "test",
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7
