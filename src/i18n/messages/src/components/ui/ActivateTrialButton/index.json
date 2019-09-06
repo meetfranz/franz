@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Get a Franz Supporter License",
     "file": "src/components/ui/ActivateTrialButton/index.js",
     "start": {
-      "line": 13,
+      "line": 15,
       "column": 10
     },
     "end": {
-      "line": 16,
+      "line": 18,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
     "file": "src/components/ui/ActivateTrialButton/index.js",
     "start": {
-      "line": 17,
+      "line": 19,
       "column": 15
     },
     "end": {
-      "line": 20,
+      "line": 22,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Upgrade account",
     "file": "src/components/ui/ActivateTrialButton/index.js",
     "start": {
-      "line": 21,
+      "line": 23,
       "column": 15
     },
     "end": {
-      "line": 24,
+      "line": 26,
       "column": 3
     }
   },
@@ -43,11 +43,50 @@
     "defaultMessage": "!!!Activate the free Franz Professional trial",
     "file": "src/components/ui/ActivateTrialButton/index.js",
     "start": {
-      "line": 25,
+      "line": 27,
       "column": 20
     },
     "end": {
-      "line": 28,
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.headline",
+    "defaultMessage": "!!!No strings attached",
+    "file": "src/components/ui/ActivateTrialButton/index.js",
+    "start": {
+      "line": 31,
+      "column": 29
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.noCreditCard",
+    "defaultMessage": "!!!No credit card required",
+    "file": "src/components/ui/ActivateTrialButton/index.js",
+    "start": {
+      "line": 35,
+      "column": 16
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.automaticTrialEnd",
+    "defaultMessage": "!!!Your free trial ends automatically after 14 days",
+    "file": "src/components/ui/ActivateTrialButton/index.js",
+    "start": {
+      "line": 39,
+      "column": 21
+    },
+    "end": {
+      "line": 42,
       "column": 3
     }
   }

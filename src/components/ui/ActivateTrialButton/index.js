@@ -5,9 +5,11 @@ import { defineMessages, intlShape } from 'react-intl';
 import classnames from 'classnames';
 
 import { Button } from '@meetfranz/forms';
+import { H2 } from '@meetfranz/ui';
 import { gaEvent } from '../../../lib/analytics';
 
 import UserStore from '../../../stores/UserStore';
+import FeatureItem from '../FeatureItem';
 
 const messages = defineMessages({
   action: {
@@ -26,13 +28,23 @@ const messages = defineMessages({
     id: 'feature.delayApp.trial.actionShort',
     defaultMessage: '!!!Activate the free Franz Professional trial',
   },
+  noStringsAttachedHeadline: {
+    id: 'pricing.trial.terms.headline',
+    defaultMessage: '!!!No strings attached',
+  },
+  noCreditCard: {
+    id: 'pricing.trial.terms.noCreditCard',
+    defaultMessage: '!!!No credit card required',
+  },
+  automaticTrialEnd: {
+    id: 'pricing.trial.terms.automaticTrialEnd',
+    defaultMessage: '!!!Your free trial ends automatically after 14 days',
+  },
 });
 
 @inject('stores', 'actions') @observer
 class ActivateTrialButton extends Component {
   static propTypes = {
-    // eslint-disable-next-line
-    classes: PropTypes.object.isRequired,
     className: PropTypes.string,
     short: PropTypes.bool,
     gaEventInfo: PropTypes.shape({
@@ -55,18 +67,18 @@ class ActivateTrialButton extends Component {
   handleCTAClick() {
     const { actions, stores, gaEventInfo } = this.props;
     const { hadSubscription } = stores.user.data;
-    const { defaultTrialPlan } = stores.features.features;
+    // const { defaultTrialPlan } = stores.features.features;
 
     let label = '';
     if (!hadSubscription) {
-      actions.user.activateTrial({ planId: defaultTrialPlan });
+      // actions.user.activateTrial({ planId: defaultTrialPlan });
 
       label = 'Start Trial';
     } else {
-      actions.ui.openSettings({ path: 'user' });
-
       label = 'Upgrade Account';
     }
+
+    actions.ui.openSettings({ path: 'user' });
 
     if (gaEventInfo) {
       const { category, event } = gaEventInfo;
