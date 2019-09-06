@@ -1,3 +1,15 @@
+## [5.3.1](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.1) (2019-09-06)
+- Fix WhatsApp recipe not working (#19 and #21)
+
+
+## [5.3.0](https://github.com/kytwb/ferdi/compare/v5.2.1-beta.1...v5.3.0) (2019-09-06)
+- Removes pages begging you to donate after registration
+- Makes all users Premium by default
+- [Add option to change server to a custom](https://github.com/kytwb/ferdi#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
+- Remove "Franz is better together" popup
+- Makes RocketChat self-hosted generally available
+- Comes with a custom branding proper to Ferdi
+
 ## [5.2.1-beta.1](https://github.com/meetfranz/franz/compare/v5.2.0...v5.2.1-beta.1) (2019-07-30)
 
 
