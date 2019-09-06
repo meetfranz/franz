@@ -2530,78 +2530,78 @@
         "defaultMessage": "!!!Team",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.headline",
         "start": {
           "column": 12,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Franz for Teams",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.contentHeadline",
         "start": {
           "column": 19,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!You and your team use Franz? You can now manage Premium subscriptions for as many colleagues, friends or family members as you want, all from within one account.",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.intro",
         "start": {
           "column": 9,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.copy",
         "start": {
           "column": 8,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Manage your Team on meetfranz.com",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.manageAction",
         "start": {
           "column": 16,
-          "line": 32
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Upgrade your Account",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 40
         },
         "file": "src/components/settings/team/TeamDashboard.js",
         "id": "settings.team.upgradeAction",
         "start": {
           "column": 17,
-          "line": 36
+          "line": 37
         }
       }
     ],

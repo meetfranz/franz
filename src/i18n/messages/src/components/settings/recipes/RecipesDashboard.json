@@ -144,7 +144,7 @@
   },
   {
     "id": "settings.recipes.customService.headline.customRecipes",
-    "defaultMessage": "!!!Custom Service Recipes",
+    "defaultMessage": "!!!Custom 3rd Party Recipes",
     "file": "src/components/settings/recipes/RecipesDashboard.js",
     "start": {
       "line": 64,
@@ -157,7 +157,7 @@
   },
   {
     "id": "settings.recipes.customService.headline.communityRecipes",
-    "defaultMessage": "!!!Community Services",
+    "defaultMessage": "!!!Community 3rd Party Recipes",
     "file": "src/components/settings/recipes/RecipesDashboard.js",
     "start": {
       "line": 68,

@@ -63,11 +63,11 @@ const messages = defineMessages({
   },
   headlineCustomRecipes: {
     id: 'settings.recipes.customService.headline.customRecipes',
-    defaultMessage: '!!!Custom Service Recipes',
+    defaultMessage: '!!!Custom 3rd Party Recipes',
   },
   headlineCommunityRecipes: {
     id: 'settings.recipes.customService.headline.communityRecipes',
-    defaultMessage: '!!!Community Services',
+    defaultMessage: '!!!Community 3rd Party Recipes',
   },
   headlineDevRecipes: {
     id: 'settings.recipes.customService.headline.devRecipes',
