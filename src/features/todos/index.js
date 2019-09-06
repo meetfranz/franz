@@ -9,6 +9,10 @@ export const DEFAULT_TODOS_WIDTH = 300;
 export const TODOS_MIN_WIDTH = 200;
 export const DEFAULT_TODOS_VISIBLE = true;
 
+export const TODOS_ROUTES = {
+  TARGET: '/todos',
+};
+
 export const todosStore = new TodoStore();
 
 export default function initTodos(stores, actions) {

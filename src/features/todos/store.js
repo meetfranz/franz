@@ -10,7 +10,9 @@ import { todoActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
-import { DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE } from '.';
+import {
+  DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE, TODOS_ROUTES,
+} from '.';
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
 
@@ -66,6 +68,7 @@ export default class TodoStore extends FeatureStore {
       this._setFeatureEnabledReaction,
       this._updateTodosConfig,
       this._firstLaunchReaction,
+      this._routeCheckReaction,
     ]);
 
     this._registerReactions(this._allReactions);
@@ -176,4 +179,19 @@ export default class TodoStore extends FeatureStore {
       });
     }
   };
+
+  _routeCheckReaction = () => {
+    const { pathname } = this.stores.router.location;
+
+    if (pathname === TODOS_ROUTES.TARGET) {
+      debug('Router is on todos route, show todos panel');
+      // todosStore.start(stores, actions);
+
+      if (!this.isTodosPanelVisible) {
+        this._updateSettings({
+          isTodosPanelVisible: true,
+        });
+      }
+    }
+  }
 }
