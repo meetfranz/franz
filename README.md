@@ -1,6 +1,4 @@
 <p align="center">
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
     <img src="./build-helpers/images/icon.png" alt="" width="200"/>
 </p>
 
