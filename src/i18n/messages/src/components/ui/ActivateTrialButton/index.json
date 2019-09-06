@@ -50,5 +50,44 @@
       "line": 28,
       "column": 3
     }
+  },
+  {
+    "id": "pricing.trial.terms.headline",
+    "defaultMessage": "!!!No strings attached",
+    "file": "src/components/ui/ActivateTrialButton/index.js",
+    "start": {
+      "line": 29,
+      "column": 29
+    },
+    "end": {
+      "line": 32,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.noCreditCard",
+    "defaultMessage": "!!!No credit card required",
+    "file": "src/components/ui/ActivateTrialButton/index.js",
+    "start": {
+      "line": 33,
+      "column": 16
+    },
+    "end": {
+      "line": 36,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.automaticTrialEnd",
+    "defaultMessage": "!!!Your free trial ends automatically after 14 days",
+    "file": "src/components/ui/ActivateTrialButton/index.js",
+    "start": {
+      "line": 37,
+      "column": 21
+    },
+    "end": {
+      "line": 40,
+      "column": 3
+    }
   }
 ]

@@ -1,3 +1,9 @@
+## [5.3.1](https://github.com/meetfranz/franz/compare/v5.3.0...v5.3.1) (2019-09-06)
+
+### Features
+
+* **App:** Add second confirmation step for the free 14 day trial.
+
 # [5.3.0](https://github.com/meetfranz/franz/compare/v5.2.1-beta.1...v5.3.0) (2019-09-06)
 
 ### Features
