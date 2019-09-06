@@ -2127,211 +2127,224 @@
         }
       },
       {
-        "defaultMessage": "!!!Language",
+        "defaultMessage": "!!!We advice you to logout after changing your server as your settings might not be saved otherwise.",
         "end": {
           "column": 3,
           "line": 28
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.serverInfo",
+        "start": {
+          "column": 14,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Language",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineLanguage",
         "start": {
           "column": 20,
-          "line": 25
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Updates",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 36
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineUpdates",
         "start": {
           "column": 19,
-          "line": 29
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Appearance",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 40
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineAppearance",
         "start": {
           "column": 22,
-          "line": 33
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Advanced",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 44
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineAdvanced",
         "start": {
           "column": 20,
-          "line": 37
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Help us to translate Ferdi into your language.",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 48
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.translationHelp",
         "start": {
           "column": 19,
-          "line": 41
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!Cache",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 52
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.subheadlineCache",
         "start": {
           "column": 20,
-          "line": 45
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Ferdi cache is currently using {size} of disk space.",
         "end": {
           "column": 3,
-          "line": 52
+          "line": 56
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.cacheInfo",
         "start": {
           "column": 13,
-          "line": 49
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Clear cache",
         "end": {
           "column": 3,
-          "line": 56
+          "line": 60
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonClearAllCache",
         "start": {
           "column": 23,
-          "line": 53
+          "line": 57
         }
       },
       {
         "defaultMessage": "!!!Check for updates",
         "end": {
           "column": 3,
-          "line": 60
+          "line": 64
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonSearchForUpdate",
         "start": {
           "column": 25,
-          "line": 57
+          "line": 61
         }
       },
       {
         "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
-          "line": 64
+          "line": 68
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonInstallUpdate",
         "start": {
           "column": 23,
-          "line": 61
+          "line": 65
         }
       },
       {
         "defaultMessage": "!!!Is searching for update",
         "end": {
           "column": 3,
-          "line": 68
-        },
-        "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.updateStatusSearching",
-        "start": {
-          "column": 25,
-          "line": 65
-        }
-      },
-      {
-        "defaultMessage": "!!!Update available, downloading...",
-        "end": {
-          "column": 3,
           "line": 72
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.updateStatusAvailable",
+        "id": "settings.app.updateStatusSearching",
         "start": {
           "column": 25,
           "line": 69
         }
       },
       {
-        "defaultMessage": "!!!You are using the latest version of Franz",
+        "defaultMessage": "!!!Update available, downloading...",
         "end": {
           "column": 3,
           "line": 76
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusAvailable",
+        "start": {
+          "column": 25,
+          "line": 73
+        }
+      },
+      {
+        "defaultMessage": "!!!You are using the latest version of Franz",
+        "end": {
+          "column": 3,
+          "line": 80
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.updateStatusUpToDate",
         "start": {
           "column": 24,
-          "line": 73
+          "line": 77
         }
       },
       {
         "defaultMessage": "!!!Current version:",
         "end": {
           "column": 3,
-          "line": 80
+          "line": 84
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.currentVersion",
         "start": {
           "column": 18,
-          "line": 77
+          "line": 81
         }
       },
       {
         "defaultMessage": "!!!Changes require restart",
         "end": {
           "column": 3,
-          "line": 84
+          "line": 88
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.restartRequired",
         "start": {
           "column": 29,
-          "line": 81
+          "line": 85
         }
       },
       {
         "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
         "end": {
           "column": 3,
-          "line": 88
+          "line": 92
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.languageDisclaimer",
         "start": {
           "column": 22,
-          "line": 85
+          "line": 89
         }
       }
     ],
