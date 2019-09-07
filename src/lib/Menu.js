@@ -923,7 +923,7 @@ export default class FranzMenu {
 
   todosMenu() {
     const { isTodosPanelVisible } = TodoStore;
-    const { intl } = window.franz;
+    const { intl } = window.ferdi;
     const menu = [];
 
     // Open todos drawer:
