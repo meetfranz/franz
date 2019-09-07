@@ -8,7 +8,7 @@ export const config = observable({
   isIncludedInCurrentPlan: DEFAULT_FEATURES_CONFIG.isSpellcheckerIncludedInCurrentPlan,
 });
 
-export default function init(stores) {
+export default function init() {
   debug('Initializing `spellchecker` feature');
 
   autorun(() => {
