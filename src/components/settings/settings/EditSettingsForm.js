@@ -28,7 +28,7 @@ const messages = defineMessages({
   },
   todoServerInfo: {
     id: 'settings.app.todoServerInfo',
-    defaultMessage: '!!!This server will be used for the "Franz Todo" feature. The default server will only work for premium users. (default: https://app.franztodos.com)'
+    defaultMessage: '!!!This server will be used for the "Franz Todo" feature. The default server will only work for premium users. (default: https://app.franztodos.com)',
   },
   headlineLanguage: {
     id: 'settings.app.headlineLanguage',

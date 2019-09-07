@@ -11,7 +11,7 @@ import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
 
-import SettingsStore from '../../../stores/SettingsStore'
+import SettingsStore from '../../../stores/SettingsStore';
 
 const OPEN_TODOS_BUTTON_SIZE = 45;
 const CLOSE_TODOS_BUTTON_SIZE = 35;
@@ -282,7 +282,7 @@ class TodosWebview extends Component {
             partition="persist:todos"
             preload="./features/todos/preload.js"
             ref={(webview) => { this.webview = webview ? webview.view : null; }}
-            src={ stores.settings.all.app.todoServer || environment.TODOS_FRONTEND}
+            src={stores.settings.all.app.todoServer || environment.TODOS_FRONTEND}
           />
         ) : (
           <Appear>

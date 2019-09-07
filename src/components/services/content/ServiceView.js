@@ -130,19 +130,11 @@ export default @observer class ServiceView extends Component {
           </Fragment>
         ) : (
           <>
-            {service.isServiceAccessRestricted ? (
-              <ServiceRestricted
-                name={service.recipe.name}
-                upgrade={upgrade}
-                type={service.restrictionType}
-              />
-            ) : (
-              <ServiceWebview
-                service={service}
-                setWebviewReference={setWebviewReference}
-                detachService={detachService}
-              />
-            )}
+            <ServiceWebview
+              service={service}
+              setWebviewReference={setWebviewReference}
+              detachService={detachService}
+            />
           </>
         )}
         {statusBar}

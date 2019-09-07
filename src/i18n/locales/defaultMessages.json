@@ -2392,211 +2392,224 @@
         }
       },
       {
-        "defaultMessage": "!!!Language",
+        "defaultMessage": "!!!This server will be used for the \"Franz Todo\" feature. The default server will only work for premium users. (default: https://app.franztodos.com)",
         "end": {
           "column": 3,
           "line": 32
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.todoServerInfo",
+        "start": {
+          "column": 18,
+          "line": 29
+        }
+      },
+      {
+        "defaultMessage": "!!!Language",
+        "end": {
+          "column": 3,
+          "line": 36
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineLanguage",
         "start": {
           "column": 20,
-          "line": 29
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Updates",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 40
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineUpdates",
         "start": {
           "column": 19,
-          "line": 33
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Appearance",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 44
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineAppearance",
         "start": {
           "column": 22,
-          "line": 37
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Advanced",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 48
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineAdvanced",
         "start": {
           "column": 20,
-          "line": 41
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!Help us to translate Ferdi into your language.",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 52
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.translationHelp",
         "start": {
           "column": 19,
-          "line": 45
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Cache",
         "end": {
           "column": 3,
-          "line": 52
+          "line": 56
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.subheadlineCache",
         "start": {
           "column": 20,
-          "line": 49
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Ferdi cache is currently using {size} of disk space.",
         "end": {
           "column": 3,
-          "line": 56
+          "line": 60
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.cacheInfo",
         "start": {
           "column": 13,
-          "line": 53
+          "line": 57
         }
       },
       {
         "defaultMessage": "!!!Clear cache",
         "end": {
           "column": 3,
-          "line": 60
+          "line": 64
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonClearAllCache",
         "start": {
           "column": 23,
-          "line": 57
+          "line": 61
         }
       },
       {
         "defaultMessage": "!!!Check for updates",
         "end": {
           "column": 3,
-          "line": 64
+          "line": 68
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonSearchForUpdate",
         "start": {
           "column": 25,
-          "line": 61
+          "line": 65
         }
       },
       {
         "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
-          "line": 68
+          "line": 72
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonInstallUpdate",
         "start": {
           "column": 23,
-          "line": 65
+          "line": 69
         }
       },
       {
         "defaultMessage": "!!!Is searching for update",
         "end": {
           "column": 3,
-          "line": 72
-        },
-        "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.updateStatusSearching",
-        "start": {
-          "column": 25,
-          "line": 69
-        }
-      },
-      {
-        "defaultMessage": "!!!Update available, downloading...",
-        "end": {
-          "column": 3,
           "line": 76
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.updateStatusAvailable",
+        "id": "settings.app.updateStatusSearching",
         "start": {
           "column": 25,
           "line": 73
         }
       },
       {
-        "defaultMessage": "!!!You are using the latest version of Franz",
+        "defaultMessage": "!!!Update available, downloading...",
         "end": {
           "column": 3,
           "line": 80
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusAvailable",
+        "start": {
+          "column": 25,
+          "line": 77
+        }
+      },
+      {
+        "defaultMessage": "!!!You are using the latest version of Franz",
+        "end": {
+          "column": 3,
+          "line": 84
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.updateStatusUpToDate",
         "start": {
           "column": 24,
-          "line": 77
+          "line": 81
         }
       },
       {
         "defaultMessage": "!!!Current version:",
         "end": {
           "column": 3,
-          "line": 84
+          "line": 88
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.currentVersion",
         "start": {
           "column": 18,
-          "line": 81
+          "line": 85
         }
       },
       {
         "defaultMessage": "!!!Changes require restart",
         "end": {
           "column": 3,
-          "line": 88
+          "line": 92
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.restartRequired",
         "start": {
           "column": 29,
-          "line": 85
+          "line": 89
         }
       },
       {
         "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
         "end": {
           "column": 3,
-          "line": 92
+          "line": 96
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.languageDisclaimer",
         "start": {
           "column": 22,
-          "line": 89
+          "line": 93
         }
       }
     ],
@@ -3567,107 +3580,120 @@
         }
       },
       {
-        "defaultMessage": "!!!Language",
+        "defaultMessage": "!!!Todo Server",
         "end": {
           "column": 3,
           "line": 53
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.language",
+        "id": "settings.app.form.todoServer",
         "start": {
-          "column": 12,
+          "column": 14,
           "line": 50
         }
       },
       {
-        "defaultMessage": "!!!Dark Mode",
+        "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
           "line": 57
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.darkMode",
+        "id": "settings.app.form.language",
         "start": {
           "column": 12,
           "line": 54
         }
       },
       {
-        "defaultMessage": "!!!Display disabled services tabs",
+        "defaultMessage": "!!!Dark Mode",
         "end": {
           "column": 3,
           "line": 61
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.darkMode",
+        "start": {
+          "column": 12,
+          "line": 58
+        }
+      },
+      {
+        "defaultMessage": "!!!Display disabled services tabs",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showDisabledServices",
         "start": {
           "column": 24,
-          "line": 58
+          "line": 62
         }
       },
       {
         "defaultMessage": "!!!Show unread message badge when notifications are disabled",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 69
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showMessagesBadgesWhenMuted",
         "start": {
           "column": 29,
-          "line": 62
+          "line": 66
         }
       },
       {
         "defaultMessage": "!!!Enable spell checking",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 73
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSpellchecking",
         "start": {
           "column": 23,
-          "line": 66
+          "line": 70
         }
       },
       {
         "defaultMessage": "!!!Enable GPU Acceleration",
         "end": {
           "column": 3,
-          "line": 73
+          "line": 77
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableGPUAcceleration",
         "start": {
           "column": 25,
-          "line": 70
+          "line": 74
         }
       },
       {
         "defaultMessage": "!!!Include beta versions",
         "end": {
           "column": 3,
-          "line": 77
+          "line": 81
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.beta",
         "start": {
           "column": 8,
-          "line": 74
+          "line": 78
         }
       },
       {
         "defaultMessage": "!!!Enable Franz Todos",
         "end": {
           "column": 3,
-          "line": 81
+          "line": 85
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableTodos",
         "start": {
           "column": 15,
-          "line": 78
+          "line": 82
         }
       }
     ],
@@ -4034,39 +4060,39 @@
         "defaultMessage": "!!!Franz Todos are available to premium users now!",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 23
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.info",
         "start": {
           "column": 15,
-          "line": 18
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Upgrade Account",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 27
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.upgrade",
         "start": {
           "column": 14,
-          "line": 22
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Everyone else will have to wait a little longer.",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 31
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.rollout",
         "start": {
           "column": 15,
-          "line": 26
+          "line": 28
         }
       }
     ],
