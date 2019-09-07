@@ -25,7 +25,7 @@ class TodosScreen extends Component {
           width={todosStore.width}
           minWidth={TODOS_MIN_WIDTH}
           resize={width => todoActions.resize({ width })}
-          isTodosIncludedInCurrentPlan={this.props.stores.features.features.isTodosIncludedInCurrentPlan || false}
+          isTodosIncludedInCurrentPlan={true}
         />
       </ErrorBoundary>
     );

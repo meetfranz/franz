@@ -773,7 +773,7 @@
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 36
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
@@ -3207,13 +3207,13 @@
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 17
         },
         "file": "src/components/ui/PremiumFeatureContainer/index.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 16
+          "line": 14
         }
       }
     ],
@@ -3920,7 +3920,7 @@
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 18
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "premiumFeature.button.upgradeAccount",
@@ -3935,7 +3935,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Franz is better together!",
+        "defaultMessage": "!!!Ferdi is better together!",
         "end": {
           "column": 3,
           "line": 21
@@ -4433,7 +4433,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Less is More: Introducing Franz Workspaces",
+        "defaultMessage": "!!!Less is More: Introducing Ferdi Workspaces",
         "end": {
           "column": 3,
           "line": 50
