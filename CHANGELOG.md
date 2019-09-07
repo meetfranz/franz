@@ -1,3 +1,20 @@
+## [5.3.2](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.2) (2019-09-07)
+Merge Franz v5.3.0 into Ferdi.
+
+- Enable todos for all users
+
+### Bug Fixes
+
+* **Windows:** Fix app size in fullscreen ([e210701](https://github.com/kytwb/ferdi/commit/e210701))
+* **Windows:** Fix app to be cropped at the bottom on Windows ([42f97b4](https://github.com/kytwb/ferdi/commit/42f97b4))
+
+
+### Features
+
+* **Todos:** Add option to disable todos ([5d03b91](https://github.com/kytwb/ferdi/commit/5d03b91))
+
+
+
 ## [5.3.1](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.1) (2019-09-06)
 - Fix WhatsApp recipe not working (#19 and #21)
 
