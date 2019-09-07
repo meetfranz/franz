@@ -8,7 +8,7 @@ import { workspaceActions } from '../features/workspaces/actions';
 import { announcementActions } from '../features/announcements/actions';
 import { announcementsStore } from '../features/announcements';
 import TodoStore from '../features/todos/store';
-import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
+import { todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 
 const { app, Menu, dialog } = remote;

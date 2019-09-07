@@ -74,7 +74,6 @@ class AppLayout extends Component {
     areRequiredRequestsSuccessful: PropTypes.bool.isRequired,
     retryRequiredRequests: PropTypes.func.isRequired,
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
-    isDelayAppScreenVisible: PropTypes.bool.isRequired,
     hasActivatedTrial: PropTypes.bool.isRequired,
   };
 

@@ -12,7 +12,6 @@ import {
   DEV_WS_API,
   LOCAL_TODOS_FRONTEND_URL,
   PRODUCTION_TODOS_FRONTEND_URL,
-  DEVELOPMENT_TODOS_FRONTEND_URL,
 } from './config';
 
 export const isDevMode = isDev;
