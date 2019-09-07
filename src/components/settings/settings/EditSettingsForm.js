@@ -283,13 +283,15 @@ export default @observer class EditSettingsForm extends Component {
             </p>
             <p className="settings__message">
               <span className="mdi mdi-github-face" />
-              Ferdi is based on
-              {' '}
-              <a href="https://github.com/meetfranz/franz" target="_blank">Franz</a>
-              , a project published
-              under the
-              {' '}
-              <a href="https://github.com/meetfranz/franz/blob/master/LICENSE" target="_blank">Apache-2.0 License</a>
+              <span>
+                Ferdi is based on
+                {' '}
+                <a href="https://github.com/meetfranz/franz" target="_blank">Franz</a>
+                , a project published
+                under the
+                {' '}
+                <a href="https://github.com/meetfranz/franz/blob/master/LICENSE" target="_blank">Apache-2.0 License</a>
+              </span>
             </p>
           </form>
         </div>
