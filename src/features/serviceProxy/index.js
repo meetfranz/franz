@@ -1,25 +1,25 @@
 import { autorun, observable } from 'mobx';
 import { remote } from 'electron';
 
-import { DEFAULT_FEATURES_CONFIG } from '../../config';
+// import { DEFAULT_FEATURES_CONFIG } from '../../config';
 
 const { session } = remote;
 
 const debug = require('debug')('Franz:feature:serviceProxy');
 
 export const config = observable({
-  isEnabled: DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled,
-  isPremium: DEFAULT_FEATURES_CONFIG.isServiceProxyIncludedInCurrentPlan,
+  isEnabled: true,
+  isPremium: true,
 });
 
 export default function init(stores) {
   debug('Initializing `serviceProxy` feature');
 
   autorun(() => {
-    const { isServiceProxyEnabled, isServiceProxyIncludedInCurrentPlan } = stores.features.features;
+    // const { isServiceProxyEnabled, isServiceProxyIncludedInCurrentPlan } = stores.features.features;
 
-    config.isEnabled = isServiceProxyEnabled !== undefined ? isServiceProxyEnabled : DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled;
-    config.isIncludedInCurrentPlan = isServiceProxyIncludedInCurrentPlan !== undefined ? isServiceProxyIncludedInCurrentPlan : DEFAULT_FEATURES_CONFIG.isServiceProxyIncludedInCurrentPlan;
+    config.isEnabled = true;
+    config.isIncludedInCurrentPlan = true;
 
     const services = stores.services.enabled;
     const isPremiumUser = stores.user.data.isPremium;

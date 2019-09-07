@@ -747,52 +747,52 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 30
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 28
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 34
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 32
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 38
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 33
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 42
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.authRequestFailed",
         "start": {
           "column": 21,
-          "line": 37
+          "line": 39
         }
       }
     ],
@@ -1084,26 +1084,26 @@
         "defaultMessage": "!!!Please login to use Ferdi.",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 25
         },
         "file": "src/components/services/content/Services.js",
         "id": "services.login",
         "start": {
           "column": 9,
-          "line": 19
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 29
         },
         "file": "src/components/services/content/Services.js",
         "id": "services.serverInfo",
         "start": {
           "column": 14,
-          "line": 23
+          "line": 26
         }
       }
     ],
@@ -2976,91 +2976,91 @@
         "defaultMessage": "!!!Get a Franz Supporter License",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 15
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.upgrade.action",
         "start": {
           "column": 10,
-          "line": 13
+          "line": 12
         }
       },
       {
         "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 19
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.trial.action",
         "start": {
           "column": 15,
-          "line": 17
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 23
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.upgrade.actionShort",
         "start": {
           "column": 15,
-          "line": 21
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Activate the free Franz Professional trial",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 27
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.trial.actionShort",
         "start": {
           "column": 20,
-          "line": 25
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!No strings attached",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 31
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "pricing.trial.terms.headline",
         "start": {
           "column": 29,
-          "line": 29
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!No credit card required",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 35
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "pricing.trial.terms.noCreditCard",
         "start": {
           "column": 16,
-          "line": 33
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Your free trial ends automatically after 14 days",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 39
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "pricing.trial.terms.automaticTrialEnd",
         "start": {
           "column": 21,
-          "line": 37
+          "line": 36
         }
       }
     ],
@@ -3207,13 +3207,13 @@
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 18
         },
         "file": "src/components/ui/PremiumFeatureContainer/index.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 14
+          "line": 15
         }
       }
     ],
@@ -3225,13 +3225,13 @@
         "defaultMessage": "!!!Upgrade to Franz Professional",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 15
         },
         "file": "src/components/ui/UpgradeButton/index.js",
         "id": "global.upgradeButton.upgradeToPro",
         "start": {
           "column": 16,
-          "line": 13
+          "line": 12
         }
       }
     ],
@@ -3492,182 +3492,182 @@
         "defaultMessage": "!!!Launch Ferdi on start",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 29
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.autoLaunchOnStart",
         "start": {
           "column": 21,
-          "line": 24
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Open in background",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 33
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.autoLaunchInBackground",
         "start": {
           "column": 26,
-          "line": 28
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Keep Ferdi in background when closing the window",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 37
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.runInBackground",
         "start": {
           "column": 19,
-          "line": 32
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!!Show Ferdi in system tray",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 41
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSystemTray",
         "start": {
           "column": 20,
-          "line": 36
+          "line": 38
         }
       },
       {
         "defaultMessage": "!!!Minimize Ferdi to system tray",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 45
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.minimizeToSystemTray",
         "start": {
           "column": 24,
-          "line": 40
+          "line": 42
         }
       },
       {
         "defaultMessage": "!!!Server",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 49
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.server",
         "start": {
           "column": 10,
-          "line": 44
+          "line": 46
         }
       },
       {
         "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 53
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.language",
         "start": {
           "column": 12,
-          "line": 44
+          "line": 50
         }
       },
       {
         "defaultMessage": "!!!Dark Mode",
         "end": {
           "column": 3,
-          "line": 51
+          "line": 57
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.darkMode",
         "start": {
           "column": 12,
-          "line": 48
+          "line": 54
         }
       },
       {
         "defaultMessage": "!!!Display disabled services tabs",
         "end": {
           "column": 3,
-          "line": 55
+          "line": 61
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showDisabledServices",
         "start": {
           "column": 24,
-          "line": 52
+          "line": 58
         }
       },
       {
         "defaultMessage": "!!!Show unread message badge when notifications are disabled",
         "end": {
           "column": 3,
-          "line": 59
+          "line": 65
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showMessagesBadgesWhenMuted",
         "start": {
           "column": 29,
-          "line": 56
+          "line": 62
         }
       },
       {
         "defaultMessage": "!!!Enable spell checking",
         "end": {
           "column": 3,
-          "line": 63
+          "line": 69
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSpellchecking",
         "start": {
           "column": 23,
-          "line": 60
+          "line": 66
         }
       },
       {
         "defaultMessage": "!!!Enable GPU Acceleration",
         "end": {
           "column": 3,
-          "line": 67
+          "line": 73
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableGPUAcceleration",
         "start": {
           "column": 25,
-          "line": 64
+          "line": 70
         }
       },
       {
         "defaultMessage": "!!!Include beta versions",
         "end": {
           "column": 3,
-          "line": 71
+          "line": 77
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.beta",
         "start": {
           "column": 8,
-          "line": 68
+          "line": 74
         }
       },
       {
         "defaultMessage": "!!!Enable Franz Todos",
         "end": {
           "column": 3,
-          "line": 75
+          "line": 81
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableTodos",
         "start": {
           "column": 15,
-          "line": 72
+          "line": 78
         }
       }
     ],
@@ -3819,65 +3819,65 @@
         "defaultMessage": "!!!Please purchase license to skip waiting",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 17
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.headline",
         "start": {
           "column": 12,
-          "line": 17
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!Get the free Franz Professional 14 day trial and skip the line",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 21
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.trial.headline",
         "start": {
           "column": 17,
-          "line": 21
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Get a Franz Supporter License",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 25
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.upgrade.action",
         "start": {
           "column": 10,
-          "line": 25
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 29
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.trial.action",
         "start": {
           "column": 15,
-          "line": 29
+          "line": 26
         }
       },
       {
         "defaultMessage": "!!!Ferdi will continue in {seconds} seconds.",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 33
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.text",
         "start": {
           "column": 8,
-          "line": 33
+          "line": 30
         }
       }
     ],
@@ -3907,26 +3907,26 @@
         "defaultMessage": "!!!You have added {amount} of {limit} services. Please upgrade your account to add more services.",
         "end": {
           "column": 3,
-          "line": 14
+          "line": 12
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "feature.serviceLimit.limitReached",
         "start": {
           "column": 16,
-          "line": 11
+          "line": 9
         }
       },
       {
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 16
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 15
+          "line": 13
         }
       }
     ],
@@ -3938,91 +3938,91 @@
         "defaultMessage": "!!!Ferdi is better together!",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 20
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.headline",
         "start": {
           "column": 12,
-          "line": 18
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Tell your friends and colleagues how awesome Ferdi is and help us to spread the word.",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 24
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.text",
         "start": {
           "column": 8,
-          "line": 22
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Share as email",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 28
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.email",
         "start": {
           "column": 16,
-          "line": 26
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Share on Facebook",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 32
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.facebook",
         "start": {
           "column": 19,
-          "line": 30
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Share on Twitter",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 36
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.twitter",
         "start": {
           "column": 18,
-          "line": 34
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 40
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.email",
         "start": {
           "column": 18,
-          "line": 38
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 44
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.twitter",
         "start": {
           "column": 20,
-          "line": 42
+          "line": 41
         }
       }
     ],
@@ -4205,104 +4205,104 @@
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 19
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.headline",
         "start": {
           "column": 12,
-          "line": 17
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!All services",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 23
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.allServices",
         "start": {
           "column": 15,
-          "line": 21
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Workspaces settings",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 27
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.workspacesSettingsTooltip",
         "start": {
           "column": 29,
-          "line": 25
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Info about workspace feature",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 31
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.workspaceFeatureInfo",
         "start": {
           "column": 24,
-          "line": 29
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Create your first workspace",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 35
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.premiumCtaButtonLabel",
         "start": {
           "column": 25,
-          "line": 33
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Reactivate premium account",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 39
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.reactivatePremiumAccountLabel",
         "start": {
           "column": 28,
-          "line": 37
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!add new workspace",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 43
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.addNewWorkspaceLabel",
         "start": {
           "column": 24,
-          "line": 41
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Premium feature",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 47
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.proFeatureBadge",
         "start": {
           "column": 23,
-          "line": 45
+          "line": 44
         }
       }
     ],
@@ -4778,793 +4778,793 @@
         "defaultMessage": "!!!Edit",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 20
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit",
         "start": {
           "column": 8,
-          "line": 18
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Undo",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 24
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.undo",
         "start": {
           "column": 8,
-          "line": 22
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Redo",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 28
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.redo",
         "start": {
           "column": 8,
-          "line": 26
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Cut",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 32
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.cut",
         "start": {
           "column": 7,
-          "line": 30
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Copy",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 36
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.copy",
         "start": {
           "column": 8,
-          "line": 34
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Paste",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 40
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.paste",
         "start": {
           "column": 9,
-          "line": 38
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Paste And Match Style",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 44
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.pasteAndMatchStyle",
         "start": {
           "column": 22,
-          "line": 42
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Delete",
         "end": {
           "column": 3,
-          "line": 49
+          "line": 48
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.delete",
         "start": {
           "column": 10,
-          "line": 46
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!Select All",
         "end": {
           "column": 3,
-          "line": 53
+          "line": 52
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.selectAll",
         "start": {
           "column": 13,
-          "line": 50
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Speech",
         "end": {
           "column": 3,
-          "line": 57
+          "line": 56
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.speech",
         "start": {
           "column": 10,
-          "line": 54
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Start Speaking",
         "end": {
           "column": 3,
-          "line": 61
+          "line": 60
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.startSpeaking",
         "start": {
           "column": 17,
-          "line": 58
+          "line": 57
         }
       },
       {
         "defaultMessage": "!!!Stop Speaking",
         "end": {
           "column": 3,
-          "line": 65
+          "line": 64
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.stopSpeaking",
         "start": {
           "column": 16,
-          "line": 62
+          "line": 61
         }
       },
       {
         "defaultMessage": "!!!Start Dictation",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 68
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.startDictation",
         "start": {
           "column": 18,
-          "line": 66
+          "line": 65
         }
       },
       {
         "defaultMessage": "!!!Emoji & Symbols",
         "end": {
           "column": 3,
-          "line": 73
+          "line": 72
         },
         "file": "src/lib/Menu.js",
         "id": "menu.edit.emojiSymbols",
         "start": {
           "column": 16,
-          "line": 70
+          "line": 69
         }
       },
       {
         "defaultMessage": "!!!Actual Size",
         "end": {
           "column": 3,
-          "line": 77
+          "line": 76
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.resetZoom",
         "start": {
           "column": 13,
-          "line": 74
+          "line": 73
         }
       },
       {
         "defaultMessage": "!!!Zoom In",
         "end": {
           "column": 3,
-          "line": 81
+          "line": 80
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.zoomIn",
         "start": {
           "column": 10,
-          "line": 78
+          "line": 77
         }
       },
       {
         "defaultMessage": "!!!Zoom Out",
         "end": {
           "column": 3,
-          "line": 85
+          "line": 84
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.zoomOut",
         "start": {
           "column": 11,
-          "line": 82
+          "line": 81
         }
       },
       {
         "defaultMessage": "!!!Enter Full Screen",
         "end": {
           "column": 3,
-          "line": 89
+          "line": 88
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.enterFullScreen",
         "start": {
           "column": 19,
-          "line": 86
+          "line": 85
         }
       },
       {
         "defaultMessage": "!!!Exit Full Screen",
         "end": {
           "column": 3,
-          "line": 93
+          "line": 92
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.exitFullScreen",
         "start": {
           "column": 18,
-          "line": 90
+          "line": 89
         }
       },
       {
         "defaultMessage": "!!!Toggle Full Screen",
         "end": {
           "column": 3,
-          "line": 97
+          "line": 96
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.toggleFullScreen",
         "start": {
           "column": 20,
-          "line": 94
+          "line": 93
         }
       },
       {
         "defaultMessage": "!!!Toggle Developer Tools",
         "end": {
           "column": 3,
-          "line": 101
+          "line": 100
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.toggleDevTools",
         "start": {
           "column": 18,
-          "line": 98
+          "line": 97
         }
       },
       {
         "defaultMessage": "!!!Toggle Todos Developer Tools",
         "end": {
           "column": 3,
-          "line": 105
+          "line": 104
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.toggleTodosDevTools",
         "start": {
           "column": 23,
-          "line": 102
+          "line": 101
         }
       },
       {
         "defaultMessage": "!!!Toggle Service Developer Tools",
         "end": {
           "column": 3,
-          "line": 109
+          "line": 108
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.toggleServiceDevTools",
         "start": {
           "column": 25,
-          "line": 106
+          "line": 105
         }
       },
       {
         "defaultMessage": "!!!Reload Service",
         "end": {
           "column": 3,
-          "line": 113
+          "line": 112
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.reloadService",
         "start": {
           "column": 17,
-          "line": 110
+          "line": 109
         }
       },
       {
         "defaultMessage": "!!!Reload Franz",
         "end": {
           "column": 3,
-          "line": 117
+          "line": 116
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view.reloadFranz",
         "start": {
           "column": 15,
-          "line": 114
+          "line": 113
         }
       },
       {
         "defaultMessage": "!!!Minimize",
         "end": {
           "column": 3,
-          "line": 121
+          "line": 120
         },
         "file": "src/lib/Menu.js",
         "id": "menu.window.minimize",
         "start": {
           "column": 12,
-          "line": 118
+          "line": 117
         }
       },
       {
         "defaultMessage": "!!!Close",
         "end": {
           "column": 3,
-          "line": 125
+          "line": 124
         },
         "file": "src/lib/Menu.js",
         "id": "menu.window.close",
         "start": {
           "column": 9,
-          "line": 122
+          "line": 121
         }
       },
       {
         "defaultMessage": "!!!Learn More",
         "end": {
           "column": 3,
-          "line": 129
+          "line": 128
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.learnMore",
         "start": {
           "column": 13,
-          "line": 126
+          "line": 125
         }
       },
       {
         "defaultMessage": "!!!Changelog",
         "end": {
           "column": 3,
-          "line": 133
+          "line": 132
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.changelog",
         "start": {
           "column": 13,
-          "line": 130
+          "line": 129
         }
       },
       {
         "defaultMessage": "!!!Support",
         "end": {
           "column": 3,
-          "line": 137
+          "line": 136
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.support",
         "start": {
           "column": 11,
-          "line": 134
+          "line": 133
         }
       },
       {
         "defaultMessage": "!!!Copy Debug Information",
         "end": {
           "column": 3,
-          "line": 141
+          "line": 140
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.debugInfo",
         "start": {
           "column": 13,
-          "line": 138
+          "line": 137
         }
       },
       {
         "defaultMessage": "!!!Ferdi Debug Information",
         "end": {
           "column": 3,
-          "line": 145
+          "line": 144
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.debugInfoCopiedHeadline",
         "start": {
           "column": 27,
-          "line": 142
+          "line": 141
         }
       },
       {
         "defaultMessage": "!!!Your Debug Information has been copied to your clipboard.",
         "end": {
           "column": 3,
-          "line": 149
+          "line": 148
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.debugInfoCopiedBody",
         "start": {
           "column": 23,
-          "line": 146
+          "line": 145
         }
       },
       {
         "defaultMessage": "!!!Terms of Service",
         "end": {
           "column": 3,
-          "line": 153
+          "line": 152
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.tos",
         "start": {
           "column": 7,
-          "line": 150
+          "line": 149
         }
       },
       {
         "defaultMessage": "!!!Privacy Statement",
         "end": {
           "column": 3,
-          "line": 157
+          "line": 156
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help.privacy",
         "start": {
           "column": 11,
-          "line": 154
+          "line": 153
         }
       },
       {
         "defaultMessage": "!!!File",
         "end": {
           "column": 3,
-          "line": 161
+          "line": 160
         },
         "file": "src/lib/Menu.js",
         "id": "menu.file",
         "start": {
           "column": 8,
-          "line": 158
+          "line": 157
         }
       },
       {
         "defaultMessage": "!!!View",
         "end": {
           "column": 3,
-          "line": 165
+          "line": 164
         },
         "file": "src/lib/Menu.js",
         "id": "menu.view",
         "start": {
           "column": 8,
-          "line": 162
+          "line": 161
         }
       },
       {
         "defaultMessage": "!!!Services",
         "end": {
           "column": 3,
-          "line": 169
+          "line": 168
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services",
         "start": {
           "column": 12,
-          "line": 166
+          "line": 165
         }
       },
       {
         "defaultMessage": "!!!Window",
         "end": {
           "column": 3,
-          "line": 173
+          "line": 172
         },
         "file": "src/lib/Menu.js",
         "id": "menu.window",
         "start": {
           "column": 10,
-          "line": 170
+          "line": 169
         }
       },
       {
         "defaultMessage": "!!!Help",
         "end": {
           "column": 3,
-          "line": 177
+          "line": 176
         },
         "file": "src/lib/Menu.js",
         "id": "menu.help",
         "start": {
           "column": 8,
-          "line": 174
+          "line": 173
         }
       },
       {
         "defaultMessage": "!!!About Franz",
         "end": {
           "column": 3,
-          "line": 181
+          "line": 180
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.about",
         "start": {
           "column": 9,
-          "line": 178
+          "line": 177
         }
       },
       {
         "defaultMessage": "!!!What's new?",
         "end": {
           "column": 3,
-          "line": 185
+          "line": 184
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.announcement",
         "start": {
           "column": 16,
-          "line": 182
+          "line": 181
         }
       },
       {
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 189
+          "line": 188
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.settings",
         "start": {
           "column": 12,
-          "line": 186
+          "line": 185
         }
       },
       {
         "defaultMessage": "!!!Check for updates",
         "end": {
           "column": 3,
-          "line": 193
+          "line": 192
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.checkForUpdates",
         "start": {
           "column": 19,
-          "line": 190
+          "line": 189
         }
       },
       {
         "defaultMessage": "!!!Hide",
         "end": {
           "column": 3,
-          "line": 197
+          "line": 196
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.hide",
         "start": {
           "column": 8,
-          "line": 194
+          "line": 193
         }
       },
       {
         "defaultMessage": "!!!Hide Others",
         "end": {
           "column": 3,
-          "line": 201
+          "line": 200
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.hideOthers",
         "start": {
           "column": 14,
-          "line": 198
+          "line": 197
         }
       },
       {
         "defaultMessage": "!!!Unhide",
         "end": {
           "column": 3,
-          "line": 205
+          "line": 204
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.unhide",
         "start": {
           "column": 10,
-          "line": 202
+          "line": 201
         }
       },
       {
         "defaultMessage": "!!!Quit",
         "end": {
           "column": 3,
-          "line": 209
+          "line": 208
         },
         "file": "src/lib/Menu.js",
         "id": "menu.app.quit",
         "start": {
           "column": 8,
-          "line": 206
+          "line": 205
         }
       },
       {
         "defaultMessage": "!!!Add New Service...",
         "end": {
           "column": 3,
-          "line": 213
+          "line": 212
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.addNewService",
         "start": {
           "column": 17,
-          "line": 210
+          "line": 209
         }
       },
       {
         "defaultMessage": "!!!Add New Workspace...",
         "end": {
           "column": 3,
-          "line": 217
+          "line": 216
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.addNewWorkspace",
         "start": {
           "column": 19,
-          "line": 214
+          "line": 213
         }
       },
       {
         "defaultMessage": "!!!Open workspace drawer",
         "end": {
           "column": 3,
-          "line": 221
+          "line": 220
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.openWorkspaceDrawer",
         "start": {
           "column": 23,
-          "line": 218
+          "line": 217
         }
       },
       {
         "defaultMessage": "!!!Close workspace drawer",
         "end": {
           "column": 3,
-          "line": 225
+          "line": 224
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.closeWorkspaceDrawer",
         "start": {
           "column": 24,
-          "line": 222
+          "line": 221
         }
       },
       {
         "defaultMessage": "!!!Activate next service...",
         "end": {
           "column": 3,
-          "line": 229
+          "line": 228
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.setNextServiceActive",
         "start": {
           "column": 23,
-          "line": 226
+          "line": 225
         }
       },
       {
         "defaultMessage": "!!!Activate previous service...",
         "end": {
           "column": 3,
-          "line": 233
+          "line": 232
         },
         "file": "src/lib/Menu.js",
         "id": "menu.services.activatePreviousService",
         "start": {
           "column": 27,
-          "line": 230
+          "line": 229
         }
       },
       {
         "defaultMessage": "!!!Disable notifications & audio",
         "end": {
           "column": 3,
-          "line": 237
+          "line": 236
         },
         "file": "src/lib/Menu.js",
         "id": "sidebar.muteApp",
         "start": {
           "column": 11,
-          "line": 234
+          "line": 233
         }
       },
       {
         "defaultMessage": "!!!Enable notifications & audio",
         "end": {
           "column": 3,
-          "line": 241
+          "line": 240
         },
         "file": "src/lib/Menu.js",
         "id": "sidebar.unmuteApp",
         "start": {
           "column": 13,
-          "line": 238
+          "line": 237
         }
       },
       {
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 245
+          "line": 244
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces",
         "start": {
           "column": 14,
-          "line": 242
+          "line": 241
         }
       },
       {
         "defaultMessage": "!!!Default",
         "end": {
           "column": 3,
-          "line": 249
+          "line": 248
         },
         "file": "src/lib/Menu.js",
         "id": "menu.workspaces.defaultWorkspace",
         "start": {
           "column": 20,
-          "line": 246
+          "line": 245
         }
       },
       {
         "defaultMessage": "!!!Todos",
         "end": {
           "column": 3,
-          "line": 253
+          "line": 252
         },
         "file": "src/lib/Menu.js",
         "id": "menu.todos",
         "start": {
           "column": 9,
-          "line": 250
+          "line": 249
         }
       },
       {
         "defaultMessage": "!!!Open Todos drawer",
         "end": {
           "column": 3,
-          "line": 257
+          "line": 256
         },
         "file": "src/lib/Menu.js",
         "id": "menu.Todoss.openTodosDrawer",
         "start": {
           "column": 19,
-          "line": 254
+          "line": 253
         }
       },
       {
         "defaultMessage": "!!!Close Todos drawer",
         "end": {
           "column": 3,
-          "line": 261
+          "line": 260
         },
         "file": "src/lib/Menu.js",
         "id": "menu.Todoss.closeTodosDrawer",
         "start": {
           "column": 20,
-          "line": 258
+          "line": 257
         }
       }
     ],

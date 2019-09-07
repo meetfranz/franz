@@ -12,16 +12,16 @@ export default function init(stores) {
   debug('Initializing `spellchecker` feature');
 
   autorun(() => {
-    const { isSpellcheckerIncludedInCurrentPlan } = stores.features.features;
+    // const { isSpellcheckerIncludedInCurrentPlan } = stores.features.features;
 
-    config.isIncludedInCurrentPlan = isSpellcheckerIncludedInCurrentPlan !== undefined ? isSpellcheckerIncludedInCurrentPlan : DEFAULT_FEATURES_CONFIG.isSpellcheckerIncludedInCurrentPlan;
+    // config.isIncludedInCurrentPlan = isSpellcheckerIncludedInCurrentPlan !== undefined ? isSpellcheckerIncludedInCurrentPlan : DEFAULT_FEATURES_CONFIG.isSpellcheckerIncludedInCurrentPlan;
 
-    if (!stores.user.data.isPremium && config.isIncludedInCurrentPlan && stores.settings.app.enableSpellchecking) {
-      debug('Override settings.spellcheckerEnabled flag to false');
+    // if (!stores.user.data.isPremium && config.isIncludedInCurrentPlan && stores.settings.app.enableSpellchecking) {
+    //   debug('Override settings.spellcheckerEnabled flag to false');
 
-      Object.assign(stores.settings.app, {
-        enableSpellchecking: false,
-      });
-    }
+    //   Object.assign(stores.settings.app, {
+    //     enableSpellchecking: false,
+    //   });
+    // }
   });
 }

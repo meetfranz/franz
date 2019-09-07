@@ -58,7 +58,7 @@ export const DEFAULT_FEATURES_CONFIG = {
     wait: ms('10s'),
   },
   isServiceProxyEnabled: false,
-  isServiceProxyIncludedInCurrentPlan: false,
+  isServiceProxyIncludedInCurrentPlan: true,
   isAnnouncementsEnabled: true,
   isWorkspaceIncludedInCurrentPlan: true,
   isWorkspaceEnabled: false,
