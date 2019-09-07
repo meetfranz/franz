@@ -51,7 +51,7 @@ if (!isDevMode || (isDevMode && useLiveAPI)) {
   api = DEV_API;
   wsApi = DEV_WS_API;
   web = DEV_API_WEBSITE;
-  todos = DEVELOPMENT_TODOS_FRONTEND_URL;
+  todos = PRODUCTION_TODOS_FRONTEND_URL;
 }
 
 export const API = api;
