@@ -26,6 +26,10 @@ const messages = defineMessages({
     id: 'settings.app.serverInfo',
     defaultMessage: '!!!We advice you to logout after changing your server as your settings might not be saved otherwise.',
   },
+  todoServerInfo: {
+    id: 'settings.app.todoServerInfo',
+    defaultMessage: '!!!This server will be used for the "Franz Todo" feature. The default server will only work for premium users. (default: https://app.franztodos.com)'
+  },
   headlineLanguage: {
     id: 'settings.app.headlineLanguage',
     defaultMessage: '!!!Language',
@@ -181,7 +185,16 @@ export default @observer class EditSettingsForm extends Component {
               <p>{ intl.formatMessage(messages.serverInfo) }</p>
             )}
             {isTodosEnabled && (
-              <Toggle field={form.$('enableTodos')} />
+              <>
+                <Toggle field={form.$('enableTodos')} />
+                <Input
+                  placeholder="Todo Server"
+                  onChange={e => this.submit(e)}
+                  field={form.$('todoServer')}
+                  autoFocus
+                />
+                <p>{ intl.formatMessage(messages.todoServerInfo) }</p>
+              </>
             )}
 
             {/* Appearance */}

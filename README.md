@@ -12,16 +12,23 @@
 - [x] Makes all users Premium by default
 - [x] [Add option to change server to a custom](#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Remove "Franz is better together" popup
+- [x] [Makes it possible to edit the "Franz Todo" server](#franz-todo)
 - [x] Makes RocketChat self-hosted generally available
 - [x] Comes with a custom branding proper to Ferdi
 
-## Servers
+### Servers
 Ferdi adds the option to change your Ferdi server. By default, this will be `https://api.franzinfra.com` - the official Franz server. This allows Ferdi to stay compatible with your current Franz account.
 
 If you want to experience all Ferdi features, you may want to use a custom [ferdi-server](https://github.com/vantezzen/ferdi-server). ferdi-server allows you to use Premium features without restrictions and adds the ability to package and add additional recipes. You can also import your existing Franz account into your ferdi-server to start right where you left off.
 
 More information on how to set up a ferdi-server can be found at <https://github.com/vantezzen/ferdi-server/blob/master/README.md>.
 
+### Franz Todo
+Starting with Franz 5.3.0, Franz ships with the "Franz Todo" feature. This feature allows you to create a Franz Todo list that stays open at all times.
+
+Ferdi makes it possible to change the Franz Todo list server to any URL you want, e.g. to `todoist.com` to use your Todoist todo list in Franz todo.
+
+![Todoist in Franz Todo](screenshots/Ferdi-Todo.png)
 
 ## Packaging
 

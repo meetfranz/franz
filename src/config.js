@@ -37,6 +37,7 @@ export const DEFAULT_APP_SETTINGS = {
   enableSystemTray: true,
   minimizeToSystemTray: false,
   server: LIVE_API,
+  todoServer: PRODUCTION_TODOS_FRONTEND_URL,
   showDisabledServices: true,
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
