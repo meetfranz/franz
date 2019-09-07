@@ -107,7 +107,6 @@ class AppLayout extends Component {
       areRequiredRequestsSuccessful,
       retryRequiredRequests,
       areRequiredRequestsLoading,
-      isDelayAppScreenVisible,
       hasActivatedTrial,
     } = this.props;
 

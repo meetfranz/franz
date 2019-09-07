@@ -935,7 +935,6 @@ export default class FranzMenu {
       accelerator: `${cmdKey}+T`,
       click: () => {
         todoActions.toggleTodosPanel();
-        gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
       },
       enabled: this.stores.user.isLoggedIn,
     }, {

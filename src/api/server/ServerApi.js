@@ -77,7 +77,7 @@ export default class ServerApi {
   }
 
   async activateTrial(data) {
-    const request = await sendAuthRequest(`${API_URL}/payment/trial`, {
+    const request = await sendAuthRequest(`${apiBase()}/payment/trial`, {
       method: 'POST',
       body: JSON.stringify(data),
     });

@@ -62,18 +62,7 @@ class ActivateTrialButton extends Component {
   };
 
   handleCTAClick() {
-    const { actions, stores } = this.props;
-    const { hadSubscription } = stores.user.data;
-    // const { defaultTrialPlan } = stores.features.features;
-
-    let label = '';
-    if (!hadSubscription) {
-      // actions.user.activateTrial({ planId: defaultTrialPlan });
-
-      label = 'Start Trial';
-    } else {
-      label = 'Upgrade Account';
-    }
+    const { actions } = this.props;
 
     actions.ui.openSettings({ path: 'user' });
   }
