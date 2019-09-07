@@ -27,7 +27,6 @@ export default @injectSheet(styles) @observer class BasicAuthModal extends Compo
     e.preventDefault();
 
     const values = Form.values();
-    console.log('form submit', values);
 
     sendCredentials(values.user, values.password);
     resetState();

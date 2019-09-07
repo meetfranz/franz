@@ -1,15 +1,17 @@
+import { mdiStar } from '@mdi/js';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
-import { Icon, Badge } from '../';
+import { Badge, Icon } from '../';
 import { IWithStyle } from '../typings/generic';
 
 interface IProps extends IWithStyle {
   badgeClasses?: string;
   iconClasses?: string;
   inverted?: boolean;
+  className?: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -37,6 +39,7 @@ class ProBadgeComponent extends Component<IProps> {
       badgeClasses,
       iconClasses,
       inverted,
+      className,
     } = this.props;
 
     return (
@@ -46,10 +49,11 @@ class ProBadgeComponent extends Component<IProps> {
           classes.badge,
           inverted && classes.invertedBadge,
           badgeClasses,
+          className,
         ])}
       >
         <Icon
-          icon="mdiStar"
+          icon={mdiStar}
           className={classnames([
             classes.icon,
             inverted && classes.invertedIcon,

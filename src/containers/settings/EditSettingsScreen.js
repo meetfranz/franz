@@ -6,6 +6,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
 import UserStore from '../../stores/UserStore';
+import TodosStore from '../../features/todos/store';
 import Form from '../../lib/Form';
 import { APP_LOCALES, SPELLCHECKER_LOCALES } from '../../i18n/languages';
 import { DEFAULT_APP_SETTINGS } from '../../config';
@@ -19,6 +20,7 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { API } from '../../environment';
 
 import globalMessages from '../../i18n/globalMessages';
+import { DEFAULT_IS_FEATURE_ENABLED_BY_USER } from '../../features/todos';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
@@ -73,6 +75,10 @@ const messages = defineMessages({
     id: 'settings.app.form.beta',
     defaultMessage: '!!!Include beta versions',
   },
+  enableTodos: {
+    id: 'settings.app.form.enableTodos',
+    defaultMessage: '!!!Enable Franz Todos',
+  },
 });
 
 export default @inject('stores', 'actions') @observer class EditSettingsScreen extends Component {
@@ -81,7 +87,13 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
   };
 
   onSubmit(settingsData) {
-    const { app, settings, user } = this.props.actions;
+    const { todos } = this.props.stores;
+    const {
+      app,
+      settings,
+      user,
+      todos: todosActions,
+    } = this.props.actions;
 
     app.launchOnStartup({
       enable: settingsData.autoLaunchOnStart,
@@ -112,10 +124,16 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         locale: settingsData.locale,
       },
     });
+
+    if (todos.isFeatureActive) {
+      todosActions.toggleTodosFeatureVisibility();
+    }
   }
 
   prepareForm() {
-    const { app, settings, user } = this.props.stores;
+    const {
+      app, settings, user, todos,
+    } = this.props.stores;
     const { intl } = this.context;
 
     const locales = getSelectOptions({
@@ -171,8 +189,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
-          value: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremium ? false : settings.all.app.enableSpellchecking,
-          default: !this.props.stores.user.data.isPremium && spellcheckerConfig.isPremium ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
+          value: !this.props.stores.user.data.isPremium && !spellcheckerConfig.isIncludedInCurrentPlan ? false : settings.all.app.enableSpellchecking,
+          default: !this.props.stores.user.data.isPremium && !spellcheckerConfig.isIncludedInCurrentPlan ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
         spellcheckerLanguage: {
           label: intl.formatMessage(globalMessages.spellcheckerLanguage),
@@ -204,16 +222,28 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       },
     };
 
+    if (todos.isFeatureActive) {
+      config.fields.enableTodos = {
+        label: intl.formatMessage(messages.enableTodos),
+        value: todos.settings.isFeatureEnabledByUser,
+        default: DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+      };
+    }
+
     return new Form(config);
   }
 
   render() {
     const {
+      app,
+      todos,
+    } = this.props.stores;
+    const {
       updateStatus,
       cacheSize,
       updateStatusTypes,
       isClearingAllCache,
-    } = this.props.stores.app;
+    } = app;
     const {
       checkForUpdates,
       installUpdate,
@@ -235,7 +265,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           cacheSize={cacheSize}
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}
-          isSpellcheckerPremiumFeature={spellcheckerConfig.isPremium}
+          isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
+          isTodosEnabled={todos.isFeatureActive}
         />
       </ErrorBoundary>
     );
@@ -247,6 +278,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
     app: PropTypes.instanceOf(AppStore).isRequired,
     user: PropTypes.instanceOf(UserStore).isRequired,
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
+    todos: PropTypes.instanceOf(TodosStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     app: PropTypes.shape({
@@ -260,6 +292,9 @@ EditSettingsScreen.wrappedComponent.propTypes = {
     }).isRequired,
     user: PropTypes.shape({
       update: PropTypes.func.isRequired,
+    }).isRequired,
+    todos: PropTypes.shape({
+      toggleTodosFeatureVisibility: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };

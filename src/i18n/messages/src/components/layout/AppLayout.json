@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Your services have been updated.",
     "file": "src/components/layout/AppLayout.js",
     "start": {
-      "line": 25,
+      "line": 28,
       "column": 19
     },
     "end": {
-      "line": 28,
+      "line": 31,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Reload services",
     "file": "src/components/layout/AppLayout.js",
     "start": {
-      "line": 29,
+      "line": 32,
       "column": 24
     },
     "end": {
-      "line": 32,
+      "line": 35,
       "column": 3
     }
   },

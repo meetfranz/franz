@@ -21,11 +21,8 @@ const styles = theme => ({
     alignItems: 'flex-start',
     position: 'absolute',
     transition: 'width 0.5s ease',
-    width: '100%',
-    marginTop: '20px',
-  },
-  wrapperWhenDrawerIsOpen: {
     width: `calc(100% - ${theme.workspaces.drawer.width}px)`,
+    marginTop: '20px',
   },
   component: {
     background: 'rgba(20, 20, 20, 0.4)',
@@ -64,14 +61,13 @@ class WorkspaceSwitchingIndicator extends Component {
   render() {
     const { classes, theme } = this.props;
     const { intl } = this.context;
-    const { isSwitchingWorkspace, isWorkspaceDrawerOpen, nextWorkspace } = workspaceStore;
+    const { isSwitchingWorkspace, nextWorkspace } = workspaceStore;
     if (!isSwitchingWorkspace) return null;
     const nextWorkspaceName = nextWorkspace ? nextWorkspace.name : 'All services';
     return (
       <div
         className={classnames([
           classes.wrapper,
-          isWorkspaceDrawerOpen ? classes.wrapperWhenDrawerIsOpen : null,
         ])}
       >
         <div className={classes.component}>

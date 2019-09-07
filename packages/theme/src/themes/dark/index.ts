@@ -11,6 +11,8 @@ export const colorBackgroundSubscriptionContainer = legacyStyles.themeBrandInfo;
 export const colorHeadline = legacyStyles.darkThemeTextColor;
 export const colorText = legacyStyles.darkThemeTextColor;
 
+export const defaultContentBorder = legacyStyles.themeGrayDark;
+
 // Loader
 export const colorFullscreenLoaderSpinner = '#FFF';
 export const colorWebviewLoaderBackground = color(legacyStyles.darkThemeGrayDarkest).alpha(0.5).rgb().string();
@@ -116,5 +118,30 @@ export const workspaces = merge({}, defaultStyles.workspaces, {
 export const announcements = merge({}, defaultStyles.announcements, {
   spotlight: {
     background: legacyStyles.darkThemeGrayDark,
+  },
+});
+
+// Signup
+export const signup = merge({}, defaultStyles.signup, {
+  pricing: {
+    feature: {
+      background: legacyStyles.darkThemeGrayLight,
+      border: color(legacyStyles.darkThemeGrayLight).lighten(0.2).hex(),
+    },
+  },
+});
+
+// Todos
+export const todos = merge({}, defaultStyles.todos, {
+  todosLayer: {
+    borderLeftColor: legacyStyles.darkThemeGrayDarker,
+  },
+  toggleButton: {
+    background: defaultStyles.styleTypes.primary.accent,
+    textColor: defaultStyles.styleTypes.primary.contrast,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  dragIndicator: {
+    background: legacyStyles.themeGrayLight,
   },
 });

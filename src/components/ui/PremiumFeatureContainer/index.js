@@ -9,6 +9,7 @@ import { oneOrManyChildElements } from '../../../prop-types';
 import UserStore from '../../../stores/UserStore';
 
 import styles from './styles';
+import { FeatureStore } from '../../../features/utils/FeatureStore';
 
 const messages = defineMessages({
   action: {
@@ -21,7 +22,10 @@ const messages = defineMessages({
 class PremiumFeatureContainer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    condition: PropTypes.bool,
+    condition: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.func,
+    ]),
     gaEventInfo: PropTypes.shape({
       category: PropTypes.string.isRequired,
       event: PropTypes.string.isRequired,
@@ -30,7 +34,7 @@ class PremiumFeatureContainer extends Component {
   };
 
   static defaultProps = {
-    condition: true,
+    condition: null,
     gaEventInfo: null,
   };
 
@@ -49,7 +53,18 @@ class PremiumFeatureContainer extends Component {
 
     const { intl } = this.context;
 
-    return !stores.user.data.isPremium && !!condition ? (
+    let showWrapper = !!condition;
+
+    if (condition === null) {
+      showWrapper = !stores.user.data.isPremium;
+    } else if (typeof condition === 'function') {
+      showWrapper = condition({
+        isPremium: stores.user.data.isPremium,
+        features: stores.features.features,
+      });
+    }
+
+    return showWrapper ? (
       <div className={classes.container}>
         <div className={classes.titleContainer}>
           <p className={classes.title}>Premium Feature</p>
@@ -75,6 +90,7 @@ PremiumFeatureContainer.wrappedComponent.propTypes = {
   children: oneOrManyChildElements.isRequired,
   stores: PropTypes.shape({
     user: PropTypes.instanceOf(UserStore).isRequired,
+    features: PropTypes.instanceOf(FeatureStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     ui: PropTypes.shape({

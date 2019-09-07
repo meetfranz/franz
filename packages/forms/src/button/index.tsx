@@ -1,4 +1,3 @@
-import * as mdiIcons from '@mdi/js';
 import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
@@ -21,7 +20,7 @@ interface IProps extends IFormField, IWithStyle {
   stretch?: boolean;
   loaded?: boolean;
   busy?: boolean;
-  icon?: keyof typeof mdiIcons;
+  icon?: string;
   href?: string;
   target?: string;
 }
@@ -175,7 +174,7 @@ class ButtonComponent extends Component<IProps> {
       onClick,
       buttonType,
       loaded,
-      icon: iconName,
+      icon,
       busy: busyProp,
       href,
       target,
@@ -184,13 +183,6 @@ class ButtonComponent extends Component<IProps> {
     const {
       busy,
     } = this.state;
-
-    let icon = '';
-    if (iconName && mdiIcons[iconName]) {
-      icon = mdiIcons[iconName];
-    } else if (iconName && !mdiIcons[iconName]) {
-      console.warn(`Icon '${iconName}' was not found`);
-    }
 
     let showLoader = false;
     if (loaded) {

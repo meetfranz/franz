@@ -43,14 +43,16 @@ export default function init(stores) {
         config.delayDuration = globalConfig.wait !== undefined ? globalConfig.wait : DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.wait;
 
         autorun(() => {
-          if (stores.services.all.length === 0) {
-            debug('seas', stores.services.all.length);
+          const { isAnnouncementShown } = stores.announcements;
+          if (stores.services.allDisplayed.length === 0 || isAnnouncementShown) {
             shownAfterLaunch = true;
+            setVisibility(false);
             return;
           }
 
           const diff = moment().diff(timeLastDelay);
-          if ((stores.app.isFocused && diff >= config.delayOffset) || !shownAfterLaunch) {
+          const itsTimeToWait = diff >= config.delayOffset;
+          if (!isAnnouncementShown && ((stores.app.isFocused && itsTimeToWait) || !shownAfterLaunch)) {
             debug(`App will be delayed for ${config.delayDuration / 1000}s`);
 
             setVisibility(true);
@@ -63,6 +65,8 @@ export default function init(stores) {
 
               setVisibility(false);
             }, config.delayDuration + 1000); // timer needs to be able to hit 0
+          } else {
+            setVisibility(false);
           }
         });
       } else {

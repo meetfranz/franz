@@ -1,3 +1,4 @@
+import { mdiEarth } from '@mdi/js';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -44,7 +45,7 @@ storiesOf('Infobox')
   .add('Icon + Dismissable', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         dismissable: true,
       })}
     >
@@ -54,7 +55,7 @@ storiesOf('Infobox')
   .add('With CTA', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
       })}
     >
@@ -64,7 +65,7 @@ storiesOf('Infobox')
   .add('With long text', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
       })}
     >
@@ -74,7 +75,7 @@ storiesOf('Infobox')
   .add('Secondary', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
         type: 'secondary',
       })}
@@ -85,7 +86,7 @@ storiesOf('Infobox')
   .add('Success', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
         type: 'success',
       })}
@@ -96,7 +97,7 @@ storiesOf('Infobox')
   .add('Warning', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
         type: 'warning',
       })}
@@ -107,7 +108,7 @@ storiesOf('Infobox')
   .add('Danger', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
         type: 'danger',
       })}
@@ -118,7 +119,7 @@ storiesOf('Infobox')
   .add('Inverted', () => (
     <WithStoreInfobox
       store={createStore({
-        icon: 'mdiEarth',
+        icon: mdiEarth,
         ctaLabel: 'Ok, hi!',
         type: 'inverted',
       })}

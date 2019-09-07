@@ -28,6 +28,8 @@ export const colorHeadline = legacyStyles.themeGrayDark;
 
 export const colorText = legacyStyles.themeTextColor;
 
+export const defaultContentBorder = color(legacyStyles.themeGrayLighter).darken(0.1).rgb().string();
+
 // Subscription Container Component
 export const colorSubscriptionContainerBackground = 'none';
 export const colorSubscriptionContainerBorder = `1px solid ${brandPrimary}`;
@@ -205,5 +207,33 @@ export const workspaces = {
 export const announcements = {
   spotlight: {
     background: legacyStyles.themeGrayLightest,
+  },
+};
+
+// Signup
+export const signup = {
+  pricing: {
+    feature: {
+      background: legacyStyles.themeGrayLightest,
+      border: legacyStyles.themeGrayLighter,
+    },
+  },
+};
+
+// Todos
+export const todos = {
+  todosLayer: {
+    borderLeftColor: legacyStyles.themeGrayLighter,
+  },
+  toggleButton: {
+    background: styleTypes.primary.accent,
+    textColor: styleTypes.primary.contrast,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  dragIndicator: {
+    background: legacyStyles.themeGrayLight,
+  },
+  resizeHandler: {
+    backgroundHover: styleTypes.primary.accent,
   },
 };

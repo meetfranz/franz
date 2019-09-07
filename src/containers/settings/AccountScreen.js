@@ -30,7 +30,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
 
     let url;
     if (api === 'https://api.franzinfra.com') {
-      url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
+      url = stores.user.getAuthURL(`${WEBSITE}${route}?utm_source=app&utm_medium=account_dashboard`);
     } else {
       url = `${api}${route}`;
     }
@@ -49,6 +49,8 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
       <ErrorBoundary>
         <AccountDashboard
           user={user.data}
+          isPremiumOverrideUser={user.isPremiumOverride}
+          isProUser={user.isPro}
           isLoading={isLoadingUserInfo}
           isLoadingPlans={isLoadingPlans}
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
@@ -58,6 +60,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
           isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
           isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
           openEditAccount={() => this.handleWebsiteLink('/user/profile')}
+          upgradeToPro={() => this.handleWebsiteLink('/inapp/user/licenses')}
           openBilling={() => this.handleWebsiteLink('/user/billing')}
           openInvoices={() => this.handleWebsiteLink('/user/invoices')}
         />

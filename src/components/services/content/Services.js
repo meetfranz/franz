@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
+import Confetti from 'react-confetti';
+import ms from 'ms';
+import injectSheet from 'react-jss';
 
 import ServiceView from './ServiceView';
 import Appear from '../../ui/effects/Appear';
@@ -26,7 +29,17 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class Services extends Component {
+
+const styles = {
+  confettiContainer: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 9999,
+    pointerEvents: 'none',
+  },
+};
+
+export default @observer @injectSheet(styles) class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray,
     setWebviewReference: PropTypes.func.isRequired,
@@ -36,6 +49,9 @@ export default @observer class Services extends Component {
     reload: PropTypes.func.isRequired,
     openSettings: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
+    userHasCompletedSignup: PropTypes.bool.isRequired,
+    hasActivatedTrial: PropTypes.bool.isRequired,
+    classes: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
@@ -45,6 +61,18 @@ export default @observer class Services extends Component {
   static contextTypes = {
     intl: intlShape,
   };
+
+  state = {
+    showConfetti: true,
+  }
+
+  componentDidMount() {
+    window.setTimeout(() => {
+      this.setState({
+        showConfetti: false,
+      });
+    }, ms('8s'));
+  }
 
   render() {
     const {
@@ -56,12 +84,29 @@ export default @observer class Services extends Component {
       reload,
       openSettings,
       update,
+      userHasCompletedSignup,
+      hasActivatedTrial,
+      classes,
     } = this.props;
+
+    const {
+      showConfetti,
+    } = this.state;
+
     const { intl } = this.context;
     const isLoggedIn = Boolean(localStorage.getItem('authToken'));
 
     return (
       <div className="services">
+        {(userHasCompletedSignup || hasActivatedTrial) && (
+          <div className={classes.confettiContainer}>
+            <Confetti
+              width={window.width}
+              height={window.height}
+              numberOfPieces={showConfetti ? 200 : 0}
+            />
+          </div>
+        )}
         {services.length === 0 && (
           <Appear
             timeout={1500}
@@ -104,6 +149,7 @@ export default @observer class Services extends Component {
               },
               redirect: false,
             })}
+            upgrade={() => openSettings({ path: 'user' })}
           />
         ))}
       </div>

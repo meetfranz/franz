@@ -12,6 +12,9 @@ import RequestStore from './RequestStore';
 import GlobalErrorStore from './GlobalErrorStore';
 import { workspaceStore } from '../features/workspaces';
 import { announcementsStore } from '../features/announcements';
+import { serviceLimitStore } from '../features/serviceLimit';
+import { communityRecipesStore } from '../features/communityRecipes';
+import { todosStore } from '../features/todos';
 
 export default (api, actions, router) => {
   const stores = {};
@@ -31,6 +34,9 @@ export default (api, actions, router) => {
     globalError: new GlobalErrorStore(stores, api, actions),
     workspaces: workspaceStore,
     announcements: announcementsStore,
+    serviceLimit: serviceLimitStore,
+    communityRecipes: communityRecipesStore,
+    todos: todosStore,
   });
   // Initialize all stores
   Object.keys(stores).forEach((name) => {

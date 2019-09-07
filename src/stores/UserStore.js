@@ -2,11 +2,15 @@ import { observable, computed, action } from 'mobx';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import localStorage from 'mobx-localstorage';
+import ms from 'ms';
 
 import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
+import { sleep } from '../helpers/async-helpers';
+import { getPlan } from '../helpers/plan-helpers';
+import { PLANS } from '../config';
 
 const debug = require('debug')('Franz:UserStore');
 
@@ -36,6 +40,8 @@ export default class UserStore extends Store {
 
   @observable passwordRequest = new Request(this.api.user, 'password');
 
+  @observable activateTrialRequest = new Request(this.api.user, 'activateTrial');
+
   @observable inviteRequest = new Request(this.api.user, 'invite');
 
   @observable getUserInfoRequest = new CachedRequest(this.api.user, 'getInfo');
@@ -56,7 +62,9 @@ export default class UserStore extends Store {
 
   @observable accountType;
 
-  @observable hasCompletedSignup = null;
+  @observable hasCompletedSignup = false;
+
+  @observable hasActivatedTrial = false;
 
   @observable userData = {};
 
@@ -76,6 +84,7 @@ export default class UserStore extends Store {
     this.actions.user.retrievePassword.listen(this._retrievePassword.bind(this));
     this.actions.user.logout.listen(this._logout.bind(this));
     this.actions.user.signup.listen(this._signup.bind(this));
+    this.actions.user.activateTrial.listen(this._activateTrial.bind(this));
     this.actions.user.invite.listen(this._invite.bind(this));
     this.actions.user.update.listen(this._update.bind(this));
     this.actions.user.resetStatus.listen(this._resetStatus.bind(this));
@@ -86,6 +95,7 @@ export default class UserStore extends Store {
     this.registerReactions([
       // this._requireAuthenticatedUser,
       this._getUserData.bind(this),
+      this._resetTrialActivationState.bind(this),
     ]);
   }
 
@@ -141,8 +151,32 @@ export default class UserStore extends Store {
     return this.getUserInfoRequest.execute().result || {};
   }
 
+  @computed get team() {
+    return this.data.team || null;
+  }
+
   @computed get isPremium() {
     return !!this.data.isPremium;
+  }
+
+  @computed get isPremiumOverride() {
+    return ((!this.team || !this.team.plan) && this.isPremium) || (this.team.state === 'expired' && this.isPremium);
+  }
+
+  @computed get isPersonal() {
+    if (!this.team || !this.team.plan) return false;
+    const plan = getPlan(this.team.plan);
+
+    return plan === PLANS.PERSONAL;
+  }
+
+  @computed get isPro() {
+    if (this.isPremiumOverride) return true;
+
+    if (!this.team || (!this.team.plan || this.team.state === 'expired')) return false;
+    const plan = getPlan(this.team.plan);
+
+    return plan === PLANS.PRO || plan === PLANS.LEGACY;
   }
 
   @computed get legacyServices() {
@@ -188,6 +222,21 @@ export default class UserStore extends Store {
 
     await request._promise;
     this.actionStatus = request.result.status || [];
+  }
+
+  @action async _activateTrial({ planId }) {
+    debug('activate trial', planId);
+
+    this.activateTrialRequest.execute({
+      plan: planId,
+    });
+
+    await this.activateTrialRequest._promise;
+
+    this.hasActivatedTrial = true;
+
+    this.stores.features.featuresRequest.invalidate({ immediately: true });
+    this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
   }
 
   @action async _invite({ invites }) {
@@ -305,6 +354,14 @@ export default class UserStore extends Store {
     }
   }
 
+  async _resetTrialActivationState() {
+    if (this.hasActivatedTrial) {
+      await sleep(ms('12s'));
+
+      this.hasActivatedTrial = false;
+    }
+  }
+
   // Helpers
   _parseToken(authToken) {
     try {
@@ -332,6 +389,15 @@ export default class UserStore extends Store {
       this.authToken = null;
       this.id = null;
     }
+  }
+
+  getAuthURL(url) {
+    const parsedUrl = new URL(url);
+    const params = new URLSearchParams(parsedUrl.search.slice(1));
+
+    params.append('authToken', this.authToken);
+
+    return `${parsedUrl.origin}${parsedUrl.pathname}?${params.toString()}`;
   }
 
   async _migrateUserLocale() {

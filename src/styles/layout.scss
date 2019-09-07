@@ -32,14 +32,22 @@ html { overflow: hidden; }
   .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
 }
 
-.app {
-  display: flex;
-  flex-direction: column;
+body.win32:not(.isFullScreen) .app .app__content {
+  height: calc(100% - 28px);
+}
 
-  .app__content { display: flex; }
+.app {
+  .app__content {
+    display: flex;
+    width: calc(100% + 300px);
+  }
+
+  .app__main-content {
+    display: flex;
+    width: 100%;
+  }
 
   .app__service {
-    // position: relative;
     display: flex;
     flex: 1;
     flex-direction: column;

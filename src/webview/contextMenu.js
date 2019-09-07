@@ -39,6 +39,23 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     {
       type: 'separator',
     }, {
+      id: 'createTodo',
+      label: `Create todo: "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
+      visible: hasText,
+      click() {
+        debug('Create todo from selected text', textSelection);
+        ipcRenderer.sendToHost('feature:todos', {
+          action: 'todos:create',
+          data: {
+            title: textSelection,
+            url: window.location.href,
+          },
+        });
+      },
+    },
+    {
+      type: 'separator',
+    }, {
       id: 'lookup',
       label: `Look Up "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
       visible: isMac && props.mediaType === 'none' && hasText,

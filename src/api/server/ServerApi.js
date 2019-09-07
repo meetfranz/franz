@@ -76,6 +76,20 @@ export default class ServerApi {
     return u.token;
   }
 
+  async activateTrial(data) {
+    const request = await sendAuthRequest(`${API_URL}/payment/trial`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    if (!request.ok) {
+      throw request;
+    }
+    const trial = await request.json();
+
+    debug('ServerApi::signup resolves', trial);
+    return true;
+  }
+
   async inviteUser(data) {
     const request = await sendAuthRequest(`${apiBase()}/invite`, {
       method: 'POST',
@@ -468,7 +482,7 @@ export default class ServerApi {
         return services;
       }
     } catch (err) {
-      throw (new Error('ServerApi::getLegacyServices no config found'));
+      console.error('ServerApi::getLegacyServices no config found');
     }
 
     return [];
