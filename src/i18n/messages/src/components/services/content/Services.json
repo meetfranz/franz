@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Please login to use Ferdi.",
     "file": "src/components/services/content/Services.js",
     "start": {
-      "line": 19,
+      "line": 22,
       "column": 9
     },
     "end": {
-      "line": 22,
+      "line": 25,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.",
     "file": "src/components/services/content/Services.js",
     "start": {
-      "line": 23,
+      "line": 26,
       "column": 14
     },
     "end": {
-      "line": 26,
+      "line": 29,
       "column": 3
     }
   }

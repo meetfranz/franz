@@ -12,7 +12,7 @@ export class ServiceLimitStore extends FeatureStore {
     this.stores = stores;
     this.actions = actions;
 
-    this.isServiceLimitEnabled = true;
+    this.isServiceLimitEnabled = false;
   }
 
   stop() {
@@ -22,9 +22,10 @@ export class ServiceLimitStore extends FeatureStore {
   }
 
   @computed get userHasReachedServiceLimit() {
-    if (!this.isServiceLimitEnabled) return false;
+    return false;
+    // if (!this.isServiceLimitEnabled) return false;
 
-    return this.serviceLimit !== 0 && this.serviceCount >= this.serviceLimit;
+    // return this.serviceLimit !== 0 && this.serviceCount >= this.serviceLimit;
   }
 
   @computed get serviceLimit() {

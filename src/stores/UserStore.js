@@ -156,7 +156,7 @@ export default class UserStore extends Store {
   }
 
   @computed get isPremium() {
-    return !!this.data.isPremium;
+    return true;
   }
 
   @computed get isPremiumOverride() {
@@ -171,12 +171,13 @@ export default class UserStore extends Store {
   }
 
   @computed get isPro() {
-    if (this.isPremiumOverride) return true;
+    return true;
+    // if (this.isPremiumOverride) return true;
 
-    if (!this.team || (!this.team.plan || this.team.state === 'expired')) return false;
-    const plan = getPlan(this.team.plan);
+    // if (!this.team || (!this.team.plan || this.team.state === 'expired')) return false;
+    // const plan = getPlan(this.team.plan);
 
-    return plan === PLANS.PRO || plan === PLANS.LEGACY;
+    // return plan === PLANS.PRO || plan === PLANS.LEGACY;
   }
 
   @computed get legacyServices() {
