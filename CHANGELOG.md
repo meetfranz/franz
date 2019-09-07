@@ -1,4 +1,4 @@
-## [5.3.1](https://github.com/meetfranz/franz/compare/v5.3.0...v5.3.1) (2019-09-06)
+# [5.3.1](https://github.com/meetfranz/franz/compare/v5.3.0...v5.3.1) (2019-09-06)
 
 ### Features
 
