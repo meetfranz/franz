@@ -5,8 +5,6 @@ import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 import { Infobox } from '@meetfranz/ui';
 
-import { gaEvent } from '../../../lib/analytics';
-
 const messages = defineMessages({
   limitReached: {
     id: 'feature.serviceLimit.limitReached',
@@ -67,7 +65,6 @@ class LimitReachedInfobox extends Component {
         ctaLabel={intl.formatMessage(messages.action)}
         ctaOnClick={() => {
           actions.ui.openSettings({ path: 'user' });
-          gaEvent('Service Limit', 'upgrade', 'Upgrade account');
         }}
       >
         {intl.formatMessage(messages.limitReached, { amount: serviceLimit.serviceCount, limit: serviceLimit.serviceLimit })}

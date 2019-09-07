@@ -5,7 +5,6 @@ import { defineMessages, intlShape } from 'react-intl';
 import classnames from 'classnames';
 
 import { Button } from '@meetfranz/forms';
-import { gaEvent } from '../../../lib/analytics';
 
 import UserStore from '../../../stores/UserStore';
 
@@ -63,7 +62,7 @@ class ActivateTrialButton extends Component {
   };
 
   handleCTAClick() {
-    const { actions, stores, gaEventInfo } = this.props;
+    const { actions, stores } = this.props;
     const { hadSubscription } = stores.user.data;
     // const { defaultTrialPlan } = stores.features.features;
 
@@ -77,11 +76,6 @@ class ActivateTrialButton extends Component {
     }
 
     actions.ui.openSettings({ path: 'user' });
-
-    if (gaEventInfo) {
-      const { category, event } = gaEventInfo;
-      gaEvent(category, event, label);
-    }
   }
 
   render() {

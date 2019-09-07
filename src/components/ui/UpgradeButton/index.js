@@ -4,7 +4,6 @@ import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 
 import { Button } from '@meetfranz/forms';
-import { gaEvent } from '../../../lib/analytics';
 
 import UserStore from '../../../stores/UserStore';
 import ActivateTrialButton from '../ActivateTrialButton';
@@ -41,13 +40,9 @@ class UpgradeButton extends Component {
   };
 
   handleCTAClick() {
-    const { actions, gaEventInfo } = this.props;
+    const { actions } = this.props;
 
     actions.ui.openSettings({ path: 'user' });
-    if (gaEventInfo) {
-      const { category, event } = gaEventInfo;
-      gaEvent(category, event, 'Upgrade Account');
-    }
   }
 
   render() {
