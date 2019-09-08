@@ -119,7 +119,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
     });
 
     if (todos.isFeatureActive) {
-      todosActions.toggleTodosFeatureVisibility();
+      todosActions.setTodosFeatureVisibility(settingsData.enableTodos);
     }
   }
 
@@ -138,7 +138,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       automaticDetectionText: this.context.intl.formatMessage(globalMessages.spellcheckerAutomaticDetection),
     });
 
-    const config = {
+    let config = {
       fields: {
         autoLaunchOnStart: {
           label: intl.formatMessage(messages.autoLaunchOnStart),

@@ -61,6 +61,7 @@ export default class TodoStore extends FeatureStore {
       [todoActions.handleHostMessage, this._handleHostMessage],
       [todoActions.handleClientMessage, this._handleClientMessage],
       [todoActions.toggleTodosFeatureVisibility, this._toggleTodosFeatureVisibility],
+      [todoActions.setTodosFeatureVisibility, this._setTodosFeatureVisibility],
     ]));
 
     // REACTIONS
@@ -140,6 +141,14 @@ export default class TodoStore extends FeatureStore {
 
     this._updateSettings({
       isFeatureEnabledByUser: !this.settings.isFeatureEnabledByUser,
+    });
+  };
+
+  @action _setTodosFeatureVisibility = (visibility) => {
+    debug('_setTodosFeatureVisibility');
+
+    this._updateSettings({
+      isFeatureEnabledByUser: visibility,
     });
   };
 
