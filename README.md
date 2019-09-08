@@ -9,10 +9,11 @@
 ## Features
 - [x] Removes the counter-productive fullscreen app delay inviting users to upgrade
 - [x] Removes pages begging you to donate after registration
-- [x] Makes all users Premium by default
-- [x] [Add option to change server to a custom](#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Remove "Franz is better together" popup
+- [x] Makes all users Premium by default
 - [x] [Makes it possible to edit the "Franz Todo" server](#franz-todo)
+- [x] [Add option to change server to a custom](#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
+- [x] Add "Private Notification"-Mode, that hides message content from notifications (as suggested in [meetfranz/franz#879](https://github.com/meetfranz/franz/issues/879))
 - [x] Makes RocketChat self-hosted generally available
 - [x] Comes with a custom branding proper to Ferdi
 
