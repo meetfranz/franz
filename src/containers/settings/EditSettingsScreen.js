@@ -138,7 +138,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       automaticDetectionText: this.context.intl.formatMessage(globalMessages.spellcheckerAutomaticDetection),
     });
 
-    let config = {
+    const config = {
       fields: {
         autoLaunchOnStart: {
           label: intl.formatMessage(messages.autoLaunchOnStart),
