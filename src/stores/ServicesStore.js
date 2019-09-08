@@ -399,7 +399,7 @@ export default class ServicesStore extends Store {
       }
 
       if (service.isNotificationEnabled) {
-        let title = 'Notification from ' + service.name;
+        let title = `Notification from ${service.name}`;
         if (!this.stores.settings.all.app.privateNotifications) {
           options.body = typeof options.body === 'string' ? options.body : '';
           title = typeof args[0].title === 'string' ? args[0].title : service.name;
@@ -409,7 +409,7 @@ export default class ServicesStore extends Store {
           options.icon = '/assets/img/notification-badge.gif';
         }
 
-        console.log(title, options)
+        console.log(title, options);
 
         this.actions.app.notify({
           notificationId: args[0].notificationId,

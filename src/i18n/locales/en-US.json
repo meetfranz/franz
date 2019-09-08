@@ -21,7 +21,7 @@
   "feature.todos.premium.rollout": "Everyone else will have to wait a little longer.",
   "feature.todos.premium.upgrade": "Upgrade Account",
   "global.api.unhealthy": "Can't connect to Ferdi online services",
-  "global.FranzProRequired": "Ferdi Professional Required",
+  "global.franzProRequired": "!!!Franz Professional Required",
   "global.notConnectedToTheInternet": "You are not connected to the internet.",
   "global.spellchecker.useDefault": "Use System Default ({default})",
   "global.spellchecking.autodetect": "Detect language automatically",
