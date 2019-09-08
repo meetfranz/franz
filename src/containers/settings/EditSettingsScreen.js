@@ -43,6 +43,10 @@ const messages = defineMessages({
     id: 'settings.app.form.minimizeToSystemTray',
     defaultMessage: '!!!Minimize Ferdi to system tray',
   },
+  privateNotifications: {
+    id: 'settings.app.form.privateNotifications',
+    defaultMessage: '!!!Don\'t show message content in notifications',
+  },
   server: {
     id: 'settings.app.form.server',
     defaultMessage: '!!!Server',
@@ -110,6 +114,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         runInBackground: settingsData.runInBackground,
         enableSystemTray: settingsData.enableSystemTray,
         minimizeToSystemTray: settingsData.minimizeToSystemTray,
+        privateNotifications: settingsData.privateNotifications,
         server: settingsData.server,
         todoServer: settingsData.todoServer,
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
@@ -176,6 +181,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.minimizeToSystemTray),
           value: settings.all.app.minimizeToSystemTray,
           default: DEFAULT_APP_SETTINGS.minimizeToSystemTray,
+        },
+        privateNotifications: {
+          label: intl.formatMessage(messages.privateNotifications),
+          value: settings.all.app.privateNotifications,
+          default: DEFAULT_APP_SETTINGS.privateNotifications,
         },
         server: {
           label: intl.formatMessage(messages.server),

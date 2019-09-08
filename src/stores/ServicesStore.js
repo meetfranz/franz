@@ -399,8 +399,17 @@ export default class ServicesStore extends Store {
       }
 
       if (service.isNotificationEnabled) {
-        const title = typeof args[0].title === 'string' ? args[0].title : service.name;
-        options.body = typeof options.body === 'string' ? options.body : '';
+        let title = 'Notification from ' + service.name;
+        if (!this.stores.settings.all.app.privateNotifications) {
+          options.body = typeof options.body === 'string' ? options.body : '';
+          title = typeof args[0].title === 'string' ? args[0].title : service.name;
+        } else {
+          // Remove message data from notification in private mode
+          options.body = '';
+          options.icon = '/assets/img/notification-badge.gif';
+        }
+
+        console.log(title, options)
 
         this.actions.app.notify({
           notificationId: args[0].notificationId,
