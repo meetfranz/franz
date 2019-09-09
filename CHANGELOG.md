@@ -1,7 +1,8 @@
-## [5.3.2](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.2) (2019-09-07)
-Merge Franz v5.3.0 into Ferdi.
+## [5.3.1](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.1) (2019-09-09)
+Merge Franz v5.3.1 into Ferdi.
 
 - Enable todos for all users
+- Fix WhatsApp recipe not working (#19 and #21)
 
 ### Bug Fixes
 
@@ -12,11 +13,6 @@ Merge Franz v5.3.0 into Ferdi.
 ### Features
 
 * **Todos:** Add option to disable todos ([5d03b91](https://github.com/kytwb/ferdi/commit/5d03b91))
-
-
-
-## [5.3.1](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.1) (2019-09-06)
-- Fix WhatsApp recipe not working (#19 and #21)
 
 
 ## [5.3.0](https://github.com/kytwb/ferdi/compare/v5.2.1-beta.1...v5.3.0) (2019-09-06)
