@@ -80,7 +80,7 @@ const messages = defineMessages({
   },
   updateStatusUpToDate: {
     id: 'settings.app.updateStatusUpToDate',
-    defaultMessage: '!!!You are using the latest version of Franz',
+    defaultMessage: '!!!You are using the latest version of Ferdi',
   },
   currentVersion: {
     id: 'settings.app.currentVersion',

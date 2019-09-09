@@ -534,7 +534,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Continue to Franz",
+        "defaultMessage": "!!!Continue to Ferdi",
         "end": {
           "column": 3,
           "line": 46
@@ -2561,7 +2561,7 @@
         }
       },
       {
-        "defaultMessage": "!!!You are using the latest version of Franz",
+        "defaultMessage": "!!!You are using the latest version of Ferdi",
         "end": {
           "column": 3,
           "line": 84
@@ -5113,7 +5113,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Reload Franz",
+        "defaultMessage": "!!!Reload Ferdi",
         "end": {
           "column": 3,
           "line": 116
@@ -5321,7 +5321,7 @@
         }
       },
       {
-        "defaultMessage": "!!!About Franz",
+        "defaultMessage": "!!!About Ferdi",
         "end": {
           "column": 3,
           "line": 180

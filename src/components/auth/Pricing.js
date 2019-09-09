@@ -42,7 +42,7 @@ const messages = defineMessages({
   },
   ctaSkip: {
     id: 'pricing.trial.cta.skip',
-    defaultMessage: '!!!Continue to Franz',
+    defaultMessage: '!!!Continue to Ferdi',
   },
   featuresHeadline: {
     id: 'pricing.trial.features.headline',

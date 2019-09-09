@@ -313,7 +313,7 @@
   },
   {
     "id": "menu.view.reloadFranz",
-    "defaultMessage": "!!!Reload Franz",
+    "defaultMessage": "!!!Reload Ferdi",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 113,
@@ -521,7 +521,7 @@
   },
   {
     "id": "menu.app.about",
-    "defaultMessage": "!!!About Franz",
+    "defaultMessage": "!!!About Ferdi",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 177,

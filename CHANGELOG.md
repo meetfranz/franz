@@ -450,7 +450,7 @@ fix(App): Bugfix Fix memory leak in recipe polling loop
 
 ### Features
 
-* **Menu:** Add "About Franz" Menu item to Windows/Linux ([a21b770](https://github.com/meetfranz/franz/commit/a21b770))
+* **Menu:** Add "About Ferdi" Menu item to Windows/Linux ([a21b770](https://github.com/meetfranz/franz/commit/a21b770))
 * **Menu:** Add menu item to toggle (service) dev tools ([e8da383](https://github.com/meetfranz/franz/commit/e8da383))
 * **Translation:** Add italian translation ([ab348cc](https://github.com/meetfranz/franz/commit/ab348cc)) ([dnlup](https://github.com/dnlup))
 

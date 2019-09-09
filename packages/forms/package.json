@@ -1,7 +1,7 @@
 {
   "name": "@meetfranz/forms",
   "version": "1.1.0",
-  "description": "React form components for Franz",
+  "description": "React form components for Ferdi",
   "main": "lib/index.js",
   "scripts": {
     "dev": "tsc -w",
@@ -20,7 +20,7 @@
     "React",
     "UI"
   ],
-  "author": "Stefan Malzner <stefan@adlk.io>",
+  "author": "Amine Mouafik <amine@mouafik.fr>",
   "license": "Apache-2.0",
   "dependencies": {
     "@mdi/js": "^3.3.92",

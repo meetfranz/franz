@@ -92,7 +92,7 @@
   },
   {
     "id": "pricing.trial.cta.skip",
-    "defaultMessage": "!!!Continue to Franz",
+    "defaultMessage": "!!!Continue to Ferdi",
     "file": "src/components/auth/Pricing.js",
     "start": {
       "line": 43,

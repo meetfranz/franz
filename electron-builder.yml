@@ -41,7 +41,7 @@ nsis:
 
 protocols: 
   name: Ferdi
-  schemes: [franz] 
+  schemes: [ferdi] 
 
 asarUnpack: 
   - ./dictionaries

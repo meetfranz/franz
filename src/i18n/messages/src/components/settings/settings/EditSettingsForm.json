@@ -209,7 +209,7 @@
   },
   {
     "id": "settings.app.updateStatusUpToDate",
-    "defaultMessage": "!!!You are using the latest version of Franz",
+    "defaultMessage": "!!!You are using the latest version of Ferdi",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 81,

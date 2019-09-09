@@ -112,7 +112,7 @@ const menuItems = defineMessages({
   },
   reloadFranz: {
     id: 'menu.view.reloadFranz',
-    defaultMessage: '!!!Reload Franz',
+    defaultMessage: '!!!Reload Ferdi',
   },
   minimize: {
     id: 'menu.window.minimize',
@@ -176,7 +176,7 @@ const menuItems = defineMessages({
   },
   about: {
     id: 'menu.app.about',
-    defaultMessage: '!!!About Franz',
+    defaultMessage: '!!!About Ferdi',
   },
   announcement: {
     id: 'menu.app.announcement',
@@ -739,8 +739,8 @@ export default class FranzMenu {
       click: () => {
         dialog.showMessageBox({
           type: 'info',
-          title: 'Franz',
-          message: 'Franz',
+          title: 'Franz Ferdinand',
+          message: 'Ferdi',
           detail: `Version: ${remote.app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
         });
       },
