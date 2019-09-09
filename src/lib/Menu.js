@@ -399,7 +399,7 @@ const _templateFactory = intl => [
 
 const _titleBarTemplateFactory = intl => [
   {
-    label: intl.formatMessage(menuItems.edit),
+    label: '&' + intl.formatMessage(menuItems.edit),
     submenu: [
       {
         label: intl.formatMessage(menuItems.undo),
@@ -462,7 +462,7 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: intl.formatMessage(menuItems.view),
+    label: '&' + intl.formatMessage(menuItems.view),
     submenu: [
       {
         type: 'separator',
@@ -511,16 +511,16 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: intl.formatMessage(menuItems.services),
+    label: '&' + intl.formatMessage(menuItems.services),
     submenu: [],
   },
   {
-    label: intl.formatMessage(menuItems.workspaces),
+    label: '&' + intl.formatMessage(menuItems.workspaces),
     submenu: [],
     visible: workspaceStore.isFeatureEnabled,
   },
   {
-    label: intl.formatMessage(menuItems.window),
+    label: '&' + intl.formatMessage(menuItems.window),
     submenu: [
       {
         label: intl.formatMessage(menuItems.minimize),
@@ -539,7 +539,7 @@ const _titleBarTemplateFactory = intl => [
     ],
   },
   {
-    label: '?',
+    label: '&?',
     submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
@@ -640,7 +640,7 @@ export default class FranzMenu {
     });
 
     tpl.unshift({
-      label: isMac ? app.getName() : intl.formatMessage(menuItems.file),
+      label: isMac ? app.getName() : '&' + intl.formatMessage(menuItems.file),
       submenu: [
         {
           label: intl.formatMessage(menuItems.about),
