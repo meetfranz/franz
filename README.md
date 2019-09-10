@@ -4,73 +4,66 @@
 
 # Ferdi 
 
+[![Build Status Windows](https://ci.appveyor.com/api/projects/status/2ckfbmoxp36fye5b?svg=true)](https://ci.appveyor.com/project/kytwb/ferdi)
+ [![Build Status Mac & Linux](https://travis-ci.org/kytwb/ferdi.svg?branch=master)](https://travis-ci.org/kytwb/ferdi)
+
 🤴🏽 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
 
-## Installation
+## Download Ferdi
 
-For macOS:
+You can find the installers in the [latest release](https://github.com/kytwb/ferdi/releases) assets.
 
-```
-brew cask install ferdi
-```
+### Or use homebrew (macOS only)
 
-Alternatively, and for Linux/Windows, you can find the installers in the [latest release](https://github.com/kytwb/ferdi/releases) assets.
+`$ brew cask install franz`
+
+(Don't know homebrew? [brew.sh](https://brew.sh/))
 
 ## Features
 - [x] Removes the counter-productive fullscreen app delay inviting users to upgrade
 - [x] Removes pages begging you to donate after registration
 - [x] Makes all users Premium by default
-- [x] [Add option to change server to a custom](#servers) [ferdi-server](https://github.com/vantezzen/ferdi-server)
+- [x] [Add option to change server to a custom](https://github.com/kytwb/ferdi/wiki/Custom-Server) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Remove "Franz is better together" popup
-- [x] [Makes it possible to edit the "Franz Todo" server](#franz-todo)
+- [x] [Makes it possible to edit the "Franz Todo" server](https://github.com/kytwb/ferdi/wiki/Custom-Todo)
 - [x] Makes RocketChat self-hosted generally available
 - [x] Comes with a custom branding proper to Ferdi
 
-### Servers
-Ferdi adds the option to change your Ferdi server. By default, this will be `https://api.franzinfra.com` - the official Franz server. This allows Ferdi to stay compatible with your current Franz account.
+## Development
 
-If you want to experience all Ferdi features, you may want to use a custom [ferdi-server](https://github.com/vantezzen/ferdi-server). ferdi-server allows you to use Premium features without restrictions and adds the ability to package and add additional recipes. You can also import your existing Franz account into your ferdi-server to start right where you left off.
+### Preparations
 
-More information on how to set up a ferdi-server can be found at <https://github.com/vantezzen/ferdi-server/blob/master/README.md>.
+#### Install Linux OS dependencies
+[Guide: Linux distribution specific dependencies](docs/linux.md)
 
-### Franz Todo
-Starting with Franz 5.3.0, Franz ships with the "Franz Todo" feature. This feature allows you to create a Franz Todo list that stays open at all times.
+#### Fix native modules to match current electron node version
+```bash
+$ npm run rebuild
+```
 
-Ferdi makes it possible to change the Franz Todo list server to any URL you want, e.g. to `todoist.com` to use your Todoist todo list in Franz todo.
+### Install dependencies
+Run the following command to install all dependencies, and link sibling modules with Franz.
+```bash
+$ npx lerna bootstrap
+```
 
-![Todoist in Franz Todo](screenshots/Ferdi-Todo.png)
+If you previously ran `npm install` it sometimes is necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. 
 
-## Packaging
+### Run Ferdi Development App
+Run these two commands __simultaneously__ in different console tabs.
 
 ```bash
-$ npm install
+$ npm run dev
+$ npm run start
+```
+Be aware that the development database will be reset regularly.
+
+## Packaging
+```bash
 $ npm run build
 ```
 
-Deliverables will be available in the `./out` folder.
-
-## Developing
-
-### Preparations
-- [Install Linux dependencies](docs/linux.md) if you are developing on Linux
-- Make sure you are running NodeJS v10. Versions above will throw an errow when trying to install due to an [old fsevent dependency](https://github.com/fsevents/fsevents/issues/278)
-
-### Setup
-
-1. Fix native modules to match current electron node version
-    ```
-    npm run rebuild
-    ```
-2. Install dependencies using lerna
-    ```
-    npx lerna bootstrap
-    ```
-3. Run Ferdi Development App
-    Run these two commands *simultaneously* in different console tabs.
-    ```
-    npm run dev
-    npm run start
-    ```
+Deliverables will be available in the ./out folder.
 
 ## Contributors ✨
 
