@@ -15,7 +15,7 @@ You can find the installers in the [latest release](https://github.com/kytwb/fer
 
 ### Or use homebrew (macOS only)
 
-`$ brew cask install franz`
+`$ brew cask install ferdi`
 
 (Don't know homebrew? [brew.sh](https://brew.sh/))
 
