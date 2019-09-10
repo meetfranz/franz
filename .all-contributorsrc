@@ -11,22 +11,6 @@
   "commitConvention": "none",
   "contributors": [
     {
-      "login": "kytwb",
-      "name": "Amine Mouafik",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/412895?v=4",
-      "profile": "https://twitter.com/kytwb",
-      "contributions": [
-        "question",
-        "code",
-        "doc",
-        "ideas",
-        "maintenance",
-        "platform",
-        "projectManagement",
-        "review"
-      ]
-    },
-    {
       "login": "vantezzen",
       "name": "Bennett",
       "avatar_url": "https://avatars2.githubusercontent.com/u/10333196?v=4",
@@ -54,6 +38,22 @@
         "projectManagement",
         "test",
         "translation"
+      ]
+    },
+    {
+      "login": "kytwb",
+      "name": "Amine Mouafik",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/412895?v=4",
+      "profile": "https://twitter.com/kytwb",
+      "contributions": [
+        "question",
+        "code",
+        "doc",
+        "ideas",
+        "maintenance",
+        "platform",
+        "projectManagement",
+        "review"
       ]
     }
   ],
