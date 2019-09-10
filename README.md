@@ -6,6 +6,16 @@
 
 🤴🏽 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
 
+## Installation
+
+For macOS:
+
+```
+brew cask install ferdi
+```
+
+Alternatively, and for Linux/Windows, you can find the installers in the [latest release](https://github.com/kytwb/ferdi/releases) assets.
+
 ## Features
 - [x] Removes the counter-productive fullscreen app delay inviting users to upgrade
 - [x] Removes pages begging you to donate after registration
@@ -40,11 +50,13 @@ $ npm run build
 Deliverables will be available in the `./out` folder.
 
 ## Developing
+
 ### Preparations
 - [Install Linux dependencies](docs/linux.md) if you are developing on Linux
 - Make sure you are running NodeJS v10. Versions above will throw an errow when trying to install due to an [old fsevent dependency](https://github.com/fsevents/fsevents/issues/278)
 
 ### Setup
+
 1. Fix native modules to match current electron node version
     ```
     npm run rebuild
@@ -59,10 +71,6 @@ Deliverables will be available in the `./out` folder.
     npm run dev
     npm run start
     ```
-
-## Releases
-
-You can find the binaries for Linux, MacOS and Windows in the [latest release](https://github.com/kytwb/Ferdi/releases/tag/Ferdi-5.2.0-beta.3) assets. Assets are continuously delivered through [Travis](https://travis-ci.org/kytwb/Ferdi) for Linux/MacOS and [Appveyor](https://ci.appveyor.com/project/kytwb/Ferdi) for Windows.
 
 ## Contributors ✨
 
