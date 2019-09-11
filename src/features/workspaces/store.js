@@ -97,6 +97,7 @@ export default class WorkspacesStore extends FeatureStore {
       [workspaceActions.update, this._update],
       [workspaceActions.activate, this._setActiveWorkspace],
       [workspaceActions.deactivate, this._deactivateActiveWorkspace],
+      [workspaceActions.toggleKeepAllWorkspacesLoadedSetting, this._toggleKeepAllWorkspacesLoadedSetting],
     ]);
     this._allActions = this._freeUserActions.concat(this._premiumUserActions);
     this._registerActions(this._allActions);
@@ -243,6 +244,10 @@ export default class WorkspacesStore extends FeatureStore {
     // Move services from the old to the new position
     services.splice(newIndex, 0, services.splice(oldIndex, 1)[0]);
     await updateWorkspaceRequest.execute(activeWorkspace);
+  };
+
+  _toggleKeepAllWorkspacesLoadedSetting = async () => {
+    this._updateSettings({ keepAllWorkspacesLoaded: !this.settings.keepAllWorkspacesLoaded });
   };
 
   // Reactions

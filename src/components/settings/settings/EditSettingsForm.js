@@ -102,6 +102,7 @@ export default @observer class EditSettingsForm extends Component {
     cacheSize: PropTypes.string.isRequired,
     isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
     isTodosEnabled: PropTypes.bool.isRequired,
+    isWorkspaceEnabled: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -133,6 +134,7 @@ export default @observer class EditSettingsForm extends Component {
       cacheSize,
       isSpellcheckerIncludedInCurrentPlan,
       isTodosEnabled,
+      isWorkspaceEnabled,
     } = this.props;
     const { intl } = this.context;
 
@@ -163,6 +165,9 @@ export default @observer class EditSettingsForm extends Component {
             <Toggle field={form.$('enableSystemTray')} />
             {process.platform === 'win32' && (
               <Toggle field={form.$('minimizeToSystemTray')} />
+            )}
+            {isWorkspaceEnabled && (
+              <Toggle field={form.$('keepAllWorkspacesLoaded')} />
             )}
             {isTodosEnabled && (
               <Toggle field={form.$('enableTodos')} />
