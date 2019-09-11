@@ -61,50 +61,6 @@ const styles = theme => ({
     background: theme.todos.dragIndicator.background,
 
   },
-  openTodosButton: {
-    width: OPEN_TODOS_BUTTON_SIZE,
-    height: OPEN_TODOS_BUTTON_SIZE,
-    background: theme.todos.toggleButton.background,
-    position: 'absolute',
-    bottom: 120,
-    right: props => (props.width + (props.isVisible ? -OPEN_TODOS_BUTTON_SIZE / 2 : 0)),
-    borderRadius: OPEN_TODOS_BUTTON_SIZE / 2,
-    opacity: props => (props.isVisible ? 0 : 1),
-    transition: 'right 0.5s',
-    zIndex: 600,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    boxShadow: [0, 0, 10, theme.todos.toggleButton.shadowColor],
-
-    borderTopRightRadius: props => (props.isVisible ? null : 0),
-    borderBottomRightRadius: props => (props.isVisible ? null : 0),
-
-    '& svg': {
-      fill: theme.todos.toggleButton.textColor,
-      transition: 'all 0.5s',
-    },
-  },
-  closeTodosButton: {
-    width: CLOSE_TODOS_BUTTON_SIZE,
-    height: CLOSE_TODOS_BUTTON_SIZE,
-    background: theme.todos.toggleButton.background,
-    position: 'absolute',
-    bottom: 120,
-    right: ({ width }) => (width + -CLOSE_TODOS_BUTTON_SIZE / 2),
-    borderRadius: CLOSE_TODOS_BUTTON_SIZE / 2,
-    opacity: ({ isTodosIncludedInCurrentPlan }) => (!isTodosIncludedInCurrentPlan ? 1 : 0),
-    transition: 'opacity 0.5s',
-    zIndex: 600,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    boxShadow: [0, 0, 10, theme.todos.toggleButton.shadowColor],
-
-    '& svg': {
-      fill: theme.todos.toggleButton.textColor,
-    },
-  },
   premiumContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -132,7 +88,6 @@ class TodosWebview extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     isVisible: PropTypes.bool.isRequired,
-    togglePanel: PropTypes.func.isRequired,
     handleClientMessage: PropTypes.func.isRequired,
     setTodosWebview: PropTypes.func.isRequired,
     resize: PropTypes.func.isRequired,
@@ -228,7 +183,6 @@ class TodosWebview extends Component {
     const {
       classes,
       isVisible,
-      togglePanel,
       isTodosIncludedInCurrentPlan,
     } = this.props;
 
@@ -247,13 +201,6 @@ class TodosWebview extends Component {
         onMouseUp={() => this.stopResize()}
         ref={(node) => { this.node = node; }}
       >
-        <button
-          onClick={() => togglePanel()}
-          className={isVisible ? classes.closeTodosButton : classes.openTodosButton}
-          type="button"
-        >
-          <Icon icon={isVisible ? mdiChevronRight : mdiCheckAll} size={2} />
-        </button>
         <div
           className={classes.resizeHandler}
           style={Object.assign({ left: delta }, isDragging ? { width: 600, marginLeft: -200 } : {})} // This hack is required as resizing with webviews beneath behaves quite bad
