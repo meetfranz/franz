@@ -3567,133 +3567,146 @@
         }
       },
       {
-        "defaultMessage": "!!!Server",
+        "defaultMessage": "!!!Don't show message content in notifications",
         "end": {
           "column": 3,
           "line": 49
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.privateNotifications",
+        "start": {
+          "column": 24,
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!!Server",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.server",
         "start": {
           "column": 10,
-          "line": 46
+          "line": 50
         }
       },
       {
         "defaultMessage": "!!!Todo Server",
         "end": {
           "column": 3,
-          "line": 53
+          "line": 57
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.todoServer",
         "start": {
           "column": 14,
-          "line": 50
+          "line": 54
         }
       },
       {
         "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
-          "line": 57
-        },
-        "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.language",
-        "start": {
-          "column": 12,
-          "line": 54
-        }
-      },
-      {
-        "defaultMessage": "!!!Dark Mode",
-        "end": {
-          "column": 3,
           "line": 61
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
-        "id": "settings.app.form.darkMode",
+        "id": "settings.app.form.language",
         "start": {
           "column": 12,
           "line": 58
         }
       },
       {
-        "defaultMessage": "!!!Display disabled services tabs",
+        "defaultMessage": "!!!Dark Mode",
         "end": {
           "column": 3,
           "line": 65
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
+        "id": "settings.app.form.darkMode",
+        "start": {
+          "column": 12,
+          "line": 62
+        }
+      },
+      {
+        "defaultMessage": "!!!Display disabled services tabs",
+        "end": {
+          "column": 3,
+          "line": 69
+        },
+        "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showDisabledServices",
         "start": {
           "column": 24,
-          "line": 62
+          "line": 66
         }
       },
       {
         "defaultMessage": "!!!Show unread message badge when notifications are disabled",
         "end": {
           "column": 3,
-          "line": 69
+          "line": 73
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.showMessagesBadgesWhenMuted",
         "start": {
           "column": 29,
-          "line": 66
+          "line": 70
         }
       },
       {
         "defaultMessage": "!!!Enable spell checking",
         "end": {
           "column": 3,
-          "line": 73
+          "line": 77
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableSpellchecking",
         "start": {
           "column": 23,
-          "line": 70
+          "line": 74
         }
       },
       {
         "defaultMessage": "!!!Enable GPU Acceleration",
         "end": {
           "column": 3,
-          "line": 77
+          "line": 81
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableGPUAcceleration",
         "start": {
           "column": 25,
-          "line": 74
+          "line": 78
         }
       },
       {
         "defaultMessage": "!!!Include beta versions",
         "end": {
           "column": 3,
-          "line": 81
+          "line": 85
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.beta",
         "start": {
           "column": 8,
-          "line": 78
+          "line": 82
         }
       },
       {
         "defaultMessage": "!!!Enable Franz Todos",
         "end": {
           "column": 3,
-          "line": 85
+          "line": 89
         },
         "file": "src/containers/settings/EditSettingsScreen.js",
         "id": "settings.app.form.enableTodos",
         "start": {
           "column": 15,
-          "line": 82
+          "line": 86
         }
       }
     ],

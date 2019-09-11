@@ -36,6 +36,7 @@ export const DEFAULT_APP_SETTINGS = {
   runInBackground: true,
   enableSystemTray: true,
   minimizeToSystemTray: false,
+  privateNotifications: false,
   server: LIVE_API,
   todoServer: PRODUCTION_TODOS_FRONTEND_URL,
   showDisabledServices: true,
