@@ -118,7 +118,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       },
     });
 
-    if (todos.isFeatureActive) {
+    if (todos.isFeatureActive && todos.settings.isFeatureEnabledByUser !== settingsData.enableTodos) {
       todosActions.toggleTodosFeatureVisibility();
     }
   }
