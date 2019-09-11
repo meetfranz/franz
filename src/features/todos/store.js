@@ -33,12 +33,16 @@ export default class TodoStore extends FeatureStore {
 
   @computed get isTodosPanelForceHidden() {
     const { isAnnouncementShown } = this.stores.announcements;
-    return delayAppState.isDelayAppScreenVisible || !this.settings.isFeatureEnabledByUser || isAnnouncementShown;
+    return delayAppState.isDelayAppScreenVisible || !this.isFeatureEnabledByUser || isAnnouncementShown;
   }
 
   @computed get isTodosPanelVisible() {
     if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
     return this.settings.isTodosPanelVisible;
+  }
+
+  @computed get isFeatureEnabledByUser() {
+    return this.settings.isFeatureEnabledByUser;
   }
 
   @computed get settings() {

@@ -259,6 +259,10 @@ const menuItems = defineMessages({
     id: 'menu.Todoss.closeTodosDrawer',
     defaultMessage: '!!!Close Todos drawer',
   },
+  enableTodos: {
+    id: 'menu.todos.enableTodos',
+    defaultMessage: '!!!Enable Todos',
+  },
 });
 
 function getActiveWebview() {
@@ -926,14 +930,12 @@ export default class FranzMenu {
   }
 
   todosMenu() {
-    const { isTodosPanelVisible } = TodoStore;
+    const { isTodosPanelVisible, isFeatureEnabledByUser } = this.stores.todos;
     const { intl } = window.franz;
     const menu = [];
 
-    // Open todos drawer:
-    const drawerLabel = (
-      isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer
-    );
+    const drawerLabel = isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer;
+
     menu.push({
       label: intl.formatMessage(drawerLabel),
       accelerator: `${cmdKey}+T`,
@@ -941,10 +943,20 @@ export default class FranzMenu {
         todoActions.toggleTodosPanel();
         gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
       },
-      enabled: this.stores.user.isLoggedIn,
+      enabled: this.stores.user.isLoggedIn && isFeatureEnabledByUser,
     }, {
       type: 'separator',
     });
+
+    if (!isFeatureEnabledByUser) {
+      menu.push({
+        label: intl.formatMessage(menuItems.enableTodos),
+        click: () => {
+          todoActions.toggleTodosFeatureVisibility();
+          gaEvent(GA_CATEGORY_TODOS, 'enable', 'menu');
+        },
+      });
+    }
 
     return menu;
   }

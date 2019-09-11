@@ -5475,6 +5475,19 @@
           "column": 20,
           "line": 258
         }
+      },
+      {
+        "defaultMessage": "!!!Enable Todos",
+        "end": {
+          "column": 3,
+          "line": 265
+        },
+        "file": "src/lib/Menu.js",
+        "id": "menu.todos.enableTodos",
+        "start": {
+          "column": 15,
+          "line": 262
+        }
       }
     ],
     "path": "src/lib/Menu.json"

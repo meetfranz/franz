@@ -93,6 +93,7 @@
   "menu.services.addNewService": "Add New Service...",
   "menu.services.setNextServiceActive": "Activate next service",
   "menu.todos": "Todos",
+  "menu.todos.enableTodos": "!!!Enable Todos",
   "menu.view": "View",
   "menu.view.enterFullScreen": "Enter Full Screen",
   "menu.view.exitFullScreen": "Exit Full Screen",
