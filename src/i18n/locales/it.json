@@ -6,7 +6,7 @@
    "feature.delayApp.text" : "Franz continuerà tra {seconds} secondi.",
    "feature.delayApp.trial.action" : "Yes, I want the free 14 day trial of Franz Professional",
    "feature.delayApp.trial.actionShort" : "Attiva la prova gratuita di Franz Professional",
-   "feature.delayApp.trial.headline" : "Get the free Franz Professional 14 day trial and skip the line",
+   "feature.delayApp.trial.headline" : "Ottieni la prova gratuita per 14 giorni di Franz Professional e salta la coda",
    "feature.delayApp.upgrade.action" : "Ricevi una Licenza Supporter di Franz",
    "feature.delayApp.upgrade.actionShort" : "Effettua l'upgrade del tuo account",
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
