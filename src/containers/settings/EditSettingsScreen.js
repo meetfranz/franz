@@ -19,6 +19,8 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 
 import globalMessages from '../../i18n/globalMessages';
 import { DEFAULT_IS_FEATURE_ENABLED_BY_USER } from '../../features/todos';
+import WorkspacesStore from '../../features/workspaces/store';
+import { DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED } from '../../features/workspaces';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
@@ -73,6 +75,10 @@ const messages = defineMessages({
     id: 'settings.app.form.enableTodos',
     defaultMessage: '!!!Enable Franz Todos',
   },
+  keepAllWorkspacesLoaded: {
+    id: 'settings.app.form.keepAllWorkspacesLoaded',
+    defaultMessage: '!!!Keep all workspaces loaded',
+  },
 });
 
 export default @inject('stores', 'actions') @observer class EditSettingsScreen extends Component {
@@ -81,12 +87,13 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
   };
 
   onSubmit(settingsData) {
-    const { todos } = this.props.stores;
+    const { todos, workspaces } = this.props.stores;
     const {
       app,
       settings,
       user,
       todos: todosActions,
+      workspaces: workspaceActions,
     } = this.props.actions;
 
     app.launchOnStartup({
@@ -118,14 +125,24 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       },
     });
 
-    if (todos.isFeatureActive && todos.settings.isFeatureEnabledByUser !== settingsData.enableTodos) {
-      todosActions.toggleTodosFeatureVisibility();
+    if (workspaces.isFeatureActive) {
+      const { keepAllWorkspacesLoaded } = workspaces.settings;
+      if (keepAllWorkspacesLoaded !== settingsData.keepAllWorkspacesLoaded) {
+        workspaceActions.toggleKeepAllWorkspacesLoadedSetting();
+      }
+    }
+
+    if (todos.isFeatureActive) {
+      const { isFeatureEnabledByUser } = todos.settings;
+      if (isFeatureEnabledByUser !== settingsData.enableTodos) {
+        todosActions.toggleTodosFeatureVisibility();
+      }
     }
   }
 
   prepareForm() {
     const {
-      app, settings, user, todos,
+      app, settings, user, todos, workspaces,
     } = this.props.stores;
     const { intl } = this.context;
 
@@ -210,6 +227,14 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       },
     };
 
+    if (workspaces.isFeatureActive) {
+      config.fields.keepAllWorkspacesLoaded = {
+        label: intl.formatMessage(messages.keepAllWorkspacesLoaded),
+        value: workspaces.settings.keepAllWorkspacesLoaded,
+        default: DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED,
+      };
+    }
+
     if (todos.isFeatureActive) {
       config.fields.enableTodos = {
         label: intl.formatMessage(messages.enableTodos),
@@ -225,6 +250,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
     const {
       app,
       todos,
+      workspaces,
     } = this.props.stores;
     const {
       updateStatus,
@@ -255,6 +281,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           onClearAllCache={clearAllCache}
           isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
           isTodosEnabled={todos.isFeatureActive}
+          isWorkspaceEnabled={workspaces.isFeatureActive}
         />
       </ErrorBoundary>
     );
@@ -267,6 +294,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
     todos: PropTypes.instanceOf(TodosStore).isRequired,
+    workspaces: PropTypes.instanceOf(WorkspacesStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     app: PropTypes.shape({
@@ -283,6 +311,9 @@ EditSettingsScreen.wrappedComponent.propTypes = {
     }).isRequired,
     todos: PropTypes.shape({
       toggleTodosFeatureVisibility: PropTypes.func.isRequired,
+    }).isRequired,
+    workspaces: PropTypes.shape({
+      toggleAllWorkspacesLoadedSetting: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };
