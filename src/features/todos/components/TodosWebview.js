@@ -6,13 +6,10 @@ import Webview from 'react-electron-web-view';
 import { Icon } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
 
-import { mdiChevronRight, mdiCheckAll } from '@mdi/js';
+import { mdiCheckAll } from '@mdi/js';
 import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
-
-const OPEN_TODOS_BUTTON_SIZE = 45;
-const CLOSE_TODOS_BUTTON_SIZE = 35;
 
 const messages = defineMessages({
   premiumInfo: {

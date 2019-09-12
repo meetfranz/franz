@@ -9,7 +9,7 @@ import { ctrlKey } from '../../environment';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../../features/workspaces';
 import { gaEvent } from '../../lib/analytics';
 import { todosStore, GA_CATEGORY_TODOS } from '../../features/todos';
-import todoActions from '../../features/todos/actions';
+import { todoActions } from '../../features/todos/actions';
 
 const messages = defineMessages({
   settings: {

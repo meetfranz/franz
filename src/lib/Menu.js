@@ -8,7 +8,6 @@ import { workspaceActions } from '../features/workspaces/actions';
 import { gaEvent } from './analytics';
 import { announcementActions } from '../features/announcements/actions';
 import { announcementsStore } from '../features/announcements';
-import TodoStore from '../features/todos/store';
 import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 
