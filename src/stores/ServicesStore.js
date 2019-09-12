@@ -15,7 +15,7 @@ import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 
-const debug = require('debug')('Franz:ServiceStore');
+const debug = require('debug')('Ferdi:ServiceStore');
 
 export default class ServicesStore extends Store {
   @observable allServicesRequest = new CachedRequest(this.api.services, 'all');

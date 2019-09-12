@@ -16,7 +16,7 @@ import {
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
 
-const debug = require('debug')('Franz:feature:todos:store');
+const debug = require('debug')('Ferdi:feature:todos:store');
 
 export default class TodoStore extends FeatureStore {
   @observable isFeatureEnabled = false;

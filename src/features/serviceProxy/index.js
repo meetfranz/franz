@@ -5,7 +5,7 @@ import { remote } from 'electron';
 
 const { session } = remote;
 
-const debug = require('debug')('Franz:feature:serviceProxy');
+const debug = require('debug')('Ferdi:feature:serviceProxy');
 
 export const config = observable({
   isEnabled: true,

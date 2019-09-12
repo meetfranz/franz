@@ -17,7 +17,7 @@ import { WORKSPACES_ROUTES } from './index';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
 
-const debug = require('debug')('Franz:feature:workspaces:store');
+const debug = require('debug')('Ferdi:feature:workspaces:store');
 
 export default class WorkspacesStore extends FeatureStore {
   @observable isFeatureEnabled = true;

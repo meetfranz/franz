@@ -2,7 +2,7 @@ import { remote } from 'electron';
 import Request from '../../stores/lib/Request';
 import apiBase from '../../api/apiBase';
 
-const debug = require('debug')('Franz:feature:announcements:api');
+const debug = require('debug')('Ferdi:feature:announcements:api');
 
 export const announcementsApi = {
   async getCurrentVersion() {

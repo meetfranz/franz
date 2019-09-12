@@ -8,7 +8,7 @@ import {
 import { isDevMode, isMac } from '../environment';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
-const debug = require('debug')('Franz:contextMenu');
+const debug = require('debug')('Ferdi:contextMenu');
 
 const { Menu } = remote;
 

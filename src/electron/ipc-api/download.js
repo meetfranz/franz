@@ -3,7 +3,7 @@ import { download } from 'electron-dl';
 import mime from 'mime-types';
 import fs from 'fs-extra';
 
-const debug = require('debug')('Franz:ipcApi:download');
+const debug = require('debug')('Ferdi:ipcApi:download');
 
 function decodeBase64Image(dataString) {
   const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);

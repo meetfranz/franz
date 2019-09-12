@@ -4,7 +4,7 @@ import DelayAppComponent from './Component';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
 
-const debug = require('debug')('Franz:feature:delayApp');
+const debug = require('debug')('Ferdi:feature:delayApp');
 
 export const config = {
   delayOffset: DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.delayOffset,

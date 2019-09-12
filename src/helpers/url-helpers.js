@@ -2,7 +2,7 @@ import { URL } from 'url';
 
 import { ALLOWED_PROTOCOLS } from '../config';
 
-const debug = require('debug')('Franz:Helpers:url');
+const debug = require('debug')('Ferdi:Helpers:url');
 
 export function isValidExternalURL(url) {
   const parsedUrl = new URL(url);

@@ -2,7 +2,7 @@ import { reaction } from 'mobx';
 import WorkspacesStore from './store';
 import { resetApiRequests } from './api';
 
-const debug = require('debug')('Franz:feature:workspaces');
+const debug = require('debug')('Ferdi:feature:workspaces');
 
 export const GA_CATEGORY_WORKSPACES = 'Workspaces';
 

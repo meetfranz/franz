@@ -3,7 +3,7 @@ import { ExampleFeatureStore } from './store';
 import state, { resetState } from './state';
 import api from './api';
 
-const debug = require('debug')('Franz:feature:EXAMPLE_FEATURE');
+const debug = require('debug')('Ferdi:feature:EXAMPLE_FEATURE');
 
 let store = null;
 

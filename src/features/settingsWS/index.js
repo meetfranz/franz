@@ -1,7 +1,7 @@
 import { reaction } from 'mobx';
 import { SettingsWSStore } from './store';
 
-const debug = require('debug')('Franz:feature:settingsWS');
+const debug = require('debug')('Ferdi:feature:settingsWS');
 
 export const settingsStore = new SettingsWSStore();
 

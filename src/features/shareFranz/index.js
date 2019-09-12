@@ -5,7 +5,7 @@ import { state as delayAppState } from '../delayApp';
 
 export { default as Component } from './Component';
 
-const debug = require('debug')('Franz:feature:shareFranz');
+const debug = require('debug')('Ferdi:feature:shareFranz');
 
 const defaultState = {
   isModalVisible: false,

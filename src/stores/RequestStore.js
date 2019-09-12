@@ -3,7 +3,7 @@ import ms from 'ms';
 
 import Store from './lib/Store';
 
-const debug = require('debug')('Franz:RequestsStore');
+const debug = require('debug')('Ferdi:RequestsStore');
 
 export default class RequestStore extends Store {
   @observable userInfoRequest;

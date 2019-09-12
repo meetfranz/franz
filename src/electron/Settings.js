@@ -4,7 +4,7 @@ import path from 'path';
 
 import { SETTINGS_PATH } from '../config';
 
-const debug = require('debug')('Franz:Settings');
+const debug = require('debug')('Ferdi:Settings');
 
 export default class Settings {
   type = '';

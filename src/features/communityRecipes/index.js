@@ -1,7 +1,7 @@
 import { reaction } from 'mobx';
 import { CommunityRecipesStore } from './store';
 
-const debug = require('debug')('Franz:feature:communityRecipes');
+const debug = require('debug')('Ferdi:feature:communityRecipes');
 
 export const DEFAULT_SERVICE_LIMIT = 3;
 

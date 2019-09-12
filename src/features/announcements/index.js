@@ -1,7 +1,7 @@
 import { reaction } from 'mobx';
 import { AnnouncementsStore } from './store';
 
-const debug = require('debug')('Franz:feature:announcements');
+const debug = require('debug')('Ferdi:feature:announcements');
 
 export const GA_CATEGORY_ANNOUNCEMENTS = 'Announcements';
 

@@ -1,7 +1,7 @@
 import { reaction } from 'mobx';
 import TodoStore from './store';
 
-const debug = require('debug')('Franz:feature:todos');
+const debug = require('debug')('Ferdi:feature:todos');
 
 export const GA_CATEGORY_TODOS = 'Todos';
 

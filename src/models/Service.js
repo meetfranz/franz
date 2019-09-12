@@ -2,7 +2,7 @@ import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
-const debug = require('debug')('Franz:Service');
+const debug = require('debug')('Ferdi:Service');
 
 export const RESTRICTION_TYPES = {
   SERVICE_LIMIT: 0,

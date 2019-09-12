@@ -17,7 +17,7 @@ import { DEFAULT_APP_SETTINGS } from '../../config';
 
 const LOCAL_STORAGE_KEY = 'announcements';
 
-const debug = require('debug')('Franz:feature:announcements:store');
+const debug = require('debug')('Ferdi:feature:announcements:store');
 
 export class AnnouncementsStore extends FeatureStore {
   @observable targetVersion = null;

@@ -28,7 +28,7 @@ import {
   removeServicePartitionDirectory,
 } from '../../helpers/service-helpers.js';
 
-const debug = require('debug')('Franz:ServerApi');
+const debug = require('debug')('Ferdi:ServerApi');
 
 module.paths.unshift(
   getDevRecipeDirectory(),

@@ -12,7 +12,7 @@ import { sleep } from '../helpers/async-helpers';
 import { getPlan } from '../helpers/plan-helpers';
 import { PLANS } from '../config';
 
-const debug = require('debug')('Franz:UserStore');
+const debug = require('debug')('Ferdi:UserStore');
 
 // TODO: split stores into UserStore and AuthStore
 export default class UserStore extends Store {

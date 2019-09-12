@@ -2,7 +2,7 @@ import { autorun, observable } from 'mobx';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
 
-const debug = require('debug')('Franz:feature:spellchecker');
+const debug = require('debug')('Ferdi:feature:spellchecker');
 
 export const config = observable({
   isIncludedInCurrentPlan: DEFAULT_FEATURES_CONFIG.isSpellcheckerIncludedInCurrentPlan,

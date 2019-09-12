@@ -13,7 +13,7 @@ import './notifications';
 
 import { DEFAULT_APP_SETTINGS } from '../config';
 
-const debug = require('debug')('Franz:Plugin');
+const debug = require('debug')('Ferdi:Plugin');
 
 class RecipeController {
   @observable settings = {

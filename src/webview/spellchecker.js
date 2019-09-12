@@ -5,7 +5,7 @@ import path from 'path';
 import { DICTIONARY_PATH } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
-const debug = require('debug')('Franz:spellchecker');
+const debug = require('debug')('Ferdi:spellchecker');
 
 let provider;
 let currentDict;

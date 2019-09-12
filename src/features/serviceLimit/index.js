@@ -1,7 +1,7 @@
 import { reaction } from 'mobx';
 import { ServiceLimitStore } from './store';
 
-const debug = require('debug')('Franz:feature:serviceLimit');
+const debug = require('debug')('Ferdi:feature:serviceLimit');
 
 export const DEFAULT_SERVICE_LIMIT = 3;
 

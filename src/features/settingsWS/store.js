@@ -6,7 +6,7 @@ import { FeatureStore } from '../utils/FeatureStore';
 import { createReactions } from '../../stores/lib/Reaction';
 import { WS_API } from '../../environment';
 
-const debug = require('debug')('Franz:feature:settingsWS:store');
+const debug = require('debug')('Ferdi:feature:settingsWS:store');
 
 export class SettingsWSStore extends FeatureStore {
   stores = null;

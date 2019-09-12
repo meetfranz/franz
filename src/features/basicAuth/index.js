@@ -3,7 +3,7 @@ import { observable } from 'mobx';
 
 import BasicAuthComponent from './Component';
 
-const debug = require('debug')('Franz:feature:basicAuth');
+const debug = require('debug')('Ferdi:feature:basicAuth');
 
 const defaultState = {
   isModalVisible: true,

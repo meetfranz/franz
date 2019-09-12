@@ -1,7 +1,7 @@
 import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
-const debug = require('debug')('Franz:ipcApi:autoUpdate');
+const debug = require('debug')('Ferdi:ipcApi:autoUpdate');
 
 export default (params) => {
   if (process.platform === 'darwin' || process.platform === 'win32' || process.env.APPIMAGE) {

@@ -23,7 +23,7 @@ import { getLocale } from '../helpers/i18n-helpers';
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
 
-const debug = require('debug')('Franz:AppStore');
+const debug = require('debug')('Ferdi:AppStore');
 
 const { app, systemPreferences, screen } = remote;
 
@@ -31,7 +31,7 @@ const mainWindow = remote.getCurrentWindow();
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
-  name: 'Franz',
+  name: 'Ferdi',
 });
 
 export default class AppStore extends Store {

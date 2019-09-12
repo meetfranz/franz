@@ -2,7 +2,7 @@ import { action, observable, reaction } from 'mobx';
 import Store from '../../src/stores/lib/Store';
 import Request from '../../src/stores/lib/Request';
 
-const debug = require('debug')('Franz:feature:EXAMPLE_FEATURE:store');
+const debug = require('debug')('Ferdi:feature:EXAMPLE_FEATURE:store');
 
 export class ExampleFeatureStore extends Store {
   @observable getNameRequest = new Request(this.api, 'getName');

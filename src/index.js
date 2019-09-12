@@ -37,7 +37,7 @@ import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 /* eslint-enable import/first */
 
-const debug = require('debug')('Franz:App');
+const debug = require('debug')('Ferdi:App');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

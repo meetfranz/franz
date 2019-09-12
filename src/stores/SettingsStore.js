@@ -13,7 +13,7 @@ import { API } from '../environment';
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
-const debug = require('debug')('Franz:SettingsStore');
+const debug = require('debug')('Ferdi:SettingsStore');
 
 export default class SettingsStore extends Store {
   @observable appSettingsRequest = new CachedRequest(this.api.local, 'getAppSettings');

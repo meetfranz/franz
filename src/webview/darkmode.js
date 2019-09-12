@@ -3,7 +3,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 
-const debug = require('debug')('Franz:DarkMode');
+const debug = require('debug')('Ferdi:DarkMode');
 
 const chars = [...'abcdefghijklmnopqrstuvwxyz'];
 

@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 import { IPC } from './constants';
 
-const debug = require('debug')('Franz:feature:todos:preload');
+const debug = require('debug')('Ferdi:feature:todos:preload');
 
 debug('Preloading Todos Webview');
 
