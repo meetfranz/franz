@@ -1,3 +1,23 @@
+## [5.3.2](https://github.com/meetfranz/franz/compare/v5.3.1...v5.3.2) (2019-09-12)
+
+
+### Features
+
+* **Todos:** Move todos toggle to sidebar ([7ffcf8c](https://github.com/meetfranz/franz/commit/7ffcf8c))
+* **Workspaces:** Add setting to keep all services in workspaces in background (avoid reload) ([@Wouter0100](https://github.com/Wouter0100)) ([ddab3a8](https://github.com/meetfranz/franz/commit/ddab3a8))
+
+
+### Bug Fixes
+
+* **Settings:** Don't toggle Todos on general settings changes ([@vantezzen](https://github.com/vantezzen)) ([a99371b](https://github.com/meetfranz/franz/commit/a99371b))
+
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 # [5.3.1](https://github.com/meetfranz/franz/compare/v5.3.0...v5.3.1) (2019-09-06)
 
 ### Features
