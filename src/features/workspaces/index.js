@@ -5,6 +5,7 @@ import { resetApiRequests } from './api';
 const debug = require('debug')('Franz:feature:workspaces');
 
 export const GA_CATEGORY_WORKSPACES = 'Workspaces';
+export const DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED = false;
 
 export const workspaceStore = new WorkspacesStore();
 
