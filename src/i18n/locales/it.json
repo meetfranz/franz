@@ -9,7 +9,7 @@
    "feature.delayApp.trial.headline" : "Ottieni la prova gratuita per 14 giorni di Franz Professional e salta la coda",
    "feature.delayApp.upgrade.action" : "Ricevi una Licenza Supporter di Franz",
    "feature.delayApp.upgrade.actionShort" : "Effettua l'upgrade del tuo account",
-   "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
+   "feature.serviceLimit.limitReached" : "Hai aggiunto {amount} su {limit} servizi che sono inclusi nel tuo piano. Per favore aggiorna il tuo account per aggiungere più servizi.",
    "feature.shareFranz.action.email" : "Manda come email",
    "feature.shareFranz.action.facebook" : "Condividi su Facebook",
    "feature.shareFranz.action.twitter" : "Condividi su Twitter",
