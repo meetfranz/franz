@@ -313,7 +313,7 @@
   },
   {
     "id": "menu.view.reloadFranz",
-    "defaultMessage": "!!!Reload Ferdi",
+    "defaultMessage": "!!!Reload Franz",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 113,
@@ -404,7 +404,7 @@
   },
   {
     "id": "menu.help.debugInfoCopiedHeadline",
-    "defaultMessage": "!!!Ferdi Debug Information",
+    "defaultMessage": "!!!Franz Debug Information",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 141,
@@ -521,7 +521,7 @@
   },
   {
     "id": "menu.app.about",
-    "defaultMessage": "!!!About Ferdi",
+    "defaultMessage": "!!!About Franz",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 177,
@@ -789,6 +789,19 @@
     },
     "end": {
       "line": 260,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.todos.enableTodos",
+    "defaultMessage": "!!!Enable Todos",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 261,
+      "column": 15
+    },
+    "end": {
+      "line": 264,
       "column": 3
     }
   }

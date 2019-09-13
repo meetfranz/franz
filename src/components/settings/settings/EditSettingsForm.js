@@ -111,6 +111,7 @@ export default @observer class EditSettingsForm extends Component {
     cacheSize: PropTypes.string.isRequired,
     isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
     isTodosEnabled: PropTypes.bool.isRequired,
+    isWorkspaceEnabled: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -142,6 +143,7 @@ export default @observer class EditSettingsForm extends Component {
       cacheSize,
       isSpellcheckerIncludedInCurrentPlan,
       isTodosEnabled,
+      isWorkspaceEnabled,
     } = this.props;
     const { intl } = this.context;
 
@@ -182,8 +184,11 @@ export default @observer class EditSettingsForm extends Component {
               field={form.$('server')}
               autoFocus
             />
-            { isLoggedIn && (
+            {isLoggedIn && (
               <p>{ intl.formatMessage(messages.serverInfo) }</p>
+            )}
+            {isWorkspaceEnabled && (
+              <Toggle field={form.$('keepAllWorkspacesLoaded')} />
             )}
             {isTodosEnabled && (
               <>

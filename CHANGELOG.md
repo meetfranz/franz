@@ -1,3 +1,6 @@
+# [5.3.2](https://github.com/meetfranz/franz/compare/v5.3.1...v5.3.2) (2019-09-13)
+Merged Franz v5.3.2 into Ferdi
+
 ## [5.3.1](https://github.com/kytwb/ferdi/compare/v5.3.0...v5.3.1) (2019-09-09)
 Merge Franz v5.3.1 into Ferdi.
 

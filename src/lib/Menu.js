@@ -7,7 +7,6 @@ import { workspaceStore } from '../features/workspaces/index';
 import { workspaceActions } from '../features/workspaces/actions';
 import { announcementActions } from '../features/announcements/actions';
 import { announcementsStore } from '../features/announcements';
-import TodoStore from '../features/todos/store';
 import { todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 
@@ -257,6 +256,10 @@ const menuItems = defineMessages({
   closeTodosDrawer: {
     id: 'menu.Todoss.closeTodosDrawer',
     defaultMessage: '!!!Close Todos drawer',
+  },
+  enableTodos: {
+    id: 'menu.todos.enableTodos',
+    defaultMessage: '!!!Enable Todos',
   },
 });
 
@@ -922,24 +925,32 @@ export default class FranzMenu {
   }
 
   todosMenu() {
-    const { isTodosPanelVisible } = TodoStore;
-    const { intl } = window.ferdi;
+    const { isTodosPanelVisible, isFeatureEnabledByUser } = this.stores.todos;
+    const { intl } = window.franz;
     const menu = [];
 
-    // Open todos drawer:
-    const drawerLabel = (
-      isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer
-    );
+    const drawerLabel = isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer;
+
     menu.push({
       label: intl.formatMessage(drawerLabel),
       accelerator: `${cmdKey}+T`,
       click: () => {
         todoActions.toggleTodosPanel();
       },
-      enabled: this.stores.user.isLoggedIn,
+      enabled: this.stores.user.isLoggedIn && isFeatureEnabledByUser,
     }, {
       type: 'separator',
     });
+
+    if (!isFeatureEnabledByUser) {
+      menu.push({
+        label: intl.formatMessage(menuItems.enableTodos),
+        click: () => {
+          todoActions.toggleTodosFeatureVisibility();
+          gaEvent(GA_CATEGORY_TODOS, 'enable', 'menu');
+        },
+      });
+    }
 
     return menu;
   }

@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import Tabbar from '../services/tabs/Tabbar';
 import { ctrlKey } from '../../environment';
 import { workspaceStore } from '../../features/workspaces';
+import { todosStore } from '../../features/todos';
 
 const messages = defineMessages({
   settings: {
@@ -33,6 +34,14 @@ const messages = defineMessages({
   closeWorkspaceDrawer: {
     id: 'sidebar.closeWorkspaceDrawer',
     defaultMessage: '!!!Close workspace drawer',
+  },
+  openTodosDrawer: {
+    id: 'sidebar.openTodosDrawer',
+    defaultMessage: '!!!Open Franz Todos',
+  },
+  closeTodosDrawer: {
+    id: 'sidebar.closeTodosDrawer',
+    defaultMessage: '!!!Close Franz Todos',
   },
 });
 
@@ -79,6 +88,10 @@ export default @observer class Sidebar extends Component {
       toggleWorkspaceDrawer,
     } = this.props;
     const { intl } = this.context;
+    const todosToggleMessage = (
+      todosStore.isTodosPanelVisible ? messages.closeTodosDrawer : messages.openTodosDrawer
+    );
+
     const workspaceToggleMessage = (
       isWorkspaceDrawerOpen ? messages.closeWorkspaceDrawer : messages.openWorkspaceDrawer
     );
@@ -91,54 +104,51 @@ export default @observer class Sidebar extends Component {
           enableToolTip={() => this.enableToolTip()}
           disableToolTip={() => this.disableToolTip()}
         />
-        {
-          isLoggedIn ? (
-            <>
-              {workspaceStore.isFeatureEnabled ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    toggleWorkspaceDrawer();
-                    this.updateToolTip();
-                  }}
-                  className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
-                  data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+D)`}
-                >
-                  <i className="mdi mdi-view-grid" />
-                </button>
-              ) : null}
-
-              <button
-                type="button"
-                onClick={() => {
-                  toggleMuteApp();
-                  this.updateToolTip();
-                }}
-                className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
-                data-tip={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)} (${ctrlKey}+Shift+M)`}
-              >
-                <i className={`mdi mdi-bell${isAppMuted ? '-off' : ''}`} />
-              </button>
-              <button
-                type="button"
-                onClick={() => openSettings({ path: 'recipes' })}
-                className="sidebar__button sidebar__button--new-service"
-                data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
-              >
-                <i className="mdi mdi-plus-box" />
-              </button>
-            </>
-          ) : (
-            <Link
-              to="/auth/welcome"
-              className="sidebar__button sidebar__button--new-service"
-              data-tip="Login"
-            >
-              <i className="mdi mdi-login-variant" />
-            </Link>
-          )
-        }
-
+        {todosStore.isFeatureEnabled && todosStore.isFeatureEnabledByUser ? (
+          <button
+            type="button"
+            onClick={() => {
+              todoActions.toggleTodosPanel();
+              this.updateToolTip();
+            }}
+            className="sidebar__button sidebar__button--workspaces"
+            data-tip={`${intl.formatMessage(todosToggleMessage)} (${ctrlKey}+T)`}
+          >
+            <i className="mdi mdi-check-all" />
+          </button>
+        ) : null}
+        {workspaceStore.isFeatureEnabled ? (
+          <button
+            type="button"
+            onClick={() => {
+              toggleWorkspaceDrawer();
+              this.updateToolTip();
+            }}
+            className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
+            data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+D)`}
+          >
+            <i className="mdi mdi-view-grid" />
+          </button>
+        ) : null}
+        <button
+          type="button"
+          onClick={() => {
+            toggleMuteApp();
+            this.updateToolTip();
+          }}
+          className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
+          data-tip={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)} (${ctrlKey}+Shift+M)`}
+        >
+          <i className={`mdi mdi-bell${isAppMuted ? '-off' : ''}`} />
+        </button>
+        <button
+          type="button"
+          onClick={() => openSettings({ path: 'recipes' })}
+          className="sidebar__button sidebar__button--new-service"
+          data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
+        >
+          <i className="mdi mdi-plus-box" />
+        </button>
         <button
           type="button"
           onClick={() => openSettings({ path: 'app' })}
