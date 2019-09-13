@@ -21,6 +21,7 @@ export const workspaceActions = createActionsFromDefinitions({
   deactivate: {},
   toggleWorkspaceDrawer: {},
   openWorkspaceSettings: {},
+  toggleKeepAllWorkspacesLoadedSetting: {},
 }, PropTypes.checkPropTypes);
 
 export default workspaceActions;
