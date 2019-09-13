@@ -7,6 +7,8 @@ import { Icon } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
 
 import { mdiCheckAll } from '@mdi/js';
+import SettingsStore from '../../../stores/SettingsStore';
+
 import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';

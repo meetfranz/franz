@@ -2,7 +2,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!A new update for Franz is available.",
+        "defaultMessage": "!!!A new update for Ferdi is available.",
         "end": {
           "column": 3,
           "line": 12
@@ -46,7 +46,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Import your Franz 4 services",
+        "defaultMessage": "!!!Import your Ferdi 4 services",
         "end": {
           "column": 3,
           "line": 16
@@ -59,7 +59,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Services not yet supported in Franz 5",
+        "defaultMessage": "!!!Services not yet supported in Ferdi 5",
         "end": {
           "column": 3,
           "line": 20
@@ -264,55 +264,81 @@
         }
       },
       {
-        "defaultMessage": "!!!Your session expired, please login again.",
+        "defaultMessage": "!!!Using a custom Ferdi server?",
         "end": {
           "column": 3,
           "line": 40
         },
         "file": "src/components/auth/Login.js",
-        "id": "login.tokenExpired",
+        "id": "login.customServerQuestion",
         "start": {
-          "column": 16,
+          "column": 24,
           "line": 37
+        }
+      },
+      {
+        "defaultMessage": "!!!Try importing your Franz account",
+        "end": {
+          "column": 3,
+          "line": 44
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.customServerSuggestion",
+        "start": {
+          "column": 26,
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Your session expired, please login again.",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 48
+        },
+        "file": "src/components/auth/Login.js",
+        "id": "login.tokenExpired",
+        "start": {
+          "column": 16,
+          "line": 45
+        }
+      },
+      {
+        "defaultMessage": "!!!Your session expired, please login again.",
+        "end": {
+          "column": 3,
+          "line": 52
         },
         "file": "src/components/auth/Login.js",
         "id": "login.serverLogout",
         "start": {
           "column": 16,
-          "line": 41
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Create a free account",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 56
         },
         "file": "src/components/auth/Login.js",
         "id": "login.link.signup",
         "start": {
           "column": 14,
-          "line": 45
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Forgot password",
         "end": {
           "column": 3,
-          "line": 52
+          "line": 60
         },
         "file": "src/components/auth/Login.js",
         "id": "login.link.password",
         "start": {
           "column": 16,
-          "line": 49
+          "line": 57
         }
       }
     ],
@@ -508,7 +534,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Continue to Franz",
+        "defaultMessage": "!!!Continue to Ferdi",
         "end": {
           "column": 3,
           "line": 46
@@ -604,7 +630,7 @@
         }
       },
       {
-        "defaultMessage": "!!!By creating a Franz account you accept the",
+        "defaultMessage": "!!!By creating a Ferdi account you accept the",
         "end": {
           "column": 3,
           "line": 44
@@ -721,39 +747,52 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 30
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 28
+          "line": 27
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 34
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 32
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 38
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 36
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/components/layout/AppLayout.js",
+        "id": "infobar.authRequestFailed",
+        "start": {
+          "column": 21,
+          "line": 39
         }
       }
     ],
@@ -1042,7 +1081,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Welcome to Franz",
+        "defaultMessage": "!!!Welcome to Ferdi",
         "end": {
           "column": 3,
           "line": 17
@@ -1065,6 +1104,32 @@
         "start": {
           "column": 14,
           "line": 18
+        }
+      },
+      {
+        "defaultMessage": "!!!Please login to use Ferdi.",
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "file": "src/components/services/content/Services.js",
+        "id": "services.login",
+        "start": {
+          "column": 9,
+          "line": 22
+        }
+      },
+      {
+        "defaultMessage": "!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.",
+        "end": {
+          "column": 3,
+          "line": 29
+        },
+        "file": "src/components/services/content/Services.js",
+        "id": "services.serverInfo",
+        "start": {
+          "column": 14,
+          "line": 26
         }
       }
     ],
@@ -1421,7 +1486,7 @@
         }
       },
       {
-        "defaultMessage": "!!!If you don't need your Franz account any longer, you can delete your account and all related data here.",
+        "defaultMessage": "!!!If you don't need your Ferdi account any longer, you can delete your account and all related data here.",
         "end": {
           "column": 3,
           "line": 73
@@ -1930,7 +1995,7 @@
         }
       },
       {
-        "defaultMessage": "!!!To add self hosted services, you need a Franz Premium Supporter Account.",
+        "defaultMessage": "!!!To add self hosted services, you need a Ferdi Premium Supporter Account.",
         "end": {
           "column": 3,
           "line": 67
@@ -2060,7 +2125,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
+        "defaultMessage": "!!!Please restart Ferdi after changing proxy Settings.",
         "end": {
           "column": 3,
           "line": 107
@@ -2073,7 +2138,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
+        "defaultMessage": "!!!Proxy settings will not be synchronized with the Ferdi servers.",
         "end": {
           "column": 3,
           "line": 111
@@ -2317,234 +2382,260 @@
         "defaultMessage": "!!!Settings",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headline",
         "start": {
           "column": 12,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!General",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineGeneral",
         "start": {
           "column": 19,
-          "line": 20
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!We advice you to logout after changing your server as your settings might not be saved otherwise.",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.serverInfo",
+        "start": {
+          "column": 14,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!This server will be used for the \"Franz Todo\" feature. The default server will only work for premium users. (default: https://app.franztodos.com)",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.todoServerInfo",
+        "start": {
+          "column": 18,
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Language",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 36
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineLanguage",
         "start": {
           "column": 20,
-          "line": 24
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Updates",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 40
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineUpdates",
         "start": {
           "column": 19,
-          "line": 28
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Appearance",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 44
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineAppearance",
         "start": {
           "column": 22,
-          "line": 32
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Advanced",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 48
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.headlineAdvanced",
         "start": {
           "column": 20,
-          "line": 36
+          "line": 45
         }
       },
       {
-        "defaultMessage": "!!!Help us to translate Franz into your language.",
+        "defaultMessage": "!!!Help us to translate Ferdi into your language.",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 52
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.translationHelp",
         "start": {
           "column": 19,
-          "line": 40
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Cache",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 56
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.subheadlineCache",
         "start": {
           "column": 20,
-          "line": 44
+          "line": 53
         }
       },
       {
-        "defaultMessage": "!!!Franz cache is currently using {size} of disk space.",
+        "defaultMessage": "!!!Ferdi cache is currently using {size} of disk space.",
         "end": {
           "column": 3,
-          "line": 51
+          "line": 60
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.cacheInfo",
         "start": {
           "column": 13,
-          "line": 48
+          "line": 57
         }
       },
       {
         "defaultMessage": "!!!Clear cache",
         "end": {
           "column": 3,
-          "line": 55
+          "line": 64
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonClearAllCache",
         "start": {
           "column": 23,
-          "line": 52
+          "line": 61
         }
       },
       {
         "defaultMessage": "!!!Check for updates",
         "end": {
           "column": 3,
-          "line": 59
+          "line": 68
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonSearchForUpdate",
         "start": {
           "column": 25,
-          "line": 56
+          "line": 65
         }
       },
       {
         "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
-          "line": 63
+          "line": 72
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.buttonInstallUpdate",
         "start": {
           "column": 23,
-          "line": 60
+          "line": 69
         }
       },
       {
         "defaultMessage": "!!!Is searching for update",
         "end": {
           "column": 3,
-          "line": 67
+          "line": 76
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.updateStatusSearching",
         "start": {
           "column": 25,
-          "line": 64
+          "line": 73
         }
       },
       {
         "defaultMessage": "!!!Update available, downloading...",
         "end": {
           "column": 3,
-          "line": 71
+          "line": 80
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.updateStatusAvailable",
         "start": {
           "column": 25,
-          "line": 68
+          "line": 77
         }
       },
       {
-        "defaultMessage": "!!!You are using the latest version of Franz",
+        "defaultMessage": "!!!You are using the latest version of Ferdi",
         "end": {
           "column": 3,
-          "line": 75
+          "line": 84
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.updateStatusUpToDate",
         "start": {
           "column": 24,
-          "line": 72
+          "line": 81
         }
       },
       {
         "defaultMessage": "!!!Current version:",
         "end": {
           "column": 3,
-          "line": 79
+          "line": 88
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.currentVersion",
         "start": {
           "column": 18,
-          "line": 76
+          "line": 85
         }
       },
       {
         "defaultMessage": "!!!Changes require restart",
         "end": {
           "column": 3,
-          "line": 83
+          "line": 92
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.restartRequired",
         "start": {
           "column": 29,
-          "line": 80
+          "line": 89
         }
       },
       {
         "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
         "end": {
           "column": 3,
-          "line": 87
+          "line": 96
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.languageDisclaimer",
         "start": {
           "column": 22,
-          "line": 84
+          "line": 93
         }
       }
     ],
@@ -2566,7 +2657,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz for Teams",
+        "defaultMessage": "!!!Ferdi for Teams",
         "end": {
           "column": 3,
           "line": 24
@@ -2592,7 +2683,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
+        "defaultMessage": "!!!Ferdi for Teams gives you the option to invite co-workers to your team by sending them email invitations and manage their subscriptions in your account’s preferences. Don’t waste time setting up subscriptions for every team member individually, forget about multiple invoices and different billing cycles - one team to rule them all!",
         "end": {
           "column": 3,
           "line": 32
@@ -2924,91 +3015,91 @@
         "defaultMessage": "!!!Get a Franz Supporter License",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 15
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.upgrade.action",
         "start": {
           "column": 10,
-          "line": 13
+          "line": 12
         }
       },
       {
         "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 19
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.trial.action",
         "start": {
           "column": 15,
-          "line": 17
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 23
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.upgrade.actionShort",
         "start": {
           "column": 15,
-          "line": 21
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Activate the free Franz Professional trial",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 27
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "feature.delayApp.trial.actionShort",
         "start": {
           "column": 20,
-          "line": 25
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!No strings attached",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 31
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "pricing.trial.terms.headline",
         "start": {
           "column": 29,
-          "line": 29
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!No credit card required",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 35
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "pricing.trial.terms.noCreditCard",
         "start": {
           "column": 16,
-          "line": 33
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Your free trial ends automatically after 14 days",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 39
         },
         "file": "src/components/ui/ActivateTrialButton/index.js",
         "id": "pricing.trial.terms.automaticTrialEnd",
         "start": {
           "column": 21,
-          "line": 37
+          "line": 36
         }
       }
     ],
@@ -3155,13 +3246,13 @@
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 18
         },
         "file": "src/components/ui/PremiumFeatureContainer/index.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 16
+          "line": 15
         }
       }
     ],
@@ -3173,13 +3264,13 @@
         "defaultMessage": "!!!Upgrade to Franz Professional",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 15
         },
         "file": "src/components/ui/UpgradeButton/index.js",
         "id": "global.upgradeButton.upgradeToPro",
         "start": {
           "column": 16,
-          "line": 13
+          "line": 12
         }
       }
     ],
@@ -3746,16 +3837,16 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Changes in Franz {version}",
+        "defaultMessage": "!!!Changes in Ferdi {version}",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 22
         },
         "file": "src/features/announcements/components/AnnouncementScreen.js",
         "id": "feature.announcements.changelog.headline",
         "start": {
           "column": 12,
-          "line": 20
+          "line": 19
         }
       }
     ],
@@ -3767,65 +3858,65 @@
         "defaultMessage": "!!!Please purchase license to skip waiting",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 17
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.headline",
         "start": {
           "column": 12,
-          "line": 17
+          "line": 14
         }
       },
       {
         "defaultMessage": "!!!Get the free Franz Professional 14 day trial and skip the line",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 21
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.trial.headline",
         "start": {
           "column": 17,
-          "line": 21
+          "line": 18
         }
       },
       {
         "defaultMessage": "!!!Get a Franz Supporter License",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 25
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.upgrade.action",
         "start": {
           "column": 10,
-          "line": 25
+          "line": 22
         }
       },
       {
         "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 29
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.trial.action",
         "start": {
           "column": 15,
-          "line": 29
+          "line": 26
         }
       },
       {
-        "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
+        "defaultMessage": "!!!Ferdi will continue in {seconds} seconds.",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 33
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.text",
         "start": {
           "column": 8,
-          "line": 33
+          "line": 30
         }
       }
     ],
@@ -3855,26 +3946,26 @@
         "defaultMessage": "!!!You have added {amount} of {limit} services. Please upgrade your account to add more services.",
         "end": {
           "column": 3,
-          "line": 14
+          "line": 12
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "feature.serviceLimit.limitReached",
         "start": {
           "column": 16,
-          "line": 11
+          "line": 9
         }
       },
       {
         "defaultMessage": "!!!Upgrade account",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 16
         },
         "file": "src/features/serviceLimit/components/LimitReachedInfobox.js",
         "id": "premiumFeature.button.upgradeAccount",
         "start": {
           "column": 10,
-          "line": 15
+          "line": 13
         }
       }
     ],
@@ -3883,94 +3974,94 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Franz is better together!",
+        "defaultMessage": "!!!Ferdi is better together!",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 20
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.headline",
         "start": {
           "column": 12,
-          "line": 18
+          "line": 17
         }
       },
       {
-        "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
+        "defaultMessage": "!!!Tell your friends and colleagues how awesome Ferdi is and help us to spread the word.",
         "end": {
           "column": 3,
-          "line": 25
+          "line": 24
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.text",
         "start": {
           "column": 8,
-          "line": 22
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Share as email",
         "end": {
           "column": 3,
-          "line": 29
+          "line": 28
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.email",
         "start": {
           "column": 16,
-          "line": 26
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Share on Facebook",
         "end": {
           "column": 3,
-          "line": 33
+          "line": 32
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.facebook",
         "start": {
           "column": 19,
-          "line": 30
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Share on Twitter",
         "end": {
           "column": 3,
-          "line": 37
+          "line": 36
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.action.twitter",
         "start": {
           "column": 18,
-          "line": 34
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
         "end": {
           "column": 3,
-          "line": 41
+          "line": 40
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.email",
         "start": {
           "column": 18,
-          "line": 38
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 44
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.twitter",
         "start": {
           "column": 20,
-          "line": 42
+          "line": 41
         }
       }
     ],
@@ -4026,26 +4117,26 @@
         "defaultMessage": "!!!Create workspace",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 15
         },
         "file": "src/features/workspaces/components/CreateWorkspaceForm.js",
         "id": "settings.workspace.add.form.submitButton",
         "start": {
           "column": 16,
-          "line": 13
+          "line": 12
         }
       },
       {
         "defaultMessage": "!!!Name",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 19
         },
         "file": "src/features/workspaces/components/CreateWorkspaceForm.js",
         "id": "settings.workspace.add.form.name",
         "start": {
           "column": 8,
-          "line": 17
+          "line": 16
         }
       }
     ],
@@ -4057,91 +4148,91 @@
         "defaultMessage": "!!!Delete workspace",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 20
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.buttonDelete",
         "start": {
           "column": 16,
-          "line": 19
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Save workspace",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 24
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.buttonSave",
         "start": {
           "column": 14,
-          "line": 23
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Name",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 28
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.name",
         "start": {
           "column": 8,
-          "line": 27
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 32
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 31
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Services in this Workspace",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 36
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.servicesInWorkspaceHeadline",
         "start": {
           "column": 31,
-          "line": 35
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!You haven't added any services yet.",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 40
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.services.noServicesAdded",
         "start": {
           "column": 19,
-          "line": 39
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Discover services",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 44
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.services.discoverServices",
         "start": {
           "column": 20,
-          "line": 43
+          "line": 41
         }
       }
     ],
@@ -4153,104 +4244,104 @@
         "defaultMessage": "!!!Workspaces",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 19
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.headline",
         "start": {
           "column": 12,
-          "line": 17
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!All services",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 23
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.allServices",
         "start": {
           "column": 15,
-          "line": 21
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Workspaces settings",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 27
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.workspacesSettingsTooltip",
         "start": {
           "column": 29,
-          "line": 25
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Info about workspace feature",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 31
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.workspaceFeatureInfo",
         "start": {
           "column": 24,
-          "line": 29
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Create your first workspace",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 35
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.premiumCtaButtonLabel",
         "start": {
           "column": 25,
-          "line": 33
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Reactivate premium account",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 39
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.reactivatePremiumAccountLabel",
         "start": {
           "column": 28,
-          "line": 37
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!add new workspace",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 43
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.addNewWorkspaceLabel",
         "start": {
           "column": 24,
-          "line": 41
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Premium feature",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 47
         },
         "file": "src/features/workspaces/components/WorkspaceDrawer.js",
         "id": "workspaceDrawer.proFeatureBadge",
         "start": {
           "column": 23,
-          "line": 45
+          "line": 44
         }
       }
     ],
@@ -4381,7 +4472,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Less is More: Introducing Franz Workspaces",
+        "defaultMessage": "!!!Less is More: Introducing Ferdi Workspaces",
         "end": {
           "column": 3,
           "line": 50
@@ -4627,7 +4718,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "!!!Can't connect to Franz Online Services",
+        "defaultMessage": "!!!Can't connect to Ferdi Online Services",
         "end": {
           "column": 3,
           "line": 7

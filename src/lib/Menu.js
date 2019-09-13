@@ -947,7 +947,6 @@ export default class FranzMenu {
         label: intl.formatMessage(menuItems.enableTodos),
         click: () => {
           todoActions.toggleTodosFeatureVisibility();
-          gaEvent(GA_CATEGORY_TODOS, 'enable', 'menu');
         },
       });
     }
