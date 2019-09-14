@@ -110,6 +110,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "dayzlun",
+      "name": "dayzlun",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17259690?v=4",
+      "profile": "https://github.com/dayzlun",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
