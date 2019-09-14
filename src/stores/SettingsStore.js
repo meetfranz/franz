@@ -1,6 +1,6 @@
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import {
-  action, computed, observable, set,
+  action, computed, observable, set, reaction,
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
@@ -55,6 +55,13 @@ export default class SettingsStore extends Store {
     // We need to wait until `appSettingsRequest` has been executed once, otherwise we can't patch the result. If we don't wait we'd run into an issue with mobx not reacting to changes of previously not existing keys
     await this.appSettingsRequest._promise;
     await this._migrate();
+
+    reaction(
+      () => this.all.app.autohideMenuBar,
+      () => remote.getCurrentWindow().setAutoHideMenuBar(
+        this.all.app.autohideMenuBar,
+      ),
+    );
   }
 
   @computed get app() {

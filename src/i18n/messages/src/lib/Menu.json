@@ -611,15 +611,28 @@
     }
   },
   {
+    "id": "menu.app.autohideMenuBar",
+    "defaultMessage": "!!!Auto-hide menu bar",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 204,
+      "column": 19
+    },
+    "end": {
+      "line": 207,
+      "column": 3
+    }
+  },
+  {
     "id": "menu.app.quit",
     "defaultMessage": "!!!Quit",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 204,
+      "line": 208,
       "column": 8
     },
     "end": {
-      "line": 207,
+      "line": 211,
       "column": 3
     }
   },
@@ -628,11 +641,11 @@
     "defaultMessage": "!!!Add New Service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 208,
+      "line": 212,
       "column": 17
     },
     "end": {
-      "line": 211,
+      "line": 215,
       "column": 3
     }
   },
@@ -641,11 +654,11 @@
     "defaultMessage": "!!!Add New Workspace...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 212,
+      "line": 216,
       "column": 19
     },
     "end": {
-      "line": 215,
+      "line": 219,
       "column": 3
     }
   },
@@ -654,11 +667,11 @@
     "defaultMessage": "!!!Open workspace drawer",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 216,
+      "line": 220,
       "column": 23
     },
     "end": {
-      "line": 219,
+      "line": 223,
       "column": 3
     }
   },
@@ -667,11 +680,11 @@
     "defaultMessage": "!!!Close workspace drawer",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 220,
+      "line": 224,
       "column": 24
     },
     "end": {
-      "line": 223,
+      "line": 227,
       "column": 3
     }
   },
@@ -680,11 +693,11 @@
     "defaultMessage": "!!!Activate next service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 224,
+      "line": 228,
       "column": 23
     },
     "end": {
-      "line": 227,
+      "line": 231,
       "column": 3
     }
   },
@@ -693,11 +706,11 @@
     "defaultMessage": "!!!Activate previous service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 228,
+      "line": 232,
       "column": 27
     },
     "end": {
-      "line": 231,
+      "line": 235,
       "column": 3
     }
   },
@@ -706,11 +719,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 232,
+      "line": 236,
       "column": 11
     },
     "end": {
-      "line": 235,
+      "line": 239,
       "column": 3
     }
   },
@@ -719,11 +732,11 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 236,
+      "line": 240,
       "column": 13
     },
     "end": {
-      "line": 239,
+      "line": 243,
       "column": 3
     }
   },
@@ -732,11 +745,11 @@
     "defaultMessage": "!!!Workspaces",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 240,
+      "line": 244,
       "column": 14
     },
     "end": {
-      "line": 243,
+      "line": 247,
       "column": 3
     }
   },
@@ -745,11 +758,11 @@
     "defaultMessage": "!!!Default",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 244,
+      "line": 248,
       "column": 20
     },
     "end": {
-      "line": 247,
+      "line": 251,
       "column": 3
     }
   },
@@ -758,11 +771,11 @@
     "defaultMessage": "!!!Todos",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 248,
+      "line": 252,
       "column": 9
     },
     "end": {
-      "line": 251,
+      "line": 255,
       "column": 3
     }
   },
@@ -771,11 +784,11 @@
     "defaultMessage": "!!!Open Todos drawer",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 252,
+      "line": 256,
       "column": 19
     },
     "end": {
-      "line": 255,
+      "line": 259,
       "column": 3
     }
   },
@@ -784,11 +797,11 @@
     "defaultMessage": "!!!Close Todos drawer",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 256,
+      "line": 260,
       "column": 20
     },
     "end": {
-      "line": 259,
+      "line": 263,
       "column": 3
     }
   },
@@ -797,11 +810,11 @@
     "defaultMessage": "!!!Enable Todos",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 260,
+      "line": 264,
       "column": 15
     },
     "end": {
-      "line": 263,
+      "line": 267,
       "column": 3
     }
   }

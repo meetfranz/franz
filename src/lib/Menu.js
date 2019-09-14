@@ -201,6 +201,10 @@ const menuItems = defineMessages({
     id: 'menu.app.unhide',
     defaultMessage: '!!!Unhide',
   },
+  autohideMenuBar: {
+    id: 'menu.app.autohideMenuBar',
+    defaultMessage: '!!!Auto-hide menu bar',
+  },
   quit: {
     id: 'menu.app.quit',
     defaultMessage: '!!!Quit',
@@ -724,6 +728,19 @@ export default class FranzMenu {
           label: intl.formatMessage(menuItems.unhide),
           role: 'unhide',
         },
+        ...(!isMac ? [{
+          label: intl.formatMessage(menuItems.autohideMenuBar),
+          type: 'checkbox',
+          checked: this.stores.settings.app.autohideMenuBar,
+          click: () => {
+            this.actions.settings.update({
+              type: 'app',
+              data: {
+                autohideMenuBar: !this.stores.settings.app.autohideMenuBar,
+              },
+            });
+          },
+        }] : []),
         {
           type: 'separator',
         },

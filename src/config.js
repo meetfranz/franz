@@ -50,6 +50,7 @@ export const DEFAULT_APP_SETTINGS = {
   isAppMuted: false,
   enableGPUAcceleration: true,
   serviceLimit: 5,
+  autohideMenuBar: false,
 };
 
 export const DEFAULT_FEATURES_CONFIG = {
