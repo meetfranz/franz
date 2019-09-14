@@ -37,6 +37,9 @@ You can find the installers in the [latest release](https://github.com/kytwb/fer
 #### Install Linux OS dependencies
 [Guide: Linux distribution specific dependencies](docs/linux.md)
 
+#### Use right NodeJS version
+Please make sure you are running NodeJS v10 (v10.16.3 suggested). Versions above will throw an errow when trying to install due to an [old fsevent dependency](https://github.com/fsevents/fsevents/issues/278)
+
 #### Fix native modules to match current electron node version
 ```bash
 $ npm run rebuild
