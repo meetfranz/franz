@@ -80,6 +80,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://seriesgt.com"><img src="https://avatars3.githubusercontent.com/u/5977640?v=4" width="100px;" alt="ZeroCool"/><br /><sub><b>ZeroCool</b></sub></a><br /><a href="https://github.com/kytwb/ferdi/commits?author=ZeroCool940711" title="Code">💻</a> <a href="#ideas-ZeroCool940711" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/rseitbekov"><img src="https://avatars2.githubusercontent.com/u/35684439?v=4" width="100px;" alt="rseitbekov"/><br /><sub><b>rseitbekov</b></sub></a><br /><a href="https://github.com/kytwb/ferdi/commits?author=rseitbekov" title="Code">💻</a></td>
     <td align="center"><a href="https://djangogigs.com/developers/peter-bittner/"><img src="https://avatars2.githubusercontent.com/u/665072?v=4" width="100px;" alt="Peter Bittner"/><br /><sub><b>Peter Bittner</b></sub></a><br /><a href="#ideas-bittner" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/justus-saul"><img src="https://avatars1.githubusercontent.com/u/5861826?v=4" width="100px;" alt="Justus Saul"/><br /><sub><b>Justus Saul</b></sub></a><br /><a href="https://github.com/kytwb/ferdi/issues?q=author%3Ajustus-saul" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

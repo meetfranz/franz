@@ -83,6 +83,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "justus-saul",
+      "name": "Justus Saul",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5861826?v=4",
+      "profile": "https://github.com/justus-saul",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
