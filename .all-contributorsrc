@@ -74,6 +74,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "bittner",
+      "name": "Peter Bittner",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/665072?v=4",
+      "profile": "https://djangogigs.com/developers/peter-bittner/",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
