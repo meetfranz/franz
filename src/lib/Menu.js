@@ -948,12 +948,12 @@ export default class FranzMenu {
         gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
       },
       enabled: this.stores.user.isLoggedIn && isFeatureEnabledByUser,
-    }, {
-      type: 'separator',
     });
 
     if (!isFeatureEnabledByUser) {
       menu.push({
+        type: 'separator',
+      }, {
         label: intl.formatMessage(menuItems.enableTodos),
         click: () => {
           todoActions.toggleTodosFeatureVisibility();
