@@ -14,6 +14,7 @@ import { matchRoute } from '../helpers/routing-helpers';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
+import { KEEP_WS_LOADED_USID } from '../config';
 
 const debug = require('debug')('Ferdi:ServiceStore');
 
@@ -124,7 +125,35 @@ export default class ServicesStore extends Store {
     const { keepAllWorkspacesLoaded } = this.stores.workspaces.settings;
     const services = this.allServicesRequest.execute().result || [];
     const filteredServices = showDisabledServices ? services : services.filter(service => service.isEnabled);
-    return keepAllWorkspacesLoaded ? filteredServices : workspaceStore.filterServicesByActiveWorkspace(filteredServices);
+
+    let displayedServices;
+    if (keepAllWorkspacesLoaded) {
+      // Keep all enabled services loaded
+      displayedServices = filteredServices;
+    } else {
+      // Keep all services in current workspace loaded
+      displayedServices = workspaceStore.filterServicesByActiveWorkspace(filteredServices);
+
+      // Keep all services active in workspaces that should be kept loaded
+      for (const workspace of this.stores.workspaces.workspaces) {
+        // Check if workspace needs to be kept loaded
+        if (workspace.services.includes(KEEP_WS_LOADED_USID)) {
+          // Get services for workspace
+          const serviceIDs = workspace.services.filter(i => i !== KEEP_WS_LOADED_USID);
+          const wsServices = filteredServices.filter(service => serviceIDs.includes(service.id));
+
+          displayedServices = [
+            ...displayedServices,
+            ...wsServices,
+          ];
+        }
+      }
+
+      // Make sure every service is in the list only once
+      displayedServices = displayedServices.filter((v, i, a) => a.indexOf(v) === i);
+    }
+
+    return displayedServices;
   }
 
   @computed get filtered() {

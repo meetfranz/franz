@@ -17,6 +17,8 @@ import { WORKSPACES_ROUTES } from './index';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
 
+import { KEEP_WS_LOADED_USID } from '../../config';
+
 const debug = require('debug')('Ferdi:feature:workspaces:store');
 
 export default class WorkspacesStore extends FeatureStore {
@@ -327,7 +329,7 @@ export default class WorkspacesStore extends FeatureStore {
     // Loop through all workspaces and remove invalid service ids (locally)
     this.workspaces.forEach((workspace) => {
       workspace.services.forEach((serviceId) => {
-        if (servicesHaveBeenLoaded && !services.one(serviceId)) {
+        if (servicesHaveBeenLoaded && !services.one(serviceId) && serviceId !== KEEP_WS_LOADED_USID) {
           workspace.services.remove(serviceId);
         }
       });

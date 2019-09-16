@@ -25,6 +25,8 @@ You can find the installers in the [latest release](https://github.com/kytwb/fer
 - [x] Makes all users Premium by default
 - [x] [Add option to change server to a custom](https://github.com/kytwb/ferdi/wiki/Custom-Server) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Add "Private Notification"-Mode, that hides message content from notifications (as suggested in [meetfranz/franz#879](https://github.com/meetfranz/franz/issues/879))
+- [x] [Add an option keep individual workspaces always loaded](https://github.com/kytwb/ferdi/issues/37)
+- [x] Add an option to auto-hide the menubar ([#7](https://github.com/kytwb/ferdi/issues/7), [meetfranz#833](https://github.com/meetfranz/franz/issues/833))
 - [x] Remove "Franz is better together" popup
 - [x] [Makes it possible to edit the "Franz Todo" server](https://github.com/kytwb/ferdi/wiki/Custom-Todo)
 - [x] Makes RocketChat self-hosted generally available
