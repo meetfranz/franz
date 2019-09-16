@@ -548,6 +548,11 @@ const _titleBarTemplateFactory = intl => [
     visible: workspaceStore.isFeatureEnabled,
   },
   {
+    label: intl.formatMessage(menuItems.todos),
+    submenu: [],
+    visible: todosStore.isFeatureEnabled,
+  },
+  {
     label: intl.formatMessage(menuItems.window),
     submenu: [
       {
