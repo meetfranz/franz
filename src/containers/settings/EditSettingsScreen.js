@@ -289,6 +289,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       cacheSize,
       updateStatusTypes,
       isClearingAllCache,
+      server,
     } = app;
     const {
       checkForUpdates,
@@ -314,6 +315,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
           isTodosEnabled={todos.isFeatureActive}
           isWorkspaceEnabled={workspaces.isFeatureActive}
+          server={server || 'https://api.franzinfra.com'}
         />
       </ErrorBoundary>
     );

@@ -112,6 +112,7 @@ export default @observer class EditSettingsForm extends Component {
     isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
     isTodosEnabled: PropTypes.bool.isRequired,
     isWorkspaceEnabled: PropTypes.bool.isRequired,
+    server: PropTypes.string.isRequired,
   };
 
   static contextTypes = {
@@ -144,6 +145,7 @@ export default @observer class EditSettingsForm extends Component {
       isSpellcheckerIncludedInCurrentPlan,
       isTodosEnabled,
       isWorkspaceEnabled,
+      server,
     } = this.props;
     const { intl } = this.context;
 
@@ -186,6 +188,32 @@ export default @observer class EditSettingsForm extends Component {
             />
             {isLoggedIn && (
               <p>{ intl.formatMessage(messages.serverInfo) }</p>
+            )}
+            {server === 'https://api.franzinfra.com' && (
+              <p
+                className="settings__message"
+                style={{
+                  borderTop: 0, marginTop: 0, paddingTop: 0, marginBottom: '2rem',
+                }}
+              >
+                <span>
+                  You are using the official Franz Server for Ferdi.
+                  <br />
+                  We know that Ferdi allows you to use all its features for free but you are
+                  still using Franz&#x27;s server resources - which Franz&#x27;s creator has to pay for.
+                  <br />
+                  Please still consider
+                  {' '}
+                  <a href="https://www.meetfranz.com/pricing" target="_blank">paying for a Franz account</a>
+                  or
+                  {' '}
+                  <a href="https://github.com/vantezzen/ferdi-server" target="_blank">using a self-hosted ferdi-server</a>
+                  {' '}
+                  (if you have the knowledge and resources to do so).
+                  <br />
+                  By using Ferdi, you still profit greatly from Franz&#x27;s recipe store, server resources and its development.
+                </span>
+              </p>
             )}
             {isWorkspaceEnabled && (
               <Toggle field={form.$('keepAllWorkspacesLoaded')} />
