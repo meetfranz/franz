@@ -69,6 +69,14 @@ const menuItems = defineMessages({
     id: 'menu.edit.emojiSymbols',
     defaultMessage: '!!!Emoji & Symbols',
   },
+  back: {
+    id: 'menu.view.back',
+    defaultMessage: '!!!Back',
+  },
+  forward: {
+    id: 'menu.view.forward',
+    defaultMessage: '!!!Forward',
+  },
   resetZoom: {
     id: 'menu.view.resetZoom',
     defaultMessage: '!!!Actual Size',
@@ -320,6 +328,25 @@ const _templateFactory = intl => [
   {
     label: intl.formatMessage(menuItems.view),
     submenu: [
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.back),
+        accelerator: 'CmdOrCtrl+Left',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.goBack();
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.forward),
+        accelerator: 'CmdOrCtrl+Right',
+        click() {
+          const activeService = getActiveWebview();
+          activeService.goForward();
+        },
+      },
       {
         type: 'separator',
       },
