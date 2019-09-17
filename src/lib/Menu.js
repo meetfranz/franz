@@ -121,6 +121,10 @@ const menuItems = defineMessages({
     id: 'menu.view.reloadFranz',
     defaultMessage: '!!!Reload Ferdi',
   },
+  lockFerdi: {
+    id: 'menu.view.lockFerdi',
+    defaultMessage: '!!!Lock Ferdi',
+  },
   minimize: {
     id: 'menu.window.minimize',
     defaultMessage: '!!!Minimize',
@@ -659,6 +663,7 @@ export default class FranzMenu {
 
     const { intl } = window.ferdi;
     const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
+    const { actions } = this;
 
     tpl[1].submenu.push({
       type: 'separator',
@@ -705,6 +710,20 @@ export default class FranzMenu {
       accelerator: `${cmdKey}+Shift+R`,
       click: () => {
         window.location.reload();
+      },
+    }, {
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.lockFerdi),
+      accelerator: 'CmdOrCtrl+Shift+L',
+      enabled: this.stores.settings.app.lockingFeatureEnabled,
+      click() {
+        actions.settings.update({
+          type: 'app',
+          data: {
+            locked: true,
+          },
+        });
       },
     });
 

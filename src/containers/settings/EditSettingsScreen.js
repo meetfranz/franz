@@ -9,7 +9,7 @@ import UserStore from '../../stores/UserStore';
 import TodosStore from '../../features/todos/store';
 import Form from '../../lib/Form';
 import { APP_LOCALES, SPELLCHECKER_LOCALES } from '../../i18n/languages';
-import { DEFAULT_APP_SETTINGS } from '../../config';
+import { DEFAULT_APP_SETTINGS, DEFAULT_LOCK_PASSWORD } from '../../config';
 import { config as spellcheckerConfig } from '../../features/spellchecker';
 
 import { getSelectOptions } from '../../helpers/i18n-helpers';
@@ -56,6 +56,14 @@ const messages = defineMessages({
   todoServer: {
     id: 'settings.app.form.todoServer',
     defaultMessage: '!!!Todo Server',
+  },
+  enableLock: {
+    id: 'settings.app.form.enableLock',
+    defaultMessage: '!!!Enable Ferdi password lock',
+  },
+  lockPassword: {
+    id: 'settings.app.form.lockPassword',
+    defaultMessage: '!!!Ferdi Lock password',
   },
   language: {
     id: 'settings.app.form.language',
@@ -124,6 +132,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         privateNotifications: settingsData.privateNotifications,
         server: settingsData.server,
         todoServer: settingsData.todoServer,
+        lockingFeatureEnabled: settingsData.lockingFeatureEnabled,
+        lockedPassword: settingsData.lockedPassword,
         enableGPUAcceleration: settingsData.enableGPUAcceleration,
         showDisabledServices: settingsData.showDisabledServices,
         darkMode: settingsData.darkMode,
@@ -214,6 +224,17 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           value: settings.all.app.todoServer || TODOS_FRONTEND,
           default: TODOS_FRONTEND,
         },
+        lockingFeatureEnabled: {
+          label: intl.formatMessage(messages.enableLock),
+          value: settings.all.app.lockingFeatureEnabled || false,
+          default: false,
+        },
+        lockedPassword: {
+          label: intl.formatMessage(messages.lockPassword),
+          value: settings.all.app.lockedPassword || DEFAULT_LOCK_PASSWORD,
+          default: DEFAULT_LOCK_PASSWORD,
+          type: 'password',
+        },
         showDisabledServices: {
           label: intl.formatMessage(messages.showDisabledServices),
           value: settings.all.app.showDisabledServices,
@@ -290,6 +311,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       updateStatusTypes,
       isClearingAllCache,
       server,
+      lockingFeatureEnabled,
     } = app;
     const {
       checkForUpdates,
@@ -316,6 +338,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isTodosEnabled={todos.isFeatureActive}
           isWorkspaceEnabled={workspaces.isFeatureActive}
           server={server || 'https://api.franzinfra.com'}
+          lockingFeatureEnabled={lockingFeatureEnabled}
         />
       </ErrorBoundary>
     );

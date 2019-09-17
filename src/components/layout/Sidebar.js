@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { defineMessages, intlShape } from 'react-intl';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router';
 
 import Tabbar from '../services/tabs/Tabbar';
@@ -44,9 +44,13 @@ const messages = defineMessages({
     id: 'sidebar.closeTodosDrawer',
     defaultMessage: '!!!Close Franz Todos',
   },
+  lockFerdi: {
+    id: 'sidebar.lockFerdi',
+    defaultMessage: '!!!Lock Ferdi',
+  },
 });
 
-export default @observer class Sidebar extends Component {
+export default @inject('stores', 'actions') @observer class Sidebar extends Component {
   static propTypes = {
     openSettings: PropTypes.func.isRequired,
     toggleMuteApp: PropTypes.func.isRequired,
@@ -87,6 +91,8 @@ export default @observer class Sidebar extends Component {
       isAppMuted,
       isWorkspaceDrawerOpen,
       toggleWorkspaceDrawer,
+      stores,
+      actions,
     } = this.props;
     const { intl } = this.context;
     const todosToggleMessage = (
@@ -107,6 +113,23 @@ export default @observer class Sidebar extends Component {
         />
         { isLoggedIn ? (
           <>
+            { stores.settings.all.app.lockingFeatureEnabled ? (
+              <button
+                type="button"
+                className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
+                onClick={() => {
+                  actions.settings.update({
+                    type: 'app',
+                    data: {
+                      locked: true,
+                    },
+                  });
+                }}
+                data-tip={`${intl.formatMessage(messages.lockFerdi)} (${ctrlKey}+Shift+L)`}
+              >
+                <i className="mdi mdi-lock" />
+              </button>
+            ) : null}
             {todosStore.isFeatureEnabled && todosStore.isFeatureEnabledByUser ? (
               <button
                 type="button"
