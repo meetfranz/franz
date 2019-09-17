@@ -136,7 +136,6 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
                 onClick={() => {
                   todoActions.toggleTodosPanel();
                   this.updateToolTip();
-                  gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'sidebar');
                 }}
                 className={`sidebar__button sidebar__button--todos  ${todosStore.isTodosPanelVisible ? 'is-active' : ''}`}
                 data-tip={`${intl.formatMessage(todosToggleMessage)} (${ctrlKey}+T)`}

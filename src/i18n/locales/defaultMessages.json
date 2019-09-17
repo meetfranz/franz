@@ -4371,42 +4371,68 @@
         }
       },
       {
-        "defaultMessage": "!!!Services in this Workspace",
+        "defaultMessage": "!!!Keep this workspace loaded*",
         "end": {
           "column": 3,
           "line": 40
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+        "id": "settings.workspace.form.keepLoaded",
+        "start": {
+          "column": 14,
+          "line": 37
+        }
+      },
+      {
+        "defaultMessage": "!!!*This option will be overwritten by the global \"Keep all workspaces loaded\" option.",
+        "end": {
+          "column": 3,
+          "line": 44
+        },
+        "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+        "id": "settings.workspace.form.keepLoadedInfo",
+        "start": {
+          "column": 18,
+          "line": 41
+        }
+      },
+      {
+        "defaultMessage": "!!!Services in this Workspace",
+        "end": {
+          "column": 3,
+          "line": 48
+        },
+        "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.servicesInWorkspaceHeadline",
         "start": {
           "column": 31,
-          "line": 37
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!You haven't added any services yet.",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 52
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.services.noServicesAdded",
         "start": {
           "column": 19,
-          "line": 41
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Discover services",
         "end": {
           "column": 3,
-          "line": 48
+          "line": 56
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.services.discoverServices",
         "start": {
           "column": 20,
-          "line": 45
+          "line": 53
         }
       }
     ],
