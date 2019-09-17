@@ -331,6 +331,8 @@
   "settings.workspace.add.form.submitButton": "Create workspace",
   "settings.workspace.form.buttonDelete": "Delete workspace",
   "settings.workspace.form.buttonSave": "Save workspace",
+  "settings.workspace.form.keepLoaded": "Keep this workspace loaded*",
+  "settings.workspace.form.keepLoadedInfo": "*This option will be overwritten by the global \"Keep all workspaces loaded\" option.",
   "settings.workspace.form.name": "Name",
   "settings.workspace.form.servicesInWorkspaceHeadline": "Services in this Workspace",
   "settings.workspace.form.yourWorkspaces": "Your workspaces",

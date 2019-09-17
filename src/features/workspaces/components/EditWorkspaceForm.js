@@ -13,6 +13,10 @@ import { required } from '../../../helpers/validation-helpers';
 import WorkspaceServiceListItem from './WorkspaceServiceListItem';
 import Request from '../../../stores/lib/Request';
 
+import { KEEP_WS_LOADED_USID } from '../../../config';
+
+import Toggle from '../../../components/ui/Toggle';
+
 const messages = defineMessages({
   buttonDelete: {
     id: 'settings.workspace.form.buttonDelete',
@@ -29,6 +33,14 @@ const messages = defineMessages({
   yourWorkspaces: {
     id: 'settings.workspace.form.yourWorkspaces',
     defaultMessage: '!!!Your workspaces',
+  },
+  keepLoaded: {
+    id: 'settings.workspace.form.keepLoaded',
+    defaultMessage: '!!!Keep this workspace loaded*',
+  },
+  keepLoadedInfo: {
+    id: 'settings.workspace.form.keepLoadedInfo',
+    defaultMessage: '!!!*This option will be overwritten by the global "Keep all workspaces loaded" option.',
   },
   servicesInWorkspaceHeadline: {
     id: 'settings.workspace.form.servicesInWorkspaceHeadline',
@@ -50,6 +62,9 @@ const styles = () => ({
   },
   serviceList: {
     height: 'auto',
+  },
+  keepLoadedInfo: {
+    marginBottom: '2rem !important',
   },
 });
 
@@ -87,6 +102,11 @@ class EditWorkspaceForm extends Component {
           placeholder: intl.formatMessage(messages.name),
           value: workspace.name,
           validators: [required],
+        },
+        keepLoaded: {
+          label: intl.formatMessage(messages.keepLoaded),
+          value: workspace.services.includes(KEEP_WS_LOADED_USID),
+          default: false,
         },
         services: {
           value: workspace.services.slice(),
@@ -151,6 +171,10 @@ class EditWorkspaceForm extends Component {
         <div className="settings__body">
           <div className={classes.nameInput}>
             <Input {...form.$('name').bind()} />
+            <Toggle field={form.$('keepLoaded')} />
+            <p className={classes.keepLoadedInfo}>
+              { intl.formatMessage(messages.keepLoadedInfo) }
+            </p>
           </div>
           <h2>{intl.formatMessage(messages.servicesInWorkspaceHeadline)}</h2>
           <div className={classes.serviceList}>

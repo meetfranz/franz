@@ -31,6 +31,8 @@ export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.
 
 export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
 
+export const KEEP_WS_LOADED_USID = '0a0aa000-0a0a-49a0-a000-a0a0a0a0a0a0';
+
 export const DEFAULT_APP_SETTINGS = {
   autoLaunchInBackground: false,
   runInBackground: true,
