@@ -4322,91 +4322,91 @@
         "defaultMessage": "!!!Delete workspace",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 24
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.buttonDelete",
         "start": {
           "column": 16,
-          "line": 17
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Save workspace",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 28
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.buttonSave",
         "start": {
           "column": 14,
-          "line": 21
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Name",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 32
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.name",
         "start": {
           "column": 8,
-          "line": 25
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 36
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.yourWorkspaces",
         "start": {
           "column": 18,
-          "line": 29
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Services in this Workspace",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 40
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.workspace.form.servicesInWorkspaceHeadline",
         "start": {
           "column": 31,
-          "line": 33
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!You haven't added any services yet.",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 44
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.services.noServicesAdded",
         "start": {
           "column": 19,
-          "line": 37
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Discover services",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 48
         },
         "file": "src/features/workspaces/components/EditWorkspaceForm.js",
         "id": "settings.services.discoverServices",
         "start": {
           "column": 20,
-          "line": 41
+          "line": 45
         }
       }
     ],

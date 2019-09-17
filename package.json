@@ -2,7 +2,7 @@
   "name": "ferdi",
   "productName": "Ferdi",
   "appId": "com.kytwb.ferdi",
-  "version": "5.3.2",
+  "version": "5.3.3-beta.1",
   "description": "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.",
   "copyright": "kytwb",
   "main": "index.js",

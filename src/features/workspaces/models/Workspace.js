@@ -1,5 +1,7 @@
 import { observable } from 'mobx';
 
+import { KEEP_WS_LOADED_USID } from '../../../config';
+
 export default class Workspace {
   id = null;
 
@@ -19,7 +21,17 @@ export default class Workspace {
     this.id = data.id;
     this.name = data.name;
     this.order = data.order;
-    this.services.replace(data.services);
+
+    let services = data.services;
+    if (data.saving && data.keepLoaded) {
+      // Keep workspaces loaded
+      services.push(KEEP_WS_LOADED_USID);
+    } else if (data.saving && data.services.includes(KEEP_WS_LOADED_USID)) {
+      // Don't keep loaded
+      services = services.filter(e => e !== KEEP_WS_LOADED_USID);
+    }
+    this.services.replace(services);
+
     this.userId = data.userId;
   }
 }
