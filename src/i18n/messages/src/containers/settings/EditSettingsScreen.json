@@ -104,15 +104,41 @@
     }
   },
   {
+    "id": "settings.app.form.enableLock",
+    "defaultMessage": "!!!Enable Ferdi password lock",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 60,
+      "column": 14
+    },
+    "end": {
+      "line": 63,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.lockPassword",
+    "defaultMessage": "!!!Ferdi Lock password",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 64,
+      "column": 16
+    },
+    "end": {
+      "line": 67,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.app.form.language",
     "defaultMessage": "!!!Language",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 60,
+      "line": 68,
       "column": 12
     },
     "end": {
-      "line": 63,
+      "line": 71,
       "column": 3
     }
   },
@@ -121,11 +147,11 @@
     "defaultMessage": "!!!Dark Mode",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 64,
+      "line": 72,
       "column": 12
     },
     "end": {
-      "line": 67,
+      "line": 75,
       "column": 3
     }
   },
@@ -134,11 +160,11 @@
     "defaultMessage": "!!!Display disabled services tabs",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 68,
+      "line": 76,
       "column": 24
     },
     "end": {
-      "line": 71,
+      "line": 79,
       "column": 3
     }
   },
@@ -147,11 +173,11 @@
     "defaultMessage": "!!!Show unread message badge when notifications are disabled",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 72,
+      "line": 80,
       "column": 29
     },
     "end": {
-      "line": 75,
+      "line": 83,
       "column": 3
     }
   },
@@ -160,11 +186,11 @@
     "defaultMessage": "!!!Enable spell checking",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 76,
+      "line": 84,
       "column": 23
     },
     "end": {
-      "line": 79,
+      "line": 87,
       "column": 3
     }
   },
@@ -173,11 +199,11 @@
     "defaultMessage": "!!!Enable GPU Acceleration",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 80,
+      "line": 88,
       "column": 25
     },
     "end": {
-      "line": 83,
+      "line": 91,
       "column": 3
     }
   },
@@ -186,11 +212,11 @@
     "defaultMessage": "!!!Include beta versions",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 84,
+      "line": 92,
       "column": 8
     },
     "end": {
-      "line": 87,
+      "line": 95,
       "column": 3
     }
   },
@@ -199,11 +225,11 @@
     "defaultMessage": "!!!Enable Franz Todos",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 88,
+      "line": 96,
       "column": 15
     },
     "end": {
-      "line": 91,
+      "line": 99,
       "column": 3
     }
   },
@@ -212,11 +238,11 @@
     "defaultMessage": "!!!Keep all workspaces loaded",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 92,
+      "line": 100,
       "column": 27
     },
     "end": {
-      "line": 95,
+      "line": 103,
       "column": 3
     }
   }

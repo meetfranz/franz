@@ -62,6 +62,34 @@ export default class SettingsStore extends Store {
         this.all.app.autohideMenuBar,
       ),
     );
+
+    reaction(
+      () => this.all.app.locked,
+      () => {
+        const { router } = window.ferdi.stores;
+
+        if (this.all.app.locked && this.all.app.lockingFeatureEnabled) {
+          // App just got locked, redirect to unlock screen
+          router.push('/auth/locked');
+        } else if (router.location.pathname.includes('/auth/locked')) {
+          // App is unlocked but user is still on locked screen
+          // Redirect to homepage
+          router.push('/');
+        }
+      },
+    );
+
+    // Make sure to lock app on launch if locking feature is enabled
+    setTimeout(() => {
+      if (this.all.app.lockingFeatureEnabled) {
+        this.actions.settings.update({
+          type: 'app',
+          data: {
+            locked: true,
+          },
+        });
+      }
+    }, 1000);
   }
 
   @computed get app() {

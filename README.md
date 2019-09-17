@@ -25,6 +25,7 @@ You can find the installers in the [latest release](https://github.com/kytwb/fer
 - [x] Makes all users Premium by default
 - [x] [Add option to change server to a custom](https://github.com/kytwb/ferdi/wiki/Custom-Server) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Add "Private Notification"-Mode, that hides message content from notifications (as suggested in [meetfranz/franz#879](https://github.com/meetfranz/franz/issues/879))
+- [x] Add Password Lock feature to keep your messages protected. ([ferdi#41](https://github.com/kytwb/ferdi/issues/41) and [meetfranz#810](https://github.com/meetfranz/franz/issues/810))
 - [x] [Add CTRL+← and CTRL+→ shortcuts and menu options to go back and forward in the service browsing history](https://github.com/kytwb/ferdi/issues/39)
 - [x] Add "npm run prepare-code" command for development to lint and beautify code
 - [x] Remove "Franz is better together" popup

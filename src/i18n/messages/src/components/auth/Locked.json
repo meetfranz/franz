@@ -1,0 +1,67 @@
+[
+  {
+    "id": "locked.headline",
+    "defaultMessage": "!!!Locked",
+    "file": "src/components/auth/Locked.js",
+    "start": {
+      "line": 15,
+      "column": 12
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "locked.info",
+    "defaultMessage": "!!!Ferdi is currently locked. Please unlock Ferdi with your password to see your messages.",
+    "file": "src/components/auth/Locked.js",
+    "start": {
+      "line": 19,
+      "column": 8
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "locked.password.label",
+    "defaultMessage": "!!!Password",
+    "file": "src/components/auth/Locked.js",
+    "start": {
+      "line": 23,
+      "column": 17
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "locked.submit.label",
+    "defaultMessage": "!!!Unlock",
+    "file": "src/components/auth/Locked.js",
+    "start": {
+      "line": 27,
+      "column": 21
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "locked.invalidCredentials",
+    "defaultMessage": "!!!Password invalid",
+    "file": "src/components/auth/Locked.js",
+    "start": {
+      "line": 31,
+      "column": 22
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  }
+]

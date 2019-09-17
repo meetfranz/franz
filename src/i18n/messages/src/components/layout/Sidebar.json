@@ -102,5 +102,18 @@
       "line": 46,
       "column": 3
     }
+  },
+  {
+    "id": "sidebar.lockFerdi",
+    "defaultMessage": "!!!Lock Ferdi",
+    "file": "src/components/layout/Sidebar.js",
+    "start": {
+      "line": 47,
+      "column": 13
+    },
+    "end": {
+      "line": 50,
+      "column": 3
+    }
   }
 ]

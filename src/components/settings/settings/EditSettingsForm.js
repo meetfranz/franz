@@ -30,6 +30,14 @@ const messages = defineMessages({
     id: 'settings.app.todoServerInfo',
     defaultMessage: '!!!This server will be used for the "Franz Todo" feature. The default server will only work for premium users. (default: https://app.franztodos.com)',
   },
+  lockedPassword: {
+    id: 'settings.app.lockedPassword',
+    defaultMessage: '!!!Ferdi Lock Password',
+  },
+  lockedPasswordInfo: {
+    id: 'settings.app.lockedPasswordInfo',
+    defaultMessage: '!!!Please make sure to set a password you\'ll remember.\nIf you loose this password, you will have to reinstall Ferdi.',
+  },
   headlineLanguage: {
     id: 'settings.app.headlineLanguage',
     defaultMessage: '!!!Language',
@@ -159,6 +167,7 @@ export default @observer class EditSettingsForm extends Component {
     }
 
     const isLoggedIn = Boolean(localStorage.getItem('authToken'));
+    const lockingFeatureEnabled = window.ferdi.stores.settings.all.app.lockingFeatureEnabled;
 
     return (
       <div className="settings__main">
@@ -205,6 +214,7 @@ export default @observer class EditSettingsForm extends Component {
                   Please still consider
                   {' '}
                   <a href="https://www.meetfranz.com/pricing" target="_blank">paying for a Franz account</a>
+                  {' '}
                   or
                   {' '}
                   <a href="https://github.com/vantezzen/ferdi-server" target="_blank">using a self-hosted ferdi-server</a>
@@ -225,11 +235,41 @@ export default @observer class EditSettingsForm extends Component {
                   placeholder="Todo Server"
                   onChange={e => this.submit(e)}
                   field={form.$('todoServer')}
-                  autoFocus
                 />
                 <p>{ intl.formatMessage(messages.todoServerInfo) }</p>
               </>
             )}
+
+            <Toggle field={form.$('lockingFeatureEnabled')} />
+            {lockingFeatureEnabled && (
+              <>
+                <Input
+                  placeholder={intl.formatMessage(messages.lockedPassword)}
+                  onChange={e => this.submit(e)}
+                  field={form.$('lockedPassword')}
+                  type="password"
+                />
+                <p>
+                  { intl.formatMessage(messages.lockedPasswordInfo) }
+                </p>
+              </>
+            )}
+            <p
+              className="settings__message"
+              style={{
+                borderTop: 0, marginTop: 0, paddingTop: 0, marginBottom: '2rem',
+              }}
+            >
+              <span>
+                  Ferdi password lock allows you to keep your messages protected.
+                <br />
+                  Using Ferdi password lock, you will be prompted to enter your password everytime you
+                  start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut
+                {' '}
+                <code>CMD/CTRL+Shift+L</code>
+              </span>
+            </p>
+
 
             {/* Appearance */}
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
