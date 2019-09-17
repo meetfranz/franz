@@ -221,7 +221,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         todoServer: {
           label: intl.formatMessage(messages.todoServer),
-          value: settings.all.app.todoServer || TODOS_FRONTEND,
+          value: settings.all.app.todoServer,
           default: TODOS_FRONTEND,
         },
         lockingFeatureEnabled: {
@@ -231,7 +231,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         lockedPassword: {
           label: intl.formatMessage(messages.lockPassword),
-          value: settings.all.app.lockedPassword || DEFAULT_LOCK_PASSWORD,
+          value: settings.all.app.lockedPassword,
           default: DEFAULT_LOCK_PASSWORD,
           type: 'password',
         },
