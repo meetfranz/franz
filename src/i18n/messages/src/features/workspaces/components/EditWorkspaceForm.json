@@ -52,15 +52,41 @@
     }
   },
   {
+    "id": "settings.workspace.form.keepLoaded",
+    "defaultMessage": "!!!Keep this workspace loaded*",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 37,
+      "column": 14
+    },
+    "end": {
+      "line": 40,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.workspace.form.keepLoadedInfo",
+    "defaultMessage": "!!!*This option will be overwritten by the global \"Keep all workspaces loaded\" option.",
+    "file": "src/features/workspaces/components/EditWorkspaceForm.js",
+    "start": {
+      "line": 41,
+      "column": 18
+    },
+    "end": {
+      "line": 44,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.workspace.form.servicesInWorkspaceHeadline",
     "defaultMessage": "!!!Services in this Workspace",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 37,
+      "line": 45,
       "column": 31
     },
     "end": {
-      "line": 40,
+      "line": 48,
       "column": 3
     }
   },
@@ -69,11 +95,11 @@
     "defaultMessage": "!!!You haven't added any services yet.",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 41,
+      "line": 49,
       "column": 19
     },
     "end": {
-      "line": 44,
+      "line": 52,
       "column": 3
     }
   },
@@ -82,11 +108,11 @@
     "defaultMessage": "!!!Discover services",
     "file": "src/features/workspaces/components/EditWorkspaceForm.js",
     "start": {
-      "line": 45,
+      "line": 53,
       "column": 20
     },
     "end": {
-      "line": 48,
+      "line": 56,
       "column": 3
     }
   }
