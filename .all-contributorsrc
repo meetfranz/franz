@@ -90,7 +90,8 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/5861826?v=4",
       "profile": "https://github.com/justus-saul",
       "contributions": [
-        "bug"
+        "bug",
+        "ideas"
       ]
     },
     {
@@ -118,6 +119,15 @@
       "profile": "https://github.com/dayzlun",
       "contributions": [
         "bug"
+      ]
+    },
+    {
+      "login": "tobigue",
+      "name": "Tobias Günther",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1560152?v=4",
+      "profile": "https://twitter.com/tobigue_",
+      "contributions": [
+        "ideas"
       ]
     }
   ],
