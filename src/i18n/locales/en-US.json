@@ -245,7 +245,7 @@
   "settings.app.restartRequired": "Changes require restart",
   "settings.app.serverInfo": "We advice you to logout after changing your server as your settings might not be saved otherwise.",
   "settings.app.subheadlineCache": "Cache",
-  "settings.app.todoServerInfo": "This server will be used for the \"Ferdi Todo\" feature. The default server will only work for premium users. (default: https://app.franztodos.com)",
+  "settings.app.todoServerInfo": "This server will be used for the \"Ferdi Todo\" feature. (default: https://app.franztodos.com)",
   "settings.app.translationHelp": "Help us to translate Ferdi into your language.",
   "settings.app.updateStatusAvailable": "Update available, downloading...",
   "settings.app.updateStatusSearching": "Is searching for update",
