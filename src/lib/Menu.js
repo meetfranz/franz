@@ -570,6 +570,19 @@ const _titleBarTemplateFactory = intl => [
           browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
       },
+      {
+        label: intl.formatMessage(menuItems.autohideMenuBar),
+        type: 'checkbox',
+        checked: window.ferdi.stores.settings.app.autohideMenuBar,
+        click: () => {
+          window.ferdi.actions.settings.update({
+            type: 'app',
+            data: {
+              autohideMenuBar: !window.ferdi.stores.settings.app.autohideMenuBar,
+            },
+          });
+        },
+      },
     ],
   },
   {
@@ -779,19 +792,6 @@ export default class FranzMenu {
           label: intl.formatMessage(menuItems.unhide),
           role: 'unhide',
         },
-        ...(!isMac ? [{
-          label: intl.formatMessage(menuItems.autohideMenuBar),
-          type: 'checkbox',
-          checked: this.stores.settings.app.autohideMenuBar,
-          click: () => {
-            this.actions.settings.update({
-              type: 'app',
-              data: {
-                autohideMenuBar: !this.stores.settings.app.autohideMenuBar,
-              },
-            });
-          },
-        }] : []),
         {
           type: 'separator',
         },
