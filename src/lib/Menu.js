@@ -864,7 +864,7 @@ export default class FranzMenu {
         },
       ];
 
-      tpl[5].submenu.push({
+      tpl[tpl.length - 1].submenu.push({
         type: 'separator',
       }, about);
     }
