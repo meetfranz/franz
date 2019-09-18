@@ -7,7 +7,7 @@
 [![Build Status Windows](https://ci.appveyor.com/api/projects/status/2ckfbmoxp36fye5b?svg=true)](https://ci.appveyor.com/project/kytwb/ferdi)
  [![Build Status Mac & Linux](https://travis-ci.org/kytwb/ferdi.svg?branch=master)](https://travis-ci.org/kytwb/ferdi)
 
-🤴🏽 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted features.
+🤴🏽 Hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted ones.
 
 ## Download Ferdi
 
@@ -19,13 +19,13 @@ You can find the installers in the [latest release](https://github.com/kytwb/fer
 
 (Don't know homebrew? [brew.sh](https://brew.sh/))
 
-## Features
+## Ferdi-specific Features
 - [x] Removes the counter-productive fullscreen app delay inviting users to upgrade
 - [x] Removes pages begging you to donate after registration
 - [x] Makes all users Premium by default ([#15](https://github.com/kytwb/ferdi/issues/15))
 - [x] [Add option to change server to a custom](https://github.com/kytwb/ferdi/wiki/Custom-Server) [ferdi-server](https://github.com/vantezzen/ferdi-server)
 - [x] Add "Private Notification"-Mode, that hides message content from notifications ([franz#879](https://github.com/meetfranz/franz/issues/879))
-- [x] Add Password Lock feature to keep your messages protected ([#41](https://github.com/kytwb/ferdi/issues/41) and [franz#810](https://github.com/meetfranz/franz/issues/810), [franz#950](https://github.com/meetfranz/franz/issues/950), [franz#1430](https://github.com/meetfranz/franz/issues/1430))
+- [x] Add Password Lock feature to keep your messages protected ([#41](https://github.com/kytwb/ferdi/issues/41), [franz#810](https://github.com/meetfranz/franz/issues/810), [franz#950](https://github.com/meetfranz/franz/issues/950), [franz#1430](https://github.com/meetfranz/franz/issues/1430))
 - [x] Add an option to keep individual workspaces always loaded ([#37](https://github.com/kytwb/ferdi/issues/37))
 - [x] Add an option to auto-hide the menubar ([#7](https://github.com/kytwb/ferdi/issues/7), [franz#833](https://github.com/meetfranz/franz/issues/833))
 - [x] Add CTRL+← and CTRL+→ shortcuts and menu options to go back and forward in the service browsing history([#39](https://github.com/kytwb/ferdi/issues/39))
