@@ -89,7 +89,7 @@ class WorkspaceDrawerItem extends Component {
       onClick,
       onContextMenuEditClick,
       services,
-      shortcutIndex
+      shortcutIndex,
     } = this.props;
     const { intl } = this.context;
 
