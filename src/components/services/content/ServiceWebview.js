@@ -41,6 +41,7 @@ class ServiceWebview extends Component {
         }}
         onUpdateTargetUrl={this.updateTargetUrl}
         useragent={service.userAgent}
+        disablewebsecurity={service.recipe.disablewebsecurity}
         allowpopups
       />
     );
