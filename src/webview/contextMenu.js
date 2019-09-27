@@ -255,9 +255,9 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
       },
       {
         id: 'resetToDefault',
-        label: `Reset to system default (${SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
+        label: `Reset to system default (${defaultSpellcheckerLanguage === 'automatic' ? 'Automatic' : SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
         type: 'radio',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
         click() {
           debug('Resetting service spellchecker to system default');
           ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
