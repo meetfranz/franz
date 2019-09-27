@@ -302,6 +302,9 @@ const _templateFactory = intl => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: 'Cmd+Shift+V',
         selector: 'pasteAndMatchStyle:',
+        click() {
+          getActiveWebview().pasteAndMatchStyle();
+        },
       },
       {
         label: intl.formatMessage(menuItems.delete),
