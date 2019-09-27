@@ -867,6 +867,10 @@ export default class FranzMenu {
       checked: service.isActive,
       click: () => {
         this.actions.service.setActive({ serviceId: service.id });
+
+        if (isMac && i === 0) {
+          app.mainWindow.restore();
+        }
       },
     })));
 
