@@ -1,6 +1,5 @@
 import { webFrame } from 'electron';
 import { attachSpellCheckProvider, SpellCheckerProvider } from 'electron-hunspell';
-import { ENVIRONMENT } from 'hunspell-asm';
 import path from 'path';
 import { readFileSync } from 'fs';
 
@@ -14,6 +13,8 @@ let currentDict;
 let _isEnabled = false;
 let attached;
 
+const DEFAULT_LOCALE = 'en-us';
+
 async function loadDictionary(locale) {
   try {
     const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
@@ -24,7 +25,7 @@ async function loadDictionary(locale) {
   }
 }
 
-export async function switchDict(locale) {
+export async function switchDict(locale = DEFAULT_LOCALE) {
   try {
     debug('Trying to load dictionary', locale);
 
@@ -55,13 +56,23 @@ export async function switchDict(locale) {
   }
 }
 
-export default async function initialize(languageCode = 'en-us') {
+export function getSpellcheckerLocaleByFuzzyIdentifier(identifier) {
+  const locales = Object.keys(SPELLCHECKER_LOCALES).filter(key => key === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
+
+  if (locales.length >= 1) {
+    return locales[0];
+  }
+
+  return null;
+}
+
+export default async function initialize(languageCode = DEFAULT_LOCALE) {
   try {
     provider = new SpellCheckerProvider();
-    const locale = languageCode.toLowerCase();
+    const locale = getSpellcheckerLocaleByFuzzyIdentifier(languageCode);
 
     debug('Init spellchecker');
-    await provider.initialize({ environment: ENVIRONMENT.NODE });
+    await provider.initialize();
 
     debug('Attaching spellcheck provider');
     attached = await attachSpellCheckProvider(provider);
@@ -69,7 +80,6 @@ export default async function initialize(languageCode = 'en-us') {
     debug('Available spellchecker dictionaries', provider.availableDictionaries);
 
     attached.switchLanguage(locale);
-    console.log('seas oida', attached, provider);
 
     return provider;
   } catch (err) {
@@ -88,14 +98,4 @@ export function disable() {
     _isEnabled = false;
     currentDict = null;
   }
-}
-
-export function getSpellcheckerLocaleByFuzzyIdentifier(identifier) {
-  const locales = Object.keys(SPELLCHECKER_LOCALES).filter(key => key === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
-
-  if (locales.length >= 1) {
-    return locales[0];
-  }
-
-  return null;
 }
