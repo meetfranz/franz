@@ -29,7 +29,7 @@ export default class FranzTouchBar {
       const { TouchBarButton, TouchBarSpacer } = TouchBar;
 
       const buttons = [];
-      this.stores.services.enabled.forEach(((service) => {
+      this.stores.services.allDisplayed.forEach(((service) => {
         buttons.push(new TouchBarButton({
           label: `${service.name}${service.unreadDirectMessageCount > 0
             ? ' 🔴' : ''} ${service.unreadDirectMessageCount === 0
