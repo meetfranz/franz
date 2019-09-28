@@ -42,7 +42,7 @@ export default class FranzTouchBar {
         }), new TouchBarSpacer({ size: 'small' }));
       }));
 
-      const touchBar = new TouchBar(buttons);
+      const touchBar = new TouchBar({ items: buttons });
       currentWindow.setTouchBar(touchBar);
     } else {
       currentWindow.setTouchBar(null);
