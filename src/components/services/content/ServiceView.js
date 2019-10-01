@@ -12,6 +12,7 @@ import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
 import ServiceRestricted from './ServiceRestricted';
 import ServiceWebview from './ServiceWebview';
+import WebControlsScreen from '../../../features/webControls/containers/WebControlsScreen';
 
 export default @observer class ServiceView extends Component {
   static propTypes = {
@@ -137,11 +138,16 @@ export default @observer class ServiceView extends Component {
                 type={service.restrictionType}
               />
             ) : (
-              <ServiceWebview
-                service={service}
-                setWebviewReference={setWebviewReference}
-                detachService={detachService}
-              />
+              <>
+                {service.recipe.id === 'franz-custom-website' && (
+                  <WebControlsScreen service={service} />
+                )}
+                <ServiceWebview
+                  service={service}
+                  setWebviewReference={setWebviewReference}
+                  detachService={detachService}
+                />
+              </>
             )}
           </>
         )}
