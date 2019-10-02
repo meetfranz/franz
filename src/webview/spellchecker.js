@@ -18,8 +18,8 @@ const DEFAULT_LOCALE = 'en-us';
 async function loadDictionary(locale) {
   try {
     const fileLocation = path.join(DICTIONARY_PATH, `hunspell-dict-${locale}/${locale}`);
-    await provider.loadDictionary(locale, readFileSync(`${fileLocation}.dic`), readFileSync(`${fileLocation}.aff`));
     debug('Loaded dictionary', locale, 'from', fileLocation);
+    return provider.loadDictionary(locale, readFileSync(`${fileLocation}.dic`), readFileSync(`${fileLocation}.aff`));
   } catch (err) {
     console.error('Could not load dictionary', err);
   }
@@ -44,8 +44,8 @@ export async function switchDict(locale = DEFAULT_LOCALE) {
     if (currentDict) {
       provider.unloadDictionary(locale);
     }
-    loadDictionary(locale);
-    attached.switchLanguage(locale);
+    await loadDictionary(locale);
+    await attached.switchLanguage(locale);
 
     debug('Switched dictionary to', locale);
 
@@ -77,9 +77,11 @@ export default async function initialize(languageCode = DEFAULT_LOCALE) {
     debug('Attaching spellcheck provider');
     attached = await attachSpellCheckProvider(provider);
 
-    debug('Available spellchecker dictionaries', provider.availableDictionaries);
+    const availableDictionaries = await provider.getAvailableDictionaries();
 
-    attached.switchLanguage(locale);
+    debug('Available spellchecker dictionaries', availableDictionaries);
+
+    await switchDict(locale);
 
     return provider;
   } catch (err) {
