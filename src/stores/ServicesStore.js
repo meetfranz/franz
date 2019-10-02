@@ -345,6 +345,7 @@ export default class ServicesStore extends Store {
       service.initializeWebViewEvents({
         handleIPCMessage: this.actions.service.handleIPCMessage,
         openWindow: this.actions.service.openWindow,
+        stores: this.stores,
       });
       service.initializeWebViewListener();
     }
