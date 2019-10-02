@@ -120,7 +120,7 @@
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "2.1.0",
     "dotenv": "^4.0.0",
-    "electron": "6.0.10",
+    "electron": "6.0.11",
     "electron-builder": "21.2.0",
     "electron-rebuild": "1.8.4",
     "eslint": "5.10.0",
