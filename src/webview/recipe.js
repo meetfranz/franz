@@ -169,15 +169,3 @@ class RecipeController {
 /* eslint-disable no-new */
 new RecipeController();
 /* eslint-enable no-new */
-
-// Patching window.open
-const originalWindowOpen = window.open;
-
-window.open = (url, frameName, features) => {
-  // We need to differentiate if the link should be opened in a popup or in the systems default browser
-  if (!frameName && !features) {
-    return ipcRenderer.sendToHost('new-window', url);
-  }
-
-  return originalWindowOpen(url, frameName, features);
-};
