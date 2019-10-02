@@ -145,6 +145,7 @@ export const badgeBorderRadius = 50;
 
 // Modal
 export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
+export const colorModalBackground = colorContentBackground;
 
 // Services
 export const services = {
