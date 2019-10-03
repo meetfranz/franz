@@ -331,22 +331,7 @@ app.on('login', (event, webContents, request, authInfo, callback) => {
   debug('browser login event', authInfo);
   event.preventDefault();
 
-  if (authInfo.isProxy && authInfo.scheme === 'basic') {
-    debug('Sending service echo ping');
-    webContents.send('get-service-id');
-
-    ipcMain.once('service-id', (e, id) => {
-      debug('Received service id', id);
-
-      const ps = proxySettings.get(id);
-      if (ps) {
-        debug('Sending proxy auth callback for service', id);
-        callback(ps.user, ps.password);
-      } else {
-        debug('No proxy auth config found for', id);
-      }
-    });
-  } else if (authInfo.scheme === 'basic') {
+  if (!authInfo.isProxy && authInfo.scheme === 'basic') {
     debug('basic auth handler', authInfo);
     basicAuthHandler(mainWindow, authInfo);
   }

@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
 import { defineMessages, intlShape } from 'react-intl';
+import { ctrlKey } from '../../../environment';
 
 const { Menu } = remote;
 
@@ -69,6 +70,7 @@ class WorkspaceDrawerItem extends Component {
     onClick: PropTypes.func.isRequired,
     services: PropTypes.arrayOf(PropTypes.string).isRequired,
     onContextMenuEditClick: PropTypes.func,
+    shortcutIndex: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -87,6 +89,7 @@ class WorkspaceDrawerItem extends Component {
       onClick,
       onContextMenuEditClick,
       services,
+      shortcutIndex,
     } = this.props;
     const { intl } = this.context;
 
@@ -112,6 +115,7 @@ class WorkspaceDrawerItem extends Component {
         onContextMenu={() => (
           onContextMenuEditClick && contextMenu.popup(remote.getCurrentWindow())
         )}
+        data-tip={`${shortcutIndex <= 9 ? `(${ctrlKey}+Alt+${shortcutIndex})` : ''}`}
       >
         <span
           className={classnames([

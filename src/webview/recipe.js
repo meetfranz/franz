@@ -12,6 +12,7 @@ import contextMenu from './contextMenu';
 import './notifications';
 
 import { DEFAULT_APP_SETTINGS } from '../config';
+import { isDevMode } from '../environment';
 
 const debug = require('debug')('Franz:Plugin');
 
@@ -173,6 +174,7 @@ new RecipeController();
 // Patching window.open
 const originalWindowOpen = window.open;
 
+
 window.open = (url, frameName, features) => {
   if (!url && !frameName && !features) {
     // The service hasn't yet supplied a URL (as used in Skype).
@@ -201,9 +203,13 @@ window.open = (url, frameName, features) => {
   }
 
   // We need to differentiate if the link should be opened in a popup or in the systems default browser
-  if (!frameName && !features) {
+  if (!frameName && !features && typeof features !== 'string') {
     return ipcRenderer.sendToHost('new-window', url);
   }
 
   return originalWindowOpen(url, frameName, features);
 };
+
+if (isDevMode) {
+  window.log = console.log;
+}

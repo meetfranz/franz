@@ -13,7 +13,7 @@ export default theme => ({
     display: 'flex',
   },
   modal: {
-    background: '#FFF',
+    background: theme.colorModalBackground,
     maxWidth: '90%',
     height: 'auto',
     margin: 'auto auto',
