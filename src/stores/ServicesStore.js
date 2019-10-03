@@ -684,6 +684,8 @@ export default class ServicesStore extends Store {
     const serviceData = data;
     const recipe = this.stores.recipes.one(recipeId);
 
+    if (!recipe) return;
+
     if (recipe.hasTeamId && recipe.hasCustomUrl && data.team && data.customUrl) {
       delete serviceData.team;
     }
