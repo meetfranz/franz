@@ -112,7 +112,7 @@ export default @observer class Sidebar extends Component {
               this.updateToolTip();
               gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'sidebar');
             }}
-            className="sidebar__button sidebar__button--workspaces"
+            className={`sidebar__button sidebar__button--todos  ${todosStore.isTodosPanelVisible ? 'is-active' : ''}`}
             data-tip={`${intl.formatMessage(todosToggleMessage)} (${ctrlKey}+T)`}
           >
             <i className="mdi mdi-check-all" />

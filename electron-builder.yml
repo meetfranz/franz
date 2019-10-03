@@ -9,6 +9,7 @@ compression: maximum
 mac:
   category: public.app-category.productivity
   icon: ./build-helpers/images/icon.icns
+  darkModeSupport: true
 
 dmg:
   background: ./build-helpers/images/dmgInstaller.tiff
@@ -39,10 +40,10 @@ nsis:
   perMachine: false
   oneClick: true
 
-protocols: 
+protocols:
   name: Franz
-  schemes: [franz] 
+  schemes: [franz]
 
-asarUnpack: 
+asarUnpack:
   - ./dictionaries
   - ./assets/images/taskbar

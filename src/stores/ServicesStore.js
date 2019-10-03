@@ -345,6 +345,7 @@ export default class ServicesStore extends Store {
       service.initializeWebViewEvents({
         handleIPCMessage: this.actions.service.handleIPCMessage,
         openWindow: this.actions.service.openWindow,
+        stores: this.stores,
       });
       service.initializeWebViewListener();
     }
@@ -682,6 +683,8 @@ export default class ServicesStore extends Store {
   _cleanUpTeamIdAndCustomUrl(recipeId, data) {
     const serviceData = data;
     const recipe = this.stores.recipes.one(recipeId);
+
+    if (!recipe) return;
 
     if (recipe.hasTeamId && recipe.hasCustomUrl && data.team && data.customUrl) {
       delete serviceData.team;

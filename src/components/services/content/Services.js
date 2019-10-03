@@ -56,14 +56,22 @@ export default @observer @injectSheet(styles) class Services extends Component {
 
   state = {
     showConfetti: true,
-  }
+  };
+
+  _confettiTimeout = null;
 
   componentDidMount() {
-    window.setTimeout(() => {
+    this._confettiTimeout = window.setTimeout(() => {
       this.setState({
         showConfetti: false,
       });
     }, ms('8s'));
+  }
+
+  componentWillUnmount() {
+    if (this._confettiTimeout) {
+      clearTimeout(this._confettiTimeout);
+    }
   }
 
   render() {

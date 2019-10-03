@@ -1,3 +1,40 @@
+# [5.3.3](https://github.com/meetfranz/franz/compare/v5.3.1...v5.3.3) (2019-09-17)
+
+### Features
+* **Todos:** Highlight Franz Todos icon in sidebar when the Franz Todos panel is opened ([7431ba3](https://github.com/meetfranz/franz/commit/7431ba3))
+
+
+### Bug Fixes
+
+* **Spellchecker:** Fix disabling spellchecker after app start ([4035043](https://github.com/meetfranz/franz/commit/4035043))
+* **Windows:** Fix window menu to get overwritten by Todos menu ([aa33ac7](https://github.com/meetfranz/franz/commit/aa33ac7))
+
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+# [5.3.2](https://github.com/meetfranz/franz/compare/v5.3.1...v5.3.2) (2019-09-12)
+
+
+### Features
+
+* **Todos:** Move Franz Todos to sidebar ([7ffcf8c](https://github.com/meetfranz/franz/commit/7ffcf8c))
+* **Workspaces:** Add setting to keep all services in workspaces in background (avoid reload) ([@Wouter0100](https://github.com/Wouter0100)) ([ddab3a8](https://github.com/meetfranz/franz/commit/ddab3a8))
+
+
+### Bug Fixes
+
+* **Settings:** Don't toggle Franz Todos on general settings changes ([@vantezzen](https://github.com/vantezzen)) ([a99371b](https://github.com/meetfranz/franz/commit/a99371b))
+
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 # [5.3.1](https://github.com/meetfranz/franz/compare/v5.3.0...v5.3.1) (2019-09-06)
 
 ### Features

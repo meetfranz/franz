@@ -16,7 +16,7 @@ export default function init(stores) {
 
     config.isIncludedInCurrentPlan = isSpellcheckerIncludedInCurrentPlan !== undefined ? isSpellcheckerIncludedInCurrentPlan : DEFAULT_FEATURES_CONFIG.isSpellcheckerIncludedInCurrentPlan;
 
-    if (!stores.user.data.isPremium && config.isIncludedInCurrentPlan && stores.settings.app.enableSpellchecking) {
+    if (!stores.user.data.isPremium && !config.isIncludedInCurrentPlan && stores.settings.app.enableSpellchecking) {
       debug('Override settings.spellcheckerEnabled flag to false');
 
       Object.assign(stores.settings.app, {

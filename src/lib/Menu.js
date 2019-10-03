@@ -302,6 +302,9 @@ const _templateFactory = intl => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: 'Cmd+Shift+V',
         selector: 'pasteAndMatchStyle:',
+        click() {
+          getActiveWebview().pasteAndMatchStyle();
+        },
       },
       {
         label: intl.formatMessage(menuItems.delete),
@@ -546,6 +549,11 @@ const _titleBarTemplateFactory = intl => [
     label: intl.formatMessage(menuItems.workspaces),
     submenu: [],
     visible: workspaceStore.isFeatureEnabled,
+  },
+  {
+    label: intl.formatMessage(menuItems.todos),
+    submenu: [],
+    visible: todosStore.isFeatureEnabled,
   },
   {
     label: intl.formatMessage(menuItems.window),
@@ -862,6 +870,10 @@ export default class FranzMenu {
       checked: service.isActive,
       click: () => {
         this.actions.service.setActive({ serviceId: service.id });
+
+        if (isMac && i === 0) {
+          app.mainWindow.restore();
+        }
       },
     })));
 
@@ -943,12 +955,12 @@ export default class FranzMenu {
         gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
       },
       enabled: this.stores.user.isLoggedIn && isFeatureEnabledByUser,
-    }, {
-      type: 'separator',
     });
 
     if (!isFeatureEnabledByUser) {
       menu.push({
+        type: 'separator',
+      }, {
         label: intl.formatMessage(menuItems.enableTodos),
         click: () => {
           todoActions.toggleTodosFeatureVisibility();
