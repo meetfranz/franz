@@ -1,3 +1,31 @@
+# [5.4.0-beta.1](https://github.com/meetfranz/franz/compare/v5.3.3...v5.4.0-beta.1) (2019-10-04)
+
+### Features
+
+* **Custom Websites:** Added navigation bar for "Custom Website" service ([f8fbaad](https://github.com/meetfranz/franz/commit/f8fbaad))
+* **Mac:** Open Franz window with `Cmd+1` ([71831ec](https://github.com/meetfranz/franz/commit/71831ec))
+* **Todos:** Allow Franz Todos to open links in browser ([5ba6723](https://github.com/meetfranz/franz/commit/5ba6723))
+* **Service API:** Share `team`, `url` and `hasCustomIcon` with service ([9f4f3e7](https://github.com/meetfranz/franz/commit/9f4f3e7))
+
+
+
+### Bug Fixes
+
+* **App:** Fix "Paste And Match Style" ([490a988](https://github.com/meetfranz/franz/commit/490a988))
+* **macOS:** Only show services in Touch Bar that should be visible ([077ad22](https://github.com/meetfranz/franz/commit/077ad22))
+* **Service Proxies:** Fix proxy setting rehydration ([e2126a6](https://github.com/meetfranz/franz/commit/e2126a6))
+* **Settings:** Fix cache size calculation after clearing cache ([a31566d](https://github.com/meetfranz/franz/commit/a31566d))
+* **Spell check:** Fix spell checker to initialize without loaded dictionary ([734732f](https://github.com/meetfranz/franz/commit/734732f))
+* **Spell check:** Fix "undefined" language in context menu ([cc03883](https://github.com/meetfranz/franz/commit/cc03883))
+* **App:** Fix Basic Auth overlay background in Dark Mode ([027e50d](https://github.com/meetfranz/franz/commit/027e50d))
+
+### General
+
+* **App:** Updated electron to 6.0.11 ([34aab68](https://github.com/meetfranz/franz/commit/34aab68))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 # [5.3.3](https://github.com/meetfranz/franz/compare/v5.3.1...v5.3.3) (2019-09-17)
 
 ### Features
