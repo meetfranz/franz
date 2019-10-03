@@ -4,11 +4,11 @@
     "defaultMessage": "!!!No services added yet",
     "file": "src/features/workspaces/components/WorkspaceDrawerItem.js",
     "start": {
-      "line": 12,
+      "line": 13,
       "column": 22
     },
     "end": {
-      "line": 15,
+      "line": 16,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!edit",
     "file": "src/features/workspaces/components/WorkspaceDrawerItem.js",
     "start": {
-      "line": 16,
+      "line": 17,
       "column": 19
     },
     "end": {
-      "line": 19,
+      "line": 20,
       "column": 3
     }
   }

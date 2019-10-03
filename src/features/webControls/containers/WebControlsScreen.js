@@ -9,7 +9,6 @@ import Service from '../../../models/Service';
 
 const URL_EVENTS = [
   'load-commit',
-  // 'dom-ready',
   'will-navigate',
   'did-navigate',
   'did-navigate-in-page',
@@ -97,11 +96,20 @@ class WebControlsScreen extends Component {
     this.url = url;
   }
 
+  openInBrowser() {
+    const { openExternalUrl } = this.props.actions.app;
+
+    if (!this.webview) return;
+
+    openExternalUrl({ url: this.url });
+  }
+
   render() {
     return (
       <WebControls
         goHome={() => this.goHome()}
         reload={() => this.reload()}
+        openInBrowser={() => this.openInBrowser()}
         canGoBack={this.canGoBack}
         goBack={() => this.goBack()}
         canGoForward={this.canGoForward}
@@ -121,6 +129,9 @@ WebControlsScreen.wrappedComponent.propTypes = {
     services: PropTypes.instanceOf(ServicesStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
+    app: PropTypes.shape({
+      openExternalUrl: PropTypes.func.isRequired,
+    }).isRequired,
     service: PropTypes.shape({
       reloadActive: PropTypes.func.isRequired,
     }).isRequired,

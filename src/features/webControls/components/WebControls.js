@@ -3,10 +3,34 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Icon } from '@meetfranz/ui';
+import { defineMessages, intlShape } from 'react-intl';
 
 import {
-  mdiReload, mdiArrowRight, mdiArrowLeft, mdiHomeOutline,
+  mdiReload, mdiArrowRight, mdiArrowLeft, mdiHomeOutline, mdiEarth,
 } from '@mdi/js';
+
+const messages = defineMessages({
+  goHome: {
+    id: 'webControls.goHome',
+    defaultMessage: '!!!Home',
+  },
+  openInBrowser: {
+    id: 'webControls.openInBrowser',
+    defaultMessage: '!!!Open in Browser',
+  },
+  back: {
+    id: 'webControls.back',
+    defaultMessage: '!!!Back',
+  },
+  forward: {
+    id: 'webControls.forward',
+    defaultMessage: '!!!Forward',
+  },
+  reload: {
+    id: 'webControls.reload',
+    defaultMessage: '!!!Reload',
+  },
+});
 
 const styles = theme => ({
   root: {
@@ -18,7 +42,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: [0, 20],
+    padding: [0, 10],
 
     '& + div': {
       height: 'calc(100% - 50px)',
@@ -45,7 +69,7 @@ const styles = theme => ({
   input: {
     marginBottom: 0,
     height: 'auto',
-    marginLeft: 10,
+    margin: [0, 10],
     flex: 1,
     border: 0,
     padding: [4, 10],
@@ -68,9 +92,14 @@ class WebControls extends Component {
     canGoForward: PropTypes.bool.isRequired,
     goForward: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    openInBrowser: PropTypes.func.isRequired,
     url: PropTypes.string.isRequired,
     navigate: PropTypes.func.isRequired,
   }
+
+  static contextTypes = {
+    intl: intlShape,
+  };
 
   static getDerivedStateFromProps(props, state) {
     const { url } = props;
@@ -100,6 +129,7 @@ class WebControls extends Component {
       canGoForward,
       goForward,
       reload,
+      openInBrowser,
       url,
       navigate,
     } = this.props;
@@ -109,12 +139,15 @@ class WebControls extends Component {
       editUrl,
     } = this.state;
 
+    const { intl } = this.context;
+
     return (
       <div className={classes.root}>
         <button
           onClick={goHome}
           type="button"
           className={classes.button}
+          data-tip={intl.formatMessage(messages.goHome)}
         >
           <Icon
             icon={mdiHomeOutline}
@@ -126,6 +159,7 @@ class WebControls extends Component {
           type="button"
           className={classes.button}
           disabled={!canGoBack}
+          data-tip={intl.formatMessage(messages.back)}
         >
           <Icon
             icon={mdiArrowLeft}
@@ -137,6 +171,7 @@ class WebControls extends Component {
           type="button"
           className={classes.button}
           disabled={!canGoForward}
+          data-tip={intl.formatMessage(messages.forward)}
         >
           <Icon
             icon={mdiArrowRight}
@@ -147,6 +182,7 @@ class WebControls extends Component {
           onClick={reload}
           type="button"
           className={classes.button}
+          data-tip={intl.formatMessage(messages.reload)}
         >
           <Icon
             icon={mdiReload}
@@ -182,6 +218,19 @@ class WebControls extends Component {
           }}
           ref={this.inputRef}
         />
+        <button
+          onClick={openInBrowser}
+          type="button"
+          className={classes.button}
+          data-tip={intl.formatMessage(messages.openInBrowser)}
+          data-place="left"
+        >
+          <Icon
+            icon={mdiEarth}
+            className={classes.icon}
+          />
+        </button>
+        {/* <ReactTooltip place="bottom" type="dark" effect="solid" /> */}
       </div>
     );
   }
