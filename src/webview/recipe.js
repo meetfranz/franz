@@ -184,3 +184,7 @@ window.open = (url, frameName, features) => {
 
   return originalWindowOpen(url, frameName, features);
 };
+
+if (isDevMode) {
+  window.log = console.log;
+}
