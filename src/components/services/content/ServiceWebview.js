@@ -20,6 +20,13 @@ class ServiceWebview extends Component {
     detachService({ service });
   }
 
+  refocusWebview = () => {
+    const { webview } = this;
+    if (!webview) return;
+    webview.view.blur();
+    webview.view.focus();
+  };
+
   render() {
     const {
       service,
@@ -28,7 +35,10 @@ class ServiceWebview extends Component {
 
     return (
       <ElectronWebView
-        ref={(webview) => { this.webview = webview; }}
+        ref={(webview) => {
+          this.webview = webview;
+          webview.view.addEventListener('did-stop-loading', this.refocusWebview);
+        }}
         autosize
         src={service.url}
         preload="./webview/recipe.js"
