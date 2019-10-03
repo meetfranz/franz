@@ -33,7 +33,7 @@ class RecipeController {
     'settings-update': 'updateAppSettings',
     'service-settings-update': 'updateServiceSettings',
     'get-service-id': 'serviceIdEcho',
-  }
+  };
 
   constructor() {
     this.initialize();
@@ -176,7 +176,32 @@ const originalWindowOpen = window.open;
 
 
 window.open = (url, frameName, features) => {
-  debug('window.open', url, frameName, features);
+  if (!url && !frameName && !features) {
+    // The service hasn't yet supplied a URL (as used in Skype).
+    // Return a new dummy window object and wait for the service to change the properties
+    const newWindow = {
+      location: {
+        href: '',
+      },
+    };
+
+    const checkInterval = setInterval(() => {
+      // Has the service changed the URL yet?
+      if (newWindow.location.href !== '') {
+        // Open the new URL
+        ipcRenderer.sendToHost('new-window', newWindow.location.href);
+        clearInterval(checkInterval);
+      }
+    }, 0);
+
+    setTimeout(() => {
+      // Stop checking for location changes after 1 second
+      clearInterval(checkInterval);
+    }, 1000);
+
+    return newWindow;
+  }
+
   // We need to differentiate if the link should be opened in a popup or in the systems default browser
   if (!frameName && !features && typeof features !== 'string') {
     return ipcRenderer.sendToHost('new-window', url);
