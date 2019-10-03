@@ -12,6 +12,7 @@ import contextMenu from './contextMenu';
 import './notifications';
 
 import { DEFAULT_APP_SETTINGS } from '../config';
+import { isDevMode } from '../environment';
 
 const debug = require('debug')('Franz:Plugin');
 
@@ -169,3 +170,17 @@ class RecipeController {
 /* eslint-disable no-new */
 new RecipeController();
 /* eslint-enable no-new */
+
+// Patching window.open
+const originalWindowOpen = window.open;
+
+
+window.open = (url, frameName, features) => {
+  debug('window.open', url, frameName, features);
+  // We need to differentiate if the link should be opened in a popup or in the systems default browser
+  if (!frameName && !features && typeof features !== 'string') {
+    return ipcRenderer.sendToHost('new-window', url);
+  }
+
+  return originalWindowOpen(url, frameName, features);
+};
