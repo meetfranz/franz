@@ -91,6 +91,7 @@
    "menu.services" : "Сервис",
    "menu.services.activatePreviousService" : "Активировать предыдущий сервич",
    "menu.services.addNewService" : "Добавить новый сервис...",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Активировать следующий сервис",
    "menu.todos" : "Задачи",
    "menu.todos.enableTodos" : "Включить Планировщик",

@@ -91,6 +91,7 @@
    "menu.services" : "Υπηρεσίες",
    "menu.services.activatePreviousService" : "Activate previous service",
    "menu.services.addNewService" : "Νέα Υπηρεσία",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Activate next service",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",
