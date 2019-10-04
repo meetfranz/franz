@@ -148,6 +148,7 @@ class WebControls extends Component {
           type="button"
           className={classes.button}
           data-tip={intl.formatMessage(messages.goHome)}
+          data-place="bottom"
         >
           <Icon
             icon={mdiHomeOutline}
@@ -160,6 +161,7 @@ class WebControls extends Component {
           className={classes.button}
           disabled={!canGoBack}
           data-tip={intl.formatMessage(messages.back)}
+          data-place="bottom"
         >
           <Icon
             icon={mdiArrowLeft}
@@ -172,6 +174,7 @@ class WebControls extends Component {
           className={classes.button}
           disabled={!canGoForward}
           data-tip={intl.formatMessage(messages.forward)}
+          data-place="bottom"
         >
           <Icon
             icon={mdiArrowRight}
@@ -183,6 +186,7 @@ class WebControls extends Component {
           type="button"
           className={classes.button}
           data-tip={intl.formatMessage(messages.reload)}
+          data-place="bottom"
         >
           <Icon
             icon={mdiReload}
@@ -196,6 +200,7 @@ class WebControls extends Component {
             inputUrl: event.target.value,
           })}
           onFocus={(event) => {
+            console.log('on focus event');
             event.target.select();
             this.setState({
               editUrl: true,
@@ -223,14 +228,13 @@ class WebControls extends Component {
           type="button"
           className={classes.button}
           data-tip={intl.formatMessage(messages.openInBrowser)}
-          data-place="left"
+          data-place="bottom"
         >
           <Icon
             icon={mdiEarth}
             className={classes.icon}
           />
         </button>
-        {/* <ReactTooltip place="bottom" type="dark" effect="solid" /> */}
       </div>
     );
   }
