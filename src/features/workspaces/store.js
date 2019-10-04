@@ -149,7 +149,6 @@ export default class WorkspacesStore extends FeatureStore {
       if (!getUserWorkspacesRequest.wasExecuted || getUserWorkspacesRequest.isExecutingFirstTime) {
         // If so, do not show any services to avoid loading all of them unfiltered
         // and then having the filter flashing in (which is ugly and slow).
-        console.log('return', []);
         return [];
       }
     }
