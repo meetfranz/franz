@@ -1,3 +1,11 @@
+# [5.4.0-beta.2](https://github.com/meetfranz/franz/compare/v5.4.0-beta.1...v5.4.0-beta.2) (2019-10-04)
+
+
+### Bug Fixes
+
+* **App:** Fix service issue that crashes the app
+
+
 # [5.4.0-beta.1](https://github.com/meetfranz/franz/compare/v5.3.3...v5.4.0-beta.1) (2019-10-04)
 
 ### Features
