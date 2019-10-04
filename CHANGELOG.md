@@ -11,7 +11,6 @@
 
 ### Bug Fixes
 
-* **Workspaces:** Only initialize active Workspace services on app start ([b521a23](https://github.com/meetfranz/franz/commit/b521a23))
 * **App:** Fix "Paste And Match Style" ([490a988](https://github.com/meetfranz/franz/commit/490a988))
 * **macOS:** Only show services in Touch Bar that should be visible ([077ad22](https://github.com/meetfranz/franz/commit/077ad22))
 * **Service Proxies:** Fix proxy setting rehydration ([e2126a6](https://github.com/meetfranz/franz/commit/e2126a6))
