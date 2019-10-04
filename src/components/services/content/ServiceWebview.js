@@ -37,7 +37,9 @@ class ServiceWebview extends Component {
       <ElectronWebView
         ref={(webview) => {
           this.webview = webview;
-          webview.view.addEventListener('did-stop-loading', this.refocusWebview);
+          if (webview && webview.view) {
+            webview.view.addEventListener('did-stop-loading', this.refocusWebview);
+          }
         }}
         autosize
         src={service.url}
