@@ -91,6 +91,7 @@
    "menu.services" : "サービス",
    "menu.services.activatePreviousService" : "前のサービスを有効にする",
    "menu.services.addNewService" : "サービスを追加",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "次のサービスを有効にする",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",

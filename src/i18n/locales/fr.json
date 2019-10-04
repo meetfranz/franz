@@ -91,6 +91,7 @@
    "menu.services" : "Services",
    "menu.services.activatePreviousService" : "Activer le service précédent",
    "menu.services.addNewService" : "Ajouter un nouveau service...",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Activer le service suivant",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",

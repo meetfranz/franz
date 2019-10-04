@@ -91,6 +91,7 @@
    "menu.services" : "Hizmetler",
    "menu.services.activatePreviousService" : "Activate previous service",
    "menu.services.addNewService" : "Yeni servis ekle...",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Activate next service",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",

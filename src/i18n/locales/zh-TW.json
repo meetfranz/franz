@@ -91,6 +91,7 @@
    "menu.services" : "服務",
    "menu.services.activatePreviousService" : "啟動前一個服務",
    "menu.services.addNewService" : "新增服務",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "啟動下一個服務",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",

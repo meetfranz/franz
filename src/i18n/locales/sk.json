@@ -91,6 +91,7 @@
    "menu.services" : "Služby",
    "menu.services.activatePreviousService" : "Aktivovať predchádzajúcu službu",
    "menu.services.addNewService" : "Pridať novú službu...",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Aktivujte ďalšiu službu",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",

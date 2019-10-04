@@ -91,6 +91,7 @@
    "menu.services" : "Servicios",
    "menu.services.activatePreviousService" : "Activa el servicio previo",
    "menu.services.addNewService" : "Añadir Nuevo Servicio...",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Activa el siguiente servicio",
    "menu.todos" : "Tareas pendientes",
    "menu.todos.enableTodos" : "Habilitar Herramientas",

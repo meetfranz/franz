@@ -91,6 +91,7 @@
    "menu.services" : "Служби",
    "menu.services.activatePreviousService" : "Активуйте попередню послугу",
    "menu.services.addNewService" : "Додати сервіс",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Активуйте наступний сервіс",
    "menu.todos" : "Завдання",
    "menu.todos.enableTodos" : "Увімкнути завдання",

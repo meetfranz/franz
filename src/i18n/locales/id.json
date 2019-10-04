@@ -91,6 +91,7 @@
    "menu.services" : "Layanan",
    "menu.services.activatePreviousService" : "Aktifkan layanan sebelumnya",
    "menu.services.addNewService" : "Tambahkan Layanan Baru...",
+   "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Aktifkan layanan berikutnya",
    "menu.todos" : "Todos",
    "menu.todos.enableTodos" : "Enable Todos",
