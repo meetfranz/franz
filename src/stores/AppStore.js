@@ -38,6 +38,8 @@ const autoLauncher = new AutoLaunch({
   name: 'Franz',
 });
 
+const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
+
 export default class AppStore extends Store {
   updateStatusTypes = {
     CHECKING: 'CHECKING',
@@ -204,6 +206,18 @@ export default class AppStore extends Store {
         statsEvent('resumed-app');
       }
     });
+
+    // macOS catalina notifications hack
+    // notifications got stuck after upgrade but forcing a notification
+    // via `new Notification` triggered the permission request
+    if (isMac && !localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
+      // eslint-disable-next-line no-new
+      new window.Notification('Welcome to Franz 5', {
+        body: 'Have a wonderful day & happy messaging.',
+      });
+
+      localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+    }
 
     statsEvent('app-start');
   }
