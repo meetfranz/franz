@@ -304,8 +304,6 @@ export default class AppStore extends Store {
     if (isValidExternalURL(url)) {
       shell.openExternal(url);
     }
-
-    gaEvent('External URL', 'open', parsedUrl.host);
   }
 
   @action _checkForUpdates() {
