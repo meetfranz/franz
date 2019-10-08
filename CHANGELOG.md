@@ -1,3 +1,16 @@
+# [5.4.0-beta.3](https://github.com/meetfranz/franz/compare/v5.4.0-beta.2...v5.4.0-beta.3) (2019-10-08)
+
+
+### Features
+
+* **Workspaces:** Only load workspace related services ([ad7fb84](https://github.com/meetfranz/franz/commit/ad7fb84))
+
+### Bug Fixes
+
+* **Services:** Restore services after system sleep ([7f11dff](https://github.com/meetfranz/franz/commit/7f11dff))
+
+
+
 # [5.4.0-beta.2](https://github.com/meetfranz/franz/compare/v5.4.0-beta.1...v5.4.0-beta.2) (2019-10-04)
 
 
