@@ -146,16 +146,8 @@ export default class WorkspacesStore extends FeatureStore {
 
   filterServicesByActiveWorkspace = (services) => {
     const { activeWorkspace, isFeatureActive } = this;
-    if (isFeatureActive) {
-      if (activeWorkspace) {
-        return this.getWorkspaceServices(activeWorkspace);
-      }
-      // There is no active workspace yet but we might be still loading them
-      if (!getUserWorkspacesRequest.wasExecuted || getUserWorkspacesRequest.isExecutingFirstTime) {
-        // If so, do not show any services to avoid loading all of them unfiltered
-        // and then having the filter flashing in (which is ugly and slow).
-        return [];
-      }
+    if (isFeatureActive && activeWorkspace) {
+      return this.getWorkspaceServices(activeWorkspace);
     }
     return services;
   };

@@ -27,7 +27,9 @@ import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
-const { app, systemPreferences, screen } = remote;
+const {
+  app, systemPreferences, screen, powerMonitor,
+} = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -54,6 +56,8 @@ export default class AppStore extends Store {
   @observable autoLaunchOnStart = true;
 
   @observable isOnline = navigator.onLine;
+
+  @observable timeSuspensionStart;
 
   @observable timeOfflineStart;
 
@@ -180,6 +184,27 @@ export default class AppStore extends Store {
       gaPage(pathname);
     });
 
+    powerMonitor.on('suspend', () => {
+      debug('System suspended starting timer');
+
+      this.timeSuspensionStart = moment();
+    });
+
+    powerMonitor.on('resume', () => {
+      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
+
+      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
+        debug('Reloading services, user info and features');
+
+        this.actions.service.reloadAll();
+
+        this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+        this.stores.features.featuresRequest.invalidate({ immediately: true });
+
+        statsEvent('resumed-app');
+      }
+    });
+
     statsEvent('app-start');
   }
 
@@ -279,8 +304,6 @@ export default class AppStore extends Store {
     if (isValidExternalURL(url)) {
       shell.openExternal(url);
     }
-
-    gaEvent('External URL', 'open', parsedUrl.host);
   }
 
   @action _checkForUpdates() {
