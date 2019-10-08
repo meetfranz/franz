@@ -313,7 +313,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
       toggleTodosFeatureVisibility: PropTypes.func.isRequired,
     }).isRequired,
     workspaces: PropTypes.shape({
-      toggleAllWorkspacesLoadedSetting: PropTypes.func.isRequired,
+      toggleKeepAllWorkspacesLoadedSetting: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };

@@ -10,7 +10,7 @@ import UserStore from '../../../stores/UserStore';
 
 import styles from './styles';
 import { gaEvent } from '../../../lib/analytics';
-import { FeatureStore } from '../../../features/utils/FeatureStore';
+import FeaturesStore from '../../../stores/FeaturesStore';
 
 const messages = defineMessages({
   action: {
@@ -96,7 +96,7 @@ PremiumFeatureContainer.wrappedComponent.propTypes = {
   children: oneOrManyChildElements.isRequired,
   stores: PropTypes.shape({
     user: PropTypes.instanceOf(UserStore).isRequired,
-    features: PropTypes.instanceOf(FeatureStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     ui: PropTypes.shape({
