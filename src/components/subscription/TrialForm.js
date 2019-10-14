@@ -43,7 +43,8 @@ const messages = defineMessages({
 
 const styles = theme => ({
   activateTrialButton: {
-    margin: [40, 0, 10],
+    margin: [40, 'auto', 10],
+    display: 'flex',
   },
   allOptionsButton: {
     margin: [0, 0, 40],
@@ -93,7 +94,6 @@ export default @observer @injectSheet(styles) class TrialForm extends Component 
           className={classes.activateTrialButton}
           busy={isActivatingTrial}
           onClick={activateTrial}
-          stretch
         />
         <Button
           label={intl.formatMessage(messages.allOptionsButton)}
