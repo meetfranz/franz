@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { remote } from 'electron';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
@@ -7,11 +8,21 @@ import PaymentStore from '../../stores/PaymentStore';
 import SubscriptionForm from '../../components/subscription/SubscriptionForm';
 import TrialForm from '../../components/subscription/TrialForm';
 
+const { BrowserWindow } = remote;
+
 export default @inject('stores', 'actions') @observer class SubscriptionFormScreen extends Component {
+  static propTypes = {
+    onCloseWindow: PropTypes.func,
+  }
+
+  static defaultProps = {
+    onCloseWindow: () => null,
+  }
+
   async openBrowser() {
     const {
-      actions,
       stores,
+      onCloseWindow,
     } = this.props;
 
     const {
@@ -22,7 +33,24 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     let hostedPageURL = features.features.planSelectionURL;
     hostedPageURL = user.getAuthURL(hostedPageURL);
 
-    actions.app.openExternalUrl({ url: hostedPageURL });
+    const paymentWindow = new BrowserWindow({
+      parent: remote.getCurrentWindow(),
+      modal: true,
+      title: '🔒 Franz Supporter License',
+      width: 800,
+      height: window.innerHeight - 100,
+      maxWidth: 800,
+      minWidth: 600,
+      webPreferences: {
+        nodeIntegration: true,
+        webviewTag: true,
+      },
+    });
+    paymentWindow.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
+
+    paymentWindow.on('closed', () => {
+      onCloseWindow();
+    });
   }
 
   render() {

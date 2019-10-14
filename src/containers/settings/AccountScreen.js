@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import PaymentStore from '../../stores/PaymentStore';
 import UserStore from '../../stores/UserStore';
 import AppStore from '../../stores/AppStore';
+import FeaturesStore from '../../stores/FeaturesStore';
 
 import AccountDashboard from '../../components/settings/account/AccountDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
@@ -12,8 +13,9 @@ import { WEBSITE } from '../../environment';
 
 export default @inject('stores', 'actions') @observer class AccountScreen extends Component {
   onCloseWindow() {
-    const { user } = this.props.stores;
+    const { user, features } = this.props.stores;
     user.getUserInfoRequest.invalidate({ immediately: true });
+    features.featuresRequest.invalidate({ immediately: true });
   }
 
   reloadData() {
@@ -65,6 +67,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
 AccountScreen.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     user: PropTypes.instanceOf(UserStore).isRequired,
+    features: PropTypes.instanceOf(FeaturesStore).isRequired,
     payment: PropTypes.instanceOf(PaymentStore).isRequired,
     app: PropTypes.instanceOf(AppStore).isRequired,
   }).isRequired,

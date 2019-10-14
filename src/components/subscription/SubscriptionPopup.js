@@ -59,8 +59,10 @@ export default @observer class SubscriptionPopup extends Component {
             className="subscription-popup__webview"
 
             autosize
+            allowpopups
             src={encodeURI(url)}
             onDidNavigate={completeCheck}
+            onDidNavigateInPage={completeCheck}
           />
         </div>
         <div className="subscription-popup__toolbar franz-form">

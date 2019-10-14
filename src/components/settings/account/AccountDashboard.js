@@ -109,6 +109,7 @@ class AccountDashboard extends Component {
     openBilling: PropTypes.func.isRequired,
     upgradeToPro: PropTypes.func.isRequired,
     openInvoices: PropTypes.func.isRequired,
+    onCloseSubscriptionWindow: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -130,6 +131,7 @@ class AccountDashboard extends Component {
       openBilling,
       upgradeToPro,
       openInvoices,
+      onCloseSubscriptionWindow,
     } = this.props;
     const { intl } = this.context;
 
@@ -263,7 +265,9 @@ class AccountDashboard extends Component {
                   {!user.isPremium && (
                     <div className="account franz-form">
                       <div className="account__box">
-                        <SubscriptionForm />
+                        <SubscriptionForm
+                          onCloseWindow={onCloseSubscriptionWindow}
+                        />
                       </div>
                     </div>
                   )}
