@@ -103,7 +103,6 @@ export default class PlanSelectionStore extends FeatureStore {
   };
 
   @action _downgradeAccount = () => {
-    console.log('downgrade to free', downgradeUserRequest);
     downgradeUserRequest.execute();
   }
 
