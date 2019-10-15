@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Welcome back, {name}",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 16,
+      "line": 17,
       "column": 11
     },
     "end": {
-      "line": 19,
+      "line": 20,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 20,
+      "line": 21,
       "column": 15
     },
     "end": {
-      "line": 23,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Basic functionality",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 24,
+      "line": 25,
       "column": 12
     },
     "end": {
-      "line": 27,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!More services, no waiting - ideal for personal use.",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 28,
+      "line": 29,
       "column": 16
     },
     "end": {
-      "line": 31,
+      "line": 32,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Unlimited services and professional features for you - and your team.",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 32,
+      "line": 33,
       "column": 20
     },
     "end": {
-      "line": 35,
+      "line": 36,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!Stay on Free",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 36,
+      "line": 37,
       "column": 17
     },
     "end": {
-      "line": 39,
+      "line": 40,
       "column": 3
     }
   },
@@ -82,11 +82,11 @@
     "defaultMessage": "!!!Downgrade to Free",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 40,
+      "line": 41,
       "column": 20
     },
     "end": {
-      "line": 43,
+      "line": 44,
       "column": 3
     }
   },
@@ -95,11 +95,11 @@
     "defaultMessage": "!!!Start my free 14-days Trial",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 44,
+      "line": 45,
       "column": 15
     },
     "end": {
-      "line": 47,
+      "line": 48,
       "column": 3
     }
   },
@@ -108,11 +108,11 @@
     "defaultMessage": "!!!Choose Personal",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 48,
+      "line": 49,
       "column": 23
     },
     "end": {
-      "line": 51,
+      "line": 52,
       "column": 3
     }
   },
@@ -121,11 +121,11 @@
     "defaultMessage": "!!!Choose Professional",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 52,
+      "line": 53,
       "column": 18
     },
     "end": {
-      "line": 55,
+      "line": 56,
       "column": 3
     }
   },
@@ -134,11 +134,11 @@
     "defaultMessage": "!!!Complete comparison of all plans",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
-      "line": 56,
+      "line": 57,
       "column": 19
     },
     "end": {
-      "line": 59,
+      "line": 60,
       "column": 3
     }
   }

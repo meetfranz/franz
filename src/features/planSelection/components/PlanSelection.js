@@ -11,6 +11,7 @@ import PlanItem from './PlanItem';
 import { i18nPlanName } from '../../../helpers/plan-helpers';
 import { PLANS } from '../../../config';
 import { FeatureList } from '../../../components/ui/FeatureList';
+import Appear from '../../../components/ui/effects/Appear';
 
 const messages = defineMessages({
   welcome: {
@@ -132,6 +133,10 @@ const styles = theme => ({
     display: 'block',
     color: `${theme.styleTypes.primary.contrast} !important`,
   },
+  scrollContainer: {
+    border: '1px solid red',
+    overflow: 'scroll-x',
+  },
 });
 
 @injectSheet(styles) @observer
@@ -166,67 +171,69 @@ class PlanSelection extends Component {
     const { intl } = this.context;
 
     return (
-      <div
-        className={classes.root}
-      >
-        <div className={classes.container}>
-          <div className={classes.bigIcon}>
-            <Icon icon={mdiRocket} />
+      <Appear>
+        <div
+          className={classes.root}
+        >
+          <div className={classes.container}>
+            <div className={classes.bigIcon}>
+              <Icon icon={mdiRocket} />
+            </div>
+            <H1 className={classes.headline}>{intl.formatMessage(messages.welcome, { name: firstname })}</H1>
+            <H2 className={classes.subheadline}>{intl.formatMessage(messages.subheadline)}</H2>
+            <div className={classes.plans}>
+              <PlanItem
+                name={i18nPlanName(PLANS.FREE, intl)}
+                text={intl.formatMessage(messages.textFree)}
+                price={0}
+                currency={currency}
+                ctaLabel={intl.formatMessage(subscriptionExpired ? messages.ctaDowngradeFree : messages.ctaStayOnFree)}
+                upgrade={() => stayOnFree()}
+                simpleCTA
+              >
+                <FeatureList
+                  plan={PLANS.FREE}
+                  className={classes.featureList}
+                />
+              </PlanItem>
+              <PlanItem
+                name={i18nPlanName(plans.personal.yearly.id, intl)}
+                text={intl.formatMessage(messages.textPersonal)}
+                price={plans.personal.yearly.price}
+                currency={currency}
+                ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPersonal : messages.actionTrial)}
+                upgrade={() => upgradeAccount(plans.personal.yearly.id)}
+              >
+                <FeatureList
+                  plan={PLANS.PERSONAL}
+                  className={classes.featureList}
+                />
+              </PlanItem>
+              <PlanItem
+                name={i18nPlanName(plans.pro.yearly.id, intl)}
+                text={intl.formatMessage(messages.textProfessional)}
+                price={plans.pro.yearly.price}
+                currency={currency}
+                ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPro : messages.actionTrial)}
+                upgrade={() => upgradeAccount(plans.personal.yearly.id)}
+                perUser
+              >
+                <FeatureList
+                  plan={PLANS.PRO}
+                  className={classes.featureList}
+                />
+              </PlanItem>
+            </div>
+            <a
+              href="https://meetfranz.com/pricing"
+              target="_blank"
+              className={classes.fullFeatureList}
+            >
+              {intl.formatMessage(messages.fullFeatureList)}
+            </a>
           </div>
-          <H1 className={classes.headline}>{intl.formatMessage(messages.welcome, { name: firstname })}</H1>
-          <H2 className={classes.subheadline}>{intl.formatMessage(messages.subheadline)}</H2>
-          <div className={classes.plans}>
-            <PlanItem
-              name={i18nPlanName(PLANS.FREE, intl)}
-              text={intl.formatMessage(messages.textFree)}
-              price={0}
-              currency={currency}
-              ctaLabel={intl.formatMessage(subscriptionExpired ? messages.ctaDowngradeFree : messages.ctaStayOnFree)}
-              upgrade={() => stayOnFree()}
-              simpleCTA
-            >
-              <FeatureList
-                plan={PLANS.FREE}
-                className={classes.featureList}
-              />
-            </PlanItem>
-            <PlanItem
-              name={i18nPlanName(plans.personal.yearly.id, intl)}
-              text={intl.formatMessage(messages.textPersonal)}
-              price={plans.personal.yearly.price}
-              currency={currency}
-              ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPersonal : messages.actionTrial)}
-              upgrade={() => upgradeAccount(plans.personal.yearly.id)}
-            >
-              <FeatureList
-                plan={PLANS.PERSONAL}
-                className={classes.featureList}
-              />
-            </PlanItem>
-            <PlanItem
-              name={i18nPlanName(plans.pro.yearly.id, intl)}
-              text={intl.formatMessage(messages.textProfessional)}
-              price={plans.pro.yearly.price}
-              currency={currency}
-              ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPro : messages.actionTrial)}
-              upgrade={() => upgradeAccount(plans.personal.yearly.id)}
-              perUser
-            >
-              <FeatureList
-                plan={PLANS.PRO}
-                className={classes.featureList}
-              />
-            </PlanItem>
-          </div>
-          <a
-            href="https://meetfranz.com/pricing"
-            target="_blank"
-            className={classes.fullFeatureList}
-          >
-            {intl.formatMessage(messages.fullFeatureList)}
-          </a>
         </div>
-      </div>
+      </Appear>
     );
   }
 }
