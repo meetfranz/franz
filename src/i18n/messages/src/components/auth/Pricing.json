@@ -14,7 +14,7 @@
   },
   {
     "id": "pricing.trial.subheadline",
-    "defaultMessage": "!!!Your personal welcome offer:",
+    "defaultMessage": "!!!Here's a special welcome for you:",
     "file": "src/components/auth/Pricing.js",
     "start": {
       "line": 19,
@@ -79,7 +79,7 @@
   },
   {
     "id": "pricing.trial.cta.accept",
-    "defaultMessage": "!!!Yes, upgrade my account to Franz Professional",
+    "defaultMessage": "!!!Start my 14-day Franz Professional Trial",
     "file": "src/components/auth/Pricing.js",
     "start": {
       "line": 39,

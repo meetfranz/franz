@@ -18,7 +18,7 @@ const messages = defineMessages({
   },
   personalOffer: {
     id: 'pricing.trial.subheadline',
-    defaultMessage: '!!!Your personal welcome offer:',
+    defaultMessage: '!!!Here\'s a special welcome for you:',
   },
   noStringsAttachedHeadline: {
     id: 'pricing.trial.terms.headline',
@@ -38,7 +38,7 @@ const messages = defineMessages({
   },
   ctaAccept: {
     id: 'pricing.trial.cta.accept',
-    defaultMessage: '!!!Yes, upgrade my account to Franz Professional',
+    defaultMessage: '!!!Start my 14-day Franz Professional Trial ',
   },
   ctaSkip: {
     id: 'pricing.trial.cta.skip',
@@ -58,6 +58,7 @@ const styles = theme => ({
   welcomeOffer: {
     textAlign: 'center',
     fontWeight: 'bold',
+    marginBottom: '6 !important',
   },
   keyTerms: {
     textAlign: 'center',
@@ -101,6 +102,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
     isLoadingRequiredData: PropTypes.bool.isRequired,
     isActivatingTrial: PropTypes.bool.isRequired,
     trialActivationError: PropTypes.bool.isRequired,
+    canSkipTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
   };
 
@@ -114,6 +116,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
       isLoadingRequiredData,
       isActivatingTrial,
       trialActivationError,
+      canSkipTrial,
       classes,
     } = this.props;
     const { intl } = this.context;
@@ -138,7 +141,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
                 <br />
               </p>
               <p>
-                Get the free 14 day Franz Professional trial and see your communication evolving.
+                For the next 14 days, we are going to give you the full Franz Professional experience so you can watch your communication evolve!
                 <br />
               </p>
               <p>
@@ -167,9 +170,11 @@ export default @observer @injectSheet(styles) class Signup extends Component {
               busy={isActivatingTrial}
               disabled={isLoadingRequiredData || isActivatingTrial}
             />
-            <p className={classes.skipLink}>
-              <a href="#/">{intl.formatMessage(messages.ctaSkip)}</a>
-            </p>
+            {canSkipTrial && (
+              <p className={classes.skipLink}>
+                <a href="#/">{intl.formatMessage(messages.ctaSkip)}</a>
+              </p>
+            )}
           </form>
         </div>
         <div className={classes.featureContainer}>

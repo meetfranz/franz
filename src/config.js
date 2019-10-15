@@ -91,10 +91,10 @@ export const ALLOWED_PROTOCOLS = [
 ];
 
 export const PLANS = {
-  PERSONAL: 'PERSONAL',
-  PRO: 'PRO',
-  LEGACY: 'LEGACY',
-  FREE: 'FREE',
+  PERSONAL: 'personal',
+  PRO: 'pro',
+  LEGACY: 'legacy',
+  FREE: 'free',
 };
 
 export const PLANS_MAPPING = {

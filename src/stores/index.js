@@ -15,6 +15,7 @@ import { announcementsStore } from '../features/announcements';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { communityRecipesStore } from '../features/communityRecipes';
 import { todosStore } from '../features/todos';
+import { planSelectionStore } from '../features/planSelection';
 
 export default (api, actions, router) => {
   const stores = {};
@@ -37,6 +38,7 @@ export default (api, actions, router) => {
     serviceLimit: serviceLimitStore,
     communityRecipes: communityRecipesStore,
     todos: todosStore,
+    planSelection: planSelectionStore,
   });
   // Initialize all stores
   Object.keys(stores).forEach((name) => {

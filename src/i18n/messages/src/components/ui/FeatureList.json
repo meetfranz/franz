@@ -1,14 +1,79 @@
 [
   {
+    "id": "pricing.features.recipes",
+    "defaultMessage": "!!!Choose from more than 70 Services",
+    "file": "src/components/ui/FeatureList.js",
+    "start": {
+      "line": 9,
+      "column": 20
+    },
+    "end": {
+      "line": 12,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.features.accountSync",
+    "defaultMessage": "!!!Account Synchronisation",
+    "file": "src/components/ui/FeatureList.js",
+    "start": {
+      "line": 13,
+      "column": 15
+    },
+    "end": {
+      "line": 16,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.features.desktopNotifications",
+    "defaultMessage": "!!!Desktop Notifications",
+    "file": "src/components/ui/FeatureList.js",
+    "start": {
+      "line": 17,
+      "column": 24
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
     "id": "pricing.features.unlimitedServices",
     "defaultMessage": "!!!Add unlimited services",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 8,
+      "line": 21,
       "column": 21
     },
     "end": {
-      "line": 11,
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.features.upToThreeServices",
+    "defaultMessage": "!!!Add up to 3 services",
+    "file": "src/components/ui/FeatureList.js",
+    "start": {
+      "line": 25,
+      "column": 21
+    },
+    "end": {
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.features.upToSixServices",
+    "defaultMessage": "!!!Add up to 6 services",
+    "file": "src/components/ui/FeatureList.js",
+    "start": {
+      "line": 29,
+      "column": 19
+    },
+    "end": {
+      "line": 32,
       "column": 3
     }
   },
@@ -17,11 +82,11 @@
     "defaultMessage": "!!!Spellchecker support",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 12,
+      "line": 33,
       "column": 16
     },
     "end": {
-      "line": 15,
+      "line": 36,
       "column": 3
     }
   },
@@ -30,11 +95,11 @@
     "defaultMessage": "!!!Workspaces",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 16,
+      "line": 37,
       "column": 14
     },
     "end": {
-      "line": 19,
+      "line": 40,
       "column": 3
     }
   },
@@ -43,11 +108,11 @@
     "defaultMessage": "!!!Add Custom Websites",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 20,
+      "line": 41,
       "column": 18
     },
     "end": {
-      "line": 23,
+      "line": 44,
       "column": 3
     }
   },
@@ -56,11 +121,11 @@
     "defaultMessage": "!!!On-premise & other Hosted Services",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 24,
+      "line": 45,
       "column": 13
     },
     "end": {
-      "line": 27,
+      "line": 48,
       "column": 3
     }
   },
@@ -69,11 +134,11 @@
     "defaultMessage": "!!!Install 3rd party services",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 28,
+      "line": 49,
       "column": 22
     },
     "end": {
-      "line": 31,
+      "line": 52,
       "column": 3
     }
   },
@@ -82,11 +147,11 @@
     "defaultMessage": "!!!Service Proxies",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 32,
+      "line": 53,
       "column": 18
     },
     "end": {
-      "line": 35,
+      "line": 56,
       "column": 3
     }
   },
@@ -95,11 +160,11 @@
     "defaultMessage": "!!!Team Management",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 36,
+      "line": 57,
       "column": 18
     },
     "end": {
-      "line": 39,
+      "line": 60,
       "column": 3
     }
   },
@@ -108,11 +173,11 @@
     "defaultMessage": "!!!No Waiting Screens",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 40,
+      "line": 61,
       "column": 13
     },
     "end": {
-      "line": 43,
+      "line": 64,
       "column": 3
     }
   },
@@ -121,11 +186,11 @@
     "defaultMessage": "!!!Forever ad-free",
     "file": "src/components/ui/FeatureList.js",
     "start": {
-      "line": 44,
+      "line": 65,
       "column": 10
     },
     "end": {
-      "line": 47,
+      "line": 68,
       "column": 3
     }
   }

@@ -19,6 +19,7 @@ import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import TrialActivationInfoBar from '../TrialActivationInfoBar';
 import Todos from '../../features/todos/containers/TodosScreen';
+import PlanSelection from '../../features/planSelection/containers/PlanSelectionScreen';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -176,6 +177,7 @@ class AppLayout extends Component {
             </div>
             <Todos />
           </div>
+          <PlanSelection />
         </div>
       </ErrorBoundary>
     );

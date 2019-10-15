@@ -217,7 +217,8 @@ class AccountDashboard extends Component {
                           {intl.formatMessage(messages.yourLicense)}
                         </H2>
                         <p>
-                          {isPremiumOverrideUser ? 'Franz Premium' : planName}
+                          Franz
+                          {isPremiumOverrideUser ? 'Premium' : planName}
                           {user.team.isTrial && (
                             <>
                               {' – '}

@@ -10,6 +10,7 @@ const styles = theme => ({
     padding: [8, 0],
     display: 'flex',
     alignItems: 'center',
+    textAlign: 'left',
   },
   featureIcon: {
     fill: theme.brandSuccess,

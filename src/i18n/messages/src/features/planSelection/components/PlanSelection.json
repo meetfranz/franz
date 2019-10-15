@@ -1,0 +1,145 @@
+[
+  {
+    "id": "feature.planSelection.fullscreen.welcome",
+    "defaultMessage": "!!!Welcome back, {name}",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 16,
+      "column": 11
+    },
+    "end": {
+      "line": 19,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.fullscreen.subheadline",
+    "defaultMessage": "!!!It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 20,
+      "column": 15
+    },
+    "end": {
+      "line": 23,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.free.text",
+    "defaultMessage": "!!!Basic functionality",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 24,
+      "column": 12
+    },
+    "end": {
+      "line": 27,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.personal.text",
+    "defaultMessage": "!!!More services, no waiting - ideal for personal use.",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 28,
+      "column": 16
+    },
+    "end": {
+      "line": 31,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.pro.text",
+    "defaultMessage": "!!!Unlimited services and professional features for you - and your team.",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 32,
+      "column": 20
+    },
+    "end": {
+      "line": 35,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.cta.stayOnFree",
+    "defaultMessage": "!!!Stay on Free",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 36,
+      "column": 17
+    },
+    "end": {
+      "line": 39,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.cta.ctaDowngradeFree",
+    "defaultMessage": "!!!Downgrade to Free",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 40,
+      "column": 20
+    },
+    "end": {
+      "line": 43,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.cta.trial",
+    "defaultMessage": "!!!Start my free 14-days Trial",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 44,
+      "column": 15
+    },
+    "end": {
+      "line": 47,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.cta.upgradePersonal",
+    "defaultMessage": "!!!Choose Personal",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 48,
+      "column": 23
+    },
+    "end": {
+      "line": 51,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.cta.upgradePro",
+    "defaultMessage": "!!!Choose Professional",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 52,
+      "column": 18
+    },
+    "end": {
+      "line": 55,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.fullFeatureList",
+    "defaultMessage": "!!!Complete comparison of all plans",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 56,
+      "column": 19
+    },
+    "end": {
+      "line": 59,
+      "column": 3
+    }
+  }
+]

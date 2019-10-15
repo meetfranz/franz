@@ -38,7 +38,7 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
     } = this.props;
 
     const { getUserInfoRequest, activateTrialRequest } = stores.user;
-    const { featuresRequest } = stores.features;
+    const { featuresRequest, features } = stores.features;
 
     return (
       <Pricing
@@ -46,6 +46,7 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
         isLoadingRequiredData={(getUserInfoRequest.isExecuting || !getUserInfoRequest.wasExecuted) || (featuresRequest.isExecuting || !featuresRequest.wasExecuted)}
         isActivatingTrial={activateTrialRequest.isExecuting}
         trialActivationError={activateTrialRequest.isError}
+        canSkipTrial={features.canSkipTrial}
         error={error}
       />
     );
