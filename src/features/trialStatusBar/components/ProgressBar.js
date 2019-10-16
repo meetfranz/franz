@@ -25,7 +25,6 @@ const styles = theme => ({
 class ProgressBar extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    percent: PropTypes.number.isRequired,
   };
 
   render() {

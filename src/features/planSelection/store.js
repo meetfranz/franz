@@ -3,17 +3,13 @@ import {
   observable,
   computed,
 } from 'mobx';
-import { remote } from 'electron';
 
 import { planSelectionActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
-// import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
 import { downgradeUserRequest } from './api';
 
 const debug = require('debug')('Franz:feature:planSelection:store');
-
-const { BrowserWindow } = remote;
 
 export default class PlanSelectionStore extends FeatureStore {
   @observable isFeatureEnabled = false;
@@ -45,17 +41,6 @@ export default class PlanSelectionStore extends FeatureStore {
       [planSelectionActions.downgradeAccount, this._downgradeAccount],
       [planSelectionActions.hideOverlay, this._hideOverlay],
     ]));
-
-    // REACTIONS
-
-    // this._allReactions = createReactions([
-    //   this._setFeatureEnabledReaction,
-    //   this._updateTodosConfig,
-    //   this._firstLaunchReaction,
-    //   this._routeCheckReaction,
-    // ]);
-
-    // this._registerReactions(this._allReactions);
 
     this.isFeatureActive = true;
   }
