@@ -242,14 +242,16 @@ class AccountDashboard extends Component {
                             </p>
                           </>
                         )}
-                        <div className="manage-user-links">
-                          {!isProUser && (
+                        {!isProUser && (
+                          <div className="manage-user-links">
                             <Button
                               label={intl.formatMessage(messages.upgradeAccountToPro)}
                               className="franz-form__button--primary"
                               onClick={upgradeToPro}
                             />
-                          )}
+                          </div>
+                        )}
+                        <div className="manage-user-links">
                           <Button
                             label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
                             className="franz-form__button--inverted"

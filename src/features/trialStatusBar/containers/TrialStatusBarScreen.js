@@ -67,8 +67,6 @@ class TrialStatusBarScreen extends Component {
     const { user } = this.props.stores;
     const { upgradeAccount } = this.props.actions.payment;
 
-    console.log('hasEnded', hasEnded);
-
     return (
       <ErrorBoundary>
         <TrialStatusBar
