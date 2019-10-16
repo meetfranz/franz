@@ -218,6 +218,7 @@ class AccountDashboard extends Component {
                         </H2>
                         <p>
                           Franz
+                          {' '}
                           {isPremiumOverrideUser ? 'Premium' : planName}
                           {user.team.isTrial && (
                             <>
