@@ -205,7 +205,7 @@ class PlanSelection extends Component {
                 price={plans.pro.yearly.price}
                 currency={currency}
                 ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPro : messages.actionTrial)}
-                upgrade={() => upgradeAccount(plans.personal.yearly.id)}
+                upgrade={() => upgradeAccount(plans.pro.yearly.id)}
                 className={classes.featuredPlan}
                 perUser
                 bestValue

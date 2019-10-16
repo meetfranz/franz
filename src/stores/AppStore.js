@@ -81,6 +81,8 @@ export default class AppStore extends Store {
 
   dictionaries = [];
 
+  fetchDataInterval = null;
+
   constructor(...args) {
     super(...args);
 
@@ -102,6 +104,7 @@ export default class AppStore extends Store {
       this._setLocale.bind(this),
       this._muteAppHandler.bind(this),
       this._handleFullScreen.bind(this),
+      this._handleLogout.bind(this),
     ]);
   }
 
@@ -128,6 +131,11 @@ export default class AppStore extends Store {
     // There are no events to subscribe so we need to poll everey 5s
     this._systemDND();
     setInterval(() => this._systemDND(), ms('5s'));
+
+    this.fetchDataInterval = setInterval(() => {
+      this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+      this.stores.features.featuresRequest.invalidate({ immediately: true });
+    }, ms('10s'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
@@ -427,6 +435,12 @@ export default class AppStore extends Store {
       body.classList.add('isFullScreen');
     } else {
       body.classList.remove('isFullScreen');
+    }
+  }
+
+  _handleLogout() {
+    if (!this.stores.user.isLoggedIn) {
+      clearInterval(this.fetchDataInterval);
     }
   }
 

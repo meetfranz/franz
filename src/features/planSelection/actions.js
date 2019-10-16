@@ -2,10 +2,6 @@ import PropTypes from 'prop-types';
 import { createActionsFromDefinitions } from '../../actions/lib/actions';
 
 export const planSelectionActions = createActionsFromDefinitions({
-  upgradeAccount: {
-    planId: PropTypes.string.isRequired,
-    onCloseWindow: PropTypes.func.isRequired,
-  },
   downgradeAccount: {},
   hideOverlay: {},
 }, PropTypes.checkPropTypes);

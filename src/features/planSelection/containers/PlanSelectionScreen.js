@@ -43,13 +43,10 @@ class PlanSelectionScreen extends Component {
   }
 
   upgradeAccount(planId) {
-    const { upgradeAccount, hideOverlay } = this.props.actions.planSelection;
+    const { upgradeAccount } = this.props.actions.payment;
 
     upgradeAccount({
       planId,
-      onCloseWindow: () => {
-        hideOverlay();
-      },
     });
   }
 
@@ -63,7 +60,7 @@ class PlanSelectionScreen extends Component {
     const { user, features } = this.props.stores;
     const { plans, currency } = features.features.pricingConfig;
     const { activateTrial } = this.props.actions.user;
-    const { upgradeAccount, downgradeAccount, hideOverlay } = this.props.actions.planSelection;
+    const { downgradeAccount, hideOverlay } = this.props.actions.planSelection;
 
     return (
       <ErrorBoundary>
@@ -102,7 +99,7 @@ class PlanSelectionScreen extends Component {
               downgradeAccount();
               hideOverlay();
             } else {
-              upgradeAccount(plans.personal.yearly.id);
+              this.upgradeAccount(plans.personal.yearly.id);
 
               gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Revoke');
             }
@@ -123,8 +120,10 @@ PlanSelectionScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
-    planSelection: PropTypes.shape({
+    payment: PropTypes.shape({
       upgradeAccount: PropTypes.func.isRequired,
+    }),
+    planSelection: PropTypes.shape({
       downgradeAccount: PropTypes.func.isRequired,
       hideOverlay: PropTypes.func.isRequired,
     }),

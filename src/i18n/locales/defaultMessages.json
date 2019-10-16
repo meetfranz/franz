@@ -734,39 +734,39 @@
         "defaultMessage": "!!!Your services have been updated.",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 33
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.servicesUpdated",
         "start": {
           "column": 19,
-          "line": 29
+          "line": 30
         }
       },
       {
         "defaultMessage": "!!!Reload services",
         "end": {
           "column": 3,
-          "line": 36
+          "line": 37
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.buttonReloadServices",
         "start": {
           "column": 24,
-          "line": 33
+          "line": 34
         }
       },
       {
         "defaultMessage": "!!!Could not load services and user information",
         "end": {
           "column": 3,
-          "line": 40
+          "line": 41
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.requiredRequestsFailed",
         "start": {
           "column": 26,
-          "line": 37
+          "line": 38
         }
       }
     ],
@@ -3915,39 +3915,39 @@
         "defaultMessage": "!!!per month",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 18
         },
         "file": "src/features/planSelection/components/PlanItem.js",
         "id": "subscription.interval.perMonth",
         "start": {
           "column": 12,
-          "line": 19
+          "line": 15
         }
       },
       {
         "defaultMessage": "!!!per month & user",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 22
         },
         "file": "src/features/planSelection/components/PlanItem.js",
         "id": "subscription.interval.perMonthPerUser",
         "start": {
           "column": 19,
-          "line": 23
+          "line": 19
         }
       },
       {
         "defaultMessage": "!!!Best value",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 26
         },
         "file": "src/features/planSelection/components/PlanItem.js",
         "id": "subscription.bestValue",
         "start": {
           "column": 13,
-          "line": 27
+          "line": 23
         }
       }
     ],
@@ -4377,6 +4377,107 @@
       }
     ],
     "path": "src/features/todos/components/TodosWebview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Your Free Franz {plan} Trial ends in {time}.",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/features/trialStatusBar/components/TrialStatusBar.js",
+        "id": "feature.trialStatusBar.restTime",
+        "start": {
+          "column": 12,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Your free Franz {plan} Trial has expired, please upgrade your account.",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/features/trialStatusBar/components/TrialStatusBar.js",
+        "id": "feature.trialStatusBar.expired",
+        "start": {
+          "column": 11,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Upgrade now",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/features/trialStatusBar/components/TrialStatusBar.js",
+        "id": "feature.trialStatusBar.cta",
+        "start": {
+          "column": 7,
+          "line": 21
+        }
+      }
+    ],
+    "path": "src/features/trialStatusBar/components/TrialStatusBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Downgrade your Franz Plan",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/features/trialStatusBar/containers/TrialStatusBarScreen.js",
+        "id": "feature.trialStatusBar.fullscreen.dialog.title",
+        "start": {
+          "column": 15,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!You're about to downgrade to our Free account. Are you sure? Click here instead to get more services and functionality for just {currency}{price} a month.",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/features/trialStatusBar/containers/TrialStatusBarScreen.js",
+        "id": "feature.trialStatusBar.fullscreen.dialog.message",
+        "start": {
+          "column": 17,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Downgrade to Free",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/features/trialStatusBar/containers/TrialStatusBarScreen.js",
+        "id": "feature.trialStatusBar.fullscreen.dialog.cta.downgrade",
+        "start": {
+          "column": 22,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Choose Personal",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/features/trialStatusBar/containers/TrialStatusBarScreen.js",
+        "id": "feature.trialStatusBar.fullscreen.dialog.cta.upgrade",
+        "start": {
+          "column": 20,
+          "line": 28
+        }
+      }
+    ],
+    "path": "src/features/trialStatusBar/containers/TrialStatusBarScreen.json"
   },
   {
     "descriptors": [

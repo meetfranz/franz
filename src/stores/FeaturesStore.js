@@ -20,6 +20,7 @@ import serviceLimit from '../features/serviceLimit';
 import communityRecipes from '../features/communityRecipes';
 import todos from '../features/todos';
 import planSelection from '../features/planSelection';
+import trialStatusBar from '../features/trialStatusBar';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -83,5 +84,6 @@ export default class FeaturesStore extends Store {
     communityRecipes(this.stores, this.actions);
     todos(this.stores, this.actions);
     planSelection(this.stores, this.actions);
+    trialStatusBar(this.stores, this.actions);
   }
 }

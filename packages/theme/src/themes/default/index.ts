@@ -238,3 +238,14 @@ export const todos = {
     backgroundHover: styleTypes.primary.accent,
   },
 };
+
+// TrialStatusBar
+export const trialStatusBar = {
+  bar: {
+    background: legacyStyles.themeGray,
+  },
+  progressBar: {
+    background: legacyStyles.themeGrayLight,
+    progressIndicator: legacyStyles.themeGrayLighter,
+  },
+};
