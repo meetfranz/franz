@@ -98,6 +98,9 @@ export default class PlanSelectionStore extends FeatureStore {
     win.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
 
     win.on('closed', () => {
+      this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+      this.stores.features.featuresRequest.invalidate({ immediately: true });
+
       onCloseWindow();
     });
   };

@@ -32,6 +32,10 @@ const messages = defineMessages({
     id: 'pricing.trial.terms.automaticTrialEnd',
     defaultMessage: '!!!Your free trial ends automatically after 14 days',
   },
+  trialWorth: {
+    id: 'pricing.trial.terms.trialWorth',
+    defaultMessage: '!!!Free trial (normally {currency}{price} per month)',
+  },
   activationError: {
     id: 'pricing.trial.error',
     defaultMessage: '!!!Sorry, we could not activate your trial!',
@@ -104,6 +108,8 @@ export default @observer @injectSheet(styles) class Signup extends Component {
     trialActivationError: PropTypes.bool.isRequired,
     canSkipTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
+    currency: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
@@ -118,6 +124,8 @@ export default @observer @injectSheet(styles) class Signup extends Component {
       trialActivationError,
       canSkipTrial,
       classes,
+      currency,
+      price,
     } = this.props;
     const { intl } = this.context;
 
@@ -156,6 +164,13 @@ export default @observer @injectSheet(styles) class Signup extends Component {
                 {intl.formatMessage(messages.noStringsAttachedHeadline)}
               </H2>
               <ul className={classes.keyTermsList}>
+                <FeatureItem
+                  icon="👉"
+                  name={intl.formatMessage(messages.trialWorth, {
+                    currency,
+                    price,
+                  })}
+                />
                 <FeatureItem icon="👉" name={intl.formatMessage(messages.noCreditCard)} />
                 <FeatureItem icon="👉" name={intl.formatMessage(messages.automaticTrialEnd)} />
               </ul>

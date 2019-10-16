@@ -65,15 +65,28 @@
     }
   },
   {
+    "id": "pricing.trial.terms.trialWorth",
+    "defaultMessage": "!!!Free trial (normally {currency}{price} per month)",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 35,
+      "column": 14
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
     "id": "pricing.trial.error",
     "defaultMessage": "!!!Sorry, we could not activate your trial!",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 35,
+      "line": 39,
       "column": 19
     },
     "end": {
-      "line": 38,
+      "line": 42,
       "column": 3
     }
   },
@@ -82,11 +95,11 @@
     "defaultMessage": "!!!Start my 14-day Franz Professional Trial",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 39,
+      "line": 43,
       "column": 13
     },
     "end": {
-      "line": 42,
+      "line": 46,
       "column": 3
     }
   },
@@ -95,11 +108,11 @@
     "defaultMessage": "!!!Continue to Franz",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 43,
+      "line": 47,
       "column": 11
     },
     "end": {
-      "line": 46,
+      "line": 50,
       "column": 3
     }
   },
@@ -108,11 +121,11 @@
     "defaultMessage": "!!!Franz Professional includes:",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 47,
+      "line": 51,
       "column": 20
     },
     "end": {
-      "line": 50,
+      "line": 54,
       "column": 3
     }
   }

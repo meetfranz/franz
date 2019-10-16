@@ -482,55 +482,68 @@
         }
       },
       {
-        "defaultMessage": "!!!Sorry, we could not activate your trial!",
+        "defaultMessage": "!!!Free trial (normally {currency}{price} per month)",
         "end": {
           "column": 3,
           "line": 38
         },
         "file": "src/components/auth/Pricing.js",
+        "id": "pricing.trial.terms.trialWorth",
+        "start": {
+          "column": 14,
+          "line": 35
+        }
+      },
+      {
+        "defaultMessage": "!!!Sorry, we could not activate your trial!",
+        "end": {
+          "column": 3,
+          "line": 42
+        },
+        "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.error",
         "start": {
           "column": 19,
-          "line": 35
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Start my 14-day Franz Professional Trial",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 46
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.cta.accept",
         "start": {
           "column": 13,
-          "line": 39
+          "line": 43
         }
       },
       {
         "defaultMessage": "!!!Continue to Franz",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 50
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.cta.skip",
         "start": {
           "column": 11,
-          "line": 43
+          "line": 47
         }
       },
       {
         "defaultMessage": "!!!Franz Professional includes:",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 54
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.features.headline",
         "start": {
           "column": 20,
-          "line": 47
+          "line": 51
         }
       }
     ],
@@ -3923,6 +3936,19 @@
           "column": 19,
           "line": 23
         }
+      },
+      {
+        "defaultMessage": "!!!Best value",
+        "end": {
+          "column": 3,
+          "line": 30
+        },
+        "file": "src/features/planSelection/components/PlanItem.js",
+        "id": "subscription.bestValue",
+        "start": {
+          "column": 13,
+          "line": 27
+        }
       }
     ],
     "path": "src/features/planSelection/components/PlanItem.json"
@@ -3933,143 +3959,143 @@
         "defaultMessage": "!!!Welcome back, {name}",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.fullscreen.welcome",
         "start": {
           "column": 11,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.fullscreen.subheadline",
         "start": {
           "column": 15,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Basic functionality",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.free.text",
         "start": {
           "column": 12,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!More services, no waiting - ideal for personal use.",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.personal.text",
         "start": {
           "column": 16,
-          "line": 28
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Unlimited services and professional features for you - and your team.",
         "end": {
           "column": 3,
-          "line": 35
+          "line": 36
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.pro.text",
         "start": {
           "column": 20,
-          "line": 32
+          "line": 33
         }
       },
       {
         "defaultMessage": "!!!Stay on Free",
         "end": {
           "column": 3,
-          "line": 39
+          "line": 40
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.cta.stayOnFree",
         "start": {
           "column": 17,
-          "line": 36
+          "line": 37
         }
       },
       {
         "defaultMessage": "!!!Downgrade to Free",
         "end": {
           "column": 3,
-          "line": 43
+          "line": 44
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.cta.ctaDowngradeFree",
         "start": {
           "column": 20,
-          "line": 40
+          "line": 41
         }
       },
       {
         "defaultMessage": "!!!Start my free 14-days Trial",
         "end": {
           "column": 3,
-          "line": 47
+          "line": 48
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.cta.trial",
         "start": {
           "column": 15,
-          "line": 44
+          "line": 45
         }
       },
       {
         "defaultMessage": "!!!Choose Personal",
         "end": {
           "column": 3,
-          "line": 51
+          "line": 52
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.cta.upgradePersonal",
         "start": {
           "column": 23,
-          "line": 48
+          "line": 49
         }
       },
       {
         "defaultMessage": "!!!Choose Professional",
         "end": {
           "column": 3,
-          "line": 55
+          "line": 56
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.cta.upgradePro",
         "start": {
           "column": 18,
-          "line": 52
+          "line": 53
         }
       },
       {
         "defaultMessage": "!!!Complete comparison of all plans",
         "end": {
           "column": 3,
-          "line": 59
+          "line": 60
         },
         "file": "src/features/planSelection/components/PlanSelection.js",
         "id": "feature.planSelection.fullFeatureList",
         "start": {
           "column": 19,
-          "line": 56
+          "line": 57
         }
       }
     ],
@@ -4112,52 +4138,52 @@
         "defaultMessage": "!!!Downgrade your Franz Plan",
         "end": {
           "column": 3,
-          "line": 19
+          "line": 20
         },
         "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
         "id": "feature.planSelection.fullscreen.dialog.title",
         "start": {
           "column": 15,
-          "line": 16
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!You're about to downgrade to our Free account. Are you sure? Click here instead to get more services and functionality for just {currency}{price} a month.",
         "end": {
           "column": 3,
-          "line": 23
+          "line": 24
         },
         "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
         "id": "feature.planSelection.fullscreen.dialog.message",
         "start": {
           "column": 17,
-          "line": 20
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Downgrade to Free",
         "end": {
           "column": 3,
-          "line": 27
+          "line": 28
         },
         "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
         "id": "feature.planSelection.fullscreen.dialog.cta.downgrade",
         "start": {
           "column": 22,
-          "line": 24
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Choose Personal",
         "end": {
           "column": 3,
-          "line": 31
+          "line": 32
         },
         "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
         "id": "feature.planSelection.fullscreen.dialog.cta.upgrade",
         "start": {
           "column": 20,
-          "line": 28
+          "line": 29
         }
       }
     ],

@@ -43,15 +43,12 @@ class PlanSelectionScreen extends Component {
   }
 
   upgradeAccount(planId) {
-    const { user, features } = this.props.stores;
     const { upgradeAccount, hideOverlay } = this.props.actions.planSelection;
 
     upgradeAccount({
       planId,
       onCloseWindow: () => {
         hideOverlay();
-        user.getUserInfoRequest.invalidate({ immediately: true });
-        features.featuresRequest.invalidate({ immediately: true });
       },
     });
   }
@@ -67,17 +64,6 @@ class PlanSelectionScreen extends Component {
     const { plans, currency } = features.features.pricingConfig;
     const { activateTrial } = this.props.actions.user;
     const { upgradeAccount, downgradeAccount, hideOverlay } = this.props.actions.planSelection;
-
-    // const planConfig = [{
-    //   id: 'free',
-    //   price: 0,
-    // }, {
-    //   id: plans.personal.yearly.id,
-    //   price: plans.personal.yearly.price,
-    // }, {
-    //   id: plans.pro.yearly.id,
-    //   price: plans.pro.yearly.price,
-    // }];
 
     return (
       <ErrorBoundary>

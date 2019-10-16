@@ -4,11 +4,11 @@
     "defaultMessage": "!!!per month",
     "file": "src/features/planSelection/components/PlanItem.js",
     "start": {
-      "line": 19,
+      "line": 15,
       "column": 12
     },
     "end": {
-      "line": 22,
+      "line": 18,
       "column": 3
     }
   },
@@ -17,8 +17,21 @@
     "defaultMessage": "!!!per month & user",
     "file": "src/features/planSelection/components/PlanItem.js",
     "start": {
-      "line": 23,
+      "line": 19,
       "column": 19
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "subscription.bestValue",
+    "defaultMessage": "!!!Best value",
+    "file": "src/features/planSelection/components/PlanItem.js",
+    "start": {
+      "line": 23,
+      "column": 13
     },
     "end": {
       "line": 26,

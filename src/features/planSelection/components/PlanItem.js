@@ -10,10 +10,6 @@ import { H2 } from '@meetfranz/ui';
 
 import { Button } from '@meetfranz/forms';
 import { mdiArrowRight } from '@mdi/js';
-// import { FeatureList } from '../ui/FeatureList';
-// import { PLANS, PAYMENT_INTERVAL } from '../../config';
-// import { i18nPlanName, i18nIntervalName } from '../../helpers/plan-helpers';
-// import { PLAN_INTERVAL_CONFIG_TYPE } from './types';
 
 const messages = defineMessages({
   perMonth: {
@@ -23,6 +19,10 @@ const messages = defineMessages({
   perMonthPerUser: {
     id: 'subscription.interval.perMonthPerUser',
     defaultMessage: '!!!per month & user',
+  },
+  bestValue: {
+    id: 'subscription.bestValue',
+    defaultMessage: '!!!Best value',
   },
 });
 
@@ -41,7 +41,6 @@ const styles = theme => ({
       marginBottom: 20,
       fontSize: 30,
       color: theme.styleTypes.primary.contrast,
-      // fontWeight: 'bold',
     },
   },
   currency: {
@@ -58,9 +57,6 @@ const styles = theme => ({
       verticalAlign: 20,
     },
   },
-  interval: {
-    // paddingBottom: 40,
-  },
   text: {
     marginBottom: 'auto',
   },
@@ -68,10 +64,6 @@ const styles = theme => ({
     background: theme.styleTypes.primary.accent,
     color: theme.styleTypes.primary.contrast,
     margin: [40, 'auto', 0, 'auto'],
-
-    // '&:active': {
-    //   opacity: 0.7,
-    // },
   },
   divider: {
     width: 40,
@@ -83,10 +75,10 @@ const styles = theme => ({
     padding: 20,
     background: color(theme.styleTypes.primary.accent).darken(0.25).hex(),
     color: theme.styleTypes.primary.contrast,
+    position: 'relative',
   },
   content: {
     padding: 20,
-    // border: [1, 'solid', 'red'],
     background: '#EFEFEF',
   },
   simpleCTA: {
@@ -96,6 +88,20 @@ const styles = theme => ({
     '& svg': {
       fill: theme.styleTypes.primary.accent,
     },
+  },
+  bestValue: {
+    background: theme.styleTypes.success.accent,
+    color: theme.styleTypes.success.contrast,
+    right: -66,
+    top: -40,
+    height: 'auto',
+    position: 'absolute',
+    transform: 'rotateZ(45deg)',
+    textAlign: 'center',
+    padding: [5, 50],
+    transformOrigin: 'left bottom',
+    fontSize: 12,
+    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
   },
 });
 
@@ -111,6 +117,8 @@ export default @observer @injectSheet(styles) class PlanItem extends Component {
     simpleCTA: PropTypes.bool,
     perUser: PropTypes.bool,
     classes: PropTypes.object.isRequired,
+    bestValue: PropTypes.bool,
+    className: PropTypes.string,
     children: PropTypes.element,
   };
 
@@ -118,6 +126,8 @@ export default @observer @injectSheet(styles) class PlanItem extends Component {
     simpleCTA: false,
     perUser: false,
     children: null,
+    bestValue: false,
+    className: '',
   }
 
   static contextTypes = {
@@ -135,16 +145,26 @@ export default @observer @injectSheet(styles) class PlanItem extends Component {
       ctaLabel,
       simpleCTA,
       perUser,
+      bestValue,
+      className,
       children,
     } = this.props;
     const { intl } = this.context;
 
     const priceParts = `${price}`.split('.');
-    // const intervalName = i18nIntervalName(PAYMENT_INTERVAL.MONTHLY, intl);
 
     return (
-      <div className={classes.root}>
+      <div className={classnames({
+        [classes.root]: true,
+        [className]: className,
+      })}
+      >
         <div className={classes.header}>
+          {bestValue && (
+            <div className={classes.bestValue}>
+              {intl.formatMessage(messages.bestValue)}
+            </div>
+          )}
           <H2 className={classes.planName}>{name}</H2>
           <p className={classes.text}>
             {text}

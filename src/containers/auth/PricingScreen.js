@@ -40,6 +40,15 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
     const { getUserInfoRequest, activateTrialRequest } = stores.user;
     const { featuresRequest, features } = stores.features;
 
+    const { pricingConfig } = features;
+
+    let currency = '$';
+    let price = '5.99';
+    if (pricingConfig) {
+      ({ currency } = pricingConfig);
+      ({ price } = pricingConfig.plans.pro.yearly);
+    }
+
     return (
       <Pricing
         onSubmit={this.submit.bind(this)}
@@ -48,6 +57,8 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
         trialActivationError={activateTrialRequest.isError}
         canSkipTrial={features.canSkipTrial}
         error={error}
+        currency={currency}
+        price={price}
       />
     );
   }

@@ -137,6 +137,9 @@ const styles = theme => ({
     border: '1px solid red',
     overflow: 'scroll-x',
   },
+  featuredPlan: {
+    transform: 'scale(1.05)',
+  },
 });
 
 @injectSheet(styles) @observer
@@ -197,6 +200,22 @@ class PlanSelection extends Component {
                 />
               </PlanItem>
               <PlanItem
+                name={i18nPlanName(plans.pro.yearly.id, intl)}
+                text={intl.formatMessage(messages.textProfessional)}
+                price={plans.pro.yearly.price}
+                currency={currency}
+                ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPro : messages.actionTrial)}
+                upgrade={() => upgradeAccount(plans.personal.yearly.id)}
+                className={classes.featuredPlan}
+                perUser
+                bestValue
+              >
+                <FeatureList
+                  plan={PLANS.PRO}
+                  className={classes.featureList}
+                />
+              </PlanItem>
+              <PlanItem
                 name={i18nPlanName(plans.personal.yearly.id, intl)}
                 text={intl.formatMessage(messages.textPersonal)}
                 price={plans.personal.yearly.price}
@@ -206,20 +225,6 @@ class PlanSelection extends Component {
               >
                 <FeatureList
                   plan={PLANS.PERSONAL}
-                  className={classes.featureList}
-                />
-              </PlanItem>
-              <PlanItem
-                name={i18nPlanName(plans.pro.yearly.id, intl)}
-                text={intl.formatMessage(messages.textProfessional)}
-                price={plans.pro.yearly.price}
-                currency={currency}
-                ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPro : messages.actionTrial)}
-                upgrade={() => upgradeAccount(plans.personal.yearly.id)}
-                perUser
-              >
-                <FeatureList
-                  plan={PLANS.PRO}
                   className={classes.featureList}
                 />
               </PlanItem>
