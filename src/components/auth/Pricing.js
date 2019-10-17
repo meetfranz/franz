@@ -13,12 +13,20 @@ import { FeatureList } from '../ui/FeatureList';
 
 const messages = defineMessages({
   headline: {
-    id: 'pricing.trial.headline',
-    defaultMessage: '!!!Franz Professional',
+    id: 'pricing.trial.headline.pro',
+    defaultMessage: '!!!Hi {name}, welcome to Franz',
   },
-  personalOffer: {
-    id: 'pricing.trial.subheadline',
-    defaultMessage: '!!!Here\'s a special welcome for you:',
+  specialTreat: {
+    id: 'pricing.trial.intro.specialTreat',
+    defaultMessage: '!!!We have a special treat for you.',
+  },
+  tryPro: {
+    id: 'pricing.trial.intro.tryPro',
+    defaultMessage: '!!!Enjoy the full Franz Professional experience completely free for 14 days.',
+  },
+  happyMessaging: {
+    id: 'pricing.trial.intro.happyMessaging',
+    defaultMessage: '!!!Happy messaging,',
   },
   noStringsAttachedHeadline: {
     id: 'pricing.trial.terms.headline',
@@ -43,6 +51,10 @@ const messages = defineMessages({
   ctaAccept: {
     id: 'pricing.trial.cta.accept',
     defaultMessage: '!!!Start my 14-day Franz Professional Trial ',
+  },
+  ctaStart: {
+    id: 'pricing.trial.cta.start',
+    defaultMessage: '!!!Start using Franz',
   },
   ctaSkip: {
     id: 'pricing.trial.cta.skip',
@@ -98,6 +110,34 @@ const styles = theme => ({
     margin: [20, 0, 0],
     color: theme.styleTypes.danger.accent,
   },
+  priceContainer: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    margin: [10, 0, 15],
+  },
+  price: {
+    '& sup': {
+      verticalAlign: 14,
+      fontSize: 20,
+    },
+  },
+  figure: {
+    fontSize: 40,
+  },
+  regularPrice: {
+    position: 'relative',
+
+    '&:before': {
+      content: '" "',
+      position: 'absolute',
+      width: '130%',
+      height: 1,
+      top: 14,
+      left: -12,
+      borderBottom: [3, 'solid', 'red'],
+      transform: 'rotateZ(-20deg)',
+    },
+  },
 });
 
 export default @observer @injectSheet(styles) class Signup extends Component {
@@ -129,6 +169,8 @@ export default @observer @injectSheet(styles) class Signup extends Component {
     } = this.props;
     const { intl } = this.context;
 
+    const [intPart, fractionPart] = (price).toString().split('.');
+
     return (
       <div className={classnames('auth__scroll-container', classes.container)}>
         <div className={classnames('auth__container', 'auth__container--signup', classes.content)}>
@@ -140,23 +182,37 @@ export default @observer @injectSheet(styles) class Signup extends Component {
                 alt=""
               />
             )}
-            <p className={classes.welcomeOffer}>{intl.formatMessage(messages.personalOffer)}</p>
-            <h1>{intl.formatMessage(messages.headline)}</h1>
+            <h1>{intl.formatMessage(messages.headline, { name: 'Stefan' })}</h1>
             <div className="auth__letter">
               <p>
-                We built Franz with a lot of effort, manpower and love,
-                to boost up your messaging experience.
+                {intl.formatMessage(messages.specialTreat)}
                 <br />
               </p>
               <p>
-                For the next 14 days, we are going to give you the full Franz Professional experience so you can watch your communication evolve!
+                {intl.formatMessage(messages.tryPro)}
                 <br />
               </p>
               <p>
-                Thanks for being a hero.
+                {intl.formatMessage(messages.happyMessaging)}
               </p>
               <p>
                 <strong>Stefan Malzner</strong>
+              </p>
+            </div>
+            <div className={classes.priceContainer}>
+              <p className={classnames(classes.price, classes.regularPrice)}>
+                <span className={classes.figure}>
+                  {currency}
+                  {intPart}
+                </span>
+                <sup>{fractionPart}</sup>
+              </p>
+              <p className={classnames(classes.price, classes.trialPrice)}>
+                <span className={classes.figure}>
+                  {currency}
+                  0
+                </span>
+                <sup>00</sup>
               </p>
             </div>
             <div className={classes.keyTerms}>
@@ -179,7 +235,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
               <p className={classes.error}>{intl.formatMessage(messages.activationError)}</p>
             )}
             <Button
-              label={intl.formatMessage(messages.ctaAccept)}
+              label={intl.formatMessage(!canSkipTrial ? messages.ctaStart : messages.ctaAccept)}
               className={classes.cta}
               onClick={onSubmit}
               busy={isActivatingTrial}
@@ -196,18 +252,6 @@ export default @observer @injectSheet(styles) class Signup extends Component {
           <H2>
             {intl.formatMessage(messages.featuresHeadline)}
           </H2>
-          {/* <ul className={classes.features}>
-            <FeatureItem name="Add unlimited services" className={classes.featureItem} />
-            <FeatureItem name="Spellchecker support" className={classes.featureItem} />
-            <FeatureItem name="Workspaces" className={classes.featureItem} />
-            <FeatureItem name="Add Custom Websites" className={classes.featureItem} />
-            <FeatureItem name="On-premise & other Hosted Services" className={classes.featureItem} />
-            <FeatureItem name="Install 3rd party services" className={classes.featureItem} />
-            <FeatureItem name="Service Proxies" className={classes.featureItem} />
-            <FeatureItem name="Team Management" className={classes.featureItem} />
-            <FeatureItem name="No Waiting Screens" className={classes.featureItem} />
-            <FeatureItem name="Forever ad-free" className={classes.featureItem} />
-          </ul> */}
           <FeatureList />
         </div>
       </div>

@@ -205,7 +205,7 @@ export default class UserStore extends Store {
   }
 
   @action async _signup({
-    firstname, lastname, email, password, accountType, company,
+    firstname, lastname, email, password, accountType, company, plan, currency,
   }) {
     const authToken = await this.signupRequest.execute({
       firstname,
@@ -215,6 +215,8 @@ export default class UserStore extends Store {
       accountType,
       company,
       locale: this.stores.app.locale,
+      plan,
+      currency,
     });
 
     this.hasCompletedSignup = false;

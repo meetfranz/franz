@@ -20,14 +20,19 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
     } = this.props;
 
     const { activateTrialRequest } = stores.user;
-    const { defaultTrialPlan } = stores.features.features;
+    const { defaultTrialPlan, canSkipTrial } = stores.features.anonymousFeatures;
 
-    actions.user.activateTrial({ planId: defaultTrialPlan });
-    await activateTrialRequest._promise;
-
-    if (!activateTrialRequest.isError) {
+    if (!canSkipTrial) {
       stores.router.push('/');
       stores.user.hasCompletedSignup = true;
+    } else {
+      actions.user.activateTrial({ planId: defaultTrialPlan });
+      await activateTrialRequest._promise;
+
+      if (!activateTrialRequest.isError) {
+        stores.router.push('/');
+        stores.user.hasCompletedSignup = true;
+      }
     }
   }
 
@@ -43,7 +48,7 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
     const { pricingConfig } = features;
 
     let currency = '$';
-    let price = '5.99';
+    let price = 5.99;
     if (pricingConfig) {
       ({ currency } = pricingConfig);
       ({ price } = pricingConfig.plans.pro.yearly);
