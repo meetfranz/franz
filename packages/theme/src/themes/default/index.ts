@@ -1,6 +1,7 @@
 import color from 'color';
 import { cloneDeep } from 'lodash';
 
+import { darkgreen } from 'color-name';
 import * as legacyStyles from '../legacy';
 
 export interface IStyleTypes {
@@ -224,7 +225,7 @@ export const signup = {
 // Todos
 export const todos = {
   todosLayer: {
-    borderLeftColor: legacyStyles.themeGrayLighter,
+    borderLeftColor: color(legacyStyles.themeGrayLighter).darken(0.1).hex(),
   },
   toggleButton: {
     background: styleTypes.primary.accent,
@@ -242,10 +243,10 @@ export const todos = {
 // TrialStatusBar
 export const trialStatusBar = {
   bar: {
-    background: legacyStyles.themeGray,
+    background: legacyStyles.themeGrayLightest,
   },
   progressBar: {
-    background: legacyStyles.themeGrayLight,
-    progressIndicator: legacyStyles.themeGrayLighter,
+    background: color(legacyStyles.themeGrayLighter).darken(0.1).hex(),
+    progressIndicator: legacyStyles.themeGrayLight,
   },
 };

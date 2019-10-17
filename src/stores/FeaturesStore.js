@@ -67,6 +67,7 @@ export default class FeaturesStore extends Store {
     if (this.stores.user.isLoggedIn) {
       this.featuresRequest.invalidate({ immediately: true });
     } else {
+      this.defaultFeaturesRequest.execute();
       this.defaultFeaturesRequest.invalidate({ immediately: true });
     }
   }

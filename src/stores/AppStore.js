@@ -135,7 +135,8 @@ export default class AppStore extends Store {
     this.fetchDataInterval = setInterval(() => {
       this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
       this.stores.features.featuresRequest.invalidate({ immediately: true });
-    }, ms('10s'));
+      this.stores.news.latestNewsRequest.invalidate({ immediately: true });
+    }, ms('10m'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);

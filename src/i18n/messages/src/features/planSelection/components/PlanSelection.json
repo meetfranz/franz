@@ -1,7 +1,7 @@
 [
   {
     "id": "feature.planSelection.fullscreen.welcome",
-    "defaultMessage": "!!!Welcome back, {name}",
+    "defaultMessage": "!!!Are you ready to choose, {name}",
     "file": "src/features/planSelection/components/PlanSelection.js",
     "start": {
       "line": 17,
