@@ -443,7 +443,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Try out the full Franz Professional experience completely free for 14 days.",
+        "defaultMessage": "!!!Enjoy the full Franz Professional experience completely free for 14 days.",
         "end": {
           "column": 3,
           "line": 26
@@ -469,133 +469,120 @@
         }
       },
       {
-        "defaultMessage": "!!!Here's a special welcome for you:",
+        "defaultMessage": "!!!No strings attached",
         "end": {
           "column": 3,
           "line": 34
         },
         "file": "src/components/auth/Pricing.js",
-        "id": "pricing.trial.subheadline",
-        "start": {
-          "column": 17,
-          "line": 31
-        }
-      },
-      {
-        "defaultMessage": "!!!No strings attached",
-        "end": {
-          "column": 3,
-          "line": 38
-        },
-        "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.terms.headline",
         "start": {
           "column": 29,
-          "line": 35
+          "line": 31
         }
       },
       {
         "defaultMessage": "!!!No credit card required",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 38
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.terms.noCreditCard",
         "start": {
           "column": 16,
-          "line": 39
+          "line": 35
         }
       },
       {
         "defaultMessage": "!!!Your free trial ends automatically after 14 days",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 42
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.terms.automaticTrialEnd",
         "start": {
           "column": 21,
-          "line": 43
+          "line": 39
         }
       },
       {
         "defaultMessage": "!!!Free trial (normally {currency}{price} per month)",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 46
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.terms.trialWorth",
         "start": {
           "column": 14,
-          "line": 47
+          "line": 43
         }
       },
       {
         "defaultMessage": "!!!Sorry, we could not activate your trial!",
         "end": {
           "column": 3,
-          "line": 54
+          "line": 50
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.error",
         "start": {
           "column": 19,
-          "line": 51
+          "line": 47
         }
       },
       {
         "defaultMessage": "!!!Start my 14-day Franz Professional Trial",
         "end": {
           "column": 3,
-          "line": 58
+          "line": 54
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.cta.accept",
         "start": {
           "column": 13,
-          "line": 55
+          "line": 51
         }
       },
       {
         "defaultMessage": "!!!Start using Franz",
         "end": {
           "column": 3,
-          "line": 62
+          "line": 58
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.cta.start",
         "start": {
           "column": 12,
-          "line": 59
+          "line": 55
         }
       },
       {
         "defaultMessage": "!!!Continue to Franz",
         "end": {
           "column": 3,
-          "line": 66
+          "line": 62
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.cta.skip",
         "start": {
           "column": 11,
-          "line": 63
+          "line": 59
         }
       },
       {
         "defaultMessage": "!!!Franz Professional includes:",
         "end": {
           "column": 3,
-          "line": 70
+          "line": 66
         },
         "file": "src/components/auth/Pricing.js",
         "id": "pricing.trial.features.headline",
         "start": {
           "column": 20,
-          "line": 67
+          "line": 63
         }
       }
     ],
