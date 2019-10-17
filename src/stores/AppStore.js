@@ -207,10 +207,7 @@ export default class AppStore extends Store {
       if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
         debug('Reloading services, user info and features');
 
-        this.actions.service.reloadAll();
-
-        this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
-        this.stores.features.featuresRequest.invalidate({ immediately: true });
+        window.location.reload();
 
         statsEvent('resumed-app');
       }
