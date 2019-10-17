@@ -21,7 +21,7 @@
   "feature.planSelection.fullscreen.dialog.message": "You're about to downgrade to our Free account. Are you sure? Click here instead to get more services and functionality for just {currency}{price} a month.",
   "feature.planSelection.fullscreen.dialog.title": "Downgrade your Franz Plan",
   "feature.planSelection.fullscreen.subheadline": "It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
-  "feature.planSelection.fullscreen.welcome": "Welcome back, {name}",
+  "feature.planSelection.fullscreen.welcome": "Are you ready to choose, {name}?",
   "feature.planSelection.personal.text": "More services, no waiting - ideal for personal use.",
   "feature.planSelection.pro.text": "Unlimited services and professional features for you - and your team.",
   "feature.serviceLimit.limitReached": "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",

@@ -16,7 +16,7 @@ import Appear from '../../../components/ui/effects/Appear';
 const messages = defineMessages({
   welcome: {
     id: 'feature.planSelection.fullscreen.welcome',
-    defaultMessage: '!!!Welcome back, {name}',
+    defaultMessage: '!!!Are you ready to choose, {name}',
   },
   subheadline: {
     id: 'feature.planSelection.fullscreen.subheadline',
@@ -83,6 +83,7 @@ const styles = theme => ({
 
     '& h1, & h2': {
       textAlign: 'center',
+      color: theme.styleTypes.primary.contrast,
     },
   },
   plans: {
@@ -111,6 +112,7 @@ const styles = theme => ({
     '& svg': {
       width: '80px !important',
       filter: 'drop-shadow( 0px 2px 3px rgba(0, 0, 0, 0.3))',
+      fill: theme.styleTypes.danger.contrast,
     },
   },
   headline: {

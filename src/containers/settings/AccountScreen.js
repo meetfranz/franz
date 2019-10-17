@@ -35,12 +35,15 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
 
   render() {
     const { user, payment, features } = this.props.stores;
-    const { user: userActions } = this.props.actions;
+    const {
+      user: userActions,
+      payment: paymentActions,
+    } = this.props.actions;
 
     const isLoadingUserInfo = user.getUserInfoRequest.isExecuting;
     const isLoadingPlans = payment.plansRequest.isExecuting;
 
-    const { upgradeAccount } = payment;
+    const { upgradeAccount } = paymentActions;
 
     return (
       <ErrorBoundary>
@@ -57,7 +60,7 @@ export default @inject('stores', 'actions') @observer class AccountScreen extend
           isLoadingDeleteAccount={user.deleteAccountRequest.isExecuting}
           isDeleteAccountSuccessful={user.deleteAccountRequest.wasExecuted && !user.deleteAccountRequest.isError}
           openEditAccount={() => this.handleWebsiteLink('/user/profile')}
-          upgradeToPro={() => upgradeAccount({ planId: features.features.pricingConfig.pro.yearly.id })}
+          upgradeToPro={() => upgradeAccount({ planId: features.features.pricingConfig.plans.pro.yearly.id })}
           openBilling={() => this.handleWebsiteLink('/user/billing')}
           openInvoices={() => this.handleWebsiteLink('/user/invoices')}
         />
