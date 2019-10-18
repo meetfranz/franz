@@ -150,6 +150,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
     classes: PropTypes.object.isRequired,
     currency: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
   };
 
   static contextTypes = {
@@ -166,6 +167,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
       classes,
       currency,
       price,
+      name,
     } = this.props;
     const { intl } = this.context;
 
@@ -182,7 +184,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
                 alt=""
               />
             )}
-            <h1>{intl.formatMessage(messages.headline, { name: 'Stefan' })}</h1>
+            <h1>{intl.formatMessage(messages.headline, { name })}</h1>
             <div className="auth__letter">
               <p>
                 {intl.formatMessage(messages.specialTreat)}
