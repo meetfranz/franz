@@ -52,6 +52,8 @@ const styles = theme => ({
   drawer: {
     background: theme.workspaces.drawer.background,
     width: `${theme.workspaces.drawer.width}px`,
+    display: 'flex',
+    flexDirection: 'column',
   },
   headline: {
     fontSize: '24px',
@@ -75,6 +77,7 @@ const styles = theme => ({
   },
   workspaces: {
     height: 'auto',
+    overflowY: 'scroll',
   },
   premiumAnnouncement: {
     padding: '20px',
@@ -89,7 +92,7 @@ const styles = theme => ({
   addNewWorkspaceLabel: {
     height: 'auto',
     color: theme.workspaces.drawer.buttons.color,
-    marginTop: 40,
+    margin: [40, 0],
     textAlign: 'center',
     '& > svg': {
       fill: theme.workspaces.drawer.buttons.color,
