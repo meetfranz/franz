@@ -72,6 +72,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999999,
+    overflowY: 'scroll',
   },
   container: {
     width: '80%',
