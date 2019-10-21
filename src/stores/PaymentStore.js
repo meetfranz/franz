@@ -53,6 +53,7 @@ export default class PaymentStore extends Store {
       height: window.innerHeight - 100,
       maxWidth: 800,
       minWidth: 600,
+      autoHideMenuBar: true,
       webPreferences: {
         nodeIntegration: true,
         webviewTag: true,
