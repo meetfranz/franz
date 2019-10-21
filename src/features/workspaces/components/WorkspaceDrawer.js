@@ -7,7 +7,7 @@ import { H1, Icon, ProBadge } from '@meetfranz/ui';
 import { Button } from '@meetfranz/forms/lib';
 import ReactTooltip from 'react-tooltip';
 
-import { mdiPlusBox, mdiSettings } from '@mdi/js';
+import { mdiPlusBox, mdiSettings, mdiStar } from '@mdi/js';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
@@ -177,7 +177,7 @@ class WorkspaceDrawer extends Component {
                 className={classes.premiumCtaButton}
                 buttonType="primary"
                 label={intl.formatMessage(messages.reactivatePremiumAccount)}
-                icon="mdiStar"
+                icon={mdiStar}
                 onClick={() => {
                   onUpgradeAccountClick();
                   gaEvent('User', 'upgrade', 'workspaceDrawer');
