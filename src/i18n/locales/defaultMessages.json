@@ -4861,104 +4861,104 @@
         "defaultMessage": "!!!Your workspaces",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.headline",
         "start": {
           "column": 12,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!You haven't added any workspaces yet.",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.noWorkspacesAdded",
         "start": {
           "column": 19,
-          "line": 23
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Could not load your workspaces",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspacesRequestFailed",
         "start": {
           "column": 27,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Try again",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.tryReloadWorkspaces",
         "start": {
           "column": 23,
-          "line": 31
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Your changes have been saved",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 39
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.updatedInfo",
         "start": {
           "column": 15,
-          "line": 35
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!Workspace has been deleted",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 43
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.deletedInfo",
         "start": {
           "column": 15,
-          "line": 39
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Info about workspace feature",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 47
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspaceFeatureInfo",
         "start": {
           "column": 24,
-          "line": 43
+          "line": 44
         }
       },
       {
         "defaultMessage": "!!!Less is More: Introducing Franz Workspaces",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 51
         },
         "file": "src/features/workspaces/components/WorkspacesDashboard.js",
         "id": "settings.workspaces.workspaceFeatureHeadline",
         "start": {
           "column": 28,
-          "line": 47
+          "line": 48
         }
       }
     ],
