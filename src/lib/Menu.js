@@ -636,7 +636,9 @@ export default class FranzMenu {
     // need to clone object so we don't modify computed (cached) object
     const serviceTpl = Object.assign([], this.serviceTpl());
 
-    if (window.franz === undefined) {
+    // Don't initialize when window.franz is undefined or when we are on a payment window route
+    if (window.franz === undefined || this.stores.router.location.pathname.startsWith('/payment/')) {
+      console.log('skipping menu init');
       return;
     }
 
