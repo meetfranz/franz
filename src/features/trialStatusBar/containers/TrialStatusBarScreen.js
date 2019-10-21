@@ -81,7 +81,7 @@ class TrialStatusBarScreen extends Component {
       <ErrorBoundary>
         <TrialStatusBar
           planName={planName}
-          percent={percent < 5 ? 5 : percent}
+          percent={parseFloat(percent < 5 ? 5 : percent)}
           trialEnd={restTime}
           upgradeAccount={() => upgradeAccount({
             planId: user.team.plan,
