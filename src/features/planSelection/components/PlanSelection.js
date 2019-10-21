@@ -72,6 +72,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999999,
+    overflowY: 'scroll',
   },
   container: {
     width: '80%',
@@ -111,6 +112,7 @@ const styles = theme => ({
 
     '& svg': {
       width: '80px !important',
+      height: '80px !important',
       filter: 'drop-shadow( 0px 2px 3px rgba(0, 0, 0, 0.3))',
       fill: theme.styleTypes.danger.contrast,
     },

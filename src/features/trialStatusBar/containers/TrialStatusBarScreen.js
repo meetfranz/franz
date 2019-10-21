@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import ms from 'ms';
+import { intlShape } from 'react-intl';
 
 import FeaturesStore from '../../../stores/FeaturesStore';
 import UserStore from '../../../stores/UserStore';
 import TrialStatusBar from '../components/TrialStatusBar';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { trialStatusBarStore } from '..';
+import { i18nPlanName } from '../../../helpers/plan-helpers';
 
 @inject('stores', 'actions') @observer
 class TrialStatusBarScreen extends Component {
+  static contextTypes = {
+    intl: intlShape,
+  };
+
   state = {
     showOverlay: true,
     percent: 0,
@@ -53,6 +59,8 @@ class TrialStatusBarScreen extends Component {
 
 
   render() {
+    const { intl } = this.context;
+
     const {
       showOverlay,
       percent,
@@ -67,11 +75,13 @@ class TrialStatusBarScreen extends Component {
     const { user } = this.props.stores;
     const { upgradeAccount } = this.props.actions.payment;
 
+    const planName = i18nPlanName(user.team.plan, intl);
+
     return (
       <ErrorBoundary>
         <TrialStatusBar
-          planName="Professional"
-          percent={percent < 5 ? 5 : percent}
+          planName={planName}
+          percent={parseFloat(percent < 5 ? 5 : percent)}
           trialEnd={restTime}
           upgradeAccount={() => upgradeAccount({
             planId: user.team.plan,

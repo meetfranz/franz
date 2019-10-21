@@ -42,7 +42,7 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
       stores,
     } = this.props;
 
-    const { getUserInfoRequest, activateTrialRequest } = stores.user;
+    const { getUserInfoRequest, activateTrialRequest, data } = stores.user;
     const { featuresRequest, features } = stores.features;
 
     const { pricingConfig } = features;
@@ -64,6 +64,7 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
         error={error}
         currency={currency}
         price={price}
+        name={data.firstname}
       />
     );
   }

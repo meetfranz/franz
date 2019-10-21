@@ -24,6 +24,10 @@ export default class FranzTouchBar {
   _build() {
     const currentWindow = remote.getCurrentWindow();
 
+    if (this.stores.router.location.pathname.startsWith('/payment/')) {
+      return;
+    }
+
     if (this.stores.user.isLoggedIn) {
       const { TouchBar } = remote;
       const { TouchBarButton, TouchBarSpacer } = TouchBar;

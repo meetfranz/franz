@@ -38,7 +38,7 @@ const styles = theme => ({
 
     '& h2': {
       textAlign: 'center',
-      marginBottom: 20,
+      marginBottom: 10,
       fontSize: 30,
       color: theme.styleTypes.primary.contrast,
     },
@@ -48,6 +48,7 @@ const styles = theme => ({
   },
   priceWrapper: {
     height: 50,
+    marginBottom: 0,
   },
   price: {
     fontSize: 50,
@@ -69,7 +70,7 @@ const styles = theme => ({
     width: 40,
     border: 0,
     borderTop: [1, 'solid', theme.styleTypes.primary.contrast],
-    margin: [30, 'auto'],
+    margin: [15, 'auto', 20],
   },
   header: {
     padding: 20,
@@ -78,7 +79,7 @@ const styles = theme => ({
     position: 'relative',
   },
   content: {
-    padding: 20,
+    padding: [10, 20, 20],
     background: '#EFEFEF',
   },
   simpleCTA: {

@@ -5,6 +5,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 import { Infobox, Badge } from '@meetfranz/ui';
 
+import { mdiCheckboxMarkedCircleOutline } from '@mdi/js';
 import Loader from '../../../components/ui/Loader';
 import WorkspaceItem from './WorkspaceItem';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
@@ -128,7 +129,7 @@ class WorkspacesDashboard extends Component {
             <Appear className={classes.appear}>
               <Infobox
                 type="success"
-                icon="mdiCheckboxMarkedCircleOutline"
+                icon={mdiCheckboxMarkedCircleOutline}
                 dismissable
                 onUnmount={updateWorkspaceRequest.reset}
               >
@@ -142,7 +143,7 @@ class WorkspacesDashboard extends Component {
             <Appear className={classes.appear}>
               <Infobox
                 type="success"
-                icon="mdiCheckboxMarkedCircleOutline"
+                icon={mdiCheckboxMarkedCircleOutline}
                 dismissable
                 onUnmount={deleteWorkspaceRequest.reset}
               >
