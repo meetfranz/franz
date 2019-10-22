@@ -64,8 +64,15 @@ if (isWindows) {
   app.setAppUserModelId(appId);
 }
 
+// Initialize Settings
+const settings = new Settings('app', DEFAULT_APP_SETTINGS);
+const proxySettings = new Settings('proxy');
+
+// add `liftSingleInstanceLock` to settings.json to override the single instance lock
+const liftSingleInstanceLock = settings.get('liftSingleInstanceLock') || false;
+
 // Force single window
-const gotTheLock = app.requestSingleInstanceLock();
+const gotTheLock = liftSingleInstanceLock ? true : app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();
 } else {
@@ -111,10 +118,6 @@ if (!gotTheLock) {
 if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1) {
   process.env.XDG_CURRENT_DESKTOP = 'Unity';
 }
-
-// Initialize Settings
-const settings = new Settings('app', DEFAULT_APP_SETTINGS);
-const proxySettings = new Settings('proxy');
 
 // Disable GPU acceleration
 if (!settings.get('enableGPUAcceleration')) {
