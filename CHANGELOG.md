@@ -1,13 +1,20 @@
-# [5.4.0-beta.3](https://github.com/meetfranz/franz/compare/v5.4.0-beta.2...v5.4.0-beta.3) (2019-10-08)
-
+# [5.4.0-beta.3](https://github.com/meetfranz/franz/compare/v5.4.0-beta.2...v5.4.0-beta.3) (2019-10-22)
 
 ### Features
 
-* **Workspaces:** Only load workspace related services ([ad7fb84](https://github.com/meetfranz/franz/commit/ad7fb84))
+* **App Start:** Only load workspace related services ([ad7fb84](https://github.com/meetfranz/franz/commit/ad7fb84))
+
 
 ### Bug Fixes
 
-* **Services:** Restore services after system sleep ([7f11dff](https://github.com/meetfranz/franz/commit/7f11dff))
+* **Services:** Restore services after 10 minutes system suspension ([7f11dff](https://github.com/meetfranz/franz/commit/7f11dff))
+* **Workspaces:** Allow scrolling in Workspaces drawer ([5c1c0db](https://github.com/meetfranz/franz/commit/5c1c0db))
+* **Spell check:** fix(Spell checker): Fix disable spell checker ([@vantezzen](https://github.com/vantezzen))
+ ([691e0cf](https://github.com/meetfranz/franz/commit/691e0cf))
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
 
 
