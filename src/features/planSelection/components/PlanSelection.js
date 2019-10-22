@@ -12,6 +12,7 @@ import { i18nPlanName } from '../../../helpers/plan-helpers';
 import { PLANS } from '../../../config';
 import { FeatureList } from '../../../components/ui/FeatureList';
 import Appear from '../../../components/ui/effects/Appear';
+import { gaPage } from '../../../lib/analytics';
 
 const messages = defineMessages({
   welcome: {
@@ -162,6 +163,10 @@ class PlanSelection extends Component {
   static contextTypes = {
     intl: intlShape,
   };
+
+  componentDidMount() {
+    gaPage('/select-plan');
+  }
 
   render() {
     const {
