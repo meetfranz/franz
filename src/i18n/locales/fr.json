@@ -23,6 +23,7 @@
    "feature.planSelection.fullscreen.subheadline" : "It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
    "feature.planSelection.fullscreen.welcome" : "Are you ready to choose, {name}?",
    "feature.planSelection.personal.text" : "More services, no waiting - ideal for personal use.",
+   "feature.planSelection.pricesBasedOnAnnualPayment" : "All prices based on yearly payment",
    "feature.planSelection.pro.text" : "Unlimited services and professional features for you - and your team.",
    "feature.serviceLimit.limitReached" : "Vous avez ajouté {amount} services sur les {limit} qui sont inclus dans votre offre. Veuillez améliorer votre compte pour ajouter plus de services.",
    "feature.shareFranz.action.email" : "Envoyer par mail",

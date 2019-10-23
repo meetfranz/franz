@@ -23,6 +23,7 @@
    "feature.planSelection.fullscreen.subheadline" : "Es ist Zeit für eine Entscheidung! Mit Personal und Professional holst du das Beste aus Franz heraus. Hier ist ein Überblick für dich, wähle aus was zu dir passt.",
    "feature.planSelection.fullscreen.welcome" : "{name}, bist du bereit?",
    "feature.planSelection.personal.text" : "Mehr Services, kein Warten - ideal für private Nutzung.",
+   "feature.planSelection.pricesBasedOnAnnualPayment" : "All prices based on yearly payment",
    "feature.planSelection.pro.text" : "Unlimitierte Services und alle Features für dich - und dein Team.",
    "feature.serviceLimit.limitReached" : "Du hast {amount} von {limit} in deiner Lizenz inkludierten Services hinzugefügt. Bitte führe ein Upgrade deines Accounts durch, um mehr Services hinzuzufügen.",
    "feature.shareFranz.action.email" : "Als E-Mail senden",
