@@ -4138,7 +4138,7 @@
         }
       },
       {
-        "defaultMessage": "!!!All prices are based on the yearly plan",
+        "defaultMessage": "!!!All prices based on yearly payment",
         "end": {
           "column": 3,
           "line": 65
