@@ -6,7 +6,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { H1, H2, Icon } from '@meetfranz/ui';
 import color from 'color';
 
-import { mdiRocket } from '@mdi/js';
+import { mdiRocket, mdiArrowRight } from '@mdi/js';
 import PlanItem from './PlanItem';
 import { i18nPlanName } from '../../../helpers/plan-helpers';
 import { PLANS } from '../../../config';
@@ -58,6 +58,10 @@ const messages = defineMessages({
   fullFeatureList: {
     id: 'feature.planSelection.fullFeatureList',
     defaultMessage: '!!!Complete comparison of all plans',
+  },
+  pricesBasedOnAnnualPayment: {
+    id: 'feature.planSelection.pricesBasedOnAnnualPayment',
+    defaultMessage: '!!!All prices based on yearly payment',
   },
 });
 
@@ -132,11 +136,23 @@ const styles = theme => ({
       borderBottom: [1, 'solid', '#CECECE'],
     },
   },
+  footer: {
+    display: 'flex',
+    color: theme.styleTypes.primary.contrast,
+    marginTop: 20,
+    padding: [0, 15],
+  },
   fullFeatureList: {
-    marginTop: 40,
+    marginRight: 'auto',
     textAlign: 'center',
-    display: 'block',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     color: `${theme.styleTypes.primary.contrast} !important`,
+
+    '& svg': {
+      marginRight: 5,
+    },
   },
   scrollContainer: {
     border: '1px solid red',
@@ -144,6 +160,10 @@ const styles = theme => ({
   },
   featuredPlan: {
     transform: 'scale(1.05)',
+  },
+  disclaimer: {
+    textAlign: 'right',
+    margin: [10, 15, 0, 0],
   },
 });
 
@@ -238,13 +258,19 @@ class PlanSelection extends Component {
                 />
               </PlanItem>
             </div>
-            <a
-              href="https://meetfranz.com/pricing"
-              target="_blank"
-              className={classes.fullFeatureList}
-            >
-              {intl.formatMessage(messages.fullFeatureList)}
-            </a>
+            <div className={classes.footer}>
+              <a
+                href="https://meetfranz.com/pricing"
+                target="_blank"
+                className={classes.fullFeatureList}
+              >
+                <Icon icon={mdiArrowRight} />
+                {intl.formatMessage(messages.fullFeatureList)}
+              </a>
+              {/* <p className={classes.disclaimer}> */}
+              {intl.formatMessage(messages.pricesBasedOnAnnualPayment)}
+              {/* </p> */}
+            </div>
           </div>
         </div>
       </Appear>

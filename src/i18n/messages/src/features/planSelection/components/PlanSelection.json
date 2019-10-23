@@ -141,5 +141,18 @@
       "line": 61,
       "column": 3
     }
+  },
+  {
+    "id": "feature.planSelection.pricesBasedOnAnnualPayment",
+    "defaultMessage": "!!!All prices based on yearly payment",
+    "file": "src/features/planSelection/components/PlanSelection.js",
+    "start": {
+      "line": 62,
+      "column": 30
+    },
+    "end": {
+      "line": 65,
+      "column": 3
+    }
   }
 ]

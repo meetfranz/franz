@@ -4136,6 +4136,19 @@
           "column": 19,
           "line": 58
         }
+      },
+      {
+        "defaultMessage": "!!!All prices are based on the yearly plan",
+        "end": {
+          "column": 3,
+          "line": 65
+        },
+        "file": "src/features/planSelection/components/PlanSelection.js",
+        "id": "feature.planSelection.pricesBasedOnAnnualPayment",
+        "start": {
+          "column": 30,
+          "line": 62
+        }
       }
     ],
     "path": "src/features/planSelection/components/PlanSelection.json"
