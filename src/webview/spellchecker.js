@@ -96,7 +96,7 @@ export function isEnabled() {
 
 export function disable() {
   if (isEnabled()) {
-    webFrame.setSpellCheckProvider(currentDict, true, { spellCheck: () => true });
+    webFrame.setSpellCheckProvider(currentDict, { spellCheck: () => true });
     _isEnabled = false;
     currentDict = null;
   }

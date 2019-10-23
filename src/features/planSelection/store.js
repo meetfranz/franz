@@ -19,8 +19,8 @@ export default class PlanSelectionStore extends FeatureStore {
   @observable hideOverlay = false;
 
   @computed get showPlanSelectionOverlay() {
-    const { team } = this.stores.user;
-    if (team && !this.hideOverlay) {
+    const { team, isPremium } = this.stores.user;
+    if (team && !this.hideOverlay && !isPremium) {
       return team.state === 'expired' && !team.userHasDowngraded;
     }
 

@@ -9,7 +9,7 @@ import UserStore from '../../../stores/UserStore';
 import PlanSelection from '../components/PlanSelection';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { planSelectionStore, GA_CATEGORY_PLAN_SELECTION } from '..';
-import { gaEvent } from '../../../lib/analytics';
+import { gaEvent, gaPage } from '../../../lib/analytics';
 
 const { dialog, app } = remote;
 
@@ -37,10 +37,6 @@ class PlanSelectionScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
-
-  componentDidMount() {
-    gaEvent(GA_CATEGORY_PLAN_SELECTION, 'show');
-  }
 
   upgradeAccount(planId) {
     const { upgradeAccount } = this.props.actions.payment;
@@ -80,6 +76,8 @@ class PlanSelectionScreen extends Component {
             }
           }}
           stayOnFree={() => {
+            gaPage('/select-plan/downgrade');
+
             const selection = dialog.showMessageBoxSync(app.mainWindow, {
               type: 'question',
               message: intl.formatMessage(messages.dialogTitle),
@@ -101,7 +99,7 @@ class PlanSelectionScreen extends Component {
             } else {
               this.upgradeAccount(plans.personal.yearly.id);
 
-              gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Revoke');
+              gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Downgrade');
             }
           }}
           subscriptionExpired={user.team && user.team.state === 'expired' && !user.team.userHasDowngraded}
