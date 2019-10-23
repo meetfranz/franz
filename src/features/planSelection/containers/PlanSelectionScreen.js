@@ -38,10 +38,6 @@ class PlanSelectionScreen extends Component {
     intl: intlShape,
   };
 
-  componentDidMount() {
-    gaEvent(GA_CATEGORY_PLAN_SELECTION, 'show');
-  }
-
   upgradeAccount(planId) {
     const { upgradeAccount } = this.props.actions.payment;
 
