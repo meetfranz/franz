@@ -1,7 +1,6 @@
 import color from 'color';
 import { cloneDeep } from 'lodash';
 
-import { darkgreen } from 'color-name';
 import * as legacyStyles from '../legacy';
 
 export interface IStyleTypes {
