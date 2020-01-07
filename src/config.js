@@ -79,6 +79,15 @@ export const FILE_SYSTEM_SETTINGS_TYPES = [
   'proxy',
 ];
 
+// Set app directory before loading user modules
+if (process.env.FRANZ_APPDATA_DIR != null) {
+  app.setPath('appData', process.env.FRANZ_APPDATA_DIR);
+  app.setPath('userData', path.join(app.getPath('appData')));
+} else if (process.platform === 'win32') {
+  app.setPath('appData', process.env.APPDATA);
+  app.setPath('userData', path.join(app.getPath('appData'), app.getName()));
+}
+
 export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
 
 // Replacing app.asar is not beautiful but unforunately necessary
