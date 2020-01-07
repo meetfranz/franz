@@ -6,7 +6,7 @@ import ms from 'ms';
 import { asarPath } from './helpers/asar-helpers';
 
 const app = process.type === 'renderer' ? electron.remote.app : electron.app;
-const systemPreferences = process.type === 'renderer' ? electron.remote.systemPreferences : electron.systemPreferences;
+const nativeTheme = process.type === 'renderer' ? electron.remote.nativeTheme : electron.nativeTheme;
 
 export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
 
@@ -40,7 +40,7 @@ export const DEFAULT_APP_SETTINGS = {
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
   spellcheckerLanguage: 'en-us',
-  darkMode: process.platform === 'darwin' ? systemPreferences.isDarkMode() : false, // We can't use refs from `./environment` at this time
+  darkMode: process.platform === 'darwin' ? nativeTheme.shouldUseDarkColors : false, // We can't use refs from `./environment` at this time
   locale: '',
   fallbackLocale: 'en-US',
   beta: false,
