@@ -1,17 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer, PropTypes as MobxPropTypes, inject } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
-import { Infobox } from '@meetfranz/ui';
+import { Infobox, Badge } from '@meetfranz/ui';
 
+import { mdiCheckboxMarkedCircleOutline } from '@mdi/js';
 import Loader from '../../../components/ui/Loader';
 import WorkspaceItem from './WorkspaceItem';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 import Request from '../../../stores/lib/Request';
 import Appear from '../../../components/ui/effects/Appear';
 import { workspaceStore } from '../index';
-import PremiumFeatureContainer from '../../../components/ui/PremiumFeatureContainer';
+import UIStore from '../../../stores/UIStore';
+import globalMessages from '../../../i18n/globalMessages';
+import UpgradeButton from '../../../components/ui/UpgradeButton';
 
 const messages = defineMessages({
   headline: {
@@ -48,7 +51,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = () => ({
   table: {
     width: '100%',
     '& td': {
@@ -62,17 +65,28 @@ const styles = theme => ({
     height: 'auto',
   },
   premiumAnnouncement: {
-    padding: '20px',
-    backgroundColor: '#3498db',
-    marginLeft: '-20px',
-    marginBottom: '20px',
     height: 'auto',
-    color: 'white',
-    borderRadius: theme.borderRadius,
+  },
+  premiumAnnouncementContainer: {
+    display: 'flex',
+  },
+  announcementHeadline: {
+    marginBottom: 0,
+  },
+  teaserImage: {
+    width: 250,
+    margin: [-8, 0, 0, 20],
+    alignSelf: 'center',
+  },
+  upgradeCTA: {
+    margin: [40, 'auto'],
+  },
+  proRequired: {
+    margin: [10, 0, 40],
   },
 });
 
-@injectSheet(styles) @observer
+@inject('stores') @injectSheet(styles) @observer
 class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -100,7 +114,9 @@ class WorkspacesDashboard extends Component {
       onWorkspaceClick,
       workspaces,
     } = this.props;
+
     const { intl } = this.context;
+
     return (
       <div className="settings__main">
         <div className="settings__header">
@@ -113,7 +129,7 @@ class WorkspacesDashboard extends Component {
             <Appear className={classes.appear}>
               <Infobox
                 type="success"
-                icon="mdiCheckboxMarkedCircleOutline"
+                icon={mdiCheckboxMarkedCircleOutline}
                 dismissable
                 onUnmount={updateWorkspaceRequest.reset}
               >
@@ -127,7 +143,7 @@ class WorkspacesDashboard extends Component {
             <Appear className={classes.appear}>
               <Infobox
                 type="success"
-                icon="mdiCheckboxMarkedCircleOutline"
+                icon={mdiCheckboxMarkedCircleOutline}
                 dismissable
                 onUnmount={deleteWorkspaceRequest.reset}
               >
@@ -138,68 +154,80 @@ class WorkspacesDashboard extends Component {
 
           {workspaceStore.isPremiumUpgradeRequired && (
             <div className={classes.premiumAnnouncement}>
-              <h2>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h2>
-              <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
+
+              <h1 className={classes.announcementHeadline}>{intl.formatMessage(messages.workspaceFeatureHeadline)}</h1>
+              <Badge className={classes.proRequired}>{intl.formatMessage(globalMessages.proRequired)}</Badge>
+              <div className={classes.premiumAnnouncementContainer}>
+                <div className={classes.premiumAnnouncementContent}>
+                  <p>{intl.formatMessage(messages.workspaceFeatureInfo)}</p>
+                  <UpgradeButton
+                    className={classes.upgradeCTA}
+                    gaEventInfo={{ category: 'Workspaces', event: 'upgrade' }}
+                    short
+                    requiresPro
+                  />
+                </div>
+                <img src={`https://cdn.franzinfra.com/announcements/assets/workspaces_${this.props.stores.ui.isDarkThemeActive ? 'dark' : 'light'}.png`} className={classes.teaserImage} alt="" />
+              </div>
             </div>
           )}
 
-          <PremiumFeatureContainer
-            condition={workspaceStore.isPremiumFeature}
-            gaEventInfo={{ category: 'User', event: 'upgrade', label: 'workspaces' }}
-          >
-            {/* ===== Create workspace form ===== */}
-            <div className={classes.createForm}>
-              <CreateWorkspaceForm
-                isSubmitting={createWorkspaceRequest.isExecuting}
-                onSubmit={onCreateWorkspaceSubmit}
-              />
-            </div>
-            {getUserWorkspacesRequest.isExecuting ? (
-              <Loader />
-            ) : (
-              <Fragment>
-                {/* ===== Workspace could not be loaded error ===== */}
-                {getUserWorkspacesRequest.error ? (
-                  <Infobox
-                    icon="alert"
-                    type="danger"
-                    ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
-                    ctaLoading={getUserWorkspacesRequest.isExecuting}
-                    ctaOnClick={getUserWorkspacesRequest.retry}
-                  >
-                    {intl.formatMessage(messages.workspacesRequestFailed)}
-                  </Infobox>
-                ) : (
-                  <Fragment>
-                    {workspaces.length === 0 ? (
-                      <div className="align-middle settings__empty-state">
-                        {/* ===== Workspaces empty state ===== */}
-                        <p className="settings__empty-text">
-                          <span className="emoji">
-                            <img src="./assets/images/emoji/sad.png" alt="" />
-                          </span>
-                          {intl.formatMessage(messages.noServicesAdded)}
-                        </p>
-                      </div>
-                    ) : (
-                      <table className={classes.table}>
-                        {/* ===== Workspaces list ===== */}
-                        <tbody>
-                          {workspaces.map(workspace => (
-                            <WorkspaceItem
-                              key={workspace.id}
-                              workspace={workspace}
-                              onItemClick={w => onWorkspaceClick(w)}
-                            />
-                          ))}
-                        </tbody>
-                      </table>
-                    )}
-                  </Fragment>
-                )}
-              </Fragment>
-            )}
-          </PremiumFeatureContainer>
+          {!workspaceStore.isPremiumUpgradeRequired && (
+            <>
+              {/* ===== Create workspace form ===== */}
+              <div className={classes.createForm}>
+                <CreateWorkspaceForm
+                  isSubmitting={createWorkspaceRequest.isExecuting}
+                  onSubmit={onCreateWorkspaceSubmit}
+                />
+              </div>
+              {getUserWorkspacesRequest.isExecuting ? (
+                <Loader />
+              ) : (
+                <Fragment>
+                  {/* ===== Workspace could not be loaded error ===== */}
+                  {getUserWorkspacesRequest.error ? (
+                    <Infobox
+                      icon="alert"
+                      type="danger"
+                      ctaLabel={intl.formatMessage(messages.tryReloadWorkspaces)}
+                      ctaLoading={getUserWorkspacesRequest.isExecuting}
+                      ctaOnClick={getUserWorkspacesRequest.retry}
+                    >
+                      {intl.formatMessage(messages.workspacesRequestFailed)}
+                    </Infobox>
+                  ) : (
+                    <Fragment>
+                      {workspaces.length === 0 ? (
+                        <div className="align-middle settings__empty-state">
+                          {/* ===== Workspaces empty state ===== */}
+                          <p className="settings__empty-text">
+                            <span className="emoji">
+                              <img src="./assets/images/emoji/sad.png" alt="" />
+                            </span>
+                            {intl.formatMessage(messages.noServicesAdded)}
+                          </p>
+                        </div>
+                      ) : (
+                        <table className={classes.table}>
+                          {/* ===== Workspaces list ===== */}
+                          <tbody>
+                            {workspaces.map(workspace => (
+                              <WorkspaceItem
+                                key={workspace.id}
+                                workspace={workspace}
+                                onItemClick={w => onWorkspaceClick(w)}
+                              />
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </Fragment>
+                  )}
+                </Fragment>
+              )}
+            </>
+          )}
         </div>
       </div>
     );
@@ -207,3 +235,9 @@ class WorkspacesDashboard extends Component {
 }
 
 export default WorkspacesDashboard;
+
+WorkspacesDashboard.wrappedComponent.propTypes = {
+  stores: PropTypes.shape({
+    ui: PropTypes.instanceOf(UIStore).isRequired,
+  }).isRequired,
+};

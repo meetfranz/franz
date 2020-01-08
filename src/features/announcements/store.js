@@ -14,6 +14,7 @@ import { createActionBindings } from '../utils/ActionBinding';
 import { createReactions } from '../../stores/lib/Reaction';
 import { gaEvent } from '../../lib/analytics';
 import { matchRoute } from '../../helpers/routing-helpers';
+import { DEFAULT_APP_SETTINGS } from '../../config';
 
 const LOCAL_STORAGE_KEY = 'announcements';
 
@@ -30,12 +31,12 @@ export class AnnouncementsStore extends FeatureStore {
 
   @computed get announcement() {
     if (!this.stores || !getAnnouncementRequest.result) return null;
-    const { locale, defaultLocale } = this.stores.app;
+    const { locale } = this.stores.app;
     const announcement = getAnnouncementRequest.result;
     // User locale
     if (announcement[locale]) return announcement[locale];
     // Default locale
-    if (announcement[defaultLocale]) return announcement[defaultLocale];
+    if (announcement[DEFAULT_APP_SETTINGS.fallbackLocale]) return announcement[DEFAULT_APP_SETTINGS.fallbackLocale];
     // No locales specified
     return announcement;
   }
@@ -60,6 +61,11 @@ export class AnnouncementsStore extends FeatureStore {
 
   @computed get isNewUser() {
     return this.stores.settings.stats.appStarts <= 1;
+  }
+
+  @computed get isAnnouncementShown() {
+    const { router } = this.stores;
+    return router.location.pathname.includes('/announcements');
   }
 
   async start(stores, actions) {

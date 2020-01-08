@@ -1,14 +1,18 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
-import { ProBadge } from '@meetfranz/ui';
+import {
+  ProBadge, H1, H2,
+} from '@meetfranz/ui';
+import moment from 'moment';
 
 import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
 import Infobox from '../../ui/Infobox';
 import SubscriptionForm from '../../../containers/subscription/SubscriptionFormScreen';
+import { i18nPlanName } from '../../../helpers/plan-helpers';
 
 const messages = defineMessages({
   headline: {
@@ -19,10 +23,6 @@ const messages = defineMessages({
     id: 'settings.account.headlineSubscription',
     defaultMessage: '!!!Your Subscription',
   },
-  headlineUpgrade: {
-    id: 'settings.account.headlineUpgrade',
-    defaultMessage: '!!!Upgrade your Account',
-  },
   headlineDangerZone: {
     id: 'settings.account.headlineDangerZone',
     defaultMessage: '!!Danger Zone',
@@ -30,6 +30,10 @@ const messages = defineMessages({
   manageSubscriptionButtonLabel: {
     id: 'settings.account.manageSubscription.label',
     defaultMessage: '!!!Manage your subscription',
+  },
+  upgradeAccountToPro: {
+    id: 'settings.account.upgradeToPro.label',
+    defaultMessage: '!!!Upgrade to Franz Professional',
   },
   accountTypeBasic: {
     id: 'settings.account.accountType.basic',
@@ -71,22 +75,41 @@ const messages = defineMessages({
     id: 'settings.account.deleteEmailSent',
     defaultMessage: '!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!',
   },
+  trial: {
+    id: 'settings.account.trial',
+    defaultMessage: '!!!Free Trial',
+  },
+  yourLicense: {
+    id: 'settings.account.yourLicense',
+    defaultMessage: '!!!Your Franz License:',
+  },
+  trialEndsIn: {
+    id: 'settings.account.trialEndsIn',
+    defaultMessage: '!!!Your free trial ends in {duration}.',
+  },
+  trialUpdateBillingInformation: {
+    id: 'settings.account.trialUpdateBillingInfo',
+    defaultMessage: '!!!Please update your billing info to continue using {license} after your trial period.',
+  },
 });
 
-export default @observer class AccountDashboard extends Component {
+@observer
+class AccountDashboard extends Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
+    isPremiumOverrideUser: PropTypes.bool.isRequired,
+    isProUser: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    isLoadingPlans: PropTypes.bool.isRequired,
     userInfoRequestFailed: PropTypes.bool.isRequired,
     retryUserInfoRequest: PropTypes.func.isRequired,
-    onCloseSubscriptionWindow: PropTypes.func.isRequired,
     deleteAccount: PropTypes.func.isRequired,
     isLoadingDeleteAccount: PropTypes.bool.isRequired,
     isDeleteAccountSuccessful: PropTypes.bool.isRequired,
     openEditAccount: PropTypes.func.isRequired,
     openBilling: PropTypes.func.isRequired,
+    upgradeToPro: PropTypes.func.isRequired,
     openInvoices: PropTypes.func.isRequired,
+    onCloseSubscriptionWindow: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -96,19 +119,27 @@ export default @observer class AccountDashboard extends Component {
   render() {
     const {
       user,
+      isPremiumOverrideUser,
+      isProUser,
       isLoading,
-      isLoadingPlans,
       userInfoRequestFailed,
       retryUserInfoRequest,
-      onCloseSubscriptionWindow,
       deleteAccount,
       isLoadingDeleteAccount,
       isDeleteAccountSuccessful,
       openEditAccount,
       openBilling,
+      upgradeToPro,
       openInvoices,
+      onCloseSubscriptionWindow,
     } = this.props;
     const { intl } = this.context;
+
+    let planName = '';
+
+    if (user.team && user.team.plan) {
+      planName = i18nPlanName(user.team.plan, intl);
+    }
 
     return (
       <div className="settings__main">
@@ -135,82 +166,121 @@ export default @observer class AccountDashboard extends Component {
           )}
 
           {!userInfoRequestFailed && (
-            <Fragment>
+            <>
               {!isLoading && (
-                <div className="account">
-                  <div className="account__box account__box--flex">
-                    <div className="account__avatar">
-                      <img
-                        src="./assets/images/logo.svg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="account__info">
-                      <h2>
-                        <span className="username">{`${user.firstname} ${user.lastname}`}</span>
-                        {user.isPremium && (
-                          <>
-                            {' '}
-                            <ProBadge />
-                            <span className="badge badge--premium">{intl.formatMessage(messages.accountTypePremium)}</span>
-                          </>
-                        )}
-                      </h2>
-                      {user.organization && `${user.organization}, `}
-                      {user.email}
-                      {user.isPremium && (
-                        <div className="manage-user-links">
-                          <Button
-                            label={intl.formatMessage(messages.accountEditButton)}
-                            className="franz-form__button--inverted"
-                            onClick={openEditAccount}
-                          />
-                          {user.isSubscriptionOwner && (
+                <>
+                  <div className="account">
+                    <div className="account__box account__box--flex">
+                      <div className="account__avatar">
+                        <img
+                          src="./assets/images/logo.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div className="account__info">
+                        <H1>
+                          <span className="username">{`${user.firstname} ${user.lastname}`}</span>
+                          {user.isPremium && (
                             <>
-                              <Button
-                                label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
-                                className="franz-form__button--inverted"
-                                onClick={openBilling}
-                              />
-                              <Button
-                                label={intl.formatMessage(messages.invoicesButton)}
-                                className="franz-form__button--inverted"
-                                onClick={openInvoices}
-                              />
+                              {' '}
+                              <ProBadge />
                             </>
                           )}
-                        </div>
+                        </H1>
+                        <p>
+                          {user.organization && `${user.organization}, `}
+                          {user.email}
+                        </p>
+                        {user.isPremium && (
+                          <div className="manage-user-links">
+                            <Button
+                              label={intl.formatMessage(messages.accountEditButton)}
+                              className="franz-form__button--inverted"
+                              onClick={openEditAccount}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      {!user.isPremium && (
+                        <Button
+                          label={intl.formatMessage(messages.accountEditButton)}
+                          className="franz-form__button--inverted"
+                          onClick={openEditAccount}
+                        />
                       )}
                     </div>
-                    {!user.isPremium && (
-                      <Button
-                        label={intl.formatMessage(messages.accountEditButton)}
-                        className="franz-form__button--inverted"
-                        onClick={openEditAccount}
-                      />
-                    )}
                   </div>
-                </div>
-              )}
-
-              {!user.isPremium && (
-                isLoadingPlans ? (
-                  <Loader />
-                ) : (
-                  <div className="account franz-form">
-                    <div className="account__box">
-                      <h2>{intl.formatMessage(messages.headlineUpgrade)}</h2>
-                      <SubscriptionForm
-                        onCloseWindow={onCloseSubscriptionWindow}
-                      />
+                  {user.isPremium && user.isSubscriptionOwner && (
+                    <div className="account">
+                      <div className="account__box">
+                        <H2>
+                          {intl.formatMessage(messages.yourLicense)}
+                        </H2>
+                        <p>
+                          Franz
+                          {' '}
+                          {isPremiumOverrideUser ? 'Premium' : planName}
+                          {user.team.isTrial && (
+                            <>
+                              {' – '}
+                              {intl.formatMessage(messages.trial)}
+                            </>
+                          )}
+                        </p>
+                        {user.team.isTrial && (
+                          <>
+                            <br />
+                            <p>
+                              {intl.formatMessage(messages.trialEndsIn, {
+                                duration: moment.duration(moment().diff(user.team.trialEnd)).humanize(),
+                              })}
+                            </p>
+                            <p>
+                              {intl.formatMessage(messages.trialUpdateBillingInformation, {
+                                license: planName,
+                              })}
+                            </p>
+                          </>
+                        )}
+                        {!isProUser && (
+                          <div className="manage-user-links">
+                            <Button
+                              label={intl.formatMessage(messages.upgradeAccountToPro)}
+                              className="franz-form__button--primary"
+                              onClick={upgradeToPro}
+                            />
+                          </div>
+                        )}
+                        <div className="manage-user-links">
+                          <Button
+                            label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
+                            className="franz-form__button--inverted"
+                            onClick={openBilling}
+                          />
+                          <Button
+                            label={intl.formatMessage(messages.invoicesButton)}
+                            className="franz-form__button--inverted"
+                            onClick={openInvoices}
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                )
+                  )}
+                  {!user.isPremium && (
+                    <div className="account franz-form">
+                      <div className="account__box">
+                        <SubscriptionForm
+                          onCloseWindow={onCloseSubscriptionWindow}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               <div className="account franz-form">
                 <div className="account__box">
-                  <h2>{intl.formatMessage(messages.headlineDangerZone)}</h2>
+                  <H2>{intl.formatMessage(messages.headlineDangerZone)}</H2>
                   {!isDeleteAccountSuccessful && (
                   <div className="account__subscription">
                     <p>{intl.formatMessage(messages.deleteInfo)}</p>
@@ -227,7 +297,7 @@ export default @observer class AccountDashboard extends Component {
                   )}
                 </div>
               </div>
-            </Fragment>
+            </>
           )}
         </div>
         <ReactTooltip place="right" type="dark" effect="solid" />
@@ -235,3 +305,5 @@ export default @observer class AccountDashboard extends Component {
     );
   }
 }
+
+export default AccountDashboard;

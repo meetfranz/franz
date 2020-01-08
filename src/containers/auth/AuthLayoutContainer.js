@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { ThemeProvider } from 'react-jss';
-import { theme } from '@meetfranz/theme';
 
 import AuthLayout from '../../components/auth/AuthLayout';
 import AppStore from '../../stores/AppStore';
@@ -24,24 +23,22 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
       stores, actions, children, location,
     } = this.props;
     const {
-      app, features, globalError, settings,
+      app, features, globalError,
     } = stores;
 
     const isLoadingBaseFeatures = features.defaultFeaturesRequest.isExecuting
       && !features.defaultFeaturesRequest.wasExecuted;
 
-    const themeType = theme(settings.app.darkMode ? 'dark' : 'default');
-
     if (isLoadingBaseFeatures) {
       return (
-        <ThemeProvider theme={theme(themeType)}>
+        <ThemeProvider theme={stores.ui.theme}>
           <AppLoader />
         </ThemeProvider>
       );
     }
 
     return (
-      <ThemeProvider theme={theme(themeType)}>
+      <ThemeProvider theme={stores.ui.theme}>
         <AuthLayout
           error={globalError.response}
           pathname={location.pathname}
@@ -50,7 +47,9 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
           retryHealthCheck={actions.app.healthCheck}
           isHealthCheckLoading={app.healthCheckRequest.isExecuting}
           isFullScreen={app.isFullScreen}
-          darkMode={app.isSystemDarkModeEnabled}
+          installAppUpdate={actions.app.installUpdate}
+          nextAppReleaseVersion={app.nextAppReleaseVersion}
+          appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
         >
           {children}
         </AuthLayout>

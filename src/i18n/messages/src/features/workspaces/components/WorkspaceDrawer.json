@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Workspaces",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 16,
+      "line": 17,
       "column": 12
     },
     "end": {
-      "line": 19,
+      "line": 20,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!All services",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 20,
+      "line": 21,
       "column": 15
     },
     "end": {
-      "line": 23,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Workspaces settings",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 24,
+      "line": 25,
       "column": 29
     },
     "end": {
-      "line": 27,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Info about workspace feature",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 28,
+      "line": 29,
       "column": 24
     },
     "end": {
-      "line": 31,
+      "line": 32,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Create your first workspace",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 32,
+      "line": 33,
       "column": 25
     },
     "end": {
-      "line": 35,
+      "line": 36,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!Reactivate premium account",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 36,
+      "line": 37,
       "column": 28
     },
     "end": {
-      "line": 39,
+      "line": 40,
       "column": 3
     }
   },
@@ -82,11 +82,11 @@
     "defaultMessage": "!!!add new workspace",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 40,
+      "line": 41,
       "column": 24
     },
     "end": {
-      "line": 43,
+      "line": 44,
       "column": 3
     }
   },
@@ -95,11 +95,11 @@
     "defaultMessage": "!!!Premium feature",
     "file": "src/features/workspaces/components/WorkspaceDrawer.js",
     "start": {
-      "line": 44,
+      "line": 45,
       "column": 23
     },
     "end": {
-      "line": 47,
+      "line": 48,
       "column": 3
     }
   }

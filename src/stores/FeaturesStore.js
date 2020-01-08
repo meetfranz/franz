@@ -16,6 +16,11 @@ import workspaces from '../features/workspaces';
 import shareFranz from '../features/shareFranz';
 import announcements from '../features/announcements';
 import settingsWS from '../features/settingsWS';
+import serviceLimit from '../features/serviceLimit';
+import communityRecipes from '../features/communityRecipes';
+import todos from '../features/todos';
+import planSelection from '../features/planSelection';
+import trialStatusBar from '../features/trialStatusBar';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -62,6 +67,7 @@ export default class FeaturesStore extends Store {
     if (this.stores.user.isLoggedIn) {
       this.featuresRequest.invalidate({ immediately: true });
     } else {
+      this.defaultFeaturesRequest.execute();
       this.defaultFeaturesRequest.invalidate({ immediately: true });
     }
   }
@@ -75,5 +81,10 @@ export default class FeaturesStore extends Store {
     shareFranz(this.stores, this.actions);
     announcements(this.stores, this.actions);
     settingsWS(this.stores, this.actions);
+    serviceLimit(this.stores, this.actions);
+    communityRecipes(this.stores, this.actions);
+    todos(this.stores, this.actions);
+    planSelection(this.stores, this.actions);
+    trialStatusBar(this.stores, this.actions);
   }
 }

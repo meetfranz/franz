@@ -2,6 +2,7 @@
 
 .theme__dark .recipe-teaser {
   background-color: $dark-theme-gray-dark;
+  color: $dark-theme-text-color;
 
   &:hover { background-color: $dark-theme-gray; }
 }
@@ -12,7 +13,7 @@
     display: flex;
     flex-flow: row wrap;
     height: auto;
-    min-height: 70%;
+    // min-height: 70%;
 
     &.recipes__list--disabled {
       filter: grayscale(100%);

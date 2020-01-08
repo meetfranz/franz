@@ -5,7 +5,6 @@ import { RouterStore } from 'mobx-react-router';
 
 import Pricing from '../../components/auth/Pricing';
 import UserStore from '../../stores/UserStore';
-import PaymentStore from '../../stores/PaymentStore';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
@@ -14,20 +13,58 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
     error: globalErrorPropType.isRequired,
   };
 
-  render() {
-    const { actions, stores, error } = this.props;
+  async submit() {
+    const {
+      actions,
+      stores,
+    } = this.props;
 
-    const nextStepRoute = stores.user.legacyServices.length ? stores.user.importRoute : stores.user.inviteRoute;
+    const { activateTrialRequest } = stores.user;
+    const { defaultTrialPlan, canSkipTrial } = stores.features.anonymousFeatures;
+
+    if (!canSkipTrial) {
+      stores.router.push('/');
+      stores.user.hasCompletedSignup = true;
+    } else {
+      actions.user.activateTrial({ planId: defaultTrialPlan });
+      await activateTrialRequest._promise;
+
+      if (!activateTrialRequest.isError) {
+        stores.router.push('/');
+        stores.user.hasCompletedSignup = true;
+      }
+    }
+  }
+
+  render() {
+    const {
+      error,
+      stores,
+    } = this.props;
+
+    const { getUserInfoRequest, activateTrialRequest, data } = stores.user;
+    const { featuresRequest, features } = stores.features;
+
+    const { pricingConfig } = features;
+
+    let currency = '$';
+    let price = 5.99;
+    if (pricingConfig) {
+      ({ currency } = pricingConfig);
+      ({ price } = pricingConfig.plans.pro.yearly);
+    }
 
     return (
       <Pricing
-        donor={stores.user.data.donor || {}}
-        onSubmit={actions.user.signup}
-        onCloseSubscriptionWindow={() => this.props.stores.router.push(nextStepRoute)}
-        isLoading={stores.payment.plansRequest.isExecuting}
-        isLoadingUser={stores.user.getUserInfoRequest.isExecuting}
+        onSubmit={this.submit.bind(this)}
+        isLoadingRequiredData={(getUserInfoRequest.isExecuting || !getUserInfoRequest.wasExecuted) || (featuresRequest.isExecuting || !featuresRequest.wasExecuted)}
+        isActivatingTrial={activateTrialRequest.isExecuting}
+        trialActivationError={activateTrialRequest.isError}
+        canSkipTrial={features.canSkipTrial}
         error={error}
-        skipAction={() => this.props.stores.router.push(nextStepRoute)}
+        currency={currency}
+        price={price}
+        name={data.firstname}
       />
     );
   }
@@ -36,12 +73,11 @@ export default @inject('stores', 'actions') @observer class PricingScreen extend
 PricingScreen.wrappedComponent.propTypes = {
   actions: PropTypes.shape({
     user: PropTypes.shape({
-      signup: PropTypes.func.isRequired,
+      activateTrial: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
   stores: PropTypes.shape({
     user: PropTypes.instanceOf(UserStore).isRequired,
-    payment: PropTypes.instanceOf(PaymentStore).isRequired,
     router: PropTypes.instanceOf(RouterStore).isRequired,
   }).isRequired,
 };

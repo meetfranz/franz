@@ -14,7 +14,6 @@ export default @inject('stores', 'actions') @observer class TeamScreen extends C
     const { actions, stores } = this.props;
 
     const url = `${WEBSITE}${route}?authToken=${stores.user.authToken}&utm_source=app&utm_medium=account_dashboard`;
-    console.log(url);
 
     actions.app.openExternalUrl({ url });
   }
@@ -31,6 +30,7 @@ export default @inject('stores', 'actions') @observer class TeamScreen extends C
           userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
           retryUserInfoRequest={() => this.reloadData()}
           openTeamManagement={() => this.handleWebsiteLink('/user/team')}
+          isProUser={user.isPro}
         />
       </ErrorBoundary>
     );

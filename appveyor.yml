@@ -31,3 +31,7 @@ notifications:
 artifacts:
   - path: out\*.exe
   - path: out\*.yml
+
+branches:
+  except:
+    - i18n

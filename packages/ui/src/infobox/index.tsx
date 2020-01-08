@@ -1,3 +1,4 @@
+import { mdiClose } from '@mdi/js';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
@@ -48,13 +49,13 @@ const styles = (theme: Theme) => ({
     position: 'relative',
     overflow: 'hidden',
     height: 'auto',
+    marginBottom: 30,
   },
   infobox: {
     alignItems: 'center',
     borderRadius: theme.borderRadiusSmall,
     display: 'flex',
     height: 'auto',
-    marginBottom: 30,
     padding: '15px 20px',
     top: 0,
     transition: 'all 0.5s',
@@ -192,7 +193,7 @@ class InfoboxComponent extends Component<IProps, IState> {
               onClick={this.dismiss.bind(this)}
               className={classes.close}
             >
-              <Icon icon="mdiClose" />
+              <Icon icon={mdiClose} />
             </button>
           )}
         </div>

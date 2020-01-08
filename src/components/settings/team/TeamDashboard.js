@@ -4,11 +4,14 @@ import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import injectSheet from 'react-jss';
+import classnames from 'classnames';
 
+import { Badge } from '@meetfranz/ui';
 import Loader from '../../ui/Loader';
 import Button from '../../ui/Button';
 import Infobox from '../../ui/Infobox';
-import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
+import globalMessages from '../../../i18n/globalMessages';
+import UpgradeButton from '../../ui/UpgradeButton';
 
 const messages = defineMessages({
   headline: {
@@ -40,6 +43,7 @@ const messages = defineMessages({
 const styles = {
   cta: {
     margin: [40, 'auto'],
+    height: 'auto',
   },
   container: {
     display: 'flex',
@@ -69,6 +73,20 @@ const styles = {
       order: 1,
     },
   },
+  headline: {
+    marginBottom: 0,
+  },
+  headlineWithSpacing: {
+    marginBottom: 'inherit',
+  },
+  proRequired: {
+    margin: [10, 0, 40],
+    height: 'auto',
+  },
+  buttonContainer: {
+    display: 'flex',
+    height: 'auto',
+  },
 };
 
 
@@ -79,6 +97,7 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
     retryUserInfoRequest: PropTypes.func.isRequired,
     openTeamManagement: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
+    isProUser: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -91,6 +110,7 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
       userInfoRequestFailed,
       retryUserInfoRequest,
       openTeamManagement,
+      isProUser,
       classes,
     } = this.props;
     const { intl } = this.context;
@@ -123,23 +143,42 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
             <>
               {!isLoading && (
                 <>
-                  <PremiumFeatureContainer>
-                    <>
-                      <h1>{intl.formatMessage(messages.contentHeadline)}</h1>
-                      <div className={classes.container}>
-                        <div className={classes.content}>
-                          <p>{intl.formatMessage(messages.intro)}</p>
-                          <p>{intl.formatMessage(messages.copy)}</p>
-                        </div>
-                        <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Franz for Teams" />
+                  <>
+                    <h1 className={classnames({
+                      [classes.headline]: true,
+                      [classes.headlineWithSpacing]: isProUser,
+                    })}
+                    >
+                      {intl.formatMessage(messages.contentHeadline)}
+
+                    </h1>
+                    {!isProUser && (
+                      <Badge className={classes.proRequired}>{intl.formatMessage(globalMessages.proRequired)}</Badge>
+                    )}
+                    <div className={classes.container}>
+                      <div className={classes.content}>
+                        <p>{intl.formatMessage(messages.intro)}</p>
+                        <p>{intl.formatMessage(messages.copy)}</p>
                       </div>
-                      <Button
-                        label={intl.formatMessage(messages.manageButton)}
-                        onClick={openTeamManagement}
-                        className={classes.cta}
-                      />
-                    </>
-                  </PremiumFeatureContainer>
+                      <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Franz for Teams" />
+                    </div>
+                    <div className={classes.buttonContainer}>
+                      {!isProUser ? (
+                        <UpgradeButton
+                          className={classes.cta}
+                          gaEventInfo={{ category: 'Todos', event: 'upgrade' }}
+                          requiresPro
+                          short
+                        />
+                      ) : (
+                        <Button
+                          label={intl.formatMessage(messages.manageButton)}
+                          onClick={openTeamManagement}
+                          className={classes.cta}
+                        />
+                      )}
+                    </div>
+                  </>
                 </>
               )}
             </>

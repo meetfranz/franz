@@ -1,4 +1,3 @@
-import * as mdiIcons from '@mdi/js';
 import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
@@ -21,7 +20,7 @@ interface IProps extends IFormField, IWithStyle {
   stretch?: boolean;
   loaded?: boolean;
   busy?: boolean;
-  icon?: keyof typeof mdiIcons;
+  icon?: string;
   href?: string;
   target?: string;
 }
@@ -44,7 +43,7 @@ const styles = (theme: Theme) => ({
     width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.WidthProperty<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
-    height: theme.buttonHeight,
+    // height: theme.buttonHeight,
 
     '&:hover': {
       opacity: 0.8,
@@ -129,8 +128,7 @@ const styles = (theme: Theme) => ({
     position: (props: IProps): CSS.PositionProperty => props.stretch ? 'absolute' : 'inherit',
   },
   icon: {
-    marginLeft: -5,
-    marginRight: 10,
+    margin: [1, 10, 0, -5],
   },
 });
 
@@ -142,7 +140,6 @@ class ButtonComponent extends Component<IProps> {
     buttonType: 'primary' as ButtonType,
     stretch: false,
     busy: false,
-    // target: '_self'
   };
 
   state = {
@@ -177,7 +174,7 @@ class ButtonComponent extends Component<IProps> {
       onClick,
       buttonType,
       loaded,
-      icon: iconName,
+      icon,
       busy: busyProp,
       href,
       target,
@@ -186,13 +183,6 @@ class ButtonComponent extends Component<IProps> {
     const {
       busy,
     } = this.state;
-
-    let icon = '';
-    if (iconName && mdiIcons[iconName]) {
-      icon = mdiIcons[iconName];
-    } else if (iconName && !mdiIcons[iconName]) {
-      console.warn(`Icon '${iconName}' was not found`);
-    }
 
     let showLoader = false;
     if (loaded) {
@@ -220,7 +210,7 @@ class ButtonComponent extends Component<IProps> {
           {icon && (
             <Icon
               path={icon}
-              size={1}
+              size={0.8}
               className={classes.icon}
             />
           )}

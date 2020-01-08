@@ -1,9 +1,12 @@
 import { action, observable, computed } from 'mobx';
+import { remote } from 'electron';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
 import { gaEvent } from '../lib/analytics';
+
+const { BrowserWindow } = remote;
 
 export default class PaymentStore extends Store {
   @observable plansRequest = new CachedRequest(this.api.payment, 'plans');
@@ -14,6 +17,7 @@ export default class PaymentStore extends Store {
     super(...args);
 
     this.actions.payment.createHostedPage.listen(this._createHostedPage.bind(this));
+    this.actions.payment.upgradeAccount.listen(this._upgradeAccount.bind(this));
   }
 
   @computed get plan() {
@@ -29,5 +33,39 @@ export default class PaymentStore extends Store {
     gaEvent('Payment', 'createHostedPage', planId);
 
     return request;
+  }
+
+  @action _upgradeAccount({ planId, onCloseWindow = () => null }) {
+    let hostedPageURL = this.stores.features.features.subscribeURL;
+
+    const parsedUrl = new URL(hostedPageURL);
+    const params = new URLSearchParams(parsedUrl.search.slice(1));
+
+    params.set('plan', planId);
+
+    hostedPageURL = this.stores.user.getAuthURL(`${parsedUrl.origin}${parsedUrl.pathname}?${params.toString()}`);
+
+    const win = new BrowserWindow({
+      parent: remote.getCurrentWindow(),
+      modal: true,
+      title: '🔒 Upgrade Your Franz Account',
+      width: 800,
+      height: window.innerHeight - 100,
+      maxWidth: 800,
+      minWidth: 600,
+      autoHideMenuBar: true,
+      webPreferences: {
+        nodeIntegration: true,
+        webviewTag: true,
+      },
+    });
+    win.loadURL(`file://${__dirname}/../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
+
+    win.on('closed', () => {
+      this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+      this.stores.features.featuresRequest.invalidate({ immediately: true });
+
+      onCloseWindow();
+    });
   }
 }

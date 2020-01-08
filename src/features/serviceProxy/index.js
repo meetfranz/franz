@@ -9,17 +9,17 @@ const debug = require('debug')('Franz:feature:serviceProxy');
 
 export const config = observable({
   isEnabled: DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled,
-  isPremium: DEFAULT_FEATURES_CONFIG.isServiceProxyPremiumFeature,
+  isPremium: DEFAULT_FEATURES_CONFIG.isServiceProxyIncludedInCurrentPlan,
 });
 
 export default function init(stores) {
   debug('Initializing `serviceProxy` feature');
 
   autorun(() => {
-    const { isServiceProxyEnabled, isServiceProxyPremiumFeature } = stores.features.features;
+    const { isServiceProxyEnabled, isServiceProxyIncludedInCurrentPlan } = stores.features.features;
 
     config.isEnabled = isServiceProxyEnabled !== undefined ? isServiceProxyEnabled : DEFAULT_FEATURES_CONFIG.isServiceProxyEnabled;
-    config.isPremium = isServiceProxyPremiumFeature !== undefined ? isServiceProxyPremiumFeature : DEFAULT_FEATURES_CONFIG.isServiceProxyPremiumFeature;
+    config.isIncludedInCurrentPlan = isServiceProxyIncludedInCurrentPlan !== undefined ? isServiceProxyIncludedInCurrentPlan : DEFAULT_FEATURES_CONFIG.isServiceProxyIncludedInCurrentPlan;
 
     const services = stores.services.enabled;
     const isPremiumUser = stores.user.data.isPremium;
@@ -30,7 +30,7 @@ export default function init(stores) {
     services.forEach((service) => {
       const s = session.fromPartition(`persist:service-${service.id}`);
 
-      if (config.isEnabled && (isPremiumUser || !config.isPremium)) {
+      if (config.isEnabled && (isPremiumUser || !config.isIncludedInCurrentPlan)) {
         const serviceProxyConfig = proxySettings[service.id];
 
         if (serviceProxyConfig && serviceProxyConfig.isEnabled && serviceProxyConfig.host) {

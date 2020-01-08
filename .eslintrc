@@ -17,7 +17,7 @@
       "extensions": [".js", ".jsx"]
     }],
     "react/forbid-prop-types": 0,
-    "react/destructuring-assignment": 1,
+    "react/destructuring-assignment": 0,
     "prefer-destructuring": 1,
     "no-underscore-dangle": 0,
     "max-len": 0,
@@ -55,7 +55,8 @@
     "atob": true,
     "btoa": true,
     "ga": true,
-    "mocha": true
+    "mocha": true,
+    "Element": true
   },
   "env": {
     "jest/globals": true

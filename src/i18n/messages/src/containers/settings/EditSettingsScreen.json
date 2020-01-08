@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Launch Franz on start",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 22,
+      "line": 26,
       "column": 21
     },
     "end": {
-      "line": 25,
+      "line": 29,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Open in background",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 26,
+      "line": 30,
       "column": 26
     },
     "end": {
-      "line": 29,
+      "line": 33,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Keep Franz in background when closing the window",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 30,
+      "line": 34,
       "column": 19
     },
     "end": {
-      "line": 33,
+      "line": 37,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Show Franz in system tray",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 34,
+      "line": 38,
       "column": 20
     },
     "end": {
-      "line": 37,
+      "line": 41,
       "column": 3
     }
   },
@@ -56,21 +56,8 @@
     "defaultMessage": "!!!Minimize Franz to system tray",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 38,
-      "column": 24
-    },
-    "end": {
-      "line": 41,
-      "column": 3
-    }
-  },
-  {
-    "id": "settings.app.form.language",
-    "defaultMessage": "!!!Language",
-    "file": "src/containers/settings/EditSettingsScreen.js",
-    "start": {
       "line": 42,
-      "column": 12
+      "column": 24
     },
     "end": {
       "line": 45,
@@ -78,8 +65,8 @@
     }
   },
   {
-    "id": "settings.app.form.darkMode",
-    "defaultMessage": "!!!Dark Mode",
+    "id": "settings.app.form.language",
+    "defaultMessage": "!!!Language",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
       "line": 46,
@@ -91,15 +78,28 @@
     }
   },
   {
+    "id": "settings.app.form.darkMode",
+    "defaultMessage": "!!!Dark Mode",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 50,
+      "column": 12
+    },
+    "end": {
+      "line": 53,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.app.form.showDisabledServices",
     "defaultMessage": "!!!Display disabled services tabs",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 50,
+      "line": 54,
       "column": 24
     },
     "end": {
-      "line": 53,
+      "line": 57,
       "column": 3
     }
   },
@@ -108,11 +108,11 @@
     "defaultMessage": "!!!Show unread message badge when notifications are disabled",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 54,
+      "line": 58,
       "column": 29
     },
     "end": {
-      "line": 57,
+      "line": 61,
       "column": 3
     }
   },
@@ -121,11 +121,11 @@
     "defaultMessage": "!!!Enable spell checking",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 58,
+      "line": 62,
       "column": 23
     },
     "end": {
-      "line": 61,
+      "line": 65,
       "column": 3
     }
   },
@@ -134,11 +134,11 @@
     "defaultMessage": "!!!Enable GPU Acceleration",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 62,
+      "line": 66,
       "column": 25
     },
     "end": {
-      "line": 65,
+      "line": 69,
       "column": 3
     }
   },
@@ -147,11 +147,37 @@
     "defaultMessage": "!!!Include beta versions",
     "file": "src/containers/settings/EditSettingsScreen.js",
     "start": {
-      "line": 66,
+      "line": 70,
       "column": 8
     },
     "end": {
-      "line": 69,
+      "line": 73,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.enableTodos",
+    "defaultMessage": "!!!Enable Franz Todos",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 74,
+      "column": 15
+    },
+    "end": {
+      "line": 77,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.form.keepAllWorkspacesLoaded",
+    "defaultMessage": "!!!Keep all workspaces loaded",
+    "file": "src/containers/settings/EditSettingsScreen.js",
+    "start": {
+      "line": 78,
+      "column": 27
+    },
+    "end": {
+      "line": 81,
       "column": 3
     }
   }

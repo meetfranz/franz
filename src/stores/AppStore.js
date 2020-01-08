@@ -8,6 +8,9 @@ import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
 import { URL } from 'url';
+import os from 'os';
+import path from 'path';
+import { readJsonSync } from 'fs-extra';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -20,10 +23,13 @@ import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
+import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
-const { app, systemPreferences } = remote;
+const {
+  app, systemPreferences, screen, powerMonitor,
+} = remote;
 
 const mainWindow = remote.getCurrentWindow();
 
@@ -31,6 +37,8 @@ const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
   name: 'Franz',
 });
+
+const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -50,6 +58,8 @@ export default class AppStore extends Store {
   @observable autoLaunchOnStart = true;
 
   @observable isOnline = navigator.onLine;
+
+  @observable timeSuspensionStart;
 
   @observable timeOfflineStart;
 
@@ -71,6 +81,8 @@ export default class AppStore extends Store {
 
   dictionaries = [];
 
+  fetchDataInterval = null;
+
   constructor(...args) {
     super(...args);
 
@@ -91,6 +103,8 @@ export default class AppStore extends Store {
       this._offlineCheck.bind(this),
       this._setLocale.bind(this),
       this._muteAppHandler.bind(this),
+      this._handleFullScreen.bind(this),
+      this._handleLogout.bind(this),
     ]);
   }
 
@@ -117,6 +131,12 @@ export default class AppStore extends Store {
     // There are no events to subscribe so we need to poll everey 5s
     this._systemDND();
     setInterval(() => this._systemDND(), ms('5s'));
+
+    this.fetchDataInterval = setInterval(() => {
+      this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+      this.stores.features.featuresRequest.invalidate({ immediately: true });
+      this.stores.news.latestNewsRequest.invalidate({ immediately: true });
+    }, ms('10m'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
@@ -175,11 +195,63 @@ export default class AppStore extends Store {
       gaPage(pathname);
     });
 
+    powerMonitor.on('suspend', () => {
+      debug('System suspended starting timer');
+
+      this.timeSuspensionStart = moment();
+    });
+
+    powerMonitor.on('resume', () => {
+      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
+
+      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
+        debug('Reloading services, user info and features');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, ms('2s'));
+
+        statsEvent('resumed-app');
+      }
+    });
+
+    // macOS catalina notifications hack
+    // notifications got stuck after upgrade but forcing a notification
+    // via `new Notification` triggered the permission request
+    if (isMac && !localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
+      // eslint-disable-next-line no-new
+      new window.Notification('Welcome to Franz 5', {
+        body: 'Have a wonderful day & happy messaging.',
+      });
+
+      localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+    }
+
     statsEvent('app-start');
   }
 
   @computed get cacheSize() {
     return prettyBytes(this.getAppCacheSizeRequest.execute().result || 0);
+  }
+
+  @computed get debugInfo() {
+    return {
+      host: {
+        platform: process.platform,
+        release: os.release(),
+        screens: screen.getAllDisplays(),
+      },
+      franz: {
+        version: app.getVersion(),
+        electron: process.versions.electron,
+        installedRecipes: this.stores.recipes.all.map(recipe => ({ id: recipe.id, version: recipe.version })),
+        devRecipes: this.stores.recipePreviews.dev.map(recipe => ({ id: recipe.id, version: recipe.version })),
+        services: this.stores.services.all.map(service => ({ id: service.id, recipe: service.recipe.id })),
+        workspaces: this.stores.workspaces.workspaces.map(workspace => ({ id: workspace.id, services: workspace.services })),
+        windowSettings: readJsonSync(path.join(app.getPath('userData'), 'window-state.json')),
+        user: this.stores.user.data.id,
+      },
+    };
   }
 
   // Actions
@@ -189,7 +261,7 @@ export default class AppStore extends Store {
     if (this.stores.settings.all.app.isAppMuted) return;
 
     // TODO: is there a simple way to use blobs for notifications without storing them on disk?
-    if (options.icon.startsWith('blob:')) {
+    if (options.icon && options.icon.startsWith('blob:')) {
       delete options.icon;
     }
 
@@ -254,8 +326,6 @@ export default class AppStore extends Store {
     if (isValidExternalURL(url)) {
       shell.openExternal(url);
     }
-
-    gaEvent('External URL', 'open', parsedUrl.host);
   }
 
   @action _checkForUpdates() {
@@ -303,6 +373,8 @@ export default class AppStore extends Store {
 
     await clearAppCache._promise;
 
+    await sleep(ms('1s'));
+
     this.getAppCacheSizeRequest.execute();
 
     this.isClearingAllCache = false;
@@ -334,6 +406,8 @@ export default class AppStore extends Store {
       this.locale = this._getDefaultLocale();
     }
 
+    moment.locale(this.locale);
+
     debug(`Set locale to "${this.locale}"`);
   }
 
@@ -351,6 +425,22 @@ export default class AppStore extends Store {
 
     if (!showMessageBadgesEvenWhenMuted) {
       this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
+    }
+  }
+
+  _handleFullScreen() {
+    const body = document.querySelector('body');
+
+    if (this.isFullScreen) {
+      body.classList.add('isFullScreen');
+    } else {
+      body.classList.remove('isFullScreen');
+    }
+  }
+
+  _handleLogout() {
+    if (!this.stores.user.isLoggedIn) {
+      clearInterval(this.fetchDataInterval);
     }
   }
 

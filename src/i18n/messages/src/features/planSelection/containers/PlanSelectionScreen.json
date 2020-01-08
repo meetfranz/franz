@@ -1,0 +1,54 @@
+[
+  {
+    "id": "feature.planSelection.fullscreen.dialog.title",
+    "defaultMessage": "!!!Downgrade your Franz Plan",
+    "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
+    "start": {
+      "line": 17,
+      "column": 15
+    },
+    "end": {
+      "line": 20,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.fullscreen.dialog.message",
+    "defaultMessage": "!!!You're about to downgrade to our Free account. Are you sure? Click here instead to get more services and functionality for just {currency}{price} a month.",
+    "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
+    "start": {
+      "line": 21,
+      "column": 17
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.fullscreen.dialog.cta.downgrade",
+    "defaultMessage": "!!!Downgrade to Free",
+    "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
+    "start": {
+      "line": 25,
+      "column": 22
+    },
+    "end": {
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.planSelection.fullscreen.dialog.cta.upgrade",
+    "defaultMessage": "!!!Choose Personal",
+    "file": "src/features/planSelection/containers/PlanSelectionScreen.js",
+    "start": {
+      "line": 29,
+      "column": 20
+    },
+    "end": {
+      "line": 32,
+      "column": 3
+    }
+  }
+]

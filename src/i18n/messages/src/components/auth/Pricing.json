@@ -1,53 +1,170 @@
 [
   {
-    "id": "pricing.headline",
-    "defaultMessage": "!!!Support Franz",
+    "id": "pricing.trial.headline.pro",
+    "defaultMessage": "!!!Hi {name}, welcome to Franz",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 13,
+      "line": 15,
       "column": 12
     },
     "end": {
-      "line": 16,
+      "line": 18,
       "column": 3
     }
   },
   {
-    "id": "pricing.support.label",
-    "defaultMessage": "!!!Select your support plan",
+    "id": "pricing.trial.intro.specialTreat",
+    "defaultMessage": "!!!We have a special treat for you.",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 17,
-      "column": 23
+      "line": 19,
+      "column": 16
     },
     "end": {
-      "line": 20,
+      "line": 22,
       "column": 3
     }
   },
   {
-    "id": "pricing.submit.label",
-    "defaultMessage": "!!!Support the development of Franz",
+    "id": "pricing.trial.intro.tryPro",
+    "defaultMessage": "!!!Enjoy the full Franz Professional experience completely free for 14 days.",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 21,
+      "line": 23,
+      "column": 10
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.intro.happyMessaging",
+    "defaultMessage": "!!!Happy messaging,",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 27,
+      "column": 18
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.headline",
+    "defaultMessage": "!!!No strings attached",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 31,
+      "column": 29
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.noCreditCard",
+    "defaultMessage": "!!!No credit card required",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 35,
+      "column": 16
+    },
+    "end": {
+      "line": 38,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.terms.automaticTrialEnd",
+    "defaultMessage": "!!!Your free trial ends automatically after 14 days",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 39,
       "column": 21
     },
     "end": {
-      "line": 24,
+      "line": 42,
       "column": 3
     }
   },
   {
-    "id": "pricing.link.skipPayment",
-    "defaultMessage": "!!!I don't want to support the development of Franz.",
+    "id": "pricing.trial.terms.trialWorth",
+    "defaultMessage": "!!!Free trial (normally {currency}{price} per month)",
     "file": "src/components/auth/Pricing.js",
     "start": {
-      "line": 25,
-      "column": 15
+      "line": 43,
+      "column": 14
     },
     "end": {
-      "line": 28,
+      "line": 46,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.error",
+    "defaultMessage": "!!!Sorry, we could not activate your trial!",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 47,
+      "column": 19
+    },
+    "end": {
+      "line": 50,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.cta.accept",
+    "defaultMessage": "!!!Start my 14-day Franz Professional Trial",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 51,
+      "column": 13
+    },
+    "end": {
+      "line": 54,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.cta.start",
+    "defaultMessage": "!!!Start using Franz",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 55,
+      "column": 12
+    },
+    "end": {
+      "line": 58,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.cta.skip",
+    "defaultMessage": "!!!Continue to Franz",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 59,
+      "column": 11
+    },
+    "end": {
+      "line": 62,
+      "column": 3
+    }
+  },
+  {
+    "id": "pricing.trial.features.headline",
+    "defaultMessage": "!!!Franz Professional includes:",
+    "file": "src/components/auth/Pricing.js",
+    "start": {
+      "line": 63,
+      "column": 20
+    },
+    "end": {
+      "line": 66,
       "column": 3
     }
   }

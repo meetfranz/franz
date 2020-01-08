@@ -10,7 +10,10 @@ import WebviewLoader from '../../ui/WebviewLoader';
 import WebviewCrashHandler from './WebviewCrashHandler';
 import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
+import ServiceRestricted from './ServiceRestricted';
 import ServiceWebview from './ServiceWebview';
+import WebControlsScreen from '../../../features/webControls/containers/WebControlsScreen';
+import { CUSTOM_WEBSITE_ID } from '../../../features/webControls/constants';
 
 export default @observer class ServiceView extends Component {
   static propTypes = {
@@ -21,6 +24,7 @@ export default @observer class ServiceView extends Component {
     edit: PropTypes.func.isRequired,
     enable: PropTypes.func.isRequired,
     isActive: PropTypes.bool,
+    upgrade: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -72,6 +76,7 @@ export default @observer class ServiceView extends Component {
       reload,
       edit,
       enable,
+      upgrade,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -99,7 +104,7 @@ export default @observer class ServiceView extends Component {
                 reload={reload}
               />
             )}
-            {service.isEnabled && service.isLoading && service.isFirstLoad && (
+            {service.isEnabled && service.isLoading && service.isFirstLoad && !service.isServiceAccessRestricted && (
               <WebviewLoader
                 loaded={false}
                 name={service.name}
@@ -126,11 +131,26 @@ export default @observer class ServiceView extends Component {
             )}
           </Fragment>
         ) : (
-          <ServiceWebview
-            service={service}
-            setWebviewReference={setWebviewReference}
-            detachService={detachService}
-          />
+          <>
+            {service.isServiceAccessRestricted ? (
+              <ServiceRestricted
+                name={service.recipe.name}
+                upgrade={upgrade}
+                type={service.restrictionType}
+              />
+            ) : (
+              <>
+                {service.recipe.id === CUSTOM_WEBSITE_ID && (
+                  <WebControlsScreen service={service} />
+                )}
+                <ServiceWebview
+                  service={service}
+                  setWebviewReference={setWebviewReference}
+                  detachService={detachService}
+                />
+              </>
+            )}
+          </>
         )}
         {statusBar}
       </div>

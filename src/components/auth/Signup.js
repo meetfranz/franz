@@ -7,7 +7,6 @@ import { isDevMode, useLiveAPI } from '../../environment';
 import Form from '../../lib/Form';
 import { required, email, minLength } from '../../helpers/validation-helpers';
 import Input from '../ui/Input';
-import Radio from '../ui/Radio';
 import Button from '../ui/Button';
 import Link from '../ui/Link';
 import Infobox from '../ui/Infobox';
@@ -31,10 +30,10 @@ const messages = defineMessages({
     id: 'signup.email.label',
     defaultMessage: '!!!Email address',
   },
-  companyLabel: {
-    id: 'signup.company.label',
-    defaultMessage: '!!!Company',
-  },
+  // companyLabel: {
+  //   id: 'signup.company.label',
+  //   defaultMessage: '!!!Company',
+  // },
   passwordLabel: {
     id: 'signup.password.label',
     defaultMessage: '!!!Password',
@@ -79,20 +78,6 @@ export default @observer class Signup extends Component {
 
   form = new Form({
     fields: {
-      accountType: {
-        value: 'individual',
-        validators: [required],
-        options: [{
-          value: 'individual',
-          label: 'Individual',
-        }, {
-          value: 'non-profit',
-          label: 'Non-Profit',
-        }, {
-          value: 'company',
-          label: 'Company',
-        }],
-      },
       firstname: {
         label: this.context.intl.formatMessage(messages.firstnameLabel),
         value: '',
@@ -107,10 +92,6 @@ export default @observer class Signup extends Component {
         label: this.context.intl.formatMessage(messages.emailLabel),
         value: '',
         validators: [required, email],
-      },
-      organization: {
-        label: this.context.intl.formatMessage(messages.companyLabel),
-        value: '', // TODO: make required when accountType: company
       },
       password: {
         label: this.context.intl.formatMessage(messages.passwordLabel),
@@ -151,7 +132,6 @@ export default @observer class Signup extends Component {
                 In Dev Mode your data is not persistent. Please use the live app for accesing the production API.
               </Infobox>
             )}
-            <Radio field={form.$('accountType')} showLabel={false} />
             <div className="grid__row">
               <Input field={form.$('firstname')} focus />
               <Input field={form.$('lastname')} />
@@ -162,9 +142,6 @@ export default @observer class Signup extends Component {
               showPasswordToggle
               scorePassword
             />
-            {form.$('accountType').value === 'company' && (
-              <Input field={form.$('organization')} />
-            )}
             {error.code === 'email-duplicate' && (
               <p className="error-message center">{intl.formatMessage(messages.emailDuplicate)}</p>
             )}

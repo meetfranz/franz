@@ -7,6 +7,7 @@ import { H1, Icon, ProBadge } from '@meetfranz/ui';
 import { Button } from '@meetfranz/forms/lib';
 import ReactTooltip from 'react-tooltip';
 
+import { mdiPlusBox, mdiSettings, mdiStar } from '@mdi/js';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
@@ -51,6 +52,8 @@ const styles = theme => ({
   drawer: {
     background: theme.workspaces.drawer.background,
     width: `${theme.workspaces.drawer.width}px`,
+    display: 'flex',
+    flexDirection: 'column',
   },
   headline: {
     fontSize: '24px',
@@ -74,6 +77,7 @@ const styles = theme => ({
   },
   workspaces: {
     height: 'auto',
+    overflowY: 'scroll',
   },
   premiumAnnouncement: {
     padding: '20px',
@@ -88,7 +92,7 @@ const styles = theme => ({
   addNewWorkspaceLabel: {
     height: 'auto',
     color: theme.workspaces.drawer.buttons.color,
-    marginTop: 40,
+    margin: [40, 0],
     textAlign: 'center',
     '& > svg': {
       fill: theme.workspaces.drawer.buttons.color,
@@ -159,7 +163,7 @@ class WorkspaceDrawer extends Component {
             data-tip={`${intl.formatMessage(messages.workspacesSettingsTooltip)}`}
           >
             <Icon
-              icon="mdiSettings"
+              icon={mdiSettings}
               size={1.5}
               className={classes.workspacesSettingsButtonIcon}
             />
@@ -173,7 +177,7 @@ class WorkspaceDrawer extends Component {
                 className={classes.premiumCtaButton}
                 buttonType="primary"
                 label={intl.formatMessage(messages.reactivatePremiumAccount)}
-                icon="mdiStar"
+                icon={mdiStar}
                 onClick={() => {
                   onUpgradeAccountClick();
                   gaEvent('User', 'upgrade', 'workspaceDrawer');
@@ -184,7 +188,7 @@ class WorkspaceDrawer extends Component {
                 className={classes.premiumCtaButton}
                 buttonType="primary"
                 label={intl.formatMessage(messages.premiumCtaButtonLabel)}
-                icon="mdiPlusBox"
+                icon={mdiPlusBox}
                 onClick={() => {
                   workspaceActions.openWorkspaceSettings();
                   gaEvent(GA_CATEGORY_WORKSPACES, 'add', 'drawerPremiumCta');
@@ -203,8 +207,9 @@ class WorkspaceDrawer extends Component {
               }}
               services={getServicesForWorkspace(null)}
               isActive={actualWorkspace == null}
+              shortcutIndex={0}
             />
-            {workspaces.map(workspace => (
+            {workspaces.map((workspace, index) => (
               <WorkspaceDrawerItem
                 key={workspace.id}
                 name={workspace.name}
@@ -217,6 +222,7 @@ class WorkspaceDrawer extends Component {
                 }}
                 onContextMenuEditClick={() => workspaceActions.edit({ workspace })}
                 services={getServicesForWorkspace(workspace)}
+                shortcutIndex={index + 1}
               />
             ))}
             <div
@@ -227,7 +233,7 @@ class WorkspaceDrawer extends Component {
               }}
             >
               <Icon
-                icon="mdiPlusBox"
+                icon={mdiPlusBox}
                 size={1}
                 className={classes.workspacesSettingsButtonIcon}
               />

@@ -1,4 +1,3 @@
-import * as mdiIcons from '@mdi/js';
 import MdiIcon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
@@ -8,7 +7,7 @@ import injectStyle from 'react-jss';
 import { IWithStyle } from '../typings/generic';
 
 interface IProps extends IWithStyle {
-  icon: keyof typeof mdiIcons;
+  icon: string;
   size?: number;
   className?: string;
 }
@@ -27,16 +26,13 @@ class IconComponent extends Component<IProps> {
   render() {
     const {
       classes,
-      icon: iconName,
+      icon,
       size,
       className,
     } = this.props;
 
-    let icon = '';
-    if (iconName && mdiIcons[iconName]) {
-      icon = mdiIcons[iconName];
-    } else if (iconName && !mdiIcons[iconName]) {
-      console.warn(`Icon '${iconName}' was not found`);
+    if (!icon) {
+      console.warn('No Icon specified');
     }
 
     return (

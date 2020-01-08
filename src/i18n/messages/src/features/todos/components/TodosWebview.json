@@ -1,0 +1,41 @@
+[
+  {
+    "id": "feature.todos.premium.info",
+    "defaultMessage": "!!!Franz Todos are available to premium users now!",
+    "file": "src/features/todos/components/TodosWebview.js",
+    "start": {
+      "line": 15,
+      "column": 15
+    },
+    "end": {
+      "line": 18,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.todos.premium.upgrade",
+    "defaultMessage": "!!!Upgrade Account",
+    "file": "src/features/todos/components/TodosWebview.js",
+    "start": {
+      "line": 19,
+      "column": 14
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.todos.premium.rollout",
+    "defaultMessage": "!!!Everyone else will have to wait a little longer.",
+    "file": "src/features/todos/components/TodosWebview.js",
+    "start": {
+      "line": 23,
+      "column": 15
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  }
+]

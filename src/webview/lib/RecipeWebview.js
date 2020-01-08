@@ -1,6 +1,7 @@
-// @flow
 const { ipcRenderer } = require('electron');
 const fs = require('fs-extra');
+
+const debug = require('debug')('Franz:Plugin:RecipeWebview');
 
 class RecipeWebview {
   constructor() {
@@ -11,6 +12,8 @@ class RecipeWebview {
 
     ipcRenderer.on('poll', () => {
       this.loopFunc();
+
+      debug('Poll event');
     });
   }
 
@@ -44,8 +47,11 @@ class RecipeWebview {
       indirect: indirect > 0 ? indirect : 0,
     };
 
+
     ipcRenderer.sendToHost('messages', count);
     Object.assign(this.countCache, count);
+
+    debug('Sending badge count to host', count);
   }
 
   /**
@@ -61,6 +67,8 @@ class RecipeWebview {
       styles.innerHTML = data.toString();
 
       document.querySelector('head').appendChild(styles);
+
+      debug('Append styles', styles);
     });
   }
 

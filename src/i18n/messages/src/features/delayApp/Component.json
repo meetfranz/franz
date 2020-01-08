@@ -4,24 +4,50 @@
     "defaultMessage": "!!!Please purchase license to skip waiting",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 15,
+      "line": 17,
       "column": 12
     },
     "end": {
-      "line": 18,
+      "line": 20,
       "column": 3
     }
   },
   {
-    "id": "feature.delayApp.action",
-    "defaultMessage": "!!!Get a Franz Supporter License",
+    "id": "feature.delayApp.trial.headline",
+    "defaultMessage": "!!!Get the free Franz Professional 14 day trial and skip the line",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 19,
+      "line": 21,
+      "column": 17
+    },
+    "end": {
+      "line": 24,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.delayApp.upgrade.action",
+    "defaultMessage": "!!!Upgrade Franz",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 25,
       "column": 10
     },
     "end": {
-      "line": 22,
+      "line": 28,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.delayApp.trial.action",
+    "defaultMessage": "!!!Yes, I want the free 14 day trial of Franz Professional",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 29,
+      "column": 15
+    },
+    "end": {
+      "line": 32,
       "column": 3
     }
   },
@@ -30,11 +56,11 @@
     "defaultMessage": "!!!Franz will continue in {seconds} seconds.",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 23,
+      "line": 33,
       "column": 8
     },
     "end": {
-      "line": 26,
+      "line": 36,
       "column": 3
     }
   }

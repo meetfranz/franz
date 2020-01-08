@@ -39,6 +39,23 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     {
       type: 'separator',
     }, {
+      id: 'createTodo',
+      label: `Create todo: "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
+      visible: hasText,
+      click() {
+        debug('Create todo from selected text', textSelection);
+        ipcRenderer.sendToHost('feature:todos', {
+          action: 'todos:create',
+          data: {
+            title: textSelection,
+            url: window.location.href,
+          },
+        });
+      },
+    },
+    {
+      type: 'separator',
+    }, {
       id: 'lookup',
       label: `Look Up "${textSelection.length > 15 ? `${textSelection.slice(0, 15)}...` : textSelection}"`,
       visible: isMac && props.mediaType === 'none' && hasText,
@@ -238,9 +255,9 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
       },
       {
         id: 'resetToDefault',
-        label: `Reset to system default (${SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
+        label: `Reset to system default (${defaultSpellcheckerLanguage === 'automatic' ? 'Automatic' : SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
         type: 'radio',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
+        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
         click() {
           debug('Resetting service spellchecker to system default');
           ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');

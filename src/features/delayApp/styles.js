@@ -1,7 +1,6 @@
 export default theme => ({
   container: {
     background: theme.colorBackground,
-    position: 'absolute',
     top: 0,
     width: '100%',
     display: 'flex',

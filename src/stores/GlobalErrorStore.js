@@ -18,8 +18,11 @@ export default class GlobalErrorStore extends Store {
       this.error = request.error;
 
       if (request.error.json) {
-        this.response = await request.error.json();
-
+        try {
+          this.response = await request.error.json();
+        } catch (error) {
+          this.response = {};
+        }
         if (this.error.status === 401) {
           this.actions.user.logout({ serverLogout: true });
         }

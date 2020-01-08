@@ -16,6 +16,7 @@ export default class NewsStore extends Store {
 
     // Register action handlers
     this.actions.news.hide.listen(this._hide.bind(this));
+    this.actions.user.logout.listen(this._resetNewsRequest.bind(this));
   }
 
   setup() {
@@ -39,5 +40,16 @@ export default class NewsStore extends Store {
       // TODO: check if we can use mobx.array remove
       remove(result, n => n.id === newsId);
     });
+  }
+
+  /**
+   * Reset the news request when current user logs out so that when another user
+   * logs in again without an app restart, the request will be fetched again and
+   * the news will be shown to the user.
+   *
+   * @private
+   */
+  _resetNewsRequest() {
+    this.latestNewsRequest.reset();
   }
 }

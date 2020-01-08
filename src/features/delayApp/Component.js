@@ -4,21 +4,31 @@ import { inject, observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
+import { Button } from '@meetfranz/forms';
 import { gaEvent } from '../../lib/analytics';
 
-import Button from '../../components/ui/Button';
+// import Button from '../../components/ui/Button';
 
 import { config } from '.';
 import styles from './styles';
+import UserStore from '../../stores/UserStore';
 
 const messages = defineMessages({
   headline: {
     id: 'feature.delayApp.headline',
     defaultMessage: '!!!Please purchase license to skip waiting',
   },
+  headlineTrial: {
+    id: 'feature.delayApp.trial.headline',
+    defaultMessage: '!!!Get the free Franz Professional 14 day trial and skip the line',
+  },
   action: {
-    id: 'feature.delayApp.action',
-    defaultMessage: '!!!Get a Franz Supporter License',
+    id: 'feature.delayApp.upgrade.action',
+    defaultMessage: '!!!Upgrade Franz',
+  },
+  actionTrial: {
+    id: 'feature.delayApp.trial.action',
+    defaultMessage: '!!!Yes, I want the free 14 day trial of Franz Professional',
   },
   text: {
     id: 'feature.delayApp.text',
@@ -26,7 +36,7 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('actions') @injectSheet(styles) @observer class DelayApp extends Component {
+export default @inject('stores', 'actions') @injectSheet(styles) @observer class DelayApp extends Component {
   static propTypes = {
     // eslint-disable-next-line
     classes: PropTypes.object.isRequired,
@@ -62,25 +72,36 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
   }
 
   handleCTAClick() {
-    const { actions } = this.props;
+    const { actions, stores } = this.props;
+    const { hadSubscription } = stores.user.data;
+    const { defaultTrialPlan } = stores.features.features;
 
-    actions.ui.openSettings({ path: 'user' });
+    if (!hadSubscription) {
+      actions.user.activateTrial({ planId: defaultTrialPlan });
 
-    gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
+      gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
+    } else {
+      actions.ui.openSettings({ path: 'user' });
+
+      gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
+    }
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, stores } = this.props;
     const { intl } = this.context;
+
+    const { hadSubscription } = stores.user.data;
 
     return (
       <div className={`${classes.container}`}>
-        <h1 className={classes.headline}>{intl.formatMessage(messages.headline)}</h1>
+        <h1 className={classes.headline}>{intl.formatMessage(hadSubscription ? messages.headline : messages.headlineTrial)}</h1>
         <Button
-          label={intl.formatMessage(messages.action)}
+          label={intl.formatMessage(hadSubscription ? messages.action : messages.actionTrial)}
           className={classes.button}
           buttonType="inverted"
           onClick={this.handleCTAClick.bind(this)}
+          busy={stores.user.activateTrialRequest.isExecuting}
         />
         <p className="footnote">
           {intl.formatMessage(messages.text, {
@@ -93,6 +114,9 @@ export default @inject('actions') @injectSheet(styles) @observer class DelayApp 
 }
 
 DelayApp.wrappedComponent.propTypes = {
+  stores: PropTypes.shape({
+    user: PropTypes.instanceOf(UserStore).isRequired,
+  }).isRequired,
   actions: PropTypes.shape({
     ui: PropTypes.shape({
       openSettings: PropTypes.func.isRequired,
