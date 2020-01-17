@@ -30,6 +30,8 @@ export default class Recipe {
 
   hasHostedOption = false;
 
+  hasNavigationBar = false;
+
   urlInputPrefix = '';
 
   urlInputSuffix = '';
@@ -72,6 +74,7 @@ export default class Recipe {
     this.hasPredefinedUrl = data.config.hasPredefinedUrl || this.hasPredefinedUrl;
     this.hasCustomUrl = data.config.hasCustomUrl || this.hasCustomUrl;
     this.hasHostedOption = data.config.hasHostedOption || this.hasHostedOption;
+    this.hasNavigationBar = data.config.hasNavigationBar || this.hasNavigationBar;
 
     this.urlInputPrefix = data.config.urlInputPrefix || this.urlInputPrefix;
     this.urlInputSuffix = data.config.urlInputSuffix || this.urlInputSuffix;

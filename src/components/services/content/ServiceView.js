@@ -140,7 +140,7 @@ export default @observer class ServiceView extends Component {
               />
             ) : (
               <>
-                {service.recipe.id === CUSTOM_WEBSITE_ID && (
+                {(service.recipe.id === CUSTOM_WEBSITE_ID || service.recipe.hasNavigationBar) && (
                   <WebControlsScreen service={service} />
                 )}
                 <ServiceWebview
