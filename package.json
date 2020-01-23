@@ -120,7 +120,7 @@
     "cross-env": "^5.0.5",
     "cz-conventional-changelog": "2.1.0",
     "dotenv": "^4.0.0",
-    "electron": "7.1.7",
+    "electron": "7.1.10",
     "electron-builder": "21.2.0",
     "electron-notarize": "0.1.1",
     "electron-rebuild": "1.8.8",
