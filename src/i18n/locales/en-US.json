@@ -149,6 +149,7 @@
   "pricing.features.accountSync": "Account Synchronisation",
   "pricing.features.adFree": "Forever ad-free",
   "pricing.features.appDelays": "No Waiting Screens",
+  "pricing.features.appDelaysEnabled": "Occasional Waiting Screens",
   "pricing.features.customWebsites": "Add Custom Websites",
   "pricing.features.desktopNotifications": "Desktop Notifications",
   "pricing.features.onPremise": "On-premise & other Hosted Services",

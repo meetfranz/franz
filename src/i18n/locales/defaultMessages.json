@@ -3262,6 +3262,19 @@
           "column": 10,
           "line": 65
         }
+      },
+      {
+        "defaultMessage": "!!!Occasional Waiting Screens",
+        "end": {
+          "column": 3,
+          "line": 72
+        },
+        "file": "src/components/ui/FeatureList.js",
+        "id": "pricing.features.appDelaysEnabled",
+        "start": {
+          "column": 19,
+          "line": 69
+        }
       }
     ],
     "path": "src/components/ui/FeatureList.json"
