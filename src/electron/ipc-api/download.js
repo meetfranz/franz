@@ -22,7 +22,7 @@ export default (params) => {
         const dl = await download(params.mainWindow, url, {
           saveAs: true,
         });
-        debug('File saved to', dl.getSavePath());
+        debug('File saved to', dl.savePath);
       } else {
         const extension = mime.extension(fileOptions.mime);
         const filename = `${fileOptions.name}.${extension}`;
