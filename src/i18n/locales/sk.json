@@ -2,7 +2,7 @@
    "app.errorHandler.action" : "Obnoviť",
    "app.errorHandler.headline" : "Niečo sa pokazilo",
    "feature.announcements.changelog.headline" : "Zmeny vo Franz {version}",
-   "feature.delayApp.headline" : "Upgrade your Franz plan to skip the wait",
+   "feature.delayApp.headline" : "Navýšte svoje Franz predplatné a preskočte čakanie",
    "feature.delayApp.text" : "Franz bude pokračovať v {seconds} sekundách.",
    "feature.delayApp.trial.action" : "Áno, chcem bezplatnú 14-dňovú skúšobnú verziu Franz Professional",
    "feature.delayApp.trial.actionShort" : "Aktivujte bezplatnú skúšobnú verziu Franz Professional",
