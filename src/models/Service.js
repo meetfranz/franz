@@ -1,7 +1,6 @@
 import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
-import moment from 'moment';
 
 const debug = require('debug')('Franz:Service');
 

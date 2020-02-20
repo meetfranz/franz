@@ -7,7 +7,6 @@ import {
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
 import { remote } from 'electron';
-import moment from 'moment';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
