@@ -1,6 +1,7 @@
 import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
+import moment from 'moment';
 
 const debug = require('debug')('Franz:Service');
 
@@ -70,6 +71,12 @@ export default class Service {
 
   @observable restrictionType = null;
 
+  @observable isHibernationEnabled = false;
+
+  @observable isHibernating = false;
+
+  @observable lastUsed = Date.now(); // timestamp
+
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
@@ -112,6 +119,8 @@ export default class Service {
     this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
 
     this.spellcheckerLanguage = data.spellcheckerLanguage !== undefined ? data.spellcheckerLanguage : this.spellcheckerLanguage;
+
+    this.isHibernationEnabled = data.isHibernationEnabled !== undefined ? data.isHibernationEnabled : this.isHibernationEnabled;
 
     this.recipe = recipe;
 
