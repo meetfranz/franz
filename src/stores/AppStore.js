@@ -28,7 +28,10 @@ import { sleep } from '../helpers/async-helpers';
 const debug = require('debug')('Franz:AppStore');
 
 const {
-  app, systemPreferences, screen, powerMonitor,
+  app,
+  screen,
+  powerMonitor,
+  nativeTheme,
 } = remote;
 
 const mainWindow = remote.getCurrentWindow();
@@ -182,7 +185,9 @@ export default class AppStore extends Store {
 
     this._healthCheck();
 
-    this.isSystemDarkModeEnabled = systemPreferences.isDarkMode();
+    console.log(nativeTheme);
+
+    this.isSystemDarkModeEnabled = nativeTheme.shouldUseDarkColors;
 
     onVisibilityChange((isVisible) => {
       this.isFocused = isVisible;
