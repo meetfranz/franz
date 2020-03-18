@@ -1,3 +1,7 @@
+## [5.4.1](https://github.com/meetfranz/franz/compare/v5.4.0...v5.4.1) (2019-10-30)
+
+* **macOS Catalina:** Fix issue with app notarization
+
 # [5.4.0](https://github.com/meetfranz/franz/compare/v5.4.0-beta.3...v5.4.0) (2019-10-23)
 
 ### Features
