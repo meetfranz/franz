@@ -20,7 +20,7 @@
    "feature.planSelection.fullscreen.dialog.cta.upgrade" : "Tria Personal",
    "feature.planSelection.fullscreen.dialog.message" : "Estàs a punt de canviar al compte gratuït. Estàs segur? Fes clic aquí, en comptes, per tenir més serveis i funcionalitats per només {divisa}{preu} un mes.",
    "feature.planSelection.fullscreen.dialog.title" : "Canvia el teu pla de Franz",
-   "feature.planSelection.fullscreen.subheadline" : "It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
+   "feature.planSelection.fullscreen.subheadline" : "És hora d'escollir. Franz treballa millor amb els nostres plans Personal i Professional. Si et plau, dóna-li una ullada i escull el millor per a tu.",
    "feature.planSelection.fullscreen.welcome" : "Are you ready to choose, {name}?",
    "feature.planSelection.personal.text" : "More services, no waiting - ideal for personal use.",
    "feature.planSelection.pricesBasedOnAnnualPayment" : "All prices based on yearly payment",
