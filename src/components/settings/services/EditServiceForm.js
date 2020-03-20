@@ -77,6 +77,10 @@ const messages = defineMessages({
     id: 'settings.service.form.isMutedInfo',
     defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
   },
+  isHibernationEnabledInfo: {
+    id: 'settings.service.form.isHibernatedEnabledInfo',
+    defaultMessage: '!!!When enabled, a service will be shut down after a period of time to save system resources.',
+  },
   headlineNotifications: {
     id: 'settings.service.form.headlineNotifications',
     defaultMessage: '!!!Notifications',
@@ -333,6 +337,10 @@ export default @observer class EditServiceForm extends Component {
                     <Toggle field={form.$('isDarkModeEnabled')} />
                   )}
                   <Toggle field={form.$('isEnabled')} />
+                  <Toggle field={form.$('isHibernationEnabled')} />
+                  <p className="settings__help">
+                    {intl.formatMessage(messages.isHibernationEnabledInfo)}
+                  </p>
                 </div>
               </div>
               <div className="service-icon">

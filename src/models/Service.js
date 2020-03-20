@@ -70,6 +70,12 @@ export default class Service {
 
   @observable restrictionType = null;
 
+  @observable isHibernationEnabled = false;
+
+  @observable isHibernating = false;
+
+  @observable lastUsed = Date.now(); // timestamp
+
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
@@ -112,6 +118,8 @@ export default class Service {
     this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
 
     this.spellcheckerLanguage = data.spellcheckerLanguage !== undefined ? data.spellcheckerLanguage : this.spellcheckerLanguage;
+
+    this.isHibernationEnabled = data.isHibernationEnabled !== undefined ? data.isHibernationEnabled : this.isHibernationEnabled;
 
     this.recipe = recipe;
 

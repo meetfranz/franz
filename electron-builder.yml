@@ -2,7 +2,7 @@ directories:
   app: ./build
   output: ./out
 
-appId: "com.meetfranz.franz"
+appId: com.meetfranz.franz
 
 compression: maximum
 
@@ -10,12 +10,17 @@ mac:
   category: public.app-category.productivity
   icon: ./build-helpers/images/icon.icns
   darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build-helpers/default.entitlements.mac.plist
+  entitlementsInherit: build-helpers/default.entitlements.mac.plist
 
 dmg:
   background: ./build-helpers/images/dmgInstaller.tiff
   icon: ./build-helpers/images/icon.icns
   iconSize: 128
   contents: [{x: 380, y: 240, type: link, path: /Applications}, {x: 122, y: 240, type: file}]
+  sign: false
 
 win:
   icon: ./build-helpers/images/icon.ico
@@ -47,3 +52,5 @@ protocols:
 asarUnpack:
   - ./dictionaries
   - ./assets/images/taskbar
+
+afterSign: build-helpers/notarize.js

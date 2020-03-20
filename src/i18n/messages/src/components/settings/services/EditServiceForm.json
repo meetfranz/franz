@@ -182,15 +182,28 @@
     }
   },
   {
+    "id": "settings.service.form.isHibernatedEnabledInfo",
+    "defaultMessage": "!!!When enabled, a service will be shut down after a period of time to save system resources.",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 80,
+      "column": 28
+    },
+    "end": {
+      "line": 83,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.service.form.headlineNotifications",
     "defaultMessage": "!!!Notifications",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
-      "line": 80,
+      "line": 84,
       "column": 25
     },
     "end": {
-      "line": 83,
+      "line": 87,
       "column": 3
     }
   },
@@ -199,11 +212,11 @@
     "defaultMessage": "!!!Unread message badges",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
-      "line": 84,
+      "line": 88,
       "column": 18
     },
     "end": {
-      "line": 87,
+      "line": 91,
       "column": 3
     }
   },
@@ -212,21 +225,8 @@
     "defaultMessage": "!!!General",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
-      "line": 88,
-      "column": 19
-    },
-    "end": {
-      "line": 91,
-      "column": 3
-    }
-  },
-  {
-    "id": "settings.service.form.iconDelete",
-    "defaultMessage": "!!!Delete",
-    "file": "src/components/settings/services/EditServiceForm.js",
-    "start": {
       "line": 92,
-      "column": 14
+      "column": 19
     },
     "end": {
       "line": 95,
@@ -234,8 +234,8 @@
     }
   },
   {
-    "id": "settings.service.form.iconUpload",
-    "defaultMessage": "!!!Drop your image, or click here",
+    "id": "settings.service.form.iconDelete",
+    "defaultMessage": "!!!Delete",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
       "line": 96,
@@ -247,15 +247,28 @@
     }
   },
   {
+    "id": "settings.service.form.iconUpload",
+    "defaultMessage": "!!!Drop your image, or click here",
+    "file": "src/components/settings/services/EditServiceForm.js",
+    "start": {
+      "line": 100,
+      "column": 14
+    },
+    "end": {
+      "line": 103,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.service.form.proxy.headline",
     "defaultMessage": "!!!HTTP/HTTPS Proxy Settings",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
-      "line": 100,
+      "line": 104,
       "column": 17
     },
     "end": {
-      "line": 103,
+      "line": 107,
       "column": 3
     }
   },
@@ -264,11 +277,11 @@
     "defaultMessage": "!!!Please restart Franz after changing proxy Settings.",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
-      "line": 104,
+      "line": 108,
       "column": 20
     },
     "end": {
-      "line": 107,
+      "line": 111,
       "column": 3
     }
   },
@@ -277,11 +290,11 @@
     "defaultMessage": "!!!Proxy settings will not be synchronized with the Franz servers.",
     "file": "src/components/settings/services/EditServiceForm.js",
     "start": {
-      "line": 108,
+      "line": 112,
       "column": 13
     },
     "end": {
-      "line": 111,
+      "line": 115,
       "column": 3
     }
   }

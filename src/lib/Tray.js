@@ -1,5 +1,5 @@
 import {
-  app, Tray, Menu, systemPreferences, nativeImage,
+  app, Tray, Menu, systemPreferences, nativeTheme, nativeImage,
 } from 'electron';
 import path from 'path';
 
@@ -86,7 +86,7 @@ export default class TrayIcon {
   _getAsset(type, asset) {
     let platform = process.platform;
 
-    if (platform === 'darwin' && systemPreferences.isDarkMode()) {
+    if (platform === 'darwin' && nativeTheme.shouldUseDarkColors) {
       platform = `${platform}-dark`;
     }
 

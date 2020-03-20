@@ -72,6 +72,8 @@ export default class ServicesStore extends Store {
     this.actions.service.toggleAudio.listen(this._toggleAudio.bind(this));
     this.actions.service.openDevTools.listen(this._openDevTools.bind(this));
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
+    this.actions.service.hibernate.listen(this._hibernate.bind(this));
+    this.actions.service.awake.listen(this._awake.bind(this));
 
     this.registerReactions([
       this._focusServiceReaction.bind(this),
@@ -100,6 +102,42 @@ export default class ServicesStore extends Store {
     );
   }
 
+  initialize() {
+    super.initialize();
+
+    // Check services to become hibernated
+    this._hibernationTick();
+  }
+
+  teardown() {
+    super.teardown();
+
+    // Stop checking services for hibernation
+    this._hibernationTick.cancel();
+  }
+
+  /**
+   * Сheck for services to become hibernated.
+   */
+  _hibernationTick = debounce(() => {
+    this._hibernateServices();
+    this._hibernationTick();
+    debug('Hibernation tick');
+  }, ms('1m')); // every 1 min
+
+  /**
+   * Defines which services should be hibernated.
+   */
+  _hibernateServices() {
+    this.all.forEach((service) => {
+      if (!service.isActive && (Date.now() - service.lastUsed > ms('5m'))) {
+        // If service is stale for 5 min, hibernate it.
+        this._hibernate({ serviceId: service.id });
+      }
+    });
+  }
+
+  // Computed props
   @computed get all() {
     if (this.stores.user.isLoggedIn) {
       const services = this.allServicesRequest.execute().result;
@@ -300,6 +338,8 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
+    this._awake({ serviceId: service.id });
+    service.lastUsed = Date.now();
 
     statsEvent('activate-service', service.recipe.id);
 
@@ -598,6 +638,24 @@ export default class ServicesStore extends Store {
     }
   }
 
+  @action _hibernate({ serviceId }) {
+    const service = this.one(serviceId);
+    if (service.isActive || !service.isHibernationEnabled) {
+      debug('Skipping service hibernation');
+      return;
+    }
+
+    debug(`Hibernate ${service.name}`);
+
+    service.isHibernating = true;
+  }
+
+  @action _awake({ serviceId }) {
+    const service = this.one(serviceId);
+    service.isHibernating = false;
+    service.liveFrom = Date.now();
+  }
+
   // Reactions
   _focusServiceReaction() {
     const service = this.active;
@@ -670,7 +728,7 @@ export default class ServicesStore extends Store {
       const isMuted = isAppMuted || service.isMuted;
 
       if (isAttached) {
-        service.webview.setAudioMuted(isMuted);
+        service.webview.audioMuted = isMuted;
       }
     });
   }

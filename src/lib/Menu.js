@@ -340,10 +340,10 @@ const _templateFactory = intl => [
         accelerator: 'Cmd+plus',
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) activeService.setZoomLevel(level + 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+          if (level < 9) activeService.setZoomLevel(level + 1);
         },
       },
       {
@@ -351,10 +351,10 @@ const _templateFactory = intl => [
         accelerator: 'Cmd+-',
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-            if (level > -9) activeService.setZoomLevel(level - 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+          if (level > -9) activeService.setZoomLevel(level - 1);
         },
       },
       {
@@ -515,10 +515,10 @@ const _titleBarTemplateFactory = intl => [
         accelerator: `${ctrlKey}+=`,
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) activeService.setZoomLevel(level + 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+          if (level < 9) activeService.setZoomLevel(level + 1);
         },
       },
       {
@@ -526,10 +526,10 @@ const _titleBarTemplateFactory = intl => [
         accelerator: `${ctrlKey}+-`,
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-            if (level > -9) activeService.setZoomLevel(level - 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+          if (level > -9) activeService.setZoomLevel(level - 1);
         },
       },
       {
@@ -698,7 +698,7 @@ export default class FranzMenu {
     });
 
     tpl.unshift({
-      label: isMac ? app.getName() : intl.formatMessage(menuItems.file),
+      label: isMac ? app.name : intl.formatMessage(menuItems.file),
       submenu: [
         {
           label: intl.formatMessage(menuItems.about),

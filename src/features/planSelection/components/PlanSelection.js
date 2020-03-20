@@ -6,7 +6,7 @@ import { defineMessages, intlShape } from 'react-intl';
 import { H1, H2, Icon } from '@meetfranz/ui';
 import color from 'color';
 
-import { mdiRocket, mdiArrowRight } from '@mdi/js';
+import { mdiArrowRight } from '@mdi/js';
 import PlanItem from './PlanItem';
 import { i18nPlanName } from '../../../helpers/plan-helpers';
 import { PLANS } from '../../../config';
@@ -80,10 +80,10 @@ const styles = theme => ({
     overflowY: 'scroll',
   },
   container: {
-    width: '80%',
+    // width: '80%',
     height: 'auto',
-    background: theme.styleTypes.primary.accent,
-    padding: 40,
+    // background: theme.styleTypes.primary.accent,
+    // padding: 40,
     borderRadius: theme.borderRadius,
     maxWidth: 1000,
 
@@ -103,23 +103,6 @@ const styles = theme => ({
       height: 'auto',
       background: theme.styleTypes.primary.contrast,
       boxShadow: [0, 2, 30, color('#000').alpha(0.1).rgb().string()],
-    },
-  },
-  bigIcon: {
-    background: theme.styleTypes.danger.accent,
-    width: 120,
-    height: 120,
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: '100%',
-    justifyContent: 'center',
-    margin: [-100, 'auto', 20],
-
-    '& svg': {
-      width: '80px !important',
-      height: '80px !important',
-      filter: 'drop-shadow( 0px 2px 3px rgba(0, 0, 0, 0.3))',
-      fill: theme.styleTypes.danger.contrast,
     },
   },
   headline: {
@@ -159,7 +142,7 @@ const styles = theme => ({
     overflow: 'scroll-x',
   },
   featuredPlan: {
-    transform: 'scale(1.05)',
+    transform: ({ isPersonalPlanAvailable }) => (isPersonalPlanAvailable ? 'scale(1.05)' : null),
   },
   disclaimer: {
     textAlign: 'right',
@@ -178,7 +161,12 @@ class PlanSelection extends Component {
     upgradeAccount: PropTypes.func.isRequired,
     stayOnFree: PropTypes.func.isRequired,
     hadSubscription: PropTypes.bool.isRequired,
+    isPersonalPlanAvailable: PropTypes.bool,
   };
+
+  static defaultProps = {
+    isPersonalPlanAvailable: true,
+  }
 
   static contextTypes = {
     intl: intlShape,
@@ -198,6 +186,7 @@ class PlanSelection extends Component {
       upgradeAccount,
       stayOnFree,
       hadSubscription,
+      isPersonalPlanAvailable,
     } = this.props;
 
     const { intl } = this.context;
@@ -208,15 +197,14 @@ class PlanSelection extends Component {
           className={classes.root}
         >
           <div className={classes.container}>
-            <div className={classes.bigIcon}>
-              <Icon icon={mdiRocket} />
-            </div>
             <H1 className={classes.headline}>{intl.formatMessage(messages.welcome, { name: firstname })}</H1>
-            <H2 className={classes.subheadline}>{intl.formatMessage(messages.subheadline)}</H2>
+            {isPersonalPlanAvailable && (
+              <H2 className={classes.subheadline}>{intl.formatMessage(messages.subheadline)}</H2>
+            )}
             <div className={classes.plans}>
               <PlanItem
                 name={i18nPlanName(PLANS.FREE, intl)}
-                text={intl.formatMessage(messages.textFree)}
+                text={isPersonalPlanAvailable ? intl.formatMessage(messages.textFree) : null}
                 price={0}
                 currency={currency}
                 ctaLabel={intl.formatMessage(subscriptionExpired ? messages.ctaDowngradeFree : messages.ctaStayOnFree)}
@@ -230,33 +218,35 @@ class PlanSelection extends Component {
               </PlanItem>
               <PlanItem
                 name={i18nPlanName(plans.pro.yearly.id, intl)}
-                text={intl.formatMessage(messages.textProfessional)}
+                text={isPersonalPlanAvailable ? intl.formatMessage(messages.textProfessional) : null}
                 price={plans.pro.yearly.price}
                 currency={currency}
                 ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPro : messages.actionTrial)}
                 upgrade={() => upgradeAccount(plans.pro.yearly.id)}
                 className={classes.featuredPlan}
                 perUser
-                bestValue
+                bestValue={isPersonalPlanAvailable}
               >
                 <FeatureList
-                  plan={PLANS.PRO}
+                  plan={isPersonalPlanAvailable ? PLANS.PRO : null}
                   className={classes.featureList}
                 />
               </PlanItem>
-              <PlanItem
-                name={i18nPlanName(plans.personal.yearly.id, intl)}
-                text={intl.formatMessage(messages.textPersonal)}
-                price={plans.personal.yearly.price}
-                currency={currency}
-                ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPersonal : messages.actionTrial)}
-                upgrade={() => upgradeAccount(plans.personal.yearly.id)}
-              >
-                <FeatureList
-                  plan={PLANS.PERSONAL}
-                  className={classes.featureList}
-                />
-              </PlanItem>
+              {isPersonalPlanAvailable && (
+                <PlanItem
+                  name={i18nPlanName(plans.personal.yearly.id, intl)}
+                  text={intl.formatMessage(messages.textPersonal)}
+                  price={plans.personal.yearly.price}
+                  currency={currency}
+                  ctaLabel={intl.formatMessage(hadSubscription ? messages.shortActionPersonal : messages.actionTrial)}
+                  upgrade={() => upgradeAccount(plans.personal.yearly.id)}
+                >
+                  <FeatureList
+                    plan={PLANS.PERSONAL}
+                    className={classes.featureList}
+                  />
+                </PlanItem>
+              )}
             </div>
             <div className={classes.footer}>
               <a
