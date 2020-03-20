@@ -42,6 +42,7 @@ const autoLauncher = new AutoLaunch({
 });
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
+const CATALINA_AUDIO_HACK_KEY = '_temp_askedForCatalinaAudioPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -185,8 +186,6 @@ export default class AppStore extends Store {
 
     this._healthCheck();
 
-    console.log(nativeTheme);
-
     this.isSystemDarkModeEnabled = nativeTheme.shouldUseDarkColors;
 
     onVisibilityChange((isVisible) => {
@@ -223,13 +222,23 @@ export default class AppStore extends Store {
     // macOS catalina notifications hack
     // notifications got stuck after upgrade but forcing a notification
     // via `new Notification` triggered the permission request
-    if (isMac && !localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
-      // eslint-disable-next-line no-new
-      new window.Notification('Welcome to Franz 5', {
-        body: 'Have a wonderful day & happy messaging.',
-      });
+    if (isMac) {
+      if (!localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
+        // eslint-disable-next-line no-new
+        new window.Notification('Welcome to Franz 5', {
+          body: 'Have a wonderful day & happy messaging.',
+        });
 
-      localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+        localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+      }
+
+      if (!localStorage.getItem(CATALINA_AUDIO_HACK_KEY)) {
+        // eslint-disable-next-line no-new
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        stream.getTracks().forEach(track => track.stop());
+
+        localStorage.setItem(CATALINA_AUDIO_HACK_KEY, true);
+      }
     }
 
     statsEvent('app-start');
