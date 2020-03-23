@@ -1,4 +1,24 @@
-## [5.4.1](https://github.com/meetfranz/franz/compare/v5.4.0...v5.4.1) (2019-10-30)
+# [5.5.0-beta.1](https://github.com/meetfranz/franz/compare/v5.4.1...v5.5.0-beta.1) (2020-03-20)
+
+
+### Features
+
+* **Service:** Add service hibernation to save system resources ([cb92dd7](https://github.com/meetfranz/franz/commit/cb92dd7))
+* **App:** Add `FRANZ_APPDATA_DIR` environment variable to customize the app settings directory ([@Makazzz](https://github.com/Makazzz))
+
+### Bug Fixes
+
+* **App:** Update deprecated electron APIs ([@vantezzen](https://github.com/vantezzen))
+* **App:** Fix Zoom in services ([@vantezzen](https://github.com/vantezzen))
+* **macOS:** Add audio & video permission request for macOS Catalina ([8922324](https://github.com/meetfranz/franz/commit/8922324))
+8922324
+
+### General
+
+* **App:** Updated electron to 8.1.1 ([5b00c90](https://github.com/meetfranz/franz/commit/5b00c90))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+# [5.4.1](https://github.com/meetfranz/franz/compare/v5.4.0...v5.4.1) (2019-10-30)
 
 * **macOS Catalina:** Fix issue with app notarization
 
