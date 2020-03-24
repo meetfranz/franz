@@ -193,6 +193,11 @@ class AnnouncementScreen extends Component {
     stores: PropTypes.shape({
       ui: PropTypes.instanceOf(UIStore).isRequired,
     }).isRequired,
+    actions: PropTypes.shape({
+      app: PropTypes.shape({
+        openExternalUrl: PropTypes.func.isRequired,
+      }).isRequired,
+    }).isRequired,
   };
 
   static contextTypes = {
@@ -200,7 +205,7 @@ class AnnouncementScreen extends Component {
   };
 
   render() {
-    const { classes, stores } = this.props;
+    const { classes, stores, actions } = this.props;
     const { intl } = this.context;
     const { changelog, announcement } = announcementsStore;
     const themeImage = stores.ui.isDarkThemeActive ? 'dark' : 'light';
@@ -224,16 +229,23 @@ class AnnouncementScreen extends Component {
                       __html: marked(announcement.main.text, markedOptions),
                     }}
                   />
-                  <div className={classes.mainCtaButton}>
-                    <Button
-                      label={announcement.main.cta.label}
-                      onClick={() => {
-                        const { analytics } = announcement.main.cta;
-                        window.location.href = `#${announcement.main.cta.href}`;
-                        gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
-                      }}
-                    />
-                  </div>
+                  {(announcement.main.cta.label || announcement.main.cta.href) && (
+                    <div className={classes.mainCtaButton}>
+                      <Button
+                        label={announcement.main.cta.label}
+                        onClick={() => {
+                          const { analytics } = announcement.main.cta;
+                          if (announcement.spotlight.cta.href.startsWith('http')) {
+                            actions.app.openExternalUrl({ url: announcement.spotlight.cta.href });
+                          } else {
+                            window.location.href = `#${announcement.main.cta.href}`;
+                          }
+
+                          gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -254,7 +266,12 @@ class AnnouncementScreen extends Component {
                       label={announcement.spotlight.cta.label}
                       onClick={() => {
                         const { analytics } = announcement.spotlight.cta;
-                        window.location.href = `#${announcement.spotlight.cta.href}`;
+                        if (announcement.spotlight.cta.href.startsWith('http')) {
+                          actions.app.openExternalUrl({ url: announcement.spotlight.cta.href });
+                        } else {
+                          window.location.href = `#${announcement.spotlight.cta.href}`;
+                        }
+
                         gaEvent(analytics.category, analytics.action, announcement.spotlight.cta.label);
                       }}
                     />
