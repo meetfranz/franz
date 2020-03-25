@@ -234,14 +234,18 @@ class AnnouncementScreen extends Component {
                       <Button
                         label={announcement.main.cta.label}
                         onClick={() => {
-                          const { analytics } = announcement.main.cta;
-                          if (announcement.spotlight.cta.href.startsWith('http')) {
-                            actions.app.openExternalUrl({ url: announcement.spotlight.cta.href });
+                          const {
+                            analytics,
+                            href,
+                            label,
+                          } = announcement.main.cta;
+                          if (announcement.main.cta.href.startsWith('http')) {
+                            actions.app.openExternalUrl({ url: href });
                           } else {
-                            window.location.href = `#${announcement.main.cta.href}`;
+                            window.location.href = `#${href}`;
                           }
 
-                          gaEvent(analytics.category, analytics.action, announcement.main.cta.label);
+                          gaEvent(analytics.category, analytics.action, label);
                         }}
                       />
                     </div>
@@ -265,14 +269,18 @@ class AnnouncementScreen extends Component {
                     <Button
                       label={announcement.spotlight.cta.label}
                       onClick={() => {
-                        const { analytics } = announcement.spotlight.cta;
+                        const {
+                          analytics,
+                          href,
+                          label,
+                        } = announcement.spotlight.cta;
                         if (announcement.spotlight.cta.href.startsWith('http')) {
-                          actions.app.openExternalUrl({ url: announcement.spotlight.cta.href });
+                          actions.app.openExternalUrl({ url: href });
                         } else {
-                          window.location.href = `#${announcement.spotlight.cta.href}`;
+                          window.location.href = `#${href}`;
                         }
 
-                        gaEvent(analytics.category, analytics.action, announcement.spotlight.cta.label);
+                        gaEvent(analytics.category, analytics.action, label);
                       }}
                     />
                   </div>
