@@ -6,7 +6,7 @@ import { isMac, isWindows } from '../environment';
 function macOS() {
   const version = macosVersion();
 
-  return `Macintosh; Intel Mac OS X ${version.replace('.', '_')}`;
+  return `Macintosh; Intel Mac OS X ${version.replace(/\./g, '_')}`;
 }
 
 function windows() {
