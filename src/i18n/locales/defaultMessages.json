@@ -923,6 +923,190 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!Home",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/services/content/ConnectionBanner.js",
+        "id": "webControls.goHome",
+        "start": {
+          "column": 10,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Open in Browser",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/services/content/ConnectionBanner.js",
+        "id": "webControls.openInBrowser",
+        "start": {
+          "column": 17,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Back",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/services/content/ConnectionBanner.js",
+        "id": "webControls.back",
+        "start": {
+          "column": 8,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Forward",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/services/content/ConnectionBanner.js",
+        "id": "webControls.forward",
+        "start": {
+          "column": 11,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/services/content/ConnectionBanner.js",
+        "id": "webControls.reload",
+        "start": {
+          "column": 10,
+          "line": 29
+        }
+      }
+    ],
+    "path": "src/components/services/content/ConnectionBanner.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Home",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/services/content/ConnectionLost.js",
+        "id": "webControls.goHome",
+        "start": {
+          "column": 10,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Open in Browser",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/services/content/ConnectionLost.js",
+        "id": "webControls.openInBrowser",
+        "start": {
+          "column": 17,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Back",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/services/content/ConnectionLost.js",
+        "id": "webControls.back",
+        "start": {
+          "column": 8,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Forward",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/services/content/ConnectionLost.js",
+        "id": "webControls.forward",
+        "start": {
+          "column": 11,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/services/content/ConnectionLost.js",
+        "id": "webControls.reload",
+        "start": {
+          "column": 10,
+          "line": 29
+        }
+      }
+    ],
+    "path": "src/components/services/content/ConnectionLost.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Oh no! Franz lost the connection to {name}.",
+        "end": {
+          "column": 3,
+          "line": 18
+        },
+        "file": "src/components/services/content/ConnectionLostBanner.js",
+        "id": "connectionLostBanner.message",
+        "start": {
+          "column": 8,
+          "line": 15
+        }
+      },
+      {
+        "defaultMessage": "!!!What happened?",
+        "end": {
+          "column": 3,
+          "line": 22
+        },
+        "file": "src/components/services/content/ConnectionLostBanner.js",
+        "id": "connectionLostBanner.informationLink",
+        "start": {
+          "column": 19,
+          "line": 19
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload Service",
+        "end": {
+          "column": 3,
+          "line": 26
+        },
+        "file": "src/components/services/content/ConnectionLostBanner.js",
+        "id": "connectionLostBanner.cta",
+        "start": {
+          "column": 7,
+          "line": 23
+        }
+      }
+    ],
+    "path": "src/components/services/content/ConnectionLostBanner.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Oh no!",
         "end": {
           "column": 3,
@@ -1121,6 +1305,76 @@
       }
     ],
     "path": "src/components/services/content/Services.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Home",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/components/services/content/WebControls.js",
+        "id": "webControls.goHome",
+        "start": {
+          "column": 10,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Open in Browser",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/components/services/content/WebControls.js",
+        "id": "webControls.openInBrowser",
+        "start": {
+          "column": 17,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Back",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/components/services/content/WebControls.js",
+        "id": "webControls.back",
+        "start": {
+          "column": 8,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Forward",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/components/services/content/WebControls.js",
+        "id": "webControls.forward",
+        "start": {
+          "column": 11,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/components/services/content/WebControls.js",
+        "id": "webControls.reload",
+        "start": {
+          "column": 10,
+          "line": 29
+        }
+      }
+    ],
+    "path": "src/components/services/content/WebControls.json"
   },
   {
     "descriptors": [
@@ -4279,6 +4533,76 @@
       }
     ],
     "path": "src/features/planSelection/containers/PlanSelectionScreen.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Home",
+        "end": {
+          "column": 3,
+          "line": 16
+        },
+        "file": "src/features/recipeConnectionLost/components/WebControls.js",
+        "id": "webControls.goHome",
+        "start": {
+          "column": 10,
+          "line": 13
+        }
+      },
+      {
+        "defaultMessage": "!!!Open in Browser",
+        "end": {
+          "column": 3,
+          "line": 20
+        },
+        "file": "src/features/recipeConnectionLost/components/WebControls.js",
+        "id": "webControls.openInBrowser",
+        "start": {
+          "column": 17,
+          "line": 17
+        }
+      },
+      {
+        "defaultMessage": "!!!Back",
+        "end": {
+          "column": 3,
+          "line": 24
+        },
+        "file": "src/features/recipeConnectionLost/components/WebControls.js",
+        "id": "webControls.back",
+        "start": {
+          "column": 8,
+          "line": 21
+        }
+      },
+      {
+        "defaultMessage": "!!!Forward",
+        "end": {
+          "column": 3,
+          "line": 28
+        },
+        "file": "src/features/recipeConnectionLost/components/WebControls.js",
+        "id": "webControls.forward",
+        "start": {
+          "column": 11,
+          "line": 25
+        }
+      },
+      {
+        "defaultMessage": "!!!Reload",
+        "end": {
+          "column": 3,
+          "line": 32
+        },
+        "file": "src/features/recipeConnectionLost/components/WebControls.js",
+        "id": "webControls.reload",
+        "start": {
+          "column": 10,
+          "line": 29
+        }
+      }
+    ],
+    "path": "src/features/recipeConnectionLost/components/WebControls.json"
   },
   {
     "descriptors": [

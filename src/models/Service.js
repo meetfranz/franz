@@ -1,6 +1,7 @@
 import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
+
 import userAgent from '../helpers/userAgent-helpers';
 
 const debug = require('debug')('Franz:Service');
@@ -76,6 +77,14 @@ export default class Service {
   @observable isHibernating = false;
 
   @observable lastUsed = Date.now(); // timestamp
+
+  @observable lastPoll = null;
+
+  @observable lastPollAnswer = null;
+
+  @observable lostRecipeConnection = false;
+
+  @observable lostRecipeReloadAttempt = 0;
 
   @observable chromelessUserAgent = false;
 
@@ -226,7 +235,6 @@ export default class Service {
     }));
 
     this.webview.addEventListener('new-window', (event, url, frameName, options) => {
-      console.log('open window', event, url, frameName, options);
       openWindow({
         event,
         url,
