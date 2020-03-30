@@ -44,7 +44,7 @@ import {
 } from './config';
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
-import userAgent from './electron/userAgent';
+import userAgent from './helpers/userAgent-helpers';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
