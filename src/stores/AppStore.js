@@ -216,8 +216,8 @@ export default class AppStore extends Store {
       if (!localStorage.getItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED)) {
         debug('Triggering macOS Catalina Audio/Video permission trigger');
         // eslint-disable-next-line no-new
-        const cameraAccess = await systemPreferences.getMediaAccessStatus('camera');
-        const microphoneAccess = await systemPreferences.getMediaAccessStatus('microphone');
+        const cameraAccess = await systemPreferences.askForMediaAccess('camera');
+        const microphoneAccess = await systemPreferences.askForMediaAccess('microphone');
 
         console.log('access', cameraAccess, microphoneAccess);
 
