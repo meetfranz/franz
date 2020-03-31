@@ -22,6 +22,7 @@ if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
 
+
 /* eslint-disable import/first */
 import {
   isMac,
@@ -43,9 +44,14 @@ import {
 } from './config';
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
-/* eslint-enable import/first */
+import userAgent from './helpers/userAgent-helpers';
 
+/* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
+
+// Globally set useragent to fix user agent override in service workers
+debug('Set userAgent to ', userAgent());
+app.userAgentFallback = userAgent();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

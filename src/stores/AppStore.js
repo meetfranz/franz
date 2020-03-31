@@ -30,8 +30,8 @@ const debug = require('debug')('Franz:AppStore');
 const {
   app,
   screen,
-  powerMonitor,
   nativeTheme,
+  systemPreferences,
 } = remote;
 
 const mainWindow = remote.getCurrentWindow();
@@ -42,6 +42,7 @@ const autoLauncher = new AutoLaunch({
 });
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
+const CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED = '_temp_askedForCatalinaAudioVideoPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -185,8 +186,6 @@ export default class AppStore extends Store {
 
     this._healthCheck();
 
-    console.log(nativeTheme);
-
     this.isSystemDarkModeEnabled = nativeTheme.shouldUseDarkColors;
 
     onVisibilityChange((isVisible) => {
@@ -200,36 +199,30 @@ export default class AppStore extends Store {
       gaPage(pathname);
     });
 
-    powerMonitor.on('suspend', () => {
-      debug('System suspended starting timer');
-
-      this.timeSuspensionStart = moment();
-    });
-
-    powerMonitor.on('resume', () => {
-      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
-
-      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
-        debug('Reloading services, user info and features');
-
-        setTimeout(() => {
-          window.location.reload();
-        }, ms('2s'));
-
-        statsEvent('resumed-app');
-      }
-    });
-
     // macOS catalina notifications hack
     // notifications got stuck after upgrade but forcing a notification
     // via `new Notification` triggered the permission request
-    if (isMac && !localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
-      // eslint-disable-next-line no-new
-      new window.Notification('Welcome to Franz 5', {
-        body: 'Have a wonderful day & happy messaging.',
-      });
+    if (isMac) {
+      if (!localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
+        debug('Triggering macOS Catalina notification permission trigger');
+        // eslint-disable-next-line no-new
+        new window.Notification('Welcome to Franz 5', {
+          body: 'Have a wonderful day & happy messaging.',
+        });
 
-      localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+        localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+      }
+
+      if (!localStorage.getItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED)) {
+        debug('Triggering macOS Catalina Audio/Video permission trigger');
+        // eslint-disable-next-line no-new
+        const cameraAccess = await systemPreferences.askForMediaAccess('camera');
+        const microphoneAccess = await systemPreferences.askForMediaAccess('microphone');
+
+        console.log('access', cameraAccess, microphoneAccess);
+
+        localStorage.setItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED, true);
+      }
     }
 
     statsEvent('app-start');
