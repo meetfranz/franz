@@ -14,6 +14,11 @@ mac:
   gatekeeperAssess: false
   entitlements: build-helpers/default.entitlements.mac.plist
   entitlementsInherit: build-helpers/default.entitlements.mac.plist
+  extendInfo:
+    NSCameraUsageDescription: "This app requires camera access for video chats"
+    NSMicrophoneUsageDescription: "This app requires camera access for voice chats"
+
+
 
 dmg:
   background: ./build-helpers/images/dmgInstaller.tiff
@@ -54,8 +59,3 @@ asarUnpack:
   - ./assets/images/taskbar
 
 afterSign: build-helpers/notarize.js
-
-extendInfo:
-  NSCameraUsageDescription: "This app requires camera access for video chats"
-  NSMicrophoneUsageDescription: "This app requires camera access for voice chats"
-
