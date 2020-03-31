@@ -237,7 +237,7 @@
    "settings.app.form.autoLaunchInBackground" : "Ouvrir en arrière-plan",
    "settings.app.form.autoLaunchOnStart" : "Lancer Franz au démarrage",
    "settings.app.form.beta" : "Accepter les versions bêta",
-   "settings.app.form.darkMode" : "Activer le thème sombre",
+   "settings.app.form.darkMode" : "Rejoignez le côté obscur",
    "settings.app.form.enableGPUAcceleration" : "Activer l'accélération GPU",
    "settings.app.form.enableSpellchecking" : "Activer la vérification orthographique",
    "settings.app.form.enableSystemTray" : "Afficher Franz dans la barre d'état système",
