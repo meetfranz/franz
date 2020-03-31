@@ -31,6 +31,7 @@ const {
   app,
   screen,
   nativeTheme,
+  systemPreferences,
 } = remote;
 
 const mainWindow = remote.getCurrentWindow();
@@ -41,7 +42,7 @@ const autoLauncher = new AutoLaunch({
 });
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
-const CATALINA_AUDIO_HACK_KEY = '_temp_askedForCatalinaAudioPermissions';
+const CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED = '_temp_askedForCatalinaAudioVideoPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -203,6 +204,7 @@ export default class AppStore extends Store {
     // via `new Notification` triggered the permission request
     if (isMac) {
       if (!localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
+        debug('Triggering macOS Catalina notification permission trigger');
         // eslint-disable-next-line no-new
         new window.Notification('Welcome to Franz 5', {
           body: 'Have a wonderful day & happy messaging.',
@@ -211,12 +213,15 @@ export default class AppStore extends Store {
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
       }
 
-      if (!localStorage.getItem(CATALINA_AUDIO_HACK_KEY)) {
+      if (!localStorage.getItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED)) {
+        debug('Triggering macOS Catalina Audio/Video permission trigger');
         // eslint-disable-next-line no-new
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        stream.getTracks().forEach(track => track.stop());
+        const cameraAccess = await systemPreferences.getMediaAccessStatus('camera');
+        const microphoneAccess = await systemPreferences.getMediaAccessStatus('microphone');
 
-        localStorage.setItem(CATALINA_AUDIO_HACK_KEY, true);
+        console.log('access', cameraAccess, microphoneAccess);
+
+        localStorage.setItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED, true);
       }
     }
 

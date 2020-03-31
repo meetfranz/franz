@@ -54,3 +54,8 @@ asarUnpack:
   - ./assets/images/taskbar
 
 afterSign: build-helpers/notarize.js
+
+extendInfo:
+  NSCameraUsageDescription: "This app requires camera access for video chats"
+  NSMicrophoneUsageDescription: "This app requires camera access for voice chats"
+
