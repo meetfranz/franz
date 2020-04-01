@@ -11,6 +11,10 @@ import { URL } from 'url';
 import os from 'os';
 import path from 'path';
 import { readJsonSync } from 'fs-extra';
+import {
+  hasScreenCapturePermission,
+  hasPromptedForPermission,
+} from 'mac-screen-capture-permissions';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -216,10 +220,12 @@ export default class AppStore extends Store {
       if (!localStorage.getItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED)) {
         debug('Triggering macOS Catalina Audio/Video permission trigger');
         // eslint-disable-next-line no-new
-        const cameraAccess = await systemPreferences.askForMediaAccess('camera');
-        const microphoneAccess = await systemPreferences.askForMediaAccess('microphone');
+        systemPreferences.askForMediaAccess('camera');
+        systemPreferences.askForMediaAccess('microphone');
 
-        console.log('access', cameraAccess, microphoneAccess);
+        if (!hasPromptedForPermission()) {
+          hasScreenCapturePermission();
+        }
 
         localStorage.setItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED, true);
       }

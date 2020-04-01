@@ -57,6 +57,7 @@
     "hex-to-rgba": "1.0.2",
     "jsonwebtoken": "8.5.1",
     "lodash": "^4.17.4",
+    "mac-screen-capture-permissions": "1.1.0",
     "macos-version": "5.2.0",
     "marked": "0.6.1",
     "mdi": "^1.9.33",
