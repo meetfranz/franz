@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Ricarica",
    "app.errorHandler.headline" : "Qualcosa è andato storto",
+   "connectionLostBanner.cta" : "Ricarica Servizio",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Modifiche in Franz {Version}",
    "feature.delayApp.headline" : "Effettua l'upgrade per eliminare l'attesa",
    "feature.delayApp.text" : "Franz continuerà tra {seconds} secondi.",

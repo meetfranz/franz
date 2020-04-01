@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Actualiser",
    "app.errorHandler.headline" : "On dirait que quelque chose ne s'est pas bien passé",
+   "connectionLostBanner.cta" : "Rafraîchir le service",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Les nouveaux changements dans Franz {version}",
    "feature.delayApp.headline" : "Mettez Franz à niveau pour ne pas attendre",
    "feature.delayApp.text" : "Franz s'ouvrira dans {seconds} secondes.",

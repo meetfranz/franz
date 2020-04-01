@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "重新整理",
    "app.errorHandler.headline" : "糟糕！有些地方出問題了。",
+   "connectionLostBanner.cta" : "重新載入服務",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "透過 email 傳送",
    "feature.delayApp.headline" : "Upgrade your Franz plan to skip the wait",
    "feature.delayApp.text" : "Franz 會在 {seconds} 秒後繼續。",
