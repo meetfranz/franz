@@ -46,7 +46,6 @@ const autoLauncher = new AutoLaunch({
 });
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
-const CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED = '_temp_askedForCatalinaAudioVideoPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -217,17 +216,11 @@ export default class AppStore extends Store {
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
       }
 
-      if (!localStorage.getItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED)) {
-        debug('Triggering macOS Catalina Audio/Video permission trigger');
-        // eslint-disable-next-line no-new
-        systemPreferences.askForMediaAccess('camera');
-        systemPreferences.askForMediaAccess('microphone');
+      systemPreferences.askForMediaAccess('camera');
+      systemPreferences.askForMediaAccess('microphone');
 
-        if (!hasPromptedForPermission()) {
-          hasScreenCapturePermission();
-        }
-
-        localStorage.setItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED, true);
+      if (!hasPromptedForPermission()) {
+        hasScreenCapturePermission();
       }
     }
 
