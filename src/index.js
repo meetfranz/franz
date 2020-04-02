@@ -35,6 +35,7 @@ import Tray from './lib/Tray';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
 import { isPositionValid } from './electron/windowUtils';
+import askFormacOSPermissions from './electron/macOSPermissions';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
@@ -274,6 +275,10 @@ const createWindow = () => {
     if (!settings.get('enableSystemTray')) {
       debug('Tray: hiding tray icon');
       trayIcon.hide();
+    }
+
+    if (isMac) {
+      askFormacOSPermissions();
     }
   });
 

@@ -11,10 +11,6 @@ import { URL } from 'url';
 import os from 'os';
 import path from 'path';
 import { readJsonSync } from 'fs-extra';
-import {
-  hasScreenCapturePermission,
-  hasPromptedForPermission,
-} from 'mac-screen-capture-permissions';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -35,7 +31,6 @@ const {
   app,
   screen,
   nativeTheme,
-  systemPreferences,
 } = remote;
 
 const mainWindow = remote.getCurrentWindow();
@@ -214,13 +209,6 @@ export default class AppStore extends Store {
         });
 
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
-      }
-
-      systemPreferences.askForMediaAccess('camera');
-      systemPreferences.askForMediaAccess('microphone');
-
-      if (!hasPromptedForPermission()) {
-        hasScreenCapturePermission();
       }
     }
 
