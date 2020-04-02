@@ -318,6 +318,9 @@ if (argv['auth-negotiate-delegate-whitelist']) {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
+  // force app to live in /Applications
+  enforceMacOSAppLocation();
+
   // Register App URL
   app.setAsDefaultProtocolClient('franz');
 
