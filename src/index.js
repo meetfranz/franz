@@ -8,6 +8,7 @@ import isDevMode from 'electron-is-dev';
 import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
+import { enforceMacOSAppLocation } from 'electron-util';
 
 // Set app directory before loading user modules
 if (process.env.FRANZ_APPDATA_DIR != null) {
@@ -21,7 +22,6 @@ if (process.env.FRANZ_APPDATA_DIR != null) {
 if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
-
 
 /* eslint-disable import/first */
 import {
@@ -276,11 +276,11 @@ const createWindow = () => {
       debug('Tray: hiding tray icon');
       trayIcon.hide();
     }
-
-    if (isMac) {
-      askFormacOSPermissions();
-    }
   });
+
+  if (isMac) {
+    askFormacOSPermissions();
+  }
 
   mainWindow.on('show', () => {
     debug('Skip taskbar: false');

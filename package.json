@@ -52,6 +52,7 @@
     "electron-is-dev": "1.0.1",
     "electron-react-titlebar": "0.8.1",
     "electron-updater": "4.2.5",
+    "electron-util": "0.14.0",
     "electron-window-state": "5.0.3",
     "fs-extra": "7.0.1",
     "hex-to-rgba": "1.0.2",
