@@ -139,7 +139,7 @@ export default class ServicesStore extends Store {
       if (service.lastPoll && (service.lastPoll) - service.lastPollAnswer > ms('30s')) {
         // If service did not reply for more than 30s try to reload.
         if (!service.isActive) {
-          if (service.lostRecipeReloadAttempt < 3) {
+          if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
             service.webview.reload();
             service.lostRecipeReloadAttempt += 1;
 
