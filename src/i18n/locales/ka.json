@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "ჩატვირთვა",
    "app.errorHandler.headline" : "Something went wrong",
+   "connectionLostBanner.cta" : "Reload Service",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Changes in Franz {version}",
    "feature.delayApp.headline" : "Upgrade your Franz plan to skip the wait",
    "feature.delayApp.text" : "Franz will continue in {seconds} seconds.",

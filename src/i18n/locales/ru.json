@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Перезагрузить",
    "app.errorHandler.headline" : "Что-то пошло не так",
+   "connectionLostBanner.cta" : "Перезапустить сервис",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Изменения в версии Franz {version}",
    "feature.delayApp.headline" : "Улучшите свой план Franz, чтобы пропустить ожидание",
    "feature.delayApp.text" : "Franz продолжит работу через {seconds} секунд.",

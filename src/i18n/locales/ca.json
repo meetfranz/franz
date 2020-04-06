@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Recarrega",
    "app.errorHandler.headline" : "Quelcom ha anat malament",
+   "connectionLostBanner.cta" : "Torna a carregar el servei",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Canvis en Franz {version}",
    "feature.delayApp.headline" : "Millora el teu pla de Franz per evitar l'espera",
    "feature.delayApp.text" : "Franz continuarà en {seconds} segons",

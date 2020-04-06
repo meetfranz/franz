@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Znovu načíst",
    "app.errorHandler.headline" : "Někde došlo k chybě.",
+   "connectionLostBanner.cta" : "Obnovit službu",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Změny v aplikaci Franz {version}",
    "feature.delayApp.headline" : "Navyšte své předplatné, abyste už nemuseli čekat",
    "feature.delayApp.text" : "Franz bude pokračovat za {seconds} s.",
