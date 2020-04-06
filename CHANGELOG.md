@@ -1,3 +1,21 @@
+# [5.5.0-beta.2](https://github.com/meetfranz/franz/compare/v5.5.0-beta.1...v5.5.0-beta.2) (2020-04-06)
+
+
+### Bug Fixes
+
+* **Experimental:** Fix Google signin ([d7840ba](https://github.com/meetfranz/franz/commit/d7840ba))
+* **macOS:** Ask the user to move Franz to the `/Applications` Folder to fix read/write issues ([f52ad72](https://github.com/meetfranz/franz/commit/f52ad72))
+* **macOS:** Fix microphone, camera & screen sharing permissions 
+* **Service:** Add integrity checks to prevent services recipes getting lost ([b2d5315](https://github.com/meetfranz/franz/commit/b2d5315))
+* **Service:** Fix issue with user agent override in service workers ([a8dea57](https://github.com/meetfranz/franz/commit/a8dea57))
+* **Service:** Don't reload services after 10 minute system nap ([a2aae55](https://github.com/meetfranz/franz/commit/a2aae55))
+
+### General
+
+* **App:** Fix "Missing Service" link ([0e2c945](https://github.com/meetfranz/franz/commit/0e2c945))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
 # [5.5.0-beta.1](https://github.com/meetfranz/franz/compare/v5.4.1...v5.5.0-beta.1) (2020-03-20)
 
 
