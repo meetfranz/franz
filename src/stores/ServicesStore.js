@@ -150,6 +150,7 @@ export default class ServicesStore extends Store {
         }
       } else {
         service.lostRecipeConnection = false;
+        service.lostRecipeReloadAttempt = 0;
       }
     });
   }
