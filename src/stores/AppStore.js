@@ -30,6 +30,7 @@ const debug = require('debug')('Franz:AppStore');
 const {
   app,
   screen,
+  powerMonitor,
   nativeTheme,
 } = remote;
 
@@ -195,6 +196,26 @@ export default class AppStore extends Store {
     // analytics autorun
     reaction(() => this.stores.router.location.pathname, (pathname) => {
       gaPage(pathname);
+    });
+
+    powerMonitor.on('suspend', () => {
+      debug('System suspended starting timer');
+
+      this.timeSuspensionStart = moment();
+    });
+
+    powerMonitor.on('resume', () => {
+      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
+
+      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
+        debug('Reloading services, user info and features');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, ms('2s'));
+
+        statsEvent('resumed-app');
+      }
     });
 
     // macOS catalina notifications hack
