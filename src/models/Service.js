@@ -78,9 +78,9 @@ export default class Service {
 
   @observable lastUsed = Date.now(); // timestamp
 
-  @observable lastPoll = null;
+  @observable lastPoll = Date.now();
 
-  @observable lastPollAnswer = null;
+  @observable lastPollAnswer = Date.now();
 
   @observable lostRecipeConnection = false;
 

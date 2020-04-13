@@ -198,24 +198,12 @@ export default class AppStore extends Store {
       gaPage(pathname);
     });
 
-    powerMonitor.on('suspend', () => {
-      debug('System suspended starting timer');
-
-      this.timeSuspensionStart = moment();
-    });
-
     powerMonitor.on('resume', () => {
-      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
+      debug('System resumed');
 
-      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
-        debug('Reloading services, user info and features');
+      this.actions.service.resetLastPollTimer();
 
-        setTimeout(() => {
-          window.location.reload();
-        }, ms('2s'));
-
-        statsEvent('resumed-app');
-      }
+      statsEvent('resumed-app');
     });
 
     // macOS catalina notifications hack

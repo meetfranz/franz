@@ -74,6 +74,7 @@ export default class ServicesStore extends Store {
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
     this.actions.service.hibernate.listen(this._hibernate.bind(this));
     this.actions.service.awake.listen(this._awake.bind(this));
+    this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
 
     this.registerReactions([
       this._focusServiceReaction.bind(this),
@@ -136,8 +137,8 @@ export default class ServicesStore extends Store {
         this._hibernate({ serviceId: service.id });
       }
 
-      if (service.lastPoll && (service.lastPoll) - service.lastPollAnswer > ms('30s')) {
-        // If service did not reply for more than 30s try to reload.
+      if (service.lastPoll && (service.lastPoll) - service.lastPollAnswer > ms('1m')) {
+        // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
           if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
             service.webview.reload();
@@ -679,6 +680,24 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
     service.isHibernating = false;
     service.liveFrom = Date.now();
+  }
+
+  @action _resetLastPollTimer({ serviceId = null }) {
+    debug(`Reset last poll timer for ${serviceId ? `service: "${serviceId}"` : 'all services'}`);
+
+    const resetTimer = (service) => {
+      service.lastPollAnswer = Date.now();
+      service.lastPoll = Date.now();
+    };
+
+    if (!serviceId) {
+      this.allDisplayed.forEach(service => resetTimer(service));
+    } else {
+      const service = this.one(serviceId);
+      if (service) {
+        resetTimer(service);
+      }
+    }
   }
 
   // Reactions
