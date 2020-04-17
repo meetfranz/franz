@@ -141,12 +141,14 @@ export default class ServicesStore extends Store {
         // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
           if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
+            debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
             service.webview.reload();
             service.lostRecipeReloadAttempt += 1;
 
             service.lostRecipeConnection = false;
           }
         } else {
+          debug(`Service lost connection: ${service.name} (${service.id}).`);
           service.lostRecipeConnection = true;
         }
       } else {
