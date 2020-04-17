@@ -137,7 +137,7 @@ export default class ServicesStore extends Store {
         this._hibernate({ serviceId: service.id });
       }
 
-      if (service.lastPoll && (service.lastPoll) - service.lastPollAnswer > ms('1m')) {
+      if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
         // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
           if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
