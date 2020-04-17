@@ -1,3 +1,17 @@
+# [5.5.0-beta.3](https://github.com/meetfranz/franz/compare/v5.5.0-beta.2...v5.5.0-beta.3) (2020-04-17)
+
+
+### Bug Fixes
+
+* **App:** Improve lost recipe connection handler ([18e1da1](https://github.com/meetfranz/franz/commit/18e1da1))
+
+### General
+
+* **Service:** Added service polling debugger when starting Franz with `DEBUG=Franz:Service`
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 # [5.5.0-beta.2](https://github.com/meetfranz/franz/compare/v5.5.0-beta.1...v5.5.0-beta.2) (2020-04-06)
 
 
