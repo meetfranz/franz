@@ -2,6 +2,8 @@ import { computed, observable, autorun } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
+import userAgent from '../helpers/userAgent-helpers';
+
 const debug = require('debug')('Franz:Service');
 
 export const RESTRICTION_TYPES = {
@@ -75,6 +77,16 @@ export default class Service {
   @observable isHibernating = false;
 
   @observable lastUsed = Date.now(); // timestamp
+
+  @observable lastPoll = Date.now();
+
+  @observable lastPollAnswer = Date.now();
+
+  @observable lostRecipeConnection = false;
+
+  @observable lostRecipeReloadAttempt = 0;
+
+  @observable chromelessUserAgent = false;
 
   constructor(data, recipe) {
     if (!data) {
@@ -188,16 +200,33 @@ export default class Service {
   }
 
   @computed get userAgent() {
-    let userAgent = window.navigator.userAgent;
+    let ua = window.navigator.userAgent;
     if (typeof this.recipe.overrideUserAgent === 'function') {
-      userAgent = this.recipe.overrideUserAgent();
+      ua = this.recipe.overrideUserAgent();
     }
 
-    return userAgent;
+    return ua;
   }
 
   initializeWebViewEvents({ handleIPCMessage, openWindow, stores }) {
     const webContents = this.webview.getWebContents();
+
+    const handleUserAgent = (url, forwardingHack = false) => {
+      if (url.startsWith('https://accounts.google.com')) {
+        if (!this.chromelessUserAgent) {
+          debug('Setting user agent to chromeless for url', url);
+          this.webview.setUserAgent(userAgent(true));
+          if (forwardingHack) {
+            this.webview.loadURL(url);
+          }
+          this.chromelessUserAgent = true;
+        }
+      } else if (this.chromelessUserAgent) {
+        debug('Setting user agent to contain chrome');
+        this.webview.setUserAgent(this.userAgent);
+        this.chromelessUserAgent = false;
+      }
+    };
 
     this.webview.addEventListener('ipc-message', e => handleIPCMessage({
       serviceId: this.id,
@@ -206,7 +235,6 @@ export default class Service {
     }));
 
     this.webview.addEventListener('new-window', (event, url, frameName, options) => {
-      console.log('open window', event, url, frameName, options);
       openWindow({
         event,
         url,
@@ -214,6 +242,9 @@ export default class Service {
         options,
       });
     });
+
+
+    this.webview.addEventListener('will-navigate', event => handleUserAgent(event.url, true));
 
     this.webview.addEventListener('did-start-loading', (event) => {
       debug('Did start load', this.name, event);
@@ -232,7 +263,10 @@ export default class Service {
     };
 
     this.webview.addEventListener('did-frame-finish-load', didLoad.bind(this));
-    this.webview.addEventListener('did-navigate', didLoad.bind(this));
+    this.webview.addEventListener('did-navigate', (event) => {
+      handleUserAgent(event.url);
+      didLoad();
+    });
 
     this.webview.addEventListener('did-fail-load', (event) => {
       debug('Service failed to load', this.name, event);

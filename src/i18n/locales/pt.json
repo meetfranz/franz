@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Recarregar",
    "app.errorHandler.headline" : "Alguma coisa correu mal",
+   "connectionLostBanner.cta" : "Recarregar serviço",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Alterações no Franz {version}",
    "feature.delayApp.headline" : "Faz upgrade ao teu plano para evitares a espera",
    "feature.delayApp.text" : "Franz irá continuar em {seconds} segundos.",

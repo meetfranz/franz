@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Επαναφόρτωση",
    "app.errorHandler.headline" : "Κάτι δεν λειτουργεί",
+   "connectionLostBanner.cta" : "Ανανέωση Υπηρεσίας",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Changes in Franz {version}",
    "feature.delayApp.headline" : "Upgrade your Franz plan to skip the wait",
    "feature.delayApp.text" : "Franz θα συνεχίσει σε {seconds} δευτερόλεπτα.",

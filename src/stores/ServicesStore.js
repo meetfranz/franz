@@ -74,6 +74,7 @@ export default class ServicesStore extends Store {
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
     this.actions.service.hibernate.listen(this._hibernate.bind(this));
     this.actions.service.awake.listen(this._awake.bind(this));
+    this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
 
     this.registerReactions([
       this._focusServiceReaction.bind(this),
@@ -106,33 +107,53 @@ export default class ServicesStore extends Store {
     super.initialize();
 
     // Check services to become hibernated
-    this._hibernationTick();
+    this.serviceMaintenanceTick();
   }
 
   teardown() {
     super.teardown();
 
     // Stop checking services for hibernation
-    this._hibernationTick.cancel();
+    this.serviceMaintenanceTick.cancel();
   }
 
   /**
    * Сheck for services to become hibernated.
    */
-  _hibernationTick = debounce(() => {
-    this._hibernateServices();
-    this._hibernationTick();
-    debug('Hibernation tick');
-  }, ms('1m')); // every 1 min
+  serviceMaintenanceTick = debounce(() => {
+    this._serviceMaintenance();
+    this.serviceMaintenanceTick();
+    debug('Service maintenance tick');
+  }, ms('10s'));
 
   /**
-   * Defines which services should be hibernated.
+   * Run various maintenance tasks on services
    */
-  _hibernateServices() {
+  _serviceMaintenance() {
     this.all.forEach((service) => {
+      // Defines which services should be hibernated.
       if (!service.isActive && (Date.now() - service.lastUsed > ms('5m'))) {
         // If service is stale for 5 min, hibernate it.
         this._hibernate({ serviceId: service.id });
+      }
+
+      if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
+        // If service did not reply for more than 1m try to reload.
+        if (!service.isActive) {
+          if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
+            debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
+            service.webview.reload();
+            service.lostRecipeReloadAttempt += 1;
+
+            service.lostRecipeConnection = false;
+          }
+        } else {
+          debug(`Service lost connection: ${service.name} (${service.id}).`);
+          service.lostRecipeConnection = true;
+        }
+      } else {
+        service.lostRecipeConnection = false;
+        service.lostRecipeReloadAttempt = 0;
       }
     });
   }
@@ -434,10 +455,16 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (channel === 'hello') {
+      debug('Received hello event from', serviceId);
+
       this._initRecipePolling(service.id);
       this._initializeServiceRecipeInWebview(serviceId);
       this._shareSettingsWithServiceProcess();
+    } else if (channel === 'alive') {
+      service.lastPollAnswer = Date.now();
     } else if (channel === 'messages') {
+      debug(`Received unread message info from '${serviceId}'`, args[0]);
+
       this.actions.service.setUnreadMessageCount({
         serviceId,
         count: {
@@ -538,6 +565,7 @@ export default class ServicesStore extends Store {
     if (!service.isEnabled) return;
 
     service.resetMessageCount();
+    service.lostRecipeConnection = false;
 
     service.webview.loadURL(service.url);
   }
@@ -654,6 +682,24 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
     service.isHibernating = false;
     service.liveFrom = Date.now();
+  }
+
+  @action _resetLastPollTimer({ serviceId = null }) {
+    debug(`Reset last poll timer for ${serviceId ? `service: "${serviceId}"` : 'all services'}`);
+
+    const resetTimer = (service) => {
+      service.lastPollAnswer = Date.now();
+      service.lastPoll = Date.now();
+    };
+
+    if (!serviceId) {
+      this.allDisplayed.forEach(service => resetTimer(service));
+    } else {
+      const service = this.one(serviceId);
+      if (service) {
+        resetTimer(service);
+      }
+    }
   }
 
   // Reactions
@@ -811,6 +857,7 @@ export default class ServicesStore extends Store {
         service.webview.send('poll');
 
         service.timer = setTimeout(loop, delay);
+        service.lastPoll = Date.now();
       };
 
       loop();

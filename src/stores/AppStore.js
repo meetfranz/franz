@@ -42,7 +42,6 @@ const autoLauncher = new AutoLaunch({
 });
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
-const CATALINA_AUDIO_HACK_KEY = '_temp_askedForCatalinaAudioPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -199,24 +198,12 @@ export default class AppStore extends Store {
       gaPage(pathname);
     });
 
-    powerMonitor.on('suspend', () => {
-      debug('System suspended starting timer');
-
-      this.timeSuspensionStart = moment();
-    });
-
     powerMonitor.on('resume', () => {
-      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
+      debug('System resumed');
 
-      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
-        debug('Reloading services, user info and features');
+      this.actions.service.resetLastPollTimer();
 
-        setTimeout(() => {
-          window.location.reload();
-        }, ms('2s'));
-
-        statsEvent('resumed-app');
-      }
+      statsEvent('resumed-app');
     });
 
     // macOS catalina notifications hack
@@ -224,20 +211,13 @@ export default class AppStore extends Store {
     // via `new Notification` triggered the permission request
     if (isMac) {
       if (!localStorage.getItem(CATALINA_NOTIFICATION_HACK_KEY)) {
+        debug('Triggering macOS Catalina notification permission trigger');
         // eslint-disable-next-line no-new
         new window.Notification('Welcome to Franz 5', {
           body: 'Have a wonderful day & happy messaging.',
         });
 
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
-      }
-
-      if (!localStorage.getItem(CATALINA_AUDIO_HACK_KEY)) {
-        // eslint-disable-next-line no-new
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        stream.getTracks().forEach(track => track.stop());
-
-        localStorage.setItem(CATALINA_AUDIO_HACK_KEY, true);
       }
     }
 

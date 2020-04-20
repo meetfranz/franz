@@ -97,4 +97,7 @@ export default {
   awake: {
     serviceId: PropTypes.string.isRequired,
   },
+  resetLastPollTimer: {
+    serviceId: PropTypes.string,
+  },
 };

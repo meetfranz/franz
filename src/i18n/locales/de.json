@@ -1,6 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "neu laden",
    "app.errorHandler.headline" : "Etwas ist schief gelaufen",
+   "connectionLostBanner.cta" : "Dienst neu laden",
+   "connectionLostBanner.informationLink" : "What happened?",
+   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
    "feature.announcements.changelog.headline" : "Änderungen in Franz {version}",
    "feature.delayApp.headline" : "Führe ein Upgrade deines Accounts durch, um nicht mehr warten zu müssen",
    "feature.delayApp.text" : "In {seconds} Sekunden geht's weiter!",
