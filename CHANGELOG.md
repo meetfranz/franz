@@ -1,3 +1,8 @@
+# [5.5.0-beta.4](https://github.com/meetfranz/franz/compare/v5.5.0-beta.3...v5.5.0-beta.4) (2020-04-21)
+
+* **Service:** Fix issue with service debugger painting service tabs red ([2b980c7](https://github.com/meetfranz/franz/commit/2b980c7))
+
+
 # [5.5.0-beta.3](https://github.com/meetfranz/franz/compare/v5.5.0-beta.2...v5.5.0-beta.3) (2020-04-17)
 
 
