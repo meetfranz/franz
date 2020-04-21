@@ -212,7 +212,7 @@ const styles = {
     return (
       <li
         className={classnames({
-          [classes.stale]: service.lostRecipeConnection,
+          [classes.stale]: IS_SERVICE_DEBUGGING_ENABLED && service.lostRecipeConnection,
           'tab-item': true,
           'is-active': service.isActive,
           'has-custom-icon': service.hasCustomIcon,
