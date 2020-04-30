@@ -6,7 +6,7 @@
 * **App:** Add `FRANZ_APPDATA_DIR` environment variable to customize the app settings directory ([@Makazzz](https://github.com/Makazzz))
 * **Service:** Added service polling debugger when starting Franz with `DEBUG=Franz:Service`
 
-### Bug Fixeså
+### Bug Fixes
 
 * **App:** Update deprecated electron APIs ([@vantezzen](https://github.com/vantezzen))
 * **App:** Fix Zoom in services ([@vantezzen](https://github.com/vantezzen))
