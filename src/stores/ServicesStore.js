@@ -142,7 +142,7 @@ export default class ServicesStore extends Store {
         if (!service.isActive) {
           if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
             debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
-            service.webview.reload();
+            // service.webview.reload();
             service.lostRecipeReloadAttempt += 1;
 
             service.lostRecipeConnection = false;
