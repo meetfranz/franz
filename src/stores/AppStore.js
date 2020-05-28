@@ -139,7 +139,7 @@ export default class AppStore extends Store {
       this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
       this.stores.features.featuresRequest.invalidate({ immediately: true });
       this.stores.news.latestNewsRequest.invalidate({ immediately: true });
-    }, ms('10m'));
+    }, ms('60m'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
