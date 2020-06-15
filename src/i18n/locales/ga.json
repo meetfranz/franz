@@ -1,9 +1,9 @@
 ﻿{
    "app.errorHandler.action" : "Athlódáil",
-   "app.errorHandler.headline" : "Chuaigh cúrsaí chun donais",
+   "app.errorHandler.headline" : "Tá rud éicint mícheart",
    "connectionLostBanner.cta" : "Athlódáil seirbhís",
-   "connectionLostBanner.informationLink" : "What happened?",
-   "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
+   "connectionLostBanner.informationLink" : "Céard a tharla?",
+   "connectionLostBanner.message" : "Ó, ná habair! Chaill Franz an ceangal le {name}.",
    "feature.announcements.changelog.headline" : "Athraithe i Franz {version}",
    "feature.delayApp.headline" : "Upgrade your Franz plan to skip the wait",
    "feature.delayApp.text" : "Leanfaidh Franz ar aghaidh i gceann {seconds} soicind.",
