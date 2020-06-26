@@ -2,7 +2,7 @@
 // ❤ @sindresorhus
 
 import {
-  clipboard, remote, ipcRenderer, shell,
+  clipboard, remote, ipcRenderer, shell, nativeImage,
 } from 'electron';
 
 import { isDevMode, isMac } from '../environment';
@@ -145,6 +145,31 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
       click() {
         debug('Open image in Browser', props.srcURL);
         shell.openExternal(props.srcURL);
+      },
+    }, {
+      id: 'copyImage',
+      label: 'Copy Image',
+      click() {
+        const img = document.createElement('img');
+        img.src = props.srcURL;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        const dataURL = canvas.toDataURL('image/png');
+        const image = nativeImage.createFromDataURL(dataURL);
+
+        try {
+          clipboard.write({
+            image,
+          });
+        } catch (err) {
+          console.warn(err);
+        }
       },
     }, {
       id: 'copyImageAddress',
