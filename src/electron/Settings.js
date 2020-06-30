@@ -33,6 +33,10 @@ export default class Settings {
     return this.store;
   }
 
+  get allSerialized() {
+    return toJS(this.store);
+  }
+
   get(key) {
     return this.store[key];
   }
