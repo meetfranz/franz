@@ -3,6 +3,7 @@ import {
   reaction,
   computed,
   observable,
+  toJS,
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
@@ -530,7 +531,7 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (service.webview) {
-      service.webview.send(channel, args);
+      service.webview.send(channel, toJS(args));
     }
   }
 
