@@ -4,7 +4,7 @@ export default (params) => {
   ipcMain.on('getAppSettings', (event, type) => {
     params.mainWindow.webContents.send('appSettings', {
       type,
-      data: params.settings[type].all,
+      data: params.settings[type].allSerialized,
     });
   });
 
