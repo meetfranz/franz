@@ -43,7 +43,7 @@
    "feature.trialStatusBar.expired" : "Franz {plan} の無料体験は終了しました。今すぐアカウントをアップグレードしませんか？",
    "feature.trialStatusBar.fullscreen.dialog.cta.downgrade" : "フリープランにダウングレード",
    "feature.trialStatusBar.fullscreen.dialog.cta.upgrade" : "パーソナルプランを選択",
-   "feature.trialStatusBar.fullscreen.dialog.message" : "無料アカウントへのダウングレードしますか？こちらをクリックすると、月々たった{price}{currency}でより多くの機能を利用できます。",
+   "feature.trialStatusBar.fullscreen.dialog.message" : "無料アカウントへダウングレードしますか？こちらをクリックすると、月々たった{price}{currency}でより多くの機能を利用できます。",
    "feature.trialStatusBar.fullscreen.dialog.title" : "Franz のプランをダウングレードする",
    "feature.trialStatusBar.restTime" : "Franzの{plan}プランの無料試用は{time}に終了します。",
    "global.api.unhealthy" : "Franzのオンラインサービスに接続できません。",
