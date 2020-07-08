@@ -208,6 +208,10 @@ export default class Service {
     return ua;
   }
 
+  @computed get partition() {
+    return this.recipe.partition || `persist:service-${this.id}`;
+  }
+
   initializeWebViewEvents({ handleIPCMessage, openWindow, stores }) {
     const webContents = this.webview.getWebContents();
 
