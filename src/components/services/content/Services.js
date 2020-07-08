@@ -9,6 +9,7 @@ import injectSheet from 'react-jss';
 
 import ServiceView from './ServiceView';
 import Appear from '../../ui/effects/Appear';
+import { TODOS_RECIPE_ID } from '../../../features/todos';
 
 const messages = defineMessages({
   welcome: {
@@ -125,7 +126,7 @@ export default @observer @injectSheet(styles) class Services extends Component {
             </div>
           </Appear>
         )}
-        {services.map(service => (
+        {services.filter(service => service.recipe.id !== TODOS_RECIPE_ID).map(service => (
           <ServiceView
             key={service.id}
             service={service}

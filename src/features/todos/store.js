@@ -65,6 +65,7 @@ export default class TodoStore extends FeatureStore {
       [todoActions.handleHostMessage, this._handleHostMessage],
       [todoActions.handleClientMessage, this._handleClientMessage],
       [todoActions.toggleTodosFeatureVisibility, this._toggleTodosFeatureVisibility],
+      [todoActions.openDevTools, this._openDevTools],
     ]));
 
     // REACTIONS
@@ -146,6 +147,13 @@ export default class TodoStore extends FeatureStore {
       isFeatureEnabledByUser: !this.settings.isFeatureEnabledByUser,
     });
   };
+
+  _openDevTools = () => {
+    debug('_openDevTools');
+
+    const webview = document.querySelector('#todos-panel webview');
+    if (webview) webview.openDevTools();
+  }
 
   // Todos client message handlers
 

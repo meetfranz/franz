@@ -18,6 +18,7 @@ export const todoActions = createActionsFromDefinitions({
     action: PropTypes.string.isRequired,
     data: PropTypes.object,
   },
+  openDevTools: {},
 }, PropTypes.checkPropTypes);
 
 export default todoActions;

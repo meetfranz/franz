@@ -1439,117 +1439,117 @@
         "defaultMessage": "!!!Reload",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 23
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.reload",
         "start": {
           "column": 10,
-          "line": 15
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Edit",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 27
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.edit",
         "start": {
           "column": 8,
-          "line": 19
+          "line": 24
         }
       },
       {
         "defaultMessage": "!!!Disable notifications",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 31
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.disableNotifications",
         "start": {
           "column": 24,
-          "line": 23
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Enable notifications",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 35
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.enableNotification",
         "start": {
           "column": 23,
-          "line": 27
+          "line": 32
         }
       },
       {
         "defaultMessage": "!!!Disable audio",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 39
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.disableAudio",
         "start": {
           "column": 16,
-          "line": 31
+          "line": 36
         }
       },
       {
         "defaultMessage": "!!!Enable audio",
         "end": {
           "column": 3,
-          "line": 38
+          "line": 43
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.enableAudio",
         "start": {
           "column": 15,
-          "line": 35
+          "line": 40
         }
       },
       {
         "defaultMessage": "!!!Disable Service",
         "end": {
           "column": 3,
-          "line": 42
+          "line": 47
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.disableService",
         "start": {
           "column": 18,
-          "line": 39
+          "line": 44
         }
       },
       {
         "defaultMessage": "!!!Enable Service",
         "end": {
           "column": 3,
-          "line": 46
+          "line": 51
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.enableService",
         "start": {
           "column": 17,
-          "line": 43
+          "line": 48
         }
       },
       {
         "defaultMessage": "!!!Delete Service",
         "end": {
           "column": 3,
-          "line": 50
+          "line": 55
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.deleteService",
         "start": {
           "column": 17,
-          "line": 47
+          "line": 52
         }
       }
     ],
