@@ -18,6 +18,7 @@ class TodosScreen extends Component {
     return (
       <ErrorBoundary>
         <TodosWebview
+          isTodosServiceActive={this.props.stores.services.isTodosServiceActive}
           isVisible={todosStore.isTodosPanelVisible}
           togglePanel={todoActions.toggleTodosPanel}
           handleClientMessage={todoActions.handleClientMessage}

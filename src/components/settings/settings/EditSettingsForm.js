@@ -103,6 +103,7 @@ export default @observer class EditSettingsForm extends Component {
     isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
     isTodosEnabled: PropTypes.bool.isRequired,
     isWorkspaceEnabled: PropTypes.bool.isRequired,
+    hasAddedTodosAsService: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -135,6 +136,7 @@ export default @observer class EditSettingsForm extends Component {
       isSpellcheckerIncludedInCurrentPlan,
       isTodosEnabled,
       isWorkspaceEnabled,
+      hasAddedTodosAsService,
     } = this.props;
     const { intl } = this.context;
 
@@ -169,7 +171,7 @@ export default @observer class EditSettingsForm extends Component {
             {isWorkspaceEnabled && (
               <Toggle field={form.$('keepAllWorkspacesLoaded')} />
             )}
-            {isTodosEnabled && (
+            {isTodosEnabled && !hasAddedTodosAsService && (
               <Toggle field={form.$('enableTodos')} />
             )}
 

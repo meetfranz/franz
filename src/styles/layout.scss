@@ -26,6 +26,11 @@ html { overflow: hidden; }
       &.is-active {
         color: $theme-brand-primary;
       }
+
+      &:disabled {
+        opacity: 0.25;
+        filter: grayscale(1);
+      }
     }
   }
 

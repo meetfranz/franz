@@ -16,6 +16,8 @@ import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
+import todoActions from '../features/todos/actions';
+import { todosStore, TODOS_RECIPE_ID } from '../features/todos';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -212,6 +214,10 @@ export default class ServicesStore extends Store {
     return null;
   }
 
+  @computed get isTodosServiceActive() {
+    return this.active && this.active.recipe.id === TODOS_RECIPE_ID;
+  }
+
   one(id) {
     return this.all.find(service => service.id === id);
   }
@@ -361,6 +367,10 @@ export default class ServicesStore extends Store {
     service.isActive = true;
     this._awake({ serviceId: service.id });
     service.lastUsed = Date.now();
+
+    if (this.active.recipe.id === TODOS_RECIPE_ID && !this.stores.todos.settings.isFeatureEnabledByUser) {
+      this.actions.todos.toggleTodosFeatureVisibility();
+    }
 
     statsEvent('activate-service', service.recipe.id);
 
@@ -652,15 +662,18 @@ export default class ServicesStore extends Store {
 
   @action _openDevTools({ serviceId }) {
     const service = this.one(serviceId);
-
-    service.webview.openDevTools();
+    if (service.recipe.id === TODOS_RECIPE_ID) {
+      this.actions.todos.openDevTools();
+    } else {
+      service.webview.openDevTools();
+    }
   }
 
   @action _openDevToolsForActiveService() {
     const service = this.active;
 
     if (service) {
-      service.webview.openDevTools();
+      this._openDevTools({ serviceId: service.id });
     } else {
       debug('No service is active');
     }
