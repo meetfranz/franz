@@ -86,6 +86,7 @@ export default class ServicesStore extends Store {
       this._logoutReaction.bind(this),
       this._handleMuteSettings.bind(this),
       this._restrictServiceAccess.bind(this),
+      this._checkForActiveService.bind(this),
     ]);
 
     // Just bind this
@@ -840,6 +841,14 @@ export default class ServicesStore extends Store {
 
       return service;
     });
+  }
+
+  _checkForActiveService() {
+    if (this.allDisplayed.findIndex(service => service.isActive) === -1 && this.allDisplayed.length !== 0) {
+      debug('No active service found, setting active service to index 0');
+
+      this._setActive({ serviceId: this.allDisplayed[0].id });
+    }
   }
 
   // Helper
