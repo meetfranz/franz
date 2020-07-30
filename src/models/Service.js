@@ -3,6 +3,7 @@ import path from 'path';
 import normalizeUrl from 'normalize-url';
 
 import userAgent from '../helpers/userAgent-helpers';
+import { TODOS_RECIPE_ID, todosStore } from '../features/todos';
 
 const debug = require('debug')('Franz:Service');
 
@@ -16,7 +17,7 @@ export default class Service {
 
   recipe = '';
 
-  webview = null;
+  _webview = null;
 
   timer = null;
 
@@ -158,6 +159,18 @@ export default class Service {
       url: this.url,
       hasCustomIcon: this.hasCustomIcon,
     };
+  }
+
+  get webview() {
+    if (this.recipe.id === TODOS_RECIPE_ID) {
+      return todosStore.webview;
+    }
+
+    return this._webview;
+  }
+
+  set webview(webview) {
+    this._webview = webview;
   }
 
   @computed get url() {

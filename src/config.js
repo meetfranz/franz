@@ -97,6 +97,7 @@ export const ALLOWED_PROTOCOLS = [
   'https:',
   'http:',
   'ftp:',
+  'franz:',
 ];
 
 export const PLANS = {

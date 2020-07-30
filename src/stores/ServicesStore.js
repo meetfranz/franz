@@ -215,6 +215,10 @@ export default class ServicesStore extends Store {
     return null;
   }
 
+  @computed get isTodosServiceAdded() {
+    return this.allDisplayed.find(service => service.recipe.id === TODOS_RECIPE_ID && service.isEnabled) || null;
+  }
+
   @computed get isTodosServiceActive() {
     return this.active && this.active.recipe.id === TODOS_RECIPE_ID;
   }
@@ -578,7 +582,11 @@ export default class ServicesStore extends Store {
     service.resetMessageCount();
     service.lostRecipeConnection = false;
 
-    service.webview.loadURL(service.url);
+    if (service.recipe.id === TODOS_RECIPE_ID) {
+      return this.actions.todos.reload();
+    }
+
+    return service.webview.loadURL(service.url);
   }
 
   @action _reloadActive() {
