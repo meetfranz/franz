@@ -178,7 +178,10 @@ class TodosWebview extends Component {
   startListeningToIpcMessages() {
     const { handleClientMessage } = this.props;
     if (!this.webview) return;
-    this.webview.addEventListener('ipc-message', e => handleClientMessage(e.args[0]));
+    this.webview.addEventListener('ipc-message', (e) => {
+      // console.log(e);
+      handleClientMessage({ channel: e.channel, message: e.args[0] });
+    });
   }
 
   render() {

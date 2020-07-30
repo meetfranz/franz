@@ -53,6 +53,7 @@ export default @injectCSS(styles) class Modal extends Component {
         portal={portal}
         onRequestClose={close}
         shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
+        appElement={document.getElementById('root')}
       >
         {showClose && close && (
           <button

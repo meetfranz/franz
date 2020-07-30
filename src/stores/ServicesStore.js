@@ -18,6 +18,7 @@ import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 import todoActions from '../features/todos/actions';
 import { todosStore, TODOS_RECIPE_ID } from '../features/todos';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -86,6 +87,7 @@ export default class ServicesStore extends Store {
       this._logoutReaction.bind(this),
       this._handleMuteSettings.bind(this),
       this._restrictServiceAccess.bind(this),
+      this._checkForActiveService.bind(this),
     ]);
 
     // Just bind this
@@ -214,6 +216,10 @@ export default class ServicesStore extends Store {
     return null;
   }
 
+  @computed get isTodosServiceAdded() {
+    return this.allDisplayed.find(service => service.recipe.id === TODOS_RECIPE_ID && service.isEnabled) || null;
+  }
+
   @computed get isTodosServiceActive() {
     return this.active && this.active.recipe.id === TODOS_RECIPE_ID;
   }
@@ -227,10 +233,34 @@ export default class ServicesStore extends Store {
   }
 
   // Actions
-  @action async _createService({ recipeId, serviceData, redirect = true }) {
+  async _createService({
+    recipeId, serviceData, redirect = true, skipCleanup = false,
+  }) {
     if (serviceLimitStore.userHasReachedServiceLimit) return;
 
-    const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    if (!this.stores.recipes.isInstalled(recipeId)) {
+      debug(`Recipe "${recipeId}" is not installed, installing recipe`);
+      await this.stores.recipes._install({ recipeId });
+      debug(`Recipe "${recipeId}" installed`);
+    }
+
+    // set default values for serviceData
+    Object.assign({
+      isEnabled: true,
+      isHibernationEnabled: false,
+      isNotificationEnabled: true,
+      isBadgeEnabled: true,
+      isMuted: false,
+      customIcon: false,
+      isDarkModeEnabled: false,
+      spellcheckerLanguage: SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
+    }, serviceData);
+
+    let data = serviceData;
+
+    if (!skipCleanup) {
+      data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    }
 
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
@@ -577,7 +607,11 @@ export default class ServicesStore extends Store {
     service.resetMessageCount();
     service.lostRecipeConnection = false;
 
-    service.webview.loadURL(service.url);
+    if (service.recipe.id === TODOS_RECIPE_ID) {
+      return this.actions.todos.reload();
+    }
+
+    return service.webview.loadURL(service.url);
   }
 
   @action _reloadActive() {
@@ -840,6 +874,18 @@ export default class ServicesStore extends Store {
 
       return service;
     });
+  }
+
+  _checkForActiveService() {
+    if (this.stores.router.location.pathname.includes('auth/signup')) {
+      return;
+    }
+
+    if (this.allDisplayed.findIndex(service => service.isActive) === -1 && this.allDisplayed.length !== 0) {
+      debug('No active service found, setting active service to index 0');
+
+      this._setActive({ serviceId: this.allDisplayed[0].id });
+    }
   }
 
   // Helper
