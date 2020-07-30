@@ -591,6 +591,159 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "!!!Invite Friends",
+        "end": {
+          "column": 3,
+          "line": 19
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "settings.invite.headline",
+        "start": {
+          "column": 20,
+          "line": 16
+        }
+      },
+      {
+        "defaultMessage": "!!!Invite 3 of your friends or colleagues",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "invite.headline.friends",
+        "start": {
+          "column": 12,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Name",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "invite.name.label",
+        "start": {
+          "column": 13,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Email address",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "invite.email.label",
+        "start": {
+          "column": 14,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Send invites",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "invite.submit.label",
+        "start": {
+          "column": 21,
+          "line": 32
+        }
+      },
+      {
+        "defaultMessage": "!!!I want to do this later",
+        "end": {
+          "column": 3,
+          "line": 39
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "invite.skip.label",
+        "start": {
+          "column": 19,
+          "line": 36
+        }
+      },
+      {
+        "defaultMessage": "!!!Invitations sent successfully",
+        "end": {
+          "column": 3,
+          "line": 43
+        },
+        "file": "src/components/auth/ServiceAssistant.js",
+        "id": "invite.successInfo",
+        "start": {
+          "column": 21,
+          "line": 40
+        }
+      }
+    ],
+    "path": "src/components/auth/ServiceAssistant.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "!!!Let's get started",
+        "end": {
+          "column": 3,
+          "line": 23
+        },
+        "file": "src/components/auth/SetupAssistant.js",
+        "id": "setupAssistant.headline",
+        "start": {
+          "column": 12,
+          "line": 20
+        }
+      },
+      {
+        "defaultMessage": "!!!Choose your favorite services and get back on top of your messaging now.",
+        "end": {
+          "column": 3,
+          "line": 27
+        },
+        "file": "src/components/auth/SetupAssistant.js",
+        "id": "setupAssistant.subheadline",
+        "start": {
+          "column": 15,
+          "line": 24
+        }
+      },
+      {
+        "defaultMessage": "!!!Let's go",
+        "end": {
+          "column": 3,
+          "line": 31
+        },
+        "file": "src/components/auth/SetupAssistant.js",
+        "id": "setupAssistant.submit.label",
+        "start": {
+          "column": 21,
+          "line": 28
+        }
+      },
+      {
+        "defaultMessage": "!!!Invitations sent successfully",
+        "end": {
+          "column": 3,
+          "line": 35
+        },
+        "file": "src/components/auth/SetupAssistant.js",
+        "id": "invite.successInfo",
+        "start": {
+          "column": 21,
+          "line": 32
+        }
+      }
+    ],
+    "path": "src/components/auth/SetupAssistant.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "!!!Sign up",
         "end": {
           "column": 3,
@@ -1281,26 +1434,26 @@
         "defaultMessage": "!!!Welcome to Franz",
         "end": {
           "column": 3,
-          "line": 17
+          "line": 18
         },
         "file": "src/components/services/content/Services.js",
         "id": "services.welcome",
         "start": {
           "column": 11,
-          "line": 14
+          "line": 15
         }
       },
       {
         "defaultMessage": "!!!Get started",
         "end": {
           "column": 3,
-          "line": 21
+          "line": 22
         },
         "file": "src/components/services/content/Services.js",
         "id": "services.getStarted",
         "start": {
           "column": 14,
-          "line": 18
+          "line": 19
         }
       }
     ],
@@ -4755,39 +4908,39 @@
         "defaultMessage": "!!!Franz Todos are available to premium users now!",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 19
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.info",
         "start": {
           "column": 15,
-          "line": 15
+          "line": 16
         }
       },
       {
         "defaultMessage": "!!!Upgrade Account",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 23
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.upgrade",
         "start": {
           "column": 14,
-          "line": 19
+          "line": 20
         }
       },
       {
         "defaultMessage": "!!!Everyone else will have to wait a little longer.",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/features/todos/components/TodosWebview.js",
         "id": "feature.todos.premium.rollout",
         "start": {
           "column": 15,
-          "line": 23
+          "line": 24
         }
       }
     ],

@@ -18,6 +18,7 @@ import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 import todoActions from '../features/todos/actions';
 import { todosStore, TODOS_RECIPE_ID } from '../features/todos';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -232,10 +233,34 @@ export default class ServicesStore extends Store {
   }
 
   // Actions
-  @action async _createService({ recipeId, serviceData, redirect = true }) {
+  async _createService({
+    recipeId, serviceData, redirect = true, skipCleanup = false,
+  }) {
     if (serviceLimitStore.userHasReachedServiceLimit) return;
 
-    const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    if (!this.stores.recipes.isInstalled(recipeId)) {
+      debug(`Recipe "${recipeId}" is not installed, installing recipe`);
+      await this.stores.recipes._install({ recipeId });
+      debug(`Recipe "${recipeId}" installed`);
+    }
+
+    // set default values for serviceData
+    Object.assign({
+      isEnabled: true,
+      isHibernationEnabled: false,
+      isNotificationEnabled: true,
+      isBadgeEnabled: true,
+      isMuted: false,
+      customIcon: false,
+      isDarkModeEnabled: false,
+      spellcheckerLanguage: SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
+    }, serviceData);
+
+    let data = serviceData;
+
+    if (!skipCleanup) {
+      data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    }
 
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
@@ -852,6 +877,10 @@ export default class ServicesStore extends Store {
   }
 
   _checkForActiveService() {
+    if (this.stores.router.location.pathname.includes('auth/signup')) {
+      return;
+    }
+
     if (this.allDisplayed.findIndex(service => service.isActive) === -1 && this.allDisplayed.length !== 0) {
       debug('No active service found, setting active service to index 0');
 

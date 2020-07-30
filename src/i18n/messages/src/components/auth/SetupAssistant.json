@@ -1,0 +1,54 @@
+[
+  {
+    "id": "setupAssistant.headline",
+    "defaultMessage": "!!!Let's get started",
+    "file": "src/components/auth/SetupAssistant.js",
+    "start": {
+      "line": 19,
+      "column": 12
+    },
+    "end": {
+      "line": 22,
+      "column": 3
+    }
+  },
+  {
+    "id": "setupAssistant.subheadline",
+    "defaultMessage": "!!!Choose from our most used services and get back on top of your messaging now.",
+    "file": "src/components/auth/SetupAssistant.js",
+    "start": {
+      "line": 23,
+      "column": 15
+    },
+    "end": {
+      "line": 26,
+      "column": 3
+    }
+  },
+  {
+    "id": "setupAssistant.submit.label",
+    "defaultMessage": "!!!Let's go",
+    "file": "src/components/auth/SetupAssistant.js",
+    "start": {
+      "line": 27,
+      "column": 21
+    },
+    "end": {
+      "line": 30,
+      "column": 3
+    }
+  },
+  {
+    "id": "invite.successInfo",
+    "defaultMessage": "!!!Invitations sent successfully",
+    "file": "src/components/auth/SetupAssistant.js",
+    "start": {
+      "line": 31,
+      "column": 21
+    },
+    "end": {
+      "line": 34,
+      "column": 3
+    }
+  }
+]
