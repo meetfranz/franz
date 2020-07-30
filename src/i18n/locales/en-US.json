@@ -126,6 +126,7 @@
   "menu.view.exitFullScreen": "Exit Full Screen",
   "menu.view.reloadFranz": "Reload Franz",
   "menu.view.reloadService": "Reload Service",
+  "menu.view.reloadTodos": "Reload ToDos",
   "menu.view.resetZoom": "Actual Size",
   "menu.view.toggleDevTools": "Toggle Developer Tools",
   "menu.view.toggleFullScreen": "Toggle Full Screen",

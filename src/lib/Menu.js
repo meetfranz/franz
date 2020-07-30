@@ -115,6 +115,10 @@ const menuItems = defineMessages({
     id: 'menu.view.reloadFranz',
     defaultMessage: '!!!Reload Franz',
   },
+  reloadTodos: {
+    id: 'menu.view.reloadTodos',
+    defaultMessage: '!!!Reload ToDos',
+  },
   minimize: {
     id: 'menu.window.minimize',
     defaultMessage: '!!!Minimize',
@@ -694,6 +698,12 @@ export default class FranzMenu {
       accelerator: `${cmdKey}+Shift+R`,
       click: () => {
         window.location.reload();
+      },
+    }, {
+      label: intl.formatMessage(menuItems.reloadTodos),
+      accelerator: `${cmdKey}+Shift+Alt+R`,
+      click: () => {
+        this.actions.todos.reload();
       },
     });
 
