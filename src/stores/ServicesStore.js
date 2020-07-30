@@ -16,8 +16,7 @@ import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
-import todoActions from '../features/todos/actions';
-import { todosStore, TODOS_RECIPE_ID } from '../features/todos';
+import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:ServiceStore');
