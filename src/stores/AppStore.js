@@ -1,37 +1,70 @@
-import { remote, ipcRenderer, shell } from 'electron';
 import {
-  action, computed, observable, reaction,
+  remote,
+  ipcRenderer,
+  shell,
+} from 'electron';
+import {
+  action,
+  computed,
+  observable,
+  reaction,
 } from 'mobx';
 import moment from 'moment';
-import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
+import {
+  getDoNotDisturb,
+} from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
-import { URL } from 'url';
+import {
+  URL,
+} from 'url';
 import os from 'os';
 import path from 'path';
-import { readJsonSync } from 'fs-extra';
+import {
+  readJsonSync,
+} from 'fs-extra';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
-import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac } from '../environment';
+import {
+  CHECK_INTERVAL,
+  DEFAULT_APP_SETTINGS,
+} from '../config';
+import {
+  isMac,
+} from '../environment';
 import locales from '../i18n/translations';
-import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
-import { onVisibilityChange } from '../helpers/visibility-helper';
-import { getLocale } from '../helpers/i18n-helpers';
+import {
+  gaEvent,
+  gaPage,
+  statsEvent,
+} from '../lib/analytics';
+import {
+  onVisibilityChange,
+} from '../helpers/visibility-helper';
+import {
+  getLocale,
+} from '../helpers/i18n-helpers';
 
-import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
-import { isValidExternalURL } from '../helpers/url-helpers';
-import { sleep } from '../helpers/async-helpers';
+import {
+  getServiceIdsFromPartitions,
+  removeServicePartitionDirectory,
+} from '../helpers/service-helpers.js';
+import {
+  isValidExternalURL,
+} from '../helpers/url-helpers';
+import {
+  sleep,
+} from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
 const {
   app,
   screen,
+  powerMonitor,
   nativeTheme,
-  systemPreferences,
 } = remote;
 
 const mainWindow = remote.getCurrentWindow();
@@ -42,7 +75,6 @@ const autoLauncher = new AutoLaunch({
 });
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
-const CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED = '_temp_askedForCatalinaAudioVideoPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -118,11 +150,19 @@ export default class AppStore extends Store {
     window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
-    window.addEventListener('online', () => { this.isOnline = true; });
-    window.addEventListener('offline', () => { this.isOnline = false; });
+    window.addEventListener('online', () => {
+      this.isOnline = true;
+    });
+    window.addEventListener('offline', () => {
+      this.isOnline = false;
+    });
 
-    mainWindow.on('enter-full-screen', () => { this.isFullScreen = true; });
-    mainWindow.on('leave-full-screen', () => { this.isFullScreen = false; });
+    mainWindow.on('enter-full-screen', () => {
+      this.isFullScreen = true;
+    });
+    mainWindow.on('leave-full-screen', () => {
+      this.isFullScreen = false;
+    });
 
 
     this.isOnline = navigator.onLine;
@@ -137,10 +177,16 @@ export default class AppStore extends Store {
     setInterval(() => this._systemDND(), ms('5s'));
 
     this.fetchDataInterval = setInterval(() => {
-      this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
-      this.stores.features.featuresRequest.invalidate({ immediately: true });
-      this.stores.news.latestNewsRequest.invalidate({ immediately: true });
-    }, ms('10m'));
+      this.stores.user.getUserInfoRequest.invalidate({
+        immediately: true,
+      });
+      this.stores.features.featuresRequest.invalidate({
+        immediately: true,
+      });
+      this.stores.news.latestNewsRequest.invalidate({
+        immediately: true,
+      });
+    }, ms('60m'));
 
     // Check for updates once every 4 hours
     setInterval(() => this._checkForUpdates(), CHECK_INTERVAL);
@@ -174,7 +220,9 @@ export default class AppStore extends Store {
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
       debug('Navigate from deep link', data);
-      let { url } = data;
+      let {
+        url,
+      } = data;
       if (!url) return;
 
       url = url.replace(/\/$/, '');
@@ -199,6 +247,27 @@ export default class AppStore extends Store {
       gaPage(pathname);
     });
 
+    powerMonitor.on('suspend', () => {
+      debug('System suspended starting timer');
+
+      this.timeSuspensionStart = moment();
+    });
+
+    powerMonitor.on('resume', () => {
+      debug('System resumed, last suspended on', this.timeSuspensionStart);
+      this.actions.service.resetLastPollTimer();
+
+      if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
+        debug('Reloading services, user info and features');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, ms('2s'));
+
+        statsEvent('resumed-app');
+      }
+    });
+
     // macOS catalina notifications hack
     // notifications got stuck after upgrade but forcing a notification
     // via `new Notification` triggered the permission request
@@ -211,17 +280,6 @@ export default class AppStore extends Store {
         });
 
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
-      }
-
-      if (!localStorage.getItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED)) {
-        debug('Triggering macOS Catalina Audio/Video permission trigger');
-        // eslint-disable-next-line no-new
-        const cameraAccess = await systemPreferences.askForMediaAccess('camera');
-        const microphoneAccess = await systemPreferences.askForMediaAccess('microphone');
-
-        console.log('access', cameraAccess, microphoneAccess);
-
-        localStorage.setItem(CATALINA_AUDIO_VIDEO_PERMISSIONS_CHECKED, true);
       }
     }
 
@@ -242,10 +300,22 @@ export default class AppStore extends Store {
       franz: {
         version: app.getVersion(),
         electron: process.versions.electron,
-        installedRecipes: this.stores.recipes.all.map(recipe => ({ id: recipe.id, version: recipe.version })),
-        devRecipes: this.stores.recipePreviews.dev.map(recipe => ({ id: recipe.id, version: recipe.version })),
-        services: this.stores.services.all.map(service => ({ id: service.id, recipe: service.recipe.id })),
-        workspaces: this.stores.workspaces.workspaces.map(workspace => ({ id: workspace.id, services: workspace.services })),
+        installedRecipes: this.stores.recipes.all.map(recipe => ({
+          id: recipe.id,
+          version: recipe.version,
+        })),
+        devRecipes: this.stores.recipePreviews.dev.map(recipe => ({
+          id: recipe.id,
+          version: recipe.version,
+        })),
+        services: this.stores.services.all.map(service => ({
+          id: service.id,
+          recipe: service.recipe.id,
+        })),
+        workspaces: this.stores.workspaces.workspaces.map(workspace => ({
+          id: workspace.id,
+          services: workspace.services,
+        })),
         windowSettings: readJsonSync(path.join(app.getPath('userData'), 'window-state.json')),
         user: this.stores.user.data.id,
       },
@@ -254,7 +324,10 @@ export default class AppStore extends Store {
 
   // Actions
   @action _notify({
-    title, options, notificationId, serviceId = null,
+    title,
+    options,
+    notificationId,
+    serviceId = null,
   }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
@@ -275,7 +348,9 @@ export default class AppStore extends Store {
           serviceId,
         });
 
-        this.actions.service.setActive({ serviceId });
+        this.actions.service.setActive({
+          serviceId,
+        });
         mainWindow.show();
         if (app.mainWindow.isMinimized()) {
           mainWindow.restore();
@@ -287,7 +362,10 @@ export default class AppStore extends Store {
     };
   }
 
-  @action _setBadge({ unreadDirectMessageCount, unreadIndirectMessageCount }) {
+  @action _setBadge({
+    unreadDirectMessageCount,
+    unreadIndirectMessageCount,
+  }) {
     let indicator = unreadDirectMessageCount;
 
     if (indicator === 0 && unreadIndirectMessageCount !== 0) {
@@ -298,10 +376,14 @@ export default class AppStore extends Store {
       indicator = parseInt(indicator, 10);
     }
 
-    ipcRenderer.send('updateAppIndicator', { indicator });
+    ipcRenderer.send('updateAppIndicator', {
+      indicator,
+    });
   }
 
-  @action _launchOnStartup({ enable }) {
+  @action _launchOnStartup({
+    enable,
+  }) {
     this.autoLaunchOnStart = enable;
 
     try {
@@ -317,7 +399,9 @@ export default class AppStore extends Store {
     gaEvent('App', enable ? 'enable autostart' : 'disable autostart');
   }
 
-  @action _openExternalUrl({ url }) {
+  @action _openExternalUrl({
+    url,
+  }) {
     const parsedUrl = new URL(url);
     debug('open external url', parsedUrl);
 
@@ -328,13 +412,17 @@ export default class AppStore extends Store {
 
   @action _checkForUpdates() {
     this.updateStatus = this.updateStatusTypes.CHECKING;
-    ipcRenderer.send('autoUpdate', { action: 'check' });
+    ipcRenderer.send('autoUpdate', {
+      action: 'check',
+    });
 
     this.actions.recipe.update();
   }
 
   @action _installUpdate() {
-    ipcRenderer.send('autoUpdate', { action: 'install' });
+    ipcRenderer.send('autoUpdate', {
+      action: 'install',
+    });
   }
 
   @action _resetUpdateStatus() {
@@ -345,7 +433,10 @@ export default class AppStore extends Store {
     this.healthCheckRequest.execute();
   }
 
-  @action _muteApp({ isMuted, overrideSystemMute = true }) {
+  @action _muteApp({
+    isMuted,
+    overrideSystemMute = true,
+  }) {
     this.isSystemMuteOverridden = overrideSystemMute;
     this.actions.settings.update({
       type: 'app',
@@ -356,7 +447,9 @@ export default class AppStore extends Store {
   }
 
   @action _toggleMuteApp() {
-    this._muteApp({ isMuted: !this.stores.settings.all.app.isAppMuted });
+    this._muteApp({
+      isMuted: !this.stores.settings.all.app.isAppMuted,
+    });
   }
 
   @action async _clearAllCache() {
@@ -367,7 +460,9 @@ export default class AppStore extends Store {
 
     await Promise.all(allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)));
 
-    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({ serviceId: s.id })));
+    await Promise.all(this.stores.services.all.map(s => this.actions.service.clearCache({
+      serviceId: s.id,
+    })));
 
     await clearAppCache._promise;
 
@@ -422,7 +517,10 @@ export default class AppStore extends Store {
     const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
 
     if (!showMessageBadgesEvenWhenMuted) {
-      this.actions.app.setBadge({ unreadDirectMessageCount: 0, unreadIndirectMessageCount: 0 });
+      this.actions.app.setBadge({
+        unreadDirectMessageCount: 0,
+        unreadIndirectMessageCount: 0,
+      });
     }
   }
 

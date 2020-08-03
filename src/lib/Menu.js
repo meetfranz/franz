@@ -115,6 +115,10 @@ const menuItems = defineMessages({
     id: 'menu.view.reloadFranz',
     defaultMessage: '!!!Reload Franz',
   },
+  reloadTodos: {
+    id: 'menu.view.reloadTodos',
+    defaultMessage: '!!!Reload ToDos',
+  },
   minimize: {
     id: 'menu.window.minimize',
     defaultMessage: '!!!Minimize',
@@ -667,8 +671,8 @@ export default class FranzMenu {
         label: intl.formatMessage(menuItems.toggleTodosDevTools),
         accelerator: `${cmdKey}+Shift+Alt+O`,
         click: () => {
-          const webview = document.querySelector('webview[partition="persist:todos"]');
-          if (webview) webview.openDevTools();
+          const webview = document.querySelector('#todos-panel webview');
+          if (webview) this.actions.todos.openDevTools();
         },
       });
     }
@@ -694,6 +698,12 @@ export default class FranzMenu {
       accelerator: `${cmdKey}+Shift+R`,
       click: () => {
         window.location.reload();
+      },
+    }, {
+      label: intl.formatMessage(menuItems.reloadTodos),
+      accelerator: `${cmdKey}+Shift+Alt+R`,
+      click: () => {
+        this.actions.todos.reload();
       },
     });
 

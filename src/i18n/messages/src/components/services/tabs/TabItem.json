@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Reload",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 15,
+      "line": 20,
       "column": 10
     },
     "end": {
-      "line": 18,
+      "line": 23,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Edit",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 19,
+      "line": 24,
       "column": 8
     },
     "end": {
-      "line": 22,
+      "line": 27,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Disable notifications",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 23,
+      "line": 28,
       "column": 24
     },
     "end": {
-      "line": 26,
+      "line": 31,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Enable notifications",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 27,
+      "line": 32,
       "column": 23
     },
     "end": {
-      "line": 30,
+      "line": 35,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Disable audio",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 31,
+      "line": 36,
       "column": 16
     },
     "end": {
-      "line": 34,
+      "line": 39,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!Enable audio",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 35,
+      "line": 40,
       "column": 15
     },
     "end": {
-      "line": 38,
+      "line": 43,
       "column": 3
     }
   },
@@ -82,11 +82,11 @@
     "defaultMessage": "!!!Disable Service",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 39,
+      "line": 44,
       "column": 18
     },
     "end": {
-      "line": 42,
+      "line": 47,
       "column": 3
     }
   },
@@ -95,11 +95,11 @@
     "defaultMessage": "!!!Enable Service",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 43,
+      "line": 48,
       "column": 17
     },
     "end": {
-      "line": 46,
+      "line": 51,
       "column": 3
     }
   },
@@ -108,11 +108,11 @@
     "defaultMessage": "!!!Delete Service",
     "file": "src/components/services/tabs/TabItem.js",
     "start": {
-      "line": 47,
+      "line": 52,
       "column": 17
     },
     "end": {
-      "line": 50,
+      "line": 55,
       "column": 3
     }
   }

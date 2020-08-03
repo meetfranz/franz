@@ -27,14 +27,20 @@ export default (params) => {
         const extension = mime.extension(fileOptions.mime);
         const filename = `${fileOptions.name}.${extension}`;
 
-        dialog.showSaveDialog(params.mainWindow, {
-          defaultPath: filename,
-        }, (name) => {
-          const binaryImage = decodeBase64Image(content);
-          fs.writeFileSync(name, binaryImage, 'binary');
+        try {
+          const saveDialog = await dialog.showSaveDialog(params.mainWindow, {
+            defaultPath: filename,
+          });
 
-          debug('File blob saved to', name);
-        });
+          if (saveDialog.canceled) return;
+
+          const binaryImage = decodeBase64Image(content);
+          fs.writeFileSync(saveDialog.filePath, binaryImage, 'binary');
+
+          debug('File blob saved to', saveDialog.filePath);
+        } catch (err) {
+          console.log(err);
+        }
       }
     } catch (e) {
       console.error(e);

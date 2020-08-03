@@ -116,6 +116,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         isWorkspaceDrawerOpen={workspaceStore.isWorkspaceDrawerOpen}
         showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
+        isTodosServiceActive={services.isTodosServiceActive || false}
       />
     );
 

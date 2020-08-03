@@ -15,6 +15,7 @@ import './stories/infobox.stories';
 import './stories/input.stories';
 import './stories/loader.stories';
 import './stories/select.stories';
+import './stories/textarea.stories';
 import './stories/toggle.stories';
 
 import { store } from './stores';

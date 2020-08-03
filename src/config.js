@@ -29,6 +29,8 @@ export const LOCAL_TODOS_FRONTEND_URL = 'http://localhost:4000';
 export const PRODUCTION_TODOS_FRONTEND_URL = 'https://app.franztodos.com';
 export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.netlify.com';
 
+export const CDN_URL = 'https://cdn.franzinfra.com';
+
 export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
 
 export const DEFAULT_APP_SETTINGS = {
@@ -70,7 +72,7 @@ export const DEFAULT_WINDOW_OPTIONS = {
   y: 0,
 };
 
-export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-plugin-docs';
+export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-service-request-support';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 export const FRANZ_DEV_DOCS = 'http://bit.ly/franz-dev-hub';
 
@@ -97,6 +99,7 @@ export const ALLOWED_PROTOCOLS = [
   'https:',
   'http:',
   'ftp:',
+  'franz:',
 ];
 
 export const PLANS = {

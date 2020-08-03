@@ -1,3 +1,73 @@
+# [5.5.0](https://github.com/meetfranz/franz/compare/v5.5.0-beta.4...v5.5.0) (2020-04-29)
+
+### Features
+
+* **Service:** Add service hibernation to save system resources ([cb92dd7](https://github.com/meetfranz/franz/commit/cb92dd7))
+* **App:** Add `FRANZ_APPDATA_DIR` environment variable to customize the app settings directory ([@Makazzz](https://github.com/Makazzz))
+* **Service:** Added service polling debugger when starting Franz with `DEBUG=Franz:Service`
+
+### Bug Fixes
+
+* **App:** Update deprecated electron APIs ([@vantezzen](https://github.com/vantezzen))
+* **App:** Fix Zoom in services ([@vantezzen](https://github.com/vantezzen))
+* **macOS:** Add audio & video permission request for macOS Catalina ([8922324](https://github.com/meetfranz/franz/commit/8922324))
+8922324
+* **Experimental:** Fix Google signin ([d7840ba](https://github.com/meetfranz/franz/commit/d7840ba))
+* **macOS:** Ask the user to move Franz to the `/Applications` Folder to fix read/write issues ([f52ad72](https://github.com/meetfranz/franz/commit/f52ad72))
+* **macOS:** Fix microphone, camera & screen sharing permissions 
+* **Service:** Add integrity checks to prevent services recipes getting lost ([b2d5315](https://github.com/meetfranz/franz/commit/b2d5315))
+* **Service:** Fix issue with user agent override in service workers ([a8dea57](https://github.com/meetfranz/franz/commit/a8dea57))
+* **Service:** Don't reload services after 10 minute system nap ([a2aae55](https://github.com/meetfranz/franz/commit/a2aae55))
+* **App:** Fix "Missing Service" link ([0e2c945](https://github.com/meetfranz/franz/commit/0e2c945))
+* **App:** Improve lost recipe connection handler ([18e1da1](https://github.com/meetfranz/franz/commit/18e1da1))
+
+
+### General
+
+* **App:** Updated electron to 8.1.1 ([5b00c90](https://github.com/meetfranz/franz/commit/5b00c90))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
+# [5.5.0-beta.4](https://github.com/meetfranz/franz/compare/v5.5.0-beta.3...v5.5.0-beta.4) (2020-04-21)
+
+### Bug Fixes
+* **Service:** Fix issue with service debugger painting service tabs red ([2b980c7](https://github.com/meetfranz/franz/commit/2b980c7))
+
+
+# [5.5.0-beta.3](https://github.com/meetfranz/franz/compare/v5.5.0-beta.2...v5.5.0-beta.3) (2020-04-17)
+
+
+### Bug Fixes
+
+* **App:** Improve lost recipe connection handler ([18e1da1](https://github.com/meetfranz/franz/commit/18e1da1))
+
+### General
+
+* **Service:** Added service polling debugger when starting Franz with `DEBUG=Franz:Service`
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
+# [5.5.0-beta.2](https://github.com/meetfranz/franz/compare/v5.5.0-beta.1...v5.5.0-beta.2) (2020-04-06)
+
+
+### Bug Fixes
+
+* **Experimental:** Fix Google signin ([d7840ba](https://github.com/meetfranz/franz/commit/d7840ba))
+* **macOS:** Ask the user to move Franz to the `/Applications` Folder to fix read/write issues ([f52ad72](https://github.com/meetfranz/franz/commit/f52ad72))
+* **macOS:** Fix microphone, camera & screen sharing permissions 
+* **Service:** Add integrity checks to prevent services recipes getting lost ([b2d5315](https://github.com/meetfranz/franz/commit/b2d5315))
+* **Service:** Fix issue with user agent override in service workers ([a8dea57](https://github.com/meetfranz/franz/commit/a8dea57))
+* **Service:** Don't reload services after 10 minute system nap ([a2aae55](https://github.com/meetfranz/franz/commit/a2aae55))
+* **App:** Fix "Missing Service" link ([0e2c945](https://github.com/meetfranz/franz/commit/0e2c945))
+
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
 # [5.5.0-beta.1](https://github.com/meetfranz/franz/compare/v5.4.1...v5.5.0-beta.1) (2020-03-20)
 
 

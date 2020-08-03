@@ -5,7 +5,12 @@ const debug = require('debug')('Franz:feature:todos:preload');
 
 debug('Preloading Todos Webview');
 
-let hostMessageListener = () => {};
+let hostMessageListener = ({ action }) => {
+  switch (action) {
+    case 'todos:initialize-as-service': ipcRenderer.sendToHost('hello'); break;
+    default:
+  }
+};
 
 window.franz = {
   onInitialize(ipcHostMessageListener) {
