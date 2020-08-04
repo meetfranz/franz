@@ -12,7 +12,6 @@ const debug = require('debug')('Franz:contextMenu');
 
 const { Menu } = remote;
 
-// const win = remote.getCurrentWindow();
 const webContents = remote.getCurrentWebContents();
 
 function delUnusedElements(menuTpl) {
@@ -218,6 +217,16 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     });
   }
 
+  // Allow users to add the misspelled word to the dictionary
+  if (props.misspelledWord) {
+    menuTpl.unshift({
+      type: 'separator',
+    }, {
+      label: `Add "${props.misspelledWord}" to dictionary`,
+      click: () => webContents.session.addWordToSpellCheckerDictionary(props.misspelledWord),
+    });
+  }
+
   if (suggestions.length > 0) {
     suggestions.reverse().map(suggestion => menuTpl.unshift({
       id: `suggestion-${suggestion}`,
@@ -321,14 +330,13 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
   return delUnusedElements(menuTpl);
 };
 
-export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
+export default function contextMenu(isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
   webContents.on('context-menu', async (e, props) => {
     e.preventDefault();
 
     let suggestions = [];
-    if (spellcheckProvider && props.misspelledWord) {
-      debug('Mispelled word', props.misspelledWord);
-      suggestions = await spellcheckProvider.getSuggestion(props.misspelledWord);
+    if (props.dictionarySuggestions) {
+      suggestions = props.dictionarySuggestions;
 
       debug('Suggestions', suggestions);
     }

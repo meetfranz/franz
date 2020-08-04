@@ -5,7 +5,7 @@ import { debounce } from 'lodash';
 
 import RecipeWebview from './lib/RecipeWebview';
 
-import spellchecker, { switchDict, disable as disableSpellchecker, getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
+import { switchDict, getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
 import contextMenu from './contextMenu';
 import './notifications';
@@ -56,10 +56,8 @@ class RecipeController {
     debug('Send "hello" to host');
     setTimeout(() => ipcRenderer.sendToHost('hello'), 100);
 
-    // this.spellcheckingProvider = await spellchecker();
     this.spellcheckingProvider = null;
     contextMenu(
-      this.spellcheckingProvider,
       () => this.settings.app.enableSpellchecking,
       () => this.settings.app.spellcheckerLanguage,
       () => this.spellcheckerLanguage,
@@ -98,17 +96,10 @@ class RecipeController {
         this.automaticLanguageDetection();
         debug('Found `automatic` locale, falling back to user locale until detected', this.settings.app.locale);
         spellcheckerLanguage = this.settings.app.locale;
-      } else if (this.cldIdentifier) {
-        this.cldIdentifier.destroy();
       }
       switchDict(spellcheckerLanguage);
     } else {
       debug('Disable spellchecker');
-      disableSpellchecker();
-
-      if (this.cldIdentifier) {
-        this.cldIdentifier.destroy();
-      }
     }
 
     if (this.settings.service.isDarkModeEnabled) {
@@ -133,7 +124,7 @@ class RecipeController {
     event.sender.send('service-id', this.settings.service.id);
   }
 
-  async changeDetectedLanguage(event, { locale }) {
+  changeDetectedLanguage(event, { locale }) {
     const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
     debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
     if (spellcheckerLocale) {
@@ -145,8 +136,6 @@ class RecipeController {
     window.addEventListener('keyup', debounce((e) => {
       const element = e.target;
 
-      window.log('keyup', e);
-
       if (!element) return;
 
       let value = '';
@@ -157,7 +146,7 @@ class RecipeController {
       }
 
       // Force a minimum length to get better detection results
-      if (value.length < 20) return;
+      if (value.length < 25) return;
 
       debug('Detecting language for', value);
       ipcRenderer.send('detect-language', { sample: value });
