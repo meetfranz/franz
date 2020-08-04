@@ -56,7 +56,8 @@ class RecipeController {
     debug('Send "hello" to host');
     setTimeout(() => ipcRenderer.sendToHost('hello'), 100);
 
-    this.spellcheckingProvider = await spellchecker();
+    // this.spellcheckingProvider = await spellchecker();
+    this.spellcheckingProvider = null;
     contextMenu(
       this.spellcheckingProvider,
       () => this.settings.app.enableSpellchecking,

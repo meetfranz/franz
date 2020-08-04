@@ -193,7 +193,6 @@ export default class TodoStore extends FeatureStore {
       },
     });
 
-    console.log('todoswebview is initialized', this.isInitialized);
     if (!this.isInitialized) {
       this.webview.addEventListener('new-window', this._handleNewWindowEvent);
 
