@@ -53,7 +53,6 @@ protocols:
   schemes: [franz]
 
 asarUnpack:
-  - ./dictionaries
   - ./node_modules/mac-screen-capture-permissions
   - ./assets/images/taskbar
 
