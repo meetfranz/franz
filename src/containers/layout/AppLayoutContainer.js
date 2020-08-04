@@ -132,6 +132,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         update={updateService}
         userHasCompletedSignup={user.hasCompletedSignup}
         hasActivatedTrial={user.hasActivatedTrial}
+        isSpellcheckerEnabled={settings.app.enableSpellchecking}
       />
     );
 

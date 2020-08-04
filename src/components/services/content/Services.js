@@ -45,6 +45,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
     userHasCompletedSignup: PropTypes.bool.isRequired,
     hasActivatedTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
+    isSpellcheckerEnabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -88,6 +89,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
       userHasCompletedSignup,
       hasActivatedTrial,
       classes,
+      isSpellcheckerEnabled,
     } = this.props;
 
     const {
@@ -144,6 +146,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
               redirect: false,
             })}
             upgrade={() => openSettings({ path: 'user' })}
+            isSpellcheckerEnabled={isSpellcheckerEnabled}
           />
         ))}
       </div>

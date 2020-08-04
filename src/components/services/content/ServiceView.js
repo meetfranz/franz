@@ -26,6 +26,7 @@ export default @observer class ServiceView extends Component {
     enable: PropTypes.func.isRequired,
     isActive: PropTypes.bool,
     upgrade: PropTypes.func.isRequired,
+    isSpellcheckerEnabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -78,6 +79,7 @@ export default @observer class ServiceView extends Component {
       edit,
       enable,
       upgrade,
+      isSpellcheckerEnabled,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -149,6 +151,7 @@ export default @observer class ServiceView extends Component {
                     service={service}
                     setWebviewReference={setWebviewReference}
                     detachService={detachService}
+                    isSpellcheckerEnabled={isSpellcheckerEnabled}
                   />
                 )}
                 {/* {service.lostRecipeConnection && (

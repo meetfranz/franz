@@ -11,6 +11,7 @@ class ServiceWebview extends Component {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
     detachService: PropTypes.func.isRequired,
+    isSpellcheckerEnabled: PropTypes.bool.isRequired,
   };
 
   webview = null;
@@ -31,6 +32,7 @@ class ServiceWebview extends Component {
     const {
       service,
       setWebviewReference,
+      isSpellcheckerEnabled,
     } = this.props;
 
     return (
@@ -55,6 +57,7 @@ class ServiceWebview extends Component {
         useragent={service.userAgent}
         disablewebsecurity={service.recipe.disablewebsecurity}
         allowpopups
+        webpreferences={`spellcheck=${isSpellcheckerEnabled ? 1 : 0}`}
       />
     );
   }
