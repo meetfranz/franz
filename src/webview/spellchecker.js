@@ -2,6 +2,7 @@ import {
   remote,
 } from 'electron';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import { isMac } from '../environment';
 
 const debug = require('debug')('Franz:spellchecker');
 
@@ -20,6 +21,11 @@ export function getSpellcheckerLocaleByFuzzyIdentifier(identifier) {
 }
 
 export function switchDict(locale) {
+  if (isMac) {
+    debug('Ignoring dictionary changes on macOS');
+    return;
+  }
+
   debug('Setting spellchecker locale to', locale);
 
   const locales = [];

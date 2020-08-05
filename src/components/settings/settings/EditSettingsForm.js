@@ -11,6 +11,7 @@ import Select from '../../ui/Select';
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 
 import { FRANZ_TRANSLATION } from '../../../config';
+import { isMac } from '../../../environment';
 
 const messages = defineMessages({
   headline: {
@@ -192,7 +193,7 @@ export default @observer class EditSettingsForm extends Component {
                 <Toggle
                   field={form.$('enableSpellchecking')}
                 />
-                {form.$('enableSpellchecking').value && (
+                {!isMac && form.$('enableSpellchecking').value && (
                   <Select field={form.$('spellcheckerLanguage')} />
                 )}
               </Fragment>

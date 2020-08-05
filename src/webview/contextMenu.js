@@ -259,60 +259,62 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     });
   }
 
-  const spellcheckingLanguages = [];
-  Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
-    spellcheckingLanguages.push({
-      id: `lang-${key}`,
-      label: SPELLCHECKER_LOCALES[key],
-      type: 'radio',
-      checked: spellcheckerLanguage === key,
-      click() {
-        debug('Setting service spellchecker to', key);
-        ipcRenderer.sendToHost('set-service-spellchecker-language', key);
-      },
+  if (!isMac) {
+    const spellcheckingLanguages = [];
+    Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
+      spellcheckingLanguages.push({
+        id: `lang-${key}`,
+        label: SPELLCHECKER_LOCALES[key],
+        type: 'radio',
+        checked: spellcheckerLanguage === key,
+        click() {
+          debug('Setting service spellchecker to', key);
+          ipcRenderer.sendToHost('set-service-spellchecker-language', key);
+        },
+      });
     });
-  });
 
-  menuTpl.push({
-    type: 'separator',
-  }, {
-    id: 'spellchecker',
-    label: 'Spell Checking',
-    visible: isSpellcheckEnabled,
-    submenu: [
-      {
-        id: 'spellchecker',
-        label: 'Available Languages',
-        enabled: false,
-      }, {
-        type: 'separator',
-      },
-      {
-        id: 'resetToDefault',
-        label: `Reset to system default (${defaultSpellcheckerLanguage === 'automatic' ? 'Automatic' : SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
-        type: 'radio',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
-        click() {
-          debug('Resetting service spellchecker to system default');
-          ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
+    menuTpl.push({
+      type: 'separator',
+    }, {
+      id: 'spellchecker',
+      label: 'Spell Checking',
+      visible: isSpellcheckEnabled,
+      submenu: [
+        {
+          id: 'spellchecker',
+          label: 'Available Languages',
+          enabled: false,
+        }, {
+          type: 'separator',
         },
-      },
-      {
-        id: 'automaticDetection',
-        label: 'Automatic language detection',
-        type: 'radio',
-        checked: spellcheckerLanguage === 'automatic',
-        click() {
-          debug('Detect language automatically');
-          ipcRenderer.sendToHost('set-service-spellchecker-language', 'automatic');
+        {
+          id: 'resetToDefault',
+          label: `Reset to system default (${defaultSpellcheckerLanguage === 'automatic' ? 'Automatic' : SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
+          type: 'radio',
+          visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
+          click() {
+            debug('Resetting service spellchecker to system default');
+            ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
+          },
         },
-      },
-      {
-        type: 'separator',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
-      },
-      ...spellcheckingLanguages],
-  });
+        {
+          id: 'automaticDetection',
+          label: 'Automatic language detection',
+          type: 'radio',
+          checked: spellcheckerLanguage === 'automatic',
+          click() {
+            debug('Detect language automatically');
+            ipcRenderer.sendToHost('set-service-spellchecker-language', 'automatic');
+          },
+        },
+        {
+          type: 'separator',
+          visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
+        },
+        ...spellcheckingLanguages],
+    });
+  }
 
 
   if (isDevMode) {
