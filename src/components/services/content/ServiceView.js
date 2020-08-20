@@ -12,7 +12,6 @@ import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
 import ServiceRestricted from './ServiceRestricted';
 import ServiceWebview from './ServiceWebview';
-// import ConnectionLostBanner from './ConnectionLostBanner';
 import WebControlsScreen from '../../../features/webControls/containers/WebControlsScreen';
 import { CUSTOM_WEBSITE_ID } from '../../../features/webControls/constants';
 
@@ -154,12 +153,6 @@ export default @observer class ServiceView extends Component {
                     isSpellcheckerEnabled={isSpellcheckerEnabled}
                   />
                 )}
-                {/* {service.lostRecipeConnection && (
-                  <ConnectionLostBanner
-                    name={service.name}
-                    reload={reload}
-                  />
-                )} */}
               </>
             )}
           </>
