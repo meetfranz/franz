@@ -7,7 +7,7 @@
 
   .services__webview,
   .services__info-layer {
-    webview { background: $dark-theme-gray-darkest; }
+    // webview { background: $dark-theme-gray-darkest; }
   }
 
   .services__no-service,
@@ -48,6 +48,8 @@
     }
 
     &--force-repaint webview { z-index: 5; }
+
+    &.is-loading webview { background: #FFF }
   }
 
   .services__no-service,
