@@ -1,4 +1,7 @@
-import { computed, observable, autorun } from 'mobx';
+import { remote } from 'electron';
+import {
+  computed, observable, autorun,
+} from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
@@ -226,7 +229,7 @@ export default class Service {
   }
 
   initializeWebViewEvents({ handleIPCMessage, openWindow, stores }) {
-    const webContents = this.webview.getWebContents();
+    const webContents = remote.webContents.fromId(this.webview.getWebContentsId());
 
     const handleUserAgent = (url, forwardingHack = false) => {
       if (url.startsWith('https://accounts.google.com')) {
