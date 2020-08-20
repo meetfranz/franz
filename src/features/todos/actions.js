@@ -15,9 +15,14 @@ export const todoActions = createActionsFromDefinitions({
     data: PropTypes.object,
   },
   handleClientMessage: {
-    action: PropTypes.string.isRequired,
-    data: PropTypes.object,
+    channel: PropTypes.string.isRequired,
+    message: PropTypes.shape({
+      action: PropTypes.string.isRequired,
+      data: PropTypes.object,
+    }),
   },
+  openDevTools: {},
+  reload: {},
 }, PropTypes.checkPropTypes);
 
 export default todoActions;

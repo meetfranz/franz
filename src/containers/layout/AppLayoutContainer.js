@@ -116,6 +116,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         isWorkspaceDrawerOpen={workspaceStore.isWorkspaceDrawerOpen}
         showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
+        isTodosServiceActive={services.isTodosServiceActive || false}
       />
     );
 
@@ -131,6 +132,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         update={updateService}
         userHasCompletedSignup={user.hasCompletedSignup}
         hasActivatedTrial={user.hasActivatedTrial}
+        isSpellcheckerEnabled={settings.app.enableSpellchecking}
       />
     );
 

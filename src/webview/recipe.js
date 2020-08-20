@@ -1,12 +1,11 @@
 import { ipcRenderer } from 'electron';
 import path from 'path';
 import { autorun, computed, observable } from 'mobx';
-import { loadModule } from 'cld3-asm';
 import { debounce } from 'lodash';
 
 import RecipeWebview from './lib/RecipeWebview';
 
-import spellchecker, { switchDict, disable as disableSpellchecker, getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
+import { switchDict, getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
 import contextMenu from './contextMenu';
 import './notifications';
@@ -33,6 +32,7 @@ class RecipeController {
     'settings-update': 'updateAppSettings',
     'service-settings-update': 'updateServiceSettings',
     'get-service-id': 'serviceIdEcho',
+    'detected-language': 'changeDetectedLanguage',
   };
 
   constructor() {
@@ -56,9 +56,8 @@ class RecipeController {
     debug('Send "hello" to host');
     setTimeout(() => ipcRenderer.sendToHost('hello'), 100);
 
-    this.spellcheckingProvider = await spellchecker();
+    this.spellcheckingProvider = null;
     contextMenu(
-      this.spellcheckingProvider,
       () => this.settings.app.enableSpellchecking,
       () => this.settings.app.spellcheckerLanguage,
       () => this.spellcheckerLanguage,
@@ -97,17 +96,10 @@ class RecipeController {
         this.automaticLanguageDetection();
         debug('Found `automatic` locale, falling back to user locale until detected', this.settings.app.locale);
         spellcheckerLanguage = this.settings.app.locale;
-      } else if (this.cldIdentifier) {
-        this.cldIdentifier.destroy();
       }
       switchDict(spellcheckerLanguage);
     } else {
       debug('Disable spellchecker');
-      disableSpellchecker();
-
-      if (this.cldIdentifier) {
-        this.cldIdentifier.destroy();
-      }
     }
 
     if (this.settings.service.isDarkModeEnabled) {
@@ -132,10 +124,15 @@ class RecipeController {
     event.sender.send('service-id', this.settings.service.id);
   }
 
-  async automaticLanguageDetection() {
-    const cldFactory = await loadModule();
-    this.cldIdentifier = cldFactory.create(0, 1000);
+  changeDetectedLanguage(event, { locale }) {
+    const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
+    debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
+    if (spellcheckerLocale) {
+      switchDict(spellcheckerLocale);
+    }
+  }
 
+  async automaticLanguageDetection() {
     window.addEventListener('keyup', debounce((e) => {
       const element = e.target;
 
@@ -149,20 +146,10 @@ class RecipeController {
       }
 
       // Force a minimum length to get better detection results
-      if (value.length < 30) return;
+      if (value.length < 25) return;
 
       debug('Detecting language for', value);
-      const findResult = this.cldIdentifier.findLanguage(value);
-
-      debug('Language detection result', findResult);
-
-      if (findResult.is_reliable) {
-        const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(findResult.language);
-        debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
-        if (spellcheckerLocale) {
-          switchDict(spellcheckerLocale);
-        }
-      }
+      ipcRenderer.send('detect-language', { sample: value });
     }, 225));
   }
 }

@@ -40,6 +40,8 @@ export default class Recipe {
 
   autoHibernate = false;
 
+  partition = '';
+
   constructor(data) {
     if (!data) {
       throw Error('Recipe config not valid');
@@ -81,6 +83,8 @@ export default class Recipe {
     this.disablewebsecurity = data.config.disablewebsecurity || this.disablewebsecurity;
 
     this.autoHibernate = data.config.autoHibernate || this.autoHibernate;
+
+    this.partition = data.config.partition || this.partition;
 
     this.message = data.config.message || this.message;
   }

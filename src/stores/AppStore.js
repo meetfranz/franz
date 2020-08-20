@@ -254,7 +254,7 @@ export default class AppStore extends Store {
     });
 
     powerMonitor.on('resume', () => {
-      debug('System resumed, last suspended on', this.timeSuspensionStart.toString());
+      debug('System resumed, last suspended on', this.timeSuspensionStart);
       this.actions.service.resetLastPollTimer();
 
       if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {

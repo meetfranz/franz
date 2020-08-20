@@ -1,4 +1,3 @@
-// require('dotenv').config();
 const { notarize } = require('electron-notarize');
 
 exports.default = async function notarizing(context) {
@@ -8,10 +7,11 @@ exports.default = async function notarizing(context) {
   }
 
   const appName = context.packager.appInfo.productFilename;
+  const appPath = `${appOutDir}/${appName}.app`;
 
-  return await notarize({
+  await notarize({
     appBundleId: 'com.meetfranz.franz',
-    appPath: `${appOutDir}/${appName}.app`,
+    appPath,
     appleId: process.env.APPLEID,
     appleIdPassword: process.env.APPLEIDPASS,
   });
