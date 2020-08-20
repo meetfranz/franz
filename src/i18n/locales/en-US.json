@@ -116,7 +116,7 @@
   "menu.help.tos": "Terms of Service",
   "menu.services": "Services",
   "menu.services.activatePreviousService": "Activate previous service",
-  "menu.services.addNewService": "Add New Service...",
+  "menu.services.addNewService": "Add New Service",
   "menu.services.goHome": "Home",
   "menu.services.setNextServiceActive": "Activate next service",
   "menu.todos": "Todos",
