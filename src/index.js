@@ -178,6 +178,8 @@ const createWindow = () => {
     const fns = onDidLoadFns;
     onDidLoadFns = [];
 
+    if (!fns) return;
+
     for (const fn of fns) {
       fn(mainWindow);
     }
