@@ -176,7 +176,7 @@ const createWindow = () => {
 
   mainWindow.webContents.on('did-finish-load', () => {
     const fns = onDidLoadFns;
-    onDidLoadFns = [];
+    onDidLoadFns = null;
 
     if (!fns) return;
 
