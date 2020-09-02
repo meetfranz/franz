@@ -29,6 +29,8 @@ export default class UserStore extends Store {
 
   PRICING_ROUTE = `${this.BASE_ROUTE}/signup/pricing`;
 
+  SETUP_ROUTE = `${this.BASE_ROUTE}/signup/setup`;
+
   IMPORT_ROUTE = `${this.BASE_ROUTE}/signup/import`;
 
   INVITE_ROUTE = `${this.BASE_ROUTE}/signup/invite`;
@@ -122,6 +124,10 @@ export default class UserStore extends Store {
 
   get pricingRoute() {
     return this.PRICING_ROUTE;
+  }
+
+  get setupRoute() {
+    return this.SETUP_ROUTE;
   }
 
   get inviteRoute() {
@@ -223,7 +229,7 @@ export default class UserStore extends Store {
 
     this._setUserData(authToken);
 
-    this.stores.router.push(this.PRICING_ROUTE);
+    this.stores.router.push(this.SETUP_ROUTE);
 
     gaEvent('User', 'signup');
   }

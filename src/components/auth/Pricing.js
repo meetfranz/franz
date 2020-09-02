@@ -67,6 +67,15 @@ const messages = defineMessages({
 });
 
 const styles = theme => ({
+  root: {
+    width: '500px !important',
+    textAlign: 'center',
+    padding: 20,
+    zIndex: 100,
+
+    '& h1': {
+    },
+  },
   container: {
     position: 'relative',
     marginLeft: -150,
@@ -86,8 +95,8 @@ const styles = theme => ({
   featureContainer: {
     width: 300,
     position: 'absolute',
-    left: 'calc(100% / 2 + 225px)',
-    top: 155,
+    left: 'calc(100% / 2 + 250px)',
+    marginTop: 20,
     background: theme.signup.pricing.feature.background,
     height: 'auto',
     padding: 20,
@@ -174,8 +183,8 @@ export default @observer @injectSheet(styles) class Signup extends Component {
     const [intPart, fractionPart] = (price).toString().split('.');
 
     return (
-      <div className={classnames('auth__scroll-container', classes.container)}>
-        <div className={classnames('auth__container', 'auth__container--signup', classes.content)}>
+      <>
+        <div className={classnames('auth__container', classes.root, classes.container)}>
           <form className="franz-form auth__form">
             {isLoadingRequiredData ? <Loader /> : (
               <img
@@ -212,7 +221,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
               <p className={classnames(classes.price, classes.trialPrice)}>
                 <span className={classes.figure}>
                   {currency}
-                  0
+                0
                 </span>
                 <sup>00</sup>
               </p>
@@ -234,7 +243,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
               </ul>
             </div>
             {trialActivationError && (
-              <p className={classes.error}>{intl.formatMessage(messages.activationError)}</p>
+            <p className={classes.error}>{intl.formatMessage(messages.activationError)}</p>
             )}
             <Button
               label={intl.formatMessage(!canSkipTrial ? messages.ctaStart : messages.ctaAccept)}
@@ -244,9 +253,9 @@ export default @observer @injectSheet(styles) class Signup extends Component {
               disabled={isLoadingRequiredData || isActivatingTrial}
             />
             {canSkipTrial && (
-              <p className={classes.skipLink}>
-                <a href="#/">{intl.formatMessage(messages.ctaSkip)}</a>
-              </p>
+            <p className={classes.skipLink}>
+              <a href="#/">{intl.formatMessage(messages.ctaSkip)}</a>
+            </p>
             )}
           </form>
         </div>
@@ -256,7 +265,7 @@ export default @observer @injectSheet(styles) class Signup extends Component {
           </H2>
           <FeatureList />
         </div>
-      </div>
+      </>
     );
   }
 }
