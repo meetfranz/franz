@@ -10,9 +10,6 @@ import {
   reaction,
 } from 'mobx';
 import moment from 'moment';
-import {
-  getDoNotDisturb,
-} from '@meetfranz/electron-notification-state';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
@@ -565,8 +562,11 @@ export default class AppStore extends Store {
     return autoLauncher.isEnabled() || false;
   }
 
-  _systemDND() {
-    const dnd = getDoNotDisturb();
+  async _systemDND() {
+    debug('Checking if Do Not Disturb Mode is on');
+    const dnd = await ipcRenderer.invoke('get-dnd');
+    debug('Do not disturb mode is', dnd);
+    // ipcRenderer.on('autoUpdate', (event, data) => {
     if (dnd !== this.stores.settings.all.app.isAppMuted && !this.isSystemMuteOverridden) {
       this.actions.app.muteApp({
         isMuted: dnd,
