@@ -1,59 +1,28 @@
+import { remote, ipcRenderer, shell } from 'electron';
 import {
-  remote,
-  ipcRenderer,
-  shell,
-} from 'electron';
-import {
-  action,
-  computed,
-  observable,
-  reaction,
+  action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
 import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
-import {
-  URL,
-} from 'url';
+import { URL } from 'url';
 import os from 'os';
 import path from 'path';
-import {
-  readJsonSync,
-} from 'fs-extra';
+import { readJsonSync } from 'fs-extra';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
-import {
-  CHECK_INTERVAL,
-  DEFAULT_APP_SETTINGS,
-} from '../config';
-import {
-  isMac,
-} from '../environment';
+import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
+import { isMac } from '../environment';
 import locales from '../i18n/translations';
-import {
-  gaEvent,
-  gaPage,
-  statsEvent,
-} from '../lib/analytics';
-import {
-  onVisibilityChange,
-} from '../helpers/visibility-helper';
-import {
-  getLocale,
-} from '../helpers/i18n-helpers';
+import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
+import { onVisibilityChange } from '../helpers/visibility-helper';
+import { getLocale } from '../helpers/i18n-helpers';
 
-import {
-  getServiceIdsFromPartitions,
-  removeServicePartitionDirectory,
-} from '../helpers/service-helpers.js';
-import {
-  isValidExternalURL,
-} from '../helpers/url-helpers';
-import {
-  sleep,
-} from '../helpers/async-helpers';
+import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
+import { isValidExternalURL } from '../helpers/url-helpers';
+import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
