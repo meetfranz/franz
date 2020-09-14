@@ -116,7 +116,7 @@
    "menu.help.tos" : "Términos del Servicio",
    "menu.services" : "Servicios",
    "menu.services.activatePreviousService" : "Activa el servicio previo",
-   "menu.services.addNewService" : "Añadir Nuevo Servicio...",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Inicio",
    "menu.services.setNextServiceActive" : "Activa el siguiente servicio",
    "menu.todos" : "Tareas pendientes",

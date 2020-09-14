@@ -116,7 +116,7 @@
    "menu.help.tos" : "Condicions del Servei",
    "menu.services" : "Serveis",
    "menu.services.activatePreviousService" : "Activa el servei previ",
-   "menu.services.addNewService" : "Afegeix un servei...",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Inici",
    "menu.services.setNextServiceActive" : "Activa el següent servei",
    "menu.todos" : "Todos",

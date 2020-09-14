@@ -116,7 +116,7 @@
    "menu.help.tos" : "Podmienky použitia",
    "menu.services" : "Služby",
    "menu.services.activatePreviousService" : "Aktivovať predchádzajúcu službu",
-   "menu.services.addNewService" : "Pridať novú službu...",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Aktivujte ďalšiu službu",
    "menu.todos" : "Todos",

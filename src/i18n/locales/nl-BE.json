@@ -116,7 +116,7 @@
    "menu.help.tos" : "Servicevoorwaarden",
    "menu.services" : "Services",
    "menu.services.activatePreviousService" : "Vorige dienst activeren",
-   "menu.services.addNewService" : "Nieuwe service toevoegen...",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Volgende dienst activeren",
    "menu.todos" : "Todos",

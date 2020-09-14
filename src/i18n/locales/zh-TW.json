@@ -116,7 +116,7 @@
    "menu.help.tos" : "服務條款",
    "menu.services" : "服務",
    "menu.services.activatePreviousService" : "啟動前一個服務",
-   "menu.services.addNewService" : "新增服務",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "啟動下一個服務",
    "menu.todos" : "Todos",

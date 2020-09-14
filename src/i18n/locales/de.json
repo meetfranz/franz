@@ -116,7 +116,7 @@
    "menu.help.tos" : "Nutzungsbedingungen",
    "menu.services" : "Dienste",
    "menu.services.activatePreviousService" : "Vorheriger Dienst",
-   "menu.services.addNewService" : "Dienst hinzufügen",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Home",
    "menu.services.setNextServiceActive" : "Nächster Dienst",
    "menu.todos" : "ToDos",

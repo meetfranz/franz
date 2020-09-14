@@ -116,7 +116,7 @@
    "menu.help.tos" : "Kullanım Şartları",
    "menu.services" : "Hizmetler",
    "menu.services.activatePreviousService" : "Önceki Hizmeti Etkinleştir",
-   "menu.services.addNewService" : "Yeni Hizmet Ekle...",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Ana Sayfa",
    "menu.services.setNextServiceActive" : "Sıradaki Hizmeti Etkinleştir",
    "menu.todos" : "Todos",

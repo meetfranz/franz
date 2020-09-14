@@ -116,7 +116,7 @@
    "menu.help.tos" : "Условия использования",
    "menu.services" : "Сервис",
    "menu.services.activatePreviousService" : "Активировать предыдущий сервич",
-   "menu.services.addNewService" : "Добавить новый сервис...",
+   "menu.services.addNewService" : "Add New Service",
    "menu.services.goHome" : "Домой",
    "menu.services.setNextServiceActive" : "Активировать следующий сервис",
    "menu.todos" : "Задачи",
