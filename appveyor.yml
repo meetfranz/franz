@@ -9,6 +9,8 @@ environment:
 
 version: 5.0.1.{build}
 
+image: Visual Studio 2019
+
 install:
   - ps: Install-Product node 12
   - npx lerna bootstrap
