@@ -408,6 +408,12 @@ app.on('activate', () => {
   }
 });
 
+app.on('web-contents-created', (createdEvent, contents) => {
+  contents.on('new-window', (event, url, frameNme, disposition) => {
+    if (disposition === 'foreground-tab') event.preventDefault();
+  });
+});
+
 app.on('will-finish-launching', () => {
   // Protocol handler for macOS
   app.on('open-url', (event, url) => {
