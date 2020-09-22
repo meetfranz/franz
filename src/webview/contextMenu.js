@@ -151,24 +151,27 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
       click() {
         const img = document.createElement('img');
         img.src = props.srcURL;
+        img.setAttribute('crossorigin', 'anonymous');
 
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
 
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
 
-        const dataURL = canvas.toDataURL('image/png');
-        const image = nativeImage.createFromDataURL(dataURL);
+          const dataURL = canvas.toDataURL('image/png');
+          const image = nativeImage.createFromDataURL(dataURL);
 
-        try {
-          clipboard.write({
-            image,
-          });
-        } catch (err) {
-          console.warn(err);
-        }
+          try {
+            clipboard.write({
+              image,
+            });
+          } catch (err) {
+            console.warn(err);
+          }
+        };
       },
     }, {
       id: 'copyImageAddress',

@@ -17,9 +17,15 @@ function decodeBase64Image(dataString) {
 
 export default (params) => {
   ipcMain.on('download-file', async (event, { url, content, fileOptions = {} }) => {
+    // We're passing a fake browserWindow to `electron-dl` in order to access the
+    // webContents of the webview that has initiated the download
+    const fakeWindow = {
+      webContents: event.sender.webContents,
+    };
+
     try {
       if (!content) {
-        const dl = await download(params.mainWindow, url, {
+        const dl = await download(fakeWindow, url, {
           saveAs: true,
         });
         debug('File saved to', dl.savePath);

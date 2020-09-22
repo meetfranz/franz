@@ -38,7 +38,7 @@ const styles = theme => ({
   root: {
     width: '500px !important',
     textAlign: 'center',
-    padding: 10,
+    padding: 20,
 
     '& h1': {
     },

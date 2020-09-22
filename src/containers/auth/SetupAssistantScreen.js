@@ -8,6 +8,7 @@ import SetupAssistant from '../../components/auth/SetupAssistant';
 import ServicesStore from '../../stores/ServicesStore';
 import RecipesStore from '../../stores/RecipesStore';
 import { TODOS_RECIPE_ID } from '../../features/todos';
+import UserStore from '../../stores/UserStore';
 
 export default @inject('stores', 'actions') @observer class SetupAssistantScreen extends Component {
   services = {
@@ -54,7 +55,7 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
   }
 
   async setupServices(serviceConfig) {
-    const { stores: { services, router } } = this.props;
+    const { stores: { services, router, user } } = this.props;
     console.log(serviceConfig);
 
     this.setState({
@@ -97,7 +98,7 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
 
     await sleep(100);
 
-    router.push('/');
+    router.push(user.pricingRoute);
   }
 
   render() {
@@ -116,6 +117,7 @@ SetupAssistantScreen.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     services: PropTypes.instanceOf(ServicesStore),
     recipes: PropTypes.instanceOf(RecipesStore),
+    user: PropTypes.instanceOf(UserStore),
   }).isRequired,
   actions: PropTypes.shape({
     user: PropTypes.shape({

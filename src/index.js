@@ -176,7 +176,9 @@ const createWindow = () => {
 
   mainWindow.webContents.on('did-finish-load', () => {
     const fns = onDidLoadFns;
-    onDidLoadFns = [];
+    onDidLoadFns = null;
+
+    if (!fns) return;
 
     for (const fn of fns) {
       fn(mainWindow);
@@ -404,6 +406,12 @@ app.on('activate', () => {
   } else {
     mainWindow.show();
   }
+});
+
+app.on('web-contents-created', (createdEvent, contents) => {
+  contents.on('new-window', (event, url, frameNme, disposition) => {
+    if (disposition === 'foreground-tab') event.preventDefault();
+  });
 });
 
 app.on('will-finish-launching', () => {
