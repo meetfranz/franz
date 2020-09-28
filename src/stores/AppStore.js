@@ -61,7 +61,7 @@ export default class AppStore extends Store {
 
   @observable isOnline = navigator.onLine;
 
-  @observable timeSuspensionStart;
+  @observable timeSuspensionStart = moment();
 
   @observable timeOfflineStart;
 
