@@ -105,6 +105,7 @@ export default @observer class EditSettingsForm extends Component {
     isTodosEnabled: PropTypes.bool.isRequired,
     isWorkspaceEnabled: PropTypes.bool.isRequired,
     hasAddedTodosAsService: PropTypes.bool.isRequired,
+    isOnline: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -138,6 +139,7 @@ export default @observer class EditSettingsForm extends Component {
       isTodosEnabled,
       isWorkspaceEnabled,
       hasAddedTodosAsService,
+      isOnline,
     } = this.props;
     const { intl } = this.context;
 
@@ -244,7 +246,7 @@ export default @observer class EditSettingsForm extends Component {
                 buttonType="secondary"
                 label={intl.formatMessage(updateButtonLabelMessage)}
                 onClick={checkForUpdates}
-                disabled={isCheckingForUpdates || isUpdateAvailable}
+                disabled={isCheckingForUpdates || isUpdateAvailable || !isOnline}
                 loaded={!isCheckingForUpdates || !isUpdateAvailable}
               />
             )}

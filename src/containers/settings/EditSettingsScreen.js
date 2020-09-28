@@ -285,6 +285,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isTodosEnabled={todos.isFeatureActive}
           isWorkspaceEnabled={workspaces.isFeatureActive}
           hasAddedTodosAsService={services.isTodosServiceAdded}
+          isOnline={app.isOnline}
         />
       </ErrorBoundary>
     );
