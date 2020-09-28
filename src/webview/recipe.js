@@ -163,7 +163,8 @@ const originalWindowOpen = window.open;
 
 
 window.open = (url, frameName, features) => {
-  if (!url && !frameName && !features) {
+  debug('window.open', url, frameName, features);
+  if (!url) {
     // The service hasn't yet supplied a URL (as used in Skype).
     // Return a new dummy window object and wait for the service to change the properties
     const newWindow = {
@@ -175,8 +176,12 @@ window.open = (url, frameName, features) => {
     const checkInterval = setInterval(() => {
       // Has the service changed the URL yet?
       if (newWindow.location.href !== '') {
-        // Open the new URL
-        ipcRenderer.sendToHost('new-window', newWindow.location.href);
+        if (features) {
+          originalWindowOpen(newWindow.location.href, frameName, features);
+        } else {
+          // Open the new URL
+          ipcRenderer.sendToHost('new-window', newWindow.location.href);
+        }
         clearInterval(checkInterval);
       }
     }, 0);
