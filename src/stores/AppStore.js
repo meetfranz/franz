@@ -309,11 +309,11 @@ export default class AppStore extends Store {
 
     debug('New notification', title, options);
 
-    notification.onclick = (e) => {
+    notification.onclick = () => {
       if (serviceId) {
         this.actions.service.sendIPCMessage({
           channel: `notification-onclick:${notificationId}`,
-          args: e,
+          args: {},
           serviceId,
         });
 
