@@ -11,6 +11,7 @@ import { mdiCheckAll } from '@mdi/js';
 import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
+import { TODOS_PARTITION_ID } from '..';
 
 const messages = defineMessages({
   premiumInfo: {
@@ -235,7 +236,7 @@ class TodosWebview extends Component {
               setTodosWebview(this.webview);
               this.startListeningToIpcMessages();
             }}
-            partition="persist:todos"
+            partition={TODOS_PARTITION_ID}
             preload="./features/todos/preload.js"
             ref={(webview) => { this.webview = webview ? webview.view : null; }}
             src={environment.TODOS_FRONTEND}
