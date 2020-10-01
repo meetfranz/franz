@@ -21,7 +21,7 @@ export default (params) => {
         }
       } catch (e) {
         console.log(e);
-        // event.sender.send('autoUpdate', { error: true });
+        params.mainWindow.webContents.send('autoUpdate', { error: true });
       }
     });
 
