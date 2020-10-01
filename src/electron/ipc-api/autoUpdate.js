@@ -20,8 +20,8 @@ export default (params) => {
           }, 20);
         }
       } catch (e) {
-        console.error(e);
-        event.sender.send('autoUpdate', { error: true });
+        console.log(e);
+        // event.sender.send('autoUpdate', { error: true });
       }
     });
 
