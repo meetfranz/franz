@@ -32,7 +32,6 @@ class RecipeController {
     'settings-update': 'updateAppSettings',
     'service-settings-update': 'updateServiceSettings',
     'get-service-id': 'serviceIdEcho',
-    'detected-language': 'changeDetectedLanguage',
   };
 
   constructor() {
@@ -124,16 +123,8 @@ class RecipeController {
     event.sender.send('service-id', this.settings.service.id);
   }
 
-  changeDetectedLanguage(event, { locale }) {
-    const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
-    debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
-    if (spellcheckerLocale) {
-      switchDict(spellcheckerLocale);
-    }
-  }
-
   async automaticLanguageDetection() {
-    window.addEventListener('keyup', debounce((e) => {
+    window.addEventListener('keyup', debounce(async (e) => {
       const element = e.target;
 
       if (!element) return;
@@ -149,7 +140,13 @@ class RecipeController {
       if (value.length < 25) return;
 
       debug('Detecting language for', value);
-      ipcRenderer.send('detect-language', { sample: value });
+      const locale = await ipcRenderer.invoke('detect-language', { sample: value });
+
+      const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
+      debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
+      if (spellcheckerLocale) {
+        switchDict(spellcheckerLocale);
+      }
     }, 225));
   }
 }
