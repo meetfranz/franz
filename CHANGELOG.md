@@ -1,6 +1,19 @@
 # [5.6.0-beta.1](https://github.com/meetfranz/franz/compare/v5.5.0...v5.6.0-beta.1) (2020-10-08)
 
 
+### Features
+
+* **App:** We've put Franz on a diet and he lost over 130MB 🥳
+* **Franz ToDos:** New version of Franz ToDos with lots of new features more on [franztodos.com](https://franztodos.com)
+* **App:** Add new onboarding step to make setting up services easier
+* **Context Menu:** Add option to copy image
+* **Franz ToDos:** Add Franz ToDos as a native service
+* **Franz ToDos:** Added `Cmd+Alt+Shift+R` to reload the Franz ToDos
+* **Spell checker:** Added 12 new languages for spell checking
+* **Spellchecker:** Improved language detection for spell checking
+* **Recipe:** Add option to override recipe partition
+* **Languages:** Added Estonian as a language
+
 ### Bug Fixes
 
 * **App:** Fixed crash when Franz goes to sleep
@@ -16,18 +29,6 @@
 * **Service:** Fix missing service re-rendering on service update
 * **App:** Fix various validation errors
 
-
-### Features
-
-* **App:** We've put Franz on a diet and he lost over 130MB 🥳
-* **Franz ToDos:** New version of Franz ToDos with lots of new features more on [franztodos.com](https://franztodos.com)
-* **App:** Add new onboarding step to make setting up services easier
-* **Context Menu:** Add option to copy image
-* **Franz ToDos:** Add Franz ToDos as a native service
-* **Franz ToDos:** Added `Cmd+Alt+Shift+R` to reload the Franz ToDos
-* **Spell checker:** Added 12 new languages for spell checking
-* **Spellchecker:** Improved language detection for spell checking
-* **Recipe:** Add option to override recipe partition
 
 
 ### General
