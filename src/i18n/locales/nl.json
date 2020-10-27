@@ -23,7 +23,7 @@
    "feature.planSelection.fullscreen.dialog.cta.upgrade" : "Kies Persoonlijk",
    "feature.planSelection.fullscreen.dialog.message" : "You're about to downgrade to our Free account. Are you sure? Click here instead to get more services and functionality for just {currency}{price} a month.",
    "feature.planSelection.fullscreen.dialog.title" : "Downgrade your Franz Plan",
-   "feature.planSelection.fullscreen.subheadline" : "It's time to make a choice. Franz works best on our Personal and Professional plans. Please have a look and choose the best one for you.",
+   "feature.planSelection.fullscreen.subheadline" : "Het is tijd om een keuze te maken. Franz werkt het beste met onze Persoonlijke en Professionele abonnementen. Neem een kijkje en kies welke het beste bij jou past. ",
    "feature.planSelection.fullscreen.welcome" : "Are you ready to choose, {name}?",
    "feature.planSelection.personal.text" : "More services, no waiting - ideal for personal use.",
    "feature.planSelection.pricesBasedOnAnnualPayment" : "All prices based on yearly payment",
