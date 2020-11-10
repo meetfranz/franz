@@ -150,7 +150,7 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             label={intl.formatMessage(messages.actionsTwitter)}
             className={classes.cta}
             icon={mdiTwitter}
-            href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareTextTwitter, { count: serviceCount })}`}
+            href={`https://twitter.com/intent/tweet?text=${intl.formatMessage(messages.shareTextTwitter, { count: serviceCount })}`}
             target="_blank"
             onClick={() => {
               gaEvent('Share Franz', 'share', 'Share via Twitter');
