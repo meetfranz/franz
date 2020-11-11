@@ -4911,19 +4911,6 @@
           "column": 20,
           "line": 46
         }
-      },
-      {
-        "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
-        "end": {
-          "column": 3,
-          "line": 53
-        },
-        "file": "src/features/shareFranz/Component.js",
-        "id": "feature.shareFranz.shareText.linkedin",
-        "start": {
-          "column": 21,
-          "line": 50
-        }
       }
     ],
     "path": "src/features/shareFranz/Component.json"
