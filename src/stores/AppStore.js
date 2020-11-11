@@ -61,7 +61,7 @@ export default class AppStore extends Store {
 
   @observable isOnline = navigator.onLine;
 
-  @observable timeSuspensionStart;
+  @observable timeSuspensionStart = moment();
 
   @observable timeOfflineStart;
 
@@ -226,8 +226,11 @@ export default class AppStore extends Store {
       if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
         debug('Reloading services, user info and features');
 
-        setTimeout(() => {
-          window.location.reload();
+        setInterval(() => {
+          debug('Reload app interval is starting');
+          if (this.isOnline) {
+            window.location.reload();
+          }
         }, ms('2s'));
 
         statsEvent('resumed-app');
@@ -306,11 +309,11 @@ export default class AppStore extends Store {
 
     debug('New notification', title, options);
 
-    notification.onclick = (e) => {
+    notification.onclick = () => {
       if (serviceId) {
         this.actions.service.sendIPCMessage({
           channel: `notification-onclick:${notificationId}`,
-          args: e,
+          args: {},
           serviceId,
         });
 
@@ -377,12 +380,14 @@ export default class AppStore extends Store {
   }
 
   @action _checkForUpdates() {
-    this.updateStatus = this.updateStatusTypes.CHECKING;
-    ipcRenderer.send('autoUpdate', {
-      action: 'check',
-    });
+    if (this.isOnline) {
+      this.updateStatus = this.updateStatusTypes.CHECKING;
+      ipcRenderer.send('autoUpdate', {
+        action: 'check',
+      });
 
-    this.actions.recipe.update();
+      this.actions.recipe.update();
+    }
   }
 
   @action _installUpdate() {

@@ -7,7 +7,7 @@ import { Button } from '@meetfranz/forms';
 import { H1, Icon } from '@meetfranz/ui';
 
 import {
-  mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter,
+  mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter, mdiLinkedinBox,
 } from '@mdi/js';
 import Modal from '../../components/ui/Modal';
 import { state } from '.';
@@ -34,6 +34,10 @@ const messages = defineMessages({
   actionsTwitter: {
     id: 'feature.shareFranz.action.twitter',
     defaultMessage: '!!!Share on Twitter',
+  },
+  actionsLinkedIn: {
+    id: 'feature.shareFranz.action.linkedin',
+    defaultMessage: '!!!Share on LinkedIn',
   },
   shareTextEmail: {
     id: 'feature.shareFranz.shareText.email',
@@ -72,8 +76,9 @@ const styles = theme => ({
     marginBottom: 20,
   },
   actions: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridGap: '1em',
     marginTop: 30,
   },
   cta: {
@@ -147,10 +152,20 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             }}
           />
           <Button
+            label={intl.formatMessage(messages.actionsLinkedIn)}
+            className={classes.cta}
+            icon={mdiLinkedinBox}
+            href="https://www.linkedin.com/sharing/share-offsite/?url=https://meetfranz.com"
+            target="_blank"
+            onClick={() => {
+              gaEvent('Share Franz', 'share', 'Share via LinkedIn');
+            }}
+          />
+          <Button
             label={intl.formatMessage(messages.actionsTwitter)}
             className={classes.cta}
             icon={mdiTwitter}
-            href={`http://twitter.com/intent/tweet?status=${intl.formatMessage(messages.shareTextTwitter, { count: serviceCount })}`}
+            href={`https://twitter.com/intent/tweet?text=${intl.formatMessage(messages.shareTextTwitter, { count: serviceCount })}`}
             target="_blank"
             onClick={() => {
               gaEvent('Share Franz', 'share', 'Share via Twitter');

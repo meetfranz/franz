@@ -148,21 +148,14 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     }, {
       id: 'copyImage',
       label: 'Copy Image',
-      click() {
-        const img = document.createElement('img');
-        img.src = props.srcURL;
-        img.setAttribute('crossorigin', 'anonymous');
-
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-
-          const dataURL = canvas.toDataURL('image/png');
-          const image = nativeImage.createFromDataURL(dataURL);
+      click: async () => {
+        const response = await window.fetch(props.srcURL, {
+          mode: 'no-cors',
+        });
+        const blob = await response.blob();
+        const reader = new window.FileReader();
+        reader.onload = (event) => {
+          const image = nativeImage.createFromDataURL(event.target.result);
 
           try {
             clipboard.write({
@@ -172,6 +165,9 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
             console.warn(err);
           }
         };
+        reader.readAsDataURL(blob);
+
+        console.log('image');
       },
     }, {
       id: 'copyImageAddress',

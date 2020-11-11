@@ -32,7 +32,6 @@ class RecipeController {
     'settings-update': 'updateAppSettings',
     'service-settings-update': 'updateServiceSettings',
     'get-service-id': 'serviceIdEcho',
-    'detected-language': 'changeDetectedLanguage',
   };
 
   constructor() {
@@ -124,16 +123,8 @@ class RecipeController {
     event.sender.send('service-id', this.settings.service.id);
   }
 
-  changeDetectedLanguage(event, { locale }) {
-    const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
-    debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
-    if (spellcheckerLocale) {
-      switchDict(spellcheckerLocale);
-    }
-  }
-
   async automaticLanguageDetection() {
-    window.addEventListener('keyup', debounce((e) => {
+    window.addEventListener('keyup', debounce(async (e) => {
       const element = e.target;
 
       if (!element) return;
@@ -149,7 +140,13 @@ class RecipeController {
       if (value.length < 25) return;
 
       debug('Detecting language for', value);
-      ipcRenderer.send('detect-language', { sample: value });
+      const locale = await ipcRenderer.invoke('detect-language', { sample: value });
+
+      const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
+      debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
+      if (spellcheckerLocale) {
+        switchDict(spellcheckerLocale);
+      }
     }, 225));
   }
 }
@@ -163,7 +160,8 @@ const originalWindowOpen = window.open;
 
 
 window.open = (url, frameName, features) => {
-  if (!url && !frameName && !features) {
+  debug('window.open', url, frameName, features);
+  if (!url) {
     // The service hasn't yet supplied a URL (as used in Skype).
     // Return a new dummy window object and wait for the service to change the properties
     const newWindow = {
@@ -175,8 +173,12 @@ window.open = (url, frameName, features) => {
     const checkInterval = setInterval(() => {
       // Has the service changed the URL yet?
       if (newWindow.location.href !== '') {
-        // Open the new URL
-        ipcRenderer.sendToHost('new-window', newWindow.location.href);
+        if (features) {
+          originalWindowOpen(newWindow.location.href, frameName, features);
+        } else {
+          // Open the new URL
+          ipcRenderer.sendToHost('new-window', newWindow.location.href);
+        }
         clearInterval(checkInterval);
       }
     }, 0);

@@ -5,12 +5,13 @@ environment:
     secure: NEYFWgUIAB//y2GR4AJOaegwuNjkxyNsdDf5A40dYovebTUsnIB5k4GCbU3I6JKW9iwH2ldU7Z+QawfyFerNgw==
   CSC_KEY_PASSWORD:
     secure: t8ypNTPKTmvRfd3hHA4aMOtC5KOFqOw3AsKhpU7140Q=
-  APPVEYOR_CACHE_SKIP_RESTORE: true
 
 version: 5.0.1.{build}
 
+image: Visual Studio 2019
+
 install:
-  - ps: Install-Product node 10
+  - ps: Install-Product node 11
   - npx lerna bootstrap
 
 cache:
