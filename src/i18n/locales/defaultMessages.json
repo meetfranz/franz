@@ -4874,29 +4874,55 @@
         }
       },
       {
-        "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
+        "defaultMessage": "!!!Share on LinkedIn",
         "end": {
           "column": 3,
           "line": 41
         },
         "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.action.linkedin",
+        "start": {
+          "column": 19,
+          "line": 38
+        }
+      },
+      {
+        "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
+        "end": {
+          "column": 3,
+          "line": 45
+        },
+        "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.email",
         "start": {
           "column": 18,
-          "line": 38
+          "line": 42
         }
       },
       {
         "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
         "end": {
           "column": 3,
-          "line": 45
+          "line": 49
         },
         "file": "src/features/shareFranz/Component.js",
         "id": "feature.shareFranz.shareText.twitter",
         "start": {
           "column": 20,
-          "line": 42
+          "line": 46
+        }
+      },
+      {
+        "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
+        "end": {
+          "column": 3,
+          "line": 53
+        },
+        "file": "src/features/shareFranz/Component.js",
+        "id": "feature.shareFranz.shareText.linkedin",
+        "start": {
+          "column": 21,
+          "line": 50
         }
       }
     ],
