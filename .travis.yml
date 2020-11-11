@@ -10,7 +10,7 @@ matrix:
         - libxss-dev
         - libxkbfile-dev
   - os: osx
-    osx_image: xcode12
+    osx_image: xcode12.1
 
 language: node_js
 
