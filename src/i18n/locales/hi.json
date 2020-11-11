@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "ईमेल के रूप में भेजें",
    "feature.shareFranz.action.facebook" : "फेसबुक पर सांझा करें",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "ट्विटर पर सांझा करें",
    "feature.shareFranz.headline" : "फ्रांज़ एक साथ बेहतर है!",
    "feature.shareFranz.shareText.email" : "मैंने फ्रांज में {count} सेवाएं जोड़ी हैं! व्हाट्सएप, मैसेंजर, स्लैक, स्काइप के लिए मुफ्त ऐप www.meetfranz.com पर प्राप्त करें",

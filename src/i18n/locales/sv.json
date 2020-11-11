@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Ni har lagt till {amount} tjänster av det maximalt tillåtna antalet {limit} - som ingår i Ert abonnemang. Uppgradera Ert konto för att utöka antal tillåtna tjänster.",
    "feature.shareFranz.action.email" : "Skicka som e-post",
    "feature.shareFranz.action.facebook" : "Dela på Facebook",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Dela på Twitter",
    "feature.shareFranz.headline" : "Franz är bättre tillsammans!",
    "feature.shareFranz.shareText.email" : "Jag har lagt till {count} tjänster till Franz! Få appen gratis till WhatsApp, Messenger, Slack, Skype och liknande på www.meetfranz.com",

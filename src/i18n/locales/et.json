@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Olete lisanud {amount} teenust, saadaolevast {limit} teenusest, mis on lubatud tellimuses. Teenuste lisamiseks täiendage oma kontot.",
    "feature.shareFranz.action.email" : "Saadke e-kirjana",
    "feature.shareFranz.action.facebook" : "Jagage Facebookis",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Jagage Twitteris",
    "feature.shareFranz.headline" : "Franz on koostöös parem!",
    "feature.shareFranz.shareText.email" : "Olen lisanud Franz'i {count} teenust! Hankige tasuta rakendus WhatsApp'ile, Messenger'ile, Slack'ile, Skype'ile ja muule veebiaadressilt www.meetfranz.com",

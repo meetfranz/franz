@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Has afegit {amount} serveis més dels {limit} que estan inclosos en el teu pla. Sisplau actual·litza el teu compte per afegir més serveis.",
    "feature.shareFranz.action.email" : "Envia com a correu",
    "feature.shareFranz.action.facebook" : "Compartir en Facebook",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Compartir a Twitter",
    "feature.shareFranz.headline" : "Junts millorem Franz!",
    "feature.shareFranz.shareText.email" : "He afegit {count} serveis a Franz! Obtén l'aplicació gratuïta per a Whatsapp, Messenger, Slack, Skype a www,meetfranz.com",

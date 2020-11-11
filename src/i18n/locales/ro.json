@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Ai adaugat {amount} din {limit} de servicii care sunt incluse in planul tau. Alege sa iti upgradezi contul pentru a adauga mai multe servicii. ",
    "feature.shareFranz.action.email" : "Trimite ca email",
    "feature.shareFranz.action.facebook" : "Distribuiește pe Facebook",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Distribuie pe Twitter",
    "feature.shareFranz.headline" : "Franz e mai bun împreună!",
    "feature.shareFranz.shareText.email" : "Am adăugat {count} servicii în Franz! Downloadează aplicația gratis pentru WhatsApp, Messenger, Slack, Skype și altele pe www.meetfranz.com",

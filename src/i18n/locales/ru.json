@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Вы добавили {amount} максимальное {limit} количество сервисов, входящих в ваш план. Пожалуйста, обновите свой план чтобы добавить больше сервисов.",
    "feature.shareFranz.action.email" : "Отправить по email",
    "feature.shareFranz.action.facebook" : "Поделиться на Facebook",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Поделиться в Twitter",
    "feature.shareFranz.headline" : "Сделаем Franz лучше вместе!",
    "feature.shareFranz.shareText.email" : "Я добавил {count} сервисов во Franz! Теперь доступны такие мессенджеры как WhatsApp, Messenger, Slack, Skype и другие. Полый список вы найдете на www.meetfranz.com",

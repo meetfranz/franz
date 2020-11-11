@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Você adicionou {montante} fora do {limite} dos serviços incluídos no seu plano. Por favor actualize a sua conta para poder adicionar",
    "feature.shareFranz.action.email" : "Enviar por e-mail",
    "feature.shareFranz.action.facebook" : "Compartilahr no Facebook",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Compartilhar no Twitter",
    "feature.shareFranz.headline" : "Franz é melhor junto!",
    "feature.shareFranz.shareText.email" : "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",

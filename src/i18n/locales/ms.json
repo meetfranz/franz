@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "Hantar sebagai emel",
    "feature.shareFranz.action.facebook" : "Kongsi ke Facebook",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Kongsi ke Twitter",
    "feature.shareFranz.headline" : "Franz lebih elok digunakan bersama-sama rakan",
    "feature.shareFranz.shareText.email" : "Saya telah menambah {count] servis ke Franz! Dapatkan aplikasi percuma WhatsApp, Messenger, Slack, Skype dan lain-lain dari www.meetfranz.com",

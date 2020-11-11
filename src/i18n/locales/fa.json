@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "ارسال به صورت ایمیل",
    "feature.shareFranz.action.facebook" : "اشتراک‌گذاری در فیس بوک",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "اشتراک‌گذاری در توییتر",
    "feature.shareFranz.headline" : "Franz is better together!",
    "feature.shareFranz.shareText.email" : "من {count} تا سرویس تو فرَنز اضافه کردم! برنامه رایگان برای واتسآپ، اسکایپ، مسنجر، اسلک رو از سایت www.meetfranz.com دانلود کن.",

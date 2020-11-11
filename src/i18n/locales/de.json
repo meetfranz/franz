@@ -31,6 +31,7 @@
    "feature.serviceLimit.limitReached" : "Du hast {amount} von {limit} in deiner Lizenz inkludierten Services hinzugefügt. Bitte führe ein Upgrade deines Accounts durch, um mehr Services hinzuzufügen.",
    "feature.shareFranz.action.email" : "Als E-Mail senden",
    "feature.shareFranz.action.facebook" : "Auf Facebook teilen",
+   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Auf Twitter teilen",
    "feature.shareFranz.headline" : "Gemeinsam ist Franz noch besser!",
    "feature.shareFranz.shareText.email" : "Ich habe {count} Services zu Franz hinzugefügt! Hol dir jetzt die kostenlose App für WhatsApp, Messenger, Slack, Skype und viele mehr auf www.meetfranz.com",
