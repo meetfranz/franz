@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "メールで送信",
    "feature.shareFranz.action.facebook" : "Facebookでシェア",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Twitterでシェア",
    "feature.shareFranz.headline" : "Franzはあなたとともに",
    "feature.shareFranz.shareText.email" : "Franzで{count}個のサービスを使っています！あなたもGmail, Messenger, Slack, SkypeなどのサービスをFranzで一元管理しましょう！ www.meetfranz.com",

@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "Lähetä sähköpostitse",
    "feature.shareFranz.action.facebook" : "Jaa Facebookissa",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Jaa Twitterissä",
    "feature.shareFranz.headline" : "Franz on parempi yhdesssä!",
    "feature.shareFranz.shareText.email" : "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",

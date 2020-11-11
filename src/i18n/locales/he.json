@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "הוספת {amount} מתוך {limit} שירותים האפשריים בתוכנית שלך. אנא שדרג את החשבון שלך כדי להוסיף שירותים נוספים.",
    "feature.shareFranz.action.email" : "שלח כמייל",
    "feature.shareFranz.action.facebook" : "שתף בפייסבוק",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "שתף בטוויטר",
    "feature.shareFranz.headline" : "Franz טוב יותר ביחד!",
    "feature.shareFranz.shareText.email" : "הוספתי {count} שירותים ל Franz! קבל את האפליקציה בחינם עבור WhatsApp, Messenger, Slack, Skype ועוד באתר - www.meetfranz.com",

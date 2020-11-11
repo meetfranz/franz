@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "{amount}\/{limit} számú szolgáltatás hozzáadva, amely az előfizetése része. Kérjük minősítsd fel a fiókod a további szolgáltatások hozzáadásához.",
    "feature.shareFranz.action.email" : "Küldés email-ben",
    "feature.shareFranz.action.facebook" : "Megosztás Facebook-on",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Megosztás Twitter-en",
    "feature.shareFranz.headline" : "A Franz barátokkal együtt mégjobb!",
    "feature.shareFranz.shareText.email" : "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",

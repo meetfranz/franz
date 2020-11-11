@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "您已在计划中包含的{limit}个服务中添加了{amount}个。请升级您的帐户以添加更多服务。",
    "feature.shareFranz.action.email" : "使用电子邮件发送",
    "feature.shareFranz.action.facebook" : "在Facebook上分享",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "在Twitter上分享",
    "feature.shareFranz.headline" : "Franz is better together!",
    "feature.shareFranz.shareText.email" : "我们在Franz里添加了 {count} 服务！请前往 www.meetfranz.com 获得支持WhatsApp，Messenger，Slack，Skype的免费应用程序. ",

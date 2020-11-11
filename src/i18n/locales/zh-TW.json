@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "以電子郵件傳送",
    "feature.shareFranz.action.facebook" : "透過 Facebook 分享",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "在 Twitter 上分享",
    "feature.shareFranz.headline" : "Franz is better together!",
    "feature.shareFranz.shareText.email" : "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",

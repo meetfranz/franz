@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "Tá {amount} as {limit} seirbhísí atá san áireamh i do phlean curtha agat cheana féin. Uasghrádaigh do chuntas chun tuilleadh seirbhísí a chur leis, le do thoil.",
    "feature.shareFranz.action.email" : "Seol mar ríomhphost",
    "feature.shareFranz.action.facebook" : "Roinn ar Facebook",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Roinn ar Twitter",
    "feature.shareFranz.headline" : "Tá Franz níos fearr le chéile!",
    "feature.shareFranz.shareText.email" : "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",

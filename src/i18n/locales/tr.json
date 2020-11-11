@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "Planınız dahilinde {limit} hizmetten {amount} tanesini eklediniz. Daha fazla hizmet eklemek için lütfen hesabınızı yükseltin.",
    "feature.shareFranz.action.email" : "E-posta olarak gönder",
    "feature.shareFranz.action.facebook" : "Facebook'ta paylaş",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "Twitter'da paylaş",
    "feature.shareFranz.headline" : "Franz birlikte daha iyi!",
    "feature.shareFranz.shareText.email" : "Franz'a {count} tane hizmet ekledim! WhatsApp, Messenger, Slack ve fazlasını içeren ücretsiz uygulamayı www.meetfranz.com adresinden edinin.",

@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "You have added {amount} out of {limit} services that are included in your plan. Please upgrade your account to add more services.",
    "feature.shareFranz.action.email" : "이메일로 보내기",
    "feature.shareFranz.action.facebook" : "페이스북에 공유하기",
-   "feature.shareFranz.action.linkedin" : "!!!Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
    "feature.shareFranz.action.twitter" : "트위터에 공유하기",
    "feature.shareFranz.headline" : "함께 해서 더 좋은 Franz!",
    "feature.shareFranz.shareText.email" : "I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
