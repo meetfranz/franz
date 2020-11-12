@@ -23,6 +23,10 @@ if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
 
+// workaround for https://github.com/electron/electron/pull/26432
+app.allowRendererProcessReuse = false;
+app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
+
 /* eslint-disable import/first */
 import {
   isMac,
