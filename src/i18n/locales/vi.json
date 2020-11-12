@@ -196,7 +196,7 @@
    "service.disabledHandler.headline" : "{} đã bị vô hiệu hóa",
    "service.errorHandler.action" : "Tải lại {name}",
    "service.errorHandler.editAction" : "Chỉnh sửa {name}",
-   "service.errorHandler.headline" : "Ôi không",
+   "service.errorHandler.headline" : "Ôi không!!!",
    "service.errorHandler.message" : "Lỗi",
    "service.errorHandler.text" : "{name} không tải được",
    "service.restrictedHandler.action" : "Nâng cấp tài khoản",
