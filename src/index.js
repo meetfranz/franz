@@ -50,6 +50,7 @@ import {
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
+import ms from 'ms';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -286,7 +287,7 @@ const createWindow = () => {
   });
 
   if (isMac) {
-    askFormacOSPermissions();
+    setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
   }
 
   mainWindow.on('show', () => {
