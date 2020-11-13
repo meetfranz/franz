@@ -9,6 +9,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
+import ms from 'ms';
 
 // Set app directory before loading user modules
 if (process.env.FRANZ_APPDATA_DIR != null) {
@@ -50,7 +51,6 @@ import {
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
-import ms from 'ms';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
