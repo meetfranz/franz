@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "Přidali jste {amount} z {limit} služeb, které jsou součástí vašeho předplatného. Pro přidání dalších služeb proveďte aktualizaci vašeho účtu.",
    "feature.shareFranz.action.email" : "Poslat jako e-mail",
    "feature.shareFranz.action.facebook" : "Sdílet na Facebooku",
-   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "Sdílet na LinkedIn",
    "feature.shareFranz.action.twitter" : "Sdílet na Twitteru",
    "feature.shareFranz.headline" : "Na Franze společně!",
    "feature.shareFranz.shareText.email" : "Přidal jsem {count} služeb do Franze! Získejte zdarma aplikace pro WhatsApp, Messenger, SLack, Skype a další na www.meetfranz.com",
