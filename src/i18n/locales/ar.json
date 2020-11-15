@@ -31,7 +31,7 @@
    "feature.serviceLimit.limitReached" : "لقد قمت بإضافة عدد {amount} من الخدمات والمحدودة بالعدد {limit} خدمة في خطتك. نرجوا ترقية حسابك لإضافة المزيد من الخدمات.",
    "feature.shareFranz.action.email" : "ارسل ايميل",
    "feature.shareFranz.action.facebook" : "مشاركة على الفيسبوك",
-   "feature.shareFranz.action.linkedin" : "Share on LinkedIn",
+   "feature.shareFranz.action.linkedin" : "لا اريد",
    "feature.shareFranz.action.twitter" : "مشاركة على تويتر",
    "feature.shareFranz.headline" : "فرانز يكون أفضلاً يداً في يد",
    "feature.shareFranz.shareText.email" : "قمت بإضافة {count} خدمات إلى Franz! أحصل على البرنامج المجاني لـWhatsApp، وMessenger و Slack و Skype وآخرين على www.meetfranz.com",
