@@ -9,6 +9,7 @@ import {
 
 let askForScreenCaptureAccess = () => null;
 
+// We need to use this workaround to only require this module on macOS as an "this module did not self register" error is thrown
 if (isMac) {
   // eslint-disable-next-line global-require
   ({ askForScreenCaptureAccess } = require('node-mac-permissions'));
