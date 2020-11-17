@@ -1,3 +1,12 @@
+## [5.6.1](https://github.com/meetfranz/franz/compare/v5.6.0...v5.6.1) (2020-11-17)
+
+
+### Bug Fixes
+
+* **App:** Fix Windows & Linux issue where a module error crashed the app on startup
+
+
+
 # [5.6.0](https://github.com/meetfranz/franz/compare/v5.6.0-beta.1...v5.6.0) (2020-11-13)
 
 
