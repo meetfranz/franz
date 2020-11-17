@@ -1,8 +1,18 @@
 import { app, systemPreferences, dialog } from 'electron';
-import { askForScreenCaptureAccess } from 'node-mac-permissions';
 import fs from 'fs';
 import macosVersion from 'macos-version';
 import path from 'path';
+
+import {
+  isMac,
+} from '../environment';
+
+let askForScreenCaptureAccess = () => null;
+
+if (isMac) {
+  // eslint-disable-next-line global-require
+  ({ askForScreenCaptureAccess } = require('node-mac-permissions'));
+}
 
 const debug = require('debug')('Franz:macOSPermissions');
 
