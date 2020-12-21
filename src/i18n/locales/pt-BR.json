@@ -250,7 +250,7 @@
    "settings.app.form.keepAllWorkspacesLoaded" : "Matenha todos os workspaces carregados",
    "settings.app.form.language" : "Idioma",
    "settings.app.form.minimizeToSystemTray" : "Minimizar o Franz para a área de sistema",
-   "settings.app.form.runInBackground" : "Manter o Franz no fundo quando fechar a janela",
+   "settings.app.form.runInBackground" : "Manter o Franz em segundo plano quando fechar a janela",
    "settings.app.form.showDisabledServices" : "Mostrar abas de serviços desativados",
    "settings.app.form.showMessagesBadgesWhenMuted" : "Mostrar ícone de mensagem não lida quando as notificações estiverem desativadas",
    "settings.app.headline" : "Configurações",
