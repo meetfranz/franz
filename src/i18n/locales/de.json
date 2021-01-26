@@ -108,7 +108,7 @@
    "menu.file" : "Datei",
    "menu.help" : "Hilfe",
    "menu.help.changelog" : "Changelog",
-   "menu.help.debugInfo" : "Debugging-Information anzeigen",
+   "menu.help.debugInfo" : "Debugging-Information kopieren",
    "menu.help.debugInfoCopiedBody" : "Deine Debugging-Information wurde in die Zwischenablage kopiert.",
    "menu.help.debugInfoCopiedHeadline" : "Franz Debugging-Information",
    "menu.help.learnMore" : "Mehr erfahren",
