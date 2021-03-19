@@ -62,7 +62,7 @@ export default class RecipesStore extends Store {
   }
 
   // Actions
-  @action async _install({ recipeId }) {
+  async _install({ recipeId }) {
     const recipe = await this.installRecipeRequest.execute(recipeId)._promise;
     await this.allRecipesRequest.invalidate({ immediately: true })._promise;
 

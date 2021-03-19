@@ -144,7 +144,7 @@ export const badgeFontSize = uiFontSize - 2;
 export const badgeBorderRadius = 50;
 
 // Modal
-export const colorModalOverlayBackground = color('#000').alpha(0.5).rgb().string();
+export const colorModalOverlayBackground = color('#000').alpha(0.8).rgb().string();
 export const colorModalBackground = colorContentBackground;
 
 // Services
@@ -224,7 +224,7 @@ export const signup = {
 // Todos
 export const todos = {
   todosLayer: {
-    borderLeftColor: legacyStyles.themeGrayLighter,
+    borderLeftColor: color(legacyStyles.themeGrayLighter).darken(0.1).hex(),
   },
   toggleButton: {
     background: styleTypes.primary.accent,
@@ -236,5 +236,16 @@ export const todos = {
   },
   resizeHandler: {
     backgroundHover: styleTypes.primary.accent,
+  },
+};
+
+// TrialStatusBar
+export const trialStatusBar = {
+  bar: {
+    background: legacyStyles.themeGrayLightest,
+  },
+  progressBar: {
+    background: color(legacyStyles.themeGrayLighter).darken(0.1).hex(),
+    progressIndicator: legacyStyles.themeGrayLight,
   },
 };

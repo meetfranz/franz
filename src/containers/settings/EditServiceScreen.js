@@ -33,6 +33,10 @@ const messages = defineMessages({
     id: 'settings.service.form.enableService',
     defaultMessage: '!!!Enable service',
   },
+  enableHibernation: {
+    id: 'settings.service.form.enableHibernation',
+    defaultMessage: '!!!Enable hibernation',
+  },
   enableNotification: {
     id: 'settings.service.form.enableNotification',
     defaultMessage: '!!!Enable Notifications',
@@ -114,7 +118,10 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
 
     const {
       stores,
+      router,
     } = this.props;
+
+    const { action } = router.params;
 
     let defaultSpellcheckerLanguage = SPELLCHECKER_LOCALES[stores.settings.app.spellcheckerLanguage];
 
@@ -138,6 +145,11 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
         isEnabled: {
           label: intl.formatMessage(messages.enableService),
           value: service.isEnabled,
+          default: true,
+        },
+        isHibernationEnabled: {
+          label: intl.formatMessage(messages.enableHibernation),
+          value: action !== 'edit' ? recipe.autoHibernate : service.isHibernationEnabled,
           default: true,
         },
         isNotificationEnabled: {

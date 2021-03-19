@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
   action: {
     id: 'feature.delayApp.upgrade.action',
-    defaultMessage: '!!!Get a Franz Supporter License',
+    defaultMessage: '!!!Upgrade Franz',
   },
   actionTrial: {
     id: 'feature.delayApp.trial.action',

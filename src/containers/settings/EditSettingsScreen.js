@@ -21,6 +21,7 @@ import globalMessages from '../../i18n/globalMessages';
 import { DEFAULT_IS_FEATURE_ENABLED_BY_USER } from '../../features/todos';
 import WorkspacesStore from '../../features/workspaces/store';
 import { DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED } from '../../features/workspaces';
+import ServicesStore from '../../stores/ServicesStore';
 
 const messages = defineMessages({
   autoLaunchOnStart: {
@@ -251,6 +252,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       app,
       todos,
       workspaces,
+      services,
     } = this.props.stores;
     const {
       updateStatus,
@@ -282,6 +284,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
           isTodosEnabled={todos.isFeatureActive}
           isWorkspaceEnabled={workspaces.isFeatureActive}
+          hasAddedTodosAsService={services.isTodosServiceAdded}
+          isOnline={app.isOnline}
         />
       </ErrorBoundary>
     );
@@ -293,6 +297,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
     app: PropTypes.instanceOf(AppStore).isRequired,
     user: PropTypes.instanceOf(UserStore).isRequired,
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
+    services: PropTypes.instanceOf(ServicesStore).isRequired,
     todos: PropTypes.instanceOf(TodosStore).isRequired,
     workspaces: PropTypes.instanceOf(WorkspacesStore).isRequired,
   }).isRequired,
@@ -313,7 +318,7 @@ EditSettingsScreen.wrappedComponent.propTypes = {
       toggleTodosFeatureVisibility: PropTypes.func.isRequired,
     }).isRequired,
     workspaces: PropTypes.shape({
-      toggleAllWorkspacesLoadedSetting: PropTypes.func.isRequired,
+      toggleKeepAllWorkspacesLoadedSetting: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };

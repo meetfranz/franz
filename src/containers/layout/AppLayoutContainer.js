@@ -24,6 +24,7 @@ import { state as delayAppState } from '../../features/delayApp';
 import { workspaceActions } from '../../features/workspaces/actions';
 import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
 import { workspaceStore } from '../../features/workspaces';
+import WorkspacesStore from '../../features/workspaces/store';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
@@ -41,6 +42,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
       globalError,
       requests,
       user,
+      workspaces,
     } = this.props.stores;
 
     const {
@@ -79,7 +81,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
     const isLoadingServices = services.allServicesRequest.isExecuting
       && services.allServicesRequest.isExecutingFirstTime;
 
-    if (isLoadingFeatures || isLoadingServices) {
+    if (isLoadingFeatures || isLoadingServices || workspaces.isLoadingWorkspaces) {
       return (
         <ThemeProvider theme={ui.theme}>
           <AppLoader />
@@ -114,6 +116,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         isWorkspaceDrawerOpen={workspaceStore.isWorkspaceDrawerOpen}
         showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
+        isTodosServiceActive={services.isTodosServiceActive || false}
       />
     );
 
@@ -129,6 +132,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         update={updateService}
         userHasCompletedSignup={user.hasCompletedSignup}
         hasActivatedTrial={user.hasActivatedTrial}
+        isSpellcheckerEnabled={settings.app.enableSpellchecking}
       />
     );
 
@@ -174,6 +178,7 @@ AppLayoutContainer.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
     requests: PropTypes.instanceOf(RequestStore).isRequired,
     globalError: PropTypes.instanceOf(GlobalErrorStore).isRequired,
+    workspaces: PropTypes.instanceOf(WorkspacesStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     service: PropTypes.shape({

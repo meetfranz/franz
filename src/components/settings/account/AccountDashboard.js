@@ -109,6 +109,7 @@ class AccountDashboard extends Component {
     openBilling: PropTypes.func.isRequired,
     upgradeToPro: PropTypes.func.isRequired,
     openInvoices: PropTypes.func.isRequired,
+    onCloseSubscriptionWindow: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -130,6 +131,7 @@ class AccountDashboard extends Component {
       openBilling,
       upgradeToPro,
       openInvoices,
+      onCloseSubscriptionWindow,
     } = this.props;
     const { intl } = this.context;
 
@@ -215,7 +217,9 @@ class AccountDashboard extends Component {
                           {intl.formatMessage(messages.yourLicense)}
                         </H2>
                         <p>
-                          {isPremiumOverrideUser ? 'Franz Premium' : planName}
+                          Franz
+                          {' '}
+                          {isPremiumOverrideUser ? 'Premium' : planName}
                           {user.team.isTrial && (
                             <>
                               {' – '}
@@ -238,14 +242,16 @@ class AccountDashboard extends Component {
                             </p>
                           </>
                         )}
-                        <div className="manage-user-links">
-                          {!isProUser && (
+                        {!isProUser && (
+                          <div className="manage-user-links">
                             <Button
                               label={intl.formatMessage(messages.upgradeAccountToPro)}
                               className="franz-form__button--primary"
                               onClick={upgradeToPro}
                             />
-                          )}
+                          </div>
+                        )}
+                        <div className="manage-user-links">
                           <Button
                             label={intl.formatMessage(messages.manageSubscriptionButtonLabel)}
                             className="franz-form__button--inverted"
@@ -263,7 +269,9 @@ class AccountDashboard extends Component {
                   {!user.isPremium && (
                     <div className="account franz-form">
                       <div className="account__box">
-                        <SubscriptionForm />
+                        <SubscriptionForm
+                          onCloseWindow={onCloseSubscriptionWindow}
+                        />
                       </div>
                     </div>
                   )}

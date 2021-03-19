@@ -2,7 +2,7 @@ directories:
   app: ./build
   output: ./out
 
-appId: "com.meetfranz.franz"
+appId: com.meetfranz.franz
 
 compression: maximum
 
@@ -10,12 +10,20 @@ mac:
   category: public.app-category.productivity
   icon: ./build-helpers/images/icon.icns
   darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build-helpers/default.entitlements.mac.plist
+  entitlementsInherit: build-helpers/default.entitlements.mac.plist
+  extendInfo:
+    NSCameraUsageDescription: "This app requires camera access for video chats"
+    NSMicrophoneUsageDescription: "This app requires microphone access for voice chats"
 
 dmg:
   background: ./build-helpers/images/dmgInstaller.tiff
   icon: ./build-helpers/images/icon.icns
   iconSize: 128
   contents: [{x: 380, y: 240, type: link, path: /Applications}, {x: 122, y: 240, type: file}]
+  sign: false
 
 win:
   icon: ./build-helpers/images/icon.ico
@@ -29,8 +37,8 @@ linux:
   icon: ./build-helpers/images/icons
   category: Network;InstantMessaging;
   executableName: franz
-  synopsis: "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more."
-  description: "Franz is your messaging app / former Emperor of Austria and combines chat & messaging services into one application. Franz currently supports Slack, WhatsApp, WeChat, HipChat, Facebook Messenger, Telegram, Google Hangouts, GroupMe, Skype and many more. You can download Franz for free for Mac & Windows."
+  synopsis: "Messaging app for WhatsApp, Slack, Telegram, Gmail, Hangouts and many many more."
+  description: "Franz is your messaging app / former Emperor of Austria and combines chat & messaging services into one application. Franz currently supports Slack, WhatsApp, Gmail, Facebook Messenger, Telegram, Google Hangouts, GroupMe, Skype and many more. You can download Franz for free for Mac & Windows."
   target:
     - target: AppImage
     - target: deb
@@ -45,5 +53,7 @@ protocols:
   schemes: [franz]
 
 asarUnpack:
-  - ./dictionaries
+  - ./node_modules/mac-screen-capture-permissions
   - ./assets/images/taskbar
+
+afterSign: ./build-helpers/afterSign.js

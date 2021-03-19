@@ -3,9 +3,11 @@ import {
   reaction,
   computed,
   observable,
+  toJS,
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
+import { remote } from 'electron';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -15,8 +17,12 @@ import { gaEvent, statsEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
+import { TODOS_RECIPE_ID } from '../features/todos';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:ServiceStore');
+
+const { app } = remote;
 
 export default class ServicesStore extends Store {
   @observable allServicesRequest = new CachedRequest(this.api.services, 'all');
@@ -69,6 +75,9 @@ export default class ServicesStore extends Store {
     this.actions.service.toggleAudio.listen(this._toggleAudio.bind(this));
     this.actions.service.openDevTools.listen(this._openDevTools.bind(this));
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
+    this.actions.service.hibernate.listen(this._hibernate.bind(this));
+    this.actions.service.awake.listen(this._awake.bind(this));
+    this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
 
     this.registerReactions([
       this._focusServiceReaction.bind(this),
@@ -78,6 +87,7 @@ export default class ServicesStore extends Store {
       this._logoutReaction.bind(this),
       this._handleMuteSettings.bind(this),
       this._restrictServiceAccess.bind(this),
+      this._checkForActiveService.bind(this),
     ]);
 
     // Just bind this
@@ -97,6 +107,62 @@ export default class ServicesStore extends Store {
     );
   }
 
+  initialize() {
+    super.initialize();
+
+    // Check services to become hibernated
+    this.serviceMaintenanceTick();
+  }
+
+  teardown() {
+    super.teardown();
+
+    // Stop checking services for hibernation
+    this.serviceMaintenanceTick.cancel();
+  }
+
+  /**
+   * Сheck for services to become hibernated.
+   */
+  serviceMaintenanceTick = debounce(() => {
+    this._serviceMaintenance();
+    this.serviceMaintenanceTick();
+    debug('Service maintenance tick');
+  }, ms('10s'));
+
+  /**
+   * Run various maintenance tasks on services
+   */
+  _serviceMaintenance() {
+    this.all.forEach((service) => {
+      // Defines which services should be hibernated.
+      if (!service.isActive && (Date.now() - service.lastUsed > ms('5m'))) {
+        // If service is stale for 5 min, hibernate it.
+        this._hibernate({ serviceId: service.id });
+      }
+
+      if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
+        // If service did not reply for more than 1m try to reload.
+        if (!service.isActive) {
+          if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
+            debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
+            // service.webview.reload();
+            service.lostRecipeReloadAttempt += 1;
+
+            service.lostRecipeConnection = false;
+          }
+        } else {
+          debug(`Service lost connection: ${service.name} (${service.id}).`);
+          service.lostRecipeConnection = true;
+        }
+      } else {
+        service.lostRecipeConnection = false;
+        service.lostRecipeReloadAttempt = 0;
+      }
+    });
+  }
+
+  // Computed props
   @computed get all() {
     if (this.stores.user.isLoggedIn) {
       const services = this.allServicesRequest.execute().result;
@@ -150,6 +216,14 @@ export default class ServicesStore extends Store {
     return null;
   }
 
+  @computed get isTodosServiceAdded() {
+    return this.allDisplayed.find(service => service.recipe.id === TODOS_RECIPE_ID && service.isEnabled) || null;
+  }
+
+  @computed get isTodosServiceActive() {
+    return this.active && this.active.recipe.id === TODOS_RECIPE_ID;
+  }
+
   one(id) {
     return this.all.find(service => service.id === id);
   }
@@ -159,10 +233,34 @@ export default class ServicesStore extends Store {
   }
 
   // Actions
-  @action async _createService({ recipeId, serviceData, redirect = true }) {
+  async _createService({
+    recipeId, serviceData, redirect = true, skipCleanup = false,
+  }) {
     if (serviceLimitStore.userHasReachedServiceLimit) return;
 
-    const data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    if (!this.stores.recipes.isInstalled(recipeId)) {
+      debug(`Recipe "${recipeId}" is not installed, installing recipe`);
+      await this.stores.recipes._install({ recipeId });
+      debug(`Recipe "${recipeId}" installed`);
+    }
+
+    // set default values for serviceData
+    Object.assign({
+      isEnabled: true,
+      isHibernationEnabled: false,
+      isNotificationEnabled: true,
+      isBadgeEnabled: true,
+      isMuted: false,
+      customIcon: false,
+      isDarkModeEnabled: false,
+      spellcheckerLanguage: SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
+    }, serviceData);
+
+    let data = serviceData;
+
+    if (!skipCleanup) {
+      data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    }
 
     const response = await this.createServiceRequest.execute(recipeId, data)._promise;
 
@@ -297,6 +395,12 @@ export default class ServicesStore extends Store {
       this.all[index].isActive = false;
     });
     service.isActive = true;
+    this._awake({ serviceId: service.id });
+    service.lastUsed = Date.now();
+
+    if (this.active.recipe.id === TODOS_RECIPE_ID && !this.stores.todos.settings.isFeatureEnabledByUser) {
+      this.actions.todos.toggleTodosFeatureVisibility();
+    }
 
     statsEvent('activate-service', service.recipe.id);
 
@@ -391,10 +495,16 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (channel === 'hello') {
+      debug('Received hello event from', serviceId);
+
       this._initRecipePolling(service.id);
       this._initializeServiceRecipeInWebview(serviceId);
       this._shareSettingsWithServiceProcess();
+    } else if (channel === 'alive') {
+      service.lastPollAnswer = Date.now();
     } else if (channel === 'messages') {
+      debug(`Received unread message info from '${serviceId}'`, args[0]);
+
       this.actions.service.setUnreadMessageCount({
         serviceId,
         count: {
@@ -460,7 +570,7 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     if (service.webview) {
-      service.webview.send(channel, args);
+      service.webview.send(channel, toJS(args));
     }
   }
 
@@ -495,8 +605,13 @@ export default class ServicesStore extends Store {
     if (!service.isEnabled) return;
 
     service.resetMessageCount();
+    service.lostRecipeConnection = false;
 
-    service.webview.loadURL(service.url);
+    if (service.recipe.id === TODOS_RECIPE_ID) {
+      return this.actions.todos.reload();
+    }
+
+    return service.webview.loadURL(service.url);
   }
 
   @action _reloadActive() {
@@ -581,17 +696,56 @@ export default class ServicesStore extends Store {
 
   @action _openDevTools({ serviceId }) {
     const service = this.one(serviceId);
-
-    service.webview.openDevTools();
+    if (service.recipe.id === TODOS_RECIPE_ID) {
+      this.actions.todos.openDevTools();
+    } else {
+      service.webview.openDevTools();
+    }
   }
 
   @action _openDevToolsForActiveService() {
     const service = this.active;
 
     if (service) {
-      service.webview.openDevTools();
+      this._openDevTools({ serviceId: service.id });
     } else {
       debug('No service is active');
+    }
+  }
+
+  @action _hibernate({ serviceId }) {
+    const service = this.one(serviceId);
+    if (service.isActive || !service.isHibernationEnabled) {
+      debug('Skipping service hibernation');
+      return;
+    }
+
+    debug(`Hibernate ${service.name}`);
+
+    service.isHibernating = true;
+  }
+
+  @action _awake({ serviceId }) {
+    const service = this.one(serviceId);
+    service.isHibernating = false;
+    service.liveFrom = Date.now();
+  }
+
+  @action _resetLastPollTimer({ serviceId = null }) {
+    debug(`Reset last poll timer for ${serviceId ? `service: "${serviceId}"` : 'all services'}`);
+
+    const resetTimer = (service) => {
+      service.lastPollAnswer = Date.now();
+      service.lastPoll = Date.now();
+    };
+
+    if (!serviceId) {
+      this.allDisplayed.forEach(service => resetTimer(service));
+    } else {
+      const service = this.one(serviceId);
+      if (service) {
+        resetTimer(service);
+      }
     }
   }
 
@@ -667,7 +821,7 @@ export default class ServicesStore extends Store {
       const isMuted = isAppMuted || service.isMuted;
 
       if (isAttached) {
-        service.webview.setAudioMuted(isMuted);
+        service.webview.audioMuted = isMuted;
       }
     });
   }
@@ -722,13 +876,27 @@ export default class ServicesStore extends Store {
     });
   }
 
+  _checkForActiveService() {
+    if (this.stores.router.location.pathname.includes('auth/signup')) {
+      return;
+    }
+
+    if (this.allDisplayed.findIndex(service => service.isActive) === -1 && this.allDisplayed.length !== 0) {
+      debug('No active service found, setting active service to index 0');
+
+      this._setActive({ serviceId: this.allDisplayed[0].id });
+    }
+  }
+
   // Helper
   _initializeServiceRecipeInWebview(serviceId) {
     const service = this.one(serviceId);
 
     if (service.webview) {
       debug('Initialize recipe', service.recipe.id, service.name);
-      service.webview.send('initialize-recipe', service.shareWithWebview, service.recipe);
+      service.webview.send('initialize-recipe', Object.assign({
+        franzVersion: app.getVersion(),
+      }, service.shareWithWebview), service.recipe);
     }
   }
 
@@ -748,6 +916,7 @@ export default class ServicesStore extends Store {
         service.webview.send('poll');
 
         service.timer = setTimeout(loop, delay);
+        service.lastPoll = Date.now();
       };
 
       loop();

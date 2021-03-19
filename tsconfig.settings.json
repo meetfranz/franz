@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es5",
+    "target": "esnext",
     "module": "commonjs",
     "lib": [
       "es2015",

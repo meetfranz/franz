@@ -19,6 +19,7 @@ import Select from '../../ui/Select';
 import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 import LimitReachedInfobox from '../../../features/serviceLimit/components/LimitReachedInfobox';
 import { serviceLimitStore } from '../../../features/serviceLimit';
+import { isMac } from '../../../environment';
 
 const messages = defineMessages({
   saveService: {
@@ -76,6 +77,10 @@ const messages = defineMessages({
   isMutedInfo: {
     id: 'settings.service.form.isMutedInfo',
     defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
+  },
+  isHibernationEnabledInfo: {
+    id: 'settings.service.form.isHibernatedEnabledInfo',
+    defaultMessage: '!!!When enabled, a service will be shut down after a period of time to save system resources.',
   },
   headlineNotifications: {
     id: 'settings.service.form.headlineNotifications',
@@ -333,6 +338,10 @@ export default @observer class EditServiceForm extends Component {
                     <Toggle field={form.$('isDarkModeEnabled')} />
                   )}
                   <Toggle field={form.$('isEnabled')} />
+                  <Toggle field={form.$('isHibernationEnabled')} />
+                  <p className="settings__help">
+                    {intl.formatMessage(messages.isHibernationEnabledInfo)}
+                  </p>
                 </div>
               </div>
               <div className="service-icon">
@@ -344,14 +353,16 @@ export default @observer class EditServiceForm extends Component {
               </div>
             </div>
 
-            <PremiumFeatureContainer
-              condition={!isSpellcheckerIncludedInCurrentPlan}
-              gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
-            >
-              <div className="settings__settings-group">
-                <Select field={form.$('spellcheckerLanguage')} />
-              </div>
-            </PremiumFeatureContainer>
+            {!isMac && (
+              <PremiumFeatureContainer
+                condition={!isSpellcheckerIncludedInCurrentPlan}
+                gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
+              >
+                <div className="settings__settings-group">
+                  <Select field={form.$('spellcheckerLanguage')} />
+                </div>
+              </PremiumFeatureContainer>
+            )}
 
             {isProxyFeatureEnabled && (
               <PremiumFeatureContainer

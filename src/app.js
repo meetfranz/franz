@@ -38,6 +38,7 @@ import SignupScreen from './containers/auth/SignupScreen';
 import ImportScreen from './containers/auth/ImportScreen';
 import PricingScreen from './containers/auth/PricingScreen';
 import InviteScreen from './containers/auth/InviteScreen';
+import SetupAssistentScreen from './containers/auth/SetupAssistantScreen';
 import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 import WorkspacesScreen from './features/workspaces/containers/WorkspacesScreen';
@@ -51,7 +52,6 @@ smoothScroll.polyfill();
 
 // Basic electron Setup
 webFrame.setVisualZoomLevelLimits(1, 1);
-webFrame.setLayoutZoomLevelLimits(0, 0);
 
 window.addEventListener('load', () => {
   const api = apiFactory(new ServerApi(), new LocalApi());
@@ -100,6 +100,7 @@ window.addEventListener('load', () => {
                   <Route path="/auth/signup/form" component={SignupScreen} />
                   <Route path="/auth/signup/pricing" component={PricingScreen} />
                   <Route path="/auth/signup/import" component={ImportScreen} />
+                  <Route path="/auth/signup/setup" component={SetupAssistentScreen} />
                   <Route path="/auth/signup/invite" component={InviteScreen} />
                 </Route>
                 <Route path="/auth/password" component={PasswordScreen} />

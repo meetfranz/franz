@@ -115,6 +115,10 @@ const menuItems = defineMessages({
     id: 'menu.view.reloadFranz',
     defaultMessage: '!!!Reload Franz',
   },
+  reloadTodos: {
+    id: 'menu.view.reloadTodos',
+    defaultMessage: '!!!Reload ToDos',
+  },
   minimize: {
     id: 'menu.window.minimize',
     defaultMessage: '!!!Minimize',
@@ -340,10 +344,10 @@ const _templateFactory = intl => [
         accelerator: 'Cmd+plus',
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) activeService.setZoomLevel(level + 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+          if (level < 9) activeService.setZoomLevel(level + 1);
         },
       },
       {
@@ -351,10 +355,10 @@ const _templateFactory = intl => [
         accelerator: 'Cmd+-',
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-            if (level > -9) activeService.setZoomLevel(level - 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+          if (level > -9) activeService.setZoomLevel(level - 1);
         },
       },
       {
@@ -515,10 +519,10 @@ const _titleBarTemplateFactory = intl => [
         accelerator: `${ctrlKey}+=`,
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-            if (level < 9) activeService.setZoomLevel(level + 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+          if (level < 9) activeService.setZoomLevel(level + 1);
         },
       },
       {
@@ -526,10 +530,10 @@ const _titleBarTemplateFactory = intl => [
         accelerator: `${ctrlKey}+-`,
         click() {
           const activeService = getActiveWebview();
-          activeService.getZoomLevel((level) => {
-            // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-            if (level > -9) activeService.setZoomLevel(level - 1);
-          });
+          const level = activeService.getZoomLevel();
+
+          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+          if (level > -9) activeService.setZoomLevel(level - 1);
         },
       },
       {
@@ -636,7 +640,9 @@ export default class FranzMenu {
     // need to clone object so we don't modify computed (cached) object
     const serviceTpl = Object.assign([], this.serviceTpl());
 
-    if (window.franz === undefined) {
+    // Don't initialize when window.franz is undefined or when we are on a payment window route
+    if (window.franz === undefined || this.stores.router.location.pathname.startsWith('/payment/')) {
+      console.log('skipping menu init');
       return;
     }
 
@@ -665,8 +671,8 @@ export default class FranzMenu {
         label: intl.formatMessage(menuItems.toggleTodosDevTools),
         accelerator: `${cmdKey}+Shift+Alt+O`,
         click: () => {
-          const webview = document.querySelector('webview[partition="persist:todos"]');
-          if (webview) webview.openDevTools();
+          const webview = document.querySelector('#todos-panel webview');
+          if (webview) this.actions.todos.openDevTools();
         },
       });
     }
@@ -693,10 +699,16 @@ export default class FranzMenu {
       click: () => {
         window.location.reload();
       },
+    }, {
+      label: intl.formatMessage(menuItems.reloadTodos),
+      accelerator: `${cmdKey}+Shift+Alt+R`,
+      click: () => {
+        this.actions.todos.reload();
+      },
     });
 
     tpl.unshift({
-      label: isMac ? app.getName() : intl.formatMessage(menuItems.file),
+      label: isMac ? app.name : intl.formatMessage(menuItems.file),
       submenu: [
         {
           label: intl.formatMessage(menuItems.about),

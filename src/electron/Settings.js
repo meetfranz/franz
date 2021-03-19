@@ -33,6 +33,10 @@ export default class Settings {
     return this.store;
   }
 
+  get allSerialized() {
+    return toJS(this.store);
+  }
+
   get(key) {
     return this.store[key];
   }
@@ -47,7 +51,9 @@ export default class Settings {
   }
 
   _writeFile() {
-    outputJsonSync(this.settingsFile, this.store);
+    outputJsonSync(this.settingsFile, this.store, {
+      spaces: 2,
+    });
     debug('Write settings file', this.type, toJS(this.store));
   }
 

@@ -4,21 +4,25 @@ import { PLANS_MAPPING, PLANS } from '../config';
 const messages = defineMessages({
   [PLANS.PRO]: {
     id: 'pricing.plan.pro',
-    defaultMessage: '!!!Franz Professional',
+    defaultMessage: '!!!Professional',
   },
   [PLANS.PERSONAL]: {
     id: 'pricing.plan.personal',
-    defaultMessage: '!!!Franz Personal',
+    defaultMessage: '!!!Personal',
   },
   [PLANS.FREE]: {
     id: 'pricing.plan.free',
-    defaultMessage: '!!!Franz Free',
+    defaultMessage: '!!!Free',
   },
   [PLANS.LEGACY]: {
     id: 'pricing.plan.legacy',
-    defaultMessage: '!!!Franz Premium',
+    defaultMessage: '!!!Premium',
   },
 });
+
+export function cleanupPlanId(id) {
+  return id.replace(/(.*)-x[0-9]/, '$1');
+}
 
 export function i18nPlanName(planId, intl) {
   if (!planId) {
@@ -29,7 +33,9 @@ export function i18nPlanName(planId, intl) {
     throw new Error('intl context is required');
   }
 
-  const plan = PLANS_MAPPING[planId];
+  const id = cleanupPlanId(planId);
+
+  const plan = PLANS_MAPPING[id];
 
   return intl.formatMessage(messages[plan]);
 }
@@ -39,7 +45,9 @@ export function getPlan(planId) {
     throw new Error('planId is required');
   }
 
-  const plan = PLANS_MAPPING[planId];
+  const id = cleanupPlanId(planId);
+
+  const plan = PLANS_MAPPING[id];
 
   return plan;
 }

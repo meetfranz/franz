@@ -53,6 +53,7 @@ export default @observer class Sidebar extends Component {
     isAppMuted: PropTypes.bool.isRequired,
     isWorkspaceDrawerOpen: PropTypes.bool.isRequired,
     toggleWorkspaceDrawer: PropTypes.func.isRequired,
+    isTodosServiceActive: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -87,6 +88,7 @@ export default @observer class Sidebar extends Component {
       isAppMuted,
       isWorkspaceDrawerOpen,
       toggleWorkspaceDrawer,
+      isTodosServiceActive,
     } = this.props;
     const { intl } = this.context;
     const todosToggleMessage = (
@@ -112,6 +114,7 @@ export default @observer class Sidebar extends Component {
               this.updateToolTip();
               gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'sidebar');
             }}
+            disabled={isTodosServiceActive}
             className={`sidebar__button sidebar__button--todos  ${todosStore.isTodosPanelVisible ? 'is-active' : ''}`}
             data-tip={`${intl.formatMessage(todosToggleMessage)} (${ctrlKey}+T)`}
           >

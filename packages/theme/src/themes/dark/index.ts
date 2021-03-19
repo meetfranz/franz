@@ -65,8 +65,8 @@ export const selectOptionItemHoverColor = selectColor;
 export const selectSearchColor = inputBackground;
 
 // Modal
-export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.8).rgb().string();
-export const colorModalBackground = colorContentBackground;
+export const colorModalOverlayBackground = color(legacyStyles.darkThemeBlack).alpha(0.9).rgb().string();
+export const colorModalBackground = legacyStyles.darkThemeGrayDark;
 
 // Services
 export const services = merge({}, defaultStyles.services, {
@@ -144,5 +144,16 @@ export const todos = merge({}, defaultStyles.todos, {
   },
   dragIndicator: {
     background: legacyStyles.themeGrayLight,
+  },
+});
+
+// TrialStatusBar
+export const trialStatusBar = merge({}, defaultStyles.trialStatusBar, {
+  bar: {
+    background: legacyStyles.darkThemeGray,
+  },
+  progressBar: {
+    background: legacyStyles.darkThemeGrayLighter,
+    progressIndicator: legacyStyles.darkThemeGrayLightest,
   },
 });

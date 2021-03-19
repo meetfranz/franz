@@ -5,11 +5,13 @@ import injectSheet from 'react-jss';
 import Webview from 'react-electron-web-view';
 import { Icon } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
+import classnames from 'classnames';
 
 import { mdiCheckAll } from '@mdi/js';
 import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
+import { TODOS_PARTITION_ID } from '..';
 
 const messages = defineMessages({
   premiumInfo: {
@@ -33,7 +35,7 @@ const styles = theme => ({
     borderLeft: [1, 'solid', theme.todos.todosLayer.borderLeftColor],
     zIndex: 300,
 
-    transform: ({ isVisible, width }) => `translateX(${isVisible ? 0 : width}px)`,
+    transform: ({ isVisible, width, isTodosServiceActive }) => `translateX(${isVisible || isTodosServiceActive ? 0 : width}px)`,
 
     '& webview': {
       height: '100%',
@@ -75,12 +77,19 @@ const styles = theme => ({
   premiumCTA: {
     marginTop: 40,
   },
+  isTodosServiceActive: {
+    width: 'calc(100% - 368px)',
+    position: 'absolute',
+    right: 0,
+    zIndex: 0,
+  },
 });
 
 @injectSheet(styles) @observer
 class TodosWebview extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    isTodosServiceActive: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool.isRequired,
     handleClientMessage: PropTypes.func.isRequired,
     setTodosWebview: PropTypes.func.isRequired,
@@ -170,12 +179,16 @@ class TodosWebview extends Component {
   startListeningToIpcMessages() {
     const { handleClientMessage } = this.props;
     if (!this.webview) return;
-    this.webview.addEventListener('ipc-message', e => handleClientMessage(e.args[0]));
+    this.webview.addEventListener('ipc-message', (e) => {
+      // console.log(e);
+      handleClientMessage({ channel: e.channel, message: e.args[0] });
+    });
   }
 
   render() {
     const {
       classes,
+      isTodosServiceActive,
       isVisible,
       isTodosIncludedInCurrentPlan,
     } = this.props;
@@ -188,12 +201,21 @@ class TodosWebview extends Component {
 
     const { intl } = this.context;
 
+    let displayedWidth = isVisible ? width : 0;
+    if (isTodosServiceActive) {
+      displayedWidth = null;
+    }
+
     return (
       <div
-        className={classes.root}
-        style={{ width: isVisible ? width : 0 }}
+        className={classnames({
+          [classes.root]: true,
+          [classes.isTodosServiceActive]: isTodosServiceActive,
+        })}
+        style={{ width: displayedWidth }}
         onMouseUp={() => this.stopResize()}
         ref={(node) => { this.node = node; }}
+        id="todos-panel"
       >
         <div
           className={classes.resizeHandler}
@@ -214,7 +236,7 @@ class TodosWebview extends Component {
               setTodosWebview(this.webview);
               this.startListeningToIpcMessages();
             }}
-            partition="persist:todos"
+            partition={TODOS_PARTITION_ID}
             preload="./features/todos/preload.js"
             ref={(webview) => { this.webview = webview ? webview.view : null; }}
             src={environment.TODOS_FRONTEND}

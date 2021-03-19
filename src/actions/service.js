@@ -91,4 +91,13 @@ export default {
     serviceId: PropTypes.string.isRequired,
   },
   openDevToolsForActiveService: {},
+  hibernate: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  awake: {
+    serviceId: PropTypes.string.isRequired,
+  },
+  resetLastPollTimer: {
+    serviceId: PropTypes.string,
+  },
 };

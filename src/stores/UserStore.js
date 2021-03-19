@@ -3,6 +3,7 @@ import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import localStorage from 'mobx-localstorage';
 import ms from 'ms';
+import { remote } from 'electron';
 
 import { isDevMode } from '../environment';
 import Store from './lib/Store';
@@ -12,6 +13,9 @@ import { gaEvent } from '../lib/analytics';
 import { sleep } from '../helpers/async-helpers';
 import { getPlan } from '../helpers/plan-helpers';
 import { PLANS } from '../config';
+import { TODOS_PARTITION_ID } from '../features/todos';
+
+const { session } = remote;
 
 const debug = require('debug')('Franz:UserStore');
 
@@ -28,6 +32,8 @@ export default class UserStore extends Store {
   SIGNUP_ROUTE = `${this.BASE_ROUTE}/signup`;
 
   PRICING_ROUTE = `${this.BASE_ROUTE}/signup/pricing`;
+
+  SETUP_ROUTE = `${this.BASE_ROUTE}/signup/setup`;
 
   IMPORT_ROUTE = `${this.BASE_ROUTE}/signup/import`;
 
@@ -77,6 +83,8 @@ export default class UserStore extends Store {
 
   @observable logoutReason = null;
 
+  fetchUserInfoInterval = null;
+
   constructor(...args) {
     super(...args);
 
@@ -122,6 +130,10 @@ export default class UserStore extends Store {
     return this.PRICING_ROUTE;
   }
 
+  get setupRoute() {
+    return this.SETUP_ROUTE;
+  }
+
   get inviteRoute() {
     return this.INVITE_ROUTE;
   }
@@ -161,7 +173,7 @@ export default class UserStore extends Store {
   }
 
   @computed get isPremiumOverride() {
-    return ((!this.team || !this.team.plan) && this.isPremium) || (this.team.state === 'expired' && this.isPremium);
+    return ((!this.team || !this.team.plan) && this.isPremium) || (this.team && this.team.state === 'expired' && this.isPremium);
   }
 
   @computed get isPersonal() {
@@ -203,7 +215,7 @@ export default class UserStore extends Store {
   }
 
   @action async _signup({
-    firstname, lastname, email, password, accountType, company,
+    firstname, lastname, email, password, accountType, company, plan, currency,
   }) {
     const authToken = await this.signupRequest.execute({
       firstname,
@@ -213,13 +225,15 @@ export default class UserStore extends Store {
       accountType,
       company,
       locale: this.stores.app.locale,
+      plan,
+      currency,
     });
 
     this.hasCompletedSignup = false;
 
     this._setUserData(authToken);
 
-    this.stores.router.push(this.PRICING_ROUTE);
+    this.stores.router.push(this.SETUP_ROUTE);
 
     gaEvent('User', 'signup');
   }
@@ -288,6 +302,13 @@ export default class UserStore extends Store {
 
     this.getUserInfoRequest.invalidate().reset();
     this.authToken = null;
+
+    this.stores.services.allServicesRequest.invalidate().reset();
+
+    if (this.stores.todos.isTodosEnabled) {
+      const sess = session.fromPartition(TODOS_PARTITION_ID);
+      sess.clearStorageData();
+    }
   }
 
   @action async _importLegacyServices({ services }) {

@@ -19,6 +19,8 @@ import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import TrialActivationInfoBar from '../TrialActivationInfoBar';
 import Todos from '../../features/todos/containers/TodosScreen';
+import PlanSelection from '../../features/planSelection/containers/PlanSelectionScreen';
+import TrialStatusBar from '../../features/trialStatusBar/containers/TrialStatusBarScreen';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -173,9 +175,11 @@ class AppLayout extends Component {
               <ShareFranz />
               {services}
               {children}
+              <TrialStatusBar />
             </div>
             <Todos />
           </div>
+          <PlanSelection />
         </div>
       </ErrorBoundary>
     );

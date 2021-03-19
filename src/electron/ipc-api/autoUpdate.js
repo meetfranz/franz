@@ -20,8 +20,9 @@ export default (params) => {
           }, 20);
         }
       } catch (e) {
-        console.error(e);
-        event.sender.send('autoUpdate', { error: true });
+        console.log('debugging test');
+        console.log(e);
+        // params.mainWindow.webContents.send('autoUpdate', { error: true });
       }
     });
 

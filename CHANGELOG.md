@@ -1,3 +1,201 @@
+# [5.6.0](https://github.com/meetfranz/franz/compare/v5.6.0-beta.1...v5.6.0) (2020-11-13)
+
+
+### Bug Fixes
+
+* **App:** Fixed crash when Franz goes to sleep
+* **App:** Fix crash when app has finished loading
+* **App:** Add mailto: as a valid url protocol
+* **App:** Fix crashes on navigation changes/reloads
+* **Context Menu:** Fix "save image as"
+* **Franz ToDos:** Clear todos cache on user logout
+* **Service:** Fix copy image in context menu
+* **Service:** Fix image download from services
+* **Service:** Fix service activation on notification click
+* **Service:** Fix popup handling to e.g. enable Facebook Messenger calls
+* **Service:** Fix clicks on links in Skype
+* **Service:** Reset active service when previous selection is not valid anymore
+* **Service:** Fix missing service re-rendering on service update
+* **Custom Website:** Fix browser control icons in dark mode
+* **macOS:** Fix tray icon color on macOS Big Sur
+* **Share Dialog:** Fix Twitter share link not working
+* **App:** Fix various validation errors
+
+
+### Features
+
+* **App:** We've put Franz on a diet and he lost over 130MB 🥳
+* **Franz ToDos:** New version of Franz ToDos with lots of new features more on [franztodos.com](https://franztodos.com)
+* **App:** Add new onboarding step to make setting up services easier
+* **Context Menu:** Add option to copy image
+* **Franz ToDos:** Add Franz ToDos as a native service
+* **Franz ToDos:** Added `Cmd+Alt+Shift+R` to reload the Franz ToDos
+* **Spell checker:** Added 12 new languages for spell checking
+* **Spellchecker:** Improved language detection for spell checking
+* **Recipe:** Add option to override recipe partition
+* **Languages:** Added Estonian as a language
+* **Share Dialog:** Add LinkedIn as an option
+
+### General
+
+* **App:** Update electron to 10.1.5
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
+# [5.6.0-beta.1](https://github.com/meetfranz/franz/compare/v5.5.0...v5.6.0-beta.1) (2020-10-08)
+
+
+[See 5.6.0 changelog.](#5-6-0--2020-11-13-)
+
+
+
+# [5.5.0](https://github.com/meetfranz/franz/compare/v5.5.0-beta.4...v5.5.0) (2020-04-29)
+
+### Features
+
+* **Service:** Add service hibernation to save system resources ([cb92dd7](https://github.com/meetfranz/franz/commit/cb92dd7))
+* **App:** Add `FRANZ_APPDATA_DIR` environment variable to customize the app settings directory ([@Makazzz](https://github.com/Makazzz))
+* **Service:** Added service polling debugger when starting Franz with `DEBUG=Franz:Service`
+
+### Bug Fixes
+
+* **App:** Update deprecated electron APIs ([@vantezzen](https://github.com/vantezzen))
+* **App:** Fix Zoom in services ([@vantezzen](https://github.com/vantezzen))
+* **macOS:** Add audio & video permission request for macOS Catalina ([8922324](https://github.com/meetfranz/franz/commit/8922324))
+8922324
+* **Experimental:** Fix Google signin ([d7840ba](https://github.com/meetfranz/franz/commit/d7840ba))
+* **macOS:** Ask the user to move Franz to the `/Applications` Folder to fix read/write issues ([f52ad72](https://github.com/meetfranz/franz/commit/f52ad72))
+* **macOS:** Fix microphone, camera & screen sharing permissions 
+* **Service:** Add integrity checks to prevent services recipes getting lost ([b2d5315](https://github.com/meetfranz/franz/commit/b2d5315))
+* **Service:** Fix issue with user agent override in service workers ([a8dea57](https://github.com/meetfranz/franz/commit/a8dea57))
+* **Service:** Don't reload services after 10 minute system nap ([a2aae55](https://github.com/meetfranz/franz/commit/a2aae55))
+* **App:** Fix "Missing Service" link ([0e2c945](https://github.com/meetfranz/franz/commit/0e2c945))
+* **App:** Improve lost recipe connection handler ([18e1da1](https://github.com/meetfranz/franz/commit/18e1da1))
+
+
+### General
+
+* **App:** Updated electron to 8.1.1 ([5b00c90](https://github.com/meetfranz/franz/commit/5b00c90))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
+# [5.5.0-beta.4](https://github.com/meetfranz/franz/compare/v5.5.0-beta.3...v5.5.0-beta.4) (2020-04-21)
+
+### Bug Fixes
+* **Service:** Fix issue with service debugger painting service tabs red ([2b980c7](https://github.com/meetfranz/franz/commit/2b980c7))
+
+
+# [5.5.0-beta.3](https://github.com/meetfranz/franz/compare/v5.5.0-beta.2...v5.5.0-beta.3) (2020-04-17)
+
+
+### Bug Fixes
+
+* **App:** Improve lost recipe connection handler ([18e1da1](https://github.com/meetfranz/franz/commit/18e1da1))
+
+### General
+
+* **Service:** Added service polling debugger when starting Franz with `DEBUG=Franz:Service`
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
+# [5.5.0-beta.2](https://github.com/meetfranz/franz/compare/v5.5.0-beta.1...v5.5.0-beta.2) (2020-04-06)
+
+
+### Bug Fixes
+
+* **Experimental:** Fix Google signin ([d7840ba](https://github.com/meetfranz/franz/commit/d7840ba))
+* **macOS:** Ask the user to move Franz to the `/Applications` Folder to fix read/write issues ([f52ad72](https://github.com/meetfranz/franz/commit/f52ad72))
+* **macOS:** Fix microphone, camera & screen sharing permissions 
+* **Service:** Add integrity checks to prevent services recipes getting lost ([b2d5315](https://github.com/meetfranz/franz/commit/b2d5315))
+* **Service:** Fix issue with user agent override in service workers ([a8dea57](https://github.com/meetfranz/franz/commit/a8dea57))
+* **Service:** Don't reload services after 10 minute system nap ([a2aae55](https://github.com/meetfranz/franz/commit/a2aae55))
+* **App:** Fix "Missing Service" link ([0e2c945](https://github.com/meetfranz/franz/commit/0e2c945))
+
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+# [5.5.0-beta.1](https://github.com/meetfranz/franz/compare/v5.4.1...v5.5.0-beta.1) (2020-03-20)
+
+
+### Features
+
+* **Service:** Add service hibernation to save system resources ([cb92dd7](https://github.com/meetfranz/franz/commit/cb92dd7))
+* **App:** Add `FRANZ_APPDATA_DIR` environment variable to customize the app settings directory ([@Makazzz](https://github.com/Makazzz))
+
+### Bug Fixes
+
+* **App:** Update deprecated electron APIs ([@vantezzen](https://github.com/vantezzen))
+* **App:** Fix Zoom in services ([@vantezzen](https://github.com/vantezzen))
+* **macOS:** Add audio & video permission request for macOS Catalina ([8922324](https://github.com/meetfranz/franz/commit/8922324))
+8922324
+
+### General
+
+* **App:** Updated electron to 8.1.1 ([5b00c90](https://github.com/meetfranz/franz/commit/5b00c90))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+# [5.4.1](https://github.com/meetfranz/franz/compare/v5.4.0...v5.4.1) (2019-10-30)
+
+* **macOS Catalina:** Fix issue with app notarization
+
+# [5.4.0](https://github.com/meetfranz/franz/compare/v5.4.0-beta.3...v5.4.0) (2019-10-23)
+
+### Features
+
+* **Custom Websites:** Added navigation bar for "Custom Website" service ([f8fbaad](https://github.com/meetfranz/franz/commit/f8fbaad))
+* **Mac:** Open Franz window with `Cmd+1` ([71831ec](https://github.com/meetfranz/franz/commit/71831ec))
+* **Todos:** Allow Franz Todos to open links in browser ([5ba6723](https://github.com/meetfranz/franz/commit/5ba6723))
+* **Service API:** Share `team`, `url` and `hasCustomIcon` with service ([9f4f3e7](https://github.com/meetfranz/franz/commit/9f4f3e7))
+* **App Start:** Only load workspace related services ([ad7fb84](https://github.com/meetfranz/franz/commit/ad7fb84))
+
+
+### Bug Fixes
+
+* **Services:** Restore services after 10 minutes system suspension ([7f11dff](https://github.com/meetfranz/franz/commit/7f11dff))
+* **Workspaces:** Allow scrolling in Workspaces drawer ([5c1c0db](https://github.com/meetfranz/franz/commit/5c1c0db))
+* **Spell check:** fix(Spell checker): Fix disable spell checker ([@vantezzen](https://github.com/vantezzen))
+ ([691e0cf](https://github.com/meetfranz/franz/commit/691e0cf))
+* **App:** Fix "Paste And Match Style" ([490a988](https://github.com/meetfranz/franz/commit/490a988))
+* **macOS:** Only show services in Touch Bar that should be visible ([077ad22](https://github.com/meetfranz/franz/commit/077ad22))
+* **Service Proxies:** Fix proxy setting rehydration ([e2126a6](https://github.com/meetfranz/franz/commit/e2126a6))
+* **Settings:** Fix cache size calculation after clearing cache ([a31566d](https://github.com/meetfranz/franz/commit/a31566d))
+* **Spell check:** Fix spell checker to initialize without loaded dictionary ([734732f](https://github.com/meetfranz/franz/commit/734732f))
+* **Spell check:** Fix "undefined" language in context menu ([cc03883](https://github.com/meetfranz/franz/commit/cc03883))
+* **App:** Fix Basic Auth overlay background in Dark Mode ([027e50d](https://github.com/meetfranz/franz/commit/027e50d))
+
+
+### General
+
+* **App:** Updated electron to 6.0.11 ([34aab68](https://github.com/meetfranz/franz/commit/34aab68))
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+# [5.4.0-beta.3](https://github.com/meetfranz/franz/compare/v5.4.0-beta.2...v5.4.0-beta.3) (2019-10-22)
+
+### Features
+
+* **App Start:** Only load workspace related services ([ad7fb84](https://github.com/meetfranz/franz/commit/ad7fb84))
+
+
+### Bug Fixes
+
+* **Services:** Restore services after 10 minutes system suspension ([7f11dff](https://github.com/meetfranz/franz/commit/7f11dff))
+* **Workspaces:** Allow scrolling in Workspaces drawer ([5c1c0db](https://github.com/meetfranz/franz/commit/5c1c0db))
+* **Spell check:** fix(Spell checker): Fix disable spell checker ([@vantezzen](https://github.com/vantezzen))
+ ([691e0cf](https://github.com/meetfranz/franz/commit/691e0cf))
+
+### General
+
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 # [5.4.0-beta.2](https://github.com/meetfranz/franz/compare/v5.4.0-beta.1...v5.4.0-beta.2) (2019-10-04)
 
 

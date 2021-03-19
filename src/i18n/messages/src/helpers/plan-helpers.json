@@ -1,7 +1,7 @@
 [
   {
     "id": "pricing.plan.pro",
-    "defaultMessage": "!!!Franz Professional",
+    "defaultMessage": "!!!Professional",
     "file": "src/helpers/plan-helpers.js",
     "start": {
       "line": 5,
@@ -14,7 +14,7 @@
   },
   {
     "id": "pricing.plan.personal",
-    "defaultMessage": "!!!Franz Personal",
+    "defaultMessage": "!!!Personal",
     "file": "src/helpers/plan-helpers.js",
     "start": {
       "line": 9,
@@ -27,7 +27,7 @@
   },
   {
     "id": "pricing.plan.free",
-    "defaultMessage": "!!!Franz Free",
+    "defaultMessage": "!!!Free",
     "file": "src/helpers/plan-helpers.js",
     "start": {
       "line": 13,
@@ -40,7 +40,7 @@
   },
   {
     "id": "pricing.plan.legacy",
-    "defaultMessage": "!!!Franz Premium",
+    "defaultMessage": "!!!Premium",
     "file": "src/helpers/plan-helpers.js",
     "start": {
       "line": 17,

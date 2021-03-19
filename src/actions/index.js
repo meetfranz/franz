@@ -14,6 +14,8 @@ import requests from './requests';
 import announcements from '../features/announcements/actions';
 import workspaces from '../features/workspaces/actions';
 import todos from '../features/todos/actions';
+import planSelection from '../features/planSelection/actions';
+import trialStatusBar from '../features/trialStatusBar/actions';
 
 const actions = Object.assign({}, {
   service,
@@ -33,4 +35,6 @@ export default Object.assign(
   { announcements },
   { workspaces },
   { todos },
+  { planSelection },
+  { trialStatusBar },
 );

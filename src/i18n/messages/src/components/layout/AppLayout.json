@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Your services have been updated.",
     "file": "src/components/layout/AppLayout.js",
     "start": {
-      "line": 28,
+      "line": 30,
       "column": 19
     },
     "end": {
-      "line": 31,
+      "line": 33,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Reload services",
     "file": "src/components/layout/AppLayout.js",
     "start": {
-      "line": 32,
+      "line": 34,
       "column": 24
     },
     "end": {
-      "line": 35,
+      "line": 37,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Could not load services and user information",
     "file": "src/components/layout/AppLayout.js",
     "start": {
-      "line": 36,
+      "line": 38,
       "column": 26
     },
     "end": {
-      "line": 39,
+      "line": 41,
       "column": 3
     }
   }

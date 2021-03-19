@@ -35,7 +35,7 @@ export default (params) => {
       || process.platform === 'linux')
       && typeof (args.indicator) === 'number'
     ) {
-      app.setBadgeCount(args.indicator);
+      app.badgeCount = args.indicator;
     }
 
     if (process.platform === 'win32') {

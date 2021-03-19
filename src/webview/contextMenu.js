@@ -2,7 +2,7 @@
 // ❤ @sindresorhus
 
 import {
-  clipboard, remote, ipcRenderer, shell,
+  clipboard, remote, ipcRenderer, shell, nativeImage,
 } from 'electron';
 
 import { isDevMode, isMac } from '../environment';
@@ -12,7 +12,6 @@ const debug = require('debug')('Franz:contextMenu');
 
 const { Menu } = remote;
 
-// const win = remote.getCurrentWindow();
 const webContents = remote.getCurrentWebContents();
 
 function delUnusedElements(menuTpl) {
@@ -147,6 +146,30 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
         shell.openExternal(props.srcURL);
       },
     }, {
+      id: 'copyImage',
+      label: 'Copy Image',
+      click: async () => {
+        const response = await window.fetch(props.srcURL, {
+          mode: 'no-cors',
+        });
+        const blob = await response.blob();
+        const reader = new window.FileReader();
+        reader.onload = (event) => {
+          const image = nativeImage.createFromDataURL(event.target.result);
+
+          try {
+            clipboard.write({
+              image,
+            });
+          } catch (err) {
+            console.warn(err);
+          }
+        };
+        reader.readAsDataURL(blob);
+
+        console.log('image');
+      },
+    }, {
       id: 'copyImageAddress',
       label: 'Copy Image Address',
       click() {
@@ -193,6 +216,16 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     });
   }
 
+  // Allow users to add the misspelled word to the dictionary
+  if (props.misspelledWord) {
+    menuTpl.unshift({
+      type: 'separator',
+    }, {
+      label: `Add "${props.misspelledWord}" to dictionary`,
+      click: () => webContents.session.addWordToSpellCheckerDictionary(props.misspelledWord),
+    });
+  }
+
   if (suggestions.length > 0) {
     suggestions.reverse().map(suggestion => menuTpl.unshift({
       id: `suggestion-${suggestion}`,
@@ -225,60 +258,62 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
     });
   }
 
-  const spellcheckingLanguages = [];
-  Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
-    spellcheckingLanguages.push({
-      id: `lang-${key}`,
-      label: SPELLCHECKER_LOCALES[key],
-      type: 'radio',
-      checked: spellcheckerLanguage === key,
-      click() {
-        debug('Setting service spellchecker to', key);
-        ipcRenderer.sendToHost('set-service-spellchecker-language', key);
-      },
+  if (!isMac) {
+    const spellcheckingLanguages = [];
+    Object.keys(SPELLCHECKER_LOCALES).sort(Intl.Collator().compare).forEach((key) => {
+      spellcheckingLanguages.push({
+        id: `lang-${key}`,
+        label: SPELLCHECKER_LOCALES[key],
+        type: 'radio',
+        checked: spellcheckerLanguage === key,
+        click() {
+          debug('Setting service spellchecker to', key);
+          ipcRenderer.sendToHost('set-service-spellchecker-language', key);
+        },
+      });
     });
-  });
 
-  menuTpl.push({
-    type: 'separator',
-  }, {
-    id: 'spellchecker',
-    label: 'Spell Checking',
-    visible: isSpellcheckEnabled,
-    submenu: [
-      {
-        id: 'spellchecker',
-        label: 'Available Languages',
-        enabled: false,
-      }, {
-        type: 'separator',
-      },
-      {
-        id: 'resetToDefault',
-        label: `Reset to system default (${defaultSpellcheckerLanguage === 'automatic' ? 'Automatic' : SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
-        type: 'radio',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
-        click() {
-          debug('Resetting service spellchecker to system default');
-          ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
+    menuTpl.push({
+      type: 'separator',
+    }, {
+      id: 'spellchecker',
+      label: 'Spell Checking',
+      visible: isSpellcheckEnabled,
+      submenu: [
+        {
+          id: 'spellchecker',
+          label: 'Available Languages',
+          enabled: false,
+        }, {
+          type: 'separator',
         },
-      },
-      {
-        id: 'automaticDetection',
-        label: 'Automatic language detection',
-        type: 'radio',
-        checked: spellcheckerLanguage === 'automatic',
-        click() {
-          debug('Detect language automatically');
-          ipcRenderer.sendToHost('set-service-spellchecker-language', 'automatic');
+        {
+          id: 'resetToDefault',
+          label: `Reset to system default (${defaultSpellcheckerLanguage === 'automatic' ? 'Automatic' : SPELLCHECKER_LOCALES[defaultSpellcheckerLanguage]})`,
+          type: 'radio',
+          visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
+          click() {
+            debug('Resetting service spellchecker to system default');
+            ipcRenderer.sendToHost('set-service-spellchecker-language', 'reset');
+          },
         },
-      },
-      {
-        type: 'separator',
-        visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
-      },
-      ...spellcheckingLanguages],
-  });
+        {
+          id: 'automaticDetection',
+          label: 'Automatic language detection',
+          type: 'radio',
+          checked: spellcheckerLanguage === 'automatic',
+          click() {
+            debug('Detect language automatically');
+            ipcRenderer.sendToHost('set-service-spellchecker-language', 'automatic');
+          },
+        },
+        {
+          type: 'separator',
+          visible: defaultSpellcheckerLanguage !== spellcheckerLanguage,
+        },
+        ...spellcheckingLanguages],
+    });
+  }
 
 
   if (isDevMode) {
@@ -296,14 +331,13 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
   return delUnusedElements(menuTpl);
 };
 
-export default function contextMenu(spellcheckProvider, isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
+export default function contextMenu(isSpellcheckEnabled, getDefaultSpellcheckerLanguage, getSpellcheckerLanguage) {
   webContents.on('context-menu', async (e, props) => {
     e.preventDefault();
 
     let suggestions = [];
-    if (spellcheckProvider && props.misspelledWord) {
-      debug('Mispelled word', props.misspelledWord);
-      suggestions = await spellcheckProvider.getSuggestion(props.misspelledWord);
+    if (props.dictionarySuggestions) {
+      suggestions = props.dictionarySuggestions;
 
       debug('Suggestions', suggestions);
     }

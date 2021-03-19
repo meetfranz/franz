@@ -6,7 +6,7 @@ import ms from 'ms';
 import { asarPath } from './helpers/asar-helpers';
 
 const app = process.type === 'renderer' ? electron.remote.app : electron.app;
-const systemPreferences = process.type === 'renderer' ? electron.remote.systemPreferences : electron.systemPreferences;
+const nativeTheme = process.type === 'renderer' ? electron.remote.nativeTheme : electron.nativeTheme;
 
 export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
 
@@ -29,6 +29,8 @@ export const LOCAL_TODOS_FRONTEND_URL = 'http://localhost:4000';
 export const PRODUCTION_TODOS_FRONTEND_URL = 'https://app.franztodos.com';
 export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.netlify.com';
 
+export const CDN_URL = 'https://cdn.franzinfra.com';
+
 export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
 
 export const DEFAULT_APP_SETTINGS = {
@@ -40,7 +42,7 @@ export const DEFAULT_APP_SETTINGS = {
   showMessageBadgeWhenMuted: true,
   enableSpellchecking: true,
   spellcheckerLanguage: 'en-us',
-  darkMode: process.platform === 'darwin' ? systemPreferences.isDarkMode() : false, // We can't use refs from `./environment` at this time
+  darkMode: process.platform === 'darwin' ? nativeTheme.shouldUseDarkColors : false, // We can't use refs from `./environment` at this time
   locale: '',
   fallbackLocale: 'en-US',
   beta: false,
@@ -70,7 +72,7 @@ export const DEFAULT_WINDOW_OPTIONS = {
   y: 0,
 };
 
-export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-plugin-docs';
+export const FRANZ_SERVICE_REQUEST = 'https://bit.ly/franz-service-request-support';
 export const FRANZ_TRANSLATION = 'https://bit.ly/franz-translate';
 export const FRANZ_DEV_DOCS = 'http://bit.ly/franz-dev-hub';
 
@@ -78,6 +80,15 @@ export const FILE_SYSTEM_SETTINGS_TYPES = [
   'app',
   'proxy',
 ];
+
+// Set app directory before loading user modules
+if (process.env.FRANZ_APPDATA_DIR != null) {
+  app.setPath('appData', process.env.FRANZ_APPDATA_DIR);
+  app.setPath('userData', path.join(app.getPath('appData')));
+} else if (process.platform === 'win32') {
+  app.setPath('appData', process.env.APPDATA);
+  app.setPath('userData', path.join(app.getPath('appData'), app.getName()));
+}
 
 export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
 
@@ -88,13 +99,15 @@ export const ALLOWED_PROTOCOLS = [
   'https:',
   'http:',
   'ftp:',
+  'franz:',
+  'mailto:',
 ];
 
 export const PLANS = {
-  PERSONAL: 'PERSONAL',
-  PRO: 'PRO',
-  LEGACY: 'LEGACY',
-  FREE: 'FREE',
+  PERSONAL: 'personal',
+  PRO: 'pro',
+  LEGACY: 'legacy',
+  FREE: 'free',
 };
 
 export const PLANS_MAPPING = {

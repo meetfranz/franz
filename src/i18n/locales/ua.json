@@ -60,7 +60,7 @@
   "infobar.buttonInstallUpdate": "Перезавантажити і встановити оновлення",
   "infobar.requiredRequestsFailed": "Не вдалося завантажити сервіси та інформацію користувача",
   "sidebar.settings": "Налаштування",
-  "sidebar.addNewService": "!!!Add new service",
+  "sidebar.addNewService": "Add new service",
   "services.welcome": "Ласкаво просимо в Franz",
   "services.getStarted": "Почати",
   "settings.account.headline": "Акаунт",

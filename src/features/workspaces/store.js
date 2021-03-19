@@ -45,6 +45,11 @@ export default class WorkspacesStore extends FeatureStore {
     return getUserWorkspacesRequest.result || [];
   }
 
+  @computed get isLoadingWorkspaces() {
+    if (!this.isFeatureActive) return false;
+    return getUserWorkspacesRequest.isExecutingFirstTime;
+  }
+
   @computed get settings() {
     return localStorage.getItem('workspaces') || {};
   }
