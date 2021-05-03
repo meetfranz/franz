@@ -2,17 +2,16 @@
 // ❤ @sindresorhus
 
 import {
-  clipboard, remote, ipcRenderer, shell, nativeImage,
+  clipboard, ipcRenderer, shell, nativeImage,
 } from 'electron';
+import { Menu, getCurrentWebContents } from '@electron/remote';
 
 import { isDevMode, isMac } from '../environment';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:contextMenu');
 
-const { Menu } = remote;
-
-const webContents = remote.getCurrentWebContents();
+const webContents = getCurrentWebContents();
 
 function delUnusedElements(menuTpl) {
   let notDeletedPrevEl;

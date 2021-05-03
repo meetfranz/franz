@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { remote } from 'electron';
+import { app } from '@electron/remote';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -21,8 +21,6 @@ import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:ServiceStore');
-
-const { app } = remote;
 
 export default class ServicesStore extends Store {
   @observable allServicesRequest = new CachedRequest(this.api.services, 'all');

@@ -1,4 +1,5 @@
-import { remote, shell } from 'electron';
+import { shell } from 'electron';
+import { app } from '@electron/remote';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
@@ -15,8 +16,6 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { FRANZ_DEV_DOCS } from '../../config';
 import { gaEvent } from '../../lib/analytics';
 import { communityRecipesStore } from '../../features/communityRecipes';
-
-const { app } = remote;
 
 export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {

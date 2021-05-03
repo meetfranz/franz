@@ -1,4 +1,7 @@
-import { remote, ipcRenderer, shell } from 'electron';
+import { ipcRenderer, shell } from 'electron';
+import {
+  app, screen, powerMonitor, nativeTheme, getCurrentWindow,
+} from '@electron/remote';
 import {
   action, computed, observable, reaction,
 } from 'mobx';
@@ -26,14 +29,7 @@ import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
-const {
-  app,
-  screen,
-  powerMonitor,
-  nativeTheme,
-} = remote;
-
-const mainWindow = remote.getCurrentWindow();
+const mainWindow = getCurrentWindow();
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({

@@ -1,9 +1,7 @@
 import { autorun, observable } from 'mobx';
-import { remote } from 'electron';
+import { session } from '@electron/remote';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
-
-const { session } = remote;
 
 const debug = require('debug')('Franz:feature:serviceProxy');
 

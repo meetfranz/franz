@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { remote } from 'electron';
+import { BrowserWindow } from '@electron/remote';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
@@ -7,8 +7,6 @@ import PaymentStore from '../../stores/PaymentStore';
 
 import SubscriptionForm from '../../components/subscription/SubscriptionForm';
 import TrialForm from '../../components/subscription/TrialForm';
-
-const { BrowserWindow } = remote;
 
 export default @inject('stores', 'actions') @observer class SubscriptionFormScreen extends Component {
   static propTypes = {

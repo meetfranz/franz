@@ -1,15 +1,26 @@
+/* eslint-disable import/first */
+
 import {
   app,
   BrowserWindow,
   shell,
   ipcMain,
 } from 'electron';
-import isDevMode from 'electron-is-dev';
+
+// import isDevMode from 'electron-is-dev';
 import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
 import ms from 'ms';
+
+require('@electron/remote/main').initialize();
+
+import {
+  isMac,
+  isWindows,
+  isLinux,
+} from './environment';
 
 // Set app directory before loading user modules
 if (process.env.FRANZ_APPDATA_DIR != null) {
@@ -20,6 +31,8 @@ if (process.env.FRANZ_APPDATA_DIR != null) {
   app.setPath('userData', path.join(app.getPath('appData'), app.getName()));
 }
 
+const isDevMode = !app.isPackaged;
+
 if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
@@ -28,12 +41,6 @@ if (isDevMode) {
 app.allowRendererProcessReuse = false;
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
 
-/* eslint-disable import/first */
-import {
-  isMac,
-  isWindows,
-  isLinux,
-} from './environment';
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
