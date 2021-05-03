@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron';
-import { getDoNotDisturb } from '@meetfranz/electron-notification-state';
+import { getDoNotDisturb } from 'macos-notification-state';
 
 const debug = require('debug')('Franz:ipcApi:dnd');
 

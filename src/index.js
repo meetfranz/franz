@@ -176,6 +176,7 @@ const createWindow = () => {
       nodeIntegration: true,
       webviewTag: true,
       enableRemoteModule: true,
+      contextIsolation: false,
     },
   });
 
