@@ -17,7 +17,7 @@ import {
 
 const { app } = process.type === 'renderer' ? require('@electron/remote') : require('electron');
 
-export const isDevMode = app.isPackaged;
+export const isDevMode = !app.isPackaged;
 export const useLiveAPI = process.env.LIVE_API;
 export const useLocalAPI = process.env.LOCAL_API;
 
