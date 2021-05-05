@@ -42,6 +42,8 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
       webPreferences: {
         nodeIntegration: true,
         webviewTag: true,
+        enableRemoteModule: true,
+        contextIsolation: false,
       },
     });
     paymentWindow.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
