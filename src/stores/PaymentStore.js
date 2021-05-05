@@ -55,6 +55,8 @@ export default class PaymentStore extends Store {
       webPreferences: {
         nodeIntegration: true,
         webviewTag: true,
+        enableRemoteModule: true,
+        contextIsolation: false,
       },
     });
     win.loadURL(`file://${__dirname}/../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
