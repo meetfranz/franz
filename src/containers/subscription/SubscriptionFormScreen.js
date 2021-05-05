@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserWindow } from '@electron/remote';
+import { BrowserWindow, getCurrentWindow } from '@electron/remote';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
@@ -32,7 +32,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     hostedPageURL = user.getAuthURL(hostedPageURL);
 
     const paymentWindow = new BrowserWindow({
-      parent: remote.getCurrentWindow(),
+      parent: getCurrentWindow(),
       modal: true,
       title: '🔒 Franz Supporter License',
       width: 800,
