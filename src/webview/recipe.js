@@ -9,6 +9,7 @@ import { switchDict, getSpellcheckerLocaleByFuzzyIdentifier } from './spellcheck
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
 import contextMenu from './contextMenu';
 import './notifications';
+import './desktopCapturer';
 
 import { DEFAULT_APP_SETTINGS } from '../config';
 import { isDevMode } from '../environment';

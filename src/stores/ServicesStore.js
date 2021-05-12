@@ -19,6 +19,7 @@ import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import { showModal as showSourceSelectionModal } from '../features/desktopCapturer';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -561,6 +562,10 @@ export default class ServicesStore extends Store {
     } else if (channel === 'feature:todos') {
       Object.assign(args[0].data, { serviceId });
       this.actions.todos.handleHostMessage(args[0]);
+    } else if (channel === 'feature:desktopCapturer:getSelectSource') {
+      console.log('seas');
+
+      showSourceSelectionModal(service.webview);
     }
   }
 
