@@ -1,12 +1,10 @@
 import { action, observable, computed } from 'mobx';
-import { remote } from 'electron';
+import { BrowserWindow, getCurrentWindow } from '@electron/remote';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
 import { gaEvent } from '../lib/analytics';
-
-const { BrowserWindow } = remote;
 
 export default class PaymentStore extends Store {
   @observable plansRequest = new CachedRequest(this.api.payment, 'plans');
@@ -46,7 +44,7 @@ export default class PaymentStore extends Store {
     hostedPageURL = this.stores.user.getAuthURL(`${parsedUrl.origin}${parsedUrl.pathname}?${params.toString()}`);
 
     const win = new BrowserWindow({
-      parent: remote.getCurrentWindow(),
+      parent: getCurrentWindow(),
       modal: true,
       title: '🔒 Upgrade Your Franz Account',
       width: 800,
@@ -57,6 +55,8 @@ export default class PaymentStore extends Store {
       webPreferences: {
         nodeIntegration: true,
         webviewTag: true,
+        enableRemoteModule: true,
+        contextIsolation: false,
       },
     });
     win.loadURL(`file://${__dirname}/../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);

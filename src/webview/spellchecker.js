@@ -1,12 +1,12 @@
 import {
-  remote,
-} from 'electron';
+  getCurrentWebContents,
+} from '@electron/remote';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import { isMac } from '../environment';
 
 const debug = require('debug')('Franz:spellchecker');
 
-const webContents = remote.getCurrentWebContents();
+const webContents = getCurrentWebContents();
 const [defaultLocale] = webContents.session.getSpellCheckerLanguages();
 debug('Spellchecker default locale is', defaultLocale);
 

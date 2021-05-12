@@ -1,5 +1,3 @@
-import isDev from 'electron-is-dev';
-
 import {
   LIVE_API,
   DEV_API,
@@ -13,9 +11,13 @@ import {
   LOCAL_TODOS_FRONTEND_URL,
   PRODUCTION_TODOS_FRONTEND_URL,
   DEVELOPMENT_TODOS_FRONTEND_URL,
+  GA_ID_PROD,
+  GA_ID_DEV,
 } from './config';
 
-export const isDevMode = isDev;
+const { app } = process.type === 'renderer' ? require('@electron/remote') : require('electron');
+
+export const isDevMode = !app.isPackaged;
 export const useLiveAPI = process.env.LIVE_API;
 export const useLocalAPI = process.env.LOCAL_API;
 
@@ -59,3 +61,5 @@ export const API_VERSION = 'v1';
 export const WS_API = wsApi;
 export const WEBSITE = web;
 export const TODOS_FRONTEND = todos;
+
+export const GA_ID = !isDevMode ? GA_ID_PROD : GA_ID_DEV;
