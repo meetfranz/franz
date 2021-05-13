@@ -49,7 +49,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = {
   modal: {
     width: '80%',
     maxWidth: 600,
@@ -69,7 +69,7 @@ const styles = theme => ({
     width: '100%',
     marginTop: 40,
   },
-});
+};
 
 export default @injectSheet(styles) @inject('stores') @observer class DesktopCapturerModal extends Component {
   static propTypes = {

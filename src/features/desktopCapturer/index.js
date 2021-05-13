@@ -15,7 +15,7 @@ const defaultState = {
 
 export const state = observable(defaultState);
 
-export default function initialize(stores) {
+export default function initialize() {
   debug('Initialize shareFranz feature');
 
   window.franz.features.desktopCapturer = {
