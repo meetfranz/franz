@@ -47,7 +47,6 @@ import Tray from './lib/Tray';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
 import { isPositionValid } from './electron/windowUtils';
-import askFormacOSPermissions from './electron/macOSPermissions';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
@@ -295,6 +294,7 @@ const createWindow = () => {
   });
 
   if (isMac) {
+    const askFormacOSPermissions = require('./electron/macOSPermissions');
     setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
   }
 
