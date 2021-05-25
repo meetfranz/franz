@@ -9,6 +9,7 @@ export default async () => {
     try {
       if (!isMac) {
         debug('Not on macOS, returning', false);
+        return false;
       }
 
       try {
