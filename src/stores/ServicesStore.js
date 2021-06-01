@@ -563,8 +563,6 @@ export default class ServicesStore extends Store {
       Object.assign(args[0].data, { serviceId });
       this.actions.todos.handleHostMessage(args[0]);
     } else if (channel === 'feature:desktopCapturer:getSelectSource') {
-      console.log('seas');
-
       showSourceSelectionModal(service.webview);
     }
   }
