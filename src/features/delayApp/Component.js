@@ -44,6 +44,22 @@ const messages = defineMessages({
     id: 'feature.delayApp.continuing',
     defaultMessage: '!!!Continuing Franz',
   },
+  poweredByIntro: {
+    id: 'feature.delayApp.poweredByIntro',
+    defaultMessage: '!!!Franz is proudly powered by:',
+  },
+  poweredByDefaultCTA: {
+    id: 'feature.delayApp.poweredByDefaultCTA',
+    defaultMessage: '!!!Read more',
+  },
+  poweredByDontShowAdsCTA: {
+    id: 'feature.delayApp.poweredByDontShowAdsCTA',
+    defaultMessage: '!!!Don\'t show ads',
+  },
+  poweredByPlaceAd: {
+    id: 'feature.delayApp.poweredByPlaceAd',
+    defaultMessage: '!!!Place your ad here',
+  },
 });
 
 export default @inject('stores', 'actions') @injectSheet(styles) @observer class DelayApp extends Component {
@@ -130,10 +146,10 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
             )}
           </p>
         </div>
-        {showPoweredBy && store.poweredBy && (
+        {showPoweredBy && store.poweredBy && store.poweredBy.id && (
           <div className={classes.poweredBy}>
             <p className={classes.poweredByIntro}>
-              Franz is proudly powered by:
+              {intl.formatMessage(messages.poweredByIntro)}
             </p>
             <div
               className={classes.poweredByContainer}
@@ -161,7 +177,7 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
                   >
                     <Icon icon={mdiArrowRight} />
                     <span>
-                      {store.poweredBy.cta || 'Read more'}
+                      {store.poweredBy.cta || intl.formatMessage(messages.poweredByDefaultCTA)}
                     </span>
                   </button>
                 </div>
@@ -169,12 +185,10 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
             </div>
             <div className={classes.poweredByActionsContainer}>
               <button type="button" className={classes.skipAds} onClick={() => actions.ui.openSettings({ path: 'user' })}>
-                Don
-                {'\''}
-                t show ads
+                {intl.formatMessage(messages.poweredByDontShowAdsCTA)}
               </button>
               <button type="button" className={classes.skipAds} onClick={() => actions.app.openExternalUrl({ url: 'https://meetfranz.com/ads' })}>
-                Place your ad here
+                {intl.formatMessage(messages.poweredByPlaceAd)}
               </button>
             </div>
           </div>
