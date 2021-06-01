@@ -83,7 +83,7 @@ export default function init(stores) {
             gaEvent('DelayApp', 'show', 'Delay App Feature');
 
             debug(`Showing ad: ${store.poweredBy.id}`);
-
+            gaEvent('PoweredBy', 'show', store.poweredBy.id);
 
             if (!stores.features.features.needToClickToProceed) {
               setTimeout(() => {

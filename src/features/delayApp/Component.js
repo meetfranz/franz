@@ -172,6 +172,8 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
                     className={classes.poweredByCTA}
                     onClick={() => {
                       actions.app.openExternalUrl({ url: store.poweredBy.url });
+
+                      gaEvent('PoweredBy', 'clickCTA', store.poweredBy.id);
                     }}
                     type="button"
                   >
@@ -184,10 +186,26 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
               </div>
             </div>
             <div className={classes.poweredByActionsContainer}>
-              <button type="button" className={classes.skipAds} onClick={() => actions.ui.openSettings({ path: 'user' })}>
+              <button
+                type="button"
+                className={classes.skipAds}
+                onClick={() => {
+                  actions.ui.openSettings({ path: 'user' });
+
+                  gaEvent('PoweredBy', 'click', 'skip');
+                }}
+              >
                 {intl.formatMessage(messages.poweredByDontShowAdsCTA)}
               </button>
-              <button type="button" className={classes.skipAds} onClick={() => actions.app.openExternalUrl({ url: 'https://meetfranz.com/ads' })}>
+              <button
+                type="button"
+                className={classes.skipAds}
+                onClick={() => {
+                  actions.app.openExternalUrl({ url: 'https://meetfranz.com/ads' });
+
+                  gaEvent('PoweredBy', 'click', 'placeAd');
+                }}
+              >
                 {intl.formatMessage(messages.poweredByPlaceAd)}
               </button>
             </div>
