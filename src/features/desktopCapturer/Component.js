@@ -19,33 +19,13 @@ const messages = defineMessages({
     id: 'feature.desktopCapturer.headline',
     defaultMessage: '!!!Choose what to share',
   },
-  text: {
-    id: 'feature.desktopCapturer.text',
-    defaultMessage: '!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.',
+  shareSourceTextDisabled: {
+    id: 'feature.desktopCapturer.shareSourceTextDisabled',
+    defaultMessage: '!!!Select source',
   },
-  actionsEmail: {
-    id: 'feature.desktopCapturer.action.email',
-    defaultMessage: '!!!Share as email',
-  },
-  actionsFacebook: {
-    id: 'feature.desktopCapturer.action.facebook',
-    defaultMessage: '!!!Share on Facebook',
-  },
-  actionsTwitter: {
-    id: 'feature.desktopCapturer.action.twitter',
-    defaultMessage: '!!!Share on Twitter',
-  },
-  actionsLinkedIn: {
-    id: 'feature.desktopCapturer.action.linkedin',
-    defaultMessage: '!!!Share on LinkedIn',
-  },
-  shareTextEmail: {
-    id: 'feature.desktopCapturer.shareText.email',
-    defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com',
-  },
-  shareTextTwitter: {
-    id: 'feature.desktopCapturer.shareText.twitter',
-    defaultMessage: '!!! I\'ve added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger',
+  shareSourceText: {
+    id: 'feature.desktopCapturer.shareSourceText',
+    defaultMessage: '!!!Share {name}',
   },
 });
 
@@ -87,8 +67,6 @@ export default @injectSheet(styles) @inject('stores') @observer class DesktopCap
     if (!state.selectedSource && state.sources.length > 0) {
       state.selectedSource = state.sources.filter(source => source.displayId)[0].id;
     }
-
-    console.log('sources', sources);
   }
 
   close() {
@@ -119,7 +97,6 @@ export default @injectSheet(styles) @inject('stores') @observer class DesktopCap
         <H1 className={classes.headline}>
           {intl.formatMessage(messages.headline)}
         </H1>
-        <p>{intl.formatMessage(messages.text)}</p>
         <div className={classes.sourcesContainer}>
           {(sources.filter(source => source.displayId) || []).map(source => (
             <SourceItem
@@ -144,7 +121,7 @@ export default @injectSheet(styles) @inject('stores') @observer class DesktopCap
         </div>
         <div>
           <Button
-            label={`Share ${sharedSource ? sharedSource.name : 'Select source'}`}
+            label={sharedSource ? intl.formatMessage(messages.shareSourceText, { name: sharedSource.name }) : intl.formatMessage(messages.shareSourceTextDisabled)}
             className={classes.cta}
             onClick={() => {
               shareSourceWithClientWebview();
