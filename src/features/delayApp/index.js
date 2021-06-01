@@ -5,8 +5,12 @@ import DelayAppComponent from './Component';
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
 import { gaEvent, gaPage } from '../../lib/analytics';
 import { getUserWorkspacesRequest } from '../workspaces/api';
+import { getPoweredByRequest } from './api';
+import { DelayAppStore } from './store';
 
 const debug = require('debug')('Franz:feature:delayApp');
+
+export const store = new DelayAppStore();
 
 export const config = {
   delayOffset: DEFAULT_FEATURES_CONFIG.needToWaitToProceedConfig.delayOffset,
@@ -17,17 +21,26 @@ export const state = observable({
   isDelayAppScreenVisible: DEFAULT_FEATURES_CONFIG.needToWaitToProceed,
 });
 
+let shownAfterLaunch = false;
+let timeLastDelay = moment();
+
 function setVisibility(value) {
   Object.assign(state, {
     isDelayAppScreenVisible: value,
   });
 }
 
+export function resetAppDelay() {
+  debug('Resetting app delay, shownAfterLaunch:', shownAfterLaunch);
+
+  shownAfterLaunch = true;
+  timeLastDelay = moment();
+  setVisibility(false);
+  getPoweredByRequest.invalidate({ immediately: true });
+}
+
 export default function init(stores) {
   debug('Initializing `delayApp` feature');
-
-  let shownAfterLaunch = false;
-  let timeLastDelay = moment();
 
   window.franz.features.delayApp = {
     state,
@@ -53,6 +66,7 @@ export default function init(stores) {
         autorun(() => {
           const { isAnnouncementShown } = stores.announcements;
           if (stores.services.allDisplayed.length === 0 || isAnnouncementShown) {
+            debug('Skipping delay app as allDisplayed services is either 0 or announcement is shown');
             shownAfterLaunch = true;
             setVisibility(false);
             return;
@@ -60,6 +74,7 @@ export default function init(stores) {
 
           const diff = moment().diff(timeLastDelay);
           const itsTimeToWait = diff >= config.delayOffset;
+          debug(`isAnnouncementShown: ${isAnnouncementShown}, stores.app.isFocused: ${stores.app.isFocused}, shownAfterLaunch: ${shownAfterLaunch}`);
           if (!isAnnouncementShown && ((stores.app.isFocused && itsTimeToWait) || !shownAfterLaunch)) {
             debug(`App will be delayed for ${config.delayDuration / 1000}s`);
 
@@ -67,15 +82,16 @@ export default function init(stores) {
             gaPage('/delayApp');
             gaEvent('DelayApp', 'show', 'Delay App Feature');
 
+            debug(`Showing ad: ${store.poweredBy.id}`);
 
-            setTimeout(() => {
-              debug('Resetting app delay');
 
-              shownAfterLaunch = true;
-              timeLastDelay = moment();
-              setVisibility(false);
-            }, config.delayDuration + 1000); // timer needs to be able to hit 0
+            if (!stores.features.features.needToClickToProceed) {
+              setTimeout(() => {
+                resetAppDelay();
+              }, config.delayDuration + 1000); // timer needs to be able to hit 0
+            }
           } else {
+            debug('Set visibility to', false);
             setVisibility(false);
           }
         });

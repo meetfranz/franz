@@ -5,11 +5,13 @@ import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
 import { Button } from '@meetfranz/forms';
+import { Icon } from '@meetfranz/ui';
+import { mdiArrowRight } from '@mdi/js';
 import { gaEvent } from '../../lib/analytics';
 
 // import Button from '../../components/ui/Button';
 
-import { config } from '.';
+import { config, store, resetAppDelay } from '.';
 import styles from './styles';
 import UserStore from '../../stores/UserStore';
 
@@ -33,6 +35,14 @@ const messages = defineMessages({
   text: {
     id: 'feature.delayApp.text',
     defaultMessage: '!!!Franz will continue in {seconds} seconds.',
+  },
+  continueInText: {
+    id: 'feature.delayApp.continueInText',
+    defaultMessage: '!!!You can continue with Franz in {seconds} seconds.',
+  },
+  continuing: {
+    id: 'feature.delayApp.continuing',
+    defaultMessage: '!!!Continuing Franz',
   },
 });
 
@@ -88,26 +98,87 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
   }
 
   render() {
-    const { classes, stores } = this.props;
+    const { classes, stores, actions } = this.props;
     const { intl } = this.context;
 
-    const { hadSubscription } = stores.user.data;
+    const { showPoweredBy, needToClick } = stores.features.features.needToWaitToProceedConfig;
 
+    const { hadSubscription } = stores.user.data;
     return (
       <div className={`${classes.container}`}>
-        <h1 className={classes.headline}>{intl.formatMessage(hadSubscription ? messages.headline : messages.headlineTrial)}</h1>
-        <Button
-          label={intl.formatMessage(hadSubscription ? messages.action : messages.actionTrial)}
-          className={classes.button}
-          buttonType="inverted"
-          onClick={this.handleCTAClick.bind(this)}
-          busy={stores.user.activateTrialRequest.isExecuting}
-        />
-        <p className="footnote">
-          {intl.formatMessage(messages.text, {
-            seconds: this.state.countdown / 1000,
-          })}
-        </p>
+        <div className={`${classes.content}`}>
+          <h1 className={classes.headline}>{intl.formatMessage(hadSubscription ? messages.headline : messages.headlineTrial)}</h1>
+          <Button
+            label={intl.formatMessage(hadSubscription ? messages.action : messages.actionTrial)}
+            className={classes.button}
+            buttonType="inverted"
+            onClick={this.handleCTAClick.bind(this)}
+            busy={stores.user.activateTrialRequest.isExecuting}
+          />
+
+          <p className={`footnote ${classes.countdown}`}>
+            {this.state.countdown > 0 ? (
+              intl.formatMessage(needToClick ? messages.continueInText : messages.text, {
+                seconds: this.state.countdown / 1000,
+              })
+            ) : (
+              <>
+                {!needToClick ? intl.formatMessage(messages.continuing) : (
+                  <button type="button" onClick={() => resetAppDelay()} className={classes.continueCTA}>Continue to Franz</button>
+                )}
+              </>
+            )}
+          </p>
+        </div>
+        {showPoweredBy && store.poweredBy && (
+          <div className={classes.poweredBy}>
+            <p className={classes.poweredByIntro}>
+              Franz is proudly powered by:
+            </p>
+            <div
+              className={classes.poweredByContainer}
+              type="button"
+            >
+              <div className={classes.poweredByContentContainer}>
+                <img src={store.poweredBy.logo} alt={`${store.poweredBy.name} Logo`} className={classes.poweredByLogo} />
+                {/* <p className={classes.poweredByName}>
+                  {store.poweredBy.name}
+                </p> */}
+                <div className={classes.poweredByContent}>
+                  <p className={classes.poweredByDescription}>
+                    <strong>{store.poweredBy.name}</strong>
+                    {' '}
+—
+                    {' '}
+                    {store.poweredBy.description}
+                  </p>
+                  <button
+                    className={classes.poweredByCTA}
+                    onClick={() => {
+                      actions.app.openExternalUrl({ url: store.poweredBy.url });
+                    }}
+                    type="button"
+                  >
+                    <Icon icon={mdiArrowRight} />
+                    <span>
+                      {store.poweredBy.cta || 'Read more'}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className={classes.poweredByActionsContainer}>
+              <button type="button" className={classes.skipAds} onClick={() => actions.ui.openSettings({ path: 'user' })}>
+                Don
+                {'\''}
+                t show ads
+              </button>
+              <button type="button" className={classes.skipAds} onClick={() => actions.app.openExternalUrl({ url: 'https://meetfranz.com/ads' })}>
+                Place your ad here
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
