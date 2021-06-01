@@ -5,6 +5,7 @@ import download from './download';
 import cld from './cld';
 import dnd from './dnd';
 import desktopCapturer from './desktopCapturer';
+import focusState from './focusState';
 
 export default (params) => {
   settings(params);
@@ -14,4 +15,5 @@ export default (params) => {
   cld(params);
   dnd();
   desktopCapturer();
+  focusState(params);
 };

@@ -198,10 +198,9 @@ export default class AppStore extends Store {
 
     this.isSystemDarkModeEnabled = nativeTheme.shouldUseDarkColors;
 
-    onVisibilityChange((isVisible) => {
-      this.isFocused = isVisible;
-
-      debug('Window is visible/focused', isVisible);
+    ipcRenderer.on('isWindowFocused', (event, isFocused) => {
+      debug('Setting is focused to', isFocused);
+      this.isFocused = isFocused;
     });
 
     // analytics autorun
