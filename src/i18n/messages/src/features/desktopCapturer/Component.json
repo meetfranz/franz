@@ -1,0 +1,41 @@
+[
+  {
+    "id": "feature.desktopCapturer.headline",
+    "defaultMessage": "!!!Choose what to share",
+    "file": "src/features/desktopCapturer/Component.js",
+    "start": {
+      "line": 18,
+      "column": 12
+    },
+    "end": {
+      "line": 21,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.desktopCapturer.shareSourceTextDisabled",
+    "defaultMessage": "!!!Select source",
+    "file": "src/features/desktopCapturer/Component.js",
+    "start": {
+      "line": 22,
+      "column": 27
+    },
+    "end": {
+      "line": 25,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.desktopCapturer.shareSourceText",
+    "defaultMessage": "!!!Share {name}",
+    "file": "src/features/desktopCapturer/Component.js",
+    "start": {
+      "line": 26,
+      "column": 19
+    },
+    "end": {
+      "line": 29,
+      "column": 3
+    }
+  }
+]

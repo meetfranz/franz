@@ -1,4 +1,25 @@
-# [5.6.0-beta.1](https://github.com/meetfranz/franz/compare/v5.5.0...v5.6.0-beta.1) (2020-10-08)
+# [5.6.0](https://github.com/meetfranz/franz/compare/v5.6.0-beta.1...v5.6.0) (2020-11-13)
+
+
+### Bug Fixes
+
+* **App:** Fixed crash when Franz goes to sleep
+* **App:** Fix crash when app has finished loading
+* **App:** Add mailto: as a valid url protocol
+* **App:** Fix crashes on navigation changes/reloads
+* **Context Menu:** Fix "save image as"
+* **Franz ToDos:** Clear todos cache on user logout
+* **Service:** Fix copy image in context menu
+* **Service:** Fix image download from services
+* **Service:** Fix service activation on notification click
+* **Service:** Fix popup handling to e.g. enable Facebook Messenger calls
+* **Service:** Fix clicks on links in Skype
+* **Service:** Reset active service when previous selection is not valid anymore
+* **Service:** Fix missing service re-rendering on service update
+* **Custom Website:** Fix browser control icons in dark mode
+* **macOS:** Fix tray icon color on macOS Big Sur
+* **Share Dialog:** Fix Twitter share link not working
+* **App:** Fix various validation errors
 
 
 ### Features
@@ -13,28 +34,19 @@
 * **Spellchecker:** Improved language detection for spell checking
 * **Recipe:** Add option to override recipe partition
 * **Languages:** Added Estonian as a language
-
-### Bug Fixes
-
-* **App:** Fixed crash when Franz goes to sleep
-* **App:** Fix crash when app has finished loading
-* **Context Menu:** Fix "save image as"
-* **Franz ToDos:** Clear todos cache on user logout
-* **Service:** Fix copy image in context menu
-* **Service:** Fix image download from services
-* **Service:** Fix service activation on notification click
-* **Service:** Fix popup handling to e.g. enable Facebook Messenger calls
-* **Service:** Fix clicks on links in Skype
-* **Service:** Reset active service when previous selection is not valid anymore
-* **Service:** Fix missing service re-rendering on service update
-* **App:** Fix various validation errors
-
-
+* **Share Dialog:** Add LinkedIn as an option
 
 ### General
 
-* **App:** Update electron to 10.1.3
+* **App:** Update electron to 10.1.5
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
+# [5.6.0-beta.1](https://github.com/meetfranz/franz/compare/v5.5.0...v5.6.0-beta.1) (2020-10-08)
+
+
+[See 5.6.0 changelog.](#5-6-0--2020-11-13-)
 
 
 

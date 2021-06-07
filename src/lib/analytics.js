@@ -1,12 +1,10 @@
-import { remote } from 'electron';
+import { app } from '@electron/remote';
 import querystring from 'querystring';
 
-import { GA_ID, STATS_API } from '../config';
-import { isDevMode } from '../environment';
+import { STATS_API } from '../config';
+import { isDevMode, GA_ID } from '../environment';
 
 const debug = require('debug')('Franz:Analytics');
-
-const { app } = remote;
 
 /* eslint-disable */
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -44,7 +42,7 @@ export function statsEvent(key, value) {
     key,
     value: value || key,
     platform: process.platform,
-    version: remote.app.getVersion(),
+    version: app.getVersion(),
   };
 
   debug('Send Franz stats event', params);

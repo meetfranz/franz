@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { app } from '@electron/remote';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
@@ -257,7 +257,7 @@ export default @observer class EditSettingsForm extends Component {
             <Toggle field={form.$('beta')} />
             {intl.formatMessage(messages.currentVersion)}
             {' '}
-            {remote.app.getVersion()}
+            {app.getVersion()}
             <p className="settings__message">
               <span className="mdi mdi-information" />
               {intl.formatMessage(messages.languageDisclaimer)}

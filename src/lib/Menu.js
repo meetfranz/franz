@@ -1,4 +1,5 @@
-import { remote, shell, clipboard } from 'electron';
+import { shell, clipboard } from 'electron';
+import { app, Menu, dialog } from '@electron/remote';
 import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
@@ -11,8 +12,6 @@ import { announcementsStore } from '../features/announcements';
 import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
-
-const { app, Menu, dialog } = remote;
 
 const menuItems = defineMessages({
   edit: {
@@ -774,7 +773,7 @@ export default class FranzMenu {
           type: 'info',
           title: 'Franz',
           message: 'Franz',
-          detail: `Version: ${remote.app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
+          detail: `Version: ${app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
         });
       },
     };

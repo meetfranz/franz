@@ -21,6 +21,7 @@ import communityRecipes from '../features/communityRecipes';
 import todos from '../features/todos';
 import planSelection from '../features/planSelection';
 import trialStatusBar from '../features/trialStatusBar';
+import desktopCapturer from '../features/desktopCapturer';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -86,5 +87,6 @@ export default class FeaturesStore extends Store {
     todos(this.stores, this.actions);
     planSelection(this.stores, this.actions);
     trialStatusBar(this.stores, this.actions);
+    desktopCapturer(this.stores, this.actions);
   }
 }
