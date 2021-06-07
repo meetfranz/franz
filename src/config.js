@@ -55,7 +55,7 @@ export const DEFAULT_FEATURES_CONFIG = {
   needToWaitToProceedConfig: {
     delayOffset: ms('1h'),
     wait: ms('10s'),
-    needToClickToProceed: false,
+    needToClick: false,
     showPoweredBy: false,
   },
   isServiceProxyEnabled: false,
