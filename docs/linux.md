@@ -15,7 +15,7 @@ $ sudo aura -Axc franz
 or
 
 ```bash
-paru -S franz
+$ paru -S franz
 ```
 
 If any issue happens during the build, [comment on the AUR package webpage first](https://aur.archlinux.org/packages/franz/), do not open an issue on GitHub unless you were told to do so explicitly.
