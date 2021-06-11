@@ -6,7 +6,7 @@ Make sure to have at least one [AUR helper](https://wiki.archlinux.org/title/AUR
 
 You can get the AUR helper `aura`, `paru` or any other AUR helper of your liking (see link above).
 
-To build `franz`, from the AUR (ArchLinux User Repository) :
+To build [`franz`](https://aur.archlinux.org/packages/franz/), from the AUR (ArchLinux User Repository) :
 
 ```bash
 $ sudo aura -Axc franz
