@@ -1,4 +1,4 @@
-# [5.7.0-beta.1](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0) (2021-06-14)
+# [5.7.0](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0) (2021-06-14)
 
 ### Features
 
