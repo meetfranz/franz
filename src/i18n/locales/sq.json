@@ -1,6 +1,6 @@
 ﻿{
    "app.errorHandler.action" : "Ringarko",
-   "app.errorHandler.headline" : "Something went wrong",
+   "app.errorHandler.headline" : "Diçka shkoi keq",
    "connectionLostBanner.cta" : "Reload Service",
    "connectionLostBanner.informationLink" : "What happened?",
    "connectionLostBanner.message" : "Oh no! Franz lost the connection to {name}.",
