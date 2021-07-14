@@ -1,4 +1,7 @@
-import { remote, ipcRenderer, shell } from 'electron';
+import { ipcRenderer, shell } from 'electron';
+import {
+  app, screen, powerMonitor, nativeTheme, getCurrentWindow,
+} from '@electron/remote';
 import {
   action, computed, observable, reaction,
 } from 'mobx';
@@ -17,7 +20,6 @@ import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
-import { onVisibilityChange } from '../helpers/visibility-helper';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
@@ -26,14 +28,7 @@ import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Franz:AppStore');
 
-const {
-  app,
-  screen,
-  powerMonitor,
-  nativeTheme,
-} = remote;
-
-const mainWindow = remote.getCurrentWindow();
+const mainWindow = getCurrentWindow();
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
 const autoLauncher = new AutoLaunch({
@@ -202,10 +197,9 @@ export default class AppStore extends Store {
 
     this.isSystemDarkModeEnabled = nativeTheme.shouldUseDarkColors;
 
-    onVisibilityChange((isVisible) => {
-      this.isFocused = isVisible;
-
-      debug('Window is visible/focused', isVisible);
+    ipcRenderer.on('isWindowFocused', (event, isFocused) => {
+      debug('Setting is focused to', isFocused);
+      this.isFocused = isFocused;
     });
 
     // analytics autorun

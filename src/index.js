@@ -1,15 +1,26 @@
+/* eslint-disable import/first */
+
 import {
   app,
   BrowserWindow,
   shell,
   ipcMain,
 } from 'electron';
-import isDevMode from 'electron-is-dev';
+
+// import isDevMode from 'electron-is-dev';
 import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
 import ms from 'ms';
+
+require('@electron/remote/main').initialize();
+
+import {
+  isMac,
+  isWindows,
+  isLinux,
+} from './environment';
 
 // Set app directory before loading user modules
 if (process.env.FRANZ_APPDATA_DIR != null) {
@@ -20,6 +31,8 @@ if (process.env.FRANZ_APPDATA_DIR != null) {
   app.setPath('userData', path.join(app.getPath('appData'), app.getName()));
 }
 
+const isDevMode = !app.isPackaged;
+
 if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
 }
@@ -28,19 +41,12 @@ if (isDevMode) {
 app.allowRendererProcessReuse = false;
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
 
-/* eslint-disable import/first */
-import {
-  isMac,
-  isWindows,
-  isLinux,
-} from './environment';
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
 import { isPositionValid } from './electron/windowUtils';
-import askFormacOSPermissions from './electron/macOSPermissions';
 import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
@@ -176,6 +182,7 @@ const createWindow = () => {
       nodeIntegration: true,
       webviewTag: true,
       enableRemoteModule: true,
+      contextIsolation: false,
     },
   });
 
@@ -287,6 +294,8 @@ const createWindow = () => {
   });
 
   if (isMac) {
+    // eslint-disable-next-line global-require
+    const { default: askFormacOSPermissions } = require('./electron/macOSPermissions');
     setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
   }
 

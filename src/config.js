@@ -1,12 +1,9 @@
-import electron from 'electron';
 import path from 'path';
-import isDevMode from 'electron-is-dev';
 import ms from 'ms';
 
 import { asarPath } from './helpers/asar-helpers';
 
-const app = process.type === 'renderer' ? electron.remote.app : electron.app;
-const nativeTheme = process.type === 'renderer' ? electron.remote.nativeTheme : electron.nativeTheme;
+const { app, nativeTheme } = process.type === 'renderer' ? require('@electron/remote') : require('electron');
 
 export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
 
@@ -31,7 +28,8 @@ export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.
 
 export const CDN_URL = 'https://cdn.franzinfra.com';
 
-export const GA_ID = !isDevMode ? 'UA-74126766-10' : 'UA-74126766-12';
+export const GA_ID_DEV = 'UA-74126766-12';
+export const GA_ID_PROD = 'UA-74126766-10';
 
 export const DEFAULT_APP_SETTINGS = {
   autoLaunchInBackground: false,
@@ -57,6 +55,8 @@ export const DEFAULT_FEATURES_CONFIG = {
   needToWaitToProceedConfig: {
     delayOffset: ms('1h'),
     wait: ms('10s'),
+    needToClick: false,
+    showPoweredBy: false,
   },
   isServiceProxyEnabled: false,
   isServiceProxyIncludedInCurrentPlan: false,
