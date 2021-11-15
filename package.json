@@ -59,6 +59,7 @@
     "i": "0.3.6",
     "jsonwebtoken": "8.5.1",
     "lodash": "^4.17.4",
+    "macos-notification-state": "git://github.com/nbashkankov/macos-notification-state.git#c7959ecf657020a70b2720d1051fc5a3e4ecb118",
     "macos-version": "5.2.0",
     "marked": "0.6.1",
     "mdi": "^1.9.33",
