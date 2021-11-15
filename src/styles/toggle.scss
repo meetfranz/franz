@@ -1,3 +1,4 @@
+@use "sass:math";
 @import './config.scss';
 
 $toggle-size: 14px;
@@ -6,7 +7,7 @@ $toggle-button-size: 22px;
 
 .theme__dark .franz-form .franz-form__toggle-wrapper .franz-form__toggle {
   background: $dark-theme-gray;
-  border-radius: $toggle-size / 2;
+  border-radius: math.div($toggle-size, 2);
 
   .franz-form__toggle-button {
     background: $dark-theme-gray-lighter;
