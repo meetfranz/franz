@@ -3,6 +3,7 @@ import {
 } from 'electron';
 import path from 'path';
 import macosVersion from 'macos-version';
+import { isMac } from '../environment';
 
 const FILE_EXTENSION = process.platform === 'win32' ? 'ico' : 'png';
 const INDICATOR_TRAY_PLAIN = 'tray';
@@ -87,7 +88,7 @@ export default class TrayIcon {
   _getAsset(type, asset) {
     let { platform } = process;
 
-    if (platform === 'darwin' && (nativeTheme.shouldUseDarkColors || macosVersion.isGreaterThanOrEqualTo('11'))) {
+    if (isMac && !macosVersion.is('>=12') && (nativeTheme.shouldUseDarkColors || (macosVersion.isGreaterThanOrEqualTo('11')))) {
       platform = `${platform}-dark`;
     }
 
