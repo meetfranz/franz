@@ -57,7 +57,7 @@ class ServiceWebview extends Component {
         useragent={service.userAgent}
         disablewebsecurity={service.recipe.disablewebsecurity}
         allowpopups
-        webpreferences={`spellcheck=${isSpellcheckerEnabled ? 1 : 0}, contextIsolation=0`}
+        webpreferences={`spellcheck=${isSpellcheckerEnabled ? 1 : 0}, contextIsolation=0, enableremotemodule=1`}
       />
     );
   }

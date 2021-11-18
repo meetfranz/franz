@@ -9,6 +9,7 @@ import { debounce, remove } from 'lodash';
 import ms from 'ms';
 import { app } from '@electron/remote';
 
+import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
@@ -442,6 +443,9 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     service.webview = webview;
+
+    const webContentsId = webview.getWebContentsId();
+    ipcRenderer.send('enableWebviewRemoteModule', { id: webContentsId });
 
     if (!service.isAttached) {
       debug('Webview is not attached, initializing');

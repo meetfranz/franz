@@ -6,6 +6,7 @@ import cld from './cld';
 import dnd from './dnd';
 import desktopCapturer from './desktopCapturer';
 import focusState from './focusState';
+import webviewEnableRemoteModule from './webviewEnableRemoteModule';
 
 export default (params) => {
   settings(params);
@@ -16,4 +17,5 @@ export default (params) => {
   dnd();
   desktopCapturer();
   focusState(params);
+  webviewEnableRemoteModule();
 };
