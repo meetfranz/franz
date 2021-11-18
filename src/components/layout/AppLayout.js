@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
-import { TitleBar } from 'electron-react-titlebar';
+import { TitleBar } from 'electron-react-titlebar/renderer';
 import injectSheet from 'react-jss';
 
 import InfoBar from '../ui/InfoBar';

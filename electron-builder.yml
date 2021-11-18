@@ -9,6 +9,11 @@ compression: maximum
 mac:
   category: public.app-category.productivity
   icon: ./build-helpers/images/icon.icns
+  target:
+    target: default
+    arch:
+    - x64
+    - arm64
   darkModeSupport: true
   hardenedRuntime: true
   gatekeeperAssess: false
