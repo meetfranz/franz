@@ -67,7 +67,6 @@ export default async function (mainWindow) {
       cancelId: 2,
     });
 
-    console.log('result', response);
     if (response === 0) {
       debug('Asking for access');
       askForScreenCaptureAccess();

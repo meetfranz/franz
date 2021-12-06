@@ -21,6 +21,9 @@ import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import { showModal as showSourceSelectionModal } from '../features/desktopCapturer';
+import {
+  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, INITIALIZE_SERVICE_WEBVIEW, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE,
+} from '../features/serviceWebview/config';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -105,6 +108,8 @@ export default class ServicesStore extends Store {
       () => this.stores.settings.app.spellcheckerLanguage,
       () => this._shareSettingsWithServiceProcess(),
     );
+
+    this._handleSpellcheckerLocale();
   }
 
   initialize() {
@@ -445,7 +450,7 @@ export default class ServicesStore extends Store {
     service.webview = webview;
 
     const webContentsId = webview.getWebContentsId();
-    ipcRenderer.send('enableWebviewRemoteModule', { id: webContentsId });
+    ipcRenderer.invoke(INITIALIZE_SERVICE_WEBVIEW, { id: webContentsId, serviceId });
 
     if (!service.isAttached) {
       debug('Webview is not attached, initializing');
@@ -551,18 +556,6 @@ export default class ServicesStore extends Store {
       const url = args[0];
 
       this.actions.app.openExternalUrl({ url });
-    } else if (channel === 'set-service-spellchecker-language') {
-      if (!args) {
-        console.warn('Did not receive locale');
-      } else {
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            spellcheckerLanguage: args[0] === 'reset' ? '' : args[0],
-          },
-          redirect: false,
-        });
-      }
     } else if (channel === 'feature:todos') {
       Object.assign(args[0].data, { serviceId });
       this.actions.todos.handleHostMessage(args[0]);
@@ -891,6 +884,33 @@ export default class ServicesStore extends Store {
 
       this._setActive({ serviceId: this.allDisplayed[0].id });
     }
+  }
+
+  _handleSpellcheckerLocale() {
+    ipcRenderer.on(UPDATE_SPELLCHECKING_LANGUAGE, (event, { serviceId, locale }) => {
+      if (!serviceId) {
+        console.warn('Did not receive service');
+      } else {
+        debug('Updating service spellchecking language to', locale);
+
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            spellcheckerLanguage: locale,
+          },
+          redirect: false,
+        });
+      }
+    });
+
+    ipcRenderer.on(REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, (event, { serviceId }) => {
+      debug('Requesting spellchecker locale');
+      const service = this.one(serviceId);
+
+      if (service) {
+        ipcRenderer.send(SERVICE_SPELLCHECKING_LANGUAGE, { locale: service.spellcheckerLanguage });
+      }
+    });
   }
 
   // Helper
