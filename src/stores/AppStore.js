@@ -25,6 +25,7 @@ import { getLocale } from '../helpers/i18n-helpers';
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
+import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -118,13 +119,9 @@ export default class AppStore extends Store {
       this.isOnline = false;
     });
 
-    mainWindow.on('enter-full-screen', () => {
-      this.isFullScreen = true;
+    document.addEventListener('onfullscreenchange', () => {
+      console.log('fullscreen', document.fullscreenEnabled);
     });
-    mainWindow.on('leave-full-screen', () => {
-      this.isFullScreen = false;
-    });
-
 
     this.isOnline = navigator.onLine;
 
@@ -176,6 +173,10 @@ export default class AppStore extends Store {
       if (data.error) {
         this.updateStatus = this.updateStatusTypes.FAILED;
       }
+    });
+
+    ipcRenderer.on(UPDATE_FULL_SCREEN_STATUS, (e, status) => {
+      this.isFullScreen = status;
     });
 
     // Handle deep linking (franz://)
