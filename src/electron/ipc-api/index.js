@@ -8,6 +8,7 @@ import desktopCapturer from './desktopCapturer';
 import focusState from './focusState';
 import serviceWebView from '../../features/serviceWebview/ipc';
 import fullscreenStatus from './fullscreen';
+import subscriptionWindow from './subscriptionWindow';
 
 export default (params) => {
   settings(params);
@@ -20,4 +21,5 @@ export default (params) => {
   focusState(params);
   serviceWebView(params);
   fullscreenStatus(params);
+  subscriptionWindow(params);
 };
