@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 
-function getDisplayMedia(constraints = {}) {
+function getDisplayMedia() {
   return new Promise(async (resolve, reject) => {
     let selectedSourceId = null;
 
