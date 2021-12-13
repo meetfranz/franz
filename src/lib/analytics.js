@@ -1,53 +1,44 @@
 import { app } from '@electron/remote';
-import querystring from 'querystring';
+// import querystring from 'querystring';
 
-import { STATS_API } from '../config';
-import { isDevMode, GA_ID } from '../environment';
+// import { STATS_API } from '../config';
+// import { isDevMode, GA_ID } from '../environment';
 
 const debug = require('debug')('Franz:Analytics');
 
 /* eslint-disable */
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+const _paq = window._paq = window._paq || [];
+
+_paq.push(['setCustomDimension', 1, app.getVersion()]);
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+
+(function() {
+  const u="https:////analytics.franzinfra.com/";
+  _paq.push(['setTrackerUrl', u+'matomo.php']);
+  _paq.push(['setSiteId', '1']);
+  const d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+  g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+})();
 /* eslint-enable */
 
-const GA_LOCAL_STORAGE_KEY = 'gaUid';
+// const GA_LOCAL_STORAGE_KEY = 'gaUid';
 
-ga('create', GA_ID, {
-  storage: 'none',
-  clientId: localStorage.getItem(GA_LOCAL_STORAGE_KEY),
-});
+// ga((tracker) => {
+//   localStorage.setItem(GA_LOCAL_STORAGE_KEY, tracker.get('clientId'));
+// });
+// ga('set', 'checkProtocolTask', null);
+// ga('set', 'version', app.getVersion());
 
-ga((tracker) => {
-  localStorage.setItem(GA_LOCAL_STORAGE_KEY, tracker.get('clientId'));
-});
-ga('set', 'checkProtocolTask', null);
-ga('set', 'version', app.getVersion());
-ga('send', 'App');
+// ga('send', 'App');
 
 export function gaPage(page) {
-  ga('send', 'pageview', page);
+  _paq.push(['trackPageView']);
   debug('GA track page', page);
 }
 
 export function gaEvent(category, action, label) {
-  ga('send', 'event', category, action, label);
+  // ga('send', 'event', category, action, label);
+  _paq.push(['trackEvent', category, action, label]);
   debug('GA track event', category, action, label);
-}
-
-export function statsEvent(key, value) {
-  const params = {
-    key,
-    value: value || key,
-    platform: process.platform,
-    version: app.getVersion(),
-  };
-
-  debug('Send Franz stats event', params);
-
-  if (!isDevMode) {
-    window.fetch(`${STATS_API}/event/?${querystring.stringify(params)}`);
-  }
 }

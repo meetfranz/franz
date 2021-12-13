@@ -14,7 +14,7 @@ import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent, statsEvent } from '../lib/analytics';
+import { gaEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
@@ -407,7 +407,7 @@ export default class ServicesStore extends Store {
       this.actions.todos.toggleTodosFeatureVisibility();
     }
 
-    statsEvent('activate-service', service.recipe.id);
+    gaEvent('Service', 'activate-service', service.recipe.id);
 
     this._focusActiveService();
   }
