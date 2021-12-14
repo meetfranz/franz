@@ -4444,7 +4444,7 @@
         }
       },
       {
-        "defaultMessage": "!!!Advertising:",
+        "defaultMessage": "!!!Advertising",
         "end": {
           "column": 3,
           "line": 58
