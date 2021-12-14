@@ -13,7 +13,7 @@ export default async () => {
 
       try {
         // eslint-disable-next-line global-require
-        const { getNotificationState } = require('macos-notification-state');
+        const { getNotificationState } = require('@meetfranz/macos-notification-state');
 
         const state = getNotificationState();
 
