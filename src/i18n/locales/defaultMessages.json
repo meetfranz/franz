@@ -4418,55 +4418,81 @@
         }
       },
       {
-        "defaultMessage": "!!!Franz is proudly powered by:",
+        "defaultMessage": "!!!Continue to Franz",
         "end": {
           "column": 3,
           "line": 50
         },
         "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.continueWithApp",
+        "start": {
+          "column": 19,
+          "line": 47
+        }
+      },
+      {
+        "defaultMessage": "!!!Franz is proudly powered by:",
+        "end": {
+          "column": 3,
+          "line": 54
+        },
+        "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.poweredByIntro",
         "start": {
           "column": 18,
-          "line": 47
+          "line": 51
+        }
+      },
+      {
+        "defaultMessage": "!!!Advertising:",
+        "end": {
+          "column": 3,
+          "line": 58
+        },
+        "file": "src/features/delayApp/Component.js",
+        "id": "feature.delayApp.adDisclaimer",
+        "start": {
+          "column": 25,
+          "line": 55
         }
       },
       {
         "defaultMessage": "!!!Read more",
         "end": {
           "column": 3,
-          "line": 54
+          "line": 62
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.poweredByDefaultCTA",
         "start": {
           "column": 23,
-          "line": 51
+          "line": 59
         }
       },
       {
         "defaultMessage": "!!!Don't show ads",
         "end": {
           "column": 3,
-          "line": 58
+          "line": 66
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.poweredByDontShowAdsCTA",
         "start": {
           "column": 27,
-          "line": 55
+          "line": 63
         }
       },
       {
         "defaultMessage": "!!!Place your ad here",
         "end": {
           "column": 3,
-          "line": 62
+          "line": 70
         },
         "file": "src/features/delayApp/Component.js",
         "id": "feature.delayApp.poweredByPlaceAd",
         "start": {
           "column": 20,
-          "line": 59
+          "line": 67
         }
       }
     ],

@@ -44,9 +44,17 @@ const messages = defineMessages({
     id: 'feature.delayApp.continuing',
     defaultMessage: '!!!Continuing Franz',
   },
+  continueWithApp: {
+    id: 'feature.delayApp.continueWithApp',
+    defaultMessage: '!!!Continue to Franz',
+  },
   poweredByIntro: {
     id: 'feature.delayApp.poweredByIntro',
     defaultMessage: '!!!Franz is proudly powered by:',
+  },
+  advertisingDisclaimer: {
+    id: 'feature.delayApp.adDisclaimer',
+    defaultMessage: '!!!Advertising:',
   },
   poweredByDefaultCTA: {
     id: 'feature.delayApp.poweredByDefaultCTA',
@@ -140,7 +148,16 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
             ) : (
               <>
                 {!needToClick ? intl.formatMessage(messages.continuing) : (
-                  <button type="button" onClick={() => resetAppDelay()} className={classes.continueCTA}>Continue to Franz</button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      resetAppDelay();
+                      gaEvent('DelayApp', 'reset', 'Continue to Franz');
+                    }}
+                    className={classes.continueCTA}
+                  >
+                    {intl.formatMessage(messages.continueWithApp)}
+                  </button>
                 )}
               </>
             )}
@@ -149,7 +166,7 @@ export default @inject('stores', 'actions') @injectSheet(styles) @observer class
         {showPoweredBy && store.poweredBy && store.poweredBy.id && (
           <div className={classes.poweredBy}>
             <p className={classes.poweredByIntro}>
-              {intl.formatMessage(messages.poweredByIntro)}
+              {intl.formatMessage(messages.advertisingDisclaimer)}
             </p>
             <div
               className={classes.poweredByContainer}
