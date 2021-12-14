@@ -118,7 +118,7 @@
   },
   {
     "id": "feature.delayApp.adDisclaimer",
-    "defaultMessage": "!!!Advertising:",
+    "defaultMessage": "!!!Advertising",
     "file": "src/features/delayApp/Component.js",
     "start": {
       "line": 55,

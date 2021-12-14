@@ -54,7 +54,7 @@ const messages = defineMessages({
   },
   advertisingDisclaimer: {
     id: 'feature.delayApp.adDisclaimer',
-    defaultMessage: '!!!Advertising:',
+    defaultMessage: '!!!Advertising',
   },
   poweredByDefaultCTA: {
     id: 'feature.delayApp.poweredByDefaultCTA',
