@@ -10,7 +10,7 @@ matrix:
         - libxss-dev
         - libxkbfile-dev
   - os: osx
-    osx_image: xcode12.1
+    osx_image: xcode13.1
 
 language: node_js
 
@@ -19,11 +19,10 @@ install:
 
 before_script:
 - npx lerna bootstrap
-- npm install node-sass -g
 
 script:
 - npm run test
-- travis_wait 45 npm run build
+- travis_wait 60 npm run build
 
 cache: npm
 
