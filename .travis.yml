@@ -18,6 +18,7 @@ install:
 - echo do nothing
 
 before_script:
+- config set legacy-peer-deps
 - npx lerna bootstrap
 - npm install node-sass -g
 
