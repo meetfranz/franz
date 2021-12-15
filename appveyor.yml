@@ -11,7 +11,7 @@ version: 5.0.1.{build}
 image: Visual Studio 2019
 
 install:
-  - ps: Install-Product node 11
+  - ps: Install-Product node 16
   - npx lerna bootstrap
 
 cache:
