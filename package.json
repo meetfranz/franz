@@ -45,7 +45,6 @@
     "@meetfranz/theme": "file:packages/theme",
     "@meetfranz/ui": "file:packages/ui",
     "address-rfc2822": "^2.0.1",
-    "auto-launch": "https://github.com/meetfranz/node-auto-launch.git",
     "classnames": "2.2.6",
     "cld": "2.7.0",
     "du": "^0.1.0",

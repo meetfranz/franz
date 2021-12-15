@@ -6,7 +6,6 @@ import {
   action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
-import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
 import { URL } from 'url';
@@ -17,7 +16,7 @@ import { readJsonSync } from 'fs-extra';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac } from '../environment';
+import { isMac, isWindows } from '../environment';
 import locales from '../i18n/translations';
 import { gaEvent, gaPage } from '../lib/analytics';
 import { getLocale } from '../helpers/i18n-helpers';
@@ -32,9 +31,6 @@ const debug = require('debug')('Franz:AppStore');
 const mainWindow = getCurrentWindow();
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
-const autoLauncher = new AutoLaunch({
-  name: 'Franz',
-});
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
 
@@ -341,17 +337,30 @@ export default class AppStore extends Store {
     });
   }
 
-  @action _launchOnStartup({
-    enable,
-  }) {
+  @action _launchOnStartup({ enable }) {
     this.autoLaunchOnStart = enable;
 
     try {
-      if (enable) {
-        autoLauncher.enable();
-      } else {
-        autoLauncher.disable();
+      const appFolder = path.dirname(process.execPath);
+      const updateExe = path.resolve(appFolder, '..', 'Update.exe');
+      const exeName = path.basename(process.execPath);
+
+      const args = {
+        openAtLogin: enable,
+      };
+
+      if (isWindows) {
+        Object.assign(args, {
+          path: updateExe,
+          name: 'Franz',
+          args: [
+            '--processStart', `"${exeName}"`,
+            '--process-start-args', '"--hidden"',
+          ],
+        });
       }
+
+      app.setLoginItemSettings(args);
     } catch (err) {
       console.warn(err);
     }
@@ -524,7 +533,10 @@ export default class AppStore extends Store {
   }
 
   async _checkAutoStart() {
-    return autoLauncher.isEnabled() || false;
+    const { openAtLogin } = app.getLoginItemSettings();
+    debug('Open app at login setting', openAtLogin);
+
+    return openAtLogin || false;
   }
 
   async _systemDND() {
