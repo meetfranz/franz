@@ -29,6 +29,7 @@ dmg:
   iconSize: 128
   contents: [{x: 380, y: 240, type: link, path: /Applications}, {x: 122, y: 240, type: file}]
   sign: false
+  writeUpdateInfo: false
 
 win:
   icon: ./build-helpers/images/icon.ico
