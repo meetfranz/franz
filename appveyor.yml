@@ -12,7 +12,7 @@ image: Visual Studio 2019
 
 install:
   - ps: Install-Product node 16
-  - npx lerna bootstrap -- --no-optional
+  - npx lerna bootstrap -- --no-optional --legacy-peer-deps
 
 cache:
  - '%APPDATA%\npm-cache'
