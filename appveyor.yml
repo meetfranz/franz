@@ -18,7 +18,6 @@ cache:
  - '%APPDATA%\npm-cache'
 
 before_build:
-  - npm run lint
   - npm run test
 
 build_script:
