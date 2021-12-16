@@ -24,11 +24,6 @@ before_build:
 build_script:
   - npm run build
 
-notifications:
-  - provider: Slack
-    incoming_webhook:
-      secure: 2NnhP/L7Jk9PDE0JvdNnYVBnmDHFRWHmTQBQ1492ZQ7TpD2xQ/cXi3+G1Spr8zN5O8H+MQi4oMn3Ih2w0e8ZkHgQw138jvK/OfZO+FlF/mI=
-
 artifacts:
   - path: out\*.exe
   - path: out\*.yml
