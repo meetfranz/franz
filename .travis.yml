@@ -22,7 +22,7 @@ before_script:
 
 script:
 - npm run test
-- travis_wait 45 npm run build
+- travis_wait 60 npm run build
 
 cache: npm
 
