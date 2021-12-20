@@ -1,5 +1,5 @@
 ﻿{
-   "app.errorHandler.action" : "muat ulang",
+   "app.errorHandler.action" : "hello",
    "app.errorHandler.headline" : "Terjadi Kesalahan",
    "connectionLostBanner.cta" : "Muat Ulang Layanan",
    "connectionLostBanner.informationLink" : "Apa yang terjadi?",
