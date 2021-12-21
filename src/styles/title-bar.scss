@@ -32,11 +32,19 @@
       hr {
         border-color: $dark-theme-gray-lighter;
       }
+
+      &:not(:first-child) {
+        border-left: 0;
+      }
     }
   }
 
   .list .ReactVirtualized__Grid {
     background: $dark-theme-gray-light;
+  }
+
+  .status-icon {
+    fill: white;
   }
 }
 
@@ -76,5 +84,9 @@
     border-bottom-left-radius: $theme-border-radius-small;
     border-bottom-right-radius: $theme-border-radius-small;
     box-shadow: 0 0 10px rgba(black, .5);
+  }
+
+  .status-icon {
+    min-width: 12px;
   }
 }
