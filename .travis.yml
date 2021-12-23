@@ -15,6 +15,7 @@ matrix:
 language: node_js
 
 before_install:
+  - pyenv install 3.6
   - pyenv global 3.6
 
 install:
