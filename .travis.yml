@@ -2,7 +2,6 @@ matrix:
   include:
   - os: linux
     dist: xenial
-    python: '3.10'
     addons:
       apt:
         packages:
@@ -15,6 +14,9 @@ matrix:
 
 language: node_js
 
+before_install:
+  - pyenv global 3.6
+
 install:
 - echo do nothing
 
@@ -23,7 +25,6 @@ before_script:
 
 script:
 - npm run test
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm config set python python3.10; fi
 - travis_wait 60 npm run build
 
 cache: npm
