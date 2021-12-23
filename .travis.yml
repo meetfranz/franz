@@ -4,28 +4,25 @@ matrix:
     dist: xenial
     addons:
       apt:
+        sources:
+        - deadsnakes
         packages:
         - libx11-dev
         - libxext-dev
         - libxss-dev
         - libxkbfile-dev
+        - python3.6
   # - os: osx
   #   osx_image: xcode13.1
 
 language: node_js
 
-before_install:
-  - pyenv install 3.6.15
-  - pyenv global 3.6.15
-
 install:
-- echo do nothing
-
-before_script:
 - npx lerna bootstrap
 
 script:
 - npm run test
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm config set python python3.6; fi
 - travis_wait 60 npm run build
 
 cache: npm
