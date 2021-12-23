@@ -1,5 +1,5 @@
-const { ipcRenderer } = require('electron');
-const fs = require('fs-extra');
+import { ipcRenderer } from 'electron';
+import fs from 'fs-extra';
 
 const debug = require('debug')('Franz:Plugin:RecipeWebview');
 

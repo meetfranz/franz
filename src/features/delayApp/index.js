@@ -85,7 +85,7 @@ export default function init(stores) {
             debug(`Showing ad: ${store.poweredBy.id}`);
             gaEvent('PoweredBy', 'show', store.poweredBy.id);
 
-            if (!stores.features.features.needToClickToProceed) {
+            if (!globalConfig.needToClick) {
               setTimeout(() => {
                 resetAppDelay();
               }, config.delayDuration + 1000); // timer needs to be able to hit 0

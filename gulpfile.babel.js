@@ -1,7 +1,6 @@
 /* eslint max-len: 0 */
 import gulp from 'gulp';
 import babel from 'gulp-babel';
-import sass from 'gulp-sass';
 import server from 'gulp-server-livereload';
 import { exec } from 'child_process';
 import dotenv from 'dotenv';
@@ -14,6 +13,8 @@ import path from 'path';
 import config from './package.json';
 
 import * as rawStyleConfig from './src/theme/default/legacy.js';
+
+const sass = require('gulp-sass')(require('sass'));
 
 dotenv.config();
 

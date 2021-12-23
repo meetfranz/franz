@@ -201,7 +201,6 @@ class WebControls extends Component {
             inputUrl: event.target.value,
           })}
           onFocus={(event) => {
-            console.log('on focus event');
             event.target.select();
             this.setState({
               editUrl: true,

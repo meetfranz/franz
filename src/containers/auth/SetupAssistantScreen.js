@@ -56,7 +56,6 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
 
   async setupServices(serviceConfig) {
     const { stores: { services, router, user } } = this.props;
-    console.log(serviceConfig);
 
     this.setState({
       isSettingUpServices: true,

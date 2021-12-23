@@ -13,8 +13,9 @@ import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
 import ms from 'ms';
+import * as remoteMain from '@electron/remote/main';
 
-require('@electron/remote/main').initialize();
+remoteMain.initialize();
 
 import {
   isMac,
@@ -185,6 +186,8 @@ const createWindow = () => {
       contextIsolation: false,
     },
   });
+
+  remoteMain.enable(mainWindow.webContents);
 
   mainWindow.webContents.on('did-finish-load', () => {
     const fns = onDidLoadFns;
@@ -360,6 +363,9 @@ app.on('ready', () => {
       title: 'Quit Franz',
     }]);
   }
+
+  // eslint-disable-next-line global-require
+  require('electron-react-titlebar/main').initialize();
 
   createWindow();
 });

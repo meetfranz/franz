@@ -9,17 +9,21 @@ import { debounce, remove } from 'lodash';
 import ms from 'ms';
 import { app } from '@electron/remote';
 
+import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent, statsEvent } from '../lib/analytics';
+import { gaEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import { showModal as showSourceSelectionModal } from '../features/desktopCapturer';
+import {
+  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, INITIALIZE_SERVICE_WEBVIEW, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE,
+} from '../features/serviceWebview/config';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -104,6 +108,8 @@ export default class ServicesStore extends Store {
       () => this.stores.settings.app.spellcheckerLanguage,
       () => this._shareSettingsWithServiceProcess(),
     );
+
+    this._handleSpellcheckerLocale();
   }
 
   initialize() {
@@ -401,7 +407,7 @@ export default class ServicesStore extends Store {
       this.actions.todos.toggleTodosFeatureVisibility();
     }
 
-    statsEvent('activate-service', service.recipe.id);
+    gaEvent('Service', 'activate-service', service.recipe.id);
 
     this._focusActiveService();
   }
@@ -442,6 +448,9 @@ export default class ServicesStore extends Store {
     const service = this.one(serviceId);
 
     service.webview = webview;
+
+    const webContentsId = webview.getWebContentsId();
+    ipcRenderer.invoke(INITIALIZE_SERVICE_WEBVIEW, { id: webContentsId, serviceId });
 
     if (!service.isAttached) {
       debug('Webview is not attached, initializing');
@@ -547,18 +556,6 @@ export default class ServicesStore extends Store {
       const url = args[0];
 
       this.actions.app.openExternalUrl({ url });
-    } else if (channel === 'set-service-spellchecker-language') {
-      if (!args) {
-        console.warn('Did not receive locale');
-      } else {
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            spellcheckerLanguage: args[0] === 'reset' ? '' : args[0],
-          },
-          redirect: false,
-        });
-      }
     } else if (channel === 'feature:todos') {
       Object.assign(args[0].data, { serviceId });
       this.actions.todos.handleHostMessage(args[0]);
@@ -887,6 +884,33 @@ export default class ServicesStore extends Store {
 
       this._setActive({ serviceId: this.allDisplayed[0].id });
     }
+  }
+
+  _handleSpellcheckerLocale() {
+    ipcRenderer.on(UPDATE_SPELLCHECKING_LANGUAGE, (event, { serviceId, locale }) => {
+      if (!serviceId) {
+        console.warn('Did not receive service');
+      } else {
+        debug('Updating service spellchecking language to', locale);
+
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            spellcheckerLanguage: locale,
+          },
+          redirect: false,
+        });
+      }
+    });
+
+    ipcRenderer.on(REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, (event, { serviceId }) => {
+      debug('Requesting spellchecker locale');
+      const service = this.one(serviceId);
+
+      if (service) {
+        ipcRenderer.send(SERVICE_SPELLCHECKING_LANGUAGE, { locale: service.spellcheckerLanguage });
+      }
+    });
   }
 
   // Helper
