@@ -10,6 +10,8 @@ matrix:
         - libxext-dev
         - libxss-dev
         - libxkbfile-dev
+  # - os: osx
+  #   osx_image: xcode13.1
 
 language: node_js
 
