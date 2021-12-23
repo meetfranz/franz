@@ -23,7 +23,7 @@ before_script:
 
 script:
 - npm run test
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; npm config set python python3.10; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm config set python python3.10; fi
 - travis_wait 60 npm run build
 
 cache: npm
