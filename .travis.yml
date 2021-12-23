@@ -2,6 +2,7 @@ matrix:
   include:
   - os: linux
     dist: xenial
+    python: '3.10'
     addons:
       apt:
         packages:
