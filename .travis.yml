@@ -10,8 +10,6 @@ matrix:
         - libxext-dev
         - libxss-dev
         - libxkbfile-dev
-  - os: osx
-    osx_image: xcode13.1
 
 language: node_js
 
@@ -23,6 +21,7 @@ before_script:
 
 script:
 - npm run test
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; npm config set python python3.10; fi
 - travis_wait 60 npm run build
 
 cache: npm
