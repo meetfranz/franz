@@ -2,6 +2,7 @@ import { webContents } from '@electron/remote';
 import {
   computed, observable, autorun,
 } from 'mobx';
+import { ipcRenderer } from 'electron';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
@@ -230,6 +231,20 @@ export default class Service {
 
   initializeWebViewEvents({ handleIPCMessage, openWindow, stores }) {
     const webviewWebContents = webContents.fromId(this.webview.getWebContentsId());
+
+    // If the recipe has implemented modifyRequestHeaders,
+    // Send those headers to ipcMain so that it can be set in session
+    if (typeof this.recipe.modifyRequestHeaders === 'function') {
+      const modifiedRequestHeaders = this.recipe.modifyRequestHeaders();
+      console.warn(modifiedRequestHeaders);
+      debug(this.name, 'modifiedRequestHeaders', modifiedRequestHeaders);
+      ipcRenderer.send('modifyRequestHeaders', {
+        modifiedRequestHeaders,
+        serviceId: this.id,
+      });
+    } else {
+      debug(this.name, 'modifyRequestHeaders is not defined in the recipe');
+    }
 
     const handleUserAgent = (url, forwardingHack = false) => {
       if (url.startsWith('https://accounts.google.com')) {

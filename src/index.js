@@ -5,6 +5,7 @@ import {
   BrowserWindow,
   shell,
   ipcMain,
+  session,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
@@ -392,6 +393,29 @@ ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
 
   authCallback(user, password);
   authCallback = noop;
+});
+
+ipcMain.on('modifyRequestHeaders', (e, { modifiedRequestHeaders, serviceId }) => {
+  debug('Received modifyRequestHeaders', modifiedRequestHeaders, serviceId);
+  modifiedRequestHeaders.forEach((headerFilterSet) => {
+    const { headers, requestFilters } = headerFilterSet;
+    session.fromPartition(`persist:service-${serviceId}`).webRequest.onBeforeSendHeaders(requestFilters, (details, callback) => {
+      for (const key in headers) {
+        if (Object.prototype.hasOwnProperty.call(headers, key)) {
+          const value = headers[key];
+          if (value === 'RefererHost') {
+            if (Object.prototype.hasOwnProperty.call(details.requestHeaders, 'Referer')) {
+              const { hostname } = new URL(details.requestHeaders.Referer);
+              details.requestHeaders[key] = `https://${hostname}`;
+            }
+          } else {
+            details.requestHeaders[key] = value;
+          }
+        }
+      }
+      callback({ requestHeaders: details.requestHeaders });
+    });
+  });
 });
 
 ipcMain.on('feature-basic-auth-cancel', () => {
