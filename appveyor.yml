@@ -11,7 +11,7 @@ version: 5.0.1.{build}
 image: Visual Studio 2022
 
 install:
-  - ps: Install-Product node 14.2.2
+  - ps: Install-Product node 14
   - npm config set python python2.7
   - npm config get python
   - npx lerna bootstrap -- --legacy-peer-deps
