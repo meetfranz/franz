@@ -17,7 +17,7 @@ install:
   - npx lerna bootstrap -- --legacy-peer-deps
 
 cache:
- - '%APPDATA%\npm-cache'
+#  - '%APPDATA%\npm-cache'
 
 before_build:
   - npm run test
