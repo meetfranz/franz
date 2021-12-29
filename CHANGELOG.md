@@ -7,11 +7,12 @@
 * **macOS:** Make tray icon color dynamic ([a16b5fe](https://github.com/meetfranz/franz/commit/a16b5fe))
 * **macOS:** Fix Do Not Disturb System check for macOS Monterey ([cb91b17](https://github.com/meetfranz/franz/commit/cb91b17))
 * **Windows:** Fix menu bar styling ([171d4d3](https://github.com/meetfranz/franz/commit/171d4d3))
-
+* **Gmail:** Fix auto suggest, calendar invites and other Google service integrations (🙌 [@kamyweb](https://github.com/kamyweb))
+* **Microsoft Teams:** Fix issue that prevents loading chats
 
 ### Features
 
-* **Service:** Add `modifyRequestHeaders` for service recipes (🙌  [@kamyweb](https://github.com/kamyweb)) ([5ecc730](https://github.com/meetfranz/franz/commit/5ecc730))
+* **Service:** Add `modifyRequestHeaders` for service recipes (🙌 [@kamyweb](https://github.com/kamyweb)) ([5ecc730](https://github.com/meetfranz/franz/commit/5ecc730))
 * **App:** Remove Google Analytics ([3840dd6](https://github.com/meetfranz/franz/commit/3840dd6))
 ### General
 
