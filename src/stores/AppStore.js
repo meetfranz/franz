@@ -341,9 +341,8 @@ export default class AppStore extends Store {
     this.autoLaunchOnStart = enable;
 
     try {
-      const appFolder = path.dirname(process.execPath);
-      const updateExe = path.resolve(appFolder, '..', 'Update.exe');
-      const exeName = path.basename(process.execPath);
+      const appExe = path.resolve(process.execPath);
+      const exeName = path.basename(appExe);
 
       const args = {
         openAtLogin: enable,
@@ -351,7 +350,7 @@ export default class AppStore extends Store {
 
       if (isWindows) {
         Object.assign(args, {
-          path: updateExe,
+          path: appExe,
           name: 'Franz',
           args: [
             '--processStart', `"${exeName}"`,
@@ -359,6 +358,8 @@ export default class AppStore extends Store {
           ],
         });
       }
+
+      debug('Setting login item settings to', args);
 
       app.setLoginItemSettings(args);
     } catch (err) {
@@ -533,10 +534,10 @@ export default class AppStore extends Store {
   }
 
   async _checkAutoStart() {
-    const { openAtLogin } = app.getLoginItemSettings();
+    const { openAtLogin, executableWillLaunchAtLogin } = app.getLoginItemSettings();
     debug('Open app at login setting', openAtLogin);
 
-    return openAtLogin || false;
+    return (isWindows ? executableWillLaunchAtLogin : openAtLogin) || false;
   }
 
   async _systemDND() {
