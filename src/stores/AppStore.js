@@ -359,7 +359,7 @@ export default class AppStore extends Store {
         });
       }
 
-      debug('Setting login item settings to', args)
+      debug('Setting login item settings to', args);
 
       app.setLoginItemSettings(args);
     } catch (err) {
