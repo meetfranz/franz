@@ -534,10 +534,10 @@ export default class AppStore extends Store {
   }
 
   async _checkAutoStart() {
-    const { openAtLogin } = app.getLoginItemSettings();
+    const { openAtLogin, executableWillLaunchAtLogin } = app.getLoginItemSettings();
     debug('Open app at login setting', openAtLogin);
 
-    return openAtLogin || false;
+    return (isWindows ? executableWillLaunchAtLogin : openAtLogin) || false;
   }
 
   async _systemDND() {
