@@ -1,3 +1,26 @@
+# [5.8.0-beta.1](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0-beta.1) (2021-12-29)
+
+
+### Bug Fixes
+
+* **App:** Fix potential memory leak with full screen event listeners ([7d873c4](https://github.com/meetfranz/franz/commit/7d873c4))
+* **macOS:** Make tray icon color dynamic ([a16b5fe](https://github.com/meetfranz/franz/commit/a16b5fe))
+* **macOS:** Fix Do Not Disturb System check for macOS Monterey ([cb91b17](https://github.com/meetfranz/franz/commit/cb91b17))
+* **Windows:** Fix menu bar styling ([171d4d3](https://github.com/meetfranz/franz/commit/171d4d3))
+
+
+### Features
+
+* **Service:** Add `modifyRequestHeaders` for service recipes (🙌  [@kamyweb](https://github.com/kamyweb)) ([5ecc730](https://github.com/meetfranz/franz/commit/5ecc730))
+* **App:** Remove Google Analytics ([3840dd6](https://github.com/meetfranz/franz/commit/3840dd6))
+### General
+
+* **App:** Update electron to 14.2.2
+* **App:** Various improvements all over the app
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+
+
 # [5.7.0](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0) (2021-06-14)
 
 ### Features
