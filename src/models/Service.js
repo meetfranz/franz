@@ -236,7 +236,6 @@ export default class Service {
     // Send those headers to ipcMain so that it can be set in session
     if (typeof this.recipe.modifyRequestHeaders === 'function') {
       const modifiedRequestHeaders = this.recipe.modifyRequestHeaders();
-      console.warn(modifiedRequestHeaders);
       debug(this.name, 'modifiedRequestHeaders', modifiedRequestHeaders);
       ipcRenderer.send('modifyRequestHeaders', {
         modifiedRequestHeaders,
