@@ -22,7 +22,8 @@ install:
 
 script:
 - npm run test
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm config set python python3.6 && echo lala; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm config set python python3.6; fi
+- npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
 - travis_wait 60 npm run build
 
 cache: npm
