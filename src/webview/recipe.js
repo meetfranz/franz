@@ -15,6 +15,8 @@ import { DEFAULT_APP_SETTINGS_VANILLA } from '../configVanilla';
 
 const debug = require('debug')('Franz:Plugin');
 
+window.FranzAPI = {};
+
 class RecipeController {
   @observable settings = {
     app: DEFAULT_APP_SETTINGS_VANILLA,

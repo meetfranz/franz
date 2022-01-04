@@ -19,6 +19,10 @@ class RecipeWebview {
       // communicating with the client
       ipcRenderer.sendToHost('alive');
     });
+
+    window.FranzAPI = {
+      clearCache: RecipeWebview.clearCache,
+    };
   }
 
   loopFunc = () => null;
@@ -76,6 +80,7 @@ class RecipeWebview {
     });
   }
 
+
   onNotify(fn) {
     if (typeof fn === 'function') {
       window.Notification.prototype.onNotify = fn;
@@ -86,6 +91,10 @@ class RecipeWebview {
     if (typeof fn === 'function') {
       fn();
     }
+  }
+
+  static clearCache() {
+    ipcRenderer.invoke('clearServiceCache');
   }
 }
 
