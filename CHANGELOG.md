@@ -14,6 +14,7 @@
 
 * **Service:** Add `modifyRequestHeaders` for service recipes (🙌 [@kamyweb](https://github.com/kamyweb)) ([5ecc730](https://github.com/meetfranz/franz/commit/5ecc730))
 * **App:** Remove Google Analytics ([3840dd6](https://github.com/meetfranz/franz/commit/3840dd6))
+* **Service Recipes:** Add `Franz.clearCache()` method to clear service cache ([06e6d65](https://github.com/meetfranz/franz/commit/06e6d65))
 ### General
 
 * **App:** Update electron to 14.2.2
