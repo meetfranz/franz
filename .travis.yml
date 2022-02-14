@@ -4,14 +4,11 @@ matrix:
     dist: xenial
     addons:
       apt:
-        sources:
-        - deadsnakes
         packages:
         - libx11-dev
         - libxext-dev
         - libxss-dev
         - libxkbfile-dev
-        - python3.6
   - os: osx
     osx_image: xcode13.1
 
@@ -22,7 +19,7 @@ install:
 
 script:
 - npm run test
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm config set python python3.6; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then pyenv global 3.6.7 && npm config set python python3.6.7; fi
 - npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
 - travis_wait 60 npm run build
 
