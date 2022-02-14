@@ -1,5 +1,4 @@
-# [5.8.0-beta.1](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0-beta.1) (2021-12-29)
-
+# [5.8.0](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0) (2022-02-14)
 
 ### Bug Fixes
 
@@ -21,7 +20,8 @@
 * **App:** Various improvements all over the app
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
-
+# [5.8.0-beta.1](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0-beta.1) (2021-12-29)
+[See 5.8.0 changelog.](#5-8-0--2022-02-14-)
 
 # [5.7.0](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0) (2021-06-14)
 
