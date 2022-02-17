@@ -91,15 +91,41 @@
     }
   },
   {
+    "id": "feature.delayApp.continueWithApp",
+    "defaultMessage": "!!!Continue to Franz",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 47,
+      "column": 19
+    },
+    "end": {
+      "line": 50,
+      "column": 3
+    }
+  },
+  {
     "id": "feature.delayApp.poweredByIntro",
     "defaultMessage": "!!!Franz is proudly powered by:",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 47,
+      "line": 51,
       "column": 18
     },
     "end": {
-      "line": 50,
+      "line": 54,
+      "column": 3
+    }
+  },
+  {
+    "id": "feature.delayApp.adDisclaimer",
+    "defaultMessage": "!!!Advertising",
+    "file": "src/features/delayApp/Component.js",
+    "start": {
+      "line": 55,
+      "column": 25
+    },
+    "end": {
+      "line": 58,
       "column": 3
     }
   },
@@ -108,11 +134,11 @@
     "defaultMessage": "!!!Read more",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 51,
+      "line": 59,
       "column": 23
     },
     "end": {
-      "line": 54,
+      "line": 62,
       "column": 3
     }
   },
@@ -121,11 +147,11 @@
     "defaultMessage": "!!!Don't show ads",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 55,
+      "line": 63,
       "column": 27
     },
     "end": {
-      "line": 58,
+      "line": 66,
       "column": 3
     }
   },
@@ -134,11 +160,11 @@
     "defaultMessage": "!!!Place your ad here",
     "file": "src/features/delayApp/Component.js",
     "start": {
-      "line": 59,
+      "line": 67,
       "column": 20
     },
     "end": {
-      "line": 62,
+      "line": 70,
       "column": 3
     }
   }

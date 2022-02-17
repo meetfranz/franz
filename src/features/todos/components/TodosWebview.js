@@ -240,6 +240,7 @@ class TodosWebview extends Component {
             preload="./features/todos/preload.js"
             ref={(webview) => { this.webview = webview ? webview.view : null; }}
             src={environment.TODOS_FRONTEND}
+            webpreferences="contextIsolation=0"
           />
         ) : (
           <Appear>

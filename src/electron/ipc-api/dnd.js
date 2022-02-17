@@ -1,5 +1,4 @@
 import { ipcMain } from 'electron';
-import { execSync } from 'child_process';
 import { isMac } from '../../environment';
 
 const debug = require('debug')('Franz:ipcApi:dnd');
@@ -13,8 +12,12 @@ export default async () => {
       }
 
       try {
-        const dndQueryResponse = execSync('defaults read com.apple.controlcenter "NSStatusItem Visible DoNotDisturb"');
-        const isDND = Buffer.from(dndQueryResponse).toString().trim() === '1';
+        // eslint-disable-next-line global-require
+        const { getNotificationState } = require('@meetfranz/macos-notification-state');
+
+        const state = getNotificationState();
+
+        const isDND = state === 'DO_NOT_DISTURB';
 
         debug('Fetching DND state, set to', isDND);
         return isDND;

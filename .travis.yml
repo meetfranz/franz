@@ -10,20 +10,18 @@ matrix:
         - libxss-dev
         - libxkbfile-dev
   - os: osx
-    osx_image: xcode12.1
+    osx_image: xcode13.1
 
 language: node_js
 
 install:
-- echo do nothing
-
-before_script:
 - npx lerna bootstrap
-- npm install node-sass -g
 
 script:
 - npm run test
-- travis_wait 45 npm run build
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then pyenv global 3.6.7 && npm config set python python3.6.7; fi
+- npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
+- travis_wait 60 npm run build
 
 cache: npm
 

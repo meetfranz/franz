@@ -6,7 +6,6 @@ import {
   action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
-import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
 import { URL } from 'url';
@@ -17,23 +16,21 @@ import { readJsonSync } from 'fs-extra';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac } from '../environment';
+import { isMac, isWindows } from '../environment';
 import locales from '../i18n/translations';
-import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
+import { gaEvent, gaPage } from '../lib/analytics';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
+import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
 
 const debug = require('debug')('Franz:AppStore');
 
 const mainWindow = getCurrentWindow();
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
-const autoLauncher = new AutoLaunch({
-  name: 'Franz',
-});
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
 
@@ -118,13 +115,9 @@ export default class AppStore extends Store {
       this.isOnline = false;
     });
 
-    mainWindow.on('enter-full-screen', () => {
-      this.isFullScreen = true;
+    document.addEventListener('onfullscreenchange', () => {
+      console.log('fullscreen', document.fullscreenEnabled);
     });
-    mainWindow.on('leave-full-screen', () => {
-      this.isFullScreen = false;
-    });
-
 
     this.isOnline = navigator.onLine;
 
@@ -178,6 +171,10 @@ export default class AppStore extends Store {
       }
     });
 
+    ipcRenderer.on(UPDATE_FULL_SCREEN_STATUS, (e, status) => {
+      this.isFullScreen = status;
+    });
+
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
       debug('Navigate from deep link', data);
@@ -226,8 +223,6 @@ export default class AppStore extends Store {
             window.location.reload();
           }
         }, ms('2s'));
-
-        statsEvent('resumed-app');
       }
     });
 
@@ -245,8 +240,6 @@ export default class AppStore extends Store {
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
       }
     }
-
-    statsEvent('app-start');
   }
 
   @computed get cacheSize() {
@@ -344,17 +337,31 @@ export default class AppStore extends Store {
     });
   }
 
-  @action _launchOnStartup({
-    enable,
-  }) {
+  @action _launchOnStartup({ enable }) {
     this.autoLaunchOnStart = enable;
 
     try {
-      if (enable) {
-        autoLauncher.enable();
-      } else {
-        autoLauncher.disable();
+      const appExe = path.resolve(process.execPath);
+      const exeName = path.basename(appExe);
+
+      const args = {
+        openAtLogin: enable,
+      };
+
+      if (isWindows) {
+        Object.assign(args, {
+          path: appExe,
+          name: 'Franz',
+          args: [
+            '--processStart', `"${exeName}"`,
+            '--process-start-args', '"--hidden"',
+          ],
+        });
       }
+
+      debug('Setting login item settings to', args);
+
+      app.setLoginItemSettings(args);
     } catch (err) {
       console.warn(err);
     }
@@ -527,7 +534,10 @@ export default class AppStore extends Store {
   }
 
   async _checkAutoStart() {
-    return autoLauncher.isEnabled() || false;
+    const { openAtLogin, executableWillLaunchAtLogin } = app.getLoginItemSettings();
+    debug('Open app at login setting', openAtLogin);
+
+    return (isWindows ? executableWillLaunchAtLogin : openAtLogin) || false;
   }
 
   async _systemDND() {

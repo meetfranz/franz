@@ -1,5 +1,5 @@
-const { ipcRenderer } = require('electron');
-const fs = require('fs-extra');
+import { ipcRenderer } from 'electron';
+import fs from 'fs-extra';
 
 const debug = require('debug')('Franz:Plugin:RecipeWebview');
 
@@ -19,6 +19,10 @@ class RecipeWebview {
       // communicating with the client
       ipcRenderer.sendToHost('alive');
     });
+
+    window.FranzAPI = {
+      clearCache: RecipeWebview.clearCache,
+    };
   }
 
   loopFunc = () => null;
@@ -76,6 +80,7 @@ class RecipeWebview {
     });
   }
 
+
   onNotify(fn) {
     if (typeof fn === 'function') {
       window.Notification.prototype.onNotify = fn;
@@ -86,6 +91,10 @@ class RecipeWebview {
     if (typeof fn === 'function') {
       fn();
     }
+  }
+
+  static clearCache() {
+    ipcRenderer.invoke('clearServiceCache');
   }
 }
 

@@ -1,25 +1,25 @@
 import { ipcRenderer } from 'electron';
 import path from 'path';
-import { autorun, computed, observable } from 'mobx';
+import { autorun, observable } from 'mobx';
 import { debounce } from 'lodash';
 
 import RecipeWebview from './lib/RecipeWebview';
 
-import { switchDict, getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
+import { getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
-import contextMenu from './contextMenu';
 import './notifications';
 import './desktopCapturer';
 
-import { DEFAULT_APP_SETTINGS } from '../config';
-import { isDevMode } from '../environment';
+import { UPDATE_SPELLCHECKING_LANGUAGE } from '../features/serviceWebview/config';
+import { DEFAULT_APP_SETTINGS_VANILLA } from '../configVanilla';
 
 const debug = require('debug')('Franz:Plugin');
 
+window.FranzAPI = {};
+
 class RecipeController {
   @observable settings = {
-    overrideSpellcheckerLanguage: false,
-    app: DEFAULT_APP_SETTINGS,
+    app: DEFAULT_APP_SETTINGS_VANILLA,
     service: {
       isDarkModeEnabled: false,
       spellcheckerLanguage: '',
@@ -39,10 +39,6 @@ class RecipeController {
     this.initialize();
   }
 
-  @computed get spellcheckerLanguage() {
-    return this.settings.service.spellcheckerLanguage || this.settings.app.spellcheckerLanguage;
-  }
-
   cldIdentifier = null;
 
   async initialize() {
@@ -55,13 +51,6 @@ class RecipeController {
 
     debug('Send "hello" to host');
     setTimeout(() => ipcRenderer.sendToHost('hello'), 100);
-
-    this.spellcheckingProvider = null;
-    contextMenu(
-      () => this.settings.app.enableSpellchecking,
-      () => this.settings.app.spellcheckerLanguage,
-      () => this.spellcheckerLanguage,
-    );
 
     autorun(() => this.update());
   }
@@ -84,23 +73,7 @@ class RecipeController {
   }
 
   update() {
-    debug('enableSpellchecking', this.settings.app.enableSpellchecking);
     debug('isDarkModeEnabled', this.settings.service.isDarkModeEnabled);
-    debug('System spellcheckerLanguage', this.settings.app.spellcheckerLanguage);
-    debug('Service spellcheckerLanguage', this.settings.service.spellcheckerLanguage);
-
-    if (this.settings.app.enableSpellchecking) {
-      debug('Setting spellchecker language to', this.spellcheckerLanguage);
-      let { spellcheckerLanguage } = this;
-      if (spellcheckerLanguage === 'automatic') {
-        this.automaticLanguageDetection();
-        debug('Found `automatic` locale, falling back to user locale until detected', this.settings.app.locale);
-        spellcheckerLanguage = this.settings.app.locale;
-      }
-      switchDict(spellcheckerLanguage);
-    } else {
-      debug('Disable spellchecker');
-    }
 
     if (this.settings.service.isDarkModeEnabled) {
       debug('Enable dark mode');
@@ -146,7 +119,7 @@ class RecipeController {
       const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
       debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
       if (spellcheckerLocale) {
-        switchDict(spellcheckerLocale);
+        ipcRenderer.invoke(UPDATE_SPELLCHECKING_LANGUAGE, { locale: spellcheckerLocale });
       }
     }, 225));
   }
@@ -201,7 +174,3 @@ window.open = (url, frameName, features) => {
     return originalWindowOpen(url, frameName, features);
   }
 };
-
-if (isDevMode) {
-  window.log = console.log;
-}

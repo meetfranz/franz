@@ -5,6 +5,7 @@ import {
   BrowserWindow,
   shell,
   ipcMain,
+  session,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
@@ -13,8 +14,9 @@ import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
 import ms from 'ms';
+import * as remoteMain from '@electron/remote/main';
 
-require('@electron/remote/main').initialize();
+remoteMain.initialize();
 
 import {
   isMac,
@@ -185,6 +187,8 @@ const createWindow = () => {
       contextIsolation: false,
     },
   });
+
+  remoteMain.enable(mainWindow.webContents);
 
   mainWindow.webContents.on('did-finish-load', () => {
     const fns = onDidLoadFns;
@@ -361,6 +365,9 @@ app.on('ready', () => {
     }]);
   }
 
+  // eslint-disable-next-line global-require
+  require('electron-react-titlebar/main').initialize();
+
   createWindow();
 });
 
@@ -386,6 +393,52 @@ ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
 
   authCallback(user, password);
   authCallback = noop;
+});
+
+ipcMain.on('modifyRequestHeaders', (e, { modifiedRequestHeaders, serviceId }) => {
+  debug('Received modifyRequestHeaders', modifiedRequestHeaders, serviceId);
+  modifiedRequestHeaders.forEach((headerFilterSet) => {
+    const { headers, requestFilters } = headerFilterSet;
+    session.fromPartition(`persist:service-${serviceId}`).webRequest.onBeforeSendHeaders(requestFilters, (details, callback) => {
+      for (const key in headers) {
+        if (Object.prototype.hasOwnProperty.call(headers, key)) {
+          const value = headers[key];
+          if (value === 'RefererHost') {
+            if (Object.prototype.hasOwnProperty.call(details.requestHeaders, 'Referer')) {
+              const { hostname } = new URL(details.requestHeaders.Referer);
+              details.requestHeaders[key] = `https://${hostname}`;
+            }
+          } else {
+            details.requestHeaders[key] = value;
+          }
+        }
+      }
+      callback({ requestHeaders: details.requestHeaders });
+    });
+  });
+});
+
+ipcMain.on('cleanServiceCache', (e, { modifiedRequestHeaders, serviceId }) => {
+  debug('Received modifyRequestHeaders', modifiedRequestHeaders, serviceId);
+  modifiedRequestHeaders.forEach((headerFilterSet) => {
+    const { headers, requestFilters } = headerFilterSet;
+    session.fromPartition(`persist:service-${serviceId}`).webRequest.onBeforeSendHeaders(requestFilters, (details, callback) => {
+      for (const key in headers) {
+        if (Object.prototype.hasOwnProperty.call(headers, key)) {
+          const value = headers[key];
+          if (value === 'RefererHost') {
+            if (Object.prototype.hasOwnProperty.call(details.requestHeaders, 'Referer')) {
+              const { hostname } = new URL(details.requestHeaders.Referer);
+              details.requestHeaders[key] = `https://${hostname}`;
+            }
+          } else {
+            details.requestHeaders[key] = value;
+          }
+        }
+      }
+      callback({ requestHeaders: details.requestHeaders });
+    });
+  });
 });
 
 ipcMain.on('feature-basic-auth-cancel', () => {
