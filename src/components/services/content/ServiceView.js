@@ -86,6 +86,7 @@ export default @observer class ServiceView extends Component {
       'services__webview-wrapper': true,
       'is-active': service.isActive,
       'services__webview--force-repaint': this.state.forceRepaint,
+      'is-loaded': service.isEnabled && !service.isFirstLoad,
     });
 
     let statusBar = null;

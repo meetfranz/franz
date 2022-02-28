@@ -38,13 +38,24 @@
 
     webview {
       background: $theme-gray-lighter;
-      display: inline-flex;
+      // display: none;
       height: 100%;
       width: 100%;
+      z-index: 0;
+    }
+
+    &.is-loaded:not(.is-active) {
+      webview {
+        display: none;
+      }
     }
 
     &.is-active {
       z-index: 100;
+      
+      webview {
+        display: inline-flex;
+      }
     }
 
     &--force-repaint webview { z-index: 5; }

@@ -39,7 +39,8 @@ class ServiceWebview extends Component {
       <ElectronWebView
         ref={(webview) => {
           this.webview = webview;
-          if (webview && webview.view) {
+          if (webview && webview.view && service.isActive) {
+            console.log('refocus webview', service.name);
             webview.view.addEventListener('did-stop-loading', this.refocusWebview);
           }
         }}
