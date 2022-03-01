@@ -1,3 +1,12 @@
+## [5.8.1-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.8.1-beta.1) (2022-03-01)
+
+
+### Bug Fixes
+
+* **App:** Fix inactive service to receive keyboard focus ([e3081c6](https://github.com/meetfranz/franz/commit/e3081c6))
+
+
+
 # [5.8.0](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0) (2022-02-14)
 
 ### Bug Fixes
