@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { app } from '@electron/remote';
+import { app, webContents } from '@electron/remote';
 
 import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
@@ -112,21 +112,20 @@ export default class ServicesStore extends Store {
 
     this._handleSpellcheckerLocale();
 
-    ipcRenderer.on('messages', (event, ...args) => {
-      const service = this.oneByWebContentsId(event.senderId);
+    ipcRenderer.on('messages', (event, serviceId, ...args) => {
+      debug(`Received unread message info from '${serviceId}'`, args[0]);
 
-      if (service) {
-        debug(`Received unread message info from '${service.name}'`, args[0]);
-
-        this.actions.service.setUnreadMessageCount({
-          serviceId: service.id,
-          count: {
-            direct: args[0].direct,
-            indirect: args[0].indirect,
-          },
-        });
-      }
+      this.actions.service.setUnreadMessageCount({
+        serviceId,
+        count: {
+          direct: args[0].direct,
+          indirect: args[0].indirect,
+        },
+      });
     });
+
+    const wcs = webContents.getAllWebContents().filter(wc => wc.getURL().startsWith('file:'));
+    console.log('wcs', wcs.map(wc => ({ id: wc.id, url: wc.getURL() })));
   }
 
   initialize() {
@@ -785,9 +784,7 @@ export default class ServicesStore extends Store {
       recipeId: service.recipe.id,
     })));
 
-    console.log('return values', data);
     data.forEach((browserViewHandler) => {
-      console.log(browserViewHandler);
       const service = this.one(browserViewHandler.serviceId);
       if (service) {
         debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);

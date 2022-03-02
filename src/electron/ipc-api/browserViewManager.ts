@@ -12,7 +12,7 @@ interface IBrowserViewCache {
 
 const browserViews: IBrowserViewCache[] = [];
 
-export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
+export default async ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any}) => {
   ipcMain.handle('browserViewManager', async (event, services) => {
     try {
       services.forEach((service: any) => {
@@ -31,6 +31,7 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
             state: service.state,
             recipe,
             window: mainWindow,
+            settings,
           });
 
           sbw.attach();

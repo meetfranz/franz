@@ -1,7 +1,12 @@
-import { BrowserView, BrowserWindow } from 'electron';
-import ms = require('ms');
+import {
+  BrowserView, BrowserWindow, ipcMain, Menu,
+} from 'electron';
+import ms from 'ms';
+import { REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE } from '../features/serviceWebview/config';
+import Settings from '../electron/Settings';
 import { TAB_BAR_WIDTH } from '../config';
 import Recipe from './Recipe';
+import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -25,6 +30,7 @@ interface IServiceBrowserViewConstructor {
   state: IServiceState,
   recipe: Recipe,
   window: BrowserWindow,
+  settings: Settings
 }
 
 export class ServiceBrowserView {
@@ -38,10 +44,12 @@ export class ServiceBrowserView {
 
   window: BrowserWindow;
 
+  settings: Settings;
+
   pollInterval: NodeJS.Timeout | undefined;
 
   constructor({
-    config, state, recipe, window,
+    config, state, recipe, window, settings,
   }: IServiceBrowserViewConstructor) {
     debug('Creating ServiceBrowserView Model', config);
 
@@ -49,6 +57,7 @@ export class ServiceBrowserView {
     this.state = state;
     this.recipe = recipe;
     this.window = window;
+    this.settings = settings;
 
     this.view = new BrowserView({
       webPreferences: {
@@ -75,12 +84,15 @@ export class ServiceBrowserView {
     this.view.webContents.loadURL(this.config.url);
 
     this.view.webContents.on('ipc-message', (e, channel, data) => {
-      debug('ipc message from', this.config.name, channel, data);
+      // debug('ipc message from', this.config.name, channel, data);
+      this.window.webContents.send(channel, this.config.id, data);
     });
 
     this.view.webContents.send('initialize-recipe', this.state, this.recipe);
 
     this.pollInterval = setInterval(this.pollMessageLoop.bind(this), ms('2s'));
+
+    this.enableContextMenu();
   }
 
   remove() {
@@ -93,6 +105,60 @@ export class ServiceBrowserView {
     this.view.webContents.send('poll', this.state, this.recipe);
   }
 
+  enableContextMenu() {
+    let spellcheckerLanguage = this.settings.get('spellcheckerLanguage');
+
+    this.webContents.on('context-menu', async (e, props) => {
+      debug('huhu');
+
+      ipcMain.once(SERVICE_SPELLCHECKING_LANGUAGE, (requestLocaleEvent, { locale }) => {
+        if (locale) {
+          debug('Overwriting spellchecker locale to', locale);
+          spellcheckerLanguage = locale;
+        }
+
+        debug('spellchecker language', spellcheckerLanguage);
+        debug('default spellchecker language', this.settings.get('spellcheckerLanguage'));
+
+        e.preventDefault();
+
+        // webviewWebContents.session.setSpellCheckerLanguages([settings.spellcheckerLanguage]);
+
+        let suggestions = [];
+        if (props.dictionarySuggestions) {
+          suggestions = props.dictionarySuggestions;
+
+          debug('Suggestions', suggestions);
+        }
+
+        const menu = Menu.buildFromTemplate(
+          buildMenuTpl(
+            {
+              webContents: this.webContents,
+              props,
+              suggestions,
+              isSpellcheckEnabled: this.settings.get('enableSpellchecking'),
+              defaultSpellcheckerLanguage: this.settings.get('spellcheckerLanguage'),
+              spellcheckerLanguage,
+              onUpdateSpellcheckerLanguage: (data) => {
+                if (data === 'reset') {
+                  debug('Resetting locale');
+                  spellcheckerLanguage = this.settings.get('spellcheckerLanguage');
+                } else {
+                  spellcheckerLanguage = data;
+                }
+
+                this.window.webContents.send(UPDATE_SPELLCHECKING_LANGUAGE, { serviceId: this.config.id, locale: spellcheckerLanguage });
+              },
+            },
+          ),
+        );
+
+        menu.popup();
+      });
+      this.window.webContents.send(REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, { serviceId: this.config.id });
+    });
+  }
 
   get webContents() {
     return this.view.webContents;

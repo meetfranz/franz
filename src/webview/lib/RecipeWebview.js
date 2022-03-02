@@ -56,7 +56,7 @@ class RecipeWebview {
     };
 
 
-    ipcRenderer.sendTo(1, 'messages', count);
+    ipcRenderer.send('messages', count);
     Object.assign(this.countCache, count);
 
     debug('Sending badge count to host', count);

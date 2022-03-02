@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "baseUrl": ".",
     "target": "esnext",
     "module": "commonjs",
     "outDir": ".tstmp",
@@ -9,6 +8,8 @@
     "allowJs": true,
     "strict": false,
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*"
