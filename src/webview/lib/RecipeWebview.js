@@ -17,7 +17,7 @@ class RecipeWebview {
 
       // This event is for checking if the service recipe is still actively
       // communicating with the client
-      ipcRenderer.sendToHost('alive');
+      ipcRenderer.send('alive');
     });
 
     window.FranzAPI = {
@@ -56,7 +56,7 @@ class RecipeWebview {
     };
 
 
-    ipcRenderer.sendToHost('messages', count);
+    ipcRenderer.sendTo(1, 'messages', count);
     Object.assign(this.countCache, count);
 
     debug('Sending badge count to host', count);

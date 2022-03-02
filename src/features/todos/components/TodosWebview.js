@@ -229,19 +229,20 @@ class TodosWebview extends Component {
           />
         )}
         {isTodosIncludedInCurrentPlan ? (
-          <Webview
-            className={classes.webview}
-            onDidAttach={() => {
-              const { setTodosWebview } = this.props;
-              setTodosWebview(this.webview);
-              this.startListeningToIpcMessages();
-            }}
-            partition={TODOS_PARTITION_ID}
-            preload="./features/todos/preload.js"
-            ref={(webview) => { this.webview = webview ? webview.view : null; }}
-            src={environment.TODOS_FRONTEND}
-            webpreferences="contextIsolation=0"
-          />
+          // <Webview
+          //   className={classes.webview}
+          //   onDidAttach={() => {
+          //     const { setTodosWebview } = this.props;
+          //     setTodosWebview(this.webview);
+          //     this.startListeningToIpcMessages();
+          //   }}
+          //   partition={TODOS_PARTITION_ID}
+          //   preload="./features/todos/preload.js"
+          //   ref={(webview) => { this.webview = webview ? webview.view : null; }}
+          //   src={environment.TODOS_FRONTEND}
+          //   webpreferences="contextIsolation=0"
+          // />
+          <></>
         ) : (
           <Appear>
             <div className={classes.premiumContainer}>

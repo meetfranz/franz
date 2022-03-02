@@ -97,7 +97,7 @@ class ToggleComponent extends Component<IProps> {
             })} />
             <input
               className={classes.input}
-              id={id || name}
+              id={id || ''}
               type="checkbox"
               checked={checked}
               value={value}

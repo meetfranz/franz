@@ -10,6 +10,7 @@ import serviceWebView from '../../features/serviceWebview/ipc';
 import fullscreenStatus from './fullscreen';
 import subscriptionWindow from './subscriptionWindow';
 import serviceCache from './serviceCache';
+import browserViewManager from './browserViewManager';
 
 export default (params) => {
   settings(params);
@@ -24,4 +25,5 @@ export default (params) => {
   fullscreenStatus(params);
   subscriptionWindow(params);
   serviceCache();
+  browserViewManager(params);
 };

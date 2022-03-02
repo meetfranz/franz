@@ -50,7 +50,7 @@ class RecipeController {
     });
 
     debug('Send "hello" to host');
-    setTimeout(() => ipcRenderer.sendToHost('hello'), 100);
+    setTimeout(() => ipcRenderer.send('hello'), 100);
 
     autorun(() => this.update());
   }

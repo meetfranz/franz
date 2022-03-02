@@ -654,7 +654,7 @@ export default class FranzMenu {
       label: intl.formatMessage(menuItems.toggleDevTools),
       accelerator: `${cmdKey}+Alt+I`,
       click: (menuItem, browserWindow) => {
-        browserWindow.webContents.toggleDevTools();
+        browserWindow.webContents.openDevTools({ mode: 'detach' });
       },
     }, {
       label: intl.formatMessage(menuItems.toggleServiceDevTools),

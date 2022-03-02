@@ -93,6 +93,8 @@ export default class Service {
 
   @observable chromelessUserAgent = false;
 
+  @observable webContentsId = null;
+
   constructor(data, recipe) {
     if (!data) {
       console.error('Service config not valid');
@@ -245,6 +247,18 @@ export default class Service {
       debug(this.name, 'modifyRequestHeaders is not defined in the recipe');
     }
 
+    // if the recipe has implemented 'knownCertificateHosts'
+    if (typeof this.recipe.knownCertificateHosts === 'function') {
+      const knownHosts = this.recipe.knownCertificateHosts();
+      debug(this.name, 'knownCertificateHosts', knownHosts);
+      ipcRenderer.send('knownCertificateHosts', {
+        knownHosts,
+        serviceId: this.id,
+      });
+    } else {
+      debug(this.name, 'knownCertificateHosts is not defined in the recipe');
+    }
+
     const handleUserAgent = (url, forwardingHack = false) => {
       if (url.startsWith('https://accounts.google.com')) {
         if (!this.chromelessUserAgent) {
@@ -296,10 +310,14 @@ export default class Service {
       }
     };
 
-    this.webview.addEventListener('did-frame-finish-load', didLoad.bind(this));
-    this.webview.addEventListener('did-navigate', (event) => {
-      handleUserAgent(event.url);
+    this.webview.addEventListener('did-frame-finish-load', () => {
+      debug('did-frame-finish-load', this.name);
       didLoad();
+    });
+    this.webview.addEventListener('did-navigate', (event) => {
+      debug('Service did-navigate', this.name, event);
+      didLoad();
+      handleUserAgent(event.url);
     });
 
     this.webview.addEventListener('did-fail-load', (event) => {

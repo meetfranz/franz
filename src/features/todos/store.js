@@ -167,7 +167,7 @@ export default class TodoStore extends FeatureStore {
     debug('_openDevTools');
 
     const webview = document.querySelector('#todos-panel webview');
-    if (webview) webview.openDevTools();
+    if (webview) webview.openDevTools({ mode: 'detach' });
   }
 
   _reload = () => {

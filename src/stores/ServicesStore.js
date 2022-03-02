@@ -83,6 +83,7 @@ export default class ServicesStore extends Store {
     this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
 
     this.registerReactions([
+      this._shareServiceConfigWithBrowserViewManager.bind(this),
       this._focusServiceReaction.bind(this),
       this._getUnreadMessageCountReaction.bind(this),
       this._mapActiveServiceToServiceModelReaction.bind(this),
@@ -110,6 +111,22 @@ export default class ServicesStore extends Store {
     );
 
     this._handleSpellcheckerLocale();
+
+    ipcRenderer.on('messages', (event, ...args) => {
+      const service = this.oneByWebContentsId(event.senderId);
+
+      if (service) {
+        debug(`Received unread message info from '${service.name}'`, args[0]);
+
+        this.actions.service.setUnreadMessageCount({
+          serviceId: service.id,
+          count: {
+            direct: args[0].direct,
+            indirect: args[0].indirect,
+          },
+        });
+      }
+    });
   }
 
   initialize() {
@@ -231,6 +248,10 @@ export default class ServicesStore extends Store {
 
   one(id) {
     return this.all.find(service => service.id === id);
+  }
+
+  oneByWebContentsId(id) {
+    return this.all.find(service => service.webContentsId === id);
   }
 
   async _showAddServiceInterface({ recipeId }) {
@@ -748,9 +769,37 @@ export default class ServicesStore extends Store {
   }
 
   // Reactions
+  async _shareServiceConfigWithBrowserViewManager() {
+    const data = await ipcRenderer.invoke('browserViewManager', this.allDisplayedUnordered.map(service => ({
+      id: service.id,
+      name: service.name,
+      url: service.url,
+      partition: service.partition,
+      state: {
+        isActive: service.isActive,
+        spellcheckerLanguage: service.spellcheckerLanguage,
+        isDarkModeEnabled: service.isDarkModeEnabled,
+        team: service.team,
+        hasCustomIcon: service.hasCustomIcon,
+      },
+      recipeId: service.recipe.id,
+    })));
+
+    console.log('return values', data);
+    data.forEach((browserViewHandler) => {
+      console.log(browserViewHandler);
+      const service = this.one(browserViewHandler.serviceId);
+      if (service) {
+        debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);
+        service.webContentsId = browserViewHandler.webContentsId;
+      }
+    });
+  }
+
   _focusServiceReaction() {
     const service = this.active;
     if (service) {
+      console.log('focus service');
       this.actions.service.focusService({ serviceId: service.id });
     }
   }

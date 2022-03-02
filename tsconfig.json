@@ -1,7 +1,16 @@
 {
-  "extends": "./tsconfig.settings.json",
   "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "target": "esnext",
+    "module": "commonjs",
     "outDir": ".tstmp",
-    "rootDir": "./"
+    "rootDir": "./src",
+    "allowJs": true,
+    "strict": false,
+    "skipLibCheck": true,
   },
+  "include": [
+    "src/**/*"
+  ]
 }

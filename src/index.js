@@ -222,7 +222,7 @@ const createWindow = () => {
 
   // Open the DevTools.
   if (isDevMode || process.argv.includes('--devtools')) {
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
   }
 
   // Windows deep linking handling on app launch

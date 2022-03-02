@@ -111,3 +111,5 @@ export const PLANS_MAPPING = {
   'franz-supporter-license-year-2019': PLANS.LEGACY,
   free: PLANS.FREE,
 };
+
+export const TAB_BAR_WIDTH = 68;

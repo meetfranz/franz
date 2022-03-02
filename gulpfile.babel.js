@@ -5,14 +5,16 @@ import server from 'gulp-server-livereload';
 import { exec } from 'child_process';
 import dotenv from 'dotenv';
 import sassVariables from 'gulp-sass-variables';
-import { moveSync, removeSync } from 'fs-extra';
+import { removeSync } from 'fs-extra';
 import kebabCase from 'kebab-case';
 import hexRgb from 'hex-rgb';
-import path from 'path';
+import ts from 'gulp-typescript';
 
 import config from './package.json';
 
 import * as rawStyleConfig from './src/theme/default/legacy.js';
+
+const tsProject = ts.createProject('./tsconfig.json');
 
 const sass = require('gulp-sass')(require('sass'));
 
@@ -44,6 +46,14 @@ const paths = {
     watch: [
       // 'packages/**/*.js',
       'src/**/*.js',
+    ],
+  },
+  tsScripts: {
+    src: 'src/**/*.ts',
+    dest: 'build/',
+    watch: [
+      // 'packages/**/*.js',
+      'src/**/*.ts',
     ],
   },
   packages: {
@@ -88,6 +98,7 @@ export function mvSrc() {
       `!${paths.scripts.watch[1]}`,
       `!${paths.src}/styles/**`,
       `!${paths.src}/**/*.js`,
+      `!${paths.src}/**/*.ts`,
     ], { since: gulp.lastRun(mvSrc) },
   )
     .pipe(gulp.dest(paths.dest));
@@ -130,6 +141,12 @@ export function styles() {
     .pipe(gulp.dest(paths.styles.dest));
 }
 
+export function typescript() {
+  return gulp.src(paths.tsScripts.src, { since: gulp.lastRun(typescript) })
+    .pipe(tsProject())
+    .pipe(gulp.dest(paths.tsScripts.dest));
+}
+
 export function scripts() {
   return gulp.src(paths.scripts.src, { since: gulp.lastRun(scripts) })
     .pipe(babel({
@@ -145,10 +162,12 @@ export function watch() {
   gulp.watch([
     paths.src,
     `${paths.scripts.src}`,
+    `${paths.scripts.src}`,
     `${paths.styles.src}`,
   ], mvSrc);
 
   gulp.watch(paths.scripts.watch, scripts);
+  gulp.watch(paths.tsScripts.watch, typescript);
 }
 
 export function webserver() {
@@ -166,7 +185,7 @@ export function sign(done) {
 
 const build = gulp.series(
   clean,
-  gulp.parallel(mvSrc, mvPackageJson, mvLernaPackages),
+  gulp.parallel(typescript, mvSrc, mvPackageJson, mvLernaPackages),
   gulp.parallel(html, scripts, styles),
 );
 export { build };

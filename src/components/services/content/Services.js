@@ -128,7 +128,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
             </div>
           </Appear>
         )}
-        {services.filter(service => service.recipe.id !== TODOS_RECIPE_ID).map(service => (
+        {/* {services.filter(service => service.recipe.id !== TODOS_RECIPE_ID).map(service => (
           <ServiceView
             key={service.id}
             service={service}
@@ -148,7 +148,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
             upgrade={() => openSettings({ path: 'user' })}
             isSpellcheckerEnabled={isSpellcheckerEnabled}
           />
-        ))}
+        ))} */}
       </div>
     );
   }
