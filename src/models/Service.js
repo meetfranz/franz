@@ -93,7 +93,7 @@ export default class Service {
 
   @observable chromelessUserAgent = false;
 
-  @observable webContentsId = null;
+  // @observable webContentsId = null;
 
   constructor(data, recipe) {
     if (!data) {

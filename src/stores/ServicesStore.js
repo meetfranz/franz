@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { app, webContents } from '@electron/remote';
+import { app } from '@electron/remote';
 
 import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
@@ -58,8 +58,6 @@ export default class ServicesStore extends Store {
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
     this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
     this.actions.service.detachService.listen(this._detachService.bind(this));
-    this.actions.service.focusService.listen(this._focusService.bind(this));
-    this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
     this.actions.service.handleIPCMessage.listen(this._handleIPCMessage.bind(this));
     this.actions.service.sendIPCMessage.listen(this._sendIPCMessage.bind(this));
@@ -84,7 +82,6 @@ export default class ServicesStore extends Store {
 
     this.registerReactions([
       this._shareServiceConfigWithBrowserViewManager.bind(this),
-      this._focusServiceReaction.bind(this),
       this._getUnreadMessageCountReaction.bind(this),
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
@@ -123,9 +120,6 @@ export default class ServicesStore extends Store {
         },
       });
     });
-
-    const wcs = webContents.getAllWebContents().filter(wc => wc.getURL().startsWith('file:'));
-    console.log('wcs', wcs.map(wc => ({ id: wc.id, url: wc.getURL() })));
   }
 
   initialize() {
@@ -249,9 +243,9 @@ export default class ServicesStore extends Store {
     return this.all.find(service => service.id === id);
   }
 
-  oneByWebContentsId(id) {
-    return this.all.find(service => service.webContentsId === id);
-  }
+  // oneByWebContentsId(id) {
+  //   return this.all.find(service => service.webContentsId === id);
+  // }
 
   async _showAddServiceInterface({ recipeId }) {
     this.stores.router.push(`/settings/services/add/${recipeId}`);
@@ -470,7 +464,7 @@ export default class ServicesStore extends Store {
     service.webview = webview;
 
     const webContentsId = webview.getWebContentsId();
-    ipcRenderer.invoke(INITIALIZE_SERVICE_WEBVIEW, { id: webContentsId, serviceId });
+    ipcRenderer.send(INITIALIZE_SERVICE_WEBVIEW, { id: webContentsId, serviceId });
 
     if (!service.isAttached) {
       debug('Webview is not attached, initializing');
@@ -488,29 +482,6 @@ export default class ServicesStore extends Store {
   @action _detachService({ service }) {
     service.webview = null;
     service.isAttached = false;
-  }
-
-  @action _focusService({ serviceId }) {
-    const service = this.one(serviceId);
-
-    if (service.webview) {
-      if (document.activeElement) {
-        document.activeElement.blur();
-      }
-      service.webview.focus();
-    }
-  }
-
-  @action _focusActiveService() {
-    if (this.stores.user.isLoggedIn) {
-      // TODO: add checks to not focus service when router path is /settings or /auth
-      const service = this.active;
-      if (service) {
-        this._focusService({ serviceId: service.id });
-      }
-    } else {
-      this.allServicesRequest.invalidate();
-    }
   }
 
   @action _toggleService({ serviceId }) {
@@ -769,7 +740,7 @@ export default class ServicesStore extends Store {
 
   // Reactions
   async _shareServiceConfigWithBrowserViewManager() {
-    const data = await ipcRenderer.invoke('browserViewManager', this.allDisplayedUnordered.map(service => ({
+    ipcRenderer.send('browserViewManager', this.allDisplayedUnordered.map(service => ({
       id: service.id,
       name: service.name,
       url: service.url,
@@ -784,21 +755,13 @@ export default class ServicesStore extends Store {
       recipeId: service.recipe.id,
     })));
 
-    data.forEach((browserViewHandler) => {
-      const service = this.one(browserViewHandler.serviceId);
-      if (service) {
-        debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);
-        service.webContentsId = browserViewHandler.webContentsId;
-      }
-    });
-  }
-
-  _focusServiceReaction() {
-    const service = this.active;
-    if (service) {
-      console.log('focus service');
-      this.actions.service.focusService({ serviceId: service.id });
-    }
+    // data.forEach((browserViewHandler) => {
+    //   const service = this.one(browserViewHandler.serviceId);
+    //   if (service) {
+    //     debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);
+    //     service.webContentsId = browserViewHandler.webContentsId;
+    //   }
+    // });
   }
 
   _saveActiveService() {
@@ -895,7 +858,7 @@ export default class ServicesStore extends Store {
     const { features } = this.stores.features;
     const { userHasReachedServiceLimit, serviceLimit } = this.stores.serviceLimit;
 
-    this.all.map((service, index) => {
+    this.allDisplayed.map((service, index) => {
       if (userHasReachedServiceLimit) {
         service.isServiceAccessRestricted = index >= serviceLimit;
 
@@ -912,7 +875,7 @@ export default class ServicesStore extends Store {
         if (service.isServiceAccessRestricted) {
           service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
 
-          debug('Restricting access to server due to custom url');
+          debug('Restricting access to server due to custom url for', service.name);
         }
       }
 

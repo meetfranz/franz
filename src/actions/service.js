@@ -42,9 +42,6 @@ export default {
   detachService: {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
   },
-  focusService: {
-    serviceId: PropTypes.string.isRequired,
-  },
   focusActiveService: {},
   toggleService: {
     serviceId: PropTypes.string.isRequired,

@@ -53,38 +53,8 @@ const messages = defineMessages({
   },
 });
 
-const styles = {
-  pollIndicator: {
-    position: 'absolute',
-    bottom: 2,
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    background: 'gray',
-    transition: 'background 0.5s',
-  },
-  pollIndicatorPoll: {
-    left: 2,
-  },
-  pollIndicatorAnswer: {
-    left: 14,
-  },
-  polled: {
-    background: 'yellow !important',
-    transition: 'background 0.1s',
-  },
-  pollAnswered: {
-    background: 'green !important',
-    transition: 'background 0.1s',
-  },
-  stale: {
-    background: 'red !important',
-  },
-};
-
-@injectSheet(styles) @observer class TabItem extends Component {
+@observer class TabItem extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     clickHandler: PropTypes.func.isRequired,
     shortcutIndex: PropTypes.number.isRequired,
@@ -129,7 +99,6 @@ const styles = {
 
   render() {
     const {
-      classes,
       service,
       clickHandler,
       shortcutIndex,
@@ -210,7 +179,6 @@ const styles = {
     return (
       <li
         className={classnames({
-          [classes.stale]: IS_SERVICE_DEBUGGING_ENABLED && service.lostRecipeConnection,
           'tab-item': true,
           'is-active': service.isActive,
           'has-custom-icon': service.hasCustomIcon,
@@ -226,24 +194,6 @@ const styles = {
           alt=""
         />
         {notificationBadge}
-        {IS_SERVICE_DEBUGGING_ENABLED && (
-          <>
-            <div
-              className={classnames({
-                [classes.pollIndicator]: true,
-                [classes.pollIndicatorPoll]: true,
-                [classes.polled]: this.isPolled,
-              })}
-            />
-            <div
-              className={classnames({
-                [classes.pollIndicator]: true,
-                [classes.pollIndicatorAnswer]: true,
-                [classes.pollAnswered]: this.isPollAnswered,
-              })}
-            />
-          </>
-        )}
       </li>
     );
   }

@@ -90,7 +90,7 @@ export class ServiceBrowserView {
 
     this.view.webContents.send('initialize-recipe', this.state, this.recipe);
 
-    this.pollInterval = setInterval(this.pollMessageLoop.bind(this), ms('2s'));
+    this.pollInterval = setInterval(this.pollLoop.bind(this), ms('2s'));
 
     this.enableContextMenu();
   }
@@ -101,7 +101,13 @@ export class ServiceBrowserView {
     this.window.removeBrowserView(this.view);
   }
 
-  pollMessageLoop() {
+  setActive() {
+    debug('Set browserView active', this.config.name);
+    this.window.setTopBrowserView(this.view);
+    this.webContents.focus();
+  }
+
+  pollLoop() {
     this.view.webContents.send('poll', this.state, this.recipe);
   }
 
@@ -158,6 +164,10 @@ export class ServiceBrowserView {
       });
       this.window.webContents.send(REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, { serviceId: this.config.id });
     });
+  }
+
+  focus() {
+    this.webContents.focus();
   }
 
   get webContents() {

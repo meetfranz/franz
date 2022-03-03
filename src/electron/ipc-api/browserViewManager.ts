@@ -8,12 +8,13 @@ const debug = require('debug')('Franz:ipcApi:browserViewManager');
 interface IBrowserViewCache {
   id: string;
   browserView: ServiceBrowserView;
+  isActive: boolean;
 }
 
 const browserViews: IBrowserViewCache[] = [];
 
 export default async ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any}) => {
-  ipcMain.handle('browserViewManager', async (event, services) => {
+  ipcMain.on('browserViewManager', async (event, services) => {
     try {
       services.forEach((service: any) => {
         let sbw = browserViews.find(bw => bw.id === service.id)?.browserView;
@@ -39,21 +40,29 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
           browserViews.push({
             id: service.id,
             browserView: sbw,
+            isActive: service.state.isActive,
           });
         }
 
         if (service.state.isActive) {
-          debug('service is active', service.name);
-          mainWindow.setTopBrowserView(sbw.view);
+          sbw.setActive();
         }
       });
 
-      return browserViews.map(view => ({
-        serviceId: view.id,
-        webContentsId: view.browserView.webContents.id,
-      }));
+      // return browserViews.map(view => ({
+      //   serviceId: view.id,
+      //   webContentsId: view.browserView.webContents.id,
+      // }));
     } catch (e) {
       console.error(e);
+    }
+  });
+
+  mainWindow.on('focus', () => {
+    debug('Window focus, focus browserView');
+    const sbw = browserViews.find(browserView => browserView.isActive);
+    if (sbw) {
+      sbw.browserView.focus();
     }
   });
 };
