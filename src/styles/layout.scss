@@ -5,7 +5,8 @@ html { overflow: hidden; }
 .theme__dark .app {
   .sidebar {
     background: $dark-theme-gray-darker;
-    box-shadow: 0 0 5px 0 $dark-theme-black;
+    background: linear-gradient(90deg, $dark-theme-gray-darker 0%, $dark-theme-gray-darker 90%, rgba(0,0,0,0.05) 100%);
+
     color: $theme-text-color;
 
     .sidebar__add-service {
@@ -77,7 +78,7 @@ body.win32:not(.isFullScreen) .app .app__content {
 .sidebar {
   align-items: center;
   background: $theme-gray-lightest;
-  box-shadow: 1px 0 10px rgba(0, 0, 0, .08);
+  background: linear-gradient(90deg, $theme-gray-lightest 0%, $theme-gray-lightest 93%, lighten($theme-gray-light, 10%) 100%);
   color: $theme-text-color;
   display: flex;
   flex-direction: column;
