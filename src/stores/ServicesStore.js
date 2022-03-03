@@ -22,8 +22,8 @@ import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import { showModal as showSourceSelectionModal } from '../features/desktopCapturer';
 import {
-  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, INITIALIZE_SERVICE_WEBVIEW, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE,
-} from '../features/serviceWebview/config';
+  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, INITIALIZE_SERVICE_WEBVIEW, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE,
+} from '../ipcChannels';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -78,7 +78,6 @@ export default class ServicesStore extends Store {
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
     this.actions.service.hibernate.listen(this._hibernate.bind(this));
     this.actions.service.awake.listen(this._awake.bind(this));
-    this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
 
     this.registerReactions([
       this._shareServiceConfigWithBrowserViewManager.bind(this),
@@ -108,18 +107,7 @@ export default class ServicesStore extends Store {
     );
 
     this._handleSpellcheckerLocale();
-
-    ipcRenderer.on('messages', (event, serviceId, ...args) => {
-      debug(`Received unread message info from '${serviceId}'`, args[0]);
-
-      this.actions.service.setUnreadMessageCount({
-        serviceId,
-        count: {
-          direct: args[0].direct,
-          indirect: args[0].indirect,
-        },
-      });
-    });
+    this.handleIPCMessage();
   }
 
   initialize() {
@@ -134,6 +122,90 @@ export default class ServicesStore extends Store {
 
     // Stop checking services for hibernation
     this.serviceMaintenanceTick.cancel();
+  }
+
+  handleIPCMessage() {
+    ipcRenderer.on('messages', (event, serviceId, args) => {
+      debug(`Received unread message info from '${serviceId}'`, args);
+
+      this.actions.service.setUnreadMessageCount({
+        serviceId,
+        count: {
+          direct: args.direct,
+          indirect: args.indirect,
+        },
+      });
+    });
+
+    ipcRenderer.on('hello', (event, serviceId) => {
+      debug(`Received 'hello' from '${serviceId}'`);
+    });
+
+    ipcRenderer.on('notification', (event, serviceId, args) => {
+      debug(`Received 'notification' from '${serviceId}'`);
+
+      const service = this.one(serviceId);
+
+      if (!service) {
+        console.warn(`No service with id '${serviceId}' found`);
+        return;
+      }
+
+      const { options } = args;
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
+        Object.assign(options, {
+          silent: true,
+        });
+      }
+
+      if (service.isNotificationEnabled) {
+        const title = typeof args.title === 'string' ? args.title : service.name;
+        options.body = typeof options.body === 'string' ? options.body : '';
+
+        this.actions.app.notify({
+          notificationId: args.notificationId,
+          title,
+          options,
+          serviceId,
+        });
+      }
+    });
+
+    ipcRenderer.on('avatar', (event, serviceId, url) => {
+      debug(`Received 'avatar' from '${serviceId}'`);
+
+      const service = this.one(serviceId);
+
+      if (!service) {
+        console.warn(`No service with id '${serviceId}' found`);
+        return;
+      }
+
+      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
+        service.customIconUrl = url;
+
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            customIconUrl: url,
+          },
+          redirect: false,
+        });
+      }
+    });
+
+    ipcRenderer.on('new-window', (event, serviceId, url) => {
+      debug(`Received 'new-window' from '${serviceId}', url:`, url);
+
+      this.actions.app.openExternalUrl({ url });
+    });
+
+    // } else if (channel === 'feature:todos') {
+    //   Object.assign(args[0].data, { serviceId });
+    //   this.actions.todos.handleHostMessage(args[0]);
+    // } else if (channel === 'feature:desktopCapturer:getSelectSource') {
+    //   showSourceSelectionModal(service.webview);
+    // }
   }
 
   /**
@@ -154,25 +226,6 @@ export default class ServicesStore extends Store {
       if (!service.isActive && (Date.now() - service.lastUsed > ms('5m'))) {
         // If service is stale for 5 min, hibernate it.
         this._hibernate({ serviceId: service.id });
-      }
-
-      if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
-        // If service did not reply for more than 1m try to reload.
-        if (!service.isActive) {
-          if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
-            debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
-            // service.webview.reload();
-            service.lostRecipeReloadAttempt += 1;
-
-            service.lostRecipeConnection = false;
-          }
-        } else {
-          debug(`Service lost connection: ${service.name} (${service.id}).`);
-          service.lostRecipeConnection = true;
-        }
-      } else {
-        service.lostRecipeConnection = false;
-        service.lostRecipeReloadAttempt = 0;
       }
     });
   }
@@ -422,8 +475,6 @@ export default class ServicesStore extends Store {
     }
 
     gaEvent('Service', 'activate-service', service.recipe.id);
-
-    this._focusActiveService();
   }
 
   @action _blurActive() {
@@ -512,7 +563,7 @@ export default class ServicesStore extends Store {
         },
       });
     } else if (channel === 'notification') {
-      const options = args[0].options;
+      const { options } = args[0];
       if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
         Object.assign(options, {
           silent: true,
@@ -589,7 +640,7 @@ export default class ServicesStore extends Store {
     this.actionStatus = [];
   }
 
-  @action _reload({ serviceId }) {
+  @action _reload({ serviceId, ignoreNavigation }) {
     const service = this.one(serviceId);
     if (!service.isEnabled) return;
 
@@ -600,15 +651,19 @@ export default class ServicesStore extends Store {
       return this.actions.todos.reload();
     }
 
-    return service.webview.loadURL(service.url);
+    // `ignoreNavigation = true` does not navigate the service to `service.url`, instead an actual reload is performed
+    const ipcChannel = !ignoreNavigation ? NAVIGATE_SERVICE_TO : RELOAD_SERVICE;
+
+    ipcRenderer.send(ipcChannel, { serviceId, url: service.url });
   }
 
-  @action _reloadActive() {
+  @action _reloadActive({ ignoreNavigation = false }) {
     if (this.active) {
       const service = this.one(this.active.id);
 
       this._reload({
         serviceId: service.id,
+        ignoreNavigation,
       });
     }
   }
@@ -634,7 +689,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _reorderService({ oldIndex, newIndex }) {
-    const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
+    const { showDisabledServices } = this.stores.settings.all.app;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
 
@@ -688,7 +743,7 @@ export default class ServicesStore extends Store {
     if (service.recipe.id === TODOS_RECIPE_ID) {
       this.actions.todos.openDevTools();
     } else {
-      service.webview.openDevTools();
+      ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS, { serviceId });
     }
   }
 
@@ -740,7 +795,7 @@ export default class ServicesStore extends Store {
 
   // Reactions
   async _shareServiceConfigWithBrowserViewManager() {
-    ipcRenderer.send('browserViewManager', this.allDisplayedUnordered.map(service => ({
+    const sharedServiceData = this.allDisplayed.filter(service => service.isEnabled).map(service => ({
       id: service.id,
       name: service.name,
       url: service.url,
@@ -753,15 +808,18 @@ export default class ServicesStore extends Store {
         hasCustomIcon: service.hasCustomIcon,
       },
       recipeId: service.recipe.id,
-    })));
+    }));
 
-    // data.forEach((browserViewHandler) => {
-    //   const service = this.one(browserViewHandler.serviceId);
-    //   if (service) {
-    //     debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);
-    //     service.webContentsId = browserViewHandler.webContentsId;
-    //   }
-    // });
+    const data = await ipcRenderer.invoke('browserViewManager', sharedServiceData);
+    console.log('_shareServiceConfigWithBrowserViewManager', sharedServiceData);
+
+    data.forEach((browserViewHandler) => {
+      const service = this.one(browserViewHandler.serviceId);
+      if (service) {
+        debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);
+        service.webContentsId = browserViewHandler.webContentsId;
+      }
+    });
   }
 
   _saveActiveService() {
@@ -787,8 +845,8 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
-    const showMessageBadgeWhenMuted = this.stores.settings.all.app.showMessageBadgeWhenMuted;
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+    const { showMessageBadgeWhenMuted } = this.stores.settings.all.app;
+    const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     const unreadDirectMessageCount = this.allDisplayed
       .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)

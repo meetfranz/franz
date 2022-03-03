@@ -83,17 +83,9 @@ export default class Service {
 
   @observable lastUsed = Date.now(); // timestamp
 
-  @observable lastPoll = Date.now();
-
-  @observable lastPollAnswer = Date.now();
-
-  @observable lostRecipeConnection = false;
-
-  @observable lostRecipeReloadAttempt = 0;
-
   @observable chromelessUserAgent = false;
 
-  // @observable webContentsId = null;
+  @observable webContentsId = null;
 
   constructor(data, recipe) {
     if (!data) {

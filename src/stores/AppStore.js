@@ -104,8 +104,6 @@ export default class AppStore extends Store {
 
   async setup() {
     this._appStartsCounter();
-    // Focus the active service
-    window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
     window.addEventListener('online', () => {
@@ -212,7 +210,6 @@ export default class AppStore extends Store {
 
     powerMonitor.on('resume', () => {
       debug('System resumed, last suspended on', this.timeSuspensionStart);
-      this.actions.service.resetLastPollTimer();
 
       if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
         debug('Reloading services, user info and features');
@@ -486,7 +483,7 @@ export default class AppStore extends Store {
   }
 
   _muteAppHandler() {
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+    const {showMessageBadgesEvenWhenMuted} = this.stores.ui;
 
     if (!showMessageBadgesEvenWhenMuted) {
       this.actions.app.setBadge({

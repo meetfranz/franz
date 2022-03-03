@@ -4,6 +4,7 @@ import {
   action,
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
+import { ipcRenderer } from 'electron';
 import { matchRoute } from '../../helpers/routing-helpers';
 import { workspaceActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
@@ -16,6 +17,8 @@ import {
 import { WORKSPACES_ROUTES } from './index';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
+import { RESIZE_SERVICE_VIEWS } from '../../ipcChannels';
+import { TAB_BAR_WIDTH } from '../../config';
 
 const debug = require('debug')('Franz:feature:workspaces:store');
 
@@ -127,6 +130,9 @@ export default class WorkspacesStore extends FeatureStore {
 
     getUserWorkspacesRequest.execute();
     this.isFeatureActive = true;
+
+    // resetting any transitioned browserView in case a reload happened with the opened workspace drawer
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, { x: TAB_BAR_WIDTH });
   }
 
   @action reset() {
@@ -237,6 +243,7 @@ export default class WorkspacesStore extends FeatureStore {
 
   @action _toggleWorkspaceDrawer = () => {
     this.isWorkspaceDrawerOpen = !this.isWorkspaceDrawerOpen;
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, { x: !this.isWorkspaceDrawerOpen ? TAB_BAR_WIDTH : TAB_BAR_WIDTH + this.stores.ui.theme.workspaces.drawer.width }, 250);
   };
 
   @action _openWorkspaceSettings = () => {

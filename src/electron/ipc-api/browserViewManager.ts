@@ -1,9 +1,28 @@
-import { ipcMain, BrowserWindow } from 'electron';
-import { loadRecipeConfig } from '../../helpers/recipe-helpers';
-import Recipe from '../../models/Recipe';
+import { ipcMain, BrowserWindow, Rectangle } from 'electron';
 import { ServiceBrowserView } from '../../models/ServiceBrowserView';
+import { loadRecipeConfig } from '../../helpers/recipe-helpers';
+import {
+  HIDE_ALL_SERVICES,
+  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, SHOW_ALL_SERVICES,
+} from '../../ipcChannels';
+import Recipe from '../../models/Recipe';
 
 const debug = require('debug')('Franz:ipcApi:browserViewManager');
+
+interface IIPCServiceData {
+  id: string,
+  name: string,
+  url: string,
+  partition: string,
+  state: {
+    isActive: boolean,
+    spellcheckerLanguage: string,
+    isDarkModeEnabled: boolean,
+    team: string,
+    hasCustomIcon: boolean,
+  },
+  recipeId: string,
+}
 
 interface IBrowserViewCache {
   id: string;
@@ -14,10 +33,14 @@ interface IBrowserViewCache {
 const browserViews: IBrowserViewCache[] = [];
 
 export default async ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any}) => {
-  ipcMain.on('browserViewManager', async (event, services) => {
+  ipcMain.handle('browserViewManager', async (event, services: IIPCServiceData[]) => {
     try {
-      services.forEach((service: any) => {
+      debug('chached services', browserViews.map(bw => `${bw.browserView.config.name} - (${bw.browserView.config.id})`), 'length', browserViews.length);
+
+      services.forEach((service) => {
         let sbw = browserViews.find(bw => bw.id === service.id)?.browserView;
+
+
         if (!sbw) {
           debug('creating new browserview', service.url);
           const recipe = new Recipe(loadRecipeConfig(service.recipeId));
@@ -35,6 +58,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
             settings,
           });
 
+          sbw.initialize();
           sbw.attach();
 
           browserViews.push({
@@ -45,14 +69,26 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
         }
 
         if (service.state.isActive) {
-          sbw.setActive();
+          setTimeout(() => {
+            sbw.setActive();
+          }, 5);
         }
       });
 
-      // return browserViews.map(view => ({
-      //   serviceId: view.id,
-      //   webContentsId: view.browserView.webContents.id,
-      // }));
+      browserViews.filter(bw => !services.some(service => service.id === bw.id)).forEach((service) => {
+        debug('Removing unused service', service.browserView.config.name, service.browserView.config.id);
+
+        browserViews.splice(browserViews.findIndex(bw => bw.id === service.id), 1);
+        service.browserView.remove();
+        service.browserView.destroy();
+      });
+
+      // }
+
+      return browserViews.map(view => ({
+        serviceId: view.id,
+        webContentsId: view.browserView.webContents.id,
+      }));
     } catch (e) {
       console.error(e);
     }
@@ -64,5 +100,57 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     if (sbw) {
       sbw.browserView.focus();
     }
+  });
+
+  ipcMain.on(OPEN_SERVICE_DEV_TOOLS, (e, { serviceId }) => {
+    const sbw = browserViews.find(browserView => browserView.id === serviceId);
+
+    if (sbw) {
+      debug(`Open devTools for service '${sbw.browserView.config.name}'`);
+      sbw.browserView.webContents.toggleDevTools();
+    }
+  });
+
+  ipcMain.on(RELOAD_SERVICE, (e, { serviceId }) => {
+    const sbw = browserViews.find(browserView => browserView.id === serviceId);
+
+    if (sbw) {
+      debug(`Reload service '${sbw.browserView.config.name}'`);
+      sbw.browserView.webContents.reload();
+    }
+  });
+
+  ipcMain.on(NAVIGATE_SERVICE_TO, (e, { serviceId, url }) => {
+    const sbw = browserViews.find(browserView => browserView.id === serviceId);
+
+    if (sbw) {
+      debug(`Navigate service '${sbw.browserView.config.name}' to`, url);
+      sbw.browserView.webContents.loadURL(url);
+    }
+  });
+
+  ipcMain.on(RESIZE_SERVICE_VIEWS, (e, bounds: Rectangle, animationDuration: 0) => {
+    debug('Resizing service views by', bounds);
+
+    browserViews.forEach((bw) => {
+      bw.browserView.resize(bounds, animationDuration);
+    });
+  });
+
+  ipcMain.on(HIDE_ALL_SERVICES, (e) => {
+    debug('Hiding all services');
+
+    browserViews.forEach(bw => mainWindow.removeBrowserView(bw.browserView.view));
+  });
+
+  ipcMain.on(SHOW_ALL_SERVICES, (e) => {
+    debug('Showing all services');
+
+    browserViews.forEach((bw) => {
+      mainWindow.addBrowserView(bw.browserView.view);
+      if (bw.isActive) {
+        bw.browserView.setActive();
+      }
+    });
   });
 };

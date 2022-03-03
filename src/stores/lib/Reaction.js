@@ -3,17 +3,20 @@ import { autorun } from 'mobx';
 export default class Reaction {
   reaction;
 
+  options;
+
   isRunning = false;
 
   dispose;
 
-  constructor(reaction) {
+  constructor(reaction, options = {}) {
     this.reaction = reaction;
+    this.options = options;
   }
 
   start() {
     if (!this.isRunning) {
-      this.dispose = autorun(this.reaction);
+      this.dispose = autorun(this.reaction, this.options);
       this.isRunning = true;
     }
   }

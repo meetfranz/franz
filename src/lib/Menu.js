@@ -1,5 +1,7 @@
 import { shell, clipboard } from 'electron';
-import { app, Menu, dialog } from '@electron/remote';
+import {
+  app, Menu, dialog, webContents,
+} from '@electron/remote';
 import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
@@ -653,8 +655,15 @@ export default class FranzMenu {
     }, {
       label: intl.formatMessage(menuItems.toggleDevTools),
       accelerator: `${cmdKey}+Alt+I`,
-      click: (menuItem, browserWindow) => {
-        browserWindow.webContents.openDevTools({ mode: 'detach' });
+      click: () => {
+        const windowWebContents = webContents.fromId(1);
+        const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
+
+        if (isDevToolsOpened()) {
+          closeDevTools();
+        } else {
+          openDevTools({ mode: 'detach' });
+        }
       },
     }, {
       label: intl.formatMessage(menuItems.toggleServiceDevTools),
@@ -684,7 +693,9 @@ export default class FranzMenu {
         if (this.stores.user.isLoggedIn
         && this.stores.services.enabled.length > 0) {
           if (this.stores.services.active.recipe.id === CUSTOM_WEBSITE_ID) {
-            this.stores.services.active.webview.reload();
+            this.actions.service.reloadActive({
+              ignoreNavigation: true,
+            });
           } else {
             this.actions.service.reloadActive();
           }

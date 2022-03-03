@@ -42,7 +42,6 @@ export default {
   detachService: {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
   },
-  focusActiveService: {},
   toggleService: {
     serviceId: PropTypes.string.isRequired,
   },
@@ -65,8 +64,11 @@ export default {
   },
   reload: {
     serviceId: PropTypes.string.isRequired,
+    ignoreNavigation: PropTypes.bool,
   },
-  reloadActive: {},
+  reloadActive: {
+    ignoreNavigation: PropTypes.bool,
+  },
   reloadAll: {},
   reloadUpdatedServices: {},
   filter: {
@@ -93,8 +95,5 @@ export default {
   },
   awake: {
     serviceId: PropTypes.string.isRequired,
-  },
-  resetLastPollTimer: {
-    serviceId: PropTypes.string,
   },
 };

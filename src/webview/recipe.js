@@ -10,8 +10,8 @@ import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } fro
 import './notifications';
 import './desktopCapturer';
 
-import { UPDATE_SPELLCHECKING_LANGUAGE } from '../features/serviceWebview/config';
 import { DEFAULT_APP_SETTINGS_VANILLA } from '../configVanilla';
+import { UPDATE_SPELLCHECKING_LANGUAGE } from '../ipcChannels';
 
 const debug = require('debug')('Franz:Plugin');
 

@@ -1,7 +1,15 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint-config-airbnb",
+  "extends": ["eslint-config-airbnb", "plugin:@typescript-eslint/recommended"],
   "plugins": ["jest"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  },
   "rules": {
     "consistent-return": 0,
     "no-param-reassign": 0,
@@ -42,7 +50,10 @@
         "allowChildren": false
       }
     ],
-    "jsx-a11y/click-events-have-key-events": 1
+    "jsx-a11y/click-events-have-key-events": 1,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-empty-function": 0
+    
   },
   "globals": {
     "window": true,

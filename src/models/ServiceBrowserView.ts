@@ -1,12 +1,14 @@
 import {
-  BrowserView, BrowserWindow, ipcMain, Menu,
+  BrowserView, BrowserWindow, BrowserWindowConstructorOptions, ipcMain, Menu, Rectangle, shell,
 } from 'electron';
 import ms from 'ms';
-import { REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE } from '../features/serviceWebview/config';
+import { REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE } from '../ipcChannels';
 import Settings from '../electron/Settings';
 import { TAB_BAR_WIDTH } from '../config';
 import Recipe from './Recipe';
 import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
+import { sleep } from '../helpers/async-helpers';
+import { easeInOutSine } from '../helpers/animation-helpers';
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -80,12 +82,41 @@ export class ServiceBrowserView {
       height: true,
     });
     this.view.setBackgroundColor('black');
+  }
 
+  initialize() {
     this.view.webContents.loadURL(this.config.url);
 
     this.view.webContents.on('ipc-message', (e, channel, data) => {
-      // debug('ipc message from', this.config.name, channel, data);
+      debug('ipc message from', this.config.name, channel, data);
       this.window.webContents.send(channel, this.config.id, data);
+    });
+
+    this.webContents.setWindowOpenHandler(({ url, disposition, ...rest }) => {
+      debug('trying to open new-window with url', url, rest);
+
+      let action: 'allow' | 'deny' = 'deny';
+      let overrideBrowserWindowOptions: BrowserWindowConstructorOptions = {};
+
+      if (disposition === 'new-window') {
+        action = 'allow';
+
+        overrideBrowserWindowOptions = {
+          ...overrideBrowserWindowOptions,
+          webPreferences: {
+            partition: this.config.partition,
+          },
+        };
+      } else if (disposition === 'background-tab' || disposition === 'foreground-tab') {
+        action = 'deny';
+
+        shell.openExternal(url);
+      }
+
+      return {
+        action,
+        overrideBrowserWindowOptions,
+      };
     });
 
     this.view.webContents.send('initialize-recipe', this.state, this.recipe);
@@ -96,9 +127,12 @@ export class ServiceBrowserView {
   }
 
   remove() {
-    clearInterval(this.pollInterval);
-
     this.window.removeBrowserView(this.view);
+  }
+
+  destroy() {
+    clearInterval(this.pollInterval);
+    this.webContents.forcefullyCrashRenderer();
   }
 
   setActive() {
@@ -127,8 +161,6 @@ export class ServiceBrowserView {
         debug('default spellchecker language', this.settings.get('spellcheckerLanguage'));
 
         e.preventDefault();
-
-        // webviewWebContents.session.setSpellCheckerLanguages([settings.spellcheckerLanguage]);
 
         let suggestions = [];
         if (props.dictionarySuggestions) {
@@ -165,6 +197,44 @@ export class ServiceBrowserView {
       this.window.webContents.send(REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, { serviceId: this.config.id });
     });
   }
+
+  async resize({
+    width, height, x, y,
+  }: Rectangle, animationDuration = 0) {
+    if (!animationDuration) {
+      const bounds = this.view.getBounds();
+      const newBounds = {
+        width: width || bounds.width,
+        height: height || bounds.height,
+        x: x || bounds.x,
+        y: y || bounds.y,
+      };
+
+      this.view.setBounds(newBounds);
+    } else {
+      const bounds = this.view.getBounds();
+      const change: Rectangle = {
+        width: (width || bounds.width) - bounds.width,
+        height: (height || bounds.height) - bounds.height,
+        x: (x || bounds.x) - bounds.x,
+        y: (y || bounds.y) - bounds.y,
+      };
+      for (let index = 0; index <= animationDuration; index += 1) {
+        const newBounds = {
+          width: parseInt(easeInOutSine(index, bounds.width, change.width, animationDuration).toString(), 10),
+          height: parseInt(easeInOutSine(index, bounds.height, change.height, animationDuration).toString(), 10),
+          x: parseInt(easeInOutSine(index, bounds.x, change.x, animationDuration).toString(), 10),
+          y: parseInt(easeInOutSine(index, bounds.y, change.y, animationDuration).toString(), 10),
+        };
+
+        // eslint-disable-next-line no-await-in-loop
+        await sleep(1);
+
+        this.view.setBounds(newBounds);
+      }
+    }
+  }
+
 
   focus() {
     this.webContents.focus();

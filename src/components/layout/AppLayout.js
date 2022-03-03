@@ -46,7 +46,7 @@ const styles = theme => ({
   appContent: {
     // width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
     width: '100%',
-    transition: 'transform 0.5s ease',
+    transition: 'transform 0.55s ease-out',
     transform() {
       return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
     },

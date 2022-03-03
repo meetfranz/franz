@@ -14,10 +14,6 @@ class RecipeWebview {
       this.loopFunc();
 
       debug('Poll event');
-
-      // This event is for checking if the service recipe is still actively
-      // communicating with the client
-      ipcRenderer.send('alive');
     });
 
     window.FranzAPI = {
@@ -80,6 +76,21 @@ class RecipeWebview {
     });
   }
 
+  /**
+   * Set the thumbnail for the service
+   *
+   * @param {int} direct      Set the count of direct messages
+   *                          eg. Slack direct mentions, or a
+   *                          message to @channel
+   * @param {int} indirect    Set a badge that defines there are
+   *                          new messages but they do not involve
+   *                          me directly to me eg. in a channel
+   */
+  setServiceIcon(url) {
+    ipcRenderer.send('avatar', url);
+
+    debug('Sending avatar url to host', url);
+  }
 
   onNotify(fn) {
     if (typeof fn === 'function') {

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
-import injectSheet from 'react-jss';
 import ms from 'ms';
 
 import { observable, autorun } from 'mobx';
@@ -76,26 +75,6 @@ const messages = defineMessages({
   @observable isPolled = false;
 
   @observable isPollAnswered = false;
-
-  componentDidMount() {
-    const { service } = this.props;
-
-    if (IS_SERVICE_DEBUGGING_ENABLED) {
-      autorun(() => {
-        if (Date.now() - service.lastPoll < ms('0.2s')) {
-          this.isPolled = true;
-
-          setTimeout(() => { this.isPolled = false; }, ms('1s'));
-        }
-
-        if (Date.now() - service.lastPollAnswer < ms('0.2s')) {
-          this.isPollAnswered = true;
-
-          setTimeout(() => { this.isPollAnswered = false; }, ms('1s'));
-        }
-      });
-    }
-  }
 
   render() {
     const {
