@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Menu, getCurrentWindow } from '@electron/remote';
 import React, { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
@@ -5,13 +7,10 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
-import ms from 'ms';
 
-import { observable, autorun } from 'mobx';
+import { observable } from 'mobx';
 import ServiceModel from '../../../models/Service';
 import { isDevMode, ctrlKey, cmdKey } from '../../../environment';
-
-const IS_SERVICE_DEBUGGING_ENABLED = (localStorage.getItem('debug') || '').includes('Franz:Service');
 
 const messages = defineMessages({
   reload: {

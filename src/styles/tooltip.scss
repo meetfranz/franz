@@ -1,4 +1,19 @@
 .__react_component_tooltip {
   height: auto;
-  padding: 10px !important;
+  padding: 4px !important;
+  font-size: 8px !important;
+}
+
+.sidebar .__react_component_tooltip {
+  width: $theme-sidebar-width - 4px !important;
+  margin-top: -10px !important;
+  margin-left: 2px !important;
+
+  &.place-right {
+    margin-left: 2px !important;
+  }
+
+  &.place-top {
+    margin-top: 10px !important;
+  }
 }

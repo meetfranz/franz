@@ -163,7 +163,26 @@ export default @observer class Sidebar extends Component {
           <i className="mdi mdi-settings" />
         </button>
         {this.state.tooltipEnabled && (
-          <ReactTooltip place="right" type="dark" effect="solid" />
+          <ReactTooltip
+            place="bottom"
+            type="dark"
+            effect="solid"
+            overridePosition={({ left, top }, currentEvent, currentTarget, node) => {
+              const d = document.documentElement;
+
+              left = Math.min(d.clientWidth - node.clientWidth, left);
+              top = Math.min(currentTarget.offsetTop + currentTarget.offsetHeight, top);
+              left = Math.max(0, left);
+              top = Math.max(0, top);
+
+              left = currentTarget.offsetLeft;
+              // top = currentTarget.offsetTop + currentTarget.offsetHeight;
+
+              console.log(left, top);
+
+              return { top, left, place: 'bottom' };
+            }}
+          />
         )}
       </div>
     );
