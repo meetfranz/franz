@@ -811,8 +811,6 @@ export default class ServicesStore extends Store {
     }));
 
     const data = await ipcRenderer.invoke('browserViewManager', sharedServiceData);
-    console.log('_shareServiceConfigWithBrowserViewManager', sharedServiceData);
-
     data.forEach((browserViewHandler) => {
       const service = this.one(browserViewHandler.serviceId);
       if (service) {
