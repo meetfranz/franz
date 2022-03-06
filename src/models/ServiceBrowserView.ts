@@ -204,20 +204,20 @@ export class ServiceBrowserView {
     if (!animationDuration) {
       const bounds = this.view.getBounds();
       const newBounds = {
-        width: width || bounds.width,
-        height: height || bounds.height,
-        x: x || bounds.x,
-        y: y || bounds.y,
+        width: width ?? bounds.width,
+        height: height ?? bounds.height,
+        x: x ?? bounds.x,
+        y: y ?? bounds.y,
       };
 
       this.view.setBounds(newBounds);
     } else {
       const bounds = this.view.getBounds();
       const change: Rectangle = {
-        width: (width || bounds.width) - bounds.width,
-        height: (height || bounds.height) - bounds.height,
-        x: (x || bounds.x) - bounds.x,
-        y: (y || bounds.y) - bounds.y,
+        width: (width ?? bounds.width) - bounds.width,
+        height: (height ?? bounds.height) - bounds.height,
+        x: (x ?? bounds.x) - bounds.x,
+        y: (y ?? bounds.y) - bounds.y,
       };
       for (let index = 0; index <= animationDuration; index += 1) {
         const newBounds = {

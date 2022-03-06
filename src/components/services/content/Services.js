@@ -7,9 +7,9 @@ import Confetti from 'react-confetti';
 import ms from 'ms';
 import injectSheet from 'react-jss';
 
-import ServiceView from './ServiceView';
+import { ipcRenderer } from 'electron';
 import Appear from '../../ui/effects/Appear';
-import { TODOS_RECIPE_ID } from '../../../features/todos';
+import { RESIZE_SERVICE_VIEWS } from '../../../ipcChannels';
 
 const messages = defineMessages({
   welcome: {
@@ -35,17 +35,9 @@ const styles = {
 export default @injectSheet(styles) @observer class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray,
-    setWebviewReference: PropTypes.func.isRequired,
-    detachService: PropTypes.func.isRequired,
-    handleIPCMessage: PropTypes.func.isRequired,
-    openWindow: PropTypes.func.isRequired,
-    reload: PropTypes.func.isRequired,
-    openSettings: PropTypes.func.isRequired,
-    update: PropTypes.func.isRequired,
     userHasCompletedSignup: PropTypes.bool.isRequired,
     hasActivatedTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
-    isSpellcheckerEnabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -62,12 +54,27 @@ export default @injectSheet(styles) @observer class Services extends Component {
 
   _confettiTimeout = null;
 
+  serviceContainerRef = React.createRef()
+
+  resizeObserver = new window.ResizeObserver(([element]) => {
+    const bounds = element.target.getBoundingClientRect();
+
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, {
+      width: bounds.width,
+      height: bounds.height,
+      x: bounds.x,
+      y: bounds.y,
+    });
+  });
+
   componentDidMount() {
     this._confettiTimeout = window.setTimeout(() => {
       this.setState({
         showConfetti: false,
       });
     }, ms('8s'));
+
+    this.resizeObserver.observe(this.serviceContainerRef.current);
   }
 
   componentWillUnmount() {
@@ -76,20 +83,13 @@ export default @injectSheet(styles) @observer class Services extends Component {
     }
   }
 
+
   render() {
     const {
       services,
-      handleIPCMessage,
-      setWebviewReference,
-      detachService,
-      openWindow,
-      reload,
-      openSettings,
-      update,
       userHasCompletedSignup,
       hasActivatedTrial,
       classes,
-      isSpellcheckerEnabled,
     } = this.props;
 
     const {
@@ -99,7 +99,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
     const { intl } = this.context;
 
     return (
-      <div className="services">
+      <div className="services" ref={this.serviceContainerRef}>
         {(userHasCompletedSignup || hasActivatedTrial) && (
           <div className={classes.confettiContainer}>
             <Confetti
@@ -128,27 +128,6 @@ export default @injectSheet(styles) @observer class Services extends Component {
             </div>
           </Appear>
         )}
-        {/* {services.filter(service => service.recipe.id !== TODOS_RECIPE_ID).map(service => (
-          <ServiceView
-            key={service.id}
-            service={service}
-            handleIPCMessage={handleIPCMessage}
-            setWebviewReference={setWebviewReference}
-            detachService={detachService}
-            openWindow={openWindow}
-            reload={() => reload({ serviceId: service.id })}
-            edit={() => openSettings({ path: `services/edit/${service.id}` })}
-            enable={() => update({
-              serviceId: service.id,
-              serviceData: {
-                isEnabled: true,
-              },
-              redirect: false,
-            })}
-            upgrade={() => openSettings({ path: 'user' })}
-            isSpellcheckerEnabled={isSpellcheckerEnabled}
-          />
-        ))} */}
       </div>
     );
   }

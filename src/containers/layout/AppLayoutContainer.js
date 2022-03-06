@@ -47,10 +47,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const {
       setActive,
-      handleIPCMessage,
-      setWebviewReference,
-      detachService,
-      openWindow,
       reorder,
       reload,
       toggleNotifications,
@@ -123,16 +119,8 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
     const servicesContainer = (
       <Services
         services={services.allDisplayedUnordered}
-        handleIPCMessage={handleIPCMessage}
-        setWebviewReference={setWebviewReference}
-        detachService={detachService}
-        openWindow={openWindow}
-        reload={reload}
-        openSettings={openSettings}
-        update={updateService}
         userHasCompletedSignup={user.hasCompletedSignup}
         hasActivatedTrial={user.hasActivatedTrial}
-        isSpellcheckerEnabled={settings.app.enableSpellchecking}
       />
     );
 
@@ -186,10 +174,6 @@ AppLayoutContainer.wrappedComponent.propTypes = {
       reload: PropTypes.func.isRequired,
       toggleNotifications: PropTypes.func.isRequired,
       toggleAudio: PropTypes.func.isRequired,
-      handleIPCMessage: PropTypes.func.isRequired,
-      setWebviewReference: PropTypes.func.isRequired,
-      detachService: PropTypes.func.isRequired,
-      openWindow: PropTypes.func.isRequired,
       reloadUpdatedServices: PropTypes.func.isRequired,
       updateService: PropTypes.func.isRequired,
       deleteService: PropTypes.func.isRequired,
