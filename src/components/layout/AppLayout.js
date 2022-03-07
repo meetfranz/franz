@@ -116,8 +116,6 @@ class AppLayout extends Component {
       activeService,
     } = this.props;
 
-    console.log('showWebControls', showWebControls, activeService);
-
     const { intl } = this.context;
 
     return (
@@ -185,7 +183,6 @@ class AppLayout extends Component {
               )}
               {isDelayAppScreenVisible && (<DelayApp />)}
               <BasicAuth />
-              <ShareFranz />
               {desktopCapturerState.isModalVisible && (
                 <DesktopCapturer />
               )}

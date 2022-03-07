@@ -139,7 +139,6 @@ export class ServiceBrowserView {
 
   update({ config = {}, state = {} }: { config?: Partial<Pick<IServiceConfig, 'name' | 'url'>>, state?: Partial<IServiceState>}) {
     debug('Update service', this.config.name, 'config', config, 'state', state);
-    console.log('##### is load url necessary', config.url !== this.config.url);
     if (config.url !== this.config.url) {
       this.webContents.loadURL(config.url);
     }

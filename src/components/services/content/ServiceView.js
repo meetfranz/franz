@@ -128,26 +128,12 @@ export default @observer class ServiceView extends Component {
           </Fragment>
         ) : (
           <>
-            {service.isServiceAccessRestricted ? (
+            {service.isServiceAccessRestricted && (
               <ServiceRestricted
                 name={service.recipe.name}
                 upgrade={upgrade}
                 type={service.restrictionType}
               />
-            ) : (
-              <>
-                {service.recipe.id === CUSTOM_WEBSITE_ID && (
-                  <WebControlsScreen service={service} />
-                )}
-                {/* {!service.isHibernating && (
-                  <ServiceWebview
-                    service={service}
-                    setWebviewReference={setWebviewReference}
-                    detachService={detachService}
-                    isSpellcheckerEnabled={isSpellcheckerEnabled}
-                  />
-                )} */}
-              </>
             )}
           </>
         )}

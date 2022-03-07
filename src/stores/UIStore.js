@@ -91,12 +91,9 @@ export default class UIStore extends Store {
 
   // Reactions
   _setServiceVisibility() {
-    console.log('_setServiceVisibility', this.stores.services.allDisplayed.length > 0);
     if (!this.isServiceRouteActive && this.stores.services.allDisplayed.length > 0) {
-      console.log('try to hide services');
       this._hideServices();
     } else {
-      console.log('try to show all services');
       this._showServices();
     }
   }

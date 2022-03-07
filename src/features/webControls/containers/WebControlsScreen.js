@@ -32,16 +32,12 @@ class WebControlsScreen extends Component {
 
     this.autorunDisposer = autorun(() => {
       if (service.isAttached) {
-        console.log('service is attached');
         this.webContents = webContents.fromId(service.webContentsId);
 
         this.url = this.webContents.getURL();
 
         URL_EVENTS.forEach((event) => {
           this.webContents.on(event, (e, url) => {
-            console.log(event, e, url);
-            // if (!e.isMainFrame) return;
-
             this.url = url;
             this.canGoBack = this.webContents.canGoBack();
             this.canGoForward = this.webContents.canGoForward();

@@ -1,8 +1,10 @@
 import { observable, reaction } from 'mobx';
 import ms from 'ms';
 
+import { ipcRenderer } from 'electron';
 import { state as delayAppState } from '../delayApp';
 import { gaEvent, gaPage } from '../../lib/analytics';
+import { OPEN_OVERLAY } from '../../ipcChannels';
 import { planSelectionStore } from '../planSelection';
 
 export { default as Component } from './Component';
@@ -27,6 +29,12 @@ export default function initialize(stores) {
     debug('Showing share window');
 
     state.isModalVisible = true;
+
+    // insert ipc event here
+    ipcRenderer.invoke(OPEN_OVERLAY, {
+      route: '/share-franz', transparent: true, height: 400, modal: true,
+    });
+    console.log('trying to open overlay');
 
     gaEvent('Share Franz', 'show');
     gaPage('/share-modal');

@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Franz is better together!",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 18,
+      "line": 16,
       "column": 12
     },
     "end": {
-      "line": 21,
+      "line": 19,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Tell your friends and colleagues how awesome Franz is and help us to spread the word.",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 22,
+      "line": 20,
       "column": 8
     },
     "end": {
-      "line": 25,
+      "line": 23,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Share as email",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 26,
+      "line": 24,
       "column": 16
     },
     "end": {
-      "line": 29,
+      "line": 27,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Share on Facebook",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 30,
+      "line": 28,
       "column": 19
     },
     "end": {
-      "line": 33,
+      "line": 31,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Share on Twitter",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 34,
+      "line": 32,
       "column": 18
     },
     "end": {
-      "line": 37,
+      "line": 35,
       "column": 3
     }
   },
@@ -69,11 +69,11 @@
     "defaultMessage": "!!!Share on LinkedIn",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 38,
+      "line": 36,
       "column": 19
     },
     "end": {
-      "line": 41,
+      "line": 39,
       "column": 3
     }
   },
@@ -82,11 +82,11 @@
     "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 42,
+      "line": 40,
       "column": 18
     },
     "end": {
-      "line": 45,
+      "line": 43,
       "column": 3
     }
   },
@@ -95,11 +95,11 @@
     "defaultMessage": "!!! I've added {count} services to Franz! Get the free app for WhatsApp, Messenger, Slack, Skype and co at www.meetfranz.com /cc @FranzMessenger",
     "file": "src/features/shareFranz/Component.js",
     "start": {
-      "line": 46,
+      "line": 44,
       "column": 20
     },
     "end": {
-      "line": 49,
+      "line": 47,
       "column": 3
     }
   }

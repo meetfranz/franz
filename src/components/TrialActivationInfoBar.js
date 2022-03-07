@@ -17,11 +17,11 @@ const messages = defineMessages({
 const styles = {
   notification: {
     height: 'auto',
-    position: 'absolute',
+    position: 'relative',
     top: -50,
-    transition: 'top 0.3s',
+    // transition: 'top 0.3s',
     zIndex: 500,
-    width: 'calc(100% - 300px)',
+    // width: 'calc(100% - 300px)',
   },
   show: {
     top: 0,

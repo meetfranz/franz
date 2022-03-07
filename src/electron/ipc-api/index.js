@@ -10,6 +10,7 @@ import fullscreenStatus from './fullscreen';
 import subscriptionWindow from './subscriptionWindow';
 import serviceCache from './serviceCache';
 import browserViewManager from './browserViewManager';
+import overlayWindow from './overlayWindow';
 
 export default (params) => {
   settings(params);
@@ -24,4 +25,5 @@ export default (params) => {
   subscriptionWindow(params);
   serviceCache();
   browserViewManager(params);
+  overlayWindow(params);
 };

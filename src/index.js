@@ -6,6 +6,7 @@ import {
   shell,
   ipcMain,
   session,
+  webContents,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
