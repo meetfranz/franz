@@ -18,6 +18,7 @@ interface IServiceState {
   isDarkModeEnabled: boolean,
   team: string,
   hasCustomIcon: boolean,
+  isRestricted: boolean;
 }
 
 interface IServiceConfig {
@@ -42,13 +43,15 @@ export class ServiceBrowserView {
 
   recipe: Recipe;
 
-  view: BrowserView;
+  view: BrowserView = null;
 
   window: BrowserWindow;
 
   settings: Settings;
 
   pollInterval: NodeJS.Timeout | undefined;
+
+  isAttached = false;
 
   constructor({
     config, state, recipe, window, settings,
@@ -61,84 +64,129 @@ export class ServiceBrowserView {
     this.window = window;
     this.settings = settings;
 
-    this.view = new BrowserView({
-      webPreferences: {
-        partition: config.partition,
-        preload: `${__dirname}/../webview/recipe.js`,
-        contextIsolation: false,
-      },
-    });
+    if (!state.isRestricted) {
+      this.view = new BrowserView({
+        webPreferences: {
+          partition: config.partition,
+          preload: `${__dirname}/../webview/recipe.js`,
+          contextIsolation: false,
+        },
+      });
+    }
   }
 
   attach() {
-    const bounds = this.window.getBounds();
+    if (!this.isRestricted) {
+      const bounds = this.window.getBounds();
 
-    this.window.addBrowserView(this.view);
-    this.view.setBounds({
-      x: TAB_BAR_WIDTH, y: 0, width: bounds.width - TAB_BAR_WIDTH, height: bounds.height,
-    });
-    this.view.setAutoResize({
-      width: true,
-      height: true,
-    });
-    this.view.setBackgroundColor('black');
+      this.window.addBrowserView(this.view);
+      this.view.setBounds({
+        x: TAB_BAR_WIDTH, y: 0, width: bounds.width - TAB_BAR_WIDTH, height: bounds.height,
+      });
+      this.view.setAutoResize({
+        width: true,
+        height: true,
+      });
+      this.view.setBackgroundColor('black');
+
+      this.isAttached = true;
+    }
   }
 
   initialize() {
-    this.view.webContents.loadURL(this.config.url);
+    if (!this.isRestricted) {
+      this.view.webContents.loadURL(this.config.url);
 
-    this.view.webContents.on('ipc-message', (e, channel, data) => {
-      debug('ipc message from', this.config.name, channel, data);
-      this.window.webContents.send(channel, this.config.id, data);
-    });
+      this.view.webContents.on('ipc-message', (e, channel, data) => {
+        // debug('ipc message from', this.config.name, channel, data);
+        this.window.webContents.send(channel, this.config.id, data);
+      });
 
-    this.webContents.setWindowOpenHandler(({ url, disposition, ...rest }) => {
-      debug('trying to open new-window with url', url, rest);
+      this.webContents.setWindowOpenHandler(({ url, disposition, ...rest }) => {
+        debug('trying to open new-window with url', url, rest);
 
-      let action: 'allow' | 'deny' = 'deny';
-      let overrideBrowserWindowOptions: BrowserWindowConstructorOptions = {};
+        let action: 'allow' | 'deny' = 'deny';
+        let overrideBrowserWindowOptions: BrowserWindowConstructorOptions = {};
 
-      if (disposition === 'new-window') {
-        action = 'allow';
+        if (disposition === 'new-window') {
+          action = 'allow';
 
-        overrideBrowserWindowOptions = {
-          ...overrideBrowserWindowOptions,
-          webPreferences: {
-            partition: this.config.partition,
-          },
+          overrideBrowserWindowOptions = {
+            ...overrideBrowserWindowOptions,
+            webPreferences: {
+              partition: this.config.partition,
+            },
+          };
+        } else if (disposition === 'background-tab' || disposition === 'foreground-tab') {
+          action = 'deny';
+
+          shell.openExternal(url);
+        }
+
+        return {
+          action,
+          overrideBrowserWindowOptions,
         };
-      } else if (disposition === 'background-tab' || disposition === 'foreground-tab') {
-        action = 'deny';
+      });
 
-        shell.openExternal(url);
-      }
+      this.view.webContents.send('initialize-recipe', this.state, this.recipe);
 
-      return {
-        action,
-        overrideBrowserWindowOptions,
-      };
-    });
+      this.pollInterval = setInterval(this.pollLoop.bind(this), ms('2s'));
 
-    this.view.webContents.send('initialize-recipe', this.state, this.recipe);
+      this.enableContextMenu();
+    }
+  }
 
-    this.pollInterval = setInterval(this.pollLoop.bind(this), ms('2s'));
+  update({ config = {}, state = {} }: { config?: Partial<Pick<IServiceConfig, 'name' | 'url'>>, state?: Partial<IServiceState>}) {
+    debug('Update service', this.config.name, 'config', config, 'state', state);
+    console.log('##### is load url necessary', config.url !== this.config.url);
+    if (config.url !== this.config.url) {
+      this.webContents.loadURL(config.url);
+    }
 
-    this.enableContextMenu();
+    this.config = {
+      ...this.config,
+      ...config,
+    };
+
+    this.state = {
+      ...this.state,
+      ...state,
+    };
   }
 
   remove() {
-    this.window.removeBrowserView(this.view);
+    if (this.isAttached) {
+      this.window.removeBrowserView(this.view);
+    }
+
+    this.isAttached = false;
   }
 
   destroy() {
-    clearInterval(this.pollInterval);
-    this.webContents.forcefullyCrashRenderer();
+    if (this.webContents) {
+      clearInterval(this.pollInterval);
+      this.webContents.forcefullyCrashRenderer();
+    }
   }
 
   setActive() {
-    debug('Set browserView active', this.config.name);
-    this.window.setTopBrowserView(this.view);
-    this.webContents.focus();
+    if (!this.isRestricted) {
+      const browserWindowUrl = new URL(this.window.webContents.getURL());
+      if (browserWindowUrl.hash.startsWith('#/settings')) {
+        debug('Skip setting browserView active as settings window is open');
+        return;
+      }
+
+      debug('is service attached', this.isAttached);
+      if (!this.isAttached) {
+        this.attach();
+      }
+
+      debug('Set browserView active', this.config.name);
+      this.window.setTopBrowserView(this.view);
+      this.webContents.focus();
+    }
   }
 
   pollLoop() {
@@ -242,5 +290,13 @@ export class ServiceBrowserView {
 
   get webContents() {
     return this.view.webContents;
+  }
+
+  get isActive() {
+    return this.state.isActive;
+  }
+
+  get isRestricted() {
+    return this.state.isRestricted;
   }
 }

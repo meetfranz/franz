@@ -25,6 +25,7 @@ import { workspaceActions } from '../../features/workspaces/actions';
 import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
 import { workspaceStore } from '../../features/workspaces';
 import WorkspacesStore from '../../features/workspaces/store';
+import { CUSTOM_WEBSITE_ID } from '../../features/webControls/constants';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
@@ -119,6 +120,9 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
     const servicesContainer = (
       <Services
         services={services.allDisplayedUnordered}
+        reload={reload}
+        openSettings={openSettings}
+        update={updateService}
         userHasCompletedSignup={user.hasCompletedSignup}
         hasActivatedTrial={user.hasActivatedTrial}
       />
@@ -146,6 +150,8 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           areRequiredRequestsLoading={requests.areRequiredRequestsLoading}
           isDelayAppScreenVisible={delayAppState.isDelayAppScreenVisible}
           hasActivatedTrial={user.hasActivatedTrial}
+          showWebControls={services.active?.recipe.id === CUSTOM_WEBSITE_ID}
+          activeService={services.active}
         >
           {React.Children.count(children) > 0 ? children : null}
         </AppLayout>

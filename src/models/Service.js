@@ -27,8 +27,6 @@ export default class Service {
 
   events = {};
 
-  @observable isAttached = false;
-
   @observable isActive = false; // Is current webview active
 
   @observable name = '';
@@ -136,8 +134,7 @@ export default class Service {
 
     autorun(() => {
       if (!this.isEnabled) {
-        this.webview = null;
-        this.isAttached = false;
+        this.webContentsId = null;
         this.unreadDirectMessageCount = 0;
         this.unreadIndirectMessageCount = 0;
       }
@@ -169,6 +166,10 @@ export default class Service {
 
   set webview(webview) {
     this._webview = webview;
+  }
+
+  @computed get isAttached() {
+    return this.webContentsId !== null;
   }
 
   @computed get url() {

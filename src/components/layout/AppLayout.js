@@ -22,6 +22,8 @@ import TrialActivationInfoBar from '../TrialActivationInfoBar';
 import Todos from '../../features/todos/containers/TodosScreen';
 import PlanSelection from '../../features/planSelection/containers/PlanSelectionScreen';
 import TrialStatusBar from '../../features/trialStatusBar/containers/TrialStatusBarScreen';
+import WebControlsScreen from '../../features/webControls/containers/WebControlsScreen';
+import Service from '../../models/Service';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -75,11 +77,14 @@ class AppLayout extends Component {
     areRequiredRequestsLoading: PropTypes.bool.isRequired,
     isDelayAppScreenVisible: PropTypes.bool.isRequired,
     hasActivatedTrial: PropTypes.bool.isRequired,
+    showWebControls: PropTypes.bool.isRequired,
+    activeService: PropTypes.instanceOf(Service),
   };
 
   static defaultProps = {
     children: [],
     nextAppReleaseVersion: null,
+    activeService: null,
   };
 
   static contextTypes = {
@@ -107,7 +112,11 @@ class AppLayout extends Component {
       areRequiredRequestsLoading,
       isDelayAppScreenVisible,
       hasActivatedTrial,
+      showWebControls,
+      activeService,
     } = this.props;
+
+    console.log('showWebControls', showWebControls, activeService);
 
     const { intl } = this.context;
 
@@ -164,6 +173,9 @@ class AppLayout extends Component {
                   <span className="mdi mdi-power-plug" />
                   {intl.formatMessage(messages.servicesUpdated)}
                 </InfoBar>
+              )}
+              {showWebControls && activeService && (
+                <WebControlsScreen service={activeService} />
               )}
               {appUpdateIsDownloaded && (
                 <AppUpdateInfoBar

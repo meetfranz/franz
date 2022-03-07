@@ -10,6 +10,8 @@ import injectSheet from 'react-jss';
 import { ipcRenderer } from 'electron';
 import Appear from '../../ui/effects/Appear';
 import { RESIZE_SERVICE_VIEWS } from '../../../ipcChannels';
+import ServiceView from './ServiceView';
+import { TODOS_RECIPE_ID } from '../../../features/todos';
 
 const messages = defineMessages({
   welcome: {
@@ -35,6 +37,9 @@ const styles = {
 export default @injectSheet(styles) @observer class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray,
+    reload: PropTypes.func.isRequired,
+    openSettings: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
     userHasCompletedSignup: PropTypes.bool.isRequired,
     hasActivatedTrial: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
@@ -87,6 +92,9 @@ export default @injectSheet(styles) @observer class Services extends Component {
   render() {
     const {
       services,
+      reload,
+      openSettings,
+      update,
       userHasCompletedSignup,
       hasActivatedTrial,
       classes,
@@ -101,6 +109,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
     return (
       <div className="services" ref={this.serviceContainerRef}>
         {(userHasCompletedSignup || hasActivatedTrial) && (
+          // TODO: BW REWORK: move confetti to a layer on top of BrowserView
           <div className={classes.confettiContainer}>
             <Confetti
               width={window.width}
@@ -109,7 +118,7 @@ export default @injectSheet(styles) @observer class Services extends Component {
             />
           </div>
         )}
-        {services.length === 0 && (
+        {services.length === 0 ? (
           <Appear
             timeout={1500}
             transitionName="slideUp"
@@ -127,7 +136,22 @@ export default @injectSheet(styles) @observer class Services extends Component {
               </Appear>
             </div>
           </Appear>
-        )}
+        ) : services.filter(service => service.recipe.id !== TODOS_RECIPE_ID).map(service => (
+          <ServiceView
+            key={service.id}
+            service={service}
+            reload={() => reload({ serviceId: service.id })}
+            edit={() => openSettings({ path: `services/edit/${service.id}` })}
+            enable={() => update({
+              serviceId: service.id,
+              serviceData: {
+                isEnabled: true,
+              },
+              redirect: false,
+            })}
+            upgrade={() => openSettings({ path: 'user' })}
+          />
+        ))}
       </div>
     );
   }

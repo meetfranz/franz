@@ -11,21 +11,17 @@ import WebviewCrashHandler from './WebviewCrashHandler';
 import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
 import ServiceRestricted from './ServiceRestricted';
-import ServiceWebview from './ServiceWebview';
 import WebControlsScreen from '../../../features/webControls/containers/WebControlsScreen';
 import { CUSTOM_WEBSITE_ID } from '../../../features/webControls/constants';
 
 export default @observer class ServiceView extends Component {
   static propTypes = {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
-    setWebviewReference: PropTypes.func.isRequired,
-    detachService: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
     edit: PropTypes.func.isRequired,
     enable: PropTypes.func.isRequired,
     isActive: PropTypes.bool,
     upgrade: PropTypes.func.isRequired,
-    isSpellcheckerEnabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -71,14 +67,11 @@ export default @observer class ServiceView extends Component {
 
   render() {
     const {
-      detachService,
       service,
-      setWebviewReference,
       reload,
       edit,
       enable,
       upgrade,
-      isSpellcheckerEnabled,
     } = this.props;
 
     const webviewClasses = classnames({
@@ -146,14 +139,14 @@ export default @observer class ServiceView extends Component {
                 {service.recipe.id === CUSTOM_WEBSITE_ID && (
                   <WebControlsScreen service={service} />
                 )}
-                {!service.isHibernating && (
+                {/* {!service.isHibernating && (
                   <ServiceWebview
                     service={service}
                     setWebviewReference={setWebviewReference}
                     detachService={detachService}
                     isSpellcheckerEnabled={isSpellcheckerEnabled}
                   />
-                )}
+                )} */}
               </>
             )}
           </>

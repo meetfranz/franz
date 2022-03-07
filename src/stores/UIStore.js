@@ -23,9 +23,9 @@ export default class UIStore extends Store {
     this.actions.ui.hideServices.listen(this._hideServices.bind(this));
     this.actions.ui.showServices.listen(this._showServices.bind(this));
 
-    // this.registerReactions([
-    //   this._setServiceVisibility.bind(this),
-    // ]);
+    this.registerReactions([
+      [this._setServiceVisibility.bind(this)],
+    ]);
   }
 
   setup() {
@@ -35,11 +35,11 @@ export default class UIStore extends Store {
       { fireImmediately: true },
     );
 
-    reaction(
-      () => this.isServiceRouteActive,
-      () => this._setServiceVisibility(),
-      { fireImmediately: true },
-    );
+    // reaction(
+    //   () => this.isServiceRouteActive,
+    //   () => this._setServiceVisibility(),
+    //   { delay: 5000 },
+    // );
   }
 
   @computed get showMessageBadgesEvenWhenMuted() {
@@ -91,9 +91,12 @@ export default class UIStore extends Store {
 
   // Reactions
   _setServiceVisibility() {
-    if (!this.isServiceRouteActive) {
+    console.log('_setServiceVisibility', this.stores.services.allDisplayed.length > 0);
+    if (!this.isServiceRouteActive && this.stores.services.allDisplayed.length > 0) {
+      console.log('try to hide services');
       this._hideServices();
     } else {
+      console.log('try to show all services');
       this._showServices();
     }
   }

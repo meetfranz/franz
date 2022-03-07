@@ -176,9 +176,6 @@ export default @observer class Sidebar extends Component {
               top = Math.max(0, top);
 
               left = currentTarget.offsetLeft;
-              // top = currentTarget.offsetTop + currentTarget.offsetHeight;
-
-              console.log(left, top);
 
               return { top, left, place: 'bottom' };
             }}

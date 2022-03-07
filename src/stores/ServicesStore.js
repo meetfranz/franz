@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { app } from '@electron/remote';
+import { app, webContents } from '@electron/remote';
 
 import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
@@ -526,13 +526,10 @@ export default class ServicesStore extends Store {
       });
       service.initializeWebViewListener();
     }
-
-    service.isAttached = true;
   }
 
   @action _detachService({ service }) {
     service.webview = null;
-    service.isAttached = false;
   }
 
   @action _toggleService({ serviceId }) {
@@ -806,6 +803,7 @@ export default class ServicesStore extends Store {
         isDarkModeEnabled: service.isDarkModeEnabled,
         team: service.team,
         hasCustomIcon: service.hasCustomIcon,
+        isRestricted: service.isServiceAccessRestricted,
       },
       recipeId: service.recipe.id,
     }));
@@ -884,7 +882,11 @@ export default class ServicesStore extends Store {
       const isMuted = isAppMuted || service.isMuted;
 
       if (isAttached) {
-        service.webview.audioMuted = isMuted;
+        const serviceWebContents = webContents.fromId(service.webContentsId);
+
+        if (serviceWebContents) {
+          serviceWebContents.setAudioMuted(isMuted);
+        }
       }
     });
   }

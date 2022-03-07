@@ -20,6 +20,7 @@ interface IIPCServiceData {
     isDarkModeEnabled: boolean,
     team: string,
     hasCustomIcon: boolean,
+    isRestricted: boolean;
   },
   recipeId: string,
 }
@@ -27,7 +28,6 @@ interface IIPCServiceData {
 interface IBrowserViewCache {
   id: string;
   browserView: ServiceBrowserView;
-  isActive: boolean;
 }
 
 const browserViews: IBrowserViewCache[] = [];
@@ -35,11 +35,10 @@ const browserViews: IBrowserViewCache[] = [];
 export default async ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any}) => {
   ipcMain.handle('browserViewManager', async (event, services: IIPCServiceData[]) => {
     try {
-      debug('chached services', browserViews.map(bw => `${bw.browserView.config.name} - (${bw.browserView.config.id})`), 'length', browserViews.length);
+      debug('chached services', browserViews.map(bw => `${bw.browserView.config.name} - (${bw.browserView.config.id}) - (${bw.browserView.isActive})`));
 
       services.forEach((service) => {
         let sbw = browserViews.find(bw => bw.id === service.id)?.browserView;
-
 
         if (!sbw) {
           debug('creating new browserview', service.url);
@@ -64,14 +63,27 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
           browserViews.push({
             id: service.id,
             browserView: sbw,
-            isActive: service.state.isActive,
+          });
+        } else {
+          sbw.update({
+            config: {
+              name: service.name,
+              url: service.url,
+            },
+            state: service.state,
           });
         }
 
-        if (service.state.isActive) {
-          setTimeout(() => {
-            sbw.setActive();
-          }, 5);
+        debug('Is service attached', sbw.isAttached);
+
+        if (sbw.isActive) {
+          if (sbw.isRestricted) {
+            browserViews.forEach(bw => bw.browserView.remove());
+          } else {
+            setTimeout(() => {
+              sbw.setActive();
+            }, 5);
+          }
         }
       });
 
@@ -96,7 +108,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
 
   mainWindow.on('focus', () => {
     debug('Window focus, focus browserView');
-    const sbw = browserViews.find(browserView => browserView.isActive);
+    const sbw = browserViews.find(browserView => browserView.browserView.isActive);
     if (sbw) {
       sbw.browserView.focus();
     }
@@ -137,19 +149,25 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     });
   });
 
-  ipcMain.on(HIDE_ALL_SERVICES, (e) => {
+  ipcMain.on(HIDE_ALL_SERVICES, () => {
     debug('Hiding all services');
 
-    browserViews.forEach(bw => mainWindow.removeBrowserView(bw.browserView.view));
+    browserViews.forEach(bw => bw.browserView.remove());
   });
 
-  ipcMain.on(SHOW_ALL_SERVICES, (e) => {
+  ipcMain.on(SHOW_ALL_SERVICES, () => {
     debug('Showing all services');
 
+    if (browserViews.find(bw => bw.browserView.isActive).browserView.isRestricted) {
+      return;
+    }
+
     browserViews.forEach((bw) => {
-      mainWindow.addBrowserView(bw.browserView.view);
-      if (bw.isActive) {
-        bw.browserView.setActive();
+      bw.browserView.attach();
+      if (bw.browserView.isActive) {
+        setTimeout(() => {
+          bw.browserView.setActive();
+        }, 5);
       }
     });
   });
