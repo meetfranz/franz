@@ -60,7 +60,6 @@ class WebControlsScreen extends Component {
   }
 
   reload() {
-    console.log('reload', this.webContents);
     if (!this.webContents) return;
 
     this.webContents.reload();

@@ -6,7 +6,6 @@ import {
   shell,
   ipcMain,
   session,
-  webContents,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
@@ -477,8 +476,19 @@ app.on('activate', () => {
 });
 
 app.on('web-contents-created', (createdEvent, contents) => {
-  contents.on('new-window', (event, url, frameNme, disposition) => {
-    if (disposition === 'foreground-tab') event.preventDefault();
+  // contents.on('new-window', (event, url, frameNme, disposition) => {
+  //   console.log(event, url, disposition);
+  //   if (disposition === 'foreground-tab') event.preventDefault();
+  // });
+  contents.setWindowOpenHandler(({ url, disposition }) => {
+    debug('request for opening a new window', url, disposition);
+    if ((disposition === 'foreground-tab' || disposition === 'background-tab') && isValidExternalURL(url)) {
+      shell.openExternal(url);
+    }
+
+    return {
+      action: 'deny',
+    };
   });
 });
 

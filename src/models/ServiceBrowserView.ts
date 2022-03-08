@@ -140,6 +140,7 @@ export class ServiceBrowserView {
   update({ config = {}, state = {} }: { config?: Partial<Pick<IServiceConfig, 'name' | 'url'>>, state?: Partial<IServiceState>}) {
     debug('Update service', this.config.name, 'config', config, 'state', state);
     if (config.url !== this.config.url) {
+      debug('load url for service. old:', this.config.url, 'new', config.url);
       this.webContents.loadURL(config.url);
     }
 

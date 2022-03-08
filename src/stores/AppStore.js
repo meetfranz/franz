@@ -25,6 +25,7 @@ import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '..
 import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
 import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
+import { OVERLAY_SHARE_SETTINGS } from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -113,10 +114,6 @@ export default class AppStore extends Store {
       this.isOnline = false;
     });
 
-    document.addEventListener('onfullscreenchange', () => {
-      console.log('fullscreen', document.fullscreenEnabled);
-    });
-
     this.isOnline = navigator.onLine;
 
     // Check if Franz should launch on start
@@ -195,6 +192,12 @@ export default class AppStore extends Store {
     ipcRenderer.on('isWindowFocused', (event, isFocused) => {
       debug('Setting is focused to', isFocused);
       this.isFocused = isFocused;
+    });
+
+    ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event) => {
+      ipcRenderer.sendTo(event.senderId, OVERLAY_SHARE_SETTINGS, {
+        locale: this.locale,
+      });
     });
 
     // analytics autorun
@@ -483,7 +486,7 @@ export default class AppStore extends Store {
   }
 
   _muteAppHandler() {
-    const {showMessageBadgesEvenWhenMuted} = this.stores.ui;
+    const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     if (!showMessageBadgesEvenWhenMuted) {
       this.actions.app.setBadge({

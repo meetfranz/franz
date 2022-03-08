@@ -113,3 +113,5 @@ export const PLANS_MAPPING = {
 };
 
 export const TAB_BAR_WIDTH = 68;
+
+export const DEFAULT_WEB_CONTENTS_ID = 1;

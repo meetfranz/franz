@@ -7,6 +7,7 @@ export default {
   upgradeAccount: {
     planId: PropTypes.string.isRequired,
     onCloseWindow: PropTypes.func,
+    overrideParent: PropTypes.bool,
   },
   createDashboardUrl: {},
 };

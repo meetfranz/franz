@@ -9,8 +9,12 @@ import { H1, Icon } from '@meetfranz/ui';
 import {
   mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter, mdiLinkedinBox, mdiClose,
 } from '@mdi/js';
+import { ipcRenderer } from 'electron';
 import { state } from '.';
 import { gaEvent } from '../../lib/analytics';
+import { DEFAULT_WEB_CONTENTS_ID } from '../../config';
+import { SHARE_FRANZ_GET_SERVICE_COUNT } from '../../ipcChannels';
+import service from '../../actions/service';
 
 const messages = defineMessages({
   headline: {
@@ -110,6 +114,17 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
     intl: intlShape,
   };
 
+  state = {
+    serviceCount: 0,
+  }
+
+  componentDidMount() {
+    ipcRenderer.on(SHARE_FRANZ_GET_SERVICE_COUNT, (event, { serviceCount }) => {
+      this.setState({ serviceCount });
+    });
+    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SHARE_FRANZ_GET_SERVICE_COUNT);
+  }
+
   close() {
     window.close();
     state.isModalVisible = true;
@@ -120,12 +135,11 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
       classes,
     } = this.props;
 
-    // const serviceCount = stores.services.all.length;
-    const serviceCount = 10;
+    const {
+      serviceCount,
+    } = this.state;
 
     const { intl } = this.context;
-
-    console.log('seas');
 
     return (
       <div className={classes.container}>

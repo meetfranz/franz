@@ -1,4 +1,4 @@
-import { webFrame } from 'electron';
+import { ipcRenderer, webFrame } from 'electron';
 
 import React from 'react';
 import { IntlProvider } from 'react-intl';
@@ -14,6 +14,10 @@ import { theme } from '@meetfranz/theme';
 
 import translations from './i18n/translations';
 import ShareFranz from './features/shareFranz/Component';
+import { OVERLAY_SHARE_SETTINGS } from './ipcChannels';
+import { DEFAULT_WEB_CONTENTS_ID } from './config';
+import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
+import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -21,31 +25,36 @@ smoothScroll.polyfill();
 // Basic electron Setup
 webFrame.setVisualZoomLevelLimits(1, 1);
 
-const locale = 'en';
-
 window.franz = {
   features: {},
 };
 
-window.addEventListener('load', () => {
+const setup = (settings) => {
   const preparedApp = (
     <IntlProvider
-      {...{ locale, key: locale, messages: translations[locale] }}
+      {...{ locale: settings.locale, key: settings.locale, messages: translations[settings.locale] }}
       ref={(intlProvider) => { window.intl = intlProvider ? intlProvider.getChildContext().intl : null; }}
     >
       <ThemeProvider theme={theme('default')}>
         <Router history={hashHistory}>
-          <Route
-            path="/share-franz"
-            component={ShareFranz}
-          />
+          <Route path="/share-franz" component={ShareFranz} />
+          <Route path="/payment/:url" component={SubscriptionPopupScreen} />
+          <Route path="/plan-selection" component={PlanSelectionScreen} />
         </Router>
 
       </ThemeProvider>
     </IntlProvider>
   );
+
   render(preparedApp, document.getElementById('root'));
+};
+
+// window.addEventListener('load', () => {
+// });
+ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event, settings) => {
+  setup(settings);
 });
+ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, OVERLAY_SHARE_SETTINGS);
 
 // Prevent drag and drop into window from redirecting
 window.addEventListener('dragover', event => event.preventDefault());

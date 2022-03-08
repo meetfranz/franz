@@ -1,10 +1,11 @@
 import { action, observable, computed } from 'mobx';
-import { BrowserWindow, getCurrentWindow } from '@electron/remote';
 
+import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
 import { gaEvent } from '../lib/analytics';
+import { OVERLAY_OPEN } from '../ipcChannels';
 
 export default class PaymentStore extends Store {
   @observable plansRequest = new CachedRequest(this.api.payment, 'plans');
@@ -33,7 +34,7 @@ export default class PaymentStore extends Store {
     return request;
   }
 
-  @action _upgradeAccount({ planId, onCloseWindow = () => null }) {
+  @action async _upgradeAccount({ planId, onCloseWindow = () => null, overrideParent = false }) {
     let hostedPageURL = this.stores.features.features.subscribeURL;
 
     const parsedUrl = new URL(hostedPageURL);
@@ -43,29 +44,19 @@ export default class PaymentStore extends Store {
 
     hostedPageURL = this.stores.user.getAuthURL(`${parsedUrl.origin}${parsedUrl.pathname}?${params.toString()}`);
 
-    const win = new BrowserWindow({
-      parent: getCurrentWindow(),
+    const returnValue = await ipcRenderer.invoke(OVERLAY_OPEN, {
+      route: `/payment/${encodeURIComponent(hostedPageURL)}`,
       modal: true,
-      title: '🔒 Upgrade Your Franz Account',
       width: 800,
-      height: window.innerHeight - 100,
-      maxWidth: 800,
-      minWidth: 600,
-      autoHideMenuBar: true,
-      webPreferences: {
-        nodeIntegration: true,
-        webviewTag: true,
-        enableRemoteModule: true,
-        contextIsolation: false,
-      },
+      overrideParent,
     });
-    win.loadURL(`file://${__dirname}/../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
 
-    win.on('closed', () => {
+    console.log('action', returnValue);
+    if (returnValue === 'closed') {
       this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
       this.stores.features.featuresRequest.invalidate({ immediately: true });
 
       onCloseWindow();
-    });
+    }
   }
 }

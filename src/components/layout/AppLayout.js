@@ -8,7 +8,6 @@ import injectSheet from 'react-jss';
 import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
 import { Component as BasicAuth } from '../../features/basicAuth';
-import { Component as ShareFranz } from '../../features/shareFranz';
 import { Component as DesktopCapturer, state as desktopCapturerState } from '../../features/desktopCapturer';
 import ErrorBoundary from '../util/ErrorBoundary';
 
@@ -20,7 +19,6 @@ import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import TrialActivationInfoBar from '../TrialActivationInfoBar';
 import Todos from '../../features/todos/containers/TodosScreen';
-import PlanSelection from '../../features/planSelection/containers/PlanSelectionScreen';
 import TrialStatusBar from '../../features/trialStatusBar/containers/TrialStatusBarScreen';
 import WebControlsScreen from '../../features/webControls/containers/WebControlsScreen';
 import Service from '../../models/Service';
@@ -192,7 +190,6 @@ class AppLayout extends Component {
             </div>
             <Todos />
           </div>
-          <PlanSelection />
         </div>
       </ErrorBoundary>
     );
