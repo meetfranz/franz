@@ -20,9 +20,8 @@ import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
-import { showModal as showSourceSelectionModal } from '../features/desktopCapturer';
 import {
-  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, INITIALIZE_SERVICE_WEBVIEW, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE,
+  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE,
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:ServiceStore');
@@ -56,10 +55,7 @@ export default class ServicesStore extends Store {
     this.actions.service.updateService.listen(this._updateService.bind(this));
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
-    this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
-    this.actions.service.detachService.listen(this._detachService.bind(this));
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
-    this.actions.service.handleIPCMessage.listen(this._handleIPCMessage.bind(this));
     this.actions.service.sendIPCMessage.listen(this._sendIPCMessage.bind(this));
     this.actions.service.sendIPCMessageToAllServices.listen(this._sendIPCMessageToAllServices.bind(this));
     this.actions.service.setUnreadMessageCount.listen(this._setUnreadMessageCount.bind(this));
@@ -107,7 +103,6 @@ export default class ServicesStore extends Store {
     );
 
     this._handleSpellcheckerLocale();
-    this.handleIPCMessage();
   }
 
   initialize() {
@@ -122,90 +117,6 @@ export default class ServicesStore extends Store {
 
     // Stop checking services for hibernation
     this.serviceMaintenanceTick.cancel();
-  }
-
-  handleIPCMessage() {
-    ipcRenderer.on('messages', (event, serviceId, args) => {
-      debug(`Received unread message info from '${serviceId}'`, args);
-
-      this.actions.service.setUnreadMessageCount({
-        serviceId,
-        count: {
-          direct: args.direct,
-          indirect: args.indirect,
-        },
-      });
-    });
-
-    ipcRenderer.on('hello', (event, serviceId) => {
-      debug(`Received 'hello' from '${serviceId}'`);
-    });
-
-    ipcRenderer.on('notification', (event, serviceId, args) => {
-      debug(`Received 'notification' from '${serviceId}'`);
-
-      const service = this.one(serviceId);
-
-      if (!service) {
-        console.warn(`No service with id '${serviceId}' found`);
-        return;
-      }
-
-      const { options } = args;
-      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
-        Object.assign(options, {
-          silent: true,
-        });
-      }
-
-      if (service.isNotificationEnabled) {
-        const title = typeof args.title === 'string' ? args.title : service.name;
-        options.body = typeof options.body === 'string' ? options.body : '';
-
-        this.actions.app.notify({
-          notificationId: args.notificationId,
-          title,
-          options,
-          serviceId,
-        });
-      }
-    });
-
-    ipcRenderer.on('avatar', (event, serviceId, url) => {
-      debug(`Received 'avatar' from '${serviceId}'`);
-
-      const service = this.one(serviceId);
-
-      if (!service) {
-        console.warn(`No service with id '${serviceId}' found`);
-        return;
-      }
-
-      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
-        service.customIconUrl = url;
-
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            customIconUrl: url,
-          },
-          redirect: false,
-        });
-      }
-    });
-
-    ipcRenderer.on('new-window', (event, serviceId, url) => {
-      debug(`Received 'new-window' from '${serviceId}', url:`, url);
-
-      this.actions.app.openExternalUrl({ url });
-    });
-
-    // } else if (channel === 'feature:todos') {
-    //   Object.assign(args[0].data, { serviceId });
-    //   this.actions.todos.handleHostMessage(args[0]);
-    // } else if (channel === 'feature:desktopCapturer:getSelectSource') {
-    //   showSourceSelectionModal(service.webview);
-    // }
   }
 
   /**
@@ -509,105 +420,18 @@ export default class ServicesStore extends Store {
     service.unreadIndirectMessageCount = count.indirect;
   }
 
-  @action _setWebviewReference({ serviceId, webview }) {
-    const service = this.one(serviceId);
-
-    service.webview = webview;
-
-    const webContentsId = webview.getWebContentsId();
-    ipcRenderer.send(INITIALIZE_SERVICE_WEBVIEW, { id: webContentsId, serviceId });
-
-    if (!service.isAttached) {
-      debug('Webview is not attached, initializing');
-      service.initializeWebViewEvents({
-        handleIPCMessage: this.actions.service.handleIPCMessage,
-        openWindow: this.actions.service.openWindow,
-        stores: this.stores,
-      });
-      service.initializeWebViewListener();
-    }
-  }
-
-  @action _detachService({ service }) {
-    service.webview = null;
-  }
-
   @action _toggleService({ serviceId }) {
     const service = this.one(serviceId);
 
     service.isEnabled = !service.isEnabled;
   }
 
-  @action _handleIPCMessage({ serviceId, channel, args }) {
-    const service = this.one(serviceId);
-
-    if (channel === 'hello') {
-      debug('Received hello event from', serviceId);
-
-      this._initRecipePolling(service.id);
-      this._initializeServiceRecipeInWebview(serviceId);
-      this._shareSettingsWithServiceProcess();
-    } else if (channel === 'alive') {
-      service.lastPollAnswer = Date.now();
-    } else if (channel === 'messages') {
-      debug(`Received unread message info from '${serviceId}'`, args[0]);
-
-      this.actions.service.setUnreadMessageCount({
-        serviceId,
-        count: {
-          direct: args[0].direct,
-          indirect: args[0].indirect,
-        },
-      });
-    } else if (channel === 'notification') {
-      const { options } = args[0];
-      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
-        Object.assign(options, {
-          silent: true,
-        });
-      }
-
-      if (service.isNotificationEnabled) {
-        const title = typeof args[0].title === 'string' ? args[0].title : service.name;
-        options.body = typeof options.body === 'string' ? options.body : '';
-
-        this.actions.app.notify({
-          notificationId: args[0].notificationId,
-          title,
-          options,
-          serviceId,
-        });
-      }
-    } else if (channel === 'avatar') {
-      const url = args[0];
-      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
-        service.customIconUrl = url;
-
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            customIconUrl: url,
-          },
-          redirect: false,
-        });
-      }
-    } else if (channel === 'new-window') {
-      const url = args[0];
-
-      this.actions.app.openExternalUrl({ url });
-    } else if (channel === 'feature:todos') {
-      Object.assign(args[0].data, { serviceId });
-      this.actions.todos.handleHostMessage(args[0]);
-    } else if (channel === 'feature:desktopCapturer:getSelectSource') {
-      showSourceSelectionModal(service.webview);
-    }
-  }
-
   @action _sendIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    if (service.webview) {
-      service.webview.send(channel, toJS(args));
+    const webContents = webContents.fromId(service.webContentsId);
+    if (webContents) {
+      webContents.send(channel, toJS(args));
     }
   }
 

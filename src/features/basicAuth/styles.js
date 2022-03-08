@@ -1,6 +1,7 @@
-export default {
-  modal: {
-    width: 300,
+export default theme => ({
+  container: {
+    padding: 20,
+    color: theme.colorText,
   },
   buttons: {
     display: 'flex',
@@ -9,4 +10,4 @@ export default {
   form: {
     marginTop: 15,
   },
-};
+});

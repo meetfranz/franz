@@ -7,8 +7,6 @@ import injectSheet from 'react-jss';
 
 import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
-import { Component as BasicAuth } from '../../features/basicAuth';
-import { Component as DesktopCapturer, state as desktopCapturerState } from '../../features/desktopCapturer';
 import ErrorBoundary from '../util/ErrorBoundary';
 
 // import globalMessages from '../../i18n/globalMessages';
@@ -180,7 +178,6 @@ class AppLayout extends Component {
                 />
               )}
               {isDelayAppScreenVisible && (<DelayApp />)}
-              <BasicAuth />
               {services}
               {children}
               <TrialStatusBar />

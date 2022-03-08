@@ -19,6 +19,7 @@ import { DEFAULT_WEB_CONTENTS_ID } from './config';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
 import { Component as DesktopCapturer } from './features/desktopCapturer';
+import { Component as BasicAuth } from './features/basicAuth';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -42,6 +43,7 @@ const setup = (settings) => {
           <Route path="/payment/:url" component={SubscriptionPopupScreen} />
           <Route path="/plan-selection" component={PlanSelectionScreen} />
           <Route path="/screen-share/:webContentsId" component={DesktopCapturer} />
+          <Route path="/basic-auth/:webContentsId" component={BasicAuth} />
         </Router>
 
       </ThemeProvider>

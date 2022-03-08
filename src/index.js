@@ -43,7 +43,6 @@ if (isDevMode) {
 app.allowRendererProcessReuse = false;
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
 
-import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
 import Settings from './electron/Settings';
@@ -59,6 +58,7 @@ import {
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
+import { openOverlay } from './electron/ipc-api/overlayWindow';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -376,14 +376,21 @@ app.on('ready', () => {
 const noop = () => null;
 let authCallback = noop;
 
-app.on('login', (event, webContents, request, authInfo, callback) => {
+app.on('login', async (event, webContents, request, authInfo, callback) => {
   authCallback = callback;
   debug('browser login event', authInfo);
   event.preventDefault();
 
   if (!authInfo.isProxy && authInfo.scheme === 'basic') {
     debug('basic auth handler', authInfo);
-    basicAuthHandler(mainWindow, authInfo);
+
+    openOverlay(mainWindow, settings, {
+      route: `/basic-auth/${webContents.id}`,
+      query: authInfo,
+      width: 350,
+      height: 350,
+      modal: true,
+    });
   }
 });
 

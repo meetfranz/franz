@@ -298,6 +298,7 @@ export default class AppStore extends Store {
     debug('New notification', title, options);
 
     notification.onclick = () => {
+      console.log('notification click');
       if (serviceId) {
         this.actions.service.sendIPCMessage({
           channel: `notification-onclick:${notificationId}`,

@@ -7,6 +7,7 @@ const debug = require('debug')('Franz:ipcApi:overlayWindow');
 
 interface IArgs {
   route: string;
+  query?: Record<string, string>,
   width?: number;
   height?: number;
   transparent?: boolean;
@@ -16,8 +17,8 @@ interface IArgs {
 
 export const UPDATE_FULL_SCREEN_STATUS = 'set-full-screen-status';
 
-export default ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any }) => {
-  ipcMain.handle(OVERLAY_OPEN, (event, args: IArgs) => new Promise((resolve) => {
+export function openOverlay(mainWindow: BrowserWindow, settings: any, args: IArgs, eventSenderId?: number) {
+  return new Promise((resolve) => {
     try {
       debug('Got overlay window open request', args);
 
@@ -57,15 +58,23 @@ export default ({ mainWindow, settings: { app: settings } }: { mainWindow: Brows
       });
 
       let { route } = args;
-      route = route.replace('{webContentsId}', event.sender.id.toString());
+      if (eventSenderId) {
+        route = route.replace('{webContentsId}', eventSenderId.toString());
+      }
 
       window.loadFile('overlay.html', {
         hash: route,
+        query: args.query,
       });
 
       window.on('close', () => resolve('closed'));
     } catch (err) {
+      console.log(err);
       resolve('error');
     }
-  }));
+  });
+}
+
+export default ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any }) => {
+  ipcMain.handle(OVERLAY_OPEN, (event, args: IArgs) => openOverlay(mainWindow, settings, args, event.sender.id));
 };

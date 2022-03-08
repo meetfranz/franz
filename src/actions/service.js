@@ -35,13 +35,6 @@ export default {
     serviceId: PropTypes.string.isRequired,
     count: PropTypes.object.isRequired,
   },
-  setWebviewReference: {
-    serviceId: PropTypes.string.isRequired,
-    webview: PropTypes.object.isRequired,
-  },
-  detachService: {
-    service: PropTypes.instanceOf(ServiceModel).isRequired,
-  },
   toggleService: {
     serviceId: PropTypes.string.isRequired,
   },
