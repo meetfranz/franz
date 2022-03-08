@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { defineMessages, intlShape } from 'react-intl';
 import { H1 } from '@meetfranz/ui';
-
-import { ipcRenderer } from 'electron';
 import { Button } from '@meetfranz/forms';
+import { ipcRenderer } from 'electron';
+
 import SourceItem from './sourceItem';
-import Modal from '../../components/ui/Modal';
-import { closeModal, shareSourceWithClientWebview, state } from '.';
-import { REQUEST_DESKTOP_CAPTURER_SOURCES_IPC_KEY } from './config';
-// import { gaEvent } from '../../lib/analytics';
-import ServicesStore from '../../stores/ServicesStore';
+import { shareSourceWithClientWebview, state } from '.';
+import { RELAY_DESKTOP_CAPTURER_SOURCES_IPC_KEY, REQUEST_DESKTOP_CAPTURER_SOURCES_IPC_KEY } from './config';
 
 const messages = defineMessages({
   headline: {
@@ -27,13 +24,18 @@ const messages = defineMessages({
     id: 'feature.desktopCapturer.shareSourceText',
     defaultMessage: '!!!Share {name}',
   },
+  cancel: {
+    id: 'feature.desktopCapturer.cancelSourceSelection',
+    defaultMessage: '!!!Cancel',
+  },
 });
 
-const styles = {
-  modal: {
-    width: '80%',
-    maxWidth: 600,
+const styles = theme => ({
+  container: {
     textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 40,
   },
   headline: {
     textAlign: 'center',
@@ -41,19 +43,23 @@ const styles = {
   sourcesContainer: {
     display: 'flex',
     flexWrap: 'wrap',
-    marginTop: 40,
-    maxHeight: 460,
+    marginTop: 20,
     overflow: 'scroll',
   },
   cta: {
     width: '100%',
     marginTop: 40,
   },
-};
+  cancelCta: {
+    marginTop: 15,
+    color: theme.colorText,
+  },
+});
 
-export default @injectSheet(styles) @inject('stores') @observer class DesktopCapturerModal extends Component {
+export default @injectSheet(styles) @observer class DesktopCapturerModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired,
   };
 
   static contextTypes = {
@@ -70,30 +76,26 @@ export default @injectSheet(styles) @inject('stores') @observer class DesktopCap
   }
 
   close() {
-    state.isModalVisible = false;
     state.sources = [];
   }
 
 
   render() {
-    const { isModalVisible, sources } = state;
+    const { sources } = state;
 
     const {
       classes,
-      // stores,
+      params,
     } = this.props;
+
+    console.log(this.props);
 
     const { intl } = this.context;
 
     const sharedSource = state.sources.find(source => source.id === state.selectedSource);
 
     return (
-      <Modal
-        isOpen={isModalVisible}
-        className={classes.modal}
-        shouldCloseOnOverlayClick
-        close={() => closeModal()}
-      >
+      <div className={classes.container}>
         <H1 className={classes.headline}>
           {intl.formatMessage(messages.headline)}
         </H1>
@@ -119,23 +121,23 @@ export default @injectSheet(styles) @inject('stores') @observer class DesktopCap
             />
           ))}
         </div>
-        <div>
-          <Button
-            label={sharedSource ? intl.formatMessage(messages.shareSourceText, { name: sharedSource.name }) : intl.formatMessage(messages.shareSourceTextDisabled)}
-            className={classes.cta}
-            onClick={() => {
-              shareSourceWithClientWebview();
-              closeModal();
-            }}
-          />
-        </div>
-      </Modal>
+        <Button
+          label={sharedSource ? intl.formatMessage(messages.shareSourceText, { name: sharedSource.name }) : intl.formatMessage(messages.shareSourceTextDisabled)}
+          className={classes.cta}
+          onClick={() => {
+            ipcRenderer.send(RELAY_DESKTOP_CAPTURER_SOURCES_IPC_KEY, {
+              webContentsId: parseInt(params.webContentsId, 10),
+              sourceId: state.selectedSource,
+            });
+
+            // We need to delay closing this a bit until the ipc calls have been finished
+            setTimeout(() => {
+              window.close();
+            }, 10);
+          }}
+        />
+        <button type="button" onClick={() => window.close()} buttonType="inverted" className={classes.cancelCta}>{intl.formatMessage(messages.cancel)}</button>
+      </div>
     );
   }
 }
-
-DesktopCapturerModal.wrappedComponent.propTypes = {
-  stores: PropTypes.shape({
-    services: PropTypes.instanceOf(ServicesStore).isRequired,
-  }).isRequired,
-};

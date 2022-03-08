@@ -181,9 +181,6 @@ class AppLayout extends Component {
               )}
               {isDelayAppScreenVisible && (<DelayApp />)}
               <BasicAuth />
-              {desktopCapturerState.isModalVisible && (
-                <DesktopCapturer />
-              )}
               {services}
               {children}
               <TrialStatusBar />

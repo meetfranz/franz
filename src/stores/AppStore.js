@@ -197,6 +197,7 @@ export default class AppStore extends Store {
     ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event) => {
       ipcRenderer.sendTo(event.senderId, OVERLAY_SHARE_SETTINGS, {
         locale: this.locale,
+        theme: !this.stores.ui.isDarkThemeActive ? 'default' : 'dark',
       });
     });
 

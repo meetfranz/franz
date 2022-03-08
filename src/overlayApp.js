@@ -18,6 +18,7 @@ import { OVERLAY_SHARE_SETTINGS } from './ipcChannels';
 import { DEFAULT_WEB_CONTENTS_ID } from './config';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
 import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
+import { Component as DesktopCapturer } from './features/desktopCapturer';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -35,11 +36,12 @@ const setup = (settings) => {
       {...{ locale: settings.locale, key: settings.locale, messages: translations[settings.locale] }}
       ref={(intlProvider) => { window.intl = intlProvider ? intlProvider.getChildContext().intl : null; }}
     >
-      <ThemeProvider theme={theme('default')}>
+      <ThemeProvider theme={theme(settings.theme)}>
         <Router history={hashHistory}>
           <Route path="/share-franz" component={ShareFranz} />
           <Route path="/payment/:url" component={SubscriptionPopupScreen} />
           <Route path="/plan-selection" component={PlanSelectionScreen} />
+          <Route path="/screen-share/:webContentsId" component={DesktopCapturer} />
         </Router>
 
       </ThemeProvider>

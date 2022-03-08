@@ -56,8 +56,11 @@ export default ({ mainWindow, settings: { app: settings } }: { mainWindow: Brows
         }
       });
 
+      let { route } = args;
+      route = route.replace('{webContentsId}', event.sender.id.toString());
+
       window.loadFile('overlay.html', {
-        hash: args.route,
+        hash: route,
       });
 
       window.on('close', () => resolve('closed'));
