@@ -1,6 +1,10 @@
-import { clipboard, nativeImage, shell } from 'electron';
+import {
+  clipboard, nativeImage, shell, webContents,
+} from 'electron';
 import fetch from 'electron-fetch';
+import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 import { isDevMode, isMac } from '../environment';
+import { IPC } from '../features/todos/constants';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
 const debug = require('debug')('Franz:feature:serviceContextMenu');
@@ -15,15 +19,15 @@ function delUnusedElements(menuTpl) {
 }
 
 export const buildMenuTpl = ({
-  webContents, props, suggestions, isSpellcheckEnabled, defaultSpellcheckerLanguage, spellcheckerLanguage, onUpdateSpellcheckerLanguage,
+  serviceId, webContents: contents, props, suggestions, isSpellcheckEnabled, defaultSpellcheckerLanguage, spellcheckerLanguage, onUpdateSpellcheckerLanguage,
 }) => {
   const { editFlags } = props;
   const textSelection = props.selectionText.trim();
   const hasText = textSelection.length > 0;
   const can = type => editFlags[`can${type}`] && hasText;
 
-  const canGoBack = webContents.canGoBack();
-  const canGoForward = webContents.canGoForward();
+  const canGoBack = contents.canGoBack();
+  const canGoForward = contents.canGoForward();
 
   let menuTpl = [
     {
@@ -34,11 +38,13 @@ export const buildMenuTpl = ({
       visible: hasText,
       click() {
         debug('Create todo from selected text', textSelection);
-        webContents.send('feature:todos', {
+        console.log('wc', contents.getURL());
+        webContents.fromId(DEFAULT_WEB_CONTENTS_ID).send(IPC.TODOS_HOST_CHANNEL, {
           action: 'todos:create',
           data: {
             title: textSelection,
-            url: window.location.href,
+            url: contents.getURL(),
+            serviceId,
           },
         });
       },
@@ -51,7 +57,7 @@ export const buildMenuTpl = ({
       visible: isMac && props.mediaType === 'none' && hasText,
       click() {
         debug('Show definition for selection', textSelection);
-        webContents.showDefinitionForSelection();
+        contents.showDefinitionForSelection();
       },
     }, {
       type: 'separator',
@@ -60,7 +66,7 @@ export const buildMenuTpl = ({
       label: 'Cut',
       click() {
         if (can('Cut')) {
-          webContents.cut();
+          contents.cut();
         }
       },
       enabled: can('Cut'),
@@ -70,7 +76,7 @@ export const buildMenuTpl = ({
       label: 'Copy',
       click() {
         if (can('Copy')) {
-          webContents.copy();
+          contents.copy();
         }
       },
       enabled: can('Copy'),
@@ -80,7 +86,7 @@ export const buildMenuTpl = ({
       label: 'Paste',
       click() {
         if (editFlags.canPaste) {
-          webContents.paste();
+          contents.paste();
         }
       },
       enabled: editFlags.canPaste,
@@ -143,7 +149,7 @@ export const buildMenuTpl = ({
         try {
           const resp = await fetch(props.srcURL, {
             method: 'GET',
-            session: webContents.session,
+            session: contents.session,
           });
 
           const imageBuffer = await resp.buffer();
@@ -185,7 +191,7 @@ export const buildMenuTpl = ({
           reader.onloadend = () => {
             const base64data = reader.result;
 
-            webContents.send('download-file', {
+            contents.send('download-file', {
               content: base64data,
               fileOptions: {
                 name: fileName,
@@ -195,7 +201,7 @@ export const buildMenuTpl = ({
           };
           debug('binary string', blob);
         } else {
-          webContents.send('download-file', { url: props.srcURL });
+          contents.send('download-file', { url: props.srcURL });
         }
       },
     }, {
@@ -209,7 +215,7 @@ export const buildMenuTpl = ({
       type: 'separator',
     }, {
       label: `Add "${props.misspelledWord}" to dictionary`,
-      click: () => webContents.session.addWordToSpellCheckerDictionary(props.misspelledWord),
+      click: () => contents.session.addWordToSpellCheckerDictionary(props.misspelledWord),
     });
   }
 
@@ -218,7 +224,7 @@ export const buildMenuTpl = ({
       id: `suggestion-${suggestion}`,
       label: suggestion,
       click() {
-        webContents.replaceMisspelling(suggestion);
+        contents.replaceMisspelling(suggestion);
       },
     }));
   }
@@ -231,14 +237,14 @@ export const buildMenuTpl = ({
       label: 'Go Back',
       enabled: canGoBack,
       click() {
-        webContents.goBack();
+        contents.goBack();
       },
     }, {
       id: 'goForward',
       label: 'Go Forward',
       enabled: canGoForward,
       click() {
-        webContents.goForward();
+        contents.goForward();
       },
     }, {
       type: 'separator',
@@ -282,7 +288,7 @@ export const buildMenuTpl = ({
           visible: defaultSpellcheckerLanguage !== spellcheckerLanguage || (defaultSpellcheckerLanguage !== 'automatic' && spellcheckerLanguage === 'automatic'),
           click() {
             debug('Resetting service spellchecker to system default');
-            webContents.send('set-service-spellchecker-language', 'reset');
+            contents.send('set-service-spellchecker-language', 'reset');
             onUpdateSpellcheckerLanguage('reset');
           },
         },
@@ -293,7 +299,7 @@ export const buildMenuTpl = ({
           checked: spellcheckerLanguage === 'automatic',
           click() {
             debug('Detect language automatically');
-            webContents.send('set-service-spellchecker-language', 'automatic');
+            contents.send('set-service-spellchecker-language', 'automatic');
             onUpdateSpellcheckerLanguage('automatic');
           },
         },
@@ -313,7 +319,7 @@ export const buildMenuTpl = ({
       id: 'inspect',
       label: 'Inspect Element',
       click() {
-        webContents.inspectElement(props.x, props.y);
+        contents.inspectElement(props.x, props.y);
       },
     });
   }

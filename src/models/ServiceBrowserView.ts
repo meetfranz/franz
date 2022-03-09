@@ -4,7 +4,7 @@ import {
 import ms from 'ms';
 import { REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE } from '../ipcChannels';
 import Settings from '../electron/Settings';
-import { TAB_BAR_WIDTH } from '../config';
+import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
 import Recipe from './Recipe';
 import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
 import { sleep } from '../helpers/async-helpers';
@@ -53,6 +53,8 @@ export class ServiceBrowserView {
 
   isAttached = false;
 
+  bounds: Electron.Rectangle;
+
   constructor({
     config, state, recipe, window, settings,
   }: IServiceBrowserViewConstructor) {
@@ -68,7 +70,7 @@ export class ServiceBrowserView {
       this.view = new BrowserView({
         webPreferences: {
           partition: config.partition,
-          preload: `${__dirname}/../webview/recipe.js`,
+          preload: recipe.id !== TODOS_RECIPE_ID ? `${__dirname}/../webview/recipe.js` : `${__dirname}/../features/todos/preload.js`,
           contextIsolation: false,
         },
       });
@@ -79,10 +81,14 @@ export class ServiceBrowserView {
     if (!this.isRestricted) {
       const bounds = this.window.getBounds();
 
+      if (!this.bounds) {
+        this.bounds = {
+          x: TAB_BAR_WIDTH, y: 0, width: bounds.width - TAB_BAR_WIDTH, height: bounds.height,
+        };
+      }
+
       this.window.addBrowserView(this.view);
-      this.view.setBounds({
-        x: TAB_BAR_WIDTH, y: 0, width: bounds.width - TAB_BAR_WIDTH, height: bounds.height,
-      });
+      this.view.setBounds(this.bounds);
       this.view.setAutoResize({
         width: true,
         height: true,
@@ -98,12 +104,13 @@ export class ServiceBrowserView {
       this.view.webContents.loadURL(this.config.url);
 
       this.view.webContents.on('ipc-message', (e, channel, data) => {
-        // debug('ipc message from', this.config.name, channel, data);
         this.window.webContents.send(channel, this.config.id, data);
       });
 
-      this.webContents.setWindowOpenHandler(({ url, disposition, ...rest }) => {
-        debug('trying to open new-window with url', url, rest);
+      this.webContents.setWindowOpenHandler(({
+        url, disposition, ...rest
+      }) => {
+        debug('trying to open new-window with url', url, disposition, rest);
 
         let action: 'allow' | 'deny' = 'deny';
         let overrideBrowserWindowOptions: BrowserWindowConstructorOptions = {};
@@ -220,6 +227,7 @@ export class ServiceBrowserView {
         const menu = Menu.buildFromTemplate(
           buildMenuTpl(
             {
+              serviceId: this.config.id,
               webContents: this.webContents,
               props,
               suggestions,
@@ -259,6 +267,8 @@ export class ServiceBrowserView {
       };
 
       this.view.setBounds(newBounds);
+
+      this.bounds = newBounds;
     } else {
       const bounds = this.view.getBounds();
       const change: Rectangle = {
@@ -279,6 +289,8 @@ export class ServiceBrowserView {
         await sleep(1);
 
         this.view.setBounds(newBounds);
+
+        this.bounds = newBounds;
       }
     }
   }
@@ -298,5 +310,9 @@ export class ServiceBrowserView {
 
   get isRestricted() {
     return this.state.isRestricted;
+  }
+
+  get isTodos() {
+    return this.recipe.id === TODOS_RECIPE_ID;
   }
 }

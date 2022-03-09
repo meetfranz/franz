@@ -429,9 +429,9 @@ export default class ServicesStore extends Store {
   @action _sendIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    const webContents = webContents.fromId(service.webContentsId);
-    if (webContents) {
-      webContents.send(channel, toJS(args));
+    const contents = webContents.fromId(service.webContentsId);
+    if (contents) {
+      contents.send(channel, toJS(args));
     }
   }
 

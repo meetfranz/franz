@@ -3,9 +3,10 @@ import { ServiceBrowserView } from '../../models/ServiceBrowserView';
 import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
   HIDE_ALL_SERVICES,
-  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, SHOW_ALL_SERVICES,
+  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES,
 } from '../../ipcChannels';
 import Recipe from '../../models/Recipe';
+import { TODOS_RECIPE_ID } from '../../config';
 
 const debug = require('debug')('Franz:ipcApi:browserViewManager');
 
@@ -32,10 +33,39 @@ interface IBrowserViewCache {
 
 const browserViews: IBrowserViewCache[] = [];
 
+const mockTodosService = ({ isActive = false }: { isActive?: boolean }): IIPCServiceData => {
+  const todosRecipe = loadRecipeConfig(TODOS_RECIPE_ID);
+
+  return {
+    id: 'franz-todos',
+    name: 'Franz Todos',
+    url: todosRecipe.config.serviceURL,
+    partition: 'franz-todos',
+    state: {
+      isActive,
+      spellcheckerLanguage: '',
+      isDarkModeEnabled: false,
+      team: '',
+      hasCustomIcon: false,
+      isRestricted: false,
+    },
+    recipeId: TODOS_RECIPE_ID,
+  };
+};
+
 export default async ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any}) => {
   ipcMain.handle('browserViewManager', async (event, services: IIPCServiceData[]) => {
     try {
       debug('chached services', browserViews.map(bw => `${bw.browserView.config.name} - (${bw.browserView.config.id}) - (${bw.browserView.isActive})`));
+
+      const todosServiceIndex = services.findIndex(service => service.recipeId === TODOS_RECIPE_ID);
+
+      if (todosServiceIndex === -1) {
+        services.push(mockTodosService({}));
+      } else {
+        const service = services[todosServiceIndex];
+        services.splice(todosServiceIndex, 1, mockTodosService({ isActive: service.state.isActive }));
+      }
 
       services.forEach((service) => {
         let sbw = browserViews.find(bw => bw.id === service.id)?.browserView;
@@ -144,9 +174,15 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
   ipcMain.on(RESIZE_SERVICE_VIEWS, (e, bounds: Rectangle, animationDuration: 0) => {
     debug('Resizing service views by', bounds);
 
-    browserViews.forEach((bw) => {
+    browserViews.filter(bw => !bw.browserView.isTodos).forEach((bw) => {
       bw.browserView.resize(bounds, animationDuration);
     });
+  });
+
+  ipcMain.on(RESIZE_TODO_VIEW, (e, bounds: Rectangle, animationDuration: 0) => {
+    debug('Resizing todo view by', bounds);
+
+    browserViews.find(bw => bw.browserView.isTodos).browserView.resize(bounds, animationDuration);
   });
 
   ipcMain.on(HIDE_ALL_SERVICES, () => {

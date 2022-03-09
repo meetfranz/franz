@@ -156,9 +156,10 @@ export default class Service {
     };
   }
 
+  // TODO: BW REWORK: do we need this?
   get webview() {
     if (this.recipe.id === TODOS_RECIPE_ID) {
-      return todosStore.webview;
+      return todosStore.webContents;
     }
 
     return this._webview;
@@ -220,10 +221,15 @@ export default class Service {
     return ua;
   }
 
+  @computed get webContents() {
+    return webContents.fromId(this.webContentsId);
+  }
+
   @computed get partition() {
     return this.recipe.partition || `persist:service-${this.id}`;
   }
 
+  // TODO: BW REWORK: evaluate what is necessary and refactor it to browserView.webContents
   initializeWebViewEvents({ handleIPCMessage, openWindow, stores }) {
     const webviewWebContents = webContents.fromId(this.webview.getWebContentsId());
 

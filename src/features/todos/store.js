@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron';
 import { ThemeType } from '@meetfranz/theme';
 import {
   computed,
@@ -6,6 +7,7 @@ import {
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
+import { webContents } from '@electron/remote';
 import { todoActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
 import { createReactions } from '../../stores/lib/Reaction';
@@ -23,7 +25,7 @@ export default class TodoStore extends FeatureStore {
 
   @observable isFeatureActive = false;
 
-  @observable webview = null;
+  @observable webContentsId = null;
 
   isInitialized = false;
 
@@ -51,6 +53,12 @@ export default class TodoStore extends FeatureStore {
     return localStorage.getItem('todos') || {};
   }
 
+  @computed get webContents() {
+    if (!this.webContentsId) return null;
+
+    return webContents.fromId(this.webContentsId);
+  }
+
   // ========== PUBLIC API ========= //
 
   @action start(stores, actions) {
@@ -63,7 +71,6 @@ export default class TodoStore extends FeatureStore {
     this._registerActions(createActionBindings([
       [todoActions.resize, this._resize],
       [todoActions.toggleTodosPanel, this._toggleTodosPanel],
-      [todoActions.setTodosWebview, this._setTodosWebview],
       [todoActions.handleHostMessage, this._handleHostMessage],
       [todoActions.handleClientMessage, this._handleClientMessage],
       [todoActions.toggleTodosFeatureVisibility, this._toggleTodosFeatureVisibility],
@@ -89,6 +96,17 @@ export default class TodoStore extends FeatureStore {
         isFeatureEnabledByUser: DEFAULT_IS_FEATURE_ENABLED_BY_USER,
       });
     }
+
+    ipcRenderer.on(IPC.TODOS_HOST_CHANNEL, (e, message) => {
+      console.log('todos, host', e, message);
+      this._handleHostMessage(message);
+    });
+
+    ipcRenderer.on(IPC.TODOS_CLIENT_CHANNEL, (e, message) => {
+      this.webContentsId = e.senderId;
+      console.log('todos, client', message);
+      this._handleClientMessage({ channel: 'todos', message });
+    });
   }
 
   @action stop() {
@@ -121,15 +139,10 @@ export default class TodoStore extends FeatureStore {
     });
   };
 
-  @action _setTodosWebview = ({ webview }) => {
-    debug('_setTodosWebview', webview);
-    this.webview = webview;
-  };
-
   @action _handleHostMessage = (message) => {
-    debug('_handleHostMessage', message);
+    debug('_handleHostMessage', message, message.action === 'todos:create');
     if (message.action === 'todos:create') {
-      this.webview.send(IPC.TODOS_HOST_CHANNEL, message);
+      this.webContents.send(IPC.TODOS_HOST_CHANNEL, message);
     }
   };
 
@@ -138,6 +151,7 @@ export default class TodoStore extends FeatureStore {
     switch (message.action) {
       case 'todos:initialized': this._onTodosClientInitialized(); break;
       case 'todos:goToService': this._goToService(message.data); break;
+      // case 'todos:create': this._goToService(message.data); break;
       default:
         debug('Other message received', channel, message);
         console.log('this.stores.services.isTodosServiceAdded', this.stores.services.isTodosServiceAdded);
@@ -150,10 +164,6 @@ export default class TodoStore extends FeatureStore {
         }
     }
   };
-
-  _handleNewWindowEvent = ({ url }) => {
-    this.actions.app.openExternalUrl({ url });
-  }
 
   @action _toggleTodosFeatureVisibility = () => {
     debug('_toggleTodosFeatureVisibility');
@@ -183,8 +193,8 @@ export default class TodoStore extends FeatureStore {
     const { authToken } = this.stores.user;
     const { isDarkThemeActive } = this.stores.ui;
     const { locale } = this.stores.app;
-    if (!this.webview) return;
-    await this.webview.send(IPC.TODOS_HOST_CHANNEL, {
+    if (!this.webContents) return;
+    await this.webContents.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
       data: {
         authToken,
@@ -194,17 +204,20 @@ export default class TodoStore extends FeatureStore {
     });
 
     if (!this.isInitialized) {
-      this.webview.addEventListener('new-window', this._handleNewWindowEvent);
-
       this.isInitialized = true;
     }
   };
 
   _goToService = ({ url, serviceId }) => {
     if (url) {
-      this.stores.services.one(serviceId).webview.loadURL(url);
+      const service = this.stores.services.one(serviceId);
+
+      if (service) {
+        service.webContents.loadURL(url);
+      }
+
+      this.actions.service.setActive({ serviceId });
     }
-    this.actions.service.setActive({ serviceId });
   };
 
   // Reactions

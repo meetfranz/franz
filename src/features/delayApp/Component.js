@@ -70,7 +70,7 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('stores', 'actions') @injectSheet(styles) @observer class DelayApp extends Component {
+@inject('stores', 'actions') @injectSheet(styles) @observer class DelayApp extends Component {
   static propTypes = {
     // eslint-disable-next-line
     classes: PropTypes.object.isRequired,
@@ -243,3 +243,5 @@ DelayApp.wrappedComponent.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+export default DelayApp;

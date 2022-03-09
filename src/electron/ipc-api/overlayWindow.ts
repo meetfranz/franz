@@ -15,8 +15,6 @@ interface IArgs {
   overrideParent?: number;
 }
 
-export const UPDATE_FULL_SCREEN_STATUS = 'set-full-screen-status';
-
 export function openOverlay(mainWindow: BrowserWindow, settings: any, args: IArgs, eventSenderId?: number) {
   return new Promise((resolve) => {
     try {
