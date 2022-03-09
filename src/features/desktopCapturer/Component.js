@@ -8,7 +8,7 @@ import { Button } from '@meetfranz/forms';
 import { ipcRenderer } from 'electron';
 
 import SourceItem from './sourceItem';
-import { shareSourceWithClientWebview, state } from '.';
+import { state } from '.';
 import { RELAY_DESKTOP_CAPTURER_SOURCES_IPC_KEY, REQUEST_DESKTOP_CAPTURER_SOURCES_IPC_KEY } from './config';
 
 const messages = defineMessages({

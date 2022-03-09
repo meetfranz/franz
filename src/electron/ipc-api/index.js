@@ -11,7 +11,6 @@ import subscriptionWindow from './subscriptionWindow';
 import serviceCache from './serviceCache';
 import browserViewManager from './browserViewManager';
 import overlayWindow from './overlayWindow';
-import relay from './relay';
 
 export default (params) => {
   settings(params);
@@ -27,5 +26,4 @@ export default (params) => {
   serviceCache();
   browserViewManager(params);
   overlayWindow(params);
-  relay();
 };
