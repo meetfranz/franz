@@ -77,7 +77,7 @@ const styles = theme => ({
   },
   workspaces: {
     height: 'auto',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   premiumAnnouncement: {
     padding: '20px',
