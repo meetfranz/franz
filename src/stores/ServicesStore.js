@@ -616,6 +616,8 @@ export default class ServicesStore extends Store {
 
   // Reactions
   async _shareServiceConfigWithBrowserViewManager() {
+    if (!this.stores.user.isLoggedIn) return;
+
     const sharedServiceData = this.allDisplayed.filter(service => service.isEnabled).map(service => ({
       id: service.id,
       name: service.name,
