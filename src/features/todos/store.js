@@ -63,7 +63,6 @@ export default class TodoStore extends FeatureStore {
   // ========== PUBLIC API ========= //
 
   @action start(stores, actions) {
-    console.log(new Date());
     debug('TodoStore::start');
     this.stores = stores;
     this.actions = actions;
