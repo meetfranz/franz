@@ -679,8 +679,7 @@ export default class FranzMenu {
         label: intl.formatMessage(menuItems.toggleTodosDevTools),
         accelerator: `${cmdKey}+Shift+Alt+O`,
         click: () => {
-          const webview = document.querySelector('#todos-panel webview');
-          if (webview) this.actions.todos.openDevTools();
+          this.actions.todos.toggleDevTools();
         },
       });
     }
@@ -1041,7 +1040,7 @@ export default class FranzMenu {
       return service.name;
     }
 
-    let name = service.recipe.name;
+    let { name } = service.recipe;
 
     if (service.team) {
       name = `${name} (${service.team})`;

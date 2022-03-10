@@ -9,6 +9,7 @@ import Recipe from './Recipe';
 import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
 import { sleep } from '../helpers/async-helpers';
 import { easeInOutSine } from '../helpers/animation-helpers';
+import { IPC } from '../features/todos/constants';
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -139,6 +140,12 @@ export class ServiceBrowserView {
       this.view.webContents.send('initialize-recipe', this.state, this.recipe);
 
       this.pollInterval = setInterval(this.pollLoop.bind(this), ms('2s'));
+
+      if (this.isTodos) {
+        debug('init todos web contents', new Date());
+        this.window.webContents.send(IPC.TODOS_HOST_CHANNEL, { action: 'setWebContentsId', id: this.webContents.id });
+        this.webContents.openDevTools();
+      }
 
       this.enableContextMenu();
     }
