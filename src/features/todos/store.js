@@ -17,6 +17,7 @@ import {
 } from '.';
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
+import { TODOS_FETCH_WEB_CONTENTS_ID } from '../../ipcChannels';
 
 const debug = require('debug')('Franz:feature:todos:store');
 
@@ -62,6 +63,7 @@ export default class TodoStore extends FeatureStore {
   // ========== PUBLIC API ========= //
 
   @action start(stores, actions) {
+    console.log(new Date());
     debug('TodoStore::start');
     this.stores = stores;
     this.actions = actions;
@@ -74,7 +76,7 @@ export default class TodoStore extends FeatureStore {
       [todoActions.handleHostMessage, this._handleHostMessage],
       [todoActions.handleClientMessage, this._handleClientMessage],
       [todoActions.toggleTodosFeatureVisibility, this._toggleTodosFeatureVisibility],
-      [todoActions.openDevTools, this._openDevTools],
+      [todoActions.toggleDevTools, this._toggleDevTools],
       [todoActions.reload, this._reload],
     ]));
 
@@ -98,15 +100,15 @@ export default class TodoStore extends FeatureStore {
     }
 
     ipcRenderer.on(IPC.TODOS_HOST_CHANNEL, (e, message) => {
-      console.log('todos, host', e, message);
-      this._handleHostMessage(message);
+      this._handleHostMessage(e, message);
     });
 
     ipcRenderer.on(IPC.TODOS_CLIENT_CHANNEL, (e, message) => {
       this.webContentsId = e.senderId;
-      console.log('todos, client', message);
       this._handleClientMessage({ channel: 'todos', message });
     });
+
+    ipcRenderer.invoke(TODOS_FETCH_WEB_CONTENTS_ID).then((webContentsId) => { this.webContentsId = webContentsId; });
   }
 
   @action stop() {
@@ -139,10 +141,12 @@ export default class TodoStore extends FeatureStore {
     });
   };
 
-  @action _handleHostMessage = (message) => {
-    debug('_handleHostMessage', message, message.action === 'todos:create');
+  @action _handleHostMessage = (e, message) => {
+    debug('_handleHostMessage', message, message.action === 'todos:create', e);
     if (message.action === 'todos:create') {
       this.webContents.send(IPC.TODOS_HOST_CHANNEL, message);
+    } else if (message.action === 'setWebContentsId') {
+      this.webContentsId = e.senderId;
     }
   };
 
@@ -154,7 +158,6 @@ export default class TodoStore extends FeatureStore {
       // case 'todos:create': this._goToService(message.data); break;
       default:
         debug('Other message received', channel, message);
-        console.log('this.stores.services.isTodosServiceAdded', this.stores.services.isTodosServiceAdded);
         if (this.stores.services.isTodosServiceAdded) {
           this.actions.service.handleIPCMessage({
             serviceId: this.stores.services.isTodosServiceAdded.id,
@@ -173,11 +176,14 @@ export default class TodoStore extends FeatureStore {
     });
   };
 
-  _openDevTools = () => {
-    debug('_openDevTools');
+  _toggleDevTools = () => {
+    debug('_toggleDevTools');
 
-    const webview = document.querySelector('#todos-panel webview');
-    if (webview) webview.openDevTools({ mode: 'detach' });
+    if (this.webContents.isDevToolsOpened()) {
+      this.webContents.closeDevTools();
+    } else {
+      this.webContents.openDevTools({ mode: 'detach' });
+    }
   }
 
   _reload = () => {

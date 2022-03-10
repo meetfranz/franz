@@ -3,7 +3,7 @@ import { ServiceBrowserView } from '../../models/ServiceBrowserView';
 import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
   HIDE_ALL_SERVICES,
-  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES,
+  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID,
 } from '../../ipcChannels';
 import Recipe from '../../models/Recipe';
 import { TODOS_RECIPE_ID } from '../../config';
@@ -194,7 +194,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
   ipcMain.on(SHOW_ALL_SERVICES, () => {
     debug('Showing all services');
 
-    if (browserViews.find(bw => bw.browserView.isActive).browserView.isRestricted) {
+    if (browserViews.find(bw => bw.browserView.isActive)?.browserView.isRestricted) {
       return;
     }
 
@@ -206,5 +206,13 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
         }, 5);
       }
     });
+  });
+
+  ipcMain.handle(TODOS_FETCH_WEB_CONTENTS_ID, () => {
+    debug('Retrieving Todos webContentsId');
+
+    const webContentsId = browserViews.find(bw => bw.browserView.isTodos)?.browserView.webContents.id;
+
+    return webContentsId;
   });
 };

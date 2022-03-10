@@ -21,7 +21,7 @@ export const todoActions = createActionsFromDefinitions({
       data: PropTypes.object,
     }),
   },
-  openDevTools: {},
+  toggleDevTools: {},
   reload: {},
 }, PropTypes.checkPropTypes);
 
