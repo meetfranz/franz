@@ -15,7 +15,7 @@ import OrderModel from '../../models/Order';
 
 import { sleep } from '../../helpers/async-helpers';
 
-import { API } from '../../environment';
+import { API, isWindows } from '../../environment';
 import { prepareAuthRequest, sendAuthRequest } from '../utils/auth';
 
 import {
@@ -381,14 +381,19 @@ export default class ServerApi {
 
       await sleep(10);
 
-      await tar.x({
+      const tarOpts = {
         file: archivePath,
         cwd: recipeTempDirectory,
         preservePaths: true,
         unlink: true,
-        preserveOwner: false,
         onwarn: x => console.log('warn', recipeId, x),
-      });
+      };
+
+      if (!isWindows) {
+        tarOpts.preserveOwner = false;
+      }
+
+      await tar.x(tarOpts);
 
       await sleep(10);
 
