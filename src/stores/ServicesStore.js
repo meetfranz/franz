@@ -103,6 +103,7 @@ export default class ServicesStore extends Store {
     );
 
     this._handleSpellcheckerLocale();
+    this.handleIPCMessage();
   }
 
   initialize() {
@@ -117,6 +118,83 @@ export default class ServicesStore extends Store {
 
     // Stop checking services for hibernation
     this.serviceMaintenanceTick.cancel();
+  }
+
+  handleIPCMessage() {
+    ipcRenderer.on('messages', (event, serviceId, args) => {
+      debug(`Received unread message info from '${serviceId}'`, args);
+
+      this.actions.service.setUnreadMessageCount({
+        serviceId,
+        count: {
+          direct: args.direct,
+          indirect: args.indirect,
+        },
+      });
+    });
+
+    ipcRenderer.on('hello', (event, serviceId) => {
+      debug(`Received 'hello' from '${serviceId}'`);
+    });
+
+    ipcRenderer.on('notification', (event, serviceId, args) => {
+      debug(`Received 'notification' from '${serviceId}'`);
+
+      const service = this.one(serviceId);
+
+      if (!service) {
+        console.warn(`No service with id '${serviceId}' found`);
+        return;
+      }
+
+      const { options } = args;
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
+        Object.assign(options, {
+          silent: true,
+        });
+      }
+
+      if (service.isNotificationEnabled) {
+        const title = typeof args.title === 'string' ? args.title : service.name;
+        options.body = typeof options.body === 'string' ? options.body : '';
+
+        this.actions.app.notify({
+          notificationId: args.notificationId,
+          title,
+          options,
+          serviceId,
+        });
+      }
+    });
+
+    ipcRenderer.on('avatar', (event, serviceId, url) => {
+      debug(`Received 'avatar' from '${serviceId}'`);
+
+      const service = this.one(serviceId);
+
+      if (!service) {
+        console.warn(`No service with id '${serviceId}' found`);
+        return;
+      }
+
+      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
+        service.customIconUrl = url;
+
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            customIconUrl: url,
+          },
+          redirect: false,
+        });
+      }
+    });
+
+    ipcRenderer.on('new-window', (event, serviceId, url) => {
+      debug(`Received 'new-window' from '${serviceId}', url:`, url);
+
+      this.actions.app.openExternalUrl({ url });
+    });
   }
 
   /**

@@ -106,6 +106,10 @@ export class ServiceBrowserView {
 
       this.view.webContents.on('ipc-message', (e, channel, data) => {
         this.window.webContents.send(channel, this.config.id, data);
+
+        if (channel === 'hello') {
+          this.view.webContents.send('initialize-recipe', this.state, this.recipe);
+        }
       });
 
       this.webContents.setWindowOpenHandler(({
@@ -137,14 +141,11 @@ export class ServiceBrowserView {
         };
       });
 
-      this.view.webContents.send('initialize-recipe', this.state, this.recipe);
-
       this.pollInterval = setInterval(this.pollLoop.bind(this), ms('2s'));
 
       if (this.isTodos) {
         debug('init todos web contents', new Date());
         this.window.webContents.send(IPC.TODOS_HOST_CHANNEL, { action: 'setWebContentsId', id: this.webContents.id });
-        this.webContents.openDevTools();
       }
 
       this.enableContextMenu();
