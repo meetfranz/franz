@@ -178,8 +178,15 @@ const createWindow = () => {
     minWidth: 600,
     minHeight: 500,
     titleBarStyle: isMac ? 'hidden' : '',
-    frame: isLinux,
+    frame: !isMac,
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
+    // titleBarStyle: 'hidden',
+    // titleBarOverlay: true,
+    // titleBarOverlay: {
+    //   color: '#2f3241',
+    //   symbolColor: '#74b1be'
+    // },
+    autoHideMenuBar: false,
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,

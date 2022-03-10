@@ -117,7 +117,7 @@ class AppLayout extends Component {
     return (
       <ErrorBoundary>
         <div className="app">
-          {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+          {/* {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />} */}
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}
             {sidebar}
