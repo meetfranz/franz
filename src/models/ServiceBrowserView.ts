@@ -268,10 +268,10 @@ export class ServiceBrowserView {
     if (!animationDuration) {
       const bounds = this.view.getBounds();
       const newBounds = {
-        width: width ?? bounds.width,
-        height: height ?? bounds.height,
-        x: x ?? bounds.x,
-        y: y ?? bounds.y,
+        width: parseInt((width ?? bounds.width).toFixed(), 10),
+        height: parseInt((height ?? bounds.height).toFixed(), 10),
+        x: parseInt((x ?? bounds.x).toFixed(), 10),
+        y: parseInt((y ?? bounds.y).toFixed(), 10),
       };
 
       this.view.setBounds(newBounds);
