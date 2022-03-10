@@ -20,6 +20,7 @@
   "feature.delayApp.trial.headline": "Get the free Franz Professional 14-days trial and skip the wait",
   "feature.delayApp.upgrade.action": "Upgrade Franz",
   "feature.delayApp.upgrade.actionShort": "Upgrade account",
+  "feature.desktopCapturer.cancelSourceSelection": "Cancel",
   "feature.desktopCapturer.headline": "Choose what to share",
   "feature.desktopCapturer.shareSourceText": "Share {name}",
   "feature.desktopCapturer.shareSourceTextDisabled": "Select source",
