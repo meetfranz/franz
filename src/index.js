@@ -373,7 +373,7 @@ app.on('ready', () => {
   }
 
   // eslint-disable-next-line global-require
-  require('electron-react-titlebar/main').initialize();
+  require('@meetfranz/electron-react-titlebar/main').initialize();
 
   createWindow();
 });

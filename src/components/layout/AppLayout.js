@@ -46,9 +46,6 @@ const styles = theme => ({
       return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
     },
   },
-  windowsTitlebarContainer: {
-    height: 28,
-  },
 });
 
 @injectSheet(styles) @observer
@@ -117,7 +114,7 @@ class AppLayout extends Component {
     return (
       <ErrorBoundary>
         <div className="app">
-          {isFullScreen && isWindows && <div className={classes.windowsTitlebarContainer} />}
+          {isFullScreen && isWindows && <div className="windowsTitlebarContainer" />}
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}
             {sidebar}

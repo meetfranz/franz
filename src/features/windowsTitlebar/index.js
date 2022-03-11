@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { TitleBar } from 'electron-react-titlebar';
+import { TitleBar } from '@meetfranz/electron-react-titlebar';
 import React, { useEffect, useState } from 'react';
 import { DEFAULT_WEB_CONTENTS_ID } from '../../config';
 import { WINDOWS_TITLEBAR_GET_MENU, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
