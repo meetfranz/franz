@@ -114,7 +114,6 @@ class AppLayout extends Component {
     return (
       <ErrorBoundary>
         <div className="app">
-          {isFullScreen && isWindows && <div className="windowsTitlebarContainer" />}
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}
             {sidebar}

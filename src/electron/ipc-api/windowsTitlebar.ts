@@ -3,6 +3,7 @@ import {
 } from 'electron';
 import { isDevMode } from '../../environment';
 import { WINDOWS_TITLEBAR_INITIALIZE, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
+import { windowsTitleBarHeight } from '../../theme/default/legacy';
 
 export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
   let view: BrowserView;
@@ -25,7 +26,7 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
 
     view.setBounds({
       width: bounds.width,
-      height: 28,
+      height: parseInt(windowsTitleBarHeight, 10),
       x: 0,
       y: 0,
     });
