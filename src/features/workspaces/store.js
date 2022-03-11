@@ -243,7 +243,7 @@ export default class WorkspacesStore extends FeatureStore {
 
   @action _toggleWorkspaceDrawer = () => {
     this.isWorkspaceDrawerOpen = !this.isWorkspaceDrawerOpen;
-    ipcRenderer.send(RESIZE_SERVICE_VIEWS, { x: !this.isWorkspaceDrawerOpen ? TAB_BAR_WIDTH : TAB_BAR_WIDTH + this.stores.ui.theme.workspaces.drawer.width }, 250);
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, { x: !this.isWorkspaceDrawerOpen ? TAB_BAR_WIDTH : TAB_BAR_WIDTH + this.stores.ui.theme.workspaces.drawer.width });
   };
 
   @action _openWorkspaceSettings = () => {

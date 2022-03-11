@@ -117,6 +117,7 @@ export default @observer class Sidebar extends Component {
             disabled={isTodosServiceActive}
             className={`sidebar__button sidebar__button--todos  ${todosStore.isTodosPanelVisible ? 'is-active' : ''}`}
             data-tip={`${intl.formatMessage(todosToggleMessage)} (${ctrlKey}+T)`}
+            data-for="tabs"
           >
             <i className="mdi mdi-check-all" />
           </button>
@@ -131,6 +132,7 @@ export default @observer class Sidebar extends Component {
             }}
             className={`sidebar__button sidebar__button--workspaces ${isWorkspaceDrawerOpen ? 'is-active' : ''}`}
             data-tip={`${intl.formatMessage(workspaceToggleMessage)} (${ctrlKey}+D)`}
+            data-for="tabs"
           >
             <i className="mdi mdi-view-grid" />
           </button>
@@ -143,6 +145,7 @@ export default @observer class Sidebar extends Component {
           }}
           className={`sidebar__button sidebar__button--audio ${isAppMuted ? 'is-muted' : ''}`}
           data-tip={`${intl.formatMessage(isAppMuted ? messages.unmute : messages.mute)} (${ctrlKey}+Shift+M)`}
+          data-for="tabs"
         >
           <i className={`mdi mdi-bell${isAppMuted ? '-off' : ''}`} />
         </button>
@@ -151,6 +154,7 @@ export default @observer class Sidebar extends Component {
           onClick={() => openSettings({ path: 'recipes' })}
           className="sidebar__button sidebar__button--new-service"
           data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
+          data-for="tabs"
         >
           <i className="mdi mdi-plus-box" />
         </button>
@@ -159,11 +163,13 @@ export default @observer class Sidebar extends Component {
           onClick={() => openSettings({ path: 'app' })}
           className="sidebar__button sidebar__button--settings"
           data-tip={`${intl.formatMessage(messages.settings)} (${ctrlKey}+,)`}
+          data-for="tabs"
         >
           <i className="mdi mdi-settings" />
         </button>
         {this.state.tooltipEnabled && (
           <ReactTooltip
+            id="tabs"
             place="bottom"
             type="dark"
             effect="solid"

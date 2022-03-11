@@ -243,7 +243,7 @@ class WorkspaceDrawer extends Component {
             </div>
           </div>
         )}
-        <ReactTooltip place="right" type="dark" effect="solid" />
+        <ReactTooltip place="bottom" type="dark" effect="solid" />
       </div>
     );
   }

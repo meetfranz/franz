@@ -66,6 +66,7 @@ const styles = theme => ({
     right: 0,
     padding: 20,
     '& svg': {
+      color: theme.styleTypes.primary.contrast,
       fill: theme.styleTypes.primary.contrast,
     },
   },
