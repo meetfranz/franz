@@ -21,7 +21,7 @@ import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import {
-  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE,
+  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE, HIDE_ALL_SERVICES,
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:ServiceStore');
@@ -694,6 +694,10 @@ export default class ServicesStore extends Store {
 
   // Reactions
   async _shareServiceConfigWithBrowserViewManager() {
+    if (this.all.length === 0) {
+      ipcRenderer.send(HIDE_ALL_SERVICES);
+    }
+
     if (!this.stores.user.isLoggedIn) return;
 
     const sharedServiceData = this.allDisplayed.filter(service => service.isEnabled).map(service => ({
