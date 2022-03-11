@@ -156,3 +156,7 @@ body.win32:not(.isFullScreen) .app .app__content {
   z-index: 999999999;
   pointer-events: none;
 }
+
+.windowsTitlebarContainer {
+    height: 28px;
+}

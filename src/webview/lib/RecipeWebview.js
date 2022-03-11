@@ -22,9 +22,9 @@ class RecipeWebview {
 
     // fix BrowserView Background issue
     const styles = document.createElement('style');
-      styles.innerHTML = 'html { background: white; }';
+    styles.innerHTML = 'html { background: white; }';
 
-      document.querySelector('head').appendChild(styles);
+    document.querySelector('head').appendChild(styles);
   }
 
   loopFunc = () => null;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { intlShape } from 'react-intl';
-import { TitleBar } from 'electron-react-titlebar/renderer';
 
 import Link from '../ui/Link';
 import InfoBar from '../ui/InfoBar';
@@ -52,7 +51,7 @@ export default @observer class AuthLayout extends Component {
 
     return (
       <>
-        {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />}
+        {isFullScreen && isWindows && <div className="windowsTitlebarContainer" />}
         <div className="auth">
           {!isOnline && (
             <InfoBar

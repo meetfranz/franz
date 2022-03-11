@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
-import { TitleBar } from 'electron-react-titlebar/renderer';
 import injectSheet from 'react-jss';
 
 import InfoBar from '../ui/InfoBar';
@@ -42,9 +41,7 @@ const messages = defineMessages({
 
 const styles = theme => ({
   appContent: {
-    // width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
     width: '100%',
-    transition: 'transform 0.55s ease-out',
     transform() {
       return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
     },
@@ -117,7 +114,7 @@ class AppLayout extends Component {
     return (
       <ErrorBoundary>
         <div className="app">
-          {/* {isWindows && !isFullScreen && <TitleBar menu={window.franz.menu.template} icon="assets/images/logo.svg" />} */}
+          {isFullScreen && isWindows && <div className="windowsTitlebarContainer" />}
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}
             {sidebar}

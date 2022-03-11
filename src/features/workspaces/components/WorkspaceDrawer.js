@@ -77,7 +77,7 @@ const styles = theme => ({
   },
   workspaces: {
     height: 'auto',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   premiumAnnouncement: {
     padding: '20px',
@@ -243,7 +243,7 @@ class WorkspaceDrawer extends Component {
             </div>
           </div>
         )}
-        <ReactTooltip place="right" type="dark" effect="solid" />
+        <ReactTooltip place="bottom" type="dark" effect="solid" />
       </div>
     );
   }

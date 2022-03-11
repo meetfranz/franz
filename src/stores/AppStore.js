@@ -25,7 +25,7 @@ import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '..
 import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
 import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
-import { OVERLAY_SHARE_SETTINGS } from '../ipcChannels';
+import { OVERLAY_SHARE_SETTINGS, WINDOWS_TITLEBAR_GET_MENU, WINDOWS_TITLEBAR_INITIALIZE } from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -169,6 +169,13 @@ export default class AppStore extends Store {
     ipcRenderer.on(UPDATE_FULL_SCREEN_STATUS, (e, status) => {
       this.isFullScreen = status;
     });
+
+    if (isWindows) {
+      ipcRenderer.on(WINDOWS_TITLEBAR_GET_MENU, (e) => {
+        ipcRenderer.sendTo(e.senderId, WINDOWS_TITLEBAR_GET_MENU, JSON.parse(JSON.stringify(window.franz.menu.template)));
+      });
+      ipcRenderer.send(WINDOWS_TITLEBAR_INITIALIZE);
+    }
 
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {

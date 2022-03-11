@@ -165,6 +165,7 @@ const messages = defineMessages({
         onClick={clickHandler}
         onContextMenu={() => menu.popup(getCurrentWindow())}
         data-tip={`${service.name} ${shortcutIndex <= 9 ? `(${ctrlKey}+${shortcutIndex})` : ''}`}
+        data-for="tabs"
       >
         <img
           src={service.icon}
