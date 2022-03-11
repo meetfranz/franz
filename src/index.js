@@ -59,6 +59,7 @@ import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 import { openOverlay } from './electron/ipc-api/overlayWindow';
+import { darkThemeGrayDarker, themeGrayLightest } from './theme/default/legacy';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -180,13 +181,13 @@ const createWindow = () => {
     titleBarStyle: isMac ? 'hidden' : '',
     frame: !isMac,
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
-    // titleBarStyle: 'hidden',
-    // titleBarOverlay: true,
+    titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
+    // titleBarOverlay: false,
     // titleBarOverlay: {
-    //   color: '#2f3241',
-    //   symbolColor: '#74b1be'
+    //   color: !settings.get('darkMode') ? themeGrayLightest : darkThemeGrayDarker,
+    //   symbolColor: !settings.get('darkMode') ? '#000' : '#FFF',
     // },
-    autoHideMenuBar: false,
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,

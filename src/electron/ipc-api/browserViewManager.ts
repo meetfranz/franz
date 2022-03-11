@@ -112,6 +112,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
           } else {
             setTimeout(() => {
               sbw.setActive();
+              sbw.focus();
             }, 5);
           }
         }

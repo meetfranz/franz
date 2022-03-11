@@ -26,7 +26,7 @@ export const WindowsTitlebar = () => {
           height: isClicked ? window.outerHeight : 28,
         });
       }}
-      showWindowControls={false}
+      // showWindowControls={false}
     />
   );
 };
