@@ -1,6 +1,6 @@
-import { shell, clipboard } from 'electron';
+import { shell, clipboard, ipcRenderer } from 'electron';
 import {
-  app, Menu, dialog, webContents,
+  app, Menu, dialog, webContents, getCurrentWindow,
 } from '@electron/remote';
 import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
@@ -14,8 +14,9 @@ import { announcementsStore } from '../features/announcements';
 import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
+import { GET_ACTIVE_SERVICE_WEB_CONTENTS_ID } from '../ipcChannels';
 
-const menuItems = defineMessages({
+export const menuItems = defineMessages({
   edit: {
     id: 'menu.edit',
     defaultMessage: '!!!Edit',
@@ -274,8 +275,9 @@ const menuItems = defineMessages({
   },
 });
 
-function getActiveWebview() {
-  return window.franz.stores.services.active.webview;
+async function getActiveWebContents() {
+  const webContentsId = await ipcRenderer.invoke(GET_ACTIVE_SERVICE_WEB_CONTENTS_ID);
+  return webContents.fromId(webContentsId);
 }
 
 const _templateFactory = intl => [
@@ -312,8 +314,8 @@ const _templateFactory = intl => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: 'Cmd+Shift+V',
         selector: 'pasteAndMatchStyle:',
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
+        async click() {
+          await getActiveWebContents().pasteAndMatchStyle();
         },
       },
       {
@@ -336,15 +338,16 @@ const _templateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.resetZoom),
         accelerator: 'Cmd+0',
-        click() {
-          getActiveWebview().setZoomLevel(0);
+        async click() {
+          const activeService = await getActiveWebContents();
+          activeService.setZoomLevel(0);
         },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: 'Cmd+plus',
-        click() {
-          const activeService = getActiveWebview();
+        async click() {
+          const activeService = await getActiveWebContents();
           const level = activeService.getZoomLevel();
 
           // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
@@ -354,8 +357,8 @@ const _templateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: 'Cmd+-',
-        click() {
-          const activeService = getActiveWebview();
+        async click() {
+          const activeService = await getActiveWebContents();
           const level = activeService.getZoomLevel();
 
           // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
@@ -438,22 +441,28 @@ const _templateFactory = intl => [
   },
 ];
 
-const _titleBarTemplateFactory = intl => [
+export const _titleBarTemplateFactory = intl => [
   {
     label: intl.formatMessage(menuItems.edit),
     submenu: [
       {
         label: intl.formatMessage(menuItems.undo),
         accelerator: `${ctrlKey}+Z`,
-        click() {
-          getActiveWebview().undo();
+        async click() {
+          await getActiveWebContents().undo();
+        },
+        action: {
+          action: 'undo',
         },
       },
       {
         label: intl.formatMessage(menuItems.redo),
         accelerator: `${ctrlKey}+Y`,
-        click() {
-          getActiveWebview().redo();
+        async click() {
+          await getActiveWebContents().redo();
+        },
+        action: {
+          action: 'redo',
         },
       },
       {
@@ -462,42 +471,60 @@ const _titleBarTemplateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.cut),
         accelerator: `${ctrlKey}+X`,
-        click() {
-          getActiveWebview().cut();
+        async click() {
+          await getActiveWebContents().cut();
+        },
+        action: {
+          action: 'cut',
         },
       },
       {
         label: intl.formatMessage(menuItems.copy),
         accelerator: `${ctrlKey}+C`,
-        click() {
-          getActiveWebview().copy();
+        async click() {
+          await getActiveWebContents().copy();
+        },
+        action: {
+          action: 'copy',
         },
       },
       {
         label: intl.formatMessage(menuItems.paste),
         accelerator: `${ctrlKey}+V`,
-        click() {
-          getActiveWebview().paste();
+        async click() {
+          await getActiveWebContents().paste();
+        },
+        action: {
+          action: 'paste',
         },
       },
       {
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: `${ctrlKey}+Shift+V`,
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
+        async click() {
+          await getActiveWebContents().pasteAndMatchStyle();
+        },
+        action: {
+          action: 'pasteAndMatchStyle',
         },
       },
       {
         label: intl.formatMessage(menuItems.delete),
-        click() {
-          getActiveWebview().delete();
+        async click() {
+          await getActiveWebContents().delete();
+        },
+        action: {
+          action: 'delete',
         },
       },
       {
         label: intl.formatMessage(menuItems.selectAll),
         accelerator: `${ctrlKey}+A`,
-        click() {
-          getActiveWebview().selectAll();
+        async click() {
+          await getActiveWebContents().selectAll();
+        },
+        action: {
+          action: 'selectAll',
         },
       },
     ],
@@ -511,30 +538,42 @@ const _titleBarTemplateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.resetZoom),
         accelerator: `${ctrlKey}+0`,
-        click() {
-          getActiveWebview().setZoomLevel(0);
+        async click() {
+          await getActiveWebContents().setZoomLevel(0);
+        },
+        action: {
+          action: 'setZoomLevel',
+          level: 0,
         },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: `${ctrlKey}+=`,
-        click() {
-          const activeService = getActiveWebview();
+        async click() {
+          const activeService = await getActiveWebContents();
           const level = activeService.getZoomLevel();
 
           // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
           if (level < 9) activeService.setZoomLevel(level + 1);
         },
+        action: {
+          action: 'setZoomLevel',
+          level: 'increase',
+        },
       },
       {
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${ctrlKey}+-`,
-        click() {
-          const activeService = getActiveWebview();
+        async click() {
+          const activeService = await getActiveWebContents();
           const level = activeService.getZoomLevel();
 
           // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
           if (level > -9) activeService.setZoomLevel(level - 1);
+        },
+        action: {
+          action: 'setZoomLevel',
+          level: 'decrease',
         },
       },
       {
@@ -545,8 +584,12 @@ const _titleBarTemplateFactory = intl => [
           ? intl.formatMessage(menuItems.exitFullScreen)
           : intl.formatMessage(menuItems.enterFullScreen),
         accelerator: 'F11',
-        click(menuItem, browserWindow) {
+        click() {
+          const browserWindow = getCurrentWindow();
           browserWindow.setFullScreen(!browserWindow.isFullScreen());
+        },
+        action: {
+          action: 'toggleFullscreen',
         },
       },
     ],
@@ -571,15 +614,15 @@ const _titleBarTemplateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.minimize),
         accelerator: 'Ctrl+M',
-        click(menuItem, browserWindow) {
-          browserWindow.minimize();
+        click() {
+          getCurrentWindow().minimize();
         },
       },
       {
         label: intl.formatMessage(menuItems.close),
         accelerator: 'Ctrl+W',
-        click(menuItem, browserWindow) {
-          browserWindow.close();
+        click() {
+          getCurrentWindow().close();
         },
       },
     ],

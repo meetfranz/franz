@@ -81,7 +81,7 @@
     "react-dom": "16.8.6",
     "react-dropzone": "7.0.1",
     "react-electron-web-view": "^2.0.1",
-    "react-intl": "2.7.2",
+    "react-intl": "2.9.0",
     "react-jss": "8.6.1",
     "react-loader": "2.4.5",
     "react-modal": "3.7.1",

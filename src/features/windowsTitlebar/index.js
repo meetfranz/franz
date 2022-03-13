@@ -1,16 +1,19 @@
 import { ipcRenderer } from 'electron';
 import { TitleBar } from '@meetfranz/electron-react-titlebar';
-import React, { useEffect, useState } from 'react';
-import { DEFAULT_WEB_CONTENTS_ID } from '../../config';
-import { WINDOWS_TITLEBAR_GET_MENU, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
+import React, { useEffect } from 'react';
+import { injectIntl } from 'react-intl';
+import { WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
+import { _titleBarTemplateFactory } from '../../lib/Menu';
 
-export const WindowsTitlebar = () => {
-  const [menu, setMenu] = useState();
+export const WindowsTitlebar = injectIntl(({ intl }) => {
+  const menu = _titleBarTemplateFactory(intl);
+
+  // TODO: BW REWORK: rebuild build service, workspace and todos menu
   useEffect(() => {
-    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WINDOWS_TITLEBAR_GET_MENU);
-    ipcRenderer.once(WINDOWS_TITLEBAR_GET_MENU, (e, menuData) => {
-      setMenu(menuData);
-    });
+    // ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WINDOWS_TITLEBAR_GET_MENU);
+    // ipcRenderer.once(WINDOWS_TITLEBAR_GET_MENU, (e, menuData) => {
+    //   setMenu(menuData);
+    // });
   }, []);
 
   if (!menu) {
@@ -26,7 +29,6 @@ export const WindowsTitlebar = () => {
           height: isClicked ? window.outerHeight : 28,
         });
       }}
-      // showWindowControls={false}
     />
   );
-};
+});

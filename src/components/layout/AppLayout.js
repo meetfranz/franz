@@ -118,6 +118,7 @@ class AppLayout extends Component {
             {workspacesDrawer}
             {sidebar}
             <div className="app__service">
+              {!isFullScreen && isWindows && <div className="windowsTitlebarContainer" />}
               <WorkspaceSwitchingIndicator />
               {news.length > 0 && news.map(item => (
                 <InfoBar

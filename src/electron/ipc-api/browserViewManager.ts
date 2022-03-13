@@ -2,6 +2,7 @@ import { ipcMain, BrowserWindow, Rectangle } from 'electron';
 import { ServiceBrowserView } from '../../models/ServiceBrowserView';
 import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
+  GET_ACTIVE_SERVICE_WEB_CONTENTS_ID,
   HIDE_ALL_SERVICES,
   NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID,
 } from '../../ipcChannels';
@@ -213,6 +214,14 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     debug('Retrieving Todos webContentsId');
 
     const webContentsId = browserViews.find(bw => bw.browserView.isTodos)?.browserView.webContents.id;
+
+    return webContentsId;
+  });
+
+  ipcMain.handle(GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, () => {
+    debug('Retrieving webContentsId of active servic');
+
+    const webContentsId = browserViews.find(bw => bw.browserView.isActive)?.browserView.webContents.id;
 
     return webContentsId;
   });
