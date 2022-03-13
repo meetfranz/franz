@@ -10,12 +10,14 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
   ipcMain.on(WINDOWS_TITLEBAR_INITIALIZE, async () => {
     const bounds = mainWindow.getBounds();
 
-    view = new BrowserView({
-      webPreferences: {
-        contextIsolation: false,
-        nodeIntegration: true,
-      },
-    });
+    if (!view) {
+      view = new BrowserView({
+        webPreferences: {
+          contextIsolation: false,
+          nodeIntegration: true,
+        },
+      });
+    }
 
     mainWindow.addBrowserView(view);
 
