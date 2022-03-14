@@ -150,6 +150,7 @@
     "gulp-sass": "5.0.0",
     "gulp-sass-variables": "1.1.1",
     "gulp-server-livereload": "^1.9.2",
+    "gulp-terser": "2.1.0",
     "gulp-typescript": "6.0.0-alpha.1",
     "hex-rgb": "3.0.0",
     "html-webpack-plugin": "4.0.0-beta.5",

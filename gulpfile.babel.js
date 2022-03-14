@@ -9,6 +9,7 @@ import { removeSync } from 'fs-extra';
 import kebabCase from 'kebab-case';
 import hexRgb from 'hex-rgb';
 import ts from 'gulp-typescript';
+import terser from 'gulp-terser';
 
 import config from './package.json';
 
@@ -155,6 +156,12 @@ export function scripts() {
     .pipe(gulp.dest(paths.scripts.dest));
 }
 
+export function minify() {
+  return gulp.src(`${paths.dest}/**/*.js`)
+    .pipe(terser())
+    .pipe(gulp.dest(paths.dest));
+}
+
 export function watch() {
   gulp.watch(paths.packages.watch, mvLernaPackages);
   gulp.watch(paths.styles.watch, styles);
@@ -187,6 +194,7 @@ const build = gulp.series(
   clean,
   gulp.parallel(typescript, mvSrc, mvPackageJson, mvLernaPackages),
   gulp.parallel(html, scripts, styles),
+  minify,
 );
 export { build };
 
