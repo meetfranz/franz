@@ -42,9 +42,9 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
       hash: '/windows-titlebar',
     });
 
-    if (isDevMode) {
-      view.webContents.openDevTools({ mode: 'detach' });
-    }
+    // if (isDevMode) {
+    //   view.webContents.openDevTools({ mode: 'detach' });
+    // }
   });
 
   ipcMain.on(WINDOWS_TITLEBAR_RESIZE, (event, newBounds: Electron.Rectangle) => {

@@ -4,7 +4,7 @@ import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
   GET_ACTIVE_SERVICE_WEB_CONTENTS_ID,
   HIDE_ALL_SERVICES,
-  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID,
+  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID, USER_LOGIN_STATUS,
 } from '../../ipcChannels';
 import Recipe from '../../models/Recipe';
 import { TODOS_RECIPE_ID } from '../../config';
@@ -228,5 +228,15 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     const webContentsId = browserViews.find(bw => bw.browserView.isActive)?.browserView.webContents.id;
 
     return webContentsId;
+  });
+
+  ipcMain.on(USER_LOGIN_STATUS, (event, isLoggedIn) => {
+    debug('User login status changed to', isLoggedIn);
+
+    if (!isLoggedIn) {
+      debug('User is logged out, removing all browserViews')
+      browserViews.forEach(bw => bw.browserView.remove());
+      browserViews.splice(0, browserViews.length);
+    }
   });
 };
