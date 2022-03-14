@@ -369,7 +369,7 @@ export default class ServerApi {
   async getRecipePackage(recipeId) {
     try {
       const recipesDirectory = path.join(app.getPath('userData'), 'recipes');
-      const recipeTempDirectory = path.join(recipesDirectory, 'temp', recipeId);
+      const recipeTempDirectory = fs.mkdtempSync(path.join(os.tmpdir(), `franz-recipe-${recipeId}-`));
       const archivePath = path.join(recipeTempDirectory, 'recipe.tar.gz');
       const packageUrl = `${API_URL}/recipes/download/${recipeId}`;
 
@@ -379,16 +379,20 @@ export default class ServerApi {
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
 
+      console.log('recipeTempDirectory', recipeTempDirectory)
+
       await sleep(10);
 
       const tarOpts = {
         file: archivePath,
         cwd: recipeTempDirectory,
-        preservePaths: true,
+        preservePaths: !isWindows,
         unlink: true,
         preserveOwner: false,
         noChmod: isWindows,
-        onwarn: (...x) => console.log('tar error', recipeId, x),
+        onwarn: (code, message, data) => {
+          console.warn('tar warning', recipeId, code, message, data)
+        },
       };
 
       await tar.x(tarOpts);
