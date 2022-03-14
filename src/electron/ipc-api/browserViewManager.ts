@@ -117,6 +117,10 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
             }, 5);
           }
         }
+
+        if (service.recipeId === TODOS_RECIPE_ID) {
+          sbw.attach();
+        }
       });
 
       browserViews.filter(bw => !services.some(service => service.id === bw.id)).forEach((service) => {
