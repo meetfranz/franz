@@ -265,6 +265,14 @@ export class ServiceBrowserView {
   async resize({
     width, height, x, y,
   }: Rectangle, animationDuration = 0) {
+    if (width === 0) {
+      debug('remove browserView because view is width=0', this.recipe.id);
+      this.remove();
+    } else if (!this.isAttached) {
+      debug('re-attaching browserView because view is width>0', this.recipe.id);
+      this.attach();
+    }
+
     if (!animationDuration) {
       const bounds = this.view.getBounds();
       const newBounds = {

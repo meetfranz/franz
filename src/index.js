@@ -37,6 +37,8 @@ const isDevMode = !app.isPackaged;
 
 if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
+} else {
+  process.env.NODE_ENV = 'production';
 }
 
 // workaround for https://github.com/electron/electron/pull/26432
@@ -59,7 +61,6 @@ import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 import { openOverlay } from './electron/ipc-api/overlayWindow';
-import { darkThemeGrayDarker, themeGrayLightest } from './theme/default/legacy';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');

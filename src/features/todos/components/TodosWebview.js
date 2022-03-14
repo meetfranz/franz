@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
-import Webview from 'react-electron-web-view';
 import { Icon } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
 import classnames from 'classnames';
 
 import { mdiCheckAll } from '@mdi/js';
 import { ipcRenderer } from 'electron';
-import * as environment from '../../../environment';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
-import { TODOS_PARTITION_ID } from '..';
 import { RESIZE_TODO_VIEW } from '../../../ipcChannels';
 
 const messages = defineMessages({
@@ -34,8 +31,8 @@ const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
-    borderLeft: [1, 'solid', theme.todos.todosLayer.borderLeftColor],
     zIndex: 300,
+    borderLeft: ({ isVisible }) => (isVisible ? [1, 'solid', theme.todos.todosLayer.borderLeftColor] : 0),
 
     transform: ({ isVisible, width, isTodosServiceActive }) => `translateX(${isVisible || isTodosServiceActive ? 0 : width}px)`,
 
@@ -111,6 +108,8 @@ class TodosWebview extends Component {
   resizeObserver = new window.ResizeObserver(([element]) => {
     const bounds = element.target.getBoundingClientRect();
 
+    console.log('resize', bounds);
+
     ipcRenderer.send(RESIZE_TODO_VIEW, {
       width: bounds.width,
       height: bounds.height,
@@ -135,6 +134,8 @@ class TodosWebview extends Component {
     this.resizeObserver.observe(this.node);
 
     const bounds = this.node.getBoundingClientRect();
+
+    console.log('todos bounds', bounds);
 
     ipcRenderer.send(RESIZE_TODO_VIEW, {
       width: bounds.width,
