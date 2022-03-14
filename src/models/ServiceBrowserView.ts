@@ -79,6 +79,11 @@ export class ServiceBrowserView {
   }
 
   attach() {
+    if (this.isAttached) {
+      console.log('View is already attached');
+      return;
+    }
+
     if (!this.isRestricted) {
       const bounds = this.window.getBounds();
 
