@@ -108,8 +108,6 @@ class TodosWebview extends Component {
   resizeObserver = new window.ResizeObserver(([element]) => {
     const bounds = element.target.getBoundingClientRect();
 
-    console.log('resize', bounds);
-
     ipcRenderer.send(RESIZE_TODO_VIEW, {
       width: bounds.width,
       height: bounds.height,
@@ -134,8 +132,6 @@ class TodosWebview extends Component {
     this.resizeObserver.observe(this.node);
 
     const bounds = this.node.getBoundingClientRect();
-
-    console.log('todos bounds', bounds);
 
     ipcRenderer.send(RESIZE_TODO_VIEW, {
       width: bounds.width,
