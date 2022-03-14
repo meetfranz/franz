@@ -1,7 +1,6 @@
 import {
   ipcMain, BrowserView, BrowserWindow,
 } from 'electron';
-import { isDevMode } from '../../environment';
 import { WINDOWS_TITLEBAR_INITIALIZE, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
 import { windowsTitleBarHeight } from '../../theme/default/legacy';
 
@@ -66,5 +65,12 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
 
   mainWindow.on('leave-full-screen', () => {
     mainWindow.addBrowserView(view);
+    
+    // coming back from fullscreen sometimes gets view stuck width mini-width
+    view.setBounds({
+      ...view.getBounds(),
+      width: mainWindow.getBounds().width,
+    })
   });
+
 };
