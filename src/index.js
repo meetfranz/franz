@@ -37,6 +37,8 @@ const isDevMode = !app.isPackaged;
 
 if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), 'FranzDev'));
+} else {
+  process.env.NODE_ENV = 'production';
 }
 
 // workaround for https://github.com/electron/electron/pull/26432
