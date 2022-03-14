@@ -61,7 +61,6 @@ import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 import { openOverlay } from './electron/ipc-api/overlayWindow';
-import { darkThemeGrayDarker, themeGrayLightest } from './theme/default/legacy';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
