@@ -51,7 +51,6 @@ export default @observer class AuthLayout extends Component {
 
     return (
       <>
-        {isFullScreen && isWindows && <div className="windowsTitlebarContainer" />}
         <div className="auth">
           {!isOnline && (
             <InfoBar
