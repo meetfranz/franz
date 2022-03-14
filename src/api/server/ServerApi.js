@@ -386,12 +386,10 @@ export default class ServerApi {
         cwd: recipeTempDirectory,
         preservePaths: true,
         unlink: true,
-        onwarn: x => console.log('warn', recipeId, x),
+        preserveOwner: false,
+        noChmod: isWindows,
+        onwarn: (...x) => console.log('tar error', recipeId, x),
       };
-
-      if (!isWindows) {
-        tarOpts.preserveOwner = false;
-      }
 
       await tar.x(tarOpts);
 
