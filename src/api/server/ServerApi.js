@@ -386,7 +386,7 @@ export default class ServerApi {
         cwd: recipeTempDirectory,
         preservePaths: true,
         unlink: true,
-        preserveOwner: true,
+        preserveOwner: false,
         noChmod: isWindows,
         onwarn: (...x) => console.log('tar error', recipeId, x),
       };
