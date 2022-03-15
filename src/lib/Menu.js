@@ -318,7 +318,7 @@ const _templateFactory = intl => [
         accelerator: 'Cmd+Shift+V',
         selector: 'pasteAndMatchStyle:',
         async click() {
-          await getActiveWebContents().pasteAndMatchStyle();
+          (await getActiveWebContents()).pasteAndMatchStyle();
         },
       },
       {
@@ -520,7 +520,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.undo),
         accelerator: `${ctrlKey}+Z`,
         async click() {
-          await getActiveWebContents().undo();
+          (await getActiveWebContents()).undo();
         },
         action: {
           action: 'undo',
@@ -530,7 +530,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.redo),
         accelerator: `${ctrlKey}+Y`,
         async click() {
-          await getActiveWebContents().redo();
+          (await getActiveWebContents()).redo();
         },
         action: {
           action: 'redo',
@@ -543,7 +543,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.cut),
         accelerator: `${ctrlKey}+X`,
         async click() {
-          await getActiveWebContents().cut();
+          (await getActiveWebContents()).cut();
         },
         action: {
           action: 'cut',
@@ -553,7 +553,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.copy),
         accelerator: `${ctrlKey}+C`,
         async click() {
-          await getActiveWebContents().copy();
+          (await getActiveWebContents()).copy();
         },
         action: {
           action: 'copy',
@@ -563,7 +563,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.paste),
         accelerator: `${ctrlKey}+V`,
         async click() {
-          await getActiveWebContents().paste();
+          (await getActiveWebContents()).paste();
         },
         action: {
           action: 'paste',
@@ -573,7 +573,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: `${ctrlKey}+Shift+V`,
         async click() {
-          await getActiveWebContents().pasteAndMatchStyle();
+          (await getActiveWebContents()).pasteAndMatchStyle();
         },
         action: {
           action: 'pasteAndMatchStyle',
@@ -582,7 +582,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
       {
         label: intl.formatMessage(menuItems.delete),
         async click() {
-          await getActiveWebContents().delete();
+          (await getActiveWebContents()).delete();
         },
         action: {
           action: 'delete',
@@ -592,7 +592,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.selectAll),
         accelerator: `${ctrlKey}+A`,
         async click() {
-          await getActiveWebContents().selectAll();
+          (await getActiveWebContents()).selectAll();
         },
         action: {
           action: 'selectAll',
@@ -890,7 +890,7 @@ function viewMenu({
       label: intl.formatMessage(menuItems.resetZoom),
       accelerator: `${ctrlKey}+0`,
       async click() {
-        await getActiveWebContents().setZoomLevel(0);
+        (await getActiveWebContents()).setZoomLevel(0);
       },
       action: {
         action: 'setZoomLevel',
@@ -1387,10 +1387,10 @@ export class AppMenu {
       isTodosPanelVisible: this.menuData.app.isTodosDrawerOpen, isTodosEnabled: this.menuData.app.isTodosEnabled, intl: this.intl, user: this.menuData.user,
     });
 
-    baseTpl[1].submenu = viewTpl;
-    baseTpl[2].submenu = serviceTpl;
-    baseTpl[3].submenu = workspaceTpl;
-    baseTpl[4].submenu = todosTpl;
+    baseTpl[2].submenu = viewTpl;
+    baseTpl[3].submenu = serviceTpl;
+    baseTpl[4].submenu = workspaceTpl;
+    baseTpl[5].submenu = todosTpl;
 
     return baseTpl;
   }
