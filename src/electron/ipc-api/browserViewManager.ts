@@ -150,6 +150,8 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     }
   });
 
+    console.log('did navigate', mainWindow.webContents.getURL())
+      console.log('removing all bws as /settings route is active')
   ipcMain.on(OPEN_SERVICE_DEV_TOOLS, (e, { serviceId }) => {
     const sbw = browserViews.find(browserView => browserView.id === serviceId);
 

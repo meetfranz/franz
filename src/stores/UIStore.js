@@ -69,12 +69,10 @@ export default class UIStore extends Store {
   @action _openSettings({ path = '/settings' }) {
     const settingsPath = path !== '/settings' ? `/settings/${path}` : path;
     this.stores.router.push(settingsPath);
-    // this._hideServices();
   }
 
   @action _closeSettings() {
     this.stores.router.push('/');
-    // this._showServices();
   }
 
   @action _toggleServiceUpdatedInfoBar({ visible }) {
@@ -86,10 +84,12 @@ export default class UIStore extends Store {
   }
 
   @action _hideServices() {
+    console.log('hide all services')
     ipcRenderer.send(HIDE_ALL_SERVICES);
   }
-
+  
   @action _showServices() {
+    console.log('show all services')
     ipcRenderer.send(SHOW_ALL_SERVICES);
   }
 

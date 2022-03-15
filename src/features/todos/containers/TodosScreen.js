@@ -26,6 +26,7 @@ class TodosScreen extends Component {
           minWidth={TODOS_MIN_WIDTH}
           resize={width => todoActions.resize({ width })}
           isTodosIncludedInCurrentPlan={this.props.stores.features.features.isTodosIncludedInCurrentPlan || false}
+          isSettingsRouteActive={this.props.stores.router.location.pathname.includes('/settings')}
         />
       </ErrorBoundary>
     );

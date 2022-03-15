@@ -35,10 +35,6 @@ const styles = theme => ({
     borderLeft: ({ isVisible }) => (isVisible ? [1, 'solid', theme.todos.todosLayer.borderLeftColor] : 0),
 
     transform: ({ isVisible, width, isTodosServiceActive }) => `translateX(${isVisible || isTodosServiceActive ? 0 : width}px)`,
-
-    '& webview': {
-      height: '100%',
-    },
   },
   resizeHandler: {
     position: 'absolute',
@@ -94,6 +90,7 @@ class TodosWebview extends Component {
     width: PropTypes.number.isRequired,
     minWidth: PropTypes.number.isRequired,
     isTodosIncludedInCurrentPlan: PropTypes.bool.isRequired,
+    isSettingsRouteActive: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -201,6 +198,7 @@ class TodosWebview extends Component {
       isTodosServiceActive,
       isVisible,
       isTodosIncludedInCurrentPlan,
+      isSettingsRouteActive,
     } = this.props;
 
     const {
@@ -211,7 +209,7 @@ class TodosWebview extends Component {
 
     const { intl } = this.context;
 
-    let displayedWidth = isVisible ? width : 0;
+    let displayedWidth = isVisible && !isSettingsRouteActive ? width : 0;
     if (isTodosServiceActive) {
       displayedWidth = null;
     }
