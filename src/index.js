@@ -5,7 +5,6 @@ import {
   BrowserWindow,
   shell,
   ipcMain,
-  session,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
@@ -41,8 +40,6 @@ if (isDevMode) {
   process.env.NODE_ENV = 'production';
 }
 
-// workaround for https://github.com/electron/electron/pull/26432
-app.allowRendererProcessReuse = false;
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
 
 import ipcApi from './electron/ipc-api';

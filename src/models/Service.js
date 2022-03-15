@@ -2,14 +2,10 @@ import { webContents } from '@electron/remote';
 import {
   computed, observable, autorun,
 } from 'mobx';
-import { ipcRenderer } from 'electron';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
 
-import userAgent from '../helpers/userAgent-helpers';
 import { TODOS_RECIPE_ID, todosStore } from '../features/todos';
-
-const debug = require('debug')('Franz:Service');
 
 export const RESTRICTION_TYPES = {
   SERVICE_LIMIT: 0,
@@ -210,15 +206,6 @@ export default class Service {
 
   @computed get iconPNG() {
     return path.join(this.recipe.path, 'icon.png');
-  }
-
-  @computed get userAgent() {
-    let ua = window.navigator.userAgent;
-    if (typeof this.recipe.overrideUserAgent === 'function') {
-      ua = this.recipe.overrideUserAgent();
-    }
-
-    return ua;
   }
 
   @computed get webContents() {

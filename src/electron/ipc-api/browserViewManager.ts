@@ -6,7 +6,6 @@ import {
   HIDE_ALL_SERVICES,
   NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID, USER_LOGIN_STATUS,
 } from '../../ipcChannels';
-import Recipe from '../../models/Recipe';
 import { TODOS_RECIPE_ID } from '../../config';
 
 const debug = require('debug')('Franz:ipcApi:browserViewManager');
@@ -55,6 +54,15 @@ const mockTodosService = ({ isActive = false }: { isActive?: boolean }): IIPCSer
 };
 
 export default async ({ mainWindow, settings: { app: settings } }: { mainWindow: BrowserWindow, settings: any}) => {
+  // We need to set this for `Recipe.overrideUserAgent()`
+  global.window = {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    navigator: {
+      userAgent: mainWindow.webContents.getUserAgent(),
+    },
+  };
+
   ipcMain.handle('browserViewManager', async (event, services: IIPCServiceData[]) => {
     try {
       debug('chached services', browserViews.map(bw => `${bw.browserView.config.name} - (${bw.browserView.config.id}) - (${bw.browserView.isActive})`));

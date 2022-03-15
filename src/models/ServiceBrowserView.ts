@@ -93,7 +93,12 @@ export class ServiceBrowserView {
     if (typeof this.recipe.knownCertificateHosts === 'function') {
       this.enableKnownCertificateHosts();
     }
-    // console.log(new Recipe(loadRecipeConfig(id)));
+
+    if (typeof this.recipe.overrideUserAgent === 'function') {
+      const ua = this.recipe.overrideUserAgent();
+
+      this.webContents.setUserAgent(ua);
+    }
   }
 
   attach() {
