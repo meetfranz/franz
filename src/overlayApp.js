@@ -20,7 +20,7 @@ import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopup
 import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
 import { Component as DesktopCapturer } from './features/desktopCapturer';
 import { Component as BasicAuth } from './features/basicAuth';
-import { WindowsTitlebar } from './features/windowsTitlebar';
+import WindowsTitlebar from './features/windowsTitlebar';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -58,6 +58,7 @@ const setup = (settings) => {
 // window.addEventListener('load', () => {
 // });
 ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event, settings) => {
+  console.log('overlay share settings');
   setup(settings);
 
   if (settings.theme === 'dark') {

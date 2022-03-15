@@ -8,9 +8,9 @@ import translations from './i18n/translations';
 import UserStore from './stores/UserStore';
 
 export default @inject('stores') @observer class I18N extends Component {
-  componentDidUpdate() {
-    window.franz.menu.rebuild();
-  }
+  // componentDidUpdate() {
+  //   window.franz.menu.rebuild();
+  // }
 
   render() {
     const { stores, children } = this.props;

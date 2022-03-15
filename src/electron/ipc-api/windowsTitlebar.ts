@@ -1,22 +1,20 @@
 import {
   ipcMain, BrowserView, BrowserWindow,
 } from 'electron';
-import { WINDOWS_TITLEBAR_INITIALIZE, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
+import { isDevMode } from '../../environment';
+import { WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
 import { windowsTitleBarHeight } from '../../theme/default/legacy';
 
 export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
   let view: BrowserView;
-  ipcMain.on(WINDOWS_TITLEBAR_INITIALIZE, async () => {
-    const bounds = mainWindow.getBounds();
 
-    if (!view) {
-      view = new BrowserView({
-        webPreferences: {
-          contextIsolation: false,
-          nodeIntegration: true,
-        },
-      });
-    }
+  ipcMain.on(WINDOWS_TITLEBAR_INITIALIZE, async () => {
+    view = new BrowserView({
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+      },
+    });
 
     mainWindow.addBrowserView(view);
 
@@ -26,7 +24,7 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
     });
 
     view.setBounds({
-      width: bounds.width,
+      width: mainWindow.getBounds().width,
       height: parseInt(windowsTitleBarHeight, 10),
       x: 0,
       y: 0,
@@ -41,11 +39,12 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
       hash: '/windows-titlebar',
     });
 
-    // if (isDevMode) {
-    //   view.webContents.openDevTools({ mode: 'detach' });
-    // }
+    if (isDevMode) {
+      view.webContents.openDevTools({ mode: 'detach' });
+    }
   });
 
+  // IPC Hooks
   ipcMain.on(WINDOWS_TITLEBAR_RESIZE, (event, newBounds: Electron.Rectangle) => {
     const bounds = view.getBounds();
 
@@ -59,18 +58,23 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
     mainWindow.setTopBrowserView(view);
   });
 
+  ipcMain.on(WINDOWS_TITLEBAR_FETCH_MENU, (event, menuData) => {
+    view.webContents.send(WINDOWS_TITLEBAR_FETCH_MENU, menuData);
+  });
+
+  // Window Events
   mainWindow.on('enter-full-screen', () => {
     mainWindow.removeBrowserView(view);
   });
 
   mainWindow.on('leave-full-screen', () => {
     mainWindow.addBrowserView(view);
-    
+
     // coming back from fullscreen sometimes gets view stuck width mini-width
     view.setBounds({
       ...view.getBounds(),
       width: mainWindow.getBounds().width,
-    })
+    });
   });
-
+  // }
 };

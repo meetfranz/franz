@@ -14,7 +14,10 @@ import { announcementsStore } from '../features/announcements';
 import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
-import { GET_ACTIVE_SERVICE_WEB_CONTENTS_ID } from '../ipcChannels';
+import {
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, WINDOWS_TITLEBAR_FETCH_MENU, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
+} from '../ipcChannels';
+import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 
 export const menuItems = defineMessages({
   edit: {
@@ -441,8 +444,76 @@ const _templateFactory = intl => [
   },
 ];
 
-export const _titleBarTemplateFactory = intl => [
+export const _titleBarTemplateFactory = ({ user, intl }) => [
   {
+    label: isMac ? app.name : intl.formatMessage(menuItems.file),
+    submenu: [
+      {
+        label: intl.formatMessage(menuItems.about),
+        role: 'about',
+        click: () => {
+          dialog.showMessageBox({
+            type: 'info',
+            title: 'Franz',
+            message: 'Franz',
+            detail: `Version: ${app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
+          });
+        },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.settings),
+        accelerator: 'CmdOrCtrl+,',
+        click: () => {
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, {
+            path: 'app',
+          });
+        },
+        enabled: user.isLoggedIn,
+      },
+      {
+        label: intl.formatMessage(menuItems.checkForUpdates),
+        click: () => {
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, CHECK_FOR_UPDATE);
+        },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.services),
+        role: 'services',
+        submenu: [],
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.hide),
+        role: 'hide',
+      },
+      {
+        label: intl.formatMessage(menuItems.hideOthers),
+        role: 'hideothers',
+      },
+      {
+        label: intl.formatMessage(menuItems.unhide),
+        role: 'unhide',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.quit),
+        role: 'quit',
+        click() {
+          app.quit();
+        },
+      },
+    ],
+  }, {
     label: intl.formatMessage(menuItems.edit),
     submenu: [
       {
@@ -531,68 +602,7 @@ export const _titleBarTemplateFactory = intl => [
   },
   {
     label: intl.formatMessage(menuItems.view),
-    submenu: [
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.resetZoom),
-        accelerator: `${ctrlKey}+0`,
-        async click() {
-          await getActiveWebContents().setZoomLevel(0);
-        },
-        action: {
-          action: 'setZoomLevel',
-          level: 0,
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${ctrlKey}+=`,
-        async click() {
-          const activeService = await getActiveWebContents();
-          const level = activeService.getZoomLevel();
-
-          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-          if (level < 9) activeService.setZoomLevel(level + 1);
-        },
-        action: {
-          action: 'setZoomLevel',
-          level: 'increase',
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.zoomOut),
-        accelerator: `${ctrlKey}+-`,
-        async click() {
-          const activeService = await getActiveWebContents();
-          const level = activeService.getZoomLevel();
-
-          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-          if (level > -9) activeService.setZoomLevel(level - 1);
-        },
-        action: {
-          action: 'setZoomLevel',
-          level: 'decrease',
-        },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
-          ? intl.formatMessage(menuItems.exitFullScreen)
-          : intl.formatMessage(menuItems.enterFullScreen),
-        accelerator: 'F11',
-        click() {
-          const browserWindow = getCurrentWindow();
-          browserWindow.setFullScreen(!browserWindow.isFullScreen());
-        },
-        action: {
-          action: 'toggleFullscreen',
-        },
-      },
-    ],
+    submenu: [],
   },
   {
     label: intl.formatMessage(menuItems.services),
@@ -656,10 +666,321 @@ export const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.privacy),
         click() { shell.openExternal('https://meetfranz.com/privacy'); },
       },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.debugInfo),
+        click: () => {
+          ipcRenderer.on(FETCH_DEBUG_INFO, (e, data) => {
+            console.log('huhu, debug');
+            clipboard.write({
+              text: JSON.stringify(data),
+            });
+
+            const notification = new window.Notification(intl.formatMessage(menuItems.debugInfoCopiedHeadline), {
+              body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+            });
+          });
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, FETCH_DEBUG_INFO);
+        },
+      },
     ],
   },
 ];
 
+function getServiceName(service) {
+  if (service.name) {
+    return service.name;
+  }
+
+  let { name } = service.recipe;
+
+  if (service.team) {
+    name = `${name} (${service.team})`;
+  } else if (service.customUrl) {
+    name = `${name} (${service.customUrl})`;
+  }
+
+  return name;
+}
+
+function serviceMenu({
+  services = [], intl,
+}) {
+  if (!intl) return [];
+
+  const menu = [];
+
+  menu.push({
+    label: intl.formatMessage(menuItems.addNewService),
+    accelerator: `${cmdKey}+N`,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(SETTINGS_NAVIGATE_TO, { path: 'recipes' });
+    },
+  }, {
+    type: 'separator',
+  }, {
+    label: intl.formatMessage(menuItems.activateNextService),
+    accelerator: `${cmdKey}+alt+right`,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(ACTIVATE_NEXT_SERVICE);
+    },
+  }, {
+    label: intl.formatMessage(menuItems.activatePreviousService),
+    accelerator: `${cmdKey}+alt+left`,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(ACTIVATE_PREVIOUS_SERVICE);
+    },
+  }, {
+    type: 'separator',
+  });
+
+  services.forEach((service, i) => (menu.push({
+    label: getServiceName(service),
+    accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
+    type: 'radio',
+    checked: service.isActive,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(ACTIVATE_SERVICE, { serviceId: service.id });
+    },
+  })));
+
+  return menu;
+}
+
+function workspacesMenu({
+  workspaces = [], isWorkspaceDrawerOpen = false, user, intl,
+}) {
+  const activeWorkspace = workspaces.find(ws => ws.isActive);
+  // const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
+  // const { intl } = window.franz;
+  const menu = [];
+
+  // Add new workspace item:
+  menu.push({
+    label: intl.formatMessage(menuItems.addNewWorkspace),
+    accelerator: `${cmdKey}+Shift+N`,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_OPEN_SETTINGS);
+    },
+    enabled: user.isLoggedIn,
+  });
+
+  // Open workspace drawer:
+  const drawerLabel = (
+    isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
+  );
+  menu.push({
+    label: intl.formatMessage(drawerLabel),
+    accelerator: `${cmdKey}+D`,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_TOGGLE_DRAWER);
+      gaEvent(GA_CATEGORY_WORKSPACES, 'toggleDrawer', 'menu');
+    },
+    enabled: user.isLoggedIn,
+  }, {
+    type: 'separator',
+  });
+
+  // Default workspace
+  menu.push({
+    label: intl.formatMessage(menuItems.defaultWorkspace),
+    accelerator: `${cmdKey}+Alt+0`,
+    type: 'radio',
+    checked: !activeWorkspace,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE);
+      gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+    },
+  });
+
+  // Workspace items
+  if (user.isPremium) {
+    workspaces.forEach((workspace, i) => menu.push({
+      label: workspace.name,
+      accelerator: i < 9 ? `${cmdKey}+Alt+${i + 1}` : null,
+      type: 'radio',
+      checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
+      click: () => {
+        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE, { workspace });
+        gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+      },
+    }));
+  }
+
+  return menu;
+}
+
+function todosMenu({
+  isTodosPanelVisible, isTodosEnabled, user, intl,
+}) {
+  const menu = [];
+
+  const drawerLabel = isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer;
+
+  menu.push({
+    label: intl.formatMessage(drawerLabel),
+    accelerator: `${cmdKey}+T`,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER);
+      gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
+    },
+    enabled: user.isLoggedIn && isTodosEnabled,
+  });
+
+  if (!isTodosEnabled) {
+    menu.push({
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.enableTodos),
+      click: () => {
+        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, TODOS_TOGGLE_ENABLE_TODOS);
+        gaEvent(GA_CATEGORY_TODOS, 'enable', 'menu');
+      },
+    });
+  }
+
+  return menu;
+}
+
+function viewMenu({
+  intl, isTodosEnabled, user, services,
+}) {
+  const tpl = [
+    {
+      label: intl.formatMessage(menuItems.reloadService),
+      id: 'reloadService', // TODO: needed?
+      accelerator: `${cmdKey}+R`,
+      click: () => {
+        if (user.isLoggedIn
+        && services.length > 0) {
+          // if (this.stores.services.active.recipe.id === CUSTOM_WEBSITE_ID) {
+          //   this.actions.service.reloadActive({
+          //     ignoreNavigation: true,
+          //   });
+          // } else {
+          this.actions.service.reloadActive();
+          // }
+        } else {
+          window.location.reload();
+        }
+      },
+    }, {
+      label: intl.formatMessage(menuItems.reloadFranz),
+      accelerator: `${cmdKey}+Shift+R`,
+      click: () => {
+        window.location.reload();
+      },
+    }, {
+      label: intl.formatMessage(menuItems.reloadTodos),
+      accelerator: `${cmdKey}+Shift+Alt+R`,
+      click: () => {
+        this.actions.todos.reload();
+      },
+    },
+    {
+      type: 'separator',
+    },
+    {
+      label: intl.formatMessage(menuItems.resetZoom),
+      accelerator: `${ctrlKey}+0`,
+      async click() {
+        await getActiveWebContents().setZoomLevel(0);
+      },
+      action: {
+        action: 'setZoomLevel',
+        level: 0,
+      },
+    },
+    {
+      label: intl.formatMessage(menuItems.zoomIn),
+      accelerator: `${ctrlKey}+=`,
+      async click() {
+        const activeService = await getActiveWebContents();
+        const level = activeService.getZoomLevel();
+
+        // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+        if (level < 9) activeService.setZoomLevel(level + 1);
+      },
+      action: {
+        action: 'setZoomLevel',
+        level: 'increase',
+      },
+    },
+    {
+      label: intl.formatMessage(menuItems.zoomOut),
+      accelerator: `${ctrlKey}+-`,
+      async click() {
+        const activeService = await getActiveWebContents();
+        const level = activeService.getZoomLevel();
+
+        // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+        if (level > -9) activeService.setZoomLevel(level - 1);
+      },
+      action: {
+        action: 'setZoomLevel',
+        level: 'decrease',
+      },
+    },
+    {
+      type: 'separator',
+    },
+    {
+      label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
+        ? intl.formatMessage(menuItems.exitFullScreen)
+        : intl.formatMessage(menuItems.enterFullScreen),
+      accelerator: 'F11',
+      click() {
+        const browserWindow = getCurrentWindow();
+        browserWindow.setFullScreen(!browserWindow.isFullScreen());
+      },
+      action: {
+        action: 'toggleFullscreen',
+      },
+    }, {
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.toggleDevTools),
+      accelerator: `${cmdKey}+Alt+I`,
+      click: () => {
+        const windowWebContents = webContents.fromId(1);
+        const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
+
+        if (isDevToolsOpened()) {
+          closeDevTools();
+        } else {
+          openDevTools({ mode: 'detach' });
+        }
+      },
+    }, {
+      label: intl.formatMessage(menuItems.toggleServiceDevTools),
+      accelerator: `${cmdKey}+Shift+Alt+I`,
+      click: () => {
+        this.actions.service.openDevToolsForActiveService();
+      },
+      enabled: user.isLoggedIn && services.length > 0,
+    },
+  ];
+
+  if (isTodosEnabled) {
+    tpl.push({
+      label: intl.formatMessage(menuItems.toggleTodosDevTools),
+      accelerator: `${cmdKey}+Shift+Alt+O`,
+      click: () => {
+        this.actions.todos.toggleDevTools();
+      },
+    });
+  }
+
+  return tpl;
+}
+
+// TODO: BW REWORK: replace this for macOS as well
 export default class FranzMenu {
   @observable currentTemplate = [];
 
@@ -682,7 +1003,10 @@ export default class FranzMenu {
 
   _build() {
     // need to clone object so we don't modify computed (cached) object
-    const serviceTpl = Object.assign([], this.serviceTpl());
+    const serviceTpl = Object.assign([], serviceMenu({
+      services: this.stores.services.allDisplayed,
+      intl: window.franz.intl,
+    }));
 
     // Don't initialize when window.franz is undefined or when we are on a payment window route
     if (window.franz === undefined || this.stores.router.location.pathname.startsWith('/payment/')) {
@@ -691,7 +1015,7 @@ export default class FranzMenu {
     }
 
     const { intl } = window.franz;
-    const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
+    const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory({ user: this.stores.user, intl });
 
     tpl[1].submenu.push({
       type: 'separator',
@@ -904,65 +1228,6 @@ export default class FranzMenu {
     Menu.setApplicationMenu(menu);
   }
 
-  serviceTpl() {
-    const { intl } = window.franz;
-    const { user, services, settings } = this.stores;
-    if (!user.isLoggedIn) return [];
-    const menu = [];
-
-    menu.push({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${cmdKey}+N`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
-      },
-    }, {
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(menuItems.activateNextService),
-      accelerator: `${cmdKey}+alt+right`,
-      click: () => this.actions.service.setActiveNext(),
-    }, {
-      label: intl.formatMessage(menuItems.activatePreviousService),
-      accelerator: `${cmdKey}+alt+left`,
-      click: () => this.actions.service.setActivePrev(),
-    }, {
-      label: intl.formatMessage(
-        settings.all.app.isAppMuted ? menuItems.unmuteApp : menuItems.muteApp,
-      ).replace('&', '&&'),
-      accelerator: `${cmdKey}+shift+m`,
-      click: () => this.actions.app.toggleMuteApp(),
-    }, {
-      type: 'separator',
-    });
-
-    services.allDisplayed.forEach((service, i) => (menu.push({
-      label: this._getServiceName(service),
-      accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
-      type: 'radio',
-      checked: service.isActive,
-      click: () => {
-        this.actions.service.setActive({ serviceId: service.id });
-
-        if (isMac && i === 0) {
-          app.mainWindow.restore();
-        }
-      },
-    })));
-
-    if (services.active && services.active.recipe.id === CUSTOM_WEBSITE_ID) {
-      menu.push({
-        type: 'separator',
-      }, {
-        label: intl.formatMessage(menuItems.serviceGoHome),
-        accelerator: `${cmdKey}+shift+H`,
-        click: () => this.actions.service.reloadActive(),
-      });
-    }
-
-    return menu;
-  }
-
   workspacesMenu() {
     const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
     const { intl } = window.franz;
@@ -1077,20 +1342,64 @@ export default class FranzMenu {
       },
     };
   }
+}
 
-  _getServiceName(service) {
-    if (service.name) {
-      return service.name;
+export class AppMenu {
+  menuData = {};
+
+  intl = null;
+
+  updateMenuCallback = () => {};
+
+  constructor({ intl, updateMenuCallback } = {}) {
+    if (updateMenuCallback) {
+      this.updateMenuCallback = updateMenuCallback;
     }
 
-    let { name } = service.recipe;
+    this.intl = intl;
 
-    if (service.team) {
-      name = `${name} (${service.team})`;
-    } else if (service.customUrl) {
-      name = `${name} (${service.customUrl})`;
+    ipcRenderer.on(WINDOWS_TITLEBAR_FETCH_MENU, (e, newMenuData) => {
+      this.update(newMenuData);
+    });
+  }
+
+  setIntl(intl) {
+    this.intl = intl;
+  }
+
+  setUpdateCallback(callback) {
+    this.updateMenuCallback = callback;
+  }
+
+  update(menuData) {
+    this.menuData = menuData;
+
+    this.updateMenuCallback(this.menu);
+  }
+
+  get menu() {
+    if (!this.intl) {
+      console.warn('`intl` is not set');
+      return;
     }
 
-    return name;
+    const baseTpl = /* isMac ? _templateFactory(this.intl) : */ _titleBarTemplateFactory({ user: this.menuData.user, intl: this.intl });
+    const viewTpl = viewMenu({
+      isTodosEnabled: this.menuData.app.isTodosEnabled, user: this.menuData.user, services: this.menuData.services, intl: this.intl,
+    });
+    const serviceTpl = serviceMenu({ services: this.menuData.services, intl: this.intl });
+    const workspaceTpl = workspacesMenu({
+      workspaces: this.menuData.workspaces, isWorkspaceDrawerOpen: this.menuData.app.isWorkspaceDrawerOpen, intl: this.intl, user: this.menuData.user,
+    });
+    const todosTpl = todosMenu({
+      isTodosPanelVisible: this.menuData.app.isTodosDrawerOpen, isTodosEnabled: this.menuData.app.isTodosEnabled, intl: this.intl, user: this.menuData.user,
+    });
+
+    baseTpl[1].submenu = viewTpl;
+    baseTpl[2].submenu = serviceTpl;
+    baseTpl[3].submenu = workspaceTpl;
+    baseTpl[4].submenu = todosTpl;
+
+    return baseTpl;
   }
 }

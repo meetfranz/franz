@@ -17,7 +17,7 @@ import {
 } from '.';
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
-import { TODOS_FETCH_WEB_CONTENTS_ID } from '../../ipcChannels';
+import { TODOS_FETCH_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS } from '../../ipcChannels';
 
 const debug = require('debug')('Franz:feature:todos:store');
 
@@ -29,6 +29,19 @@ export default class TodoStore extends FeatureStore {
   @observable webContentsId = null;
 
   isInitialized = false;
+
+  constructor() {
+    super();
+
+    ipcRenderer.on(TODOS_TOGGLE_DRAWER, () => {
+      this._toggleTodosPanel();
+    });
+
+    ipcRenderer.on(TODOS_TOGGLE_ENABLE_TODOS, () => {
+      console.log('toggle feature');
+      this._toggleTodosFeatureVisibility();
+    });
+  }
 
   @computed get width() {
     const width = this.settings.width || DEFAULT_TODOS_WIDTH;

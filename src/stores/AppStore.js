@@ -25,7 +25,9 @@ import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '..
 import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
 import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
-import { OVERLAY_SHARE_SETTINGS, WINDOWS_TITLEBAR_GET_MENU, WINDOWS_TITLEBAR_INITIALIZE } from '../ipcChannels';
+import {
+  CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
+} from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
 
@@ -100,6 +102,7 @@ export default class AppStore extends Store {
       this._muteAppHandler.bind(this),
       this._handleFullScreen.bind(this),
       this._handleLogout.bind(this),
+      this._shareMenuData.bind(this),
     ]);
   }
 
@@ -170,9 +173,18 @@ export default class AppStore extends Store {
       this.isFullScreen = status;
     });
 
+    ipcRenderer.on(FETCH_DEBUG_INFO, (e) => {
+      console.log('huhu debug');
+      ipcRenderer.sendTo(e.senderId, FETCH_DEBUG_INFO, JSON.parse(JSON.stringify(this.debugInfo)));
+    });
+
+    ipcRenderer.on(CHECK_FOR_UPDATE, () => {
+      this._checkForUpdates();
+    });
+
     if (isWindows) {
-      ipcRenderer.on(WINDOWS_TITLEBAR_GET_MENU, (e) => {
-        ipcRenderer.sendTo(e.senderId, WINDOWS_TITLEBAR_GET_MENU, JSON.parse(JSON.stringify(window.franz.menu.template)));
+      ipcRenderer.on(WINDOWS_TITLEBAR_FETCH_MENU, (e) => {
+        this._shareMenuData();
       });
       ipcRenderer.send(WINDOWS_TITLEBAR_INITIALIZE);
     }
@@ -519,6 +531,23 @@ export default class AppStore extends Store {
     if (!this.stores.user.isLoggedIn) {
       clearInterval(this.fetchDataInterval);
     }
+  }
+
+  _shareMenuData() {
+    ipcRenderer.send(WINDOWS_TITLEBAR_FETCH_MENU, JSON.parse(JSON.stringify({
+      user: {
+        isLoggedIn: this.stores.user.isLoggedIn,
+        isPremium: this.stores.user.isPremium,
+      },
+      services: this.stores.services.allDisplayed,
+      workspaces: this.stores.workspaces.workspaces,
+      app: {
+        isTodosEnabled: this.stores.todos.isFeatureEnabledByUser,
+        isTodosDrawerOpen: this.stores.todos.isTodosPanelVisible,
+        isWorkspaceFeatureEnabled: this.stores.workspaces.isFeatureEnabled,
+        isWorkspaceDrawerOpen: this.stores.workspaces.isWorkspaceDrawerOpen,
+      },
+    })));
   }
 
   // Helpers

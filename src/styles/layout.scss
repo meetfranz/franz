@@ -42,6 +42,10 @@ body.win32:not(.isFullScreen) .app .app__content {
   margin-top: $windows-title-bar-height;
   height: calc(100% - $windows-title-bar-height);
 }
+body:not(.isFullScreen) .app .app__content {
+  margin-top: $windows-title-bar-height;
+  height: calc(100% - $windows-title-bar-height);
+}
 
 .app {
   .app__content {

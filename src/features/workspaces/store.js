@@ -17,7 +17,9 @@ import {
 import { WORKSPACES_ROUTES } from './index';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
-import { RESIZE_SERVICE_VIEWS } from '../../ipcChannels';
+import {
+  WORKSPACE_TOGGLE_DRAWER, RESIZE_SERVICE_VIEWS, WORKSPACE_FETCH_DATA, WORKSPACE_OPEN_SETTINGS, WORKSPACE_ACTIVATE,
+} from '../../ipcChannels';
 import { TAB_BAR_WIDTH } from '../../config';
 
 const debug = require('debug')('Franz:feature:workspaces:store');
@@ -40,6 +42,29 @@ export default class WorkspacesStore extends FeatureStore {
   @observable isWorkspaceDrawerOpen = false;
 
   @observable isSettingsRouteActive = null;
+
+  constructor() {
+    super();
+
+    ipcRenderer.on(WORKSPACE_OPEN_SETTINGS, () => {
+      this._openWorkspaceSettings();
+    });
+
+    ipcRenderer.on(WORKSPACE_TOGGLE_DRAWER, () => {
+      this._toggleWorkspaceDrawer();
+    });
+
+    ipcRenderer.on(WORKSPACE_ACTIVATE, (event, { workspace } = {}) => {
+      if (workspace) {
+        const ws = this._getWorkspaceById(workspace.id);
+        console.log(ws);
+        this._setActiveWorkspace({ workspace: ws });
+      } else {
+        console.log('deactivate');
+        this._deactivateActiveWorkspace();
+      }
+    });
+  }
 
   @computed get workspaces() {
     if (!this.isFeatureActive) return [];
@@ -338,6 +363,10 @@ export default class WorkspacesStore extends FeatureStore {
       }
     }
   };
+
+  _shareWorkspaceDataReaction() {
+    ipcRenderer.send(WORKSPACE_FETCH_DATA, this.workspaces);
+  }
 
   _cleanupInvalidServiceReferences = () => {
     const { services } = this.stores;

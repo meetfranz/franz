@@ -8,7 +8,7 @@ import { theme } from '@meetfranz/theme';
 
 import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
-import { HIDE_ALL_SERVICES, SHOW_ALL_SERVICES } from '../ipcChannels';
+import { HIDE_ALL_SERVICES, SETTINGS_NAVIGATE_TO, SHOW_ALL_SERVICES } from '../ipcChannels';
 
 export default class UIStore extends Store {
   @observable showServicesUpdatedInfoBar = false;
@@ -34,6 +34,10 @@ export default class UIStore extends Store {
       () => this._setupThemeInDOM(),
       { fireImmediately: true },
     );
+
+    ipcRenderer.on(SETTINGS_NAVIGATE_TO, (e, { path }) => {
+      this._openSettings({ path });
+    });
 
     // reaction(
     //   () => this.isServiceRouteActive,
