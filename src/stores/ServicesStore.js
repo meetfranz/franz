@@ -711,7 +711,7 @@ export default class ServicesStore extends Store {
       ipcRenderer.send(HIDE_ALL_SERVICES);
     }
 
-    if (!this.stores.user.isLoggedIn) return;
+    if (!this.stores.user.isLoggedIn || this.stores.router.location.pathname.includes(this.stores.user.BASE_ROUTE)) return;
 
     const sharedServiceData = this.allDisplayed.filter(service => service.isEnabled).map(service => ({
       id: service.id,
