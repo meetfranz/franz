@@ -39,7 +39,7 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
       hash: '/windows-titlebar',
     });
 
-    if (isDevMode) {
+    if (isDevMode && !view.webContents.isDevToolsOpened()) {
       view.webContents.openDevTools({ mode: 'detach' });
     }
   });
