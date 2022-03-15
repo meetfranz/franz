@@ -1349,8 +1349,6 @@ export class AppMenu {
 
   intl = null;
 
-  updateMenuCallback = () => {};
-
   constructor({ intl, updateMenuCallback } = {}) {
     if (updateMenuCallback) {
       this.updateMenuCallback = updateMenuCallback;
@@ -1367,14 +1365,8 @@ export class AppMenu {
     this.intl = intl;
   }
 
-  setUpdateCallback(callback) {
-    this.updateMenuCallback = callback;
-  }
-
   update(menuData) {
     this.menuData = menuData;
-
-    this.updateMenuCallback(this.menu);
   }
 
   get menu() {

@@ -102,7 +102,7 @@ export default class AppStore extends Store {
       this._muteAppHandler.bind(this),
       this._handleFullScreen.bind(this),
       this._handleLogout.bind(this),
-      this._shareMenuData.bind(this),
+      isWindows ? this._shareMenuData.bind(this) : () => {},
     ]);
   }
 

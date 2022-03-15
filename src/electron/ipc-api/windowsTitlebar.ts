@@ -9,6 +9,8 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
   let view: BrowserView;
 
   ipcMain.on(WINDOWS_TITLEBAR_INITIALIZE, async () => {
+    if (view) return;
+
     view = new BrowserView({
       webPreferences: {
         contextIsolation: false,
@@ -39,7 +41,7 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
       hash: '/windows-titlebar',
     });
 
-    if (isDevMode && !view.webContents.isDevToolsOpened()) {
+    if (isDevMode) {
       view.webContents.openDevTools({ mode: 'detach' });
     }
   });

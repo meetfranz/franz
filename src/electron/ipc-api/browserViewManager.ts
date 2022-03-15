@@ -73,7 +73,6 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
 
         if (!sbw) {
           debug('creating new browserview', service.url);
-          const recipe = new Recipe(loadRecipeConfig(service.recipeId));
 
           sbw = new ServiceBrowserView({
             config: {
@@ -83,7 +82,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
               partition: service.partition,
             },
             state: service.state,
-            recipe,
+            recipeId: service.recipeId,
             window: mainWindow,
             settings,
           });
@@ -156,7 +155,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     if (url.includes('#/settings')) {
       browserViews.forEach(bw => bw.browserView.remove());
     }
-  })
+  });
 
   ipcMain.on(OPEN_SERVICE_DEV_TOOLS, (e, { serviceId }) => {
     const sbw = browserViews.find(browserView => browserView.id === serviceId);
@@ -242,7 +241,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     debug('User login status changed to', isLoggedIn);
 
     if (!isLoggedIn) {
-      debug('User is logged out, removing all browserViews')
+      debug('User is logged out, removing all browserViews');
       browserViews.forEach(bw => bw.browserView.remove());
       browserViews.splice(0, browserViews.length);
     }

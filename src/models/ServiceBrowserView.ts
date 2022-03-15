@@ -5,11 +5,13 @@ import ms from 'ms';
 import { REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE } from '../ipcChannels';
 import Settings from '../electron/Settings';
 import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
-import Recipe from './Recipe';
+import RecipeModel from './Recipe';
 import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
 import { sleep } from '../helpers/async-helpers';
 import { easeInOutSine } from '../helpers/animation-helpers';
 import { IPC } from '../features/todos/constants';
+import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
+
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -32,7 +34,7 @@ interface IServiceConfig {
 interface IServiceBrowserViewConstructor {
   config: IServiceConfig;
   state: IServiceState,
-  recipe: Recipe,
+  recipeId: string,
   window: BrowserWindow,
   settings: Settings
 }
@@ -42,7 +44,9 @@ export class ServiceBrowserView {
 
   state: IServiceState;
 
-  recipe: Recipe;
+  recipeId: string;
+
+  recipe: any;
 
   view: BrowserView = null;
 
@@ -57,25 +61,39 @@ export class ServiceBrowserView {
   bounds: Electron.Rectangle;
 
   constructor({
-    config, state, recipe, window, settings,
+    config, state, recipeId, window, settings,
   }: IServiceBrowserViewConstructor) {
     debug('Creating ServiceBrowserView Model', config);
 
     this.config = config;
     this.state = state;
-    this.recipe = recipe;
+    this.recipeId = recipeId;
     this.window = window;
     this.settings = settings;
+
+
+    // eslint-disable-next-line import/no-dynamic-require, global-require
+    const Recipe = require(getRecipeDirectory(this.recipeId))(RecipeModel);
+    this.recipe = new Recipe(loadRecipeConfig(this.recipeId));
 
     if (!state.isRestricted) {
       this.view = new BrowserView({
         webPreferences: {
           partition: config.partition,
-          preload: recipe.id !== TODOS_RECIPE_ID ? `${__dirname}/../webview/recipe.js` : `${__dirname}/../features/todos/preload.js`,
+          preload: recipeId !== TODOS_RECIPE_ID ? `${__dirname}/../webview/recipe.js` : `${__dirname}/../features/todos/preload.js`,
           contextIsolation: false,
         },
       });
     }
+
+    if (typeof this.recipe.modifyRequestHeaders === 'function') {
+      this.enableModifyRequestHeaders();
+    }
+
+    if (typeof this.recipe.knownCertificateHosts === 'function') {
+      this.enableKnownCertificateHosts();
+    }
+    // console.log(new Recipe(loadRecipeConfig(id)));
   }
 
   attach() {
@@ -154,6 +172,7 @@ export class ServiceBrowserView {
       }
 
       this.enableContextMenu();
+      // console.log(this.recipe);
     }
   }
 
@@ -270,7 +289,6 @@ export class ServiceBrowserView {
   async resize({
     width, height, x, y,
   }: Rectangle, animationDuration = 0) {
-
     if (!animationDuration) {
       const bounds = this.view.getBounds();
       const newBounds = {
@@ -309,9 +327,47 @@ export class ServiceBrowserView {
     }
   }
 
-
   focus() {
     this.webContents.focus();
+  }
+
+  enableModifyRequestHeaders() {
+    const modifiedRequestHeaders = this.recipe.modifyRequestHeaders();
+
+    modifiedRequestHeaders.forEach((headerFilterSet) => {
+      const { headers, requestFilters } = headerFilterSet;
+      this.webContents.session.webRequest.onBeforeSendHeaders(requestFilters, (details, callback) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for (const key in headers) {
+          if (Object.prototype.hasOwnProperty.call(headers, key)) {
+            const value = headers[key];
+            if (value === 'RefererHost') {
+              if (Object.prototype.hasOwnProperty.call(details.requestHeaders, 'Referer')) {
+                const { hostname } = new URL(details.requestHeaders.Referer);
+                details.requestHeaders[key] = `https://${hostname}`;
+              }
+            } else {
+              details.requestHeaders[key] = value;
+            }
+          }
+        }
+        callback({ requestHeaders: details.requestHeaders });
+      });
+    });
+    //
+  }
+
+  enableKnownCertificateHosts() {
+    const knownHosts = this.recipe.knownCertificateHosts();
+
+    this.webContents.session.setCertificateVerifyProc((request, callback) => {
+      const { hostname } = request;
+      if (knownHosts.find(item => item.includes(hostname)).length > 0) {
+        callback(0);
+      } else {
+        callback(-2);
+      }
+    });
   }
 
   get webContents() {
