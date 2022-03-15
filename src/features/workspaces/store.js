@@ -31,8 +31,6 @@ export default class WorkspacesStore extends FeatureStore {
 
   @observable isPremiumUpgradeRequired = true;
 
-  @observable activeWorkspace = null;
-
   @observable nextWorkspace = null;
 
   @observable workspaceBeingEdited = null;
@@ -63,6 +61,10 @@ export default class WorkspacesStore extends FeatureStore {
 
   @computed get isUserAllowedToUseFeature() {
     return !this.isPremiumUpgradeRequired;
+  }
+
+  @computed get activeWorkspace() {
+    return this.workspaces.find(ws => ws.isActive) || null;
   }
 
   @computed get isAnyWorkspaceActive() {
@@ -136,7 +138,7 @@ export default class WorkspacesStore extends FeatureStore {
   }
 
   @action reset() {
-    this.activeWorkspace = null;
+    // this.activeWorkspace = null;
     this.nextWorkspace = null;
     this.workspaceBeingEdited = null;
     this.isSwitchingWorkspace = false;
@@ -218,7 +220,13 @@ export default class WorkspacesStore extends FeatureStore {
     this.nextWorkspace = workspace;
     // Delay switching to next workspace so that the services loading does not drag down UI
     setTimeout(() => {
-      this.activeWorkspace = workspace;
+      const previousActiveWorkspace = this._getWorkspaceById(this.activeWorkspace?.id);
+      workspace.isActive = true;
+
+      if (previousActiveWorkspace) {
+        previousActiveWorkspace.isActive = false;
+      }
+
       this._updateSettings({ lastActiveWorkspace: workspace.id });
     }, 100);
     // Indicate that we are done switching to the next workspace
@@ -235,7 +243,7 @@ export default class WorkspacesStore extends FeatureStore {
     this._updateSettings({ lastActiveWorkspace: null });
     // Delay switching to next workspace so that the services loading does not drag down UI
     setTimeout(() => {
-      this.activeWorkspace = null;
+      this.activeWorkspace.isActive = false;
     }, 100);
     // Indicate that we are done switching to the default workspace
     setTimeout(() => { this.isSwitchingWorkspace = false; }, 1000);
