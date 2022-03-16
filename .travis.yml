@@ -24,7 +24,7 @@ script:
 # ping stdout every 5 minutes or Travis kills build
   # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
 - touch .ENABLE-LOOP-FILE 
-- while sleep 5m && [ -f './.ENABLE-LOOP-FILE' ]; do echo "Build still running for $SECONDS seconds"; done &
+- while sleep 300 && [ -f './.ENABLE-LOOP-FILE' ]; do echo "Build still running for $SECONDS seconds"; done &
 - npm run build && rm .ENABLE-LOOP-FILE 
 
 cache: npm
