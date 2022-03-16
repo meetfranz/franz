@@ -23,8 +23,9 @@ script:
 # - npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
 # ping stdout every 5 minutes or Travis kills build
   # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
-- while sleep 5m; do echo "=====[ $SECONDS seconds still running ]====="; done &
-- npm run build
+- touch .ENABLE-LOOP-FILE 
+- while sleep 5m && [ -f './.ENABLE-LOOP-FILE' ]; do echo "Build still running for $SECONDS seconds"; done &
+- npm run build && rm .ENABLE-LOOP-FILE 
 
 cache: npm
 
