@@ -198,5 +198,11 @@ const build = gulp.series(
 );
 export { build };
 
-const dev = gulp.series(build, gulp.parallel(webserver, watch));
+const devBuild = gulp.series(
+  clean,
+  gulp.parallel(typescript, mvSrc, mvPackageJson, mvLernaPackages),
+  gulp.parallel(html, scripts, styles),
+);
+
+const dev = gulp.series(devBuild, gulp.parallel(webserver, watch));
 export { dev };
