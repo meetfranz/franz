@@ -11,6 +11,10 @@ export default class WindowsTitlebar extends Component {
     intl: intlShape,
   };
 
+  state = {
+    menu: [],
+  }
+
   appMenu = new AppMenu()
 
   componentDidMount() {
@@ -21,6 +25,10 @@ export default class WindowsTitlebar extends Component {
 
     ipcRenderer.on(WINDOWS_TITLEBAR_FETCH_MENU, (e, data) => {
       this.appMenu.update(data);
+
+      this.setState({
+        menu: this.appMenu.menu,
+      });
     });
 
     ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WINDOWS_TITLEBAR_FETCH_MENU);
@@ -29,7 +37,7 @@ export default class WindowsTitlebar extends Component {
   render() {
     return (
       <TitleBar
-        menu={this.appMenu.menu}
+        menu={this.state.menu}
         icon="assets/images/logo.svg"
         onToggleMenuBar={(isClicked) => {
           ipcRenderer.send(WINDOWS_TITLEBAR_RESIZE, {
