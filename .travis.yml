@@ -20,8 +20,11 @@ install:
 script:
 - npm run test
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pyenv global 3.6.7 && npm config set python python3.6.7; fi
-- npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
-- travis_wait 80 npm run build
+# - npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
+# ping stdout every 5 minutes or Travis kills build
+  # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
+- while sleep 5m; do echo "=====[ $SECONDS seconds still running ]====="; done &
+- npm run build
 
 cache: npm
 
