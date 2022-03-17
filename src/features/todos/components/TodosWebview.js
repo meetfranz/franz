@@ -218,7 +218,7 @@ class TodosWebview extends Component {
       <div
         className={classnames({
           [classes.root]: true,
-          [classes.isTodosServiceActive]: isTodosServiceActive,
+          [classes.isTodosServiceActive]: !isSettingsRouteActive && isTodosServiceActive,
         })}
         style={{ width: displayedWidth }}
         onMouseUp={() => this.stopResize()}

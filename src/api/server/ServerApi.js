@@ -379,8 +379,6 @@ export default class ServerApi {
       const buffer = await res.buffer();
       fs.writeFileSync(archivePath, buffer);
 
-      console.log('recipeTempDirectory', recipeTempDirectory)
-
       await sleep(10);
 
       const tarOpts = {
@@ -391,7 +389,7 @@ export default class ServerApi {
         preserveOwner: false,
         noChmod: isWindows,
         onwarn: (code, message, data) => {
-          console.warn('tar warning', recipeId, code, message, data)
+          console.warn('tar warning', recipeId, code, message, data);
         },
       };
 

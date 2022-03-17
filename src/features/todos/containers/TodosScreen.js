@@ -8,6 +8,7 @@ import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { TODOS_MIN_WIDTH, todosStore } from '..';
 import { todoActions } from '../actions';
 import ServicesStore from '../../../stores/ServicesStore';
+import UIStore from '../../../stores/UIStore';
 
 @inject('stores', 'actions') @observer
 class TodosScreen extends Component {
@@ -26,7 +27,7 @@ class TodosScreen extends Component {
           minWidth={TODOS_MIN_WIDTH}
           resize={width => todoActions.resize({ width })}
           isTodosIncludedInCurrentPlan={this.props.stores.features.features.isTodosIncludedInCurrentPlan || false}
-          isSettingsRouteActive={this.props.stores.router.location.pathname.includes('/settings')}
+          isSettingsRouteActive={this.props.stores.ui.isSettingsRouteActive}
         />
       </ErrorBoundary>
     );
@@ -39,5 +40,6 @@ TodosScreen.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     features: PropTypes.instanceOf(FeaturesStore).isRequired,
     services: PropTypes.instanceOf(ServicesStore).isRequired,
+    ui: PropTypes.instanceOf(UIStore).isRequired,
   }).isRequired,
 };

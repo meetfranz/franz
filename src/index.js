@@ -5,6 +5,7 @@ import {
   BrowserWindow,
   shell,
   ipcMain,
+  dialog,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
@@ -53,11 +54,13 @@ import './electron/exception';
 import {
   DEFAULT_APP_SETTINGS,
   DEFAULT_WINDOW_OPTIONS,
+  LIVE_API_WEBSITE,
 } from './config';
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 import { openOverlay } from './electron/ipc-api/overlayWindow';
+import macosVersion from 'macos-version';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -375,6 +378,23 @@ app.on('ready', () => {
   require('@meetfranz/electron-react-titlebar/main').initialize();
 
   createWindow();
+
+  if (app.runningUnderARM64Translation && isMac) {
+    dialog.showMessageBox(mainWindow, {
+      message: 'Franz for Apple Silicon',
+      detail: 'Enjoy Franz with better performance and stability on your Mac.',
+      buttons: [
+        'Later',
+        'Download Franz for Apple Silicon',
+      ],
+      defaultId: 1,
+      cancelId: 0,
+    }).then(({ response }) => {
+      if (response === 1) {
+        shell.openExternal(`${LIVE_API_WEBSITE}/download?platform=mac-arm64`);
+      }
+    });
+  }
 });
 
 // This is the worst possible implementation as the webview.webContents based callback doesn't work 🖕

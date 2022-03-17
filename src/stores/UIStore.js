@@ -65,6 +65,10 @@ export default class UIStore extends Store {
     return this.stores.router.location.pathname === '/';
   }
 
+  @computed get isSettingsRouteActive() {
+    return this.stores.router.location.pathname.startsWith('/settings/');
+  }
+
   // Actions
   @action _openSettings({ path = '/settings' }) {
     const settingsPath = path !== '/settings' ? `/settings/${path}` : path;
@@ -84,12 +88,12 @@ export default class UIStore extends Store {
   }
 
   @action _hideServices() {
-    console.log('hide all services')
+    console.log('hide all services');
     ipcRenderer.send(HIDE_ALL_SERVICES);
   }
-  
+
   @action _showServices() {
-    console.log('show all services')
+    console.log('show all services');
     ipcRenderer.send(SHOW_ALL_SERVICES);
   }
 
