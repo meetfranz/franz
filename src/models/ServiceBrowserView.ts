@@ -2,7 +2,9 @@ import {
   BrowserView, BrowserWindow, BrowserWindowConstructorOptions, ipcMain, Menu, Rectangle, shell,
 } from 'electron';
 import ms from 'ms';
-import { REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE } from '../ipcChannels';
+import {
+  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SERVICE_STATE, UPDATE_SPELLCHECKING_LANGUAGE,
+} from '../ipcChannels';
 import Settings from '../electron/Settings';
 import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
 import RecipeModel from './Recipe';
@@ -31,6 +33,14 @@ interface IServiceConfig {
   partition: string,
 }
 
+interface IWebContentsState {
+  isLoading: boolean;
+  isFirstLoad: boolean;
+  isError: boolean;
+  errorMessage?: string;
+  hasCrashed: boolean;
+}
+
 interface IServiceBrowserViewConstructor {
   config: IServiceConfig;
   state: IServiceState,
@@ -38,6 +48,7 @@ interface IServiceBrowserViewConstructor {
   window: BrowserWindow,
   settings: Settings
 }
+
 
 export class ServiceBrowserView {
   config: IServiceConfig;
@@ -59,6 +70,14 @@ export class ServiceBrowserView {
   isAttached = false;
 
   bounds: Electron.Rectangle;
+
+  webContentsState: IWebContentsState = {
+    isLoading: true,
+    isFirstLoad: true,
+    isError: false,
+    errorMessage: null,
+    hasCrashed: false,
+  };
 
   constructor({
     config, state, recipeId, window, settings,
@@ -130,14 +149,57 @@ export class ServiceBrowserView {
 
   initialize() {
     if (!this.isRestricted) {
-      this.view.webContents.loadURL(this.config.url);
+      this.webContents.loadURL(this.config.url);
 
-      this.view.webContents.on('ipc-message', (e, channel, data) => {
+      this.webContents.on('ipc-message', (e, channel, data) => {
         this.window.webContents.send(channel, this.config.id, data);
 
         if (channel === 'hello') {
-          this.view.webContents.send('initialize-recipe', this.state, this.recipe);
+          this.webContents.send('initialize-recipe', this.state, this.recipe);
         }
+      });
+
+      this.webContents.on('did-start-loading', () => {
+        debug('Did start load', this.config.name);
+
+        this.setWebContentsState({
+          hasCrashed: false,
+          isLoading: true,
+          isError: false,
+        });
+      });
+
+      const didLoad = (isMainFrame) => {
+        if (!isMainFrame) return null;
+        // add a timeout to avoid confusion due to layout flickering
+        setTimeout(() => {
+          this.setWebContentsState({
+            isLoading: false,
+            isFirstLoad: !!this.webContentsState.isError,
+          });
+        }, 500);
+      };
+
+      this.webContents.on('did-frame-finish-load', (e, isMainFrame) => didLoad(isMainFrame));
+      this.webContents.on('did-navigate', (e, isMainFrame) => didLoad(isMainFrame));
+
+      this.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL, isMainFrame) => {
+        debug('Service failed to load', this.config.name);
+        if (isMainFrame && errorCode !== -21 && errorCode !== -3) {
+          this.setWebContentsState({
+            isError: true,
+            errorMessage: errorDescription,
+            isLoading: false,
+          });
+        }
+      });
+
+      this.webContents.on('render-process-gone', () => {
+        debug('Service crashed', this.config.name);
+
+        this.setWebContentsState({
+          hasCrashed: true,
+        });
       });
 
       this.webContents.setWindowOpenHandler(({
@@ -177,7 +239,6 @@ export class ServiceBrowserView {
       }
 
       this.enableContextMenu();
-      // console.log(this.recipe);
     }
   }
 
@@ -373,6 +434,15 @@ export class ServiceBrowserView {
         callback(-3);
       }
     });
+  }
+
+  setWebContentsState(state: Partial<IWebContentsState>) {
+    this.webContentsState = {
+      ...this.webContentsState,
+      ...state,
+    };
+
+    this.window.webContents.send(UPDATE_SERVICE_STATE, { serviceId: this.config.id, state: this.webContentsState });
   }
 
   get webContents() {

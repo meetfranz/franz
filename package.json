@@ -77,7 +77,6 @@
     "prop-types": "^15.5.10",
     "react": "16.8.6",
     "react-addons-css-transition-group": "15.6.2",
-    "react-confetti": "3.1.0",
     "react-dom": "16.8.6",
     "react-dropzone": "7.0.1",
     "react-electron-web-view": "^2.0.1",

@@ -35,6 +35,10 @@ html { overflow: hidden; }
     }
   }
 
+  .app__service {
+    background: $dark-theme-gray-darkest;
+  }
+
   .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
 }
 

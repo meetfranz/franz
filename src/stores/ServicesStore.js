@@ -21,7 +21,7 @@ import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import {
-  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE, HIDE_ALL_SERVICES, ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE,
+  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE, HIDE_ALL_SERVICES, ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, UPDATE_SERVICE_STATE,
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:ServiceStore');
@@ -111,8 +111,15 @@ export default class ServicesStore extends Store {
     });
 
     ipcRenderer.on(ACTIVATE_SERVICE, (e, { serviceId }) => {
-      console.log('service', serviceId);
       this.actions.service.setActive({ serviceId });
+    });
+
+    ipcRenderer.on(UPDATE_SERVICE_STATE, (e, { serviceId, state }) => {
+      const service = this.one(serviceId);
+
+      if (service) {
+        Object.assign(service, state);
+      }
     });
 
     this._handleSpellcheckerLocale();

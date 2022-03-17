@@ -2,7 +2,7 @@ export default {
   wrapper: {
     display: 'flex',
     alignItems: 'center',
-    position: 'absolute',
+    position: ({ isAbsolutePositioned }) => (isAbsolutePositioned ? 'absolute' : 'relative'),
     width: '100%',
   },
   component: {

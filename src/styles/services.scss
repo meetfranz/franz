@@ -1,22 +1,20 @@
 @import './config.scss';
 
-.theme__dark .services {
-  background: $dark-theme-gray-darkest;
-
-  .services__webview-wrapper { background: $dark-theme-gray-darkest; }
-
-  .services__webview,
-  .services__info-layer {
-    // webview { background: $dark-theme-gray-darkest; }
+.theme__dark {
+  .services {
+    background: $dark-theme-gray-darkest;
+  
+    .services__webview-wrapper { background: $dark-theme-gray-darkest; }
   }
 
   .services__no-service,
   .services__info-layer {
     background: $dark-theme-gray-darkest;
-
+  
     h1 { color: $dark-theme-gray-lightest; }
   }
 }
+
 
 .services {
   background: #FFF;
@@ -28,62 +26,22 @@
 
   .services__webview-wrapper { background: $theme-gray-lighter; }
 
-  .services__webview,
-  .services__info-layer {
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 0;
+}
 
-    webview {
-      background: $theme-gray-lighter;
-      // display: none;
-      height: 100%;
-      width: 100%;
-      z-index: 0;
-    }
+.services__no-service,
+.services__info-layer {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 
-    &.is-loaded:not(.is-active) {
-      webview {
-        display: none;
-      }
-    }
-
-    &.is-active {
-      z-index: 100;
-      
-      webview {
-        display: inline-flex;
-      }
-    }
-
-    &--force-repaint webview { z-index: 5; }
-
-    &.is-loading webview { background: #FFF }
+  h1 {
+    color: $theme-gray-dark;
+    margin: 25px 0 40px;
   }
 
-  .services__no-service,
-  .services__info-layer {
-    align-items: center;
-    background: $theme-gray-lighter;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-
-    h1 {
-      color: $theme-gray-dark;
-      margin: 25px 0 40px;
-    }
-
-    a.button,
-    button { margin: 40px 0 20px; }
-  }
-
-  .services__info-layer {
-    position: absolut;
-    z-index: 110;
-  }
-
+  a.button,
+  button { margin: 40px 0 20px; }
 }

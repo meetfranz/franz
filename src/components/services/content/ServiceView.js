@@ -1,67 +1,30 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { autorun } from 'mobx';
 import { observer } from 'mobx-react';
-import classnames from 'classnames';
 
+import injectSheet from 'react-jss';
 import ServiceModel from '../../../models/Service';
-import StatusBarTargetUrl from '../../ui/StatusBarTargetUrl';
 import WebviewLoader from '../../ui/WebviewLoader';
 import WebviewCrashHandler from './WebviewCrashHandler';
 import WebviewErrorHandler from './ErrorHandlers/WebviewErrorHandler';
 import ServiceDisabled from './ServiceDisabled';
 import ServiceRestricted from './ServiceRestricted';
 
-export default @observer class ServiceView extends Component {
+const styles = {
+  container: {
+    display: 'flex',
+  },
+};
+export default @injectSheet(styles) @observer class ServiceView extends Component {
   static propTypes = {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     reload: PropTypes.func.isRequired,
     edit: PropTypes.func.isRequired,
     enable: PropTypes.func.isRequired,
-    isActive: PropTypes.bool,
     upgrade: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
   };
 
-  static defaultProps = {
-    isActive: false,
-  };
-
-  state = {
-    forceRepaint: false,
-    targetUrl: '',
-    statusBarVisible: false,
-  };
-
-  autorunDisposer = null;
-
-  forceRepaintTimeout = null;
-
-  componentDidMount() {
-    this.autorunDisposer = autorun(() => {
-      if (this.props.service.isActive) {
-        this.setState({ forceRepaint: true });
-        this.forceRepaintTimeout = setTimeout(() => {
-          this.setState({ forceRepaint: false });
-        }, 100);
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this.autorunDisposer();
-    clearTimeout(this.forceRepaintTimeout);
-  }
-
-  updateTargetUrl = (event) => {
-    let visible = true;
-    if (event.url === '' || event.url === '#') {
-      visible = false;
-    }
-    this.setState({
-      targetUrl: event.url,
-      statusBarVisible: visible,
-    });
-  };
 
   render() {
     const {
@@ -70,27 +33,19 @@ export default @observer class ServiceView extends Component {
       edit,
       enable,
       upgrade,
+      classes,
     } = this.props;
 
-    const webviewClasses = classnames({
-      services__webview: true,
-      'services__webview-wrapper': true,
-      'is-active': service.isActive,
-      'services__webview--force-repaint': this.state.forceRepaint,
-      'is-loaded': service.isEnabled && !service.isFirstLoad,
-    });
+    const visible = (service.isLoading && service.isFirstLoad) || service.hasCrashed || service.isError || service.isServiceAccessRestricted;
 
-    let statusBar = null;
-    if (this.state.statusBarVisible) {
-      statusBar = (
-        <StatusBarTargetUrl text={this.state.targetUrl} />
-      );
-    }
+    console.log(service.name, 'should be visible', visible, new Date().getSeconds());
+
+    if (!visible) return null;
 
     return (
-      <div className={webviewClasses}>
-        {service.isActive && service.isEnabled && (
-          <Fragment>
+      <div className={classes.container}>
+        {service.isEnabled && (
+          <>
             {service.hasCrashed && (
               <WebviewCrashHandler
                 name={service.recipe.name}
@@ -112,30 +67,24 @@ export default @observer class ServiceView extends Component {
                 edit={edit}
               />
             )}
-          </Fragment>
-        )}
-        {!service.isEnabled ? (
-          <Fragment>
-            {service.isActive && (
-              <ServiceDisabled
-                name={service.recipe.name}
-                webview={service.webview}
-                enable={enable}
-              />
-            )}
-          </Fragment>
-        ) : (
-          <>
-            {service.isServiceAccessRestricted && (
-              <ServiceRestricted
-                name={service.recipe.name}
-                upgrade={upgrade}
-                type={service.restrictionType}
-              />
-            )}
           </>
         )}
-        {statusBar}
+        {!service.isEnabled ? (
+          <ServiceDisabled
+            name={service.recipe.name}
+            webview={service.webview}
+            enable={enable}
+          />
+        ) : service.isServiceAccessRestricted && (
+        <ServiceRestricted
+          name={service.recipe.name}
+          upgrade={upgrade}
+          type={service.restrictionType}
+        />
+        )}
+        {/* {this.state.statusBarVisible && (
+          <StatusBarTargetUrl text={this.state.targetUrl} />
+        )} */}
       </div>
     );
   }

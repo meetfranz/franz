@@ -119,12 +119,11 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const servicesContainer = (
       <Services
-        services={services.allDisplayedUnordered}
+        activeService={services.active}
+        serviceCount={services.allDisplayed.length}
         reload={reload}
         openSettings={openSettings}
         update={updateService}
-        userHasCompletedSignup={user.hasCompletedSignup}
-        hasActivatedTrial={user.hasActivatedTrial}
       />
     );
 

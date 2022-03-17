@@ -36,14 +36,11 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = {
   appContent: {
     width: '100%',
-    // transform() {
-    //   return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
-    // },
   },
-});
+};
 
 @injectSheet(styles) @observer
 class AppLayout extends Component {
