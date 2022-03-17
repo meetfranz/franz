@@ -182,7 +182,7 @@ export default class AppStore extends Store {
       this._checkForUpdates();
     });
 
-    if (isWindows) {
+    if (!isMac) {
       ipcRenderer.on(WINDOWS_TITLEBAR_FETCH_MENU, (e) => {
         this._shareMenuData();
       });
