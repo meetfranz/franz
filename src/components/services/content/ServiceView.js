@@ -38,8 +38,6 @@ export default @injectSheet(styles) @observer class ServiceView extends Componen
 
     const visible = (service.isLoading && service.isFirstLoad) || service.hasCrashed || service.isError || service.isServiceAccessRestricted;
 
-    console.log(service.name, 'should be visible', visible, new Date().getSeconds());
-
     if (!visible) return null;
 
     return (
