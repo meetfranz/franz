@@ -5,6 +5,7 @@ import { intlShape } from 'react-intl';
 import { WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
 import { AppMenu } from '../../lib/Menu';
 import { DEFAULT_WEB_CONTENTS_ID } from '../../config';
+import { isWindows } from '../../environment';
 
 export default class WindowsTitlebar extends Component {
   static contextTypes = {
@@ -44,6 +45,7 @@ export default class WindowsTitlebar extends Component {
             height: isClicked ? window.outerHeight : 28,
           });
         }}
+        showWindowControls={isWindows}
       />
     );
   }
