@@ -222,7 +222,7 @@ export class ServiceBrowserView {
         return;
       }
 
-      debug('is service attached', this.isAttached);
+      debug(this.config.name, 'is service attached', this.isAttached);
       if (!this.isAttached) {
         this.attach();
       }
