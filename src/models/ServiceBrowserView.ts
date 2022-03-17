@@ -367,10 +367,10 @@ export class ServiceBrowserView {
 
     this.webContents.session.setCertificateVerifyProc((request, callback) => {
       const { hostname } = request;
-      if (knownHosts.find(item => item.includes(hostname)).length > 0) {
+      if (knownHosts.find(item => item.includes(hostname))) {
         callback(0);
       } else {
-        callback(-2);
+        callback(-3);
       }
     });
   }
