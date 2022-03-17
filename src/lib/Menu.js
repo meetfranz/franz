@@ -15,7 +15,7 @@ import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
 import {
-  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, WINDOWS_TITLEBAR_FETCH_MENU, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WINDOWS_TITLEBAR_FETCH_MENU, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
 } from '../ipcChannels';
 import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 
@@ -483,29 +483,6 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.services),
-        role: 'services',
-        submenu: [],
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.hide),
-        role: 'hide',
-      },
-      {
-        label: intl.formatMessage(menuItems.hideOthers),
-        role: 'hideothers',
-      },
-      {
-        label: intl.formatMessage(menuItems.unhide),
-        role: 'unhide',
-      },
-      {
-        type: 'separator',
-      },
-      {
         label: intl.formatMessage(menuItems.quit),
         role: 'quit',
         click() {
@@ -706,7 +683,7 @@ function getServiceName(service) {
 }
 
 function serviceMenu({
-  services = [], intl,
+  services = [], user, intl,
 }) {
   if (!intl) return [];
 
@@ -715,6 +692,7 @@ function serviceMenu({
   menu.push({
     label: intl.formatMessage(menuItems.addNewService),
     accelerator: `${cmdKey}+N`,
+    enabled: user.isLoggedIn,
     click: () => {
       const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
       contents.send(SETTINGS_NAVIGATE_TO, { path: 'recipes' });
@@ -724,6 +702,7 @@ function serviceMenu({
   }, {
     label: intl.formatMessage(menuItems.activateNextService),
     accelerator: `${cmdKey}+alt+right`,
+    enabled: user.isLoggedIn,
     click: () => {
       const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
       contents.send(ACTIVATE_NEXT_SERVICE);
@@ -731,13 +710,18 @@ function serviceMenu({
   }, {
     label: intl.formatMessage(menuItems.activatePreviousService),
     accelerator: `${cmdKey}+alt+left`,
+    enabled: user.isLoggedIn,
     click: () => {
       const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
       contents.send(ACTIVATE_PREVIOUS_SERVICE);
     },
-  }, {
-    type: 'separator',
   });
+
+  if (services.length) {
+    menu.push({
+      type: 'separator',
+    });
+  }
 
   services.forEach((service, i) => (menu.push({
     label: getServiceName(service),
@@ -856,6 +840,7 @@ function viewMenu({
       label: intl.formatMessage(menuItems.reloadService),
       id: 'reloadService', // TODO: needed?
       accelerator: `${cmdKey}+R`,
+      enabled: user.isLoggedIn,
       click: () => {
         if (user.isLoggedIn
         && services.length > 0) {
@@ -879,6 +864,7 @@ function viewMenu({
     }, {
       label: intl.formatMessage(menuItems.reloadTodos),
       accelerator: `${cmdKey}+Shift+Alt+R`,
+      enabled: user.isLoggedIn,
       click: () => {
         this.actions.todos.reload();
       },
@@ -892,10 +878,6 @@ function viewMenu({
       async click() {
         (await getActiveWebContents()).setZoomLevel(0);
       },
-      action: {
-        action: 'setZoomLevel',
-        level: 0,
-      },
     },
     {
       label: intl.formatMessage(menuItems.zoomIn),
@@ -906,10 +888,6 @@ function viewMenu({
 
         // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
         if (level < 9) activeService.setZoomLevel(level + 1);
-      },
-      action: {
-        action: 'setZoomLevel',
-        level: 'increase',
       },
     },
     {
@@ -922,10 +900,6 @@ function viewMenu({
         // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
         if (level > -9) activeService.setZoomLevel(level - 1);
       },
-      action: {
-        action: 'setZoomLevel',
-        level: 'decrease',
-      },
     },
     {
       type: 'separator',
@@ -936,11 +910,7 @@ function viewMenu({
         : intl.formatMessage(menuItems.enterFullScreen),
       accelerator: 'F11',
       click() {
-        const browserWindow = getCurrentWindow();
-        browserWindow.setFullScreen(!browserWindow.isFullScreen());
-      },
-      action: {
-        action: 'toggleFullscreen',
+        ipcRenderer.send(TOGGLE_FULL_SCREEN);
       },
     }, {
       type: 'separator',
@@ -970,7 +940,8 @@ function viewMenu({
   if (isTodosEnabled) {
     tpl.push({
       label: intl.formatMessage(menuItems.toggleTodosDevTools),
-      accelerator: `${cmdKey}+Shift+Alt+O`,
+      accelerator: `${cmdKey}+Shift+Alt+O`,      
+      enabled: user.isLoggedIn,
       click: () => {
         this.actions.todos.toggleDevTools();
       },
@@ -1005,6 +976,7 @@ export default class FranzMenu {
     // need to clone object so we don't modify computed (cached) object
     const serviceTpl = Object.assign([], serviceMenu({
       services: this.stores.services.allDisplayed,
+      user: this.stores.user,
       intl: window.franz.intl,
     }));
 
@@ -1379,7 +1351,7 @@ export class AppMenu {
     const viewTpl = viewMenu({
       isTodosEnabled: this.menuData.app.isTodosEnabled, user: this.menuData.user, services: this.menuData.services, intl: this.intl,
     });
-    const serviceTpl = serviceMenu({ services: this.menuData.services, intl: this.intl });
+    const serviceTpl = serviceMenu({ services: this.menuData.services, user: this.menuData.user, intl: this.intl });
     const workspaceTpl = workspacesMenu({
       workspaces: this.menuData.workspaces, isWorkspaceDrawerOpen: this.menuData.app.isWorkspaceDrawerOpen, intl: this.intl, user: this.menuData.user,
     });
@@ -1391,6 +1363,9 @@ export class AppMenu {
     baseTpl[3].submenu = serviceTpl;
     baseTpl[4].submenu = workspaceTpl;
     baseTpl[5].submenu = todosTpl;
+
+    const menu = Menu.buildFromTemplate(baseTpl);
+    Menu.setApplicationMenu(menu);
 
     return baseTpl;
   }

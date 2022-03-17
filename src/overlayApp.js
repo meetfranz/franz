@@ -55,17 +55,32 @@ const setup = (settings) => {
   render(preparedApp, document.getElementById('root'));
 };
 
-// window.addEventListener('load', () => {
-// });
-ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event, settings) => {
-  console.log('overlay share settings');
-  setup(settings);
+let overlayAppInitialized = false;
+let checkAppInitLoop;
 
+function initOverlayApp() {
+  if (!overlayAppInitialized) {
+    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, OVERLAY_SHARE_SETTINGS);
+  } else {
+    clearInterval(checkAppInitLoop)
+  }
+}
+
+window.addEventListener('load', () => {
+  initOverlayApp();
+
+  checkAppInitLoop = setInterval(() => initOverlayApp(), 500);
+});
+
+ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event, settings) => {
+  setup(settings);
+  
   if (settings.theme === 'dark') {
     document.querySelector('body').classList.add('theme__dark');
   }
+
+  overlayAppInitialized = true;
 });
-ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, OVERLAY_SHARE_SETTINGS);
 
 // Prevent drag and drop into window from redirecting
 window.addEventListener('dragover', event => event.preventDefault());
