@@ -8,9 +8,6 @@ import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
 import ErrorBoundary from '../util/ErrorBoundary';
 
-// import globalMessages from '../../i18n/globalMessages';
-
-import { isWindows } from '../../environment';
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
 import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
@@ -42,9 +39,9 @@ const messages = defineMessages({
 const styles = theme => ({
   appContent: {
     width: '100%',
-    transform() {
-      return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
-    },
+    // transform() {
+    //   return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
+    // },
   },
 });
 
@@ -52,7 +49,6 @@ const styles = theme => ({
 class AppLayout extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    isFullScreen: PropTypes.bool.isRequired,
     sidebar: PropTypes.element.isRequired,
     workspacesDrawer: PropTypes.element.isRequired,
     services: PropTypes.element.isRequired,
@@ -87,7 +83,6 @@ class AppLayout extends Component {
   render() {
     const {
       classes,
-      isFullScreen,
       workspacesDrawer,
       sidebar,
       services,

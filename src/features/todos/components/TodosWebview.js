@@ -73,8 +73,8 @@ const styles = theme => ({
     marginTop: 40,
   },
   isTodosServiceActive: {
-    width: 'calc(100% - 368px)',
-    position: 'absolute',
+    width: '100%',
+    // position: 'absolute',
     right: 0,
     zIndex: 0,
   },

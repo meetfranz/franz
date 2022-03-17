@@ -8,6 +8,7 @@ import { Button } from '@meetfranz/forms/lib';
 import ReactTooltip from 'react-tooltip';
 
 import { mdiPlusBox, mdiSettings, mdiStar } from '@mdi/js';
+import classNames from 'classnames';
 import WorkspaceDrawerItem from './WorkspaceDrawerItem';
 import { workspaceActions } from '../actions';
 import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../index';
@@ -51,9 +52,13 @@ const messages = defineMessages({
 const styles = theme => ({
   drawer: {
     background: theme.workspaces.drawer.background,
-    width: `${theme.workspaces.drawer.width}px`,
+    width: 0,
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'hidden',
+  },
+  drawerOpen: {
+    width: `${theme.workspaces.drawer.width}px`,
   },
   headline: {
     fontSize: '24px',
@@ -138,12 +143,18 @@ class WorkspaceDrawer extends Component {
     const {
       activeWorkspace,
       isSwitchingWorkspace,
+      isWorkspaceDrawerOpen,
       nextWorkspace,
       workspaces,
     } = workspaceStore;
     const actualWorkspace = isSwitchingWorkspace ? nextWorkspace : activeWorkspace;
     return (
-      <div className={classes.drawer}>
+      <div
+        className={classNames({
+          [classes.drawer]: true,
+          [classes.drawerOpen]: isWorkspaceDrawerOpen,
+        })}
+      >
         <H1 className={classes.headline}>
           {workspaceStore.isPremiumUpgradeRequired && (
             <span

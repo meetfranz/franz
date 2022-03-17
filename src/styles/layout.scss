@@ -46,7 +46,6 @@ body.win32:not(.isFullScreen) .app .app__content {
 .app {
   .app__content {
     display: flex;
-    width: calc(100% + 300px);
   }
 
   .app__main-content {

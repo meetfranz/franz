@@ -131,7 +131,6 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
     return (
       <ThemeProvider theme={ui.theme}>
         <AppLayout
-          isFullScreen={app.isFullScreen}
           isOnline={app.isOnline}
           showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
           appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
