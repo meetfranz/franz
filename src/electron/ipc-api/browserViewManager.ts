@@ -69,64 +69,73 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
 
       const todosServiceIndex = services.findIndex(service => service.recipeId === TODOS_RECIPE_ID);
 
-      if (todosServiceIndex === -1) {
-        services.push(mockTodosService({}));
-      } else {
-        const service = services[todosServiceIndex];
-        services.splice(todosServiceIndex, 1, mockTodosService({ isActive: service.state.isActive }));
+      try {
+        if (todosServiceIndex === -1) {
+          services.push(mockTodosService({}));
+        } else {
+          const service = services[todosServiceIndex];
+          services.splice(todosServiceIndex, 1, mockTodosService({ isActive: service.state.isActive }));
+        }
+      } catch (err) {
+        console.log('Could not initialize todos service');
       }
 
       services.forEach((service) => {
-        let sbw = browserViews.find(bw => bw.id === service.id)?.browserView;
+        try {
+          let sbw = browserViews.find(bw => bw.id === service.id)?.browserView;
 
-        if (!sbw) {
-          debug('creating new browserview', service.url);
+          if (!sbw) {
+            debug('creating new browserview', service.url);
 
-          sbw = new ServiceBrowserView({
-            config: {
+            sbw = new ServiceBrowserView({
+              config: {
+                id: service.id,
+                name: service.name,
+                url: service.url,
+                partition: service.partition,
+              },
+              state: service.state,
+              recipeId: service.recipeId,
+              window: mainWindow,
+              settings,
+            });
+
+            sbw.initialize();
+            sbw.attach();
+
+            browserViews.push({
               id: service.id,
-              name: service.name,
-              url: service.url,
-              partition: service.partition,
-            },
-            state: service.state,
-            recipeId: service.recipeId,
-            window: mainWindow,
-            settings,
-          });
-
-          sbw.initialize();
-          sbw.attach();
-
-          browserViews.push({
-            id: service.id,
-            browserView: sbw,
-          });
-        } else {
-          sbw.update({
-            config: {
-              name: service.name,
-              url: service.url,
-            },
-            state: service.state,
-          });
-        }
-
-        debug('Is service attached', sbw.isAttached);
-
-        if (sbw.isActive) {
-          if (sbw.isRestricted) {
-            browserViews.forEach(bw => bw.browserView.remove());
+              browserView: sbw,
+            });
           } else {
-            setTimeout(() => {
-              sbw.setActive();
-              sbw.focus();
-            }, 5);
+            sbw.update({
+              config: {
+                name: service.name,
+                url: service.url,
+              },
+              state: service.state,
+            });
           }
-        }
 
-        if (service.recipeId === TODOS_RECIPE_ID) {
-          sbw.attach();
+          debug('Is service attached', sbw.isAttached);
+
+          if (sbw.isActive) {
+            if (sbw.isRestricted) {
+              browserViews.forEach(bw => bw.browserView.remove());
+            } else {
+              setTimeout(() => {
+                sbw.setActive();
+                sbw.focus();
+              }, 5);
+            }
+          }
+
+          if (service.recipeId === TODOS_RECIPE_ID) {
+            sbw.attach();
+          }
+        } catch (err) {
+          console.log('Could not initialize browserView');
+          console.log(err);
         }
       });
 
