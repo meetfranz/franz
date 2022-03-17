@@ -16,7 +16,7 @@ import LocalApi from './api/server/LocalApi';
 import storeFactory from './stores';
 import apiFactory from './api';
 import actions from './actions';
-import MenuFactory, { AppMenu } from './lib/Menu';
+import MenuFactory from './lib/Menu';
 import TouchBarFactory from './lib/TouchBar';
 import * as analytics from './lib/analytics';
 
