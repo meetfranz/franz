@@ -117,8 +117,6 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
             });
           }
 
-          debug('Is service attached', sbw.isAttached);
-
           if (sbw.isActive) {
             if (sbw.isRestricted) {
               browserViews.forEach(bw => bw.browserView.remove());
