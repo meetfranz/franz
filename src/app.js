@@ -16,7 +16,7 @@ import LocalApi from './api/server/LocalApi';
 import storeFactory from './stores';
 import apiFactory from './api';
 import actions from './actions';
-import MenuFactory from './lib/Menu';
+import MenuFactory, { AppMenu } from './lib/Menu';
 import TouchBarFactory from './lib/TouchBar';
 import * as analytics from './lib/analytics';
 
@@ -46,6 +46,7 @@ import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceS
 import { WORKSPACES_ROUTES } from './features/workspaces';
 import AnnouncementScreen from './features/announcements/components/AnnouncementScreen';
 import { ANNOUNCEMENTS_ROUTES } from './features/announcements';
+import { isMac } from './environment';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -58,7 +59,7 @@ window.addEventListener('load', () => {
   const router = new RouterStore();
   const history = syncHistoryWithStore(hashHistory, router);
   const stores = storeFactory(api, actions, router);
-  const menu = new MenuFactory(stores, actions);
+  const menu = isMac ? new MenuFactory(stores, actions) : null;
   const touchBar = new TouchBarFactory(stores, actions);
 
   window.franz = {
