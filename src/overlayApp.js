@@ -62,7 +62,7 @@ function initOverlayApp() {
   if (!overlayAppInitialized) {
     ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, OVERLAY_SHARE_SETTINGS);
   } else {
-    clearInterval(checkAppInitLoop)
+    clearInterval(checkAppInitLoop);
   }
 }
 
@@ -74,7 +74,7 @@ window.addEventListener('load', () => {
 
 ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event, settings) => {
   setup(settings);
-  
+
   if (settings.theme === 'dark') {
     document.querySelector('body').classList.add('theme__dark');
   }
