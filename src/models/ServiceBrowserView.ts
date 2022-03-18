@@ -153,8 +153,6 @@ export class ServiceBrowserView {
 
   initialize() {
     if (!this.isRestricted) {
-      this.webContents.loadURL(this.config.url);
-
       this.webContents.on('ipc-message', (e, channel, data) => {
         this.window.webContents.send(channel, this.config.id, data);
 
@@ -243,6 +241,8 @@ export class ServiceBrowserView {
       }
 
       this.enableContextMenu();
+
+      this.webContents.loadURL(this.config.url);
     }
   }
 
