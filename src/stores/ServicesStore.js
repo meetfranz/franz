@@ -115,7 +115,12 @@ export default class ServicesStore extends Store {
     });
 
     ipcRenderer.on(UPDATE_SERVICE_STATE, (e, { serviceId, state }) => {
-      const service = this.one(serviceId);
+      let service;
+      if (serviceId === TODOS_RECIPE_ID) {
+        service = this.allDisplayed.find(s => s.recipe.id === TODOS_RECIPE_ID);
+      } else {
+        service = this.one(serviceId);
+      }
 
       if (service) {
         Object.assign(service, state);
@@ -527,7 +532,13 @@ export default class ServicesStore extends Store {
   @action _sendIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    const contents = webContents.fromId(service.webContentsId);
+    let contents;
+    if (service.isTodos) {
+      contents = this.stores.todos.webContents;
+    } else {
+      contents = webContents.fromId(service.webContentsId);
+    }
+
     if (contents) {
       contents.send(channel, toJS(args));
     }
