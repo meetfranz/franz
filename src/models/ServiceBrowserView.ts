@@ -186,6 +186,7 @@ export class ServiceBrowserView {
       this.webContents.on('did-navigate', (e, isMainFrame) => didLoad(isMainFrame));
 
       this.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL, isMainFrame) => {
+        console.log('Service failed to load', this.config.name, errorCode, errorDescription, isMainFrame, validatedURL);
         debug('Service failed to load', this.config.name);
         if (isMainFrame && errorCode !== -21 && errorCode !== -3) {
           this.setWebContentsState({
@@ -196,13 +197,13 @@ export class ServiceBrowserView {
         }
       });
 
-      this.webContents.on('render-process-gone', () => {
-        debug('Service crashed', this.config.name);
+      // this.webContents.on('render-process-gone', (event, details) => {
+      //   debug('Service crashed', this.config.name, details);
 
-        this.setWebContentsState({
-          hasCrashed: true,
-        });
-      });
+      //   this.setWebContentsState({
+      //     hasCrashed: true,
+      //   });
+      // });
 
       this.webContents.setWindowOpenHandler(({
         url, disposition, ...rest
