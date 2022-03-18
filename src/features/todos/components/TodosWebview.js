@@ -11,6 +11,7 @@ import { ipcRenderer } from 'electron';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
 import { RESIZE_TODO_VIEW } from '../../../ipcChannels';
+import service from '../../../actions/service';
 
 const messages = defineMessages({
   premiumInfo: {
@@ -91,6 +92,7 @@ class TodosWebview extends Component {
     minWidth: PropTypes.number.isRequired,
     isTodosIncludedInCurrentPlan: PropTypes.bool.isRequired,
     isSettingsRouteActive: PropTypes.bool.isRequired,
+    activeTodosService: PropTypes.object.isRequired,
   };
 
   state = {
@@ -199,6 +201,7 @@ class TodosWebview extends Component {
       isVisible,
       isTodosIncludedInCurrentPlan,
       isSettingsRouteActive,
+      activeTodosService,
     } = this.props;
 
     const {
@@ -218,7 +221,7 @@ class TodosWebview extends Component {
       <div
         className={classnames({
           [classes.root]: true,
-          [classes.isTodosServiceActive]: !isSettingsRouteActive && isTodosServiceActive,
+          [classes.isTodosServiceActive]: !isSettingsRouteActive && isTodosServiceActive && (!activeTodosService.isServiceInterrupted && activeTodosService.isEnabled),
         })}
         style={{ width: displayedWidth }}
         onMouseUp={() => this.stopResize()}

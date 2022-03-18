@@ -21,6 +21,7 @@ class TodosScreen extends Component {
       <ErrorBoundary>
         <TodosWebview
           isTodosServiceActive={this.props.stores.services.isTodosServiceActive || false}
+          activeTodosService={this.props.stores.services.allDisplayed.find(service => service.isTodos)}
           isVisible={todosStore.isTodosPanelVisible}
           togglePanel={todoActions.toggleTodosPanel}
           width={todosStore.width}
