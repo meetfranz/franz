@@ -71,8 +71,10 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
 
       try {
         if (todosServiceIndex === -1) {
+          debug('No todos instance found, mocking one');
           services.push(mockTodosService({}));
         } else {
+          debug('Todos instance found, patching service');
           const service = services[todosServiceIndex];
           services.splice(todosServiceIndex, 1, mockTodosService({ isActive: service.state.isActive }));
         }
