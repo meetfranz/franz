@@ -57,9 +57,9 @@ export default class Service {
 
   @observable spellcheckerLanguage = null;
 
-  @observable isFirstLoad = true;
+  @observable isFirstLoad = false;
 
-  @observable isLoading = true;
+  @observable isLoading = false;
 
   @observable isError = false;
 
