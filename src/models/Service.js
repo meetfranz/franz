@@ -4,8 +4,7 @@ import {
 } from 'mobx';
 import path from 'path';
 import normalizeUrl from 'normalize-url';
-
-import { TODOS_RECIPE_ID, todosStore } from '../features/todos';
+import { TODOS_RECIPE_ID } from '../config';
 
 export const RESTRICTION_TYPES = {
   SERVICE_LIMIT: 0,
@@ -152,17 +151,8 @@ export default class Service {
     };
   }
 
-  // TODO: BW REWORK: do we need this?
-  get webview() {
-    if (this.recipe.id === TODOS_RECIPE_ID) {
-      return todosStore.webContents;
-    }
-
-    return this._webview;
-  }
-
-  set webview(webview) {
-    this._webview = webview;
+  @computed get isServiceInterrupted() {
+    return (this.isLoading && this.isFirstLoad) || this.hasCrashed || this.isError || this.isServiceAccessRestricted;
   }
 
   @computed get isAttached() {
@@ -214,6 +204,10 @@ export default class Service {
 
   @computed get partition() {
     return this.recipe.partition || `persist:service-${this.id}`;
+  }
+
+  @computed get isTodos() {
+    return this.recipe.id === TODOS_RECIPE_ID;
   }
 
   resetMessageCount() {
