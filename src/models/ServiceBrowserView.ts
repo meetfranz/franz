@@ -118,6 +118,10 @@ export class ServiceBrowserView {
 
       this.webContents.setUserAgent(ua);
     }
+
+    if (typeof this.recipe.onHeadersReceived === 'function') {
+      this.enableOnHeadersReceived();
+    }
   }
 
   attach() {
@@ -434,6 +438,14 @@ export class ServiceBrowserView {
         callback(-3);
       }
     });
+  }
+
+  enableOnHeadersReceived() {
+    this.webContents.session.webRequest.onHeadersReceived(
+      (...args) => {
+        this.recipe.onHeadersReceived(...args);
+      },
+    );
   }
 
   setWebContentsState(state: Partial<IWebContentsState>) {
