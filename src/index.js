@@ -42,6 +42,7 @@ if (isDevMode) {
 }
 
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
+app.commandLine.appendSwitch('disable-site-isolation-trials');
 
 import ipcApi from './electron/ipc-api';
 import Tray from './lib/Tray';
