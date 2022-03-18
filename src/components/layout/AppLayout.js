@@ -9,7 +9,6 @@ import { Component as DelayApp } from '../../features/delayApp';
 import ErrorBoundary from '../util/ErrorBoundary';
 
 import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
-import { workspaceStore } from '../../features/workspaces';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import TrialActivationInfoBar from '../TrialActivationInfoBar';
 import Todos from '../../features/todos/containers/TodosScreen';
