@@ -36,9 +36,7 @@ export default @injectSheet(styles) @observer class ServiceView extends Componen
       classes,
     } = this.props;
 
-    const visible = (service.isLoading && service.isFirstLoad) || service.hasCrashed || service.isError || service.isServiceAccessRestricted;
-
-    if (!visible) return null;
+    if (!service.isServiceInterrupted && service.isEnabled) return null;
 
     return (
       <div className={classes.container}>
@@ -47,7 +45,6 @@ export default @injectSheet(styles) @observer class ServiceView extends Componen
             {service.hasCrashed && (
               <WebviewCrashHandler
                 name={service.recipe.name}
-                webview={service.webview}
                 reload={reload}
               />
             )}
@@ -70,7 +67,6 @@ export default @injectSheet(styles) @observer class ServiceView extends Componen
         {!service.isEnabled ? (
           <ServiceDisabled
             name={service.recipe.name}
-            webview={service.webview}
             enable={enable}
           />
         ) : service.isServiceAccessRestricted && (
