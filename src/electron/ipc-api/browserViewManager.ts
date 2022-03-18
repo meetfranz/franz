@@ -37,10 +37,10 @@ const mockTodosService = ({ isActive = false }: { isActive?: boolean }): IIPCSer
   const todosRecipe = loadRecipeConfig(TODOS_RECIPE_ID);
 
   return {
-    id: 'franz-todos',
+    id: TODOS_RECIPE_ID,
     name: 'Franz Todos',
     url: todosRecipe.config.serviceURL,
-    partition: 'franz-todos',
+    partition: TODOS_RECIPE_ID,
     state: {
       isActive,
       spellcheckerLanguage: '',
