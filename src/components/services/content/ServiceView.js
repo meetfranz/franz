@@ -13,6 +13,7 @@ import ServiceRestricted from './ServiceRestricted';
 const styles = {
   container: {
     display: 'flex',
+    width: '100%',
   },
 };
 export default @injectSheet(styles) @observer class ServiceView extends Component {

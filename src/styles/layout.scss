@@ -66,6 +66,11 @@ body.linux .app .app__content  {
     flex: 1;
     flex-direction: column;
   }
+
+  .app__service-size-container {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .electron-app-title-bar { z-index: 99999999; }

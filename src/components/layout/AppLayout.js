@@ -164,11 +164,15 @@ class AppLayout extends Component {
                   onInstallUpdate={installAppUpdate}
                 />
               )}
-              {isDelayAppScreenVisible ? <DelayApp /> : services}
+              {isDelayAppScreenVisible ? <DelayApp /> : (
+                <div className="app__service-size-container">
+                  {services}
+                  <Todos />
+                </div>
+              )}
               {children}
               <TrialStatusBar />
             </div>
-            <Todos />
           </div>
         </div>
       </ErrorBoundary>
