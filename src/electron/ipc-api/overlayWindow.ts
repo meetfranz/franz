@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow, ipcMain, webContents } from 'electron';
 // eslint-disable-next-line import/no-named-default
 import { isDevMode, isLinux, isMac } from '../../environment';
 import { OVERLAY_OPEN } from '../../ipcChannels';
@@ -24,7 +24,7 @@ export function openOverlay(mainWindow: BrowserWindow, settings: any, args: IArg
 
       let parent = args.modal ? mainWindow : null;
       if (args.overrideParent) {
-        parent = BrowserWindow.fromId(args.overrideParent);
+        parent = BrowserWindow.fromWebContents(webContents.fromId(args.overrideParent));
       }
 
       const window = new BrowserWindow({

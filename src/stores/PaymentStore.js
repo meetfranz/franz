@@ -34,7 +34,7 @@ export default class PaymentStore extends Store {
     return request;
   }
 
-  @action async _upgradeAccount({ planId, onCloseWindow = () => null, overrideParent = false }) {
+  @action async _upgradeAccount({ planId, onCloseWindow = () => null, overrideParent = null }) {
     let hostedPageURL = this.stores.features.features.subscribeURL;
 
     const parsedUrl = new URL(hostedPageURL);
@@ -51,7 +51,6 @@ export default class PaymentStore extends Store {
       overrideParent,
     });
 
-    console.log('action', returnValue);
     if (returnValue === 'closed') {
       this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
       this.stores.features.featuresRequest.invalidate({ immediately: true });

@@ -51,6 +51,7 @@ class PlanSelectionScreen extends Component {
         isLoading: false,
       }));
     });
+
     ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, PLAN_SELECTION_GET_DATA);
   }
 
@@ -107,10 +108,11 @@ class PlanSelectionScreen extends Component {
               this.triggerAction(ACTIONS.DOWNGRADE_ACCOUNT);
 
               window.close();
+              gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Downgrade');
             } else {
               this.triggerAction(ACTIONS.UPGRADE_ACCOUNT, { planId: plans.personal.yearly.id });
 
-              gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Downgrade');
+              gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Upgrade');
             }
           }}
           subscriptionExpired={isSubscriptionExpired}
