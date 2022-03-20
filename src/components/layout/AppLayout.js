@@ -165,8 +165,6 @@ class AppLayout extends Component {
                 />
               )}
               {isDelayAppScreenVisible ? <DelayApp /> : services}
-              {/* {!isDelayAppScreenVisible && services} */}
-
               {children}
               <TrialStatusBar />
             </div>
