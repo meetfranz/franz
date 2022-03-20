@@ -126,7 +126,7 @@ export class ServiceBrowserView {
 
   attach() {
     if (this.isAttached) {
-      console.log('View is already attached', this.config.name);
+      debug('View is already attached', this.config.name);
       return;
     }
 
