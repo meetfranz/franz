@@ -164,8 +164,9 @@ class AppLayout extends Component {
                   onInstallUpdate={installAppUpdate}
                 />
               )}
-              {isDelayAppScreenVisible && (<DelayApp />)}
-              {services}
+              {isDelayAppScreenVisible ? <DelayApp /> : services}
+              {/* {!isDelayAppScreenVisible && services} */}
+
               {children}
               <TrialStatusBar />
             </div>
