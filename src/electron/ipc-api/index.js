@@ -12,6 +12,7 @@ import serviceCache from './serviceCache';
 import browserViewManager from './browserViewManager';
 import overlayWindow from './overlayWindow';
 import windowsTitlebar from './windowsTitlebar';
+import macOSPermissions from './macOSPermissions';
 
 export default (params) => {
   settings(params);
@@ -28,4 +29,5 @@ export default (params) => {
   browserViewManager(params);
   overlayWindow(params);
   windowsTitlebar(params);
+  macOSPermissions(params);
 };

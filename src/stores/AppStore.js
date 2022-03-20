@@ -26,7 +26,7 @@ import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
 import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
 import {
-  CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
+  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
@@ -103,6 +103,7 @@ export default class AppStore extends Store {
       this._handleFullScreen.bind(this),
       this._handleLogout.bind(this),
       isWindows ? this._shareMenuData.bind(this) : () => {},
+      isMac ? this._handleMacOSPermissionsCheck.bind(this) : () => {},
     ]);
   }
 
@@ -548,6 +549,14 @@ export default class AppStore extends Store {
         isWorkspaceDrawerOpen: this.stores.workspaces.isWorkspaceDrawerOpen,
       },
     })));
+  }
+
+  _handleMacOSPermissionsCheck() {
+    if (this.stores.user.isLoggedIn && !this.stores.ui.isAuthRouteActive) {
+      setTimeout(() => {
+        ipcRenderer.send(CHECK_MACOS_PERMISSIONS);
+      }, ms('5s'));
+    }
   }
 
   // Helpers

@@ -13,7 +13,6 @@ import fs from 'fs-extra';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
-import ms from 'ms';
 import * as remoteMain from '@electron/remote/main';
 
 remoteMain.initialize();
@@ -306,12 +305,6 @@ const createWindow = () => {
       trayIcon.hide();
     }
   });
-
-  if (isMac) {
-    // eslint-disable-next-line global-require
-    const { default: askFormacOSPermissions } = require('./electron/macOSPermissions');
-    setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
-  }
 
   mainWindow.on('show', () => {
     debug('Skip taskbar: false');
