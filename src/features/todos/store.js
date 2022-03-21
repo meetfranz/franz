@@ -8,6 +8,7 @@ import {
 import localStorage from 'mobx-localstorage';
 
 import { webContents } from '@electron/remote';
+import ms from 'ms';
 import { todoActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
 import { createReactions } from '../../stores/lib/Reaction';
@@ -18,6 +19,7 @@ import {
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
 import { TODOS_FETCH_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS } from '../../ipcChannels';
+import { sleep } from '../../helpers/async-helpers';
 
 const debug = require('debug')('Franz:feature:todos:store');
 
@@ -212,6 +214,7 @@ export default class TodoStore extends FeatureStore {
     const { isDarkThemeActive } = this.stores.ui;
     const { locale } = this.stores.app;
     if (!this.webContents) return;
+    await sleep(ms('2s'));
     await this.webContents.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
       data: {
