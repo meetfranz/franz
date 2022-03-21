@@ -13,6 +13,7 @@ import { sleep } from '../helpers/async-helpers';
 import { easeInOutSine } from '../helpers/animation-helpers';
 import { IPC } from '../features/todos/constants';
 import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
+import { isMac } from '../environment';
 
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
@@ -245,6 +246,7 @@ export class ServiceBrowserView {
       }
 
       this.enableContextMenu();
+      this.hacks();
 
       this.webContents.loadURL(this.config.url);
     }
@@ -461,6 +463,24 @@ export class ServiceBrowserView {
     };
 
     this.window.webContents.send(UPDATE_SERVICE_STATE, { serviceId: this.config.id, state: this.webContentsState });
+  }
+
+  hacks() {
+    this.webContents.insertCSS('html { background: white; } ');
+    if (isMac) {
+      this.webContents.insertCSS(`
+        body:before {
+          background: transparent;
+          height: 30px;
+          width: 100%;
+          position: absolute;
+          content: " ";
+          z-index: 9999999;
+          pointer-events: none;
+          -webkit-app-region: drag;
+        }
+      `);
+    }
   }
 
   get webContents() {

@@ -19,12 +19,6 @@ class RecipeWebview {
     window.FranzAPI = {
       clearCache: RecipeWebview.clearCache,
     };
-
-    // fix BrowserView Background issue
-    const styles = document.createElement('style');
-    styles.innerHTML = 'html { background: white; }';
-
-    document.querySelector('head').appendChild(styles);
   }
 
   loopFunc = () => null;
