@@ -25,6 +25,7 @@ interface IServiceState {
   team: string,
   hasCustomIcon: boolean,
   isRestricted: boolean;
+  isHibernating: boolean;
 }
 
 interface IServiceConfig {
