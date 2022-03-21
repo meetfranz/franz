@@ -1,3 +1,22 @@
+# [5.9.0-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.9.0-beta.1) (2022-03-21)
+
+This is a huge release for us as we've rewritten most of the Franz core that is handling the services to make Franz much faster and more reliable. This resulted in 6,214 new lines of code and we've even managed to remove 9,313 lines of old code. 
+### Bug Fixes
+
+* **App:** Fix inactive background service to get keyboard focus
+* **Windows:** Fix error that prevents app from loading on Windows 10 & 11
+* **Windows:** Fix error that prevents loading available services & installing service updates
+* **Service:** Fix Microsoft Teams Login Issues
+* **Service:** Fix Microsoft Teams not being able to load chats
+* **General:** many more small bugfixes and overall improvements
+
+### Features
+
+* **App:** Huge performance and stability increase
+* **App:** Replaced `<webviews>` with `BrowserViews`
+* **macOS:** Apple Silicon download prompt to make your experience much faster and stable.  
+
+
 ## [5.8.1-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.8.1-beta.1) (2022-03-01)
 
 
