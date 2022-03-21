@@ -24,6 +24,7 @@ script:
   # https://docs.travis-ci.com/user/common-build-problems/#Build-times-out-because-no-output-was-received
 - touch .ENABLE-LOOP-FILE 
 - while sleep 300 && [ -f './.ENABLE-LOOP-FILE' ]; do echo "Build still running for $SECONDS seconds"; done &
+- npm cache clean --force # fix issue that packages can't be found eg:" `npm ERR! notarget No matching version found for @babel/helper-compilation-targets@^7.16.7.`
 - npm run build && rm .ENABLE-LOOP-FILE 
 
 cache: npm
