@@ -739,6 +739,7 @@ export default class ServicesStore extends Store {
       state: {
         isActive: service.isActive,
         spellcheckerLanguage: service.spellcheckerLanguage,
+        isSpellcheckerEnabled: this.stores.settings.app.enableSpellchecking,
         isDarkModeEnabled: service.isDarkModeEnabled,
         team: service.team,
         hasCustomIcon: service.hasCustomIcon,

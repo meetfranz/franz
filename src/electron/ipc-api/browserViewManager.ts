@@ -17,6 +17,7 @@ interface IIPCServiceData {
   partition: string,
   state: {
     isActive: boolean,
+    isSpellcheckerEnabled: boolean,
     spellcheckerLanguage: string,
     isDarkModeEnabled: boolean,
     team: string,
@@ -43,6 +44,7 @@ const mockTodosService = ({ isActive = false }: { isActive?: boolean }): IIPCSer
     partition: TODOS_RECIPE_ID,
     state: {
       isActive,
+      isSpellcheckerEnabled: true,
       spellcheckerLanguage: '',
       isDarkModeEnabled: false,
       team: '',

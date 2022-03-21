@@ -19,6 +19,7 @@ const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
 interface IServiceState {
   isActive: boolean,
+  isSpellcheckerEnabled: boolean;
   spellcheckerLanguage: string,
   isDarkModeEnabled: boolean,
   team: string,
@@ -101,6 +102,7 @@ export class ServiceBrowserView {
           partition: config.partition,
           preload: recipeId !== TODOS_RECIPE_ID ? `${__dirname}/../webview/recipe.js` : `${__dirname}/../features/todos/preload.js`,
           contextIsolation: false,
+          spellcheck: this.state.isSpellcheckerEnabled,
         },
       });
     }
@@ -263,6 +265,8 @@ export class ServiceBrowserView {
       ...this.state,
       ...state,
     };
+
+    this.webContents.session.setSpellCheckerEnabled(this.state.isSpellcheckerEnabled);
   }
 
   remove() {
