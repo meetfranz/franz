@@ -282,9 +282,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}
           isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
-          isTodosEnabled={todos.isFeatureActive}
           isWorkspaceEnabled={workspaces.isFeatureActive}
-          hasAddedTodosAsService={services.isTodosServiceAdded}
           isOnline={app.isOnline}
         />
       </ErrorBoundary>
