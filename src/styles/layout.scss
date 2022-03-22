@@ -42,13 +42,9 @@ html { overflow: hidden; }
   .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
 }
 
-body.win32:not(.isFullScreen) .app .app__content {
+body:not(.darwin):not(.isFullScreen) .app .app__content {
   margin-top: $windows-title-bar-height;
   height: calc(100% - $windows-title-bar-height);
-}
-
-body.linux .app .app__content  {
-  margin-top: $windows-title-bar-height;
 }
 
 .app {
@@ -75,7 +71,7 @@ body.linux .app .app__content  {
 
 .electron-app-title-bar { z-index: 99999999; }
 
-body:not(.win32) .window-draggable {
+body.darwin .window-draggable {
   height: 35px;
   left: 0;
   pointer-events: none;
@@ -86,7 +82,7 @@ body:not(.win32) .window-draggable {
   -webkit-app-region: drag;
 }
 
-body.win32 .window-draggable {
+body:not(.darwin) .window-draggable {
   display: none;
 }
 
