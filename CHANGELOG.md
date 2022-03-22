@@ -1,3 +1,15 @@
+# [5.9.0-beta.2](https://github.com/meetfranz/franz/compare/v5.9.0-beta.1...v5.9.0-beta.2) (2022-03-22)
+
+
+### Bug Fixes
+
+* **App:** Fix Franz Todos to be on top of another service ([086eda1](https://github.com/meetfranz/franz/commit/086eda1))
+* **Linux:** Fix viewport height on Linux ([4cbd006](https://github.com/meetfranz/franz/commit/4cbd006))
+* **Windows + Linux:** Fix calculation for service position ([2f22ce6](https://github.com/meetfranz/franz/commit/2f22ce6))
+* **Windows + Linux:** Fix not clickable window titlebar & menu ([8fde4ab](https://github.com/meetfranz/franz/commit/8fde4ab))
+
+
+
 # [5.9.0-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.9.0-beta.1) (2022-03-21)
 
 This is a huge release for us as we've rewritten most of the Franz core that is handling the services to make Franz much faster and more reliable.
