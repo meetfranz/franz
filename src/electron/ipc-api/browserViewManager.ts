@@ -205,18 +205,18 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     }
   });
 
-  ipcMain.on(RESIZE_SERVICE_VIEWS, (e, bounds: Rectangle, animationDuration: number = 0) => {
+  ipcMain.on(RESIZE_SERVICE_VIEWS, (e, bounds: Rectangle) => {
     debug('Resizing service views by', bounds);
 
     browserViews.filter(bw => !bw.browserView.isTodos).forEach((bw) => {
-      bw.browserView.resize(bounds, animationDuration);
+      bw.browserView.resize(bounds);
     });
   });
 
-  ipcMain.on(RESIZE_TODO_VIEW, (e, bounds: Rectangle, animationDuration: number = 0) => {
+  ipcMain.on(RESIZE_TODO_VIEW, (e, bounds: Rectangle) => {
     debug('Resizing todo view by', bounds);
 
-    browserViews.find(bw => bw.browserView.isTodos).browserView.resize(bounds, animationDuration);
+    browserViews.find(bw => bw.browserView.isTodos).browserView.resize(bounds);
   });
 
   ipcMain.on(HIDE_ALL_SERVICES, () => {

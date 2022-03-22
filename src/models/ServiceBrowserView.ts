@@ -14,6 +14,7 @@ import { easeInOutSine } from '../helpers/animation-helpers';
 import { IPC } from '../features/todos/constants';
 import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
 import { isMac } from '../environment';
+import { windowsTitleBarHeight } from '../theme/default/legacy';
 
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
@@ -190,7 +191,6 @@ export class ServiceBrowserView {
       this.webContents.on('did-navigate', (e, isMainFrame) => didLoad(isMainFrame));
 
       this.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL, isMainFrame) => {
-        console.log('Service failed to load', this.config.name, errorCode, errorDescription, isMainFrame, validatedURL);
         debug('Service failed to load', this.config.name);
         if (isMainFrame && errorCode !== -21 && errorCode !== -3) {
           this.setWebContentsState({
@@ -366,43 +366,18 @@ export class ServiceBrowserView {
 
   async resize({
     width, height, x, y,
-  }: Rectangle, animationDuration = 0) {
-    if (!animationDuration) {
-      const bounds = this.view.getBounds();
-      const newBounds = {
-        width: parseInt((width ?? bounds.width).toFixed(), 10),
-        height: parseInt((height ?? bounds.height).toFixed(), 10),
-        x: parseInt((x ?? bounds.x).toFixed(), 10),
-        y: parseInt((y ?? bounds.y).toFixed(), 10),
-      };
+  }: Rectangle) {
+    const bounds = this.view.getBounds();
+    const newBounds = {
+      width: parseInt((width ?? bounds.width).toFixed(), 10),
+      height: parseInt((height ?? bounds.height).toFixed(), 10),
+      x: parseInt((x ?? bounds.x).toFixed(), 10),
+      y: parseInt((y ?? bounds.y).toFixed(), 10),
+    };
 
-      this.view.setBounds(newBounds);
+    this.view.setBounds(newBounds);
 
-      this.bounds = newBounds;
-    } else {
-      const bounds = this.view.getBounds();
-      const change: Rectangle = {
-        width: (width ?? bounds.width) - bounds.width,
-        height: (height ?? bounds.height) - bounds.height,
-        x: (x ?? bounds.x) - bounds.x,
-        y: (y ?? bounds.y) - bounds.y,
-      };
-      for (let index = 0; index <= animationDuration; index += 1) {
-        const newBounds = {
-          width: parseInt(easeInOutSine(index, bounds.width, change.width, animationDuration).toString(), 10),
-          height: parseInt(easeInOutSine(index, bounds.height, change.height, animationDuration).toString(), 10),
-          x: parseInt(easeInOutSine(index, bounds.x, change.x, animationDuration).toString(), 10),
-          y: parseInt(easeInOutSine(index, bounds.y, change.y, animationDuration).toString(), 10),
-        };
-
-        // eslint-disable-next-line no-await-in-loop
-        await sleep(1);
-
-        this.view.setBounds(newBounds);
-
-        this.bounds = newBounds;
-      }
-    }
+    this.bounds = newBounds;
   }
 
   focus() {

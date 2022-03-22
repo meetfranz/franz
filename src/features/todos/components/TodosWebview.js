@@ -11,7 +11,6 @@ import { ipcRenderer } from 'electron';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
 import { RESIZE_TODO_VIEW } from '../../../ipcChannels';
-import service from '../../../actions/service';
 
 const messages = defineMessages({
   premiumInfo: {
