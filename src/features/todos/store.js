@@ -62,7 +62,7 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isFeatureEnabledByUser() {
-    return this.settings.isFeatureEnabledByUser;
+    return true;
   }
 
   @computed get settings() {
@@ -185,9 +185,9 @@ export default class TodoStore extends FeatureStore {
   @action _toggleTodosFeatureVisibility = () => {
     debug('_toggleTodosFeatureVisibility');
 
-    this._updateSettings({
-      isFeatureEnabledByUser: !this.settings.isFeatureEnabledByUser,
-    });
+    // this._updateSettings({
+    //   isFeatureEnabledByUser: !this.settings.isFeatureEnabledByUser,
+    // });
   };
 
   _toggleDevTools = () => {
