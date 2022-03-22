@@ -110,7 +110,7 @@ class TodosWebview extends Component {
       width: bounds.width,
       height: bounds.height,
       x: bounds.x,
-      y: bounds.y,
+      y: element.target.offsetTop,
     });
   });
 
