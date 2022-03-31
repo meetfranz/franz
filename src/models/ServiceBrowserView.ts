@@ -461,7 +461,9 @@ export class ServiceBrowserView {
       ...state,
     };
 
-    this.window.webContents.send(UPDATE_SERVICE_STATE, { serviceId: this.config.id, state: this.webContentsState });
+    if (!this.window.isDestroyed()) {
+      this.window.webContents.send(UPDATE_SERVICE_STATE, { serviceId: this.config.id, state: this.webContentsState });
+    }
   }
 
   hacks() {

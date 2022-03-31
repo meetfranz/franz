@@ -14,6 +14,7 @@ import path from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
 import * as remoteMain from '@electron/remote/main';
+import { EventEmitter } from 'events';
 
 remoteMain.initialize();
 
@@ -60,7 +61,6 @@ import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 import { openOverlay } from './electron/ipc-api/overlayWindow';
-import macosVersion from 'macos-version';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -73,6 +73,9 @@ app.userAgentFallback = userAgent();
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let willQuitApp = false;
+let overrideAppQuitForUpdate = false;
+
+export const appEvents = new EventEmitter();
 
 // Register methods to be called once the window has been loaded.
 let onDidLoadFns = [];
@@ -264,7 +267,8 @@ const createWindow = () => {
         debug('Window: hide');
         mainWindow.hide();
       }
-    } else {
+    } else if (!overrideAppQuitForUpdate) {
+      debug('Quitting the app');
       app.quit();
     }
   });
@@ -436,7 +440,9 @@ app.on('window-all-closed', () => {
   if (settings.get('runInBackground') === undefined
     || settings.get('runInBackground')) {
     debug('Window: all windows closed, quit app');
-    app.quit();
+    if (!overrideAppQuitForUpdate) {
+      app.quit();
+    }
   } else {
     debug('Window: don\'t quit app');
   }
@@ -444,6 +450,11 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', () => {
   willQuitApp = true;
+});
+
+appEvents.on('install-update', () => {
+  willQuitApp = true;
+  overrideAppQuitForUpdate = true;
 });
 
 app.on('activate', () => {

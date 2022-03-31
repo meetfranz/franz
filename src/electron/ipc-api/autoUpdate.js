@@ -1,23 +1,25 @@
-import { app, ipcMain } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import { appEvents } from '../..';
 
 const debug = require('debug')('Franz:ipcApi:autoUpdate');
 
-export default (params) => {
+export default ({ mainWindow, settings }) => {
   if (process.platform === 'darwin' || process.platform === 'win32' || process.env.APPIMAGE) {
     ipcMain.on('autoUpdate', (event, args) => {
       try {
         autoUpdater.autoInstallOnAppQuit = false;
-        autoUpdater.allowPrerelease = Boolean(params.settings.app.get('beta'));
+        autoUpdater.allowPrerelease = Boolean(settings.app.get('beta'));
         if (args.action === 'check') {
           autoUpdater.checkForUpdates();
         } else if (args.action === 'install') {
           debug('install update');
+          appEvents.emit('install-update');
+
+          const openedWindows = BrowserWindow.getAllWindows();
+          openedWindows.forEach(window => window.close());
+
           autoUpdater.quitAndInstall();
-          // we need to send a quit event
-          setTimeout(() => {
-            app.quit();
-          }, 20);
         }
       } catch (e) {
         console.log(e);
@@ -26,12 +28,12 @@ export default (params) => {
 
     autoUpdater.on('update-not-available', () => {
       debug('update-not-available');
-      params.mainWindow.webContents.send('autoUpdate', { available: false });
+      mainWindow.webContents.send('autoUpdate', { available: false });
     });
 
     autoUpdater.on('update-available', (event) => {
       debug('update-available');
-      params.mainWindow.webContents.send('autoUpdate', {
+      mainWindow.webContents.send('autoUpdate', {
         version: event.version,
         available: true,
       });
@@ -47,12 +49,12 @@ export default (params) => {
 
     autoUpdater.on('update-downloaded', () => {
       debug('update-downloaded');
-      params.mainWindow.webContents.send('autoUpdate', { downloaded: true });
+      mainWindow.webContents.send('autoUpdate', { downloaded: true });
     });
 
     autoUpdater.on('error', () => {
       debug('update-error');
-      params.mainWindow.webContents.send('autoUpdate', { error: true });
+      mainWindow.webContents.send('autoUpdate', { error: true });
     });
   }
 };
