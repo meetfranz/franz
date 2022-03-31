@@ -1,3 +1,14 @@
+# [5.9.0-beta.3](https://github.com/meetfranz/franz/compare/v5.9.0-beta.2...v5.9.0-beta.3) (2022-03-31)
+
+
+### Bug Fixes
+
+* **App:** Fix Gmail login issues with "Browser is not secure"
+* **App:** Fix opening links from some services ([68226bd](https://github.com/meetfranz/franz/commit/68226bd))
+* **App:** Add security check before opening new window ([d36fa4c](https://github.com/meetfranz/franz/commit/d36fa4c))
+
+
+
 # [5.9.0-beta.2](https://github.com/meetfranz/franz/compare/v5.9.0-beta.1...v5.9.0-beta.2) (2022-03-22)
 
 
@@ -27,15 +38,6 @@ This is a huge release for us as we've rewritten most of the Franz core that is 
 * **App:** Huge performance and stability increase
 * **App:** Replaced `<webviews>` with `BrowserViews`
 * **macOS:** Apple Silicon download prompt to make your experience much faster and stable.  
-
-
-## [5.8.1-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.8.1-beta.1) (2022-03-01)
-
-
-### Bug Fixes
-
-* **App:** Fix inactive service to receive keyboard focus ([e3081c6](https://github.com/meetfranz/franz/commit/e3081c6))
-
 
 
 # [5.8.0](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0) (2022-02-14)
