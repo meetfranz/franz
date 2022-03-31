@@ -12,6 +12,7 @@ import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
 import { IPC } from '../features/todos/constants';
 import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
 import { isMac } from '../environment';
+import { isValidExternalURL } from '../helpers/url-helpers';
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -252,7 +253,9 @@ export class ServiceBrowserView {
         } else if (disposition === 'background-tab' || disposition === 'foreground-tab') {
           action = 'deny';
 
-          shell.openExternal(url);
+          if (isValidExternalURL(url)) {
+            shell.openExternal(url);
+          }
         }
 
         return {
