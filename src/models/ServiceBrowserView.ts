@@ -9,13 +9,9 @@ import Settings from '../electron/Settings';
 import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
 import RecipeModel from './Recipe';
 import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
-import { sleep } from '../helpers/async-helpers';
-import { easeInOutSine } from '../helpers/animation-helpers';
 import { IPC } from '../features/todos/constants';
 import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
 import { isMac } from '../environment';
-import { windowsTitleBarHeight } from '../theme/default/legacy';
-
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -174,9 +170,13 @@ export class ServiceBrowserView {
           isLoading: true,
           isError: false,
         });
+
+        if (typeof this.recipe.eventDidStartLoading === 'function') {
+          this.recipe.eventDidStartLoading(this);
+        }
       });
 
-      const didLoad = (isMainFrame) => {
+      const didLoad = (isMainFrame: boolean) => {
         if (!isMainFrame) return null;
         // add a timeout to avoid confusion due to layout flickering
         setTimeout(() => {
@@ -187,10 +187,17 @@ export class ServiceBrowserView {
         }, 500);
       };
 
-      this.webContents.on('did-frame-finish-load', (e, isMainFrame) => didLoad(isMainFrame));
-      this.webContents.on('did-navigate', (e, isMainFrame) => didLoad(isMainFrame));
+      this.webContents.on('did-frame-finish-load', (...args) => {
+        const [, isMainFrame] = args;
+        didLoad(isMainFrame);
 
-      this.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL, isMainFrame) => {
+        if (typeof this.recipe.eventDidFrameFinishLoad === 'function') {
+          this.recipe.eventDidFrameFinishLoad(this, ...args);
+        }
+      });
+
+      this.webContents.on('did-fail-load', (...args) => {
+        const [, errorCode, errorDescription, , isMainFrame] = args;
         debug('Service failed to load', this.config.name);
         if (isMainFrame && errorCode !== -21 && errorCode !== -3) {
           this.setWebContentsState({
@@ -199,15 +206,31 @@ export class ServiceBrowserView {
             isLoading: false,
           });
         }
+
+        if (typeof this.recipe.eventDidFailLoad === 'function') {
+          this.recipe.eventDidFailLoad(this, ...args);
+        }
       });
 
-      // this.webContents.on('render-process-gone', (event, details) => {
-      //   debug('Service crashed', this.config.name, details);
+      this.webContents.on('did-finish-load', (...args) => {
+        if (typeof this.recipe.eventDidFinishLoad === 'function') {
+          this.recipe.eventDidFinishLoad(this, ...args);
+        }
+      });
 
-      //   this.setWebContentsState({
-      //     hasCrashed: true,
-      //   });
-      // });
+      this.webContents.on('will-navigate', (...args) => {
+        if (typeof this.recipe.eventWillNavigate === 'function') {
+          this.recipe.eventWillNavigate(this, ...args);
+        }
+      });
+
+      this.webContents.on('did-navigate', (...args) => {
+        didLoad(true);
+
+        if (typeof this.recipe.eventDidLoad === 'function') {
+          this.recipe.eventDidLoad(this, ...args);
+        }
+      });
 
       this.webContents.setWindowOpenHandler(({
         url, disposition, ...rest
@@ -314,8 +337,6 @@ export class ServiceBrowserView {
     let spellcheckerLanguage = this.settings.get('spellcheckerLanguage');
 
     this.webContents.on('context-menu', async (e, props) => {
-      debug('huhu');
-
       ipcMain.once(SERVICE_SPELLCHECKING_LANGUAGE, (requestLocaleEvent, { locale }) => {
         if (locale) {
           debug('Overwriting spellchecker locale to', locale);
