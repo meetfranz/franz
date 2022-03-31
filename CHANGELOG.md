@@ -1,3 +1,4 @@
+
 # [5.9.0-beta.3](https://github.com/meetfranz/franz/compare/v5.9.0-beta.2...v5.9.0-beta.3) (2022-03-31)
 
 
@@ -5,6 +6,7 @@
 
 * **App:** Fix Gmail login issues with "Browser is not secure"
 * **App:** Fix opening links from some services ([68226bd](https://github.com/meetfranz/franz/commit/68226bd))
+* **App:** Fix issues with updater on macOS ([e704fcc](https://github.com/meetfranz/franz/commit/e704fcc))
 * **App:** Add security check before opening new window ([d36fa4c](https://github.com/meetfranz/franz/commit/d36fa4c))
 
 
