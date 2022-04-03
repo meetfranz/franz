@@ -1,5 +1,6 @@
 import { autorun, observable, reaction } from 'mobx';
 import moment from 'moment';
+import { ipcRenderer } from 'electron';
 import DelayAppComponent from './Component';
 
 import { DEFAULT_FEATURES_CONFIG } from '../../config';
@@ -7,6 +8,7 @@ import { gaEvent, gaPage } from '../../lib/analytics';
 import { getUserWorkspacesRequest } from '../workspaces/api';
 import { getPoweredByRequest } from './api';
 import { DelayAppStore } from './store';
+import { RESIZE_SERVICE_VIEWS } from '../../ipcChannels';
 
 const debug = require('debug')('Franz:feature:delayApp');
 
@@ -28,6 +30,12 @@ function setVisibility(isDelayAppScreenVisible) {
   Object.assign(state, {
     isDelayAppScreenVisible,
   });
+
+  if (isDelayAppScreenVisible) {
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, {
+      width: 0,
+    });
+  }
 }
 
 export function resetAppDelay() {
