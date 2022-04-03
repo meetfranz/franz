@@ -18,6 +18,8 @@ const debug = require('debug')('Franz:Plugin');
 window.FranzAPI = {};
 
 class RecipeController {
+  id = null;
+
   @observable settings = {
     app: DEFAULT_APP_SETTINGS_VANILLA,
     service: {
@@ -32,7 +34,6 @@ class RecipeController {
     'initialize-recipe': 'loadRecipeModule',
     'settings-update': 'updateAppSettings',
     'service-settings-update': 'updateServiceSettings',
-    'get-service-id': 'serviceIdEcho',
   };
 
   constructor() {
@@ -90,11 +91,6 @@ class RecipeController {
 
   updateServiceSettings(event, data) {
     this.settings.service = Object.assign(this.settings.service, data);
-  }
-
-  serviceIdEcho(event) {
-    debug('Received a service echo ping');
-    event.sender.send('service-id', this.settings.service.id);
   }
 
   async automaticLanguageDetection() {
