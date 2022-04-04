@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { Link } from 'react-router';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
@@ -9,7 +9,6 @@ import { ipcRenderer } from 'electron';
 import Appear from '../../ui/effects/Appear';
 import { RESIZE_SERVICE_VIEWS } from '../../../ipcChannels';
 import ServiceView from './ServiceView';
-import { TODOS_RECIPE_ID } from '../../../features/todos';
 
 const messages = defineMessages({
   welcome: {
