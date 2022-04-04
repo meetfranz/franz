@@ -167,10 +167,10 @@ class AppLayout extends Component {
               {isDelayAppScreenVisible ? <DelayApp /> : (
                 <div className="app__service-size-container">
                   {services}
+                  {children}
                   <Todos />
                 </div>
               )}
-              {children}
               <TrialStatusBar />
             </div>
           </div>
