@@ -1,3 +1,32 @@
+# [5.9.0](https://github.com/meetfranz/franz/compare/v5.9.0-beta.3...v5.9.0) (2022-04-04)
+
+## This update is different.
+
+### Let us tell you what we didn’t do👇
+
+Here at Franz we took a good hard look at what we’ve built over the last six(!) years and thought about how we could make it better.
+
+We thought about new features, new prices, changes to how the app works, and so much more.
+
+But we went one step further: We rebuilt the underlying core of Franz from the bottom up. We improved the whole functionality of how the app runs.
+
+It’s more stable, more responsive, more resource-friendly, and … drumroll … faster. 🔥
+
+It’s the Franz you know and love – with a new engine.
+
+### Features
+
+* **App:** Huge performance and stability increase
+* **App:** Replaced `<webviews>` with `BrowserViews`
+* **macOS:** Apple Silicon download prompt to make your experience much faster and stable.  
+### Bug Fixes
+
+* **App:** Fix inactive background service to get keyboard focus
+* **Windows:** Fix error that prevents app from loading on Windows 10 & 11
+* **Windows:** Fix error that prevents loading available services & installing service updates
+* **Service:** Fix Microsoft Teams Login Issues
+* **Service:** Fix Microsoft Teams not being able to load chats
+* **General:** many more small bugfixes and overall improvements
 
 # [5.9.0-beta.3](https://github.com/meetfranz/franz/compare/v5.9.0-beta.2...v5.9.0-beta.3) (2022-03-31)
 
@@ -25,21 +54,7 @@
 
 # [5.9.0-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.9.0-beta.1) (2022-03-21)
 
-This is a huge release for us as we've rewritten most of the Franz core that is handling the services to make Franz much faster and more reliable.
-### Bug Fixes
-
-* **App:** Fix inactive background service to get keyboard focus
-* **Windows:** Fix error that prevents app from loading on Windows 10 & 11
-* **Windows:** Fix error that prevents loading available services & installing service updates
-* **Service:** Fix Microsoft Teams Login Issues
-* **Service:** Fix Microsoft Teams not being able to load chats
-* **General:** many more small bugfixes and overall improvements
-
-### Features
-
-* **App:** Huge performance and stability increase
-* **App:** Replaced `<webviews>` with `BrowserViews`
-* **macOS:** Apple Silicon download prompt to make your experience much faster and stable.  
+[See 5.9.0 changelog.](#5-9-0--2022-04-04-)
 
 
 # [5.8.0](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0) (2022-02-14)
