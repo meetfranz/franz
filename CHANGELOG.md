@@ -1,3 +1,12 @@
+## [5.9.1](https://github.com/meetfranz/franz/compare/v5.9.0...v5.9.1) (2022-04-04)
+
+
+### Bug Fixes
+
+* **macOS:** Fix auto updater on macOS ([40a2194](https://github.com/meetfranz/franz/commit/40a2194))
+
+
+
 # [5.9.0](https://github.com/meetfranz/franz/compare/v5.9.0-beta.3...v5.9.0) (2022-04-04)
 
 ## This update is different.
