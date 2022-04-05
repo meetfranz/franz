@@ -13,6 +13,7 @@ import { IPC } from '../features/todos/constants';
 import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
 import { isMac } from '../environment';
 import { isValidExternalURL } from '../helpers/url-helpers';
+import userAgent from '../helpers/userAgent-helpers';
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -220,6 +221,8 @@ export class ServiceBrowserView {
       });
 
       this.webContents.on('will-navigate', (...args) => {
+        this.gmailLoginHack(args[1]);
+
         if (typeof this.recipe.eventWillNavigate === 'function') {
           this.recipe.eventWillNavigate(this, ...args);
         }
@@ -227,6 +230,8 @@ export class ServiceBrowserView {
 
       this.webContents.on('did-navigate', (...args) => {
         didLoad(true);
+
+        this.gmailLoginHack(args[1]);
 
         if (typeof this.recipe.eventDidLoad === 'function') {
           this.recipe.eventDidLoad(this, ...args);
@@ -481,6 +486,14 @@ export class ServiceBrowserView {
           -webkit-app-region: drag;
         }
       `);
+    }
+  }
+
+  gmailLoginHack(url) {
+    if (url.startsWith('https://accounts.google.com')) {
+      this.webContents.setUserAgent(userAgent(true));
+    } else {
+      this.webContents.setUserAgent(userAgent(false));
     }
   }
 
