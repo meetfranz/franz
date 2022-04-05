@@ -15,6 +15,7 @@ import Todos from '../../features/todos/containers/TodosScreen';
 import TrialStatusBar from '../../features/trialStatusBar/containers/TrialStatusBarScreen';
 import WebControlsScreen from '../../features/webControls/containers/WebControlsScreen';
 import Service from '../../models/Service';
+import { workspaceStore } from '../../features/workspaces';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -109,7 +110,6 @@ class AppLayout extends Component {
             {workspacesDrawer}
             {sidebar}
             <div className="app__service">
-              <WorkspaceSwitchingIndicator />
               {news.length > 0 && news.map(item => (
                 <InfoBar
                   key={item.id}
@@ -133,16 +133,16 @@ class AppLayout extends Component {
                 <TrialActivationInfoBar />
               )}
               {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
-              <InfoBar
-                type="danger"
-                ctaLabel="Try again"
-                ctaLoading={areRequiredRequestsLoading}
-                sticky
-                onClick={retryRequiredRequests}
-              >
-                <span className="mdi mdi-flash" />
-                {intl.formatMessage(messages.requiredRequestsFailed)}
-              </InfoBar>
+                <InfoBar
+                  type="danger"
+                  ctaLabel="Try again"
+                  ctaLoading={areRequiredRequestsLoading}
+                  sticky
+                  onClick={retryRequiredRequests}
+                >
+                  <span className="mdi mdi-flash" />
+                  {intl.formatMessage(messages.requiredRequestsFailed)}
+                </InfoBar>
               )}
               {showServicesUpdatedInfoBar && (
                 <InfoBar
@@ -165,11 +165,16 @@ class AppLayout extends Component {
                 />
               )}
               {isDelayAppScreenVisible ? <DelayApp /> : (
-                <div className="app__service-size-container">
-                  {services}
-                  {children}
-                  <Todos />
-                </div>
+                <>
+                  <WorkspaceSwitchingIndicator />
+                  {!workspaceStore.isSwitchingWorkspace && (
+                    <div className="app__service-size-container">
+                      {services}
+                      {children}
+                      <Todos />
+                    </div>
+                  )}
+                </>
               )}
               <TrialStatusBar />
             </div>

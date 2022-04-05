@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router';
@@ -25,6 +25,7 @@ const messages = defineMessages({
 const styles = {
   container: {
     display: 'flex',
+    flex: 1,
 
     '&>span': {
       display: 'block',
@@ -50,23 +51,6 @@ export default @injectSheet(styles) @observer class Services extends Component {
   static contextTypes = {
     intl: intlShape,
   };
-
-  serviceContainerRef = React.createRef()
-
-  resizeObserver = new window.ResizeObserver(([element]) => {
-    const bounds = element.target.getBoundingClientRect();
-
-    ipcRenderer.send(RESIZE_SERVICE_VIEWS, {
-      width: bounds.width,
-      height: bounds.height,
-      x: bounds.x,
-      y: element.target.offsetTop,
-    });
-  });
-
-  componentDidMount() {
-    this.resizeObserver.observe(this.serviceContainerRef.current);
-  }
 
   componentWillUnmount() {
     if (this._confettiTimeout) {
@@ -127,10 +111,31 @@ export default @injectSheet(styles) @observer class Services extends Component {
                 upgrade={() => openSettings({ path: 'user' })}
               />
             )}
+            <ResizeBWServiceComponent />
           </>
         )}
-        <div className="services" ref={this.serviceContainerRef} />
       </>
     );
   }
 }
+
+const resizeObserver = new window.ResizeObserver(([element]) => {
+  const bounds = element.target.getBoundingClientRect();
+
+  ipcRenderer.send(RESIZE_SERVICE_VIEWS, {
+    width: bounds.width,
+    height: bounds.height,
+    x: bounds.x,
+    y: element.target.offsetTop,
+  });
+});
+
+const ResizeBWServiceComponent = () => {
+  const serviceContainerRef = useRef();
+
+  useEffect(() => {
+    resizeObserver.observe(serviceContainerRef.current);
+  }, [serviceContainerRef]);
+
+  return <div className="services" ref={serviceContainerRef} />;
+};
