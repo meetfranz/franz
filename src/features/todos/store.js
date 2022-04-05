@@ -18,7 +18,9 @@ import {
 } from '.';
 import { IPC } from './constants';
 import { state as delayAppState } from '../delayApp';
-import { TODOS_FETCH_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS } from '../../ipcChannels';
+import {
+  RESIZE_TODO_VIEW, TODOS_FETCH_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS,
+} from '../../ipcChannels';
 import { sleep } from '../../helpers/async-helpers';
 
 const debug = require('debug')('Franz:feature:todos:store');
@@ -101,6 +103,7 @@ export default class TodoStore extends FeatureStore {
       this._updateTodosConfig,
       this._firstLaunchReaction,
       this._routeCheckReaction,
+      this._hideTodosBrowserView,
     ]);
 
     this._registerReactions(this._allReactions);
@@ -282,6 +285,17 @@ export default class TodoStore extends FeatureStore {
           isTodosPanelVisible: true,
         });
       }
+    }
+  }
+
+  _hideTodosBrowserView = () => {
+    if (this.isTodosPanelForceHidden) {
+      ipcRenderer.send(RESIZE_TODO_VIEW, {
+        width: 0,
+        height: 0,
+        x: 0,
+        y: 0,
+      });
     }
   }
 }

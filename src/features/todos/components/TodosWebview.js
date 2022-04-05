@@ -103,16 +103,11 @@ class TodosWebview extends Component {
     intl: intlShape,
   };
 
-  resizeObserver = new window.ResizeObserver(([element]) => {
-    const bounds = element.target.getBoundingClientRect();
-
-    ipcRenderer.send(RESIZE_TODO_VIEW, {
-      width: bounds.width,
-      height: bounds.height,
-      x: bounds.x,
-      y: element.target.offsetTop,
-    });
+  resizeObserver = new window.ResizeObserver(() => {
+    this.resizeBrowserView();
   });
+
+  todosContainerRef = React.createRef()
 
   componentWillMount() {
     const { width } = this.props;
@@ -123,19 +118,21 @@ class TodosWebview extends Component {
   }
 
   componentDidMount() {
-    this.node.addEventListener('mousemove', this.resizePanel.bind(this));
-    this.node.addEventListener('mouseup', this.stopResize.bind(this));
-    this.node.addEventListener('mouseleave', this.stopResize.bind(this));
+    this.todosContainerRef.current.addEventListener('mousemove', this.resizePanel.bind(this));
+    this.todosContainerRef.current.addEventListener('mouseup', this.stopResize.bind(this));
+    this.todosContainerRef.current.addEventListener('mouseleave', this.stopResize.bind(this));
 
-    this.resizeObserver.observe(this.node);
+    this.resizeObserver.observe(this.todosContainerRef.current);
 
-    const bounds = this.node.getBoundingClientRect();
+    this.resizeBrowserView();
+  }
 
+  componentWillUnmount() {
     ipcRenderer.send(RESIZE_TODO_VIEW, {
-      width: bounds.width,
-      height: bounds.height,
-      x: bounds.x,
-      y: bounds.y,
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
     });
   }
 
@@ -193,6 +190,20 @@ class TodosWebview extends Component {
     }
   }
 
+  resizeBrowserView() {
+    if (this.todosContainerRef.current) {
+      const bounds = this.todosContainerRef.current.getBoundingClientRect();
+
+      ipcRenderer.send(RESIZE_TODO_VIEW, {
+        width: bounds.width,
+        height: bounds.height,
+        x: bounds.x,
+        y: this.todosContainerRef.current.offsetTop,
+      });
+    }
+  }
+
+
   render() {
     const {
       classes,
@@ -224,7 +235,7 @@ class TodosWebview extends Component {
         })}
         style={{ width: displayedWidth }}
         onMouseUp={() => this.stopResize()}
-        ref={(node) => { this.node = node; }}
+        ref={this.todosContainerRef}
         id="todos-panel"
       >
         <div
