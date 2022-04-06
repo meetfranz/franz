@@ -26,7 +26,7 @@ import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
 import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
 import {
-  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
+  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, RELOAD_APP, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
@@ -173,9 +173,12 @@ export default class AppStore extends Store {
     ipcRenderer.on(UPDATE_FULL_SCREEN_STATUS, (e, status) => {
       this.isFullScreen = status;
     });
+    
+    ipcRenderer.on(RELOAD_APP, (e, status) => {
+      window.location.reload();
+    });
 
     ipcRenderer.on(FETCH_DEBUG_INFO, (e) => {
-      console.log('huhu debug');
       ipcRenderer.sendTo(e.senderId, FETCH_DEBUG_INFO, JSON.parse(JSON.stringify(this.debugInfo)));
     });
 

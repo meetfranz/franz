@@ -4,7 +4,7 @@ import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
   GET_ACTIVE_SERVICE_WEB_CONTENTS_ID,
   HIDE_ALL_SERVICES,
-  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID, USER_LOGIN_STATUS,
+  NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, USER_LOGIN_STATUS,
 } from '../../ipcChannels';
 import { TODOS_RECIPE_ID } from '../../config';
 
@@ -187,13 +187,36 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     }
   });
 
-  ipcMain.on(RELOAD_SERVICE, (e, { serviceId }) => {
-    const sbw = browserViews.find(browserView => browserView.id === serviceId);
+  ipcMain.on(TODOS_OPEN_DEV_TOOLS, () => {
+    const contents = browserViews.find(browserView => browserView.browserView.isTodos)?.browserView.webContents;
+
+    if (contents) {
+      if(contents.isDevToolsOpened()) {
+        contents.closeDevTools();
+      } else {
+        contents.openDevTools({ mode: 'detach' });
+      }
+    }
+  });
+
+  ipcMain.on(RELOAD_SERVICE, (e, { serviceId } = { serviceId: null }) => {
+    let sbw: IBrowserViewCache;
+    if (serviceId) {
+      sbw = browserViews.find(browserView => browserView.id === serviceId);
+    } else {
+      sbw = browserViews.find(browserView => browserView.browserView.isActive);
+    }
 
     if (sbw) {
       debug(`Reload service '${sbw.browserView.config.name}'`);
       sbw.browserView.webContents.reload();
     }
+  });
+
+  ipcMain.on(TODOS_RELOAD, (e) => {
+    let sbw: IBrowserViewCache;
+
+    browserViews.find(browserView => browserView.browserView.isTodos)?.browserView.webContents.reload();
   });
 
   ipcMain.on(NAVIGATE_SERVICE_TO, (e, { serviceId, url }) => {

@@ -15,7 +15,7 @@ import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
 import {
-  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WINDOWS_TITLEBAR_FETCH_MENU, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, OPEN_SERVICE_DEV_TOOLS, RELOAD_APP, RELOAD_SERVICE, SETTINGS_NAVIGATE_TO, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WINDOWS_TITLEBAR_FETCH_MENU, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
 } from '../ipcChannels';
 import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 
@@ -844,29 +844,23 @@ function viewMenu({
       click: () => {
         if (user.isLoggedIn
         && services.length > 0) {
-          // if (this.stores.services.active.recipe.id === CUSTOM_WEBSITE_ID) {
-          //   this.actions.service.reloadActive({
-          //     ignoreNavigation: true,
-          //   });
-          // } else {
-          this.actions.service.reloadActive();
-          // }
+          ipcRenderer.send(RELOAD_SERVICE);
         } else {
-          window.location.reload();
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
         }
       },
     }, {
       label: intl.formatMessage(menuItems.reloadFranz),
       accelerator: `${cmdKey}+Shift+R`,
       click: () => {
-        window.location.reload();
+        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
       },
     }, {
       label: intl.formatMessage(menuItems.reloadTodos),
       accelerator: `${cmdKey}+Shift+Alt+R`,
       enabled: user.isLoggedIn,
       click: () => {
-        this.actions.todos.reload();
+        ipcRenderer.send(TODOS_RELOAD);
       },
     },
     {
@@ -918,7 +912,7 @@ function viewMenu({
       label: intl.formatMessage(menuItems.toggleDevTools),
       accelerator: `${cmdKey}+Alt+I`,
       click: () => {
-        const windowWebContents = webContents.fromId(1);
+        const windowWebContents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
         const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
 
         if (isDevToolsOpened()) {
@@ -931,7 +925,7 @@ function viewMenu({
       label: intl.formatMessage(menuItems.toggleServiceDevTools),
       accelerator: `${cmdKey}+Shift+Alt+I`,
       click: () => {
-        this.actions.service.openDevToolsForActiveService();
+        ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS);
       },
       enabled: user.isLoggedIn && services.length > 0,
     },
@@ -943,7 +937,7 @@ function viewMenu({
       accelerator: `${cmdKey}+Shift+Alt+O`,      
       enabled: user.isLoggedIn,
       click: () => {
-        this.actions.todos.toggleDevTools();
+        ipcRenderer.send(TODOS_OPEN_DEV_TOOLS);
       },
     });
   }

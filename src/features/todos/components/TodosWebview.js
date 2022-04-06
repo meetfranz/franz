@@ -31,10 +31,7 @@ const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
-    zIndex: 300,
-    borderLeft: ({ isVisible }) => (isVisible ? [1, 'solid', theme.todos.todosLayer.borderLeftColor] : 0),
-
-    transform: ({ isVisible, width, isTodosServiceActive }) => `translateX(${isVisible || isTodosServiceActive ? 0 : width}px)`,
+    borderLeft: ({ isVisible }) => (isVisible ? [`1px solid ${theme.todos.todosLayer.borderLeftColor}`] : 0),
   },
   resizeHandler: {
     position: 'absolute',
