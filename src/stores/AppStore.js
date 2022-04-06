@@ -238,10 +238,16 @@ export default class AppStore extends Store {
       if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
         debug('Reloading services, user info and features');
 
-        setInterval(() => {
-          debug('Reload app interval is starting');
+        const reloadInterval = setInterval(() => {
+          debug('Reload app interval is starting, checking for internet connection');
           if (this.isOnline) {
-            window.location.reload();
+            debug('Clearing interval, invalidating stores');
+            clearInterval(reloadInterval);
+
+            this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+            this.stores.services.allServicesRequest.invalidate({ immediately: true });
+            this.stores.features.defaultFeaturesRequest.invalidate({ immediately: true });
+            this.stores.features.featuresRequest.invalidate({ immediately: true });
           }
         }, ms('2s'));
       }
