@@ -1,18 +1,12 @@
-
-import os from 'os';
-import macosVersion from 'macos-version';
 import { isMac, isWindows } from '../environment';
 
 function macOS() {
-  const version = macosVersion();
-
-  return `Macintosh; Intel Mac OS X ${version.replace(/\./g, '_')}`;
+  // used fixed version (https://bugzilla.mozilla.org/show_bug.cgi?id=1679929)
+  return 'Macintosh; Intel Mac OS X 10_15_7';
 }
 
 function windows() {
-  const version = os.release();
-  const [majorVersion, minorVersion] = version.split('.');
-  return `Windows NT ${majorVersion}.${minorVersion}; Win64; x64`;
+  return 'Windows NT 10.0; Win64; x64';
 }
 
 function linux() {
