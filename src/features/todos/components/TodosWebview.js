@@ -31,7 +31,7 @@ const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
-    borderLeft: ({ isVisible }) => (isVisible ? [`1px solid ${theme.todos.todosLayer.borderLeftColor}`] : 0),
+    borderLeft: ({ isVisible }) => (isVisible ? [`2px solid ${theme.todos.todosLayer.borderLeftColor}`] : 0),
   },
   resizeHandler: {
     position: 'absolute',
@@ -47,7 +47,6 @@ const styles = theme => ({
     width: 5,
     zIndex: 400,
     background: theme.todos.dragIndicator.background,
-
   },
   premiumContainer: {
     display: 'flex',
@@ -104,7 +103,9 @@ class TodosWebview extends Component {
     this.resizeBrowserView();
   });
 
-  todosContainerRef = React.createRef()
+  todosContainerRef = React.createRef();
+
+  todosResizeContainerRef = React.createRef();
 
   componentWillMount() {
     const { width } = this.props;
@@ -188,14 +189,14 @@ class TodosWebview extends Component {
   }
 
   resizeBrowserView() {
-    if (this.todosContainerRef.current) {
-      const bounds = this.todosContainerRef.current.getBoundingClientRect();
+    if (this.todosResizeContainerRef.current) {
+      const bounds = this.todosResizeContainerRef.current.getBoundingClientRect();
 
       ipcRenderer.send(RESIZE_TODO_VIEW, {
         width: bounds.width,
         height: bounds.height,
         x: bounds.x,
-        y: this.todosContainerRef.current.offsetTop,
+        y: this.todosResizeContainerRef.current.offsetTop,
       });
     }
   }
@@ -246,6 +247,7 @@ class TodosWebview extends Component {
             style={{ left: delta }} // This hack is required as resizing with webviews beneath behaves quite bad
           />
         )}
+        <div ref={this.todosResizeContainerRef} />
         {!isTodosIncludedInCurrentPlan && (
           <Appear>
             <div className={classes.premiumContainer}>
