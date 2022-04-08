@@ -2,7 +2,7 @@ import {
   ipcMain, BrowserView, BrowserWindow,
 } from 'electron';
 import { isDevMode } from '../../environment';
-import { WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE, WINDOWS_TITLEBAR_RESIZE } from '../../ipcChannels';
+import { WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE, WINDOWS_TITLEBAR_RESIZE, WINDOWS_TITLEBAR_TOGGLE_DEV_TOOLS } from '../../ipcChannels';
 import { windowsTitleBarHeight } from '../../theme/default/legacy';
 
 export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
@@ -40,10 +40,6 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
     view.webContents.loadFile('overlay.html', {
       hash: '/windows-titlebar',
     });
-
-    if (isDevMode) {
-      view.webContents.openDevTools({ mode: 'detach' });
-    }
   });
 
   // IPC Hooks
@@ -62,6 +58,14 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
 
   ipcMain.on(WINDOWS_TITLEBAR_FETCH_MENU, (event, menuData) => {
     view.webContents.send(WINDOWS_TITLEBAR_FETCH_MENU, menuData);
+  });
+
+  ipcMain.on(WINDOWS_TITLEBAR_TOGGLE_DEV_TOOLS, (event, menuData) => {
+    if (view.webContents.isDevToolsOpened()) {
+      view.webContents.closeDevTools();
+    } else {
+      view.webContents.openDevTools({ mode: 'detach' });
+    }
   });
 
   // Window Events
