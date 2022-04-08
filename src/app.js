@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
 import {
-  Router, Route, hashHistory, IndexRedirect,
+  Router, Route, hashHistory, IndexRoute, IndexRedirect,
 } from 'react-router';
 
 import '@babel/polyfill';
@@ -90,6 +90,7 @@ window.addEventListener('load', () => {
                   <Route path="/settings/team" component={TeamScreen} />
                   <Route path="/settings/app" component={EditSettingsScreen} />
                   <Route path="/settings/invite" component={InviteSettingsScreen} />
+                  <Route path="/announcements/*" component={null} />
                 </Route>
               </Route>
               <Route path="/auth" component={AuthLayoutContainer}>
@@ -108,7 +109,9 @@ window.addEventListener('load', () => {
                 <Route path="/auth/logout" component={LoginScreen} />
               </Route>
               <Route path="/payment/:url" component={SubscriptionPopupScreen} />
-              <Route path="*" component={AppLayoutContainer} />
+              <Route path="*">
+                <IndexRedirect to='/' />
+              </Route>
             </Router>
           </I18N>
         </Provider>
