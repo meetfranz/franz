@@ -36,6 +36,7 @@ const styles = {
 
 export default @injectSheet(styles) @observer class Services extends Component {
   static propTypes = {
+    hideWelcomeView: PropTypes.bool.isRequired,
     activeService: PropTypes.object,
     serviceCount: PropTypes.number.isRequired,
     reload: PropTypes.func.isRequired,
@@ -58,9 +59,9 @@ export default @injectSheet(styles) @observer class Services extends Component {
     }
   }
 
-
   render() {
     const {
+      hideWelcomeView,
       activeService,
       serviceCount,
       reload,
@@ -74,25 +75,29 @@ export default @injectSheet(styles) @observer class Services extends Component {
     return (
       <>
         {serviceCount === 0 ? (
-          <div className={classes.container}>
-            <Appear
-              timeout={1500}
-              transitionName="slideUp"
-            >
-              <div className="services__no-service">
-                <img src="./assets/images/logo.svg" alt="" />
-                <h1>{intl.formatMessage(messages.welcome)}</h1>
+          <>
+            {!hideWelcomeView && (
+              <div className={classes.container}>
                 <Appear
-                  timeout={300}
+                  timeout={1500}
                   transitionName="slideUp"
                 >
-                  <Link to="/settings/recipes" className="button">
-                    {intl.formatMessage(messages.getStarted)}
-                  </Link>
+                  <div className="services__no-service">
+                    <img src="./assets/images/logo.svg" alt="" />
+                    <h1>{intl.formatMessage(messages.welcome)}</h1>
+                    <Appear
+                      timeout={300}
+                      transitionName="slideUp"
+                    >
+                      <Link to="/settings/recipes" className="button">
+                        {intl.formatMessage(messages.getStarted)}
+                      </Link>
+                    </Appear>
+                  </div>
                 </Appear>
               </div>
-            </Appear>
-          </div>
+            )}
+          </>
         ) : (
           <>
             {activeService && (

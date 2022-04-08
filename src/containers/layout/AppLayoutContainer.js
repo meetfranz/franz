@@ -119,6 +119,7 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const servicesContainer = (
       <Services
+        hideWelcomeView={ui.isAnnouncementsRouteActive}
         activeService={services.active}
         serviceCount={services.allDisplayed.length}
         reload={reload}

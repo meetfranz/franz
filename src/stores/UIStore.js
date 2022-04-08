@@ -73,6 +73,10 @@ export default class UIStore extends Store {
     return this.stores.router.location.pathname.startsWith(this.stores.user.BASE_ROUTE);
   }
 
+  @computed get isAnnouncementsRouteActive() {
+    return this.stores.router.location.pathname.startsWith('/announcements/');
+  }
+
   // Actions
   @action _openSettings({ path = '/settings' }) {
     const settingsPath = path !== '/settings' ? `/settings/${path}` : path;
