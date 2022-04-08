@@ -196,7 +196,7 @@ class TodosWebview extends Component {
         width: bounds.width,
         height: bounds.height,
         x: bounds.x,
-        y: this.todosResizeContainerRef.current.offsetTop,
+        y: bounds.y,
       });
     }
   }
