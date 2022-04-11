@@ -21,7 +21,6 @@ const styles = theme => ({
     marginRight: 8,
   },
   brand: {
-    fontWeight: 'bold',
     letterSpacing: '-0.2px',
     marginRight: 10,
   },
