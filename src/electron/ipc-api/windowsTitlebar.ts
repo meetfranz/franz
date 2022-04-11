@@ -82,5 +82,19 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
       width: mainWindow.getBounds().width,
     });
   });
-  // }
+
+  // `view.setAutoResize()` is using wrong window dimensions?
+  mainWindow.on('resize', () => {
+    if (!view) return;
+
+    const mainWindowBounds = mainWindow.getContentBounds();
+    const viewBounds = view.getBounds();
+
+    view.setBounds({
+      width: mainWindowBounds.width,
+      height: viewBounds.height,
+      x: viewBounds.x,
+      y: viewBounds.y,
+    });
+  });
 };
