@@ -20,11 +20,6 @@ export default async ({ mainWindow }: { mainWindow: BrowserWindow}) => {
 
     mainWindow.addBrowserView(view);
 
-    view.setAutoResize({
-      width: true,
-      height: false,
-    });
-
     view.setBounds({
       width: mainWindow.getBounds().width,
       height: parseInt(windowsTitleBarHeight, 10),
