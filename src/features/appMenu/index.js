@@ -11,7 +11,6 @@ import AppStore from '../../stores/AppStore';
 
 const styles = theme => ({
   root: {
-    background: theme.colorBackground,
     height: parseInt(windowsTitleBarHeight, 10),
     display: 'flex',
     paddingLeft: 10,
@@ -94,7 +93,7 @@ class AppMenuBar extends Component {
 
     return (
       <div
-        className={classes.root}
+        className={`appMenuBar ${classes.root}`}
       >
         <img src="./assets/images/logo.svg" alt="" className={classes.icon} />
         <span className={classes.brand}>Franz</span>

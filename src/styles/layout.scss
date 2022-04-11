@@ -2,50 +2,56 @@
 
 html { overflow: hidden; }
 
-.theme__dark .app {
-  .sidebar {
+.theme__dark {
+  .app {
+    .sidebar {
+      background: $dark-theme-gray-darker;
+      background: linear-gradient(90deg, $dark-theme-gray-darker 0%, $dark-theme-gray-darker 90%, rgba(0,0,0,0.05) 100%);
+
+      color: $theme-text-color;
+
+      .sidebar__add-service {
+        color: $dark-theme-gray-lighter;
+        background: $dark-theme-gray;
+      }
+
+      .sidebar__button {
+        color: $dark-theme-gray-lighter;
+        font-size: 22px;
+
+        &:hover,
+        &:active {
+          color: $dark-theme-gray-smoke;
+        }
+
+        &.is-muted,
+        &.is-active {
+          color: $theme-brand-primary;
+        }
+
+        &:disabled {
+          opacity: 0.25;
+          filter: grayscale(1);
+        }
+      }
+    }
+
+    .app__service {
+      background: $dark-theme-gray-darkest;
+    }
+
+    .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
+  }
+
+  .appMenuBar {
     background: $dark-theme-gray-darker;
-    background: linear-gradient(90deg, $dark-theme-gray-darker 0%, $dark-theme-gray-darker 90%, rgba(0,0,0,0.05) 100%);
-
-    color: $theme-text-color;
-
-    .sidebar__add-service {
-      color: $dark-theme-gray-lighter;
-      background: $dark-theme-gray;
-    }
-
-    .sidebar__button {
-      color: $dark-theme-gray-lighter;
-      font-size: 22px;
-
-      &:hover,
-      &:active {
-        color: $dark-theme-gray-smoke;
-      }
-
-      &.is-muted,
-      &.is-active {
-        color: $theme-brand-primary;
-      }
-
-      &:disabled {
-        opacity: 0.25;
-        filter: grayscale(1);
-      }
-    }
   }
-
-  .app__service {
-    background: $dark-theme-gray-darkest;
-  }
-
-  .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
 }
 
-body:not(.darwin):not(.isFullScreen) .app .app__content {
-  margin-top: $windows-title-bar-height;
-  height: calc(100% - $windows-title-bar-height);
-}
+// body:not(.darwin):not(.isFullScreen) .app .app__content {
+//   margin-top: $windows-title-bar-height;
+//   height: calc(100% - $windows-title-bar-height);
+// }
 
 .app {
   .app__content {
@@ -168,4 +174,8 @@ body:not(.darwin) .window-draggable {
   width: auto;
   z-index: 999999999;
   pointer-events: none;
+}
+
+.appMenuBar {
+  background: $theme-gray-lightest;
 }
