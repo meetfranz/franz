@@ -16,6 +16,8 @@ import TrialStatusBar from '../../features/trialStatusBar/containers/TrialStatus
 import WebControlsScreen from '../../features/webControls/containers/WebControlsScreen';
 import Service from '../../models/Service';
 import { workspaceStore } from '../../features/workspaces';
+import AppMenuBar from '../../features/appMenu';
+import { isMac } from '../../environment';
 
 function createMarkup(HTMLString) {
   return { __html: HTMLString };
@@ -105,6 +107,7 @@ class AppLayout extends Component {
 
     return (
       <ErrorBoundary>
+        {!isMac && <AppMenuBar />}
         <div className="app">
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}

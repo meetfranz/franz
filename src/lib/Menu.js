@@ -446,8 +446,32 @@ const _templateFactory = intl => [
 
 export const _titleBarTemplateFactory = ({ user, intl }) => [
   {
-    label: isMac ? app.name : intl.formatMessage(menuItems.file),
+    label: app.name,
     submenu: [
+      {
+        label: intl.formatMessage(menuItems.reloadFranz),
+        accelerator: `${cmdKey}+Shift+R`,
+        click: () => {
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.toggleDevTools),
+        accelerator: `${cmdKey}+Alt+I`,
+        click: () => {
+          const windowWebContents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+          const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
+
+          if (isDevToolsOpened()) {
+            closeDevTools();
+          } else {
+            openDevTools({ mode: 'detach' });
+          }
+        },
+      },
+      {
+        type: 'separator',
+      },
       {
         label: intl.formatMessage(menuItems.about),
         role: 'about',
@@ -464,34 +488,100 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.settings),
-        accelerator: 'CmdOrCtrl+,',
-        click: () => {
-          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, {
-            path: 'app',
-          });
-        },
-        enabled: user.isLoggedIn,
+        label: intl.formatMessage(menuItems.learnMore),
+        click() { shell.openExternal('https://meetfranz.com'); },
       },
       {
-        label: intl.formatMessage(menuItems.checkForUpdates),
-        click: () => {
-          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, CHECK_FOR_UPDATE);
-        },
+        label: intl.formatMessage(menuItems.changelog),
+        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
       },
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.quit),
-        role: 'quit',
-        click() {
-          app.quit();
+        label: intl.formatMessage(menuItems.support),
+        click() { shell.openExternal('https://meetfranz.com/support'); },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.tos),
+        click() { shell.openExternal('https://meetfranz.com/terms'); },
+      },
+      {
+        label: intl.formatMessage(menuItems.privacy),
+        click() { shell.openExternal('https://meetfranz.com/privacy'); },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.debugInfo),
+        click: () => {
+          ipcRenderer.on(FETCH_DEBUG_INFO, (e, data) => {
+            console.log('huhu, debug');
+            clipboard.write({
+              text: JSON.stringify(data),
+            });
+
+            const notification = new window.Notification(intl.formatMessage(menuItems.debugInfoCopiedHeadline), {
+              body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+            });
+          });
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, FETCH_DEBUG_INFO);
         },
       },
     ],
-  }, {
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.services),
+    submenu: [],
+  },
+  {
+    label: intl.formatMessage(menuItems.workspaces),
+    submenu: [],
+    visible: workspaceStore.isFeatureEnabled,
+  },
+  {
+    label: intl.formatMessage(menuItems.todos),
+    submenu: [],
+    visible: todosStore.isFeatureEnabled,
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.checkForUpdates),
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, CHECK_FOR_UPDATE);
+    },
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.settings),
+    accelerator: 'CmdOrCtrl+,',
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, {
+        path: 'app',
+      });
+    },
+    enabled: user.isLoggedIn,
+  },
+  {
+    type: 'separator',
+  },
+  {
+    type: 'separator',
+  },
+  {
     label: intl.formatMessage(menuItems.edit),
+    visible: false,
     submenu: [
       {
         label: intl.formatMessage(menuItems.undo),
@@ -579,24 +669,12 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
   },
   {
     label: intl.formatMessage(menuItems.view),
+    visible: false,
     submenu: [],
-  },
-  {
-    label: intl.formatMessage(menuItems.services),
-    submenu: [],
-  },
-  {
-    label: intl.formatMessage(menuItems.workspaces),
-    submenu: [],
-    visible: workspaceStore.isFeatureEnabled,
-  },
-  {
-    label: intl.formatMessage(menuItems.todos),
-    submenu: [],
-    visible: todosStore.isFeatureEnabled,
   },
   {
     label: intl.formatMessage(menuItems.window),
+    visible: false,
     submenu: [
       {
         label: intl.formatMessage(menuItems.minimize),
@@ -615,54 +693,14 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
     ],
   },
   {
-    label: '?',
-    submenu: [
-      {
-        label: intl.formatMessage(menuItems.learnMore),
-        click() { shell.openExternal('https://meetfranz.com'); },
-      },
-      {
-        label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.support),
-        click() { shell.openExternal('https://meetfranz.com/support'); },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.tos),
-        click() { shell.openExternal('https://meetfranz.com/terms'); },
-      },
-      {
-        label: intl.formatMessage(menuItems.privacy),
-        click() { shell.openExternal('https://meetfranz.com/privacy'); },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.debugInfo),
-        click: () => {
-          ipcRenderer.on(FETCH_DEBUG_INFO, (e, data) => {
-            console.log('huhu, debug');
-            clipboard.write({
-              text: JSON.stringify(data),
-            });
-
-            const notification = new window.Notification(intl.formatMessage(menuItems.debugInfoCopiedHeadline), {
-              body: intl.formatMessage(menuItems.debugInfoCopiedBody),
-            });
-          });
-          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, FETCH_DEBUG_INFO);
-        },
-      },
-    ],
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.quit),
+    role: 'quit',
+    click() {
+      app.quit();
+    },
   },
 ];
 
@@ -683,7 +721,7 @@ function getServiceName(service) {
 }
 
 function serviceMenu({
-  services = [], user, intl,
+  services = [], user, intl, showReload = false, showToggleDevTools = false,
 }) {
   if (!intl) return [];
 
@@ -733,6 +771,40 @@ function serviceMenu({
       contents.send(ACTIVATE_SERVICE, { serviceId: service.id });
     },
   })));
+
+  if (showReload || showToggleDevTools) {
+    menu.push({
+      type: 'separator',
+    });
+
+    if (showReload) {
+      menu.push({
+        label: intl.formatMessage(menuItems.reloadService),
+        id: 'reloadService', // TODO: needed?
+        accelerator: `${cmdKey}+R`,
+        enabled: user.isLoggedIn,
+        click: () => {
+          if (user.isLoggedIn
+        && services.length > 0) {
+            ipcRenderer.send(RELOAD_SERVICE);
+          } else {
+            ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
+          }
+        },
+      });
+    }
+
+    if (showToggleDevTools) {
+      menu.push({
+        label: intl.formatMessage(menuItems.toggleServiceDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+I`,
+        click: () => {
+          ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS);
+        },
+        enabled: user.isLoggedIn && services.length > 0,
+      });
+    }
+  }
 
   return menu;
 }
@@ -815,6 +887,22 @@ function todosMenu({
       gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
     },
     enabled: user.isLoggedIn && isTodosEnabled,
+  }, {
+    type: 'separator',
+  }, {
+    label: intl.formatMessage(menuItems.reloadTodos),
+    accelerator: `${cmdKey}+Shift+Alt+R`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      ipcRenderer.send(TODOS_RELOAD);
+    },
+  }, {
+    label: intl.formatMessage(menuItems.toggleTodosDevTools),
+    accelerator: `${cmdKey}+Shift+Alt+O`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      ipcRenderer.send(TODOS_OPEN_DEV_TOOLS);
+    },
   });
 
   if (!isTodosEnabled) {
@@ -833,39 +921,9 @@ function todosMenu({
 }
 
 function viewMenu({
-  intl, isTodosEnabled, user, services,
+  intl,
 }) {
   const tpl = [
-    {
-      label: intl.formatMessage(menuItems.reloadService),
-      id: 'reloadService', // TODO: needed?
-      accelerator: `${cmdKey}+R`,
-      enabled: user.isLoggedIn,
-      click: () => {
-        if (user.isLoggedIn
-        && services.length > 0) {
-          ipcRenderer.send(RELOAD_SERVICE);
-        } else {
-          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
-        }
-      },
-    }, {
-      label: intl.formatMessage(menuItems.reloadFranz),
-      accelerator: `${cmdKey}+Shift+R`,
-      click: () => {
-        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
-      },
-    }, {
-      label: intl.formatMessage(menuItems.reloadTodos),
-      accelerator: `${cmdKey}+Shift+Alt+R`,
-      enabled: user.isLoggedIn,
-      click: () => {
-        ipcRenderer.send(TODOS_RELOAD);
-      },
-    },
-    {
-      type: 'separator',
-    },
     {
       label: intl.formatMessage(menuItems.resetZoom),
       accelerator: `${ctrlKey}+0`,
@@ -906,50 +964,8 @@ function viewMenu({
       click() {
         ipcRenderer.send(TOGGLE_FULL_SCREEN);
       },
-    }, {
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(menuItems.toggleDevTools),
-      accelerator: `${cmdKey}+Alt+I`,
-      click: () => {
-        const windowWebContents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
-        const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
-
-        if (isDevToolsOpened()) {
-          closeDevTools();
-        } else {
-          openDevTools({ mode: 'detach' });
-        }
-      },
-    }, {
-      label: intl.formatMessage(menuItems.toggleServiceDevTools),
-      accelerator: `${cmdKey}+Shift+Alt+I`,
-      click: () => {
-        ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS);
-      },
-      enabled: user.isLoggedIn && services.length > 0,
     },
   ];
-
-  if (isTodosEnabled) {
-    tpl.push({
-      label: intl.formatMessage(menuItems.toggleTodosDevTools),
-      accelerator: `${cmdKey}+Shift+Alt+O`,      
-      enabled: user.isLoggedIn,
-      click: () => {
-        ipcRenderer.send(TODOS_OPEN_DEV_TOOLS);
-      },
-    });
-  }
-
-  // remove eventually
-  tpl.push({
-    label: 'Open Titlebar DevTools',
-    accelerator: `${cmdKey}+Shift+Alt+B`,      
-    click: () => {
-      ipcRenderer.send(WINDOWS_TITLEBAR_TOGGLE_DEV_TOOLS);
-    },
-  });
 
   return tpl;
 }
@@ -1324,9 +1340,13 @@ export class AppMenu {
 
   intl = null;
 
-  constructor({ intl, updateMenuCallback } = {}) {
+  constructor({ intl, data, updateMenuCallback } = {}) {
     if (updateMenuCallback) {
       this.updateMenuCallback = updateMenuCallback;
+    }
+
+    if (data) {
+      this.menuData = data;
     }
 
     this.intl = intl;
@@ -1352,9 +1372,11 @@ export class AppMenu {
 
     const baseTpl = /* isMac ? _templateFactory(this.intl) : */ _titleBarTemplateFactory({ user: this.menuData.user, intl: this.intl });
     const viewTpl = viewMenu({
-      isTodosEnabled: this.menuData.app.isTodosEnabled, user: this.menuData.user, services: this.menuData.services, intl: this.intl,
+      user: this.menuData.user, services: this.menuData.services, intl: this.intl,
     });
-    const serviceTpl = serviceMenu({ services: this.menuData.services, user: this.menuData.user, intl: this.intl });
+    const serviceTpl = serviceMenu({
+      services: this.menuData.services, user: this.menuData.user, intl: this.intl, showReload: true, showToggleDevTools: true,
+    });
     const workspaceTpl = workspacesMenu({
       workspaces: this.menuData.workspaces, isWorkspaceDrawerOpen: this.menuData.app.isWorkspaceDrawerOpen, intl: this.intl, user: this.menuData.user,
     });
@@ -1362,14 +1384,14 @@ export class AppMenu {
       isTodosPanelVisible: this.menuData.app.isTodosDrawerOpen, isTodosEnabled: this.menuData.app.isTodosEnabled, intl: this.intl, user: this.menuData.user,
     });
 
-    baseTpl[2].submenu = viewTpl;
-    baseTpl[3].submenu = serviceTpl;
-    baseTpl[4].submenu = workspaceTpl;
-    baseTpl[5].submenu = todosTpl;
+    baseTpl[2].submenu = serviceTpl;
+    baseTpl[3].submenu = workspaceTpl;
+    baseTpl[4].submenu = todosTpl;
+    baseTpl[12].submenu = viewTpl;
 
     const menu = Menu.buildFromTemplate(baseTpl);
     Menu.setApplicationMenu(menu);
 
-    return baseTpl;
+    return menu;
   }
 }

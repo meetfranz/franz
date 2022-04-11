@@ -173,8 +173,8 @@ export default class AppStore extends Store {
     ipcRenderer.on(UPDATE_FULL_SCREEN_STATUS, (e, status) => {
       this.isFullScreen = status;
     });
-    
-    ipcRenderer.on(RELOAD_APP, (e, status) => {
+
+    ipcRenderer.on(RELOAD_APP, () => {
       window.location.reload();
     });
 
@@ -304,6 +304,23 @@ export default class AppStore extends Store {
         })),
         windowSettings: readJsonSync(path.join(app.getPath('userData'), 'window-state.json')),
         user: this.stores.user.data.id,
+      },
+    };
+  }
+
+  @computed get menuData() {
+    return {
+      user: {
+        isLoggedIn: this.stores.user.isLoggedIn,
+        isPremium: this.stores.user.isPremium,
+      },
+      services: this.stores.services.allDisplayed,
+      workspaces: this.stores.workspaces.workspaces,
+      app: {
+        isTodosEnabled: this.stores.todos.isFeatureEnabledByUser,
+        isTodosDrawerOpen: this.stores.todos.isTodosPanelVisible,
+        isWorkspaceFeatureEnabled: this.stores.workspaces.isFeatureEnabled,
+        isWorkspaceDrawerOpen: this.stores.workspaces.isWorkspaceDrawerOpen,
       },
     };
   }
