@@ -20,7 +20,6 @@ import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopup
 import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
 import { Component as DesktopCapturer } from './features/desktopCapturer';
 import { Component as BasicAuth } from './features/basicAuth';
-import WindowsTitlebar from './features/windowsTitlebar';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -45,7 +44,6 @@ const setup = (settings) => {
           <Route path="/plan-selection" component={PlanSelectionScreen} />
           <Route path="/screen-share/:webContentsId" component={DesktopCapturer} />
           <Route path="/basic-auth/:webContentsId" component={BasicAuth} />
-          <Route path="/windows-titlebar" component={WindowsTitlebar} />
         </Router>
 
       </ThemeProvider>

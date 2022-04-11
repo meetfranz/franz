@@ -186,13 +186,6 @@ export default class AppStore extends Store {
       this._checkForUpdates();
     });
 
-    if (!isMac) {
-      ipcRenderer.on(WINDOWS_TITLEBAR_FETCH_MENU, (e) => {
-        this._shareMenuData();
-      });
-      ipcRenderer.send(WINDOWS_TITLEBAR_INITIALIZE);
-    }
-
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
       debug('Navigate from deep link', data);
