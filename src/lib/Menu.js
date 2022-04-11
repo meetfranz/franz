@@ -693,9 +693,6 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
     ],
   },
   {
-    type: 'separator',
-  },
-  {
     label: intl.formatMessage(menuItems.quit),
     role: 'quit',
     click() {
