@@ -55,14 +55,14 @@ const styles = theme => ({
   },
 });
 
-@inject('stores') @injectSheet(styles) @observer
+@inject('stores', 'actions') @injectSheet(styles) @observer
 class AppMenuBar extends Component {
   static contextTypes = {
     intl: intlShape,
   };
 
   state = {
-    showWindow: false,
+    menuVisible: false,
   }
 
   appMenu = null;
@@ -77,11 +77,13 @@ class AppMenuBar extends Component {
     this.appMenu = new AppMenu({
       intl,
       data: app.menuData,
+      onShow: () => this.setState({ menuVisible: true }),
+      onClose: () => this.setState({ menuVisible: false }),
     });
   }
 
   toggleMenu(intl) {
-    if (this.state.showWindow) {
+    if (!this.state.menuVisible) {
       this.buildMenu(intl);
 
       const buttonPos = this.buttonRef.current.getBoundingClientRect();
@@ -92,7 +94,7 @@ class AppMenuBar extends Component {
       });
     }
 
-    this.setState(prevState => ({ showWindow: !prevState.showWindow }));
+    this.setState(prevState => ({ menuVisible: !prevState.menuVisible }));
   }
 
   render() {
@@ -120,6 +122,11 @@ class AppMenuBar extends Component {
 AppMenuBar.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     app: PropTypes.instanceOf(AppStore).isRequired,
+  }).isRequired,
+  actions: PropTypes.shape({
+    settings: PropTypes.shape({
+      update: PropTypes.func.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
