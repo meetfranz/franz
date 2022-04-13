@@ -8,6 +8,9 @@ import { mdiDotsVertical } from '@mdi/js';
 import { windowsTitleBarHeight } from '../../theme/default/legacy';
 import { AppMenu } from '../../lib/Menu';
 import AppStore from '../../stores/AppStore';
+import SettingsStore from '../../stores/SettingsStore';
+
+export const APP_MENU_ACKNOWLEDGED_KEY = 'appMenuBarAcknowledged';
 
 const styles = theme => ({
   root: {
@@ -32,6 +35,7 @@ const styles = theme => ({
     color: theme.colorText,
     padding: [0, 4, 0, 4],
     marginRight: 10,
+    position: 'relative',
 
     '& $menuIcon': {},
 
@@ -52,6 +56,16 @@ const styles = theme => ({
   menuIcon: {
     marginLeft: 4,
     marginTop: 1,
+  },
+  newFeatureBubble: {
+    width: 6,
+    height: 6,
+    background: theme.styleTypes.danger.accent,
+    position: 'absolute',
+    borderRadius: 6,
+    right: 0,
+    top: 0,
+    boxShadow: `0px 0px 1px 1px ${theme.styleTypes.danger.accent}`,
   },
 });
 
@@ -94,6 +108,13 @@ class AppMenuBar extends Component {
       });
     }
 
+    this.props.actions.settings.update({
+      type: 'app',
+      data: {
+        [APP_MENU_ACKNOWLEDGED_KEY]: true,
+      },
+    });
+
     this.setState(prevState => ({ menuVisible: !prevState.menuVisible }));
   }
 
@@ -101,6 +122,11 @@ class AppMenuBar extends Component {
     const {
       // eslint-disable-next-line react/prop-types
       classes,
+      stores: {
+        settings: {
+          app: appSettings,
+        },
+      },
     } = this.props;
 
     const { intl } = this.context;
@@ -113,6 +139,9 @@ class AppMenuBar extends Component {
           <img src="./assets/images/logo.svg" alt="" className={classes.brandIcon} />
           <span className={classes.brand}>Franz</span>
           <Icon icon={mdiDotsVertical} className={classes.menuIcon} />
+          {!appSettings[APP_MENU_ACKNOWLEDGED_KEY] && (
+            <span className={`${classes.newFeatureBubble} pulsating`} />
+          )}
         </button>
       </div>
     );
@@ -122,6 +151,7 @@ class AppMenuBar extends Component {
 AppMenuBar.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     app: PropTypes.instanceOf(AppStore).isRequired,
+    settings: PropTypes.instanceOf(SettingsStore).isRequired,
   }).isRequired,
   actions: PropTypes.shape({
     settings: PropTypes.shape({

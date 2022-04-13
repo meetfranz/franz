@@ -10,6 +10,7 @@ import { getLocale } from '../helpers/i18n-helpers';
 
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import { APP_MENU_ACKNOWLEDGED_KEY } from '../features/appMenu';
 
 const debug = require('debug')('Franz:SettingsStore');
 
@@ -167,6 +168,24 @@ export default class SettingsStore extends Store {
         type: 'migration',
         data: {
           '5.0.0-beta.19-settings': true,
+        },
+      });
+    }
+
+    if (!this.all.migration['5.9.2-appMenu']) {
+      if (this.stats.appStarts === 1) {
+        this.actions.settings.update({
+          type: 'app',
+          data: {
+            [APP_MENU_ACKNOWLEDGED_KEY]: true,
+          },
+        });
+      }
+
+      this.actions.settings.update({
+        type: 'migration',
+        data: {
+          '5.9.2-appMenu': true,
         },
       });
     }
