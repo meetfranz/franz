@@ -13,20 +13,27 @@ const styles = theme => ({
   root: {
     height: parseInt(windowsTitleBarHeight, 10),
     display: 'flex',
-    paddingLeft: 10,
+    paddingLeft: 4,
     alignItems: 'center',
+    WebkitAppRegion: 'drag',
   },
-  icon: {
+  brandIcon: {
     width: 18,
     marginRight: 8,
+    transition: '0.4s all',
   },
   brand: {
     letterSpacing: '-0.2px',
-    marginRight: 10,
   },
   menuButton: {
     display: 'flex',
+    alignItems: 'center',
     borderRadius: theme.borderRadius,
+    color: theme.colorText,
+    padding: [0, 4, 0, 4],
+    marginRight: 10,
+
+    '& $menuIcon': {},
 
     '&:hover': {
       background: theme.styleTypes.secondary.accent,
@@ -36,7 +43,15 @@ const styles = theme => ({
       '& svg': {
         fill: theme.styleTypes.secondary.contrast,
       },
+
+      '& $brandIcon': {
+        transform: 'rotateY(180deg)',
+      },
     },
+  },
+  menuIcon: {
+    marginLeft: 4,
+    marginTop: 1,
   },
 });
 
@@ -71,8 +86,6 @@ class AppMenuBar extends Component {
 
       const buttonPos = this.buttonRef.current.getBoundingClientRect();
 
-      console.log('button pos', buttonPos);
-
       this.appMenu.menu.popup({
         x: parseInt(buttonPos.x, 10),
         y: parseInt(buttonPos.y + buttonPos.height + 10, 10),
@@ -94,10 +107,10 @@ class AppMenuBar extends Component {
       <div
         className={`appMenuBar ${classes.root}`}
       >
-        <img src="./assets/images/logo.svg" alt="" className={classes.icon} />
-        <span className={classes.brand}>Franz</span>
         <button type="button" className={classes.menuButton} onClick={() => this.toggleMenu(intl)} ref={this.buttonRef}>
-          <Icon icon={mdiDotsVertical} />
+          <img src="./assets/images/logo.svg" alt="" className={classes.brandIcon} />
+          <span className={classes.brand}>Franz</span>
+          <Icon icon={mdiDotsVertical} className={classes.menuIcon} />
         </button>
       </div>
     );
