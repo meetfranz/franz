@@ -15,7 +15,7 @@ import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
 import {
-  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, OPEN_SERVICE_DEV_TOOLS, RELOAD_APP, RELOAD_SERVICE, SETTINGS_NAVIGATE_TO, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_TOGGLE_DEV_TOOLS, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, OPEN_SERVICE_DEV_TOOLS, RELOAD_APP, RELOAD_SERVICE, SETTINGS_NAVIGATE_TO, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
 } from '../ipcChannels';
 import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 
@@ -1337,28 +1337,30 @@ export class AppMenu {
 
   intl = null;
 
-  constructor({ intl, data, updateMenuCallback } = {}) {
-    if (updateMenuCallback) {
-      this.updateMenuCallback = updateMenuCallback;
-    }
+  onShow = () => {};
 
+  onClose = () => {};
+
+  constructor({
+ intl, data, onShow, onClose 
+} = {}) {
     if (data) {
       this.menuData = data;
     }
 
-    this.intl = intl;
+    if (onShow) {
+      this.onShow = onShow();
+    }
 
-    ipcRenderer.on(WINDOWS_TITLEBAR_FETCH_MENU, (e, newMenuData) => {
-      this.update(newMenuData);
-    });
+    if (onClose) {
+      this.onClose = onClose();
+    }
+
+    this.intl = intl;
   }
 
   setIntl(intl) {
     this.intl = intl;
-  }
-
-  update(menuData) {
-    this.menuData = menuData;
   }
 
   get menu() {
@@ -1388,6 +1390,10 @@ export class AppMenu {
 
     const menu = Menu.buildFromTemplate(baseTpl);
     Menu.setApplicationMenu(menu);
+
+    menu.on('menu-will-show', () => this.onShow);
+
+    menu.on('menu-will-close', () => this.onClose);
 
     return menu;
   }
