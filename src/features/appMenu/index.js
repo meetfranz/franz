@@ -36,6 +36,7 @@ const styles = theme => ({
     padding: [0, 4, 0, 4],
     marginRight: 10,
     position: 'relative',
+    WebkitAppRegion: 'no-drag',
 
     '& $menuIcon': {},
 

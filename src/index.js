@@ -61,7 +61,7 @@ import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 import { openOverlay } from './electron/ipc-api/overlayWindow';
-import { darkThemeGrayDarker, themeGrayLightest } from './theme/default/legacy';
+import { darkThemeGrayDarker, themeGrayLightest, windowsTitleBarHeight } from './theme/default/legacy';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -190,6 +190,7 @@ const createWindow = () => {
     titleBarOverlay: {
       color: !settings.get('darkMode') ? themeGrayLightest : darkThemeGrayDarker,
       symbolColor: !settings.get('darkMode') ? '#000' : '#FFF',
+      height: parseInt(windowsTitleBarHeight, 10),
     },
     webPreferences: {
       nodeIntegration: true,
