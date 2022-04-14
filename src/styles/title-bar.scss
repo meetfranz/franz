@@ -1,93 +1,50 @@
 @import './config.scss';
 
-.theme__dark #electron-app-title-bar {
-  background: $dark-theme-gray-darker;
+.window-controls {
+  margin-left: auto;
 
-  .toolbar-dropdown {
-    &.open > .toolbar-button > button { 
-      background: $dark-theme-gray-light;
-      color: $dark-theme-gray-lightest;
+  button {
+    -webkit-app-region: no-drag;
+    display: inline-block;
+    position: relative;
+    width: 45px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    color: #a0a0a0;
+    background-color: transparent;
+    transition: background-color 0.25s ease;
+
+    &:not(:disabled):focus {
+      outline: none;
     }
 
-    &:not(.open) {
-      .menu-item .menu-label { opacity: 1; }
-      > .toolbar-button > button:hover { 
-        background: $dark-theme-gray-darkest; 
-      }
+    &:not(:disabled):hover {
+      background-color: #888;
+      color: #fff;
     }
-  }
 
-  #app-menu-bar #foldout-container .foldout {
-    color: $dark-theme-gray-lightest;
+    &:not(:disabled):hover:active {
+      background-color: #666;
+      transition: none;
+    }
 
-    .menu-pane {
-      background: $dark-theme-gray-light;
+    &.window-close:not(:disabled):hover {
+      background-color: #e81123;
+      color: #fff;
+    }
+
+    &.window-close:not(:disabled):hover:active {
+      background-color: #bf0f1d;
+      transition: none;
+    }
   
-      .menu-item {
-        .accelerator {
-          color: lighten($dark-theme-gray-light, 20%);
-        }
-      }
-  
-      hr {
-        border-color: $dark-theme-gray-lighter;
-      }
-
-      &:not(:first-child) {
-        border-left: 0;
-      }
+     svg {
+      fill: currentColor;
     }
-  }
-
-  .list .ReactVirtualized__Grid {
-    background: $dark-theme-gray-light;
-  }
-
-  .status-icon {
-    fill: white;
-  }
-}
-
-#electron-app-title-bar {
-  background: $theme-gray-lightest;
-  border-bottom: 0;
-  box-shadow: 0 0 8px rgba(black, .1);
-  height: $windows-title-bar-height;
-
-  span { line-height: normal; }
-
-  div { height: auto; }
-
-  .toolbar-dropdown {
-    &.open { box-shadow: 0 0 8px rgba(black, 0.1); }
-
-    &:not(.open) {
-      .menu-item .menu-label { opacity: 1; }
-      > .toolbar-button > button:hover { background: $theme-brand-primary; }
-    }
-  }
-
-  .list-item {
-    .menu-item {
-      border-radius: $theme-border-radius-small;
-      margin: 4px;
-    }
-
-    &.selected,
-    &.selected:focus {
-      background: none;
-
-      .menu-item { background: $theme-brand-primary; }
-    }
-  }
-
-  .menu-pane {
-    border-bottom-left-radius: $theme-border-radius-small;
-    border-bottom-right-radius: $theme-border-radius-small;
-    box-shadow: 0 0 10px rgba(black, .5);
-  }
-
-  .status-icon {
-    min-width: 12px;
   }
 }

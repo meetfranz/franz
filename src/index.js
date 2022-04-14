@@ -187,10 +187,6 @@ const createWindow = () => {
     backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
     titleBarStyle: 'hidden',
     autoHideMenuBar: true,
-    titleBarOverlay: {
-      color: !settings.get('darkMode') ? themeGrayLightest : darkThemeGrayDarker,
-      symbolColor: !settings.get('darkMode') ? '#000' : '#FFF',
-    },
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
@@ -370,9 +366,6 @@ app.on('ready', () => {
       title: 'Quit Franz',
     }]);
   }
-
-  // eslint-disable-next-line global-require
-  require('@meetfranz/electron-react-titlebar/main').initialize();
 
   createWindow();
 

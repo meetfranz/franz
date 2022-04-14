@@ -10,7 +10,7 @@ import { getLocale } from '../helpers/i18n-helpers';
 
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
-import { APP_MENU_ACKNOWLEDGED_KEY } from '../features/appMenu';
+import { APP_MENU_ACKNOWLEDGED_KEY } from '../features/appTitleBar';
 
 const debug = require('debug')('Franz:SettingsStore');
 
