@@ -860,7 +860,7 @@ function workspacesMenu({
       type: 'radio',
       checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
       click: () => {
-        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE, { workspace });
+        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE, { workspaceId: workspace.id });
         gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
       },
     }));
@@ -1342,8 +1342,8 @@ export class AppMenu {
   onClose = () => {};
 
   constructor({
- intl, data, onShow, onClose 
-} = {}) {
+    intl, data, onShow, onClose,
+  } = {}) {
     if (data) {
       this.menuData = data;
     }

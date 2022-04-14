@@ -54,9 +54,9 @@ export default class WorkspacesStore extends FeatureStore {
       this._toggleWorkspaceDrawer();
     });
 
-    ipcRenderer.on(WORKSPACE_ACTIVATE, (event, { workspace } = {}) => {
-      if (workspace) {
-        const ws = this._getWorkspaceById(workspace.id);
+    ipcRenderer.on(WORKSPACE_ACTIVATE, (event, { workspaceId } = {}) => {
+      if (workspaceId) {
+        const ws = this._getWorkspaceById(workspaceId);
         console.log(ws);
         this._setActiveWorkspace({ workspace: ws });
       } else {
