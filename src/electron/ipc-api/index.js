@@ -12,7 +12,6 @@ import serviceCache from './serviceCache';
 import browserViewManager from './browserViewManager';
 import overlayWindow from './overlayWindow';
 import macOSPermissions from './macOSPermissions';
-import appTitleBar from './appTitleBar';
 
 export default (params) => {
   settings(params);
@@ -29,5 +28,4 @@ export default (params) => {
   browserViewManager(params);
   overlayWindow(params);
   macOSPermissions(params);
-  appTitleBar(params);
 };

@@ -9,8 +9,6 @@ import { windowsTitleBarHeight } from '../../theme/default/legacy';
 import { AppMenu } from '../../lib/Menu';
 import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
-import { isWindows } from '../../environment';
-import { WindowControls } from './windowControls';
 
 export const APP_MENU_ACKNOWLEDGED_KEY = 'appMenuBarAcknowledged';
 
@@ -21,9 +19,6 @@ const styles = theme => ({
     paddingLeft: 4,
     alignItems: 'center',
     WebkitAppRegion: 'drag',
-    position: 'relative',
-    boxShadow: '0 0 20px 4px rgba(0,0,0, 0.5)',
-    zIndex: 250,
   },
   brandIcon: {
     width: 18,
@@ -75,7 +70,7 @@ const styles = theme => ({
 });
 
 @inject('stores', 'actions') @injectSheet(styles) @observer
-class AppTitleBar extends Component {
+class AppMenuBar extends Component {
   static contextTypes = {
     intl: intlShape,
   };
@@ -148,15 +143,12 @@ class AppTitleBar extends Component {
             <span className={`${classes.newFeatureBubble} pulsating`} />
           )}
         </button>
-        {isWindows && (
-          <WindowControls />
-        )}
       </div>
     );
   }
 }
 
-AppTitleBar.wrappedComponent.propTypes = {
+AppMenuBar.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     app: PropTypes.instanceOf(AppStore).isRequired,
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
@@ -168,4 +160,4 @@ AppTitleBar.wrappedComponent.propTypes = {
   }).isRequired,
 };
 
-export default AppTitleBar;
+export default AppMenuBar;
