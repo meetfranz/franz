@@ -178,8 +178,8 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     }
   });
 
-  ipcMain.on(OPEN_SERVICE_DEV_TOOLS, (e, { serviceId }) => {
-    const sbw = browserViews.find(browserView => browserView.id === serviceId);
+  ipcMain.on(OPEN_SERVICE_DEV_TOOLS, (e, { serviceId } = {}) => {
+    const sbw = browserViews.find(browserView => (serviceId ? browserView.id === serviceId : browserView.browserView.isActive));
 
     if (sbw) {
       debug(`Open devTools for service '${sbw.browserView.config.name}'`);
@@ -191,7 +191,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     const contents = browserViews.find(browserView => browserView.browserView.isTodos)?.browserView.webContents;
 
     if (contents) {
-      if(contents.isDevToolsOpened()) {
+      if (contents.isDevToolsOpened()) {
         contents.closeDevTools();
       } else {
         contents.openDevTools({ mode: 'detach' });
