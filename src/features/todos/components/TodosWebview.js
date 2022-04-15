@@ -8,6 +8,8 @@ import classnames from 'classnames';
 
 import { mdiCheckAll } from '@mdi/js';
 import { ipcRenderer } from 'electron';
+import { BrowserWindow } from '@electron/remote';
+import { debounce } from 'lodash';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
 import { RESIZE_TODO_VIEW } from '../../../ipcChannels';
@@ -107,6 +109,12 @@ class TodosWebview extends Component {
 
   todosResizeContainerRef = React.createRef();
 
+  windowResizeHandler = debounce(() => {
+    this.resizeBrowserView();
+  }, 50, {
+    trailing: true,
+  });
+
   componentWillMount() {
     const { width } = this.props;
 
@@ -123,6 +131,8 @@ class TodosWebview extends Component {
     this.resizeObserver.observe(this.todosContainerRef.current);
 
     this.resizeBrowserView();
+
+    window.addEventListener('resize', this.windowResizeHandler);
   }
 
   componentWillUnmount() {
@@ -132,6 +142,8 @@ class TodosWebview extends Component {
       x: 0,
       y: 0,
     });
+
+    window.removeEventListener('resize', this.windowResizeHandler);
   }
 
   startResize = (event) => {
