@@ -372,9 +372,6 @@ app.on('ready', () => {
     }]);
   }
 
-  // eslint-disable-next-line global-require
-  require('@meetfranz/electron-react-titlebar/main').initialize();
-
   createWindow();
 
   if (app.runningUnderARM64Translation && isMac) {
