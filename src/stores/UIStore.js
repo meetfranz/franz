@@ -96,12 +96,10 @@ export default class UIStore extends Store {
   }
 
   @action _hideServices() {
-    console.log('hide all services');
     ipcRenderer.send(HIDE_ALL_SERVICES);
   }
 
   @action _showServices() {
-    console.log('show all services');
     ipcRenderer.send(SHOW_ALL_SERVICES);
   }
 
