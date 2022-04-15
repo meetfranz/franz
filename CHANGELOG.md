@@ -1,3 +1,23 @@
+## [5.9.2](https://github.com/meetfranz/franz/compare/v5.9.1...v5.9.2) (2022-04-14)
+
+### Bug Fixes
+
+* **Service:** Apply Google login fix for all services ([3dbe5cc](https://github.com/meetfranz/franz/commit/3dbe5cc))
+* **App:** Don't reload app when coming back from system sleep ([bc6a921](https://github.com/meetfranz/franz/commit/bc6a921))
+* **Windows + Linux:** Introduce new Franz Menu
+* **App:** Improve layout rendering of services ([ad3bb11](https://github.com/meetfranz/franz/commit/ad3bb11))
+* **Todos:** Fix Todos to be resizable again ([4b5d2f7](https://github.com/meetfranz/franz/commit/4b5d2f7))
+* **Todos:** Fix Todos layout issues when Todos should be hidden ([fb3988a](https://github.com/meetfranz/franz/commit/fb3988a))
+* **App:** Don't let the app get confused by unknown routes ([d2059fc](https://github.com/meetfranz/franz/commit/d2059fc))
+
+
+### Features
+
+* **App:** Lock user agents to Windows 10 and macOS 10.15.17 to avoid fingerprinting identification ([3b1d495](https://github.com/meetfranz/franz/commit/3b1d495))
+* **App:** Update to electron 18 ([6c02f29](https://github.com/meetfranz/franz/commit/6c02f29))
+
+
+
 ## [5.9.1](https://github.com/meetfranz/franz/compare/v5.9.0...v5.9.1) (2022-04-04)
 
 
