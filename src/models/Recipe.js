@@ -2,6 +2,7 @@ import emailParser from 'address-rfc2822';
 import semver from 'semver';
 import fs from 'fs-extra';
 import path from 'path';
+import userAgent from '../helpers/userAgent-helpers';
 
 export default class Recipe {
   id = '';
@@ -102,5 +103,9 @@ export default class Recipe {
 
   get hasDarkMode() {
     return fs.pathExistsSync(path.join(this.path, 'darkmode.css'));
+  }
+
+  mockUserAgent(chromless = false) {
+    return userAgent(chromless);
   }
 }

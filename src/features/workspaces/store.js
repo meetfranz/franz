@@ -4,6 +4,7 @@ import {
   action,
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
+import { ipcRenderer } from 'electron';
 import { matchRoute } from '../../helpers/routing-helpers';
 import { workspaceActions } from './actions';
 import { FeatureStore } from '../utils/FeatureStore';
@@ -16,6 +17,10 @@ import {
 import { WORKSPACES_ROUTES } from './index';
 import { createReactions } from '../../stores/lib/Reaction';
 import { createActionBindings } from '../utils/ActionBinding';
+import {
+  WORKSPACE_TOGGLE_DRAWER, RESIZE_SERVICE_VIEWS, WORKSPACE_FETCH_DATA, WORKSPACE_OPEN_SETTINGS, WORKSPACE_ACTIVATE,
+} from '../../ipcChannels';
+import { TAB_BAR_WIDTH } from '../../config';
 
 const debug = require('debug')('Franz:feature:workspaces:store');
 
@@ -28,8 +33,6 @@ export default class WorkspacesStore extends FeatureStore {
 
   @observable isPremiumUpgradeRequired = true;
 
-  @observable activeWorkspace = null;
-
   @observable nextWorkspace = null;
 
   @observable workspaceBeingEdited = null;
@@ -39,6 +42,29 @@ export default class WorkspacesStore extends FeatureStore {
   @observable isWorkspaceDrawerOpen = false;
 
   @observable isSettingsRouteActive = null;
+
+  constructor() {
+    super();
+
+    ipcRenderer.on(WORKSPACE_OPEN_SETTINGS, () => {
+      this._openWorkspaceSettings();
+    });
+
+    ipcRenderer.on(WORKSPACE_TOGGLE_DRAWER, () => {
+      this._toggleWorkspaceDrawer();
+    });
+
+    ipcRenderer.on(WORKSPACE_ACTIVATE, (event, { workspaceId } = {}) => {
+      if (workspaceId) {
+        const ws = this._getWorkspaceById(workspaceId);
+        console.log(ws);
+        this._setActiveWorkspace({ workspace: ws });
+      } else {
+        console.log('deactivate');
+        this._deactivateActiveWorkspace();
+      }
+    });
+  }
 
   @computed get workspaces() {
     if (!this.isFeatureActive) return [];
@@ -60,6 +86,10 @@ export default class WorkspacesStore extends FeatureStore {
 
   @computed get isUserAllowedToUseFeature() {
     return !this.isPremiumUpgradeRequired;
+  }
+
+  @computed get activeWorkspace() {
+    return this.workspaces.find(ws => ws.isActive) || null;
   }
 
   @computed get isAnyWorkspaceActive() {
@@ -127,10 +157,13 @@ export default class WorkspacesStore extends FeatureStore {
 
     getUserWorkspacesRequest.execute();
     this.isFeatureActive = true;
+
+    // resetting any transitioned browserView in case a reload happened with the opened workspace drawer
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, { x: TAB_BAR_WIDTH });
   }
 
   @action reset() {
-    this.activeWorkspace = null;
+    // this.activeWorkspace = null;
     this.nextWorkspace = null;
     this.workspaceBeingEdited = null;
     this.isSwitchingWorkspace = false;
@@ -212,7 +245,13 @@ export default class WorkspacesStore extends FeatureStore {
     this.nextWorkspace = workspace;
     // Delay switching to next workspace so that the services loading does not drag down UI
     setTimeout(() => {
-      this.activeWorkspace = workspace;
+      const previousActiveWorkspace = this._getWorkspaceById(this.activeWorkspace?.id);
+      workspace.isActive = true;
+
+      if (previousActiveWorkspace) {
+        previousActiveWorkspace.isActive = false;
+      }
+
       this._updateSettings({ lastActiveWorkspace: workspace.id });
     }, 100);
     // Indicate that we are done switching to the next workspace
@@ -229,7 +268,7 @@ export default class WorkspacesStore extends FeatureStore {
     this._updateSettings({ lastActiveWorkspace: null });
     // Delay switching to next workspace so that the services loading does not drag down UI
     setTimeout(() => {
-      this.activeWorkspace = null;
+      this.activeWorkspace.isActive = false;
     }, 100);
     // Indicate that we are done switching to the default workspace
     setTimeout(() => { this.isSwitchingWorkspace = false; }, 1000);
@@ -237,6 +276,7 @@ export default class WorkspacesStore extends FeatureStore {
 
   @action _toggleWorkspaceDrawer = () => {
     this.isWorkspaceDrawerOpen = !this.isWorkspaceDrawerOpen;
+    ipcRenderer.send(RESIZE_SERVICE_VIEWS, { x: !this.isWorkspaceDrawerOpen ? TAB_BAR_WIDTH : TAB_BAR_WIDTH + this.stores.ui.theme.workspaces.drawer.width });
   };
 
   @action _openWorkspaceSettings = () => {
@@ -323,6 +363,10 @@ export default class WorkspacesStore extends FeatureStore {
       }
     }
   };
+
+  _shareWorkspaceDataReaction() {
+    ipcRenderer.send(WORKSPACE_FETCH_DATA, this.workspaces);
+  }
 
   _cleanupInvalidServiceReferences = () => {
     const { services } = this.stores;

@@ -4,7 +4,6 @@ $mdi-font-path: '../node_modules/mdi/fonts';
 }
 
 @import './node_modules/mdi/scss/materialdesignicons.scss';
-@import './node_modules/electron-react-titlebar/assets/style';
 
 // modules
 @import './reset.scss';
@@ -29,7 +28,6 @@ $mdi-font-path: '../node_modules/mdi/fonts';
 @import './subscription-popup.scss';
 @import './content-tabs.scss';
 @import './invite.scss';
-@import './title-bar.scss';
 
 // form
 @import './input.scss';

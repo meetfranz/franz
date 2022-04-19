@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import PropTypes from 'prop-types';
-import { dialog, app } from '@electron/remote';
+import { dialog, getCurrentWindow } from '@electron/remote';
 import { defineMessages, intlShape } from 'react-intl';
+import { ipcRenderer } from 'electron';
 
-import FeaturesStore from '../../../stores/FeaturesStore';
-import UserStore from '../../../stores/UserStore';
 import PlanSelection from '../components/PlanSelection';
 import ErrorBoundary from '../../../components/util/ErrorBoundary';
-import { planSelectionStore, GA_CATEGORY_PLAN_SELECTION } from '..';
+import { ACTIONS, GA_CATEGORY_PLAN_SELECTION } from '..';
 import { gaEvent, gaPage } from '../../../lib/analytics';
+import { DEFAULT_WEB_CONTENTS_ID } from '../../../config';
+import { PLAN_SELECTION_GET_DATA, PLAN_SELECTION_TRIGGER_ACTION } from '../../../ipcChannels';
 
 const messages = defineMessages({
   dialogTitle: {
@@ -30,54 +29,67 @@ const messages = defineMessages({
   },
 });
 
-@inject('stores', 'actions') @observer
 class PlanSelectionScreen extends Component {
   static contextTypes = {
     intl: intlShape,
   };
 
-  upgradeAccount(planId) {
-    const { upgradeAccount } = this.props.actions.payment;
+  state = {
+    isLoading: true,
+    firstname: '',
+    hadSubscription: false,
+    isSubscriptionExpired: false,
+    isPersonalPlanAvailable: true,
+    pricingConfig: {},
+  }
 
-    upgradeAccount({
-      planId,
+  componentWillMount() {
+    ipcRenderer.on(PLAN_SELECTION_GET_DATA, (event, data) => {
+      this.setState(prevState => ({
+        ...prevState,
+        ...data,
+        isLoading: false,
+      }));
     });
+
+    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, PLAN_SELECTION_GET_DATA);
+  }
+
+  triggerAction(action, data) {
+    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, PLAN_SELECTION_TRIGGER_ACTION, action, data);
   }
 
   render() {
-    if (!planSelectionStore || !planSelectionStore.isFeatureActive || !planSelectionStore.showPlanSelectionOverlay) {
-      return null;
-    }
-
     const { intl } = this.context;
 
-    const { user, features } = this.props.stores;
-    const { isPersonalPlanAvailable, pricingConfig } = features.features;
+    const {
+      firstname, isLoading, hadSubscription, isSubscriptionExpired, isPersonalPlanAvailable, pricingConfig,
+    } = this.state;
     const { plans, currency } = pricingConfig;
-    const { activateTrial } = this.props.actions.user;
-    const { downgradeAccount, hideOverlay } = this.props.actions.planSelection;
+    // const { activateTrial } = this.props.actions.user;
+    // const { downgradeAccount, hideOverlay } = this.props.actions.planSelection;
+
+    if (isLoading) return null;
 
     return (
       <ErrorBoundary>
         <PlanSelection
-          firstname={user.data.firstname}
+          firstname={firstname}
           plans={plans}
           currency={currency}
           upgradeAccount={(planId) => {
-            if (user.data.hadSubscription) {
-              this.upgradeAccount(planId);
+            if (hadSubscription) {
+              this.triggerAction(ACTIONS.UPGRADE_ACCOUNT, { planId });
 
               gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', planId);
             } else {
-              activateTrial({
-                planId,
-              });
+              this.triggerAction(ACTIONS.ACTIVATE_TRIAL, { planId });
             }
           }}
           stayOnFree={() => {
             gaPage('/select-plan/downgrade');
 
-            const selection = dialog.showMessageBoxSync(app.mainWindow, {
+            const selection = dialog.showMessageBoxSync(getCurrentWindow(), {
               type: 'question',
               message: intl.formatMessage(messages.dialogTitle),
               detail: intl.formatMessage(messages.dialogMessage, {
@@ -93,16 +105,18 @@ class PlanSelectionScreen extends Component {
             gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Stay on Free');
 
             if (selection === 0) {
-              downgradeAccount();
-              hideOverlay();
-            } else {
-              this.upgradeAccount(plans.personal.yearly.id);
+              this.triggerAction(ACTIONS.DOWNGRADE_ACCOUNT);
 
+              window.close();
               gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Downgrade');
+            } else {
+              this.triggerAction(ACTIONS.UPGRADE_ACCOUNT, { planId: plans.personal.yearly.id });
+
+              gaEvent(GA_CATEGORY_PLAN_SELECTION, 'SelectPlan', 'Upgrade');
             }
           }}
-          subscriptionExpired={user.team && user.team.state === 'expired' && !user.team.userHasDowngraded}
-          hadSubscription={user.data.hadSubscription}
+          subscriptionExpired={isSubscriptionExpired}
+          hadSubscription={hadSubscription}
           isPersonalPlanAvailable={isPersonalPlanAvailable}
         />
       </ErrorBoundary>
@@ -111,22 +125,3 @@ class PlanSelectionScreen extends Component {
 }
 
 export default PlanSelectionScreen;
-
-PlanSelectionScreen.wrappedComponent.propTypes = {
-  stores: PropTypes.shape({
-    features: PropTypes.instanceOf(FeaturesStore).isRequired,
-    user: PropTypes.instanceOf(UserStore).isRequired,
-  }).isRequired,
-  actions: PropTypes.shape({
-    payment: PropTypes.shape({
-      upgradeAccount: PropTypes.func.isRequired,
-    }),
-    planSelection: PropTypes.shape({
-      downgradeAccount: PropTypes.func.isRequired,
-      hideOverlay: PropTypes.func.isRequired,
-    }),
-    user: PropTypes.shape({
-      activateTrial: PropTypes.func.isRequired,
-    }),
-  }).isRequired,
-};

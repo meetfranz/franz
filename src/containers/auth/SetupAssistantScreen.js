@@ -24,8 +24,8 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
       name: 'Gmail',
       hasTeamId: false,
     },
-    skype: {
-      name: 'Skype',
+    msteams: {
+      name: 'Microsoft Teams',
       hasTeamId: false,
     },
     telegram: {
@@ -40,8 +40,8 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
       name: 'Slack',
       hasTeamId: true,
     },
-    hangouts: {
-      name: 'Hangouts',
+    'android-messages': {
+      name: 'Android Messages',
       hasTeamId: false,
     },
     linkedin: {
@@ -56,7 +56,6 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
 
   async setupServices(serviceConfig) {
     const { stores: { services, router, user } } = this.props;
-    console.log(serviceConfig);
 
     this.setState({
       isSettingUpServices: true,

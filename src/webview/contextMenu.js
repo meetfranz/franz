@@ -165,8 +165,6 @@ const buildMenuTpl = (props, suggestions, isSpellcheckEnabled, defaultSpellcheck
           }
         };
         reader.readAsDataURL(blob);
-
-        console.log('image');
       },
     }, {
       id: 'copyImageAddress',

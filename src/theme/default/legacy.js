@@ -37,3 +37,5 @@ export const darkThemeGrayLightest = '#FFFFFF';
 
 export const darkThemeGraySmoke = '#CED0D1';
 export const darkThemeTextColor = '#FFFFFF';
+
+export const windowsTitleBarHeight = '31px';

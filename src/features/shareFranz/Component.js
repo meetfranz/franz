@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { defineMessages, intlShape } from 'react-intl';
 import { Button } from '@meetfranz/forms';
 import { H1, Icon } from '@meetfranz/ui';
 
 import {
-  mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter, mdiLinkedinBox,
+  mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter, mdiLinkedinBox, mdiClose,
 } from '@mdi/js';
-import Modal from '../../components/ui/Modal';
+import { ipcRenderer } from 'electron';
 import { state } from '.';
 import { gaEvent } from '../../lib/analytics';
-import ServicesStore from '../../stores/ServicesStore';
+import { DEFAULT_WEB_CONTENTS_ID } from '../../config';
+import { SHARE_FRANZ_GET_SERVICE_COUNT } from '../../ipcChannels';
+import service from '../../actions/service';
 
 const messages = defineMessages({
   headline: {
@@ -50,12 +52,23 @@ const messages = defineMessages({
 });
 
 const styles = theme => ({
-  modal: {
-    width: '80%',
-    maxWidth: 600,
+  container: {
+    position: 'relative',
     background: theme.styleTypes.primary.accent,
+    borderRadius: theme.borderRadius,
     textAlign: 'center',
     color: theme.styleTypes.primary.contrast,
+    paddingTop: 40,
+  },
+  close: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 20,
+    '& svg': {
+      color: theme.styleTypes.primary.contrast,
+      fill: theme.styleTypes.primary.contrast,
+    },
   },
   heartContainer: {
     display: 'flex',
@@ -65,7 +78,7 @@ const styles = theme => ({
     padding: 20,
     width: 100,
     height: 100,
-    margin: [-70, 'auto', 30],
+    margin: [0, 'auto', 30],
   },
   heart: {
     fill: theme.styleTypes.primary.contrast,
@@ -74,16 +87,18 @@ const styles = theme => ({
     textAlign: 'center',
     fontSize: 40,
     marginBottom: 20,
+    color: theme.styleTypes.primary.contrast,
   },
   actions: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    display: 'flex',
     gridGap: '1em',
     marginTop: 30,
+    justifyContent: 'center',
   },
   cta: {
     background: theme.styleTypes.primary.contrast,
     color: `${theme.styleTypes.primary.accent} !important`,
+    height: 50,
 
     '& svg': {
       fill: theme.styleTypes.primary.accent,
@@ -91,7 +106,7 @@ const styles = theme => ({
   },
 });
 
-export default @injectSheet(styles) @inject('stores') @observer class ShareFranzModal extends Component {
+export default @injectSheet(styles) @observer class ShareFranzModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
   };
@@ -100,29 +115,42 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
     intl: intlShape,
   };
 
+  state = {
+    serviceCount: 0,
+  }
+
+  componentDidMount() {
+    ipcRenderer.on(SHARE_FRANZ_GET_SERVICE_COUNT, (event, { serviceCount }) => {
+      this.setState({ serviceCount });
+    });
+    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SHARE_FRANZ_GET_SERVICE_COUNT);
+  }
+
   close() {
-    state.isModalVisible = false;
+    window.close();
+    state.isModalVisible = true;
   }
 
   render() {
-    const { isModalVisible } = state;
-
     const {
       classes,
-      stores,
     } = this.props;
 
-    const serviceCount = stores.services.all.length;
+    const {
+      serviceCount,
+    } = this.state;
 
     const { intl } = this.context;
 
     return (
-      <Modal
-        isOpen={isModalVisible}
-        className={classes.modal}
-        shouldCloseOnOverlayClick
-        close={this.close.bind(this)}
-      >
+      <div className={classes.container}>
+        <button
+          type="button"
+          className={classes.close}
+          onClick={this.close}
+        >
+          <Icon icon={mdiClose} size={1.5} />
+        </button>
         <div className={classes.heartContainer}>
           <Icon icon={mdiHeart} className={classes.heart} size={4} />
         </div>
@@ -172,13 +200,7 @@ export default @injectSheet(styles) @inject('stores') @observer class ShareFranz
             }}
           />
         </div>
-      </Modal>
+      </div>
     );
   }
 }
-
-ShareFranzModal.wrappedComponent.propTypes = {
-  stores: PropTypes.shape({
-    services: PropTypes.instanceOf(ServicesStore).isRequired,
-  }).isRequired,
-};

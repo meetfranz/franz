@@ -3,6 +3,7 @@
 .theme__dark .tab-item {
   &.is-active {
     background: $dark-theme-gray;
+    background: linear-gradient(90deg, $dark-theme-gray 0%, $dark-theme-gray 93%, darken($dark-theme-gray, 10%) 100%);
 
     .tab-item__icon { margin-left: -4px; }
   }
@@ -34,6 +35,7 @@
 
   &.is-active {
     background: lighten($theme-brand-primary, 35%);
+    background: linear-gradient(90deg, lighten($theme-brand-primary, 35%) 0%, lighten($theme-brand-primary, 35%) 93%, darken($theme-brand-primary, 1%) 100%);
     border-left: 4px solid $theme-brand-primary;
 
     .tab-item__icon { margin-left: -4px; }

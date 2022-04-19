@@ -35,17 +35,6 @@ export default {
     serviceId: PropTypes.string.isRequired,
     count: PropTypes.object.isRequired,
   },
-  setWebviewReference: {
-    serviceId: PropTypes.string.isRequired,
-    webview: PropTypes.object.isRequired,
-  },
-  detachService: {
-    service: PropTypes.instanceOf(ServiceModel).isRequired,
-  },
-  focusService: {
-    serviceId: PropTypes.string.isRequired,
-  },
-  focusActiveService: {},
   toggleService: {
     serviceId: PropTypes.string.isRequired,
   },
@@ -68,8 +57,11 @@ export default {
   },
   reload: {
     serviceId: PropTypes.string.isRequired,
+    ignoreNavigation: PropTypes.bool,
   },
-  reloadActive: {},
+  reloadActive: {
+    ignoreNavigation: PropTypes.bool,
+  },
   reloadAll: {},
   reloadUpdatedServices: {},
   filter: {
@@ -96,8 +88,5 @@ export default {
   },
   awake: {
     serviceId: PropTypes.string.isRequired,
-  },
-  resetLastPollTimer: {
-    serviceId: PropTypes.string,
   },
 };

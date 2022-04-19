@@ -5,6 +5,7 @@ import localStorage from 'mobx-localstorage';
 import ms from 'ms';
 import { session } from '@electron/remote';
 
+import { ipcRenderer } from 'electron';
 import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -14,6 +15,7 @@ import { sleep } from '../helpers/async-helpers';
 import { getPlan } from '../helpers/plan-helpers';
 import { PLANS } from '../config';
 import { TODOS_PARTITION_ID } from '../features/todos';
+import { USER_LOGIN_STATUS } from '../ipcChannels';
 
 const debug = require('debug')('Franz:UserStore');
 
@@ -341,6 +343,8 @@ export default class UserStore extends Store {
     if (this.isTokenExpired) {
       this._logout();
     }
+
+    ipcRenderer.send(USER_LOGIN_STATUS, this.isLoggedIn);
 
     const { router } = this.stores;
     const currentRoute = router.location.pathname;

@@ -4,13 +4,10 @@ import injectSheet from 'react-jss';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import Modal from '../../components/ui/Modal';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
 import {
-  state,
-  resetState,
   sendCredentials,
   cancelLogin,
 } from '.';
@@ -23,80 +20,73 @@ export default @injectSheet(styles) @observer class BasicAuthModal extends Compo
     classes: PropTypes.object.isRequired,
   }
 
-  submit(e) {
-    e.preventDefault();
+   params = new URL(window.location.href).searchParams
 
-    const values = Form.values();
+   submit(e) {
+     e.preventDefault();
 
-    sendCredentials(values.user, values.password);
-    resetState();
-  }
+     const values = Form.values();
 
-  cancel() {
-    cancelLogin();
-    this.close();
-  }
+     sendCredentials(values.user, values.password);
+     this.close();
+   }
 
-  close() {
-    resetState();
-    state.isModalVisible = false;
-  }
+   cancel() {
+     cancelLogin();
+     this.close();
+   }
 
-  render() {
-    const {
-      classes,
-    } = this.props;
+   close() {
+     window.close();
+   }
 
-    const {
-      isModalVisible,
-      authInfo,
-    } = state;
+   render() {
+     const {
+       classes,
+     } = this.props;
 
-    if (!authInfo) {
-      return null;
-    }
+     console.log('seas', this.params.get('scheme'));
 
-    return (
-      <Modal
-        isOpen={isModalVisible}
-        className={classes.modal}
-        close={this.cancel.bind(this)}
-        showClose={false}
-      >
-        <h1>Sign in</h1>
-        <p>
+     if (!this.params.get('scheme')) {
+       return null;
+     }
+
+     return (
+       <div className={classes.container}>
+         <h1>Sign in</h1>
+         <p>
           http
-          {authInfo.port === 443 && 's'}
+           {this.params.get('port') === 443 && 's'}
           ://
-          {authInfo.host}
-        </p>
-        <form
-          onSubmit={this.submit.bind(this)}
-          className={classnames('franz-form', classes.form)}
-        >
-          <Input
-            field={Form.$('user')}
-            showLabel={false}
-          />
-          <Input
-            field={Form.$('password')}
-            showLabel={false}
-            showPasswordToggle
-          />
-          <div className={classes.buttons}>
-            <Button
-              type="button"
-              label="Cancel"
-              buttonType="secondary"
-              onClick={this.cancel.bind(this)}
-            />
-            <Button
-              type="submit"
-              label="Sign In"
-            />
-          </div>
-        </form>
-      </Modal>
-    );
-  }
+           {this.params.get('host')}
+         </p>
+         <form
+           onSubmit={this.submit.bind(this)}
+           className={classnames('franz-form', classes.form)}
+         >
+           <Input
+             field={Form.$('user')}
+             showLabel={false}
+           />
+           <Input
+             field={Form.$('password')}
+             showLabel={false}
+             showPasswordToggle
+           />
+           <div className={classes.buttons}>
+             <Button
+               type="button"
+               label="Cancel"
+               buttonType="secondary"
+               onClick={this.cancel.bind(this)}
+             />
+             <Button
+               type="submit"
+               label="Sign In"
+             />
+           </div>
+         </form>
+       </div>
+     );
+   }
 }

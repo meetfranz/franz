@@ -1,5 +1,7 @@
-import { shell, clipboard } from 'electron';
-import { app, Menu, dialog } from '@electron/remote';
+import { shell, clipboard, ipcRenderer } from 'electron';
+import {
+  app, Menu, dialog, webContents, getCurrentWindow,
+} from '@electron/remote';
 import { observable, autorun } from 'mobx';
 import { defineMessages } from 'react-intl';
 
@@ -12,8 +14,12 @@ import { announcementsStore } from '../features/announcements';
 import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
+import {
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, OPEN_SERVICE_DEV_TOOLS, RELOAD_APP, RELOAD_SERVICE, SETTINGS_NAVIGATE_TO, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
+} from '../ipcChannels';
+import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 
-const menuItems = defineMessages({
+export const menuItems = defineMessages({
   edit: {
     id: 'menu.edit',
     defaultMessage: '!!!Edit',
@@ -272,8 +278,9 @@ const menuItems = defineMessages({
   },
 });
 
-function getActiveWebview() {
-  return window.franz.stores.services.active.webview;
+async function getActiveWebContents() {
+  const webContentsId = await ipcRenderer.invoke(GET_ACTIVE_SERVICE_WEB_CONTENTS_ID);
+  return webContents.fromId(webContentsId);
 }
 
 const _templateFactory = intl => [
@@ -310,8 +317,8 @@ const _templateFactory = intl => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: 'Cmd+Shift+V',
         selector: 'pasteAndMatchStyle:',
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
+        async click() {
+          (await getActiveWebContents()).pasteAndMatchStyle();
         },
       },
       {
@@ -334,15 +341,16 @@ const _templateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.resetZoom),
         accelerator: 'Cmd+0',
-        click() {
-          getActiveWebview().setZoomLevel(0);
+        async click() {
+          const activeService = await getActiveWebContents();
+          activeService.setZoomLevel(0);
         },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: 'Cmd+plus',
-        click() {
-          const activeService = getActiveWebview();
+        async click() {
+          const activeService = await getActiveWebContents();
           const level = activeService.getZoomLevel();
 
           // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
@@ -352,8 +360,8 @@ const _templateFactory = intl => [
       {
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: 'Cmd+-',
-        click() {
-          const activeService = getActiveWebview();
+        async click() {
+          const activeService = await getActiveWebContents();
           const level = activeService.getZoomLevel();
 
           // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
@@ -436,155 +444,49 @@ const _templateFactory = intl => [
   },
 ];
 
-const _titleBarTemplateFactory = intl => [
+export const _titleBarTemplateFactory = ({ user, intl }) => [
   {
-    label: intl.formatMessage(menuItems.edit),
+    label: app.name,
     submenu: [
       {
-        label: intl.formatMessage(menuItems.undo),
-        accelerator: `${ctrlKey}+Z`,
-        click() {
-          getActiveWebview().undo();
+        label: intl.formatMessage(menuItems.reloadFranz),
+        accelerator: `${cmdKey}+Shift+R`,
+        click: () => {
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
         },
       },
       {
-        label: intl.formatMessage(menuItems.redo),
-        accelerator: `${ctrlKey}+Y`,
-        click() {
-          getActiveWebview().redo();
-        },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.cut),
-        accelerator: `${ctrlKey}+X`,
-        click() {
-          getActiveWebview().cut();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.copy),
-        accelerator: `${ctrlKey}+C`,
-        click() {
-          getActiveWebview().copy();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.paste),
-        accelerator: `${ctrlKey}+V`,
-        click() {
-          getActiveWebview().paste();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
-        accelerator: `${ctrlKey}+Shift+V`,
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.delete),
-        click() {
-          getActiveWebview().delete();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.selectAll),
-        accelerator: `${ctrlKey}+A`,
-        click() {
-          getActiveWebview().selectAll();
-        },
-      },
-    ],
-  },
-  {
-    label: intl.formatMessage(menuItems.view),
-    submenu: [
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.resetZoom),
-        accelerator: `${ctrlKey}+0`,
-        click() {
-          getActiveWebview().setZoomLevel(0);
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${ctrlKey}+=`,
-        click() {
-          const activeService = getActiveWebview();
-          const level = activeService.getZoomLevel();
+        label: intl.formatMessage(menuItems.toggleDevTools),
+        accelerator: `${cmdKey}+Alt+I`,
+        click: () => {
+          const windowWebContents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+          const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
 
-          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-          if (level < 9) activeService.setZoomLevel(level + 1);
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.zoomOut),
-        accelerator: `${ctrlKey}+-`,
-        click() {
-          const activeService = getActiveWebview();
-          const level = activeService.getZoomLevel();
-
-          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-          if (level > -9) activeService.setZoomLevel(level - 1);
+          if (isDevToolsOpened()) {
+            closeDevTools();
+          } else {
+            openDevTools({ mode: 'detach' });
+          }
         },
       },
       {
         type: 'separator',
       },
       {
-        label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
-          ? intl.formatMessage(menuItems.exitFullScreen)
-          : intl.formatMessage(menuItems.enterFullScreen),
-        accelerator: 'F11',
-        click(menuItem, browserWindow) {
-          browserWindow.setFullScreen(!browserWindow.isFullScreen());
-        },
-      },
-    ],
-  },
-  {
-    label: intl.formatMessage(menuItems.services),
-    submenu: [],
-  },
-  {
-    label: intl.formatMessage(menuItems.workspaces),
-    submenu: [],
-    visible: workspaceStore.isFeatureEnabled,
-  },
-  {
-    label: intl.formatMessage(menuItems.todos),
-    submenu: [],
-    visible: todosStore.isFeatureEnabled,
-  },
-  {
-    label: intl.formatMessage(menuItems.window),
-    submenu: [
-      {
-        label: intl.formatMessage(menuItems.minimize),
-        accelerator: 'Ctrl+M',
-        click(menuItem, browserWindow) {
-          browserWindow.minimize();
+        label: intl.formatMessage(menuItems.about),
+        role: 'about',
+        click: () => {
+          dialog.showMessageBox({
+            type: 'info',
+            title: 'Franz',
+            message: 'Franz',
+            detail: `Version: ${app.getVersion()}\nRelease: ${process.versions.electron} / ${process.platform} / ${process.arch}`,
+          });
         },
       },
       {
-        label: intl.formatMessage(menuItems.close),
-        accelerator: 'Ctrl+W',
-        click(menuItem, browserWindow) {
-          browserWindow.close();
-        },
+        type: 'separator',
       },
-    ],
-  },
-  {
-    label: '?',
-    submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
         click() { shell.openExternal('https://meetfranz.com'); },
@@ -611,10 +513,461 @@ const _titleBarTemplateFactory = intl => [
         label: intl.formatMessage(menuItems.privacy),
         click() { shell.openExternal('https://meetfranz.com/privacy'); },
       },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.debugInfo),
+        click: () => {
+          ipcRenderer.on(FETCH_DEBUG_INFO, (e, data) => {
+            console.log('huhu, debug');
+            clipboard.write({
+              text: JSON.stringify(data),
+            });
+
+            const notification = new window.Notification(intl.formatMessage(menuItems.debugInfoCopiedHeadline), {
+              body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+            });
+          });
+          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, FETCH_DEBUG_INFO);
+        },
+      },
     ],
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.services),
+    submenu: [],
+  },
+  {
+    label: intl.formatMessage(menuItems.workspaces),
+    submenu: [],
+    visible: workspaceStore.isFeatureEnabled,
+  },
+  {
+    label: intl.formatMessage(menuItems.todos),
+    submenu: [],
+    visible: todosStore.isFeatureEnabled,
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.checkForUpdates),
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, CHECK_FOR_UPDATE);
+    },
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.settings),
+    accelerator: 'CmdOrCtrl+,',
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, {
+        path: 'app',
+      });
+    },
+    enabled: user.isLoggedIn,
+  },
+  {
+    type: 'separator',
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: intl.formatMessage(menuItems.edit),
+    visible: false,
+    submenu: [
+      {
+        label: intl.formatMessage(menuItems.undo),
+        accelerator: `${ctrlKey}+Z`,
+        async click() {
+          (await getActiveWebContents()).undo();
+        },
+        action: {
+          action: 'undo',
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.redo),
+        accelerator: `${ctrlKey}+Y`,
+        async click() {
+          (await getActiveWebContents()).redo();
+        },
+        action: {
+          action: 'redo',
+        },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.cut),
+        accelerator: `${ctrlKey}+X`,
+        async click() {
+          (await getActiveWebContents()).cut();
+        },
+        action: {
+          action: 'cut',
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.copy),
+        accelerator: `${ctrlKey}+C`,
+        async click() {
+          (await getActiveWebContents()).copy();
+        },
+        action: {
+          action: 'copy',
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.paste),
+        accelerator: `${ctrlKey}+V`,
+        async click() {
+          (await getActiveWebContents()).paste();
+        },
+        action: {
+          action: 'paste',
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
+        accelerator: `${ctrlKey}+Shift+V`,
+        async click() {
+          (await getActiveWebContents()).pasteAndMatchStyle();
+        },
+        action: {
+          action: 'pasteAndMatchStyle',
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.delete),
+        async click() {
+          (await getActiveWebContents()).delete();
+        },
+        action: {
+          action: 'delete',
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.selectAll),
+        accelerator: `${ctrlKey}+A`,
+        async click() {
+          (await getActiveWebContents()).selectAll();
+        },
+        action: {
+          action: 'selectAll',
+        },
+      },
+    ],
+  },
+  {
+    label: intl.formatMessage(menuItems.view),
+    visible: false,
+    submenu: [],
+  },
+  {
+    label: intl.formatMessage(menuItems.window),
+    visible: false,
+    submenu: [
+      {
+        label: intl.formatMessage(menuItems.minimize),
+        accelerator: 'Ctrl+M',
+        click() {
+          getCurrentWindow().minimize();
+        },
+      },
+      {
+        label: intl.formatMessage(menuItems.close),
+        accelerator: 'Ctrl+W',
+        click() {
+          getCurrentWindow().close();
+        },
+      },
+    ],
+  },
+  {
+    label: intl.formatMessage(menuItems.quit),
+    role: 'quit',
+    click() {
+      app.quit();
+    },
   },
 ];
 
+function getServiceName(service) {
+  if (service.name) {
+    return service.name;
+  }
+
+  let { name } = service.recipe;
+
+  if (service.team) {
+    name = `${name} (${service.team})`;
+  } else if (service.customUrl) {
+    name = `${name} (${service.customUrl})`;
+  }
+
+  return name;
+}
+
+function serviceMenu({
+  services = [], user, intl, showReload = false, showToggleDevTools = false,
+}) {
+  if (!intl) return [];
+
+  const menu = [];
+
+  menu.push({
+    label: intl.formatMessage(menuItems.addNewService),
+    accelerator: `${cmdKey}+N`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(SETTINGS_NAVIGATE_TO, { path: 'recipes' });
+    },
+  }, {
+    type: 'separator',
+  }, {
+    label: intl.formatMessage(menuItems.activateNextService),
+    accelerator: `${cmdKey}+alt+right`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(ACTIVATE_NEXT_SERVICE);
+    },
+  }, {
+    label: intl.formatMessage(menuItems.activatePreviousService),
+    accelerator: `${cmdKey}+alt+left`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(ACTIVATE_PREVIOUS_SERVICE);
+    },
+  });
+
+  if (services.length) {
+    menu.push({
+      type: 'separator',
+    });
+  }
+
+  services.forEach((service, i) => (menu.push({
+    label: getServiceName(service),
+    accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
+    type: 'radio',
+    checked: service.isActive,
+    click: () => {
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(ACTIVATE_SERVICE, { serviceId: service.id });
+    },
+  })));
+
+  if (showReload || showToggleDevTools) {
+    menu.push({
+      type: 'separator',
+    });
+
+    if (showReload) {
+      menu.push({
+        label: intl.formatMessage(menuItems.reloadService),
+        id: 'reloadService', // TODO: needed?
+        accelerator: `${cmdKey}+R`,
+        enabled: user.isLoggedIn,
+        click: () => {
+          if (user.isLoggedIn
+        && services.length > 0) {
+            ipcRenderer.send(RELOAD_SERVICE);
+          } else {
+            ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
+          }
+        },
+      });
+    }
+
+    if (showToggleDevTools) {
+      menu.push({
+        label: intl.formatMessage(menuItems.toggleServiceDevTools),
+        accelerator: `${cmdKey}+Shift+Alt+I`,
+        click: () => {
+          ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS);
+        },
+        enabled: user.isLoggedIn && services.length > 0,
+      });
+    }
+  }
+
+  return menu;
+}
+
+function workspacesMenu({
+  workspaces = [], isWorkspaceDrawerOpen = false, user, intl,
+}) {
+  const activeWorkspace = workspaces.find(ws => ws.isActive);
+  // const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
+  // const { intl } = window.franz;
+  const menu = [];
+
+  // Add new workspace item:
+  menu.push({
+    label: intl.formatMessage(menuItems.addNewWorkspace),
+    accelerator: `${cmdKey}+Shift+N`,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_OPEN_SETTINGS);
+    },
+    enabled: user.isLoggedIn,
+  });
+
+  // Open workspace drawer:
+  const drawerLabel = (
+    isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
+  );
+  menu.push({
+    label: intl.formatMessage(drawerLabel),
+    accelerator: `${cmdKey}+D`,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_TOGGLE_DRAWER);
+      gaEvent(GA_CATEGORY_WORKSPACES, 'toggleDrawer', 'menu');
+    },
+    enabled: user.isLoggedIn,
+  }, {
+    type: 'separator',
+  });
+
+  // Default workspace
+  menu.push({
+    label: intl.formatMessage(menuItems.defaultWorkspace),
+    accelerator: `${cmdKey}+Alt+0`,
+    type: 'radio',
+    checked: !activeWorkspace,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE);
+      gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+    },
+  });
+
+  // Workspace items
+  if (user.isPremium) {
+    workspaces.forEach((workspace, i) => menu.push({
+      label: workspace.name,
+      accelerator: i < 9 ? `${cmdKey}+Alt+${i + 1}` : null,
+      type: 'radio',
+      checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
+      click: () => {
+        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE, { workspaceId: workspace.id });
+        gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
+      },
+    }));
+  }
+
+  return menu;
+}
+
+function todosMenu({
+  isTodosPanelVisible, isTodosEnabled, user, intl,
+}) {
+  const menu = [];
+
+  const drawerLabel = isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer;
+
+  menu.push({
+    label: intl.formatMessage(drawerLabel),
+    accelerator: `${cmdKey}+T`,
+    click: () => {
+      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER);
+      gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
+    },
+    enabled: user.isLoggedIn && isTodosEnabled,
+  }, {
+    type: 'separator',
+  }, {
+    label: intl.formatMessage(menuItems.reloadTodos),
+    accelerator: `${cmdKey}+Shift+Alt+R`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      ipcRenderer.send(TODOS_RELOAD);
+    },
+  }, {
+    label: intl.formatMessage(menuItems.toggleTodosDevTools),
+    accelerator: `${cmdKey}+Shift+Alt+O`,
+    enabled: user.isLoggedIn,
+    click: () => {
+      ipcRenderer.send(TODOS_OPEN_DEV_TOOLS);
+    },
+  });
+
+  if (!isTodosEnabled) {
+    menu.push({
+      type: 'separator',
+    }, {
+      label: intl.formatMessage(menuItems.enableTodos),
+      click: () => {
+        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, TODOS_TOGGLE_ENABLE_TODOS);
+        gaEvent(GA_CATEGORY_TODOS, 'enable', 'menu');
+      },
+    });
+  }
+
+  return menu;
+}
+
+function viewMenu({
+  intl,
+}) {
+  const tpl = [
+    {
+      label: intl.formatMessage(menuItems.resetZoom),
+      accelerator: `${ctrlKey}+0`,
+      async click() {
+        (await getActiveWebContents()).setZoomLevel(0);
+      },
+    },
+    {
+      label: intl.formatMessage(menuItems.zoomIn),
+      accelerator: `${ctrlKey}+=`,
+      async click() {
+        const activeService = await getActiveWebContents();
+        const level = activeService.getZoomLevel();
+
+        // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
+        if (level < 9) activeService.setZoomLevel(level + 1);
+      },
+    },
+    {
+      label: intl.formatMessage(menuItems.zoomOut),
+      accelerator: `${ctrlKey}+-`,
+      async click() {
+        const activeService = await getActiveWebContents();
+        const level = activeService.getZoomLevel();
+
+        // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
+        if (level > -9) activeService.setZoomLevel(level - 1);
+      },
+    },
+    {
+      type: 'separator',
+    },
+    {
+      label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
+        ? intl.formatMessage(menuItems.exitFullScreen)
+        : intl.formatMessage(menuItems.enterFullScreen),
+      accelerator: 'F11',
+      click() {
+        ipcRenderer.send(TOGGLE_FULL_SCREEN);
+      },
+    },
+  ];
+
+  return tpl;
+}
+
+// TODO: BW REWORK: replace this for macOS as well
 export default class FranzMenu {
   @observable currentTemplate = [];
 
@@ -637,7 +990,11 @@ export default class FranzMenu {
 
   _build() {
     // need to clone object so we don't modify computed (cached) object
-    const serviceTpl = Object.assign([], this.serviceTpl());
+    const serviceTpl = Object.assign([], serviceMenu({
+      services: this.stores.services.allDisplayed,
+      user: this.stores.user,
+      intl: window.franz.intl,
+    }));
 
     // Don't initialize when window.franz is undefined or when we are on a payment window route
     if (window.franz === undefined || this.stores.router.location.pathname.startsWith('/payment/')) {
@@ -646,15 +1003,22 @@ export default class FranzMenu {
     }
 
     const { intl } = window.franz;
-    const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory(intl);
+    const tpl = isMac ? _templateFactory(intl) : _titleBarTemplateFactory({ user: this.stores.user, intl });
 
     tpl[1].submenu.push({
       type: 'separator',
     }, {
       label: intl.formatMessage(menuItems.toggleDevTools),
       accelerator: `${cmdKey}+Alt+I`,
-      click: (menuItem, browserWindow) => {
-        browserWindow.webContents.toggleDevTools();
+      click: () => {
+        const windowWebContents = webContents.fromId(1);
+        const { isDevToolsOpened, openDevTools, closeDevTools } = windowWebContents;
+
+        if (isDevToolsOpened()) {
+          closeDevTools();
+        } else {
+          openDevTools({ mode: 'detach' });
+        }
       },
     }, {
       label: intl.formatMessage(menuItems.toggleServiceDevTools),
@@ -670,8 +1034,7 @@ export default class FranzMenu {
         label: intl.formatMessage(menuItems.toggleTodosDevTools),
         accelerator: `${cmdKey}+Shift+Alt+O`,
         click: () => {
-          const webview = document.querySelector('#todos-panel webview');
-          if (webview) this.actions.todos.openDevTools();
+          this.actions.todos.toggleDevTools();
         },
       });
     }
@@ -684,7 +1047,9 @@ export default class FranzMenu {
         if (this.stores.user.isLoggedIn
         && this.stores.services.enabled.length > 0) {
           if (this.stores.services.active.recipe.id === CUSTOM_WEBSITE_ID) {
-            this.stores.services.active.webview.reload();
+            this.actions.service.reloadActive({
+              ignoreNavigation: true,
+            });
           } else {
             this.actions.service.reloadActive();
           }
@@ -851,65 +1216,6 @@ export default class FranzMenu {
     Menu.setApplicationMenu(menu);
   }
 
-  serviceTpl() {
-    const { intl } = window.franz;
-    const { user, services, settings } = this.stores;
-    if (!user.isLoggedIn) return [];
-    const menu = [];
-
-    menu.push({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${cmdKey}+N`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
-      },
-    }, {
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(menuItems.activateNextService),
-      accelerator: `${cmdKey}+alt+right`,
-      click: () => this.actions.service.setActiveNext(),
-    }, {
-      label: intl.formatMessage(menuItems.activatePreviousService),
-      accelerator: `${cmdKey}+alt+left`,
-      click: () => this.actions.service.setActivePrev(),
-    }, {
-      label: intl.formatMessage(
-        settings.all.app.isAppMuted ? menuItems.unmuteApp : menuItems.muteApp,
-      ).replace('&', '&&'),
-      accelerator: `${cmdKey}+shift+m`,
-      click: () => this.actions.app.toggleMuteApp(),
-    }, {
-      type: 'separator',
-    });
-
-    services.allDisplayed.forEach((service, i) => (menu.push({
-      label: this._getServiceName(service),
-      accelerator: i < 9 ? `${cmdKey}+${i + 1}` : null,
-      type: 'radio',
-      checked: service.isActive,
-      click: () => {
-        this.actions.service.setActive({ serviceId: service.id });
-
-        if (isMac && i === 0) {
-          app.mainWindow.restore();
-        }
-      },
-    })));
-
-    if (services.active && services.active.recipe.id === CUSTOM_WEBSITE_ID) {
-      menu.push({
-        type: 'separator',
-      }, {
-        label: intl.formatMessage(menuItems.serviceGoHome),
-        accelerator: `${cmdKey}+shift+H`,
-        click: () => this.actions.service.reloadActive(),
-      });
-    }
-
-    return menu;
-  }
-
   workspacesMenu() {
     const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
     const { intl } = window.franz;
@@ -1024,20 +1330,71 @@ export default class FranzMenu {
       },
     };
   }
+}
 
-  _getServiceName(service) {
-    if (service.name) {
-      return service.name;
+export class AppMenu {
+  menuData = {};
+
+  intl = null;
+
+  onShow = () => {};
+
+  onClose = () => {};
+
+  constructor({
+    intl, data, onShow, onClose,
+  } = {}) {
+    if (data) {
+      this.menuData = data;
     }
 
-    let name = service.recipe.name;
-
-    if (service.team) {
-      name = `${name} (${service.team})`;
-    } else if (service.customUrl) {
-      name = `${name} (${service.customUrl})`;
+    if (onShow) {
+      this.onShow = onShow();
     }
 
-    return name;
+    if (onClose) {
+      this.onClose = onClose();
+    }
+
+    this.intl = intl;
+  }
+
+  setIntl(intl) {
+    this.intl = intl;
+  }
+
+  get menu() {
+    if (!this.intl) {
+      console.warn('`intl` is not set');
+      return;
+    }
+
+    const baseTpl = /* isMac ? _templateFactory(this.intl) : */ _titleBarTemplateFactory({ user: this.menuData.user, intl: this.intl });
+    const viewTpl = viewMenu({
+      user: this.menuData.user, services: this.menuData.services, intl: this.intl,
+    });
+    const serviceTpl = serviceMenu({
+      services: this.menuData.services, user: this.menuData.user, intl: this.intl, showReload: true, showToggleDevTools: true,
+    });
+    const workspaceTpl = workspacesMenu({
+      workspaces: this.menuData.workspaces, isWorkspaceDrawerOpen: this.menuData.app.isWorkspaceDrawerOpen, intl: this.intl, user: this.menuData.user,
+    });
+    const todosTpl = todosMenu({
+      isTodosPanelVisible: this.menuData.app.isTodosDrawerOpen, isTodosEnabled: this.menuData.app.isTodosEnabled, intl: this.intl, user: this.menuData.user,
+    });
+
+    baseTpl[2].submenu = serviceTpl;
+    baseTpl[3].submenu = workspaceTpl;
+    baseTpl[4].submenu = todosTpl;
+    baseTpl[12].submenu = viewTpl;
+
+    const menu = Menu.buildFromTemplate(baseTpl);
+    Menu.setApplicationMenu(menu);
+
+    menu.on('menu-will-show', () => this.onShow);
+
+    menu.on('menu-will-close', () => this.onClose);
+
+    return menu;
   }
 }

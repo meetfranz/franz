@@ -2,49 +2,59 @@
 
 html { overflow: hidden; }
 
-.theme__dark .app {
-  .sidebar {
-    background: $dark-theme-gray-darker;
-    box-shadow: 0 0 5px 0 $dark-theme-black;
-    color: $theme-text-color;
+.theme__dark {
+  .app {
+    .sidebar {
+      background: $dark-theme-gray-darker;
+      background: linear-gradient(90deg, $dark-theme-gray-darker 0%, $dark-theme-gray-darker 90%, rgba(0,0,0,0.05) 100%);
 
-    .sidebar__add-service {
-      color: $dark-theme-gray-lighter;
-      background: $dark-theme-gray;
+      color: $theme-text-color;
+
+      .sidebar__add-service {
+        color: $dark-theme-gray-lighter;
+        background: $dark-theme-gray;
+      }
+
+      .sidebar__button {
+        color: $dark-theme-gray-lighter;
+        font-size: 22px;
+
+        &:hover,
+        &:active {
+          color: $dark-theme-gray-smoke;
+        }
+
+        &.is-muted,
+        &.is-active {
+          color: $theme-brand-primary;
+        }
+
+        &:disabled {
+          opacity: 0.25;
+          filter: grayscale(1);
+        }
+      }
     }
 
-    .sidebar__button {
-      color: $dark-theme-gray-lighter;
-      font-size: 22px;
-
-      &:hover,
-      &:active {
-        color: $dark-theme-gray-smoke;
-      }
-
-      &.is-muted,
-      &.is-active {
-        color: $theme-brand-primary;
-      }
-
-      &:disabled {
-        opacity: 0.25;
-        filter: grayscale(1);
-      }
+    .app__service {
+      background: $dark-theme-gray-darkest;
     }
+
+    .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
   }
 
-  .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
+  .appMenuBar {
+    background: $dark-theme-gray-darker;
+  }
 }
 
-body.win32:not(.isFullScreen) .app .app__content {
-  height: calc(100% - 28px);
+body:not(.darwin):not(.isFullScreen) .app .app__content {
+  height: calc(100% - $windows-title-bar-height);
 }
 
 .app {
   .app__content {
     display: flex;
-    width: calc(100% + 300px);
   }
 
   .app__main-content {
@@ -57,11 +67,16 @@ body.win32:not(.isFullScreen) .app .app__content {
     flex: 1;
     flex-direction: column;
   }
+
+  .app__service-size-container {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .electron-app-title-bar { z-index: 99999999; }
 
-.window-draggable {
+body.darwin .window-draggable {
   height: 35px;
   left: 0;
   pointer-events: none;
@@ -72,12 +87,16 @@ body.win32:not(.isFullScreen) .app .app__content {
   -webkit-app-region: drag;
 }
 
+body:not(.darwin) .window-draggable {
+  display: none;
+}
+
 .darwin .sidebar { padding-top: 23px; }
 
 .sidebar {
   align-items: center;
   background: $theme-gray-lightest;
-  box-shadow: 1px 0 10px rgba(0, 0, 0, .08);
+  background: linear-gradient(90deg, $theme-gray-lightest 0%, $theme-gray-lightest 93%, lighten($theme-gray-light, 10%) 100%);
   color: $theme-text-color;
   display: flex;
   flex-direction: column;
@@ -154,4 +173,8 @@ body.win32:not(.isFullScreen) .app .app__content {
   width: auto;
   z-index: 999999999;
   pointer-events: none;
+}
+
+.appMenuBar {
+  background: $theme-gray-lightest;
 }

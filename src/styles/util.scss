@@ -18,3 +18,16 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.pulsating {
+  animation: pulse-animation 1s alternate infinite ease-in-out;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(0.7)
+  }
+  100% {
+    transform: scale(1)
+  }
+}

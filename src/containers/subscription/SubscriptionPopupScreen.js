@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { inject, observer } from 'mobx-react';
 
 import SubscriptionPopup from '../../components/subscription/SubscriptionPopup';
 import { isDevMode } from '../../environment';
 
 
-export default @inject('stores', 'actions') @observer class SubscriptionPopupScreen extends Component {
+export default class SubscriptionPopupScreen extends Component {
+  static propTypes = {
+    params: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+    }).isRequired,
+  }
+
   state = {
     complete: false,
   };
@@ -24,7 +29,7 @@ export default @inject('stores', 'actions') @observer class SubscriptionPopupScr
   render() {
     return (
       <SubscriptionPopup
-        url={this.props.router.params.url}
+        url={this.props.params.url}
         closeWindow={() => window.close()}
         completeCheck={e => this.completeCheck(e)}
         isCompleted={this.state.complete}
@@ -32,12 +37,3 @@ export default @inject('stores', 'actions') @observer class SubscriptionPopupScr
     );
   }
 }
-
-
-SubscriptionPopupScreen.wrappedComponent.propTypes = {
-  router: PropTypes.shape({
-    params: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-};

@@ -1,4 +1,117 @@
-# [5.7.0-beta.1](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0-beta.1) (2021-06-07)
+## [5.9.2](https://github.com/meetfranz/franz/compare/v5.9.1...v5.9.2) (2022-04-14)
+
+### Bug Fixes
+
+* **Service:** Apply Google login fix for all services ([3dbe5cc](https://github.com/meetfranz/franz/commit/3dbe5cc))
+* **App:** Don't reload app when coming back from system sleep ([bc6a921](https://github.com/meetfranz/franz/commit/bc6a921))
+* **Windows + Linux:** Introduce new Franz Menu
+* **App:** Improve layout rendering of services ([ad3bb11](https://github.com/meetfranz/franz/commit/ad3bb11))
+* **Todos:** Fix Todos to be resizable again ([4b5d2f7](https://github.com/meetfranz/franz/commit/4b5d2f7))
+* **Todos:** Fix Todos layout issues when Todos should be hidden ([fb3988a](https://github.com/meetfranz/franz/commit/fb3988a))
+* **App:** Don't let the app get confused by unknown routes ([d2059fc](https://github.com/meetfranz/franz/commit/d2059fc))
+
+
+### Features
+
+* **App:** Lock user agents to Windows 10 and macOS 10.15.17 to avoid fingerprinting identification ([3b1d495](https://github.com/meetfranz/franz/commit/3b1d495))
+* **App:** Update to electron 18 ([6c02f29](https://github.com/meetfranz/franz/commit/6c02f29))
+
+
+
+## [5.9.1](https://github.com/meetfranz/franz/compare/v5.9.0...v5.9.1) (2022-04-04)
+
+
+### Bug Fixes
+
+* **macOS:** Fix auto updater on macOS ([40a2194](https://github.com/meetfranz/franz/commit/40a2194))
+
+
+
+# [5.9.0](https://github.com/meetfranz/franz/compare/v5.9.0-beta.3...v5.9.0) (2022-04-04)
+
+## This update is different.
+
+### Let us tell you what we didn’t do👇
+
+Here at Franz we took a good hard look at what we’ve built over the last six(!) years and thought about how we could make it better.
+
+We thought about new features, new prices, changes to how the app works, and so much more.
+
+But we went one step further: We rebuilt the underlying core of Franz from the bottom up. We improved the whole functionality of how the app runs.
+
+It’s more stable, more responsive, more resource-friendly, and … drumroll … faster. 🔥
+
+It’s the Franz you know and love – with a new engine.
+
+### Features
+
+* **App:** Huge performance and stability increase
+* **App:** Replaced `<webviews>` with `BrowserViews`
+* **macOS:** Apple Silicon download prompt to make your experience much faster and stable.  
+### Bug Fixes
+
+* **App:** Fix inactive background service to get keyboard focus
+* **Windows:** Fix error that prevents app from loading on Windows 10 & 11
+* **Windows:** Fix error that prevents loading available services & installing service updates
+* **Service:** Fix Microsoft Teams Login Issues
+* **Service:** Fix Microsoft Teams not being able to load chats
+* **General:** many more small bugfixes and overall improvements
+
+# [5.9.0-beta.3](https://github.com/meetfranz/franz/compare/v5.9.0-beta.2...v5.9.0-beta.3) (2022-03-31)
+
+
+### Bug Fixes
+
+* **App:** Fix Gmail login issues with "Browser is not secure"
+* **App:** Fix opening links from some services ([68226bd](https://github.com/meetfranz/franz/commit/68226bd))
+* **App:** Fix issues with updater on macOS ([e704fcc](https://github.com/meetfranz/franz/commit/e704fcc))
+* **App:** Add security check before opening new window ([d36fa4c](https://github.com/meetfranz/franz/commit/d36fa4c))
+
+
+
+# [5.9.0-beta.2](https://github.com/meetfranz/franz/compare/v5.9.0-beta.1...v5.9.0-beta.2) (2022-03-22)
+
+
+### Bug Fixes
+
+* **App:** Fix Franz Todos to be on top of another service ([086eda1](https://github.com/meetfranz/franz/commit/086eda1))
+* **Linux:** Fix viewport height on Linux ([4cbd006](https://github.com/meetfranz/franz/commit/4cbd006))
+* **Windows + Linux:** Fix calculation for service position ([2f22ce6](https://github.com/meetfranz/franz/commit/2f22ce6))
+* **Windows + Linux:** Fix not clickable window titlebar & menu ([8fde4ab](https://github.com/meetfranz/franz/commit/8fde4ab))
+
+
+
+# [5.9.0-beta.1](https://github.com/meetfranz/franz/compare/v5.8.0...v5.9.0-beta.1) (2022-03-21)
+
+[See 5.9.0 changelog.](#5-9-0--2022-04-04-)
+
+
+# [5.8.0](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0) (2022-02-14)
+
+### Bug Fixes
+
+* **App:** Fix potential memory leak with full screen event listeners ([7d873c4](https://github.com/meetfranz/franz/commit/7d873c4))
+* **macOS:** Make tray icon color dynamic ([a16b5fe](https://github.com/meetfranz/franz/commit/a16b5fe))
+* **macOS:** Fix Do Not Disturb System check for macOS Monterey ([cb91b17](https://github.com/meetfranz/franz/commit/cb91b17))
+* **Windows:** Fix menu bar styling ([171d4d3](https://github.com/meetfranz/franz/commit/171d4d3))
+* **Gmail:** Fix auto suggest, calendar invites and other Google service integrations (🙌 [@kamyweb](https://github.com/kamyweb))
+* **Microsoft Teams:** Fix issue that prevents loading chats
+
+### Features
+
+* **Service:** Add `modifyRequestHeaders` for service recipes (🙌 [@kamyweb](https://github.com/kamyweb)) ([5ecc730](https://github.com/meetfranz/franz/commit/5ecc730))
+* **App:** Remove Google Analytics ([3840dd6](https://github.com/meetfranz/franz/commit/3840dd6))
+* **Service Recipes:** Add `Franz.clearCache()` method to clear service cache ([06e6d65](https://github.com/meetfranz/franz/commit/06e6d65))
+### General
+
+* **App:** Update electron to 14.2.2
+* **App:** Various improvements all over the app
+* **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
+
+# [5.8.0-beta.1](https://github.com/meetfranz/franz/compare/v5.7.0...v5.8.0-beta.1) (2021-12-29)
+[See 5.8.0 changelog.](#5-8-0--2022-02-14-)
+
+# [5.7.0](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0) (2021-06-14)
 
 ### Features
 
@@ -14,7 +127,9 @@
 * **App:** Update electron to 12.0.6
 * **Translations:** Improved translations. **[A million thanks to the amazing community. 🎉](http://i18n.meetfranz.com/)**
 
+# [5.7.0-beta.1](https://github.com/meetfranz/franz/compare/v5.6.0...v5.7.0-beta.1) (2021-06-07)
 
+[See 5.7.0 changelog.](#5-7-0--2021-06-14-)
 
 # [5.6.0](https://github.com/meetfranz/franz/compare/v5.6.0-beta.1...v5.6.0) (2020-11-13)
 

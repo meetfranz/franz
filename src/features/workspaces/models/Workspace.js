@@ -11,6 +11,8 @@ export default class Workspace {
 
   @observable userId = null;
 
+  @observable isActive = false
+
   constructor(data) {
     if (!data.id) {
       throw Error('Workspace requires Id');
@@ -21,5 +23,6 @@ export default class Workspace {
     this.order = data.order;
     this.services.replace(data.services);
     this.userId = data.userId;
+    this.isActive = data.isActive ?? false;
   }
 }

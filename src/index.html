@@ -4,13 +4,13 @@
   <title>Franz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+  <!-- <script type="text/javascript" src="./app.js"></script> -->
   <script type="text/javascript" src="./app.js"></script>
 </head>
 <body>
   <div class="window-draggable"></div>
   <div class="dev-warning">DEV MODE</div>
   <div id="root"></div>
-  <div id="portalContainer"></div>
   <script>
     document.querySelector('body').classList.add(process.env.OS_PLATFORM ? process.env.OS_PLATFORM : process.platform);
 

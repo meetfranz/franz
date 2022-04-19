@@ -18,10 +18,9 @@ const messages = defineMessages({
 const styles = theme => ({
   wrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
-    position: 'absolute',
+    alignItems: 'center',
+    // position: 'absolute',
     transition: 'width 0.5s ease',
-    width: `calc(100% - ${theme.workspaces.drawer.width}px)`,
     marginTop: '20px',
   },
   component: {

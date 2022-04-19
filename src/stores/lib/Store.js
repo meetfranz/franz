@@ -28,7 +28,13 @@ export default class Store {
   }
 
   registerReactions(reactions) {
-    reactions.forEach(reaction => this._reactions.push(new Reaction(reaction)));
+    reactions.forEach((reaction) => {
+      if (Array.isArray(reaction)) {
+        this._reactions.push(new Reaction(reaction[0], reaction[1]));
+      } else {
+        this._reactions.push(new Reaction(reaction));
+      }
+    });
   }
 
   setup() {}

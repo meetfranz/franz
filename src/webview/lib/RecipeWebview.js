@@ -1,5 +1,5 @@
-const { ipcRenderer } = require('electron');
-const fs = require('fs-extra');
+import { ipcRenderer } from 'electron';
+import fs from 'fs-extra';
 
 const debug = require('debug')('Franz:Plugin:RecipeWebview');
 
@@ -14,11 +14,11 @@ class RecipeWebview {
       this.loopFunc();
 
       debug('Poll event');
-
-      // This event is for checking if the service recipe is still actively
-      // communicating with the client
-      ipcRenderer.sendToHost('alive');
     });
+
+    window.FranzAPI = {
+      clearCache: RecipeWebview.clearCache,
+    };
   }
 
   loopFunc = () => null;
@@ -52,7 +52,7 @@ class RecipeWebview {
     };
 
 
-    ipcRenderer.sendToHost('messages', count);
+    ipcRenderer.send('messages', count);
     Object.assign(this.countCache, count);
 
     debug('Sending badge count to host', count);
@@ -76,6 +76,22 @@ class RecipeWebview {
     });
   }
 
+  /**
+   * Set the thumbnail for the service
+   *
+   * @param {int} direct      Set the count of direct messages
+   *                          eg. Slack direct mentions, or a
+   *                          message to @channel
+   * @param {int} indirect    Set a badge that defines there are
+   *                          new messages but they do not involve
+   *                          me directly to me eg. in a channel
+   */
+  setServiceIcon(url) {
+    ipcRenderer.send('avatar', url);
+
+    debug('Sending avatar url to host', url);
+  }
+
   onNotify(fn) {
     if (typeof fn === 'function') {
       window.Notification.prototype.onNotify = fn;
@@ -86,6 +102,10 @@ class RecipeWebview {
     if (typeof fn === 'function') {
       fn();
     }
+  }
+
+  static clearCache() {
+    ipcRenderer.invoke('clearServiceCache');
   }
 }
 

@@ -6,7 +6,6 @@ import {
   action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
-import AutoLaunch from 'auto-launch';
 import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
 import { URL } from 'url';
@@ -17,23 +16,24 @@ import { readJsonSync } from 'fs-extra';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
-import { isMac } from '../environment';
+import { isMac, isWindows } from '../environment';
 import locales from '../i18n/translations';
-import { gaEvent, gaPage, statsEvent } from '../lib/analytics';
+import { gaEvent, gaPage } from '../lib/analytics';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
+import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
+import {
+  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, RELOAD_APP, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
+} from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
 
 const mainWindow = getCurrentWindow();
 
 const defaultLocale = DEFAULT_APP_SETTINGS.locale;
-const autoLauncher = new AutoLaunch({
-  name: 'Franz',
-});
 
 const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
 
@@ -102,13 +102,12 @@ export default class AppStore extends Store {
       this._muteAppHandler.bind(this),
       this._handleFullScreen.bind(this),
       this._handleLogout.bind(this),
+      isMac ? this._handleMacOSPermissionsCheck.bind(this) : () => {},
     ]);
   }
 
   async setup() {
     this._appStartsCounter();
-    // Focus the active service
-    window.addEventListener('focus', this.actions.service.focusActiveService);
 
     // Online/Offline handling
     window.addEventListener('online', () => {
@@ -117,14 +116,6 @@ export default class AppStore extends Store {
     window.addEventListener('offline', () => {
       this.isOnline = false;
     });
-
-    mainWindow.on('enter-full-screen', () => {
-      this.isFullScreen = true;
-    });
-    mainWindow.on('leave-full-screen', () => {
-      this.isFullScreen = false;
-    });
-
 
     this.isOnline = navigator.onLine;
 
@@ -178,6 +169,22 @@ export default class AppStore extends Store {
       }
     });
 
+    ipcRenderer.on(UPDATE_FULL_SCREEN_STATUS, (e, status) => {
+      this.isFullScreen = status;
+    });
+
+    ipcRenderer.on(RELOAD_APP, () => {
+      window.location.reload();
+    });
+
+    ipcRenderer.on(FETCH_DEBUG_INFO, (e) => {
+      ipcRenderer.sendTo(e.senderId, FETCH_DEBUG_INFO, JSON.parse(JSON.stringify(this.debugInfo)));
+    });
+
+    ipcRenderer.on(CHECK_FOR_UPDATE, () => {
+      this._checkForUpdates();
+    });
+
     // Handle deep linking (franz://)
     ipcRenderer.on('navigateFromDeepLink', (event, data) => {
       debug('Navigate from deep link', data);
@@ -202,6 +209,13 @@ export default class AppStore extends Store {
       this.isFocused = isFocused;
     });
 
+    ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event) => {
+      ipcRenderer.sendTo(event.senderId, OVERLAY_SHARE_SETTINGS, {
+        locale: this.locale,
+        theme: !this.stores.ui.isDarkThemeActive ? 'default' : 'dark',
+      });
+    });
+
     // analytics autorun
     reaction(() => this.stores.router.location.pathname, (pathname) => {
       gaPage(pathname);
@@ -215,19 +229,22 @@ export default class AppStore extends Store {
 
     powerMonitor.on('resume', () => {
       debug('System resumed, last suspended on', this.timeSuspensionStart);
-      this.actions.service.resetLastPollTimer();
 
       if (this.timeSuspensionStart.add(10, 'm').isBefore(moment())) {
         debug('Reloading services, user info and features');
 
-        setInterval(() => {
-          debug('Reload app interval is starting');
+        const reloadInterval = setInterval(() => {
+          debug('Reload app interval is starting, checking for internet connection');
           if (this.isOnline) {
-            window.location.reload();
+            debug('Clearing interval, invalidating stores');
+            clearInterval(reloadInterval);
+
+            this.stores.user.getUserInfoRequest.invalidate({ immediately: true });
+            this.stores.services.allServicesRequest.invalidate({ immediately: true });
+            this.stores.features.defaultFeaturesRequest.invalidate({ immediately: true });
+            this.stores.features.featuresRequest.invalidate({ immediately: true });
           }
         }, ms('2s'));
-
-        statsEvent('resumed-app');
       }
     });
 
@@ -245,8 +262,6 @@ export default class AppStore extends Store {
         localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
       }
     }
-
-    statsEvent('app-start');
   }
 
   @computed get cacheSize() {
@@ -285,6 +300,23 @@ export default class AppStore extends Store {
     };
   }
 
+  @computed get menuData() {
+    return {
+      user: {
+        isLoggedIn: this.stores.user.isLoggedIn,
+        isPremium: this.stores.user.isPremium,
+      },
+      services: this.stores.services.allDisplayed,
+      workspaces: this.stores.workspaces.workspaces,
+      app: {
+        isTodosEnabled: this.stores.todos.isFeatureEnabledByUser,
+        isTodosDrawerOpen: this.stores.todos.isTodosPanelVisible,
+        isWorkspaceFeatureEnabled: this.stores.workspaces.isFeatureEnabled,
+        isWorkspaceDrawerOpen: this.stores.workspaces.isWorkspaceDrawerOpen,
+      },
+    };
+  }
+
   // Actions
   @action _notify({
     title,
@@ -304,6 +336,7 @@ export default class AppStore extends Store {
     debug('New notification', title, options);
 
     notification.onclick = () => {
+      console.log('notification click');
       if (serviceId) {
         this.actions.service.sendIPCMessage({
           channel: `notification-onclick:${notificationId}`,
@@ -344,17 +377,31 @@ export default class AppStore extends Store {
     });
   }
 
-  @action _launchOnStartup({
-    enable,
-  }) {
+  @action _launchOnStartup({ enable }) {
     this.autoLaunchOnStart = enable;
 
     try {
-      if (enable) {
-        autoLauncher.enable();
-      } else {
-        autoLauncher.disable();
+      const appExe = path.resolve(process.execPath);
+      const exeName = path.basename(appExe);
+
+      const args = {
+        openAtLogin: enable,
+      };
+
+      if (isWindows) {
+        Object.assign(args, {
+          path: appExe,
+          name: 'Franz',
+          args: [
+            '--processStart', `"${exeName}"`,
+            '--process-start-args', '"--hidden"',
+          ],
+        });
       }
+
+      debug('Setting login item settings to', args);
+
+      app.setLoginItemSettings(args);
     } catch (err) {
       console.warn(err);
     }
@@ -479,7 +526,7 @@ export default class AppStore extends Store {
   }
 
   _muteAppHandler() {
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+    const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     if (!showMessageBadgesEvenWhenMuted) {
       this.actions.app.setBadge({
@@ -505,6 +552,31 @@ export default class AppStore extends Store {
     }
   }
 
+  _shareMenuData() {
+    ipcRenderer.send(WINDOWS_TITLEBAR_FETCH_MENU, JSON.parse(JSON.stringify({
+      user: {
+        isLoggedIn: this.stores.user.isLoggedIn,
+        isPremium: this.stores.user.isPremium,
+      },
+      services: this.stores.services.allDisplayed,
+      workspaces: this.stores.workspaces.workspaces,
+      app: {
+        isTodosEnabled: this.stores.todos.isFeatureEnabledByUser,
+        isTodosDrawerOpen: this.stores.todos.isTodosPanelVisible,
+        isWorkspaceFeatureEnabled: this.stores.workspaces.isFeatureEnabled,
+        isWorkspaceDrawerOpen: this.stores.workspaces.isWorkspaceDrawerOpen,
+      },
+    })));
+  }
+
+  _handleMacOSPermissionsCheck() {
+    if (this.stores.user.isLoggedIn && !this.stores.ui.isAuthRouteActive) {
+      setTimeout(() => {
+        ipcRenderer.send(CHECK_MACOS_PERMISSIONS);
+      }, ms('5s'));
+    }
+  }
+
   // Helpers
   _appStartsCounter() {
     this.actions.settings.update({
@@ -527,7 +599,10 @@ export default class AppStore extends Store {
   }
 
   async _checkAutoStart() {
-    return autoLauncher.isEnabled() || false;
+    const { openAtLogin, executableWillLaunchAtLogin } = app.getLoginItemSettings();
+    debug('Open app at login setting', openAtLogin);
+
+    return (isWindows ? executableWillLaunchAtLogin : openAtLogin) || false;
   }
 
   async _systemDND() {

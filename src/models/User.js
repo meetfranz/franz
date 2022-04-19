@@ -32,8 +32,6 @@ export default class User {
 
   @observable isDonor = false;
 
-  @observable isMiner = false;
-
   @observable locale = false;
 
   @observable team = {};
@@ -54,7 +52,6 @@ export default class User {
     this.beta = data.beta || this.beta;
     this.donor = data.donor || this.donor;
     this.isDonor = data.isDonor || this.isDonor;
-    this.isMiner = data.isMiner || this.isMiner;
     this.locale = data.locale || this.locale;
 
     this.isSubscriptionOwner = data.isSubscriptionOwner || this.isSubscriptionOwner;

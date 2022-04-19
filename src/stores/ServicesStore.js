@@ -7,19 +7,22 @@ import {
 } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { app } from '@electron/remote';
+import { app, webContents } from '@electron/remote';
 
+import { ipcRenderer } from 'electron';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent, statsEvent } from '../lib/analytics';
+import { gaEvent } from '../lib/analytics';
 import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
 import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
-import { showModal as showSourceSelectionModal } from '../features/desktopCapturer';
+import {
+  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE, HIDE_ALL_SERVICES, ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, UPDATE_SERVICE_STATE,
+} from '../ipcChannels';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -52,12 +55,7 @@ export default class ServicesStore extends Store {
     this.actions.service.updateService.listen(this._updateService.bind(this));
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
-    this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
-    this.actions.service.detachService.listen(this._detachService.bind(this));
-    this.actions.service.focusService.listen(this._focusService.bind(this));
-    this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
-    this.actions.service.handleIPCMessage.listen(this._handleIPCMessage.bind(this));
     this.actions.service.sendIPCMessage.listen(this._sendIPCMessage.bind(this));
     this.actions.service.sendIPCMessageToAllServices.listen(this._sendIPCMessageToAllServices.bind(this));
     this.actions.service.setUnreadMessageCount.listen(this._setUnreadMessageCount.bind(this));
@@ -76,10 +74,9 @@ export default class ServicesStore extends Store {
     this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
     this.actions.service.hibernate.listen(this._hibernate.bind(this));
     this.actions.service.awake.listen(this._awake.bind(this));
-    this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
 
     this.registerReactions([
-      this._focusServiceReaction.bind(this),
+      this._shareServiceConfigWithBrowserViewManager.bind(this),
       this._getUnreadMessageCountReaction.bind(this),
       this._mapActiveServiceToServiceModelReaction.bind(this),
       this._saveActiveService.bind(this),
@@ -104,6 +101,34 @@ export default class ServicesStore extends Store {
       () => this.stores.settings.app.spellcheckerLanguage,
       () => this._shareSettingsWithServiceProcess(),
     );
+
+    ipcRenderer.on(ACTIVATE_NEXT_SERVICE, () => {
+      this.actions.service.setActiveNext();
+    });
+
+    ipcRenderer.on(ACTIVATE_PREVIOUS_SERVICE, () => {
+      this.actions.service.setActivePrev();
+    });
+
+    ipcRenderer.on(ACTIVATE_SERVICE, (e, { serviceId }) => {
+      this.actions.service.setActive({ serviceId });
+    });
+
+    ipcRenderer.on(UPDATE_SERVICE_STATE, (e, { serviceId, state }) => {
+      let service;
+      if (serviceId === TODOS_RECIPE_ID) {
+        service = this.allDisplayed.find(s => s.recipe.id === TODOS_RECIPE_ID);
+      } else {
+        service = this.one(serviceId);
+      }
+
+      if (service) {
+        Object.assign(service, state);
+      }
+    });
+
+    this._handleSpellcheckerLocale();
+    this.handleIPCMessage();
   }
 
   initialize() {
@@ -118,6 +143,83 @@ export default class ServicesStore extends Store {
 
     // Stop checking services for hibernation
     this.serviceMaintenanceTick.cancel();
+  }
+
+  handleIPCMessage() {
+    ipcRenderer.on('messages', (event, serviceId, args) => {
+      debug(`Received unread message info from '${serviceId}'`, args);
+
+      this.actions.service.setUnreadMessageCount({
+        serviceId,
+        count: {
+          direct: args.direct,
+          indirect: args.indirect,
+        },
+      });
+    });
+
+    ipcRenderer.on('hello', (event, serviceId) => {
+      debug(`Received 'hello' from '${serviceId}'`);
+    });
+
+    ipcRenderer.on('notification', (event, serviceId, args) => {
+      debug(`Received 'notification' from '${serviceId}'`);
+
+      const service = this.one(serviceId);
+
+      if (!service) {
+        console.warn(`No service with id '${serviceId}' found`);
+        return;
+      }
+
+      const { options } = args;
+      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
+        Object.assign(options, {
+          silent: true,
+        });
+      }
+
+      if (service.isNotificationEnabled) {
+        const title = typeof args.title === 'string' ? args.title : service.name;
+        options.body = typeof options.body === 'string' ? options.body : '';
+
+        this.actions.app.notify({
+          notificationId: args.notificationId,
+          title,
+          options,
+          serviceId,
+        });
+      }
+    });
+
+    ipcRenderer.on('avatar', (event, serviceId, url) => {
+      debug(`Received 'avatar' from '${serviceId}'`);
+
+      const service = this.one(serviceId);
+
+      if (!service) {
+        console.warn(`No service with id '${serviceId}' found`);
+        return;
+      }
+
+      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
+        service.customIconUrl = url;
+
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            customIconUrl: url,
+          },
+          redirect: false,
+        });
+      }
+    });
+
+    ipcRenderer.on('new-window', (event, serviceId, url) => {
+      debug(`Received 'new-window' from '${serviceId}', url:`, url);
+
+      this.actions.app.openExternalUrl({ url });
+    });
   }
 
   /**
@@ -138,25 +240,6 @@ export default class ServicesStore extends Store {
       if (!service.isActive && (Date.now() - service.lastUsed > ms('5m'))) {
         // If service is stale for 5 min, hibernate it.
         this._hibernate({ serviceId: service.id });
-      }
-
-      if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
-        // If service did not reply for more than 1m try to reload.
-        if (!service.isActive) {
-          if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
-            debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
-            // service.webview.reload();
-            service.lostRecipeReloadAttempt += 1;
-
-            service.lostRecipeConnection = false;
-          }
-        } else {
-          debug(`Service lost connection: ${service.name} (${service.id}).`);
-          service.lostRecipeConnection = true;
-        }
-      } else {
-        service.lostRecipeConnection = false;
-        service.lostRecipeReloadAttempt = 0;
       }
     });
   }
@@ -226,6 +309,10 @@ export default class ServicesStore extends Store {
   one(id) {
     return this.all.find(service => service.id === id);
   }
+
+  // oneByWebContentsId(id) {
+  //   return this.all.find(service => service.webContentsId === id);
+  // }
 
   async _showAddServiceInterface({ recipeId }) {
     this.stores.router.push(`/settings/services/add/${recipeId}`);
@@ -401,9 +488,7 @@ export default class ServicesStore extends Store {
       this.actions.todos.toggleTodosFeatureVisibility();
     }
 
-    statsEvent('activate-service', service.recipe.id);
-
-    this._focusActiveService();
+    gaEvent('Service', 'activate-service', service.recipe.id);
   }
 
   @action _blurActive() {
@@ -438,140 +523,24 @@ export default class ServicesStore extends Store {
     service.unreadIndirectMessageCount = count.indirect;
   }
 
-  @action _setWebviewReference({ serviceId, webview }) {
-    const service = this.one(serviceId);
-
-    service.webview = webview;
-
-    if (!service.isAttached) {
-      debug('Webview is not attached, initializing');
-      service.initializeWebViewEvents({
-        handleIPCMessage: this.actions.service.handleIPCMessage,
-        openWindow: this.actions.service.openWindow,
-        stores: this.stores,
-      });
-      service.initializeWebViewListener();
-    }
-
-    service.isAttached = true;
-  }
-
-  @action _detachService({ service }) {
-    service.webview = null;
-    service.isAttached = false;
-  }
-
-  @action _focusService({ serviceId }) {
-    const service = this.one(serviceId);
-
-    if (service.webview) {
-      if (document.activeElement) {
-        document.activeElement.blur();
-      }
-      service.webview.focus();
-    }
-  }
-
-  @action _focusActiveService() {
-    if (this.stores.user.isLoggedIn) {
-      // TODO: add checks to not focus service when router path is /settings or /auth
-      const service = this.active;
-      if (service) {
-        this._focusService({ serviceId: service.id });
-      }
-    } else {
-      this.allServicesRequest.invalidate();
-    }
-  }
-
   @action _toggleService({ serviceId }) {
     const service = this.one(serviceId);
 
     service.isEnabled = !service.isEnabled;
   }
 
-  @action _handleIPCMessage({ serviceId, channel, args }) {
-    const service = this.one(serviceId);
-
-    if (channel === 'hello') {
-      debug('Received hello event from', serviceId);
-
-      this._initRecipePolling(service.id);
-      this._initializeServiceRecipeInWebview(serviceId);
-      this._shareSettingsWithServiceProcess();
-    } else if (channel === 'alive') {
-      service.lastPollAnswer = Date.now();
-    } else if (channel === 'messages') {
-      debug(`Received unread message info from '${serviceId}'`, args[0]);
-
-      this.actions.service.setUnreadMessageCount({
-        serviceId,
-        count: {
-          direct: args[0].direct,
-          indirect: args[0].indirect,
-        },
-      });
-    } else if (channel === 'notification') {
-      const options = args[0].options;
-      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
-        Object.assign(options, {
-          silent: true,
-        });
-      }
-
-      if (service.isNotificationEnabled) {
-        const title = typeof args[0].title === 'string' ? args[0].title : service.name;
-        options.body = typeof options.body === 'string' ? options.body : '';
-
-        this.actions.app.notify({
-          notificationId: args[0].notificationId,
-          title,
-          options,
-          serviceId,
-        });
-      }
-    } else if (channel === 'avatar') {
-      const url = args[0];
-      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
-        service.customIconUrl = url;
-
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            customIconUrl: url,
-          },
-          redirect: false,
-        });
-      }
-    } else if (channel === 'new-window') {
-      const url = args[0];
-
-      this.actions.app.openExternalUrl({ url });
-    } else if (channel === 'set-service-spellchecker-language') {
-      if (!args) {
-        console.warn('Did not receive locale');
-      } else {
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            spellcheckerLanguage: args[0] === 'reset' ? '' : args[0],
-          },
-          redirect: false,
-        });
-      }
-    } else if (channel === 'feature:todos') {
-      Object.assign(args[0].data, { serviceId });
-      this.actions.todos.handleHostMessage(args[0]);
-    } else if (channel === 'feature:desktopCapturer:getSelectSource') {
-      showSourceSelectionModal(service.webview);
-    }
-  }
-
   @action _sendIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    if (service.webview) {
-      service.webview.send(channel, toJS(args));
+    let contents;
+    if (service.isTodos) {
+      contents = this.stores.todos.webContents;
+    } else {
+      contents = webContents.fromId(service.webContentsId);
+    }
+
+    if (contents) {
+      contents.send(channel, toJS(args));
     }
   }
 
@@ -601,7 +570,7 @@ export default class ServicesStore extends Store {
     this.actionStatus = [];
   }
 
-  @action _reload({ serviceId }) {
+  @action _reload({ serviceId, ignoreNavigation }) {
     const service = this.one(serviceId);
     if (!service.isEnabled) return;
 
@@ -612,15 +581,19 @@ export default class ServicesStore extends Store {
       return this.actions.todos.reload();
     }
 
-    return service.webview.loadURL(service.url);
+    // `ignoreNavigation = true` does not navigate the service to `service.url`, instead an actual reload is performed
+    const ipcChannel = !ignoreNavigation ? NAVIGATE_SERVICE_TO : RELOAD_SERVICE;
+
+    ipcRenderer.send(ipcChannel, { serviceId, url: service.url });
   }
 
-  @action _reloadActive() {
+  @action _reloadActive({ ignoreNavigation = false }) {
     if (this.active) {
       const service = this.one(this.active.id);
 
       this._reload({
         serviceId: service.id,
+        ignoreNavigation,
       });
     }
   }
@@ -646,7 +619,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _reorderService({ oldIndex, newIndex }) {
-    const showDisabledServices = this.stores.settings.all.app.showDisabledServices;
+    const { showDisabledServices } = this.stores.settings.all.app;
     const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
     const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
 
@@ -700,7 +673,7 @@ export default class ServicesStore extends Store {
     if (service.recipe.id === TODOS_RECIPE_ID) {
       this.actions.todos.openDevTools();
     } else {
-      service.webview.openDevTools();
+      ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS, { serviceId });
     }
   }
 
@@ -751,11 +724,39 @@ export default class ServicesStore extends Store {
   }
 
   // Reactions
-  _focusServiceReaction() {
-    const service = this.active;
-    if (service) {
-      this.actions.service.focusService({ serviceId: service.id });
+  async _shareServiceConfigWithBrowserViewManager() {
+    if (this.all.length === 0) {
+      ipcRenderer.send(HIDE_ALL_SERVICES);
     }
+
+    if (!this.stores.user.isLoggedIn || this.stores.router.location.pathname.includes(this.stores.user.BASE_ROUTE)) return;
+
+    const sharedServiceData = this.allDisplayed.filter(service => service.isEnabled).map(service => ({
+      id: service.id,
+      name: service.name,
+      url: service.url,
+      partition: service.partition,
+      state: {
+        isActive: service.isActive,
+        spellcheckerLanguage: service.spellcheckerLanguage,
+        isSpellcheckerEnabled: this.stores.settings.app.enableSpellchecking,
+        isDarkModeEnabled: service.isDarkModeEnabled,
+        team: service.team,
+        hasCustomIcon: service.hasCustomIcon,
+        isRestricted: service.isServiceAccessRestricted,
+        isHibernating: service.isHibernating,
+      },
+      recipeId: service.recipe.id,
+    }));
+
+    const data = await ipcRenderer.invoke('browserViewManager', sharedServiceData);
+    data.forEach((browserViewHandler) => {
+      const service = this.one(browserViewHandler.serviceId);
+      if (service) {
+        debug(`Setting webContentsId for ${service.name} to`, browserViewHandler.webContentsId);
+        service.webContentsId = browserViewHandler.webContentsId;
+      }
+    });
   }
 
   _saveActiveService() {
@@ -781,8 +782,8 @@ export default class ServicesStore extends Store {
   }
 
   _getUnreadMessageCountReaction() {
-    const showMessageBadgeWhenMuted = this.stores.settings.all.app.showMessageBadgeWhenMuted;
-    const showMessageBadgesEvenWhenMuted = this.stores.ui.showMessageBadgesEvenWhenMuted;
+    const { showMessageBadgeWhenMuted } = this.stores.settings.all.app;
+    const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     const unreadDirectMessageCount = this.allDisplayed
       .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
@@ -822,7 +823,11 @@ export default class ServicesStore extends Store {
       const isMuted = isAppMuted || service.isMuted;
 
       if (isAttached) {
-        service.webview.audioMuted = isMuted;
+        const serviceWebContents = webContents.fromId(service.webContentsId);
+
+        if (serviceWebContents) {
+          serviceWebContents.setAudioMuted(isMuted);
+        }
       }
     });
   }
@@ -852,7 +857,7 @@ export default class ServicesStore extends Store {
     const { features } = this.stores.features;
     const { userHasReachedServiceLimit, serviceLimit } = this.stores.serviceLimit;
 
-    this.all.map((service, index) => {
+    this.allDisplayed.map((service, index) => {
       if (userHasReachedServiceLimit) {
         service.isServiceAccessRestricted = index >= serviceLimit;
 
@@ -869,7 +874,7 @@ export default class ServicesStore extends Store {
         if (service.isServiceAccessRestricted) {
           service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
 
-          debug('Restricting access to server due to custom url');
+          debug('Restricting access to server due to custom url for', service.name);
         }
       }
 
@@ -887,6 +892,33 @@ export default class ServicesStore extends Store {
 
       this._setActive({ serviceId: this.allDisplayed[0].id });
     }
+  }
+
+  _handleSpellcheckerLocale() {
+    ipcRenderer.on(UPDATE_SPELLCHECKING_LANGUAGE, (event, { serviceId, locale }) => {
+      if (!serviceId) {
+        console.warn('Did not receive service');
+      } else {
+        debug('Updating service spellchecking language to', locale);
+
+        this.actions.service.updateService({
+          serviceId,
+          serviceData: {
+            spellcheckerLanguage: locale,
+          },
+          redirect: false,
+        });
+      }
+    });
+
+    ipcRenderer.on(REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, (event, { serviceId }) => {
+      debug('Requesting spellchecker locale');
+      const service = this.one(serviceId);
+
+      if (service) {
+        ipcRenderer.send(SERVICE_SPELLCHECKING_LANGUAGE, { locale: service.spellcheckerLanguage });
+      }
+    });
   }
 
   // Helper

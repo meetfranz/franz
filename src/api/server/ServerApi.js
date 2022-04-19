@@ -15,7 +15,7 @@ import OrderModel from '../../models/Order';
 
 import { sleep } from '../../helpers/async-helpers';
 
-import { API } from '../../environment';
+import { API, isWindows } from '../../environment';
 import { prepareAuthRequest, sendAuthRequest } from '../utils/auth';
 
 import {
@@ -369,7 +369,7 @@ export default class ServerApi {
   async getRecipePackage(recipeId) {
     try {
       const recipesDirectory = path.join(app.getPath('userData'), 'recipes');
-      const recipeTempDirectory = path.join(recipesDirectory, 'temp', recipeId);
+      const recipeTempDirectory = fs.mkdtempSync(path.join(os.tmpdir(), `franz-recipe-${recipeId}-`));
       const archivePath = path.join(recipeTempDirectory, 'recipe.tar.gz');
       const packageUrl = `${API_URL}/recipes/download/${recipeId}`;
 
@@ -381,14 +381,19 @@ export default class ServerApi {
 
       await sleep(10);
 
-      await tar.x({
+      const tarOpts = {
         file: archivePath,
         cwd: recipeTempDirectory,
-        preservePaths: true,
+        preservePaths: !isWindows,
         unlink: true,
         preserveOwner: false,
-        onwarn: x => console.log('warn', recipeId, x),
-      });
+        noChmod: isWindows,
+        onwarn: (code, message, data) => {
+          console.warn('tar warning', recipeId, code, message, data);
+        },
+      };
+
+      await tar.x(tarOpts);
 
       await sleep(10);
 

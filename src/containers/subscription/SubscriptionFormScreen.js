@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserWindow, getCurrentWindow } from '@electron/remote';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
+import { ipcRenderer } from 'electron';
 import PaymentStore from '../../stores/PaymentStore';
 
 import SubscriptionForm from '../../components/subscription/SubscriptionForm';
@@ -31,26 +31,10 @@ export default @inject('stores', 'actions') @observer class SubscriptionFormScre
     let hostedPageURL = features.features.planSelectionURL;
     hostedPageURL = user.getAuthURL(hostedPageURL);
 
-    const paymentWindow = new BrowserWindow({
-      parent: getCurrentWindow(),
-      modal: true,
-      title: '🔒 Franz Supporter License',
-      width: 800,
-      height: window.innerHeight - 100,
-      maxWidth: 800,
-      minWidth: 600,
-      webPreferences: {
-        nodeIntegration: true,
-        webviewTag: true,
-        enableRemoteModule: true,
-        contextIsolation: false,
-      },
-    });
-    paymentWindow.loadURL(`file://${__dirname}/../../index.html#/payment/${encodeURIComponent(hostedPageURL)}`);
+    await ipcRenderer.invoke('open-inline-subscription-window', { url: hostedPageURL });
 
-    paymentWindow.on('closed', () => {
-      onCloseWindow();
-    });
+    // once the promise is resolved, we trigger the callback
+    onCloseWindow();
   }
 
   render() {

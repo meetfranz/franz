@@ -6,6 +6,12 @@ import cld from './cld';
 import dnd from './dnd';
 import desktopCapturer from './desktopCapturer';
 import focusState from './focusState';
+import fullscreenStatus from './fullscreen';
+import subscriptionWindow from './subscriptionWindow';
+import serviceCache from './serviceCache';
+import browserViewManager from './browserViewManager';
+import overlayWindow from './overlayWindow';
+import macOSPermissions from './macOSPermissions';
 
 export default (params) => {
   settings(params);
@@ -16,4 +22,10 @@ export default (params) => {
   dnd();
   desktopCapturer();
   focusState(params);
+  fullscreenStatus(params);
+  subscriptionWindow(params);
+  serviceCache();
+  browserViewManager(params);
+  overlayWindow(params);
+  macOSPermissions(params);
 };

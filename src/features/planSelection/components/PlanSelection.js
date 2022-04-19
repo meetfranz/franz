@@ -67,7 +67,7 @@ const messages = defineMessages({
 
 const styles = theme => ({
   root: {
-    background: theme.colorModalOverlayBackground,
+    background: theme.styleTypes.primary.accent,
     width: '100%',
     height: '100%',
     position: 'absolute',
@@ -135,6 +135,7 @@ const styles = theme => ({
 
     '& svg': {
       marginRight: 5,
+      fill: theme.styleTypes.primary.contrast,
     },
   },
   scrollContainer: {

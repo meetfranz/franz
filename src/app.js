@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
 import {
-  Router, Route, hashHistory, IndexRedirect,
+  Router, Route, hashHistory, IndexRoute, IndexRedirect,
 } from 'react-router';
 
 import '@babel/polyfill';
@@ -46,6 +46,7 @@ import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceS
 import { WORKSPACES_ROUTES } from './features/workspaces';
 import AnnouncementScreen from './features/announcements/components/AnnouncementScreen';
 import { ANNOUNCEMENTS_ROUTES } from './features/announcements';
+import { isMac } from './environment';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -58,7 +59,7 @@ window.addEventListener('load', () => {
   const router = new RouterStore();
   const history = syncHistoryWithStore(hashHistory, router);
   const stores = storeFactory(api, actions, router);
-  const menu = new MenuFactory(stores, actions);
+  const menu = isMac ? new MenuFactory(stores, actions) : null;
   const touchBar = new TouchBarFactory(stores, actions);
 
   window.franz = {
@@ -89,6 +90,7 @@ window.addEventListener('load', () => {
                   <Route path="/settings/team" component={TeamScreen} />
                   <Route path="/settings/app" component={EditSettingsScreen} />
                   <Route path="/settings/invite" component={InviteSettingsScreen} />
+                  <Route path="/announcements/*" component={null} />
                 </Route>
               </Route>
               <Route path="/auth" component={AuthLayoutContainer}>
@@ -107,7 +109,9 @@ window.addEventListener('load', () => {
                 <Route path="/auth/logout" component={LoginScreen} />
               </Route>
               <Route path="/payment/:url" component={SubscriptionPopupScreen} />
-              <Route path="*" component={AppLayoutContainer} />
+              <Route path="*">
+                <IndexRedirect to='/' />
+              </Route>
             </Router>
           </I18N>
         </Provider>

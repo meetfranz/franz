@@ -1,7 +1,17 @@
 {
-  "extends": "./tsconfig.settings.json",
   "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "esnext",
+    "module": "commonjs",
     "outDir": ".tstmp",
-    "rootDir": "./"
+    "rootDir": "./src",
+    "allowJs": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true
   },
+  "include": [
+    "src/**/*"
+  ]
 }

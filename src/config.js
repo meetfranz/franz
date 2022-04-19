@@ -2,6 +2,7 @@ import path from 'path';
 import ms from 'ms';
 
 import { asarPath } from './helpers/asar-helpers';
+import { DEFAULT_APP_SETTINGS_VANILLA } from './configVanilla';
 
 const { app, nativeTheme } = process.type === 'renderer' ? require('@electron/remote') : require('electron');
 
@@ -31,23 +32,9 @@ export const CDN_URL = 'https://cdn.franzinfra.com';
 export const GA_ID_DEV = 'UA-74126766-12';
 export const GA_ID_PROD = 'UA-74126766-10';
 
-export const DEFAULT_APP_SETTINGS = {
-  autoLaunchInBackground: false,
-  runInBackground: true,
-  enableSystemTray: true,
-  minimizeToSystemTray: false,
-  showDisabledServices: true,
-  showMessageBadgeWhenMuted: true,
-  enableSpellchecking: true,
-  spellcheckerLanguage: 'en-us',
+export const DEFAULT_APP_SETTINGS = Object.assign(DEFAULT_APP_SETTINGS_VANILLA, {
   darkMode: process.platform === 'darwin' ? nativeTheme.shouldUseDarkColors : false, // We can't use refs from `./environment` at this time
-  locale: '',
-  fallbackLocale: 'en-US',
-  beta: false,
-  isAppMuted: false,
-  enableGPUAcceleration: true,
-  serviceLimit: 5,
-};
+});
 
 export const DEFAULT_FEATURES_CONFIG = {
   isSpellcheckerIncludedInCurrentPlan: true,
@@ -124,3 +111,9 @@ export const PLANS_MAPPING = {
   'franz-supporter-license-year-2019': PLANS.LEGACY,
   free: PLANS.FREE,
 };
+
+export const TAB_BAR_WIDTH = 68;
+
+export const DEFAULT_WEB_CONTENTS_ID = 1;
+
+export const TODOS_RECIPE_ID = 'franz-todos';

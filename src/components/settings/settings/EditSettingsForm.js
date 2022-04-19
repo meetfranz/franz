@@ -102,9 +102,7 @@ export default @observer class EditSettingsForm extends Component {
     onClearAllCache: PropTypes.func.isRequired,
     cacheSize: PropTypes.string.isRequired,
     isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
-    isTodosEnabled: PropTypes.bool.isRequired,
     isWorkspaceEnabled: PropTypes.bool.isRequired,
-    hasAddedTodosAsService: PropTypes.bool.isRequired,
     isOnline: PropTypes.bool.isRequired,
   };
 
@@ -136,9 +134,7 @@ export default @observer class EditSettingsForm extends Component {
       onClearAllCache,
       cacheSize,
       isSpellcheckerIncludedInCurrentPlan,
-      isTodosEnabled,
       isWorkspaceEnabled,
-      hasAddedTodosAsService,
       isOnline,
     } = this.props;
     const { intl } = this.context;
@@ -174,10 +170,6 @@ export default @observer class EditSettingsForm extends Component {
             {isWorkspaceEnabled && (
               <Toggle field={form.$('keepAllWorkspacesLoaded')} />
             )}
-            {isTodosEnabled && !hasAddedTodosAsService && (
-              <Toggle field={form.$('enableTodos')} />
-            )}
-
             {/* Appearance */}
             <h2 id="apperance">{intl.formatMessage(messages.headlineAppearance)}</h2>
             <Toggle field={form.$('showDisabledServices')} />

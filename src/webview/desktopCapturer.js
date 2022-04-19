@@ -1,17 +1,10 @@
 import { ipcRenderer } from 'electron';
+import { SET_DESKTOP_CAPTURER_SOURCES_IPC_KEY } from '../features/desktopCapturer/config';
+import { OVERLAY_OPEN } from '../ipcChannels';
 
-function getDisplayMedia(constraints = {}) {
-  console.log('constraints', constraints);
+function getDisplayMedia() {
   return new Promise(async (resolve, reject) => {
-    let selectedSourceId = null;
-
-    console.log('sending feature:desktopCapturer:getSelectSource');
-    ipcRenderer.sendToHost('feature:desktopCapturer:getSelectSource');
-
-    ipcRenderer.once('feature:desktopCapturer:setSelectSource', async (event, { sourceId }) => {
-      console.log('set selected source', sourceId);
-      selectedSourceId = sourceId;
-
+    ipcRenderer.once(SET_DESKTOP_CAPTURER_SOURCES_IPC_KEY, async (event, { sourceId }) => {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
@@ -25,14 +18,15 @@ function getDisplayMedia(constraints = {}) {
       resolve(stream);
     });
 
-    ipcRenderer.once('feature:desktopCapturer:cancelSelectSource', () => {
-      console.log('cancel selection');
-      if (!selectedSourceId) {
-        reject(new Error('Source selection canceled'));
-      }
-
-      selectedSourceId = null;
+    const overlayAction = await ipcRenderer.invoke(OVERLAY_OPEN, {
+      route: '/screen-share/{webContentsId}',
+      modal: false,
+      width: 600,
     });
+
+    if (overlayAction === 'closed') {
+      reject(new Error('Source selection canceled'));
+    }
   });
 }
 

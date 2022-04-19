@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
-import Webview from 'react-electron-web-view';
 import { Icon } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
 import classnames from 'classnames';
 
 import { mdiCheckAll } from '@mdi/js';
-import * as environment from '../../../environment';
+import { ipcRenderer } from 'electron';
+import { BrowserWindow } from '@electron/remote';
+import { debounce } from 'lodash';
 import Appear from '../../../components/ui/effects/Appear';
 import UpgradeButton from '../../../components/ui/UpgradeButton';
-import { TODOS_PARTITION_ID } from '..';
+import { RESIZE_TODO_VIEW } from '../../../ipcChannels';
 
 const messages = defineMessages({
   premiumInfo: {
@@ -32,14 +33,7 @@ const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
-    borderLeft: [1, 'solid', theme.todos.todosLayer.borderLeftColor],
-    zIndex: 300,
-
-    transform: ({ isVisible, width, isTodosServiceActive }) => `translateX(${isVisible || isTodosServiceActive ? 0 : width}px)`,
-
-    '& webview': {
-      height: '100%',
-    },
+    borderLeft: ({ isVisible }) => (isVisible ? [`2px solid ${theme.todos.todosLayer.borderLeftColor}`] : 0),
   },
   resizeHandler: {
     position: 'absolute',
@@ -55,7 +49,6 @@ const styles = theme => ({
     width: 5,
     zIndex: 400,
     background: theme.todos.dragIndicator.background,
-
   },
   premiumContainer: {
     display: 'flex',
@@ -78,8 +71,8 @@ const styles = theme => ({
     marginTop: 40,
   },
   isTodosServiceActive: {
-    width: 'calc(100% - 368px)',
-    position: 'absolute',
+    width: '100%',
+    // position: 'absolute',
     right: 0,
     zIndex: 0,
   },
@@ -91,12 +84,12 @@ class TodosWebview extends Component {
     classes: PropTypes.object.isRequired,
     isTodosServiceActive: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool.isRequired,
-    handleClientMessage: PropTypes.func.isRequired,
-    setTodosWebview: PropTypes.func.isRequired,
     resize: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired,
     minWidth: PropTypes.number.isRequired,
     isTodosIncludedInCurrentPlan: PropTypes.bool.isRequired,
+    isSettingsRouteActive: PropTypes.bool.isRequired,
+    activeTodosService: PropTypes.object.isRequired,
   };
 
   state = {
@@ -108,6 +101,20 @@ class TodosWebview extends Component {
     intl: intlShape,
   };
 
+  resizeObserver = new window.ResizeObserver(() => {
+    this.resizeBrowserView();
+  });
+
+  todosContainerRef = React.createRef();
+
+  todosResizeContainerRef = React.createRef();
+
+  windowResizeHandler = debounce(() => {
+    this.resizeBrowserView();
+  }, 50, {
+    trailing: true,
+  });
+
   componentWillMount() {
     const { width } = this.props;
 
@@ -117,9 +124,26 @@ class TodosWebview extends Component {
   }
 
   componentDidMount() {
-    this.node.addEventListener('mousemove', this.resizePanel.bind(this));
-    this.node.addEventListener('mouseup', this.stopResize.bind(this));
-    this.node.addEventListener('mouseleave', this.stopResize.bind(this));
+    this.todosContainerRef.current.addEventListener('mousemove', this.resizePanel.bind(this));
+    this.todosContainerRef.current.addEventListener('mouseup', this.stopResize.bind(this));
+    this.todosContainerRef.current.addEventListener('mouseleave', this.stopResize.bind(this));
+
+    this.resizeObserver.observe(this.todosContainerRef.current);
+
+    this.resizeBrowserView();
+
+    window.addEventListener('resize', this.windowResizeHandler);
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.send(RESIZE_TODO_VIEW, {
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+    });
+
+    window.removeEventListener('resize', this.windowResizeHandler);
   }
 
   startResize = (event) => {
@@ -176,14 +200,19 @@ class TodosWebview extends Component {
     }
   }
 
-  startListeningToIpcMessages() {
-    const { handleClientMessage } = this.props;
-    if (!this.webview) return;
-    this.webview.addEventListener('ipc-message', (e) => {
-      // console.log(e);
-      handleClientMessage({ channel: e.channel, message: e.args[0] });
-    });
+  resizeBrowserView() {
+    if (this.todosResizeContainerRef.current) {
+      const bounds = this.todosResizeContainerRef.current.getBoundingClientRect();
+
+      ipcRenderer.send(RESIZE_TODO_VIEW, {
+        width: bounds.width,
+        height: bounds.height,
+        x: bounds.x,
+        y: bounds.y,
+      });
+    }
   }
+
 
   render() {
     const {
@@ -191,6 +220,8 @@ class TodosWebview extends Component {
       isTodosServiceActive,
       isVisible,
       isTodosIncludedInCurrentPlan,
+      isSettingsRouteActive,
+      activeTodosService,
     } = this.props;
 
     const {
@@ -201,7 +232,7 @@ class TodosWebview extends Component {
 
     const { intl } = this.context;
 
-    let displayedWidth = isVisible ? width : 0;
+    let displayedWidth = isVisible && !isSettingsRouteActive ? width : 0;
     if (isTodosServiceActive) {
       displayedWidth = null;
     }
@@ -210,11 +241,11 @@ class TodosWebview extends Component {
       <div
         className={classnames({
           [classes.root]: true,
-          [classes.isTodosServiceActive]: isTodosServiceActive,
+          [classes.isTodosServiceActive]: !isSettingsRouteActive && isTodosServiceActive && (!activeTodosService.isServiceInterrupted && activeTodosService.isEnabled),
         })}
         style={{ width: displayedWidth }}
         onMouseUp={() => this.stopResize()}
-        ref={(node) => { this.node = node; }}
+        ref={this.todosContainerRef}
         id="todos-panel"
       >
         <div
@@ -228,20 +259,8 @@ class TodosWebview extends Component {
             style={{ left: delta }} // This hack is required as resizing with webviews beneath behaves quite bad
           />
         )}
-        {isTodosIncludedInCurrentPlan ? (
-          <Webview
-            className={classes.webview}
-            onDidAttach={() => {
-              const { setTodosWebview } = this.props;
-              setTodosWebview(this.webview);
-              this.startListeningToIpcMessages();
-            }}
-            partition={TODOS_PARTITION_ID}
-            preload="./features/todos/preload.js"
-            ref={(webview) => { this.webview = webview ? webview.view : null; }}
-            src={environment.TODOS_FRONTEND}
-          />
-        ) : (
+        <div ref={this.todosResizeContainerRef} />
+        {!isTodosIncludedInCurrentPlan && (
           <Appear>
             <div className={classes.premiumContainer}>
               <Icon icon={mdiCheckAll} className={classes.premiumIcon} size={4} />
