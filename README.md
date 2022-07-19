@@ -52,8 +52,6 @@ $ npm run build
 ## How can I support the project?
 If you have found a bug that hasn't been reported yet or want to request a new feature, please open a new issue.
 
-## I need help?
-Join the Franz community on [Slack](http://slack.franz.im) and get in touch with us.
 
 ## Create your own plugins/recipes
 You can find all the Information at the [Plugins repository](https://github.com/meetfranz/plugins).
