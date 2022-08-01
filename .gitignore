@@ -14,3 +14,4 @@ lerna-debug.log
 uidev/lib
 *.tsbuildinfo
 src/i18n/messages/
+extensions
