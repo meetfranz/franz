@@ -1,7 +1,7 @@
 ﻿{
-   "app.errorHandler.action" : "Recargar",
-   "app.errorHandler.headline" : "Algo salió mal.",
-   "connectionLostBanner.cta" : "Recargar Servicio",
+   "app.errorHandler.action" : "Recargar ",
+   "app.errorHandler.headline" : "Algo salió mal ",
+   "connectionLostBanner.cta" : "Recargar servicio",
    "connectionLostBanner.informationLink" : "¿Qué pasó?",
    "connectionLostBanner.message" : "¡oh no! Franz perdió la conexión con {name}.",
    "feature.announcements.changelog.headline" : "Cambios en Franz {version}",
