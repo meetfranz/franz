@@ -75,6 +75,7 @@ export const SPELLCHECKER_LOCALES = {
   da: 'Dansk',
   de: 'Deutsch',
   el: 'ελληνικά (Greek)',
+  en: 'English',
   'en-AU': 'English (Australia)',
   'en-CA': 'English (Canada)',
   'en-GB': 'English (Great Britain)',
