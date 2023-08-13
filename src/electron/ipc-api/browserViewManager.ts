@@ -1,12 +1,12 @@
-import { ipcMain, BrowserWindow, Rectangle } from 'electron';
-import { ServiceBrowserView } from '../../models/ServiceBrowserView';
+import { BrowserWindow, Rectangle, ipcMain } from 'electron';
+import { TODOS_RECIPE_ID } from '../../config';
 import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
   GET_ACTIVE_SERVICE_WEB_CONTENTS_ID,
   HIDE_ALL_SERVICES,
   NAVIGATE_SERVICE_TO, OPEN_SERVICE_DEV_TOOLS, RELOAD_SERVICE, RESIZE_SERVICE_VIEWS, RESIZE_TODO_VIEW, SHOW_ALL_SERVICES, TODOS_FETCH_WEB_CONTENTS_ID, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, USER_LOGIN_STATUS,
 } from '../../ipcChannels';
-import { TODOS_RECIPE_ID } from '../../config';
+import { ServiceBrowserView } from '../../models/ServiceBrowserView';
 
 const debug = require('debug')('Franz:ipcApi:browserViewManager');
 
@@ -184,6 +184,12 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     if (sbw) {
       debug(`Open devTools for service '${sbw.browserView.config.name}'`);
       sbw.browserView.webContents.toggleDevTools();
+
+      if (!sbw.browserView.webContents.isDevToolsOpened()) {
+        sbw.browserView.webContents.openDevTools({ mode: 'detach' });
+      } else {
+        sbw.browserView.webContents.closeDevTools();
+      }
     }
   });
 
