@@ -1,17 +1,20 @@
 import { ipcRenderer } from 'electron';
-import path from 'path';
-import { autorun, observable } from 'mobx';
 import { debounce } from 'lodash';
+import { autorun, observable } from 'mobx';
+import path from 'path';
 
 import RecipeWebview from './lib/RecipeWebview';
 
-import { getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
 import { injectDarkModeStyle, isDarkModeStyleInjected, removeDarkModeStyle } from './darkmode';
-import './notifications';
 import './desktopCapturer';
+import './notifications';
+import { getSpellcheckerLocaleByFuzzyIdentifier } from './spellchecker';
 
+// import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 import { DEFAULT_APP_SETTINGS_VANILLA } from '../configVanilla';
 import { UPDATE_SPELLCHECKING_LANGUAGE } from '../ipcChannels';
+
+// const DEFAULT_WEB_CONTENTS_ID = 1;
 
 const debug = require('debug')('Franz:Plugin');
 
@@ -40,8 +43,6 @@ class RecipeController {
     this.initialize();
   }
 
-  cldIdentifier = null;
-
   async initialize() {
     Object.keys(this.ipcEvents).forEach((channel) => {
       ipcRenderer.on(channel, (...args) => {
@@ -54,6 +55,8 @@ class RecipeController {
     setTimeout(() => ipcRenderer.send('hello'), 100);
 
     autorun(() => this.update());
+
+    this.automaticLanguageDetection();
   }
 
   loadRecipeModule(event, config, recipe) {
@@ -111,11 +114,10 @@ class RecipeController {
 
       debug('Detecting language for', value);
       const locale = await ipcRenderer.invoke('detect-language', { sample: value });
-
       const spellcheckerLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
       debug('Language detected reliably, setting spellchecker language to', spellcheckerLocale);
       if (spellcheckerLocale) {
-        ipcRenderer.invoke(UPDATE_SPELLCHECKING_LANGUAGE, { locale: spellcheckerLocale });
+        ipcRenderer.send(UPDATE_SPELLCHECKING_LANGUAGE, { locale: spellcheckerLocale });
       }
     }, 225));
   }

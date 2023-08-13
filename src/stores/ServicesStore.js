@@ -1,28 +1,35 @@
+import { app, webContents } from '@electron/remote';
+import { debounce, remove } from 'lodash';
 import {
   action,
-  reaction,
   computed,
   observable,
+  reaction,
   toJS,
 } from 'mobx';
-import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { app, webContents } from '@electron/remote';
 
 import { ipcRenderer } from 'electron';
-import Store from './lib/Store';
-import Request from './lib/Request';
-import CachedRequest from './lib/CachedRequest';
-import { matchRoute } from '../helpers/routing-helpers';
-import { gaEvent } from '../lib/analytics';
-import { workspaceStore } from '../features/workspaces';
 import { serviceLimitStore } from '../features/serviceLimit';
-import { RESTRICTION_TYPES } from '../models/Service';
 import { TODOS_RECIPE_ID } from '../features/todos';
+import { workspaceStore } from '../features/workspaces';
+import { matchRoute } from '../helpers/routing-helpers';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import {
-  OPEN_SERVICE_DEV_TOOLS, REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SPELLCHECKING_LANGUAGE, NAVIGATE_SERVICE_TO, RELOAD_SERVICE, HIDE_ALL_SERVICES, ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, UPDATE_SERVICE_STATE,
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE,
+  HIDE_ALL_SERVICES,
+  NAVIGATE_SERVICE_TO,
+  OPEN_SERVICE_DEV_TOOLS,
+  RELOAD_SERVICE,
+  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE,
+  UPDATE_SERVICE_STATE,
+  UPDATE_SPELLCHECKING_LANGUAGE,
 } from '../ipcChannels';
+import { gaEvent } from '../lib/analytics';
+import { RESTRICTION_TYPES } from '../models/Service';
+import CachedRequest from './lib/CachedRequest';
+import Request from './lib/Request';
+import Store from './lib/Store';
 
 const debug = require('debug')('Franz:ServiceStore');
 
@@ -895,7 +902,7 @@ export default class ServicesStore extends Store {
   }
 
   _handleSpellcheckerLocale() {
-    ipcRenderer.on(UPDATE_SPELLCHECKING_LANGUAGE, (event, { serviceId, locale }) => {
+    ipcRenderer.on(UPDATE_SPELLCHECKING_LANGUAGE, (event, serviceId, { locale }) => {
       if (!serviceId) {
         console.warn('Did not receive service');
       } else {
