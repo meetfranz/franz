@@ -3,7 +3,7 @@ import { H1 } from '@meetfranz/ui';
 import { ipcRenderer } from 'electron';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
@@ -136,7 +136,7 @@ export default @injectSheet(styles) @observer class DesktopCapturerModal extends
             }, 10);
           }}
         />
-        <button type="button" onClick={() => window.close()} buttonType="inverted" className={classes.cancelCta}>{intl.formatMessage(messages.cancel)}</button>
+        <button type="button" onClick={() => window.close()} className={classes.cancelCta}>{intl.formatMessage(messages.cancel)}</button>
       </div>
     );
   }
