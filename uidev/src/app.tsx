@@ -1,4 +1,3 @@
-import CSS from 'csstype';
 import { Classes } from 'jss';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
@@ -21,6 +20,7 @@ import './stories/toggle.stories';
 import { store } from './stores';
 
 import { theme, ThemeType } from '@meetfranz/theme';
+
 const defaultTheme = theme(ThemeType.default);
 
 const styles = {
@@ -35,7 +35,7 @@ const styles = {
   },
   menu: {
     width: 300,
-    position: 'fixed' as CSS.PositionProperty,
+    position: 'fixed',
     listStyleType: 'none',
     fontSize: 14,
     overflow: 'scroll',
@@ -66,7 +66,7 @@ const styles = {
     borderBottom: '1px solid #CFCFCF',
   },
   sectionLink: {
-    fontWeight: 'bold' as CSS.FontWeightProperty,
+    fontWeight: 'bold',
     color: '#000',
     textDecoration: 'none',
   },
@@ -81,7 +81,8 @@ export const App = injectSheet(styles)(observer(({ classes }: { classes: Classes
     <ul className={classes.menu}>
       {store.stories.sections.map((section, key) => (
         <li key={key}>
-          <a href={`#section-${key}`} className={classes.sectionLink}>{
+          <a href={`#section-${key}`} className={classes.sectionLink}>
+            {
             section.name}
           </a>
           <ul className={classes.storyList}>

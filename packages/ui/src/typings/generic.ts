@@ -1,8 +1,7 @@
 import { Theme } from '@meetfranz/theme/lib';
-import { Classes } from 'jss';
 
 export interface IWithStyle {
-  classes: Classes;
+  classes: any;
   theme: Theme;
 }
 
