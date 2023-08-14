@@ -220,8 +220,6 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
   });
 
   ipcMain.on(TODOS_RELOAD, (e) => {
-    let sbw: IBrowserViewCache;
-
     browserViews.find(browserView => browserView.browserView.isTodos)?.browserView.webContents.reload();
   });
 
@@ -245,7 +243,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
   ipcMain.on(RESIZE_TODO_VIEW, (e, bounds: Rectangle) => {
     debug('Resizing todo view by', bounds);
 
-    browserViews.find(bw => bw.browserView.isTodos).browserView.resize(bounds);
+    browserViews.find(bw => bw.browserView.isTodos)?.browserView?.resize(bounds);
   });
 
   ipcMain.on(HIDE_ALL_SERVICES, () => {
