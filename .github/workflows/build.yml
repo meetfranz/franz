@@ -6,9 +6,9 @@ env:
   CSC_LINK: ${{ secrets.CSC_LINK }}
   # CSC_WINDOWS_LINK: ${{ secrets.CSC_WINDOWS_LINK }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-  AWS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+  APPLEID: ${{ secrets.APPLEID }}
+  APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+
 
 jobs:
   # run_if:
