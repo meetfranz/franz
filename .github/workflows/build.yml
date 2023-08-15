@@ -4,6 +4,7 @@ on: push
 
 env:
   CSC_LINK: ${{ secrets.CSC_LINK }}
+  # CSC_WINDOWS_LINK: ${{ secrets.CSC_WINDOWS_LINK }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
   AWS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -18,7 +19,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
 
     steps:
       - name: Check out Git repository
@@ -40,10 +42,6 @@ jobs:
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-      - if: ${{ matrix.os }} == 'windows-latest'
-        env:
-          CSC_LINK: ${{ secrets.CSC_WINDOWS_LINK }}
-
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
