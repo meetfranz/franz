@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-2019]
 
     steps:
       - name: Check out Git repository
@@ -28,6 +28,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
+
+      - if: ${{ matrix.os == 'windows-latest' }}
+        run: npm config set python python2.7
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
