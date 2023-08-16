@@ -4,7 +4,6 @@ on: push
 
 env:
   CSC_LINK: ${{ secrets.CSC_LINK }}
-  # CSC_WINDOWS_LINK: ${{ secrets.CSC_WINDOWS_LINK }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
   APPLEID: ${{ secrets.APPLEID }}
   APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
@@ -19,7 +18,27 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-2019]
+        platform: [mac, ubuntu, windows]
+        include:
+          - platform: mac
+            os: macos-latest
+            artifactPath: |
+              out/*.dmg
+              out/*.mac.zip.blockmap
+              out/latest-mac.yml
+
+          - platform: ubuntu
+            os: ubuntu-latest
+            artifactPath: |
+              out/*.AppImage
+              out/*.deb
+              out/latest-linux.yml
+
+          - platform: windows
+            os: windows-2019
+            artifactPath: |
+              out/*.exe
+              out/latest.yml
 
     steps:
       - name: Check out Git repository
@@ -39,10 +58,8 @@ jobs:
       - name: Build App
         run: npm run build
 
-      - name: Archive production artifacts
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: app
-          path: |
-            out
-            !out/**/Franz.app
+          name: ${{ matrix.platform }
+          path: ${{ matrix.artifactPath }}
