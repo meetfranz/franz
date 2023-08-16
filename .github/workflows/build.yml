@@ -18,7 +18,9 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-2019]
+        # os: [macos-latest, ubuntu-latest]
+        # os: [macos-latest, ubuntu-latest, windows-2019]
+        os: [macos-latest]
 
     steps:
       - name: Check out Git repository
@@ -29,7 +31,7 @@ jobs:
         with:
           node-version: 16.14.0
 
-      - if: ${{ matrix.os == 'windows-latest' }}
+      - if: ${{ matrix.os == 'windows-2019' }}
         run: npm config set python python2.7
 
       - name: Lerna Bootstrap
