@@ -19,8 +19,8 @@ jobs:
 
     strategy:
       matrix:
-        # os: [macos-latest, ubuntu-latest, windows-latest]
-        os: [macos-latest, ubuntu-latest]
+        os: [windows-latest]
+        # os: [macos-latest, ubuntu-latest]
 
     steps:
       - name: Check out Git repository
@@ -41,4 +41,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: app
-          path: out
+          path: |
+            out
+            !out/**/Franz.app
