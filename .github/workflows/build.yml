@@ -32,6 +32,10 @@ jobs:
       - if: ${{ matrix.os == 'windows-latest' }}
         run: npm config set python python2.7
 
+      - name: Lerna Bootstrap
+        run: |
+          npx lerna@3.8.0 bootstrap
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
         with:
