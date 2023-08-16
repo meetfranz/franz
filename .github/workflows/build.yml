@@ -28,7 +28,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
-      - run: npx lerna@3.8.0 bootstrap
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
