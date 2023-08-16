@@ -32,7 +32,9 @@ jobs:
           node-version: 16.14.0
 
       - name: Install dependencies
-        run: npx lerna@3.8.0 bootstrap
+        run: |
+          npm i lerna@3.8
+          npx lerna bootstrap
 
       - name: Build App
         run: npm run build
