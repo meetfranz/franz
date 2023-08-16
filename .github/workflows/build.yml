@@ -30,10 +30,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
+          cache: 'npm'
 
       - name: Install dependencies
         run: |
-          npm i lerna@3.8
+          npm i -g lerna@3.8
           npx lerna bootstrap
 
       - name: Build App
