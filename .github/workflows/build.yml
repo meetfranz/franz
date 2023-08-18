@@ -10,8 +10,6 @@ env:
 
 
 jobs:
-  # run_if:
-  #   if:  startsWith(github.ref, 'refs/tags/v')
 
   release:
     runs-on: ${{ matrix.os }}
