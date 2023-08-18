@@ -3,6 +3,7 @@ import {
 } from 'electron';
 import ms from 'ms';
 import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
+import { DEFAULT_APP_SETTINGS_VANILLA } from '../configVanilla';
 import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
 import Settings from '../electron/Settings';
 import { isMac } from '../environment';
@@ -301,8 +302,13 @@ export class ServiceBrowserView {
       ...state,
     };
 
+    const { isSpellcheckerEnabled, spellcheckerLanguage } = this.state;
+
     this.webContents.session.setSpellCheckerEnabled(this.state.isSpellcheckerEnabled);
-    this.webContents.session.setSpellCheckerLanguages([this.state.spellcheckerLanguage]);
+
+    if (isSpellcheckerEnabled) {
+      this.webContents.session.setSpellCheckerLanguages([spellcheckerLanguage || DEFAULT_APP_SETTINGS_VANILLA.spellcheckerLanguage]);
+    }
   }
 
   remove() {
