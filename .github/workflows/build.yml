@@ -5,7 +5,7 @@ on: push
 env:
   APPLEID: ${{ secrets.APPLEID }}
   APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 
 jobs:
