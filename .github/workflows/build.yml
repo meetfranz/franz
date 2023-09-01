@@ -22,7 +22,7 @@ jobs:
               out/*.dmg
               out/*.mac.zip.blockmap
               out/latest-mac.yml
-            CSC_LINK: ${{ secrets.CSC_LINK_MAC }}
+            CSC_LINK: CSC_LINK_MAC
 
           - platform: ubuntu
             os: ubuntu-latest
@@ -36,10 +36,10 @@ jobs:
             artifactPath: |
               out/*.exe
               out/latest.yml
-            CSC_LINK: ${{ secrets.CSC_LINK_WIN }}
+            CSC_LINK: CSC_LINK_WIN
 
     env:
-      CSC_LINK: ${{ matrix.CSC_LINK }}
+      CSC_LINK: ${{ secrets[matrix.CSC_LINK] }}
 
     steps:
       - name: Check out Git repository
