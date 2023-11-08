@@ -11,7 +11,7 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 
 ### Or use homebrew (macOS only)
 
-`$ brew cask install franz`
+`$ brew install franz --cask`
 
 (Don't know homebrew? [brew.sh](https://brew.sh/))
 
