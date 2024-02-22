@@ -11,6 +11,7 @@
     "@babel/react"
   ],
   "plugins": [
+    "react-require",
     [
       "@babel/plugin-proposal-decorators",
       {
