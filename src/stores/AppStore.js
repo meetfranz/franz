@@ -1,32 +1,36 @@
-import { ipcRenderer, shell } from 'electron';
 import {
-  app, screen, powerMonitor, nativeTheme, getCurrentWindow,
+  app,
+  getCurrentWindow,
+  nativeTheme,
+  powerMonitor,
+  screen,
 } from '@electron/remote';
+import { ipcRenderer, shell } from 'electron';
+import { readJsonSync } from 'fs-extra';
 import {
   action, computed, observable, reaction,
 } from 'mobx';
 import moment from 'moment';
-import prettyBytes from 'pretty-bytes';
 import ms from 'ms';
-import { URL } from 'url';
 import os from 'os';
 import path from 'path';
-import { readJsonSync } from 'fs-extra';
+import prettyBytes from 'pretty-bytes';
+import { URL } from 'url';
 
-import Store from './lib/Store';
-import Request from './lib/Request';
 import { CHECK_INTERVAL, DEFAULT_APP_SETTINGS } from '../config';
 import { isMac, isWindows } from '../environment';
+import { getLocale } from '../helpers/i18n-helpers';
 import locales from '../i18n/translations';
 import { gaEvent, gaPage } from '../lib/analytics';
-import { getLocale } from '../helpers/i18n-helpers';
+import Request from './lib/Request';
+import Store from './lib/Store';
 
+import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
+import { sleep } from '../helpers/async-helpers';
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
-import { sleep } from '../helpers/async-helpers';
-import { UPDATE_FULL_SCREEN_STATUS } from '../electron/ipc-api/fullscreen';
 import {
-  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, RELOAD_APP, WINDOWS_TITLEBAR_FETCH_MENU, WINDOWS_TITLEBAR_INITIALIZE,
+  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, RELOAD_APP, WINDOWS_TITLEBAR_FETCH_MENU
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
@@ -122,11 +126,6 @@ export default class AppStore extends Store {
     // Check if Franz should launch on start
     // Needs to be delayed a bit
     this._autoStart();
-
-    // Check if system is muted
-    // There are no events to subscribe so we need to poll everey 5s
-    this._systemDND();
-    setInterval(() => this._systemDND(), ms('5s'));
 
     this.fetchDataInterval = setInterval(() => {
       this.stores.user.getUserInfoRequest.invalidate({
@@ -603,18 +602,5 @@ export default class AppStore extends Store {
     debug('Open app at login setting', openAtLogin);
 
     return (isWindows ? executableWillLaunchAtLogin : openAtLogin) || false;
-  }
-
-  async _systemDND() {
-    debug('Checking if Do Not Disturb Mode is on');
-    const dnd = await ipcRenderer.invoke('get-dnd');
-    debug('Do not disturb mode is', dnd);
-    // ipcRenderer.on('autoUpdate', (event, data) => {
-    if (dnd !== this.stores.settings.all.app.isAppMuted && !this.isSystemMuteOverridden) {
-      this.actions.app.muteApp({
-        isMuted: dnd,
-        overrideSystemMute: false,
-      });
-    }
   }
 }

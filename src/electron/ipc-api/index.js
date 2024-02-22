@@ -1,17 +1,16 @@
-import autoUpdate from './autoUpdate';
-import settings from './settings';
 import appIndicator from './appIndicator';
-import download from './download';
+import autoUpdate from './autoUpdate';
+import browserViewManager from './browserViewManager';
 import cld from './cld';
-import dnd from './dnd';
 import desktopCapturer from './desktopCapturer';
+import download from './download';
 import focusState from './focusState';
 import fullscreenStatus from './fullscreen';
-import subscriptionWindow from './subscriptionWindow';
-import serviceCache from './serviceCache';
-import browserViewManager from './browserViewManager';
-import overlayWindow from './overlayWindow';
 import macOSPermissions from './macOSPermissions';
+import overlayWindow from './overlayWindow';
+import serviceCache from './serviceCache';
+import settings from './settings';
+import subscriptionWindow from './subscriptionWindow';
 
 export default (params) => {
   settings(params);
@@ -19,7 +18,6 @@ export default (params) => {
   appIndicator(params);
   download(params);
   cld(params);
-  dnd();
   desktopCapturer();
   focusState(params);
   fullscreenStatus(params);
