@@ -1,52 +1,54 @@
 import { webFrame } from 'electron';
 
-import React from 'react';
-import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
-import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import { render } from 'react-dom';
 import {
-  Router, Route, hashHistory, IndexRoute, IndexRedirect,
+  hashHistory,
+  IndexRedirect,
+  Route,
+  Router,
 } from 'react-router';
 
 import '@babel/polyfill';
 import smoothScroll from 'smoothscroll-polyfill';
 
-import ServerApi from './api/server/ServerApi';
-import LocalApi from './api/server/LocalApi';
-import storeFactory from './stores';
-import apiFactory from './api';
 import actions from './actions';
+import apiFactory from './api';
+import LocalApi from './api/server/LocalApi';
+import ServerApi from './api/server/ServerApi';
 import MenuFactory from './lib/Menu';
 import TouchBarFactory from './lib/TouchBar';
 import * as analytics from './lib/analytics';
+import storeFactory from './stores';
 
 import I18N from './I18n';
-import AppLayoutContainer from './containers/layout/AppLayoutContainer';
-import SettingsWindow from './containers/settings/SettingsWindow';
-import RecipesScreen from './containers/settings/RecipesScreen';
-import ServicesScreen from './containers/settings/ServicesScreen';
-import EditServiceScreen from './containers/settings/EditServiceScreen';
-import AccountScreen from './containers/settings/AccountScreen';
-import TeamScreen from './containers/settings/TeamScreen';
-import EditUserScreen from './containers/settings/EditUserScreen';
-import EditSettingsScreen from './containers/settings/EditSettingsScreen';
-import InviteSettingsScreen from './containers/settings/InviteScreen';
-import WelcomeScreen from './containers/auth/WelcomeScreen';
+import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
+import ImportScreen from './containers/auth/ImportScreen';
+import InviteScreen from './containers/auth/InviteScreen';
 import LoginScreen from './containers/auth/LoginScreen';
 import PasswordScreen from './containers/auth/PasswordScreen';
-import SignupScreen from './containers/auth/SignupScreen';
-import ImportScreen from './containers/auth/ImportScreen';
 import PricingScreen from './containers/auth/PricingScreen';
-import InviteScreen from './containers/auth/InviteScreen';
 import SetupAssistentScreen from './containers/auth/SetupAssistantScreen';
-import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
+import SignupScreen from './containers/auth/SignupScreen';
+import WelcomeScreen from './containers/auth/WelcomeScreen';
+import AppLayoutContainer from './containers/layout/AppLayoutContainer';
+import AccountScreen from './containers/settings/AccountScreen';
+import EditServiceScreen from './containers/settings/EditServiceScreen';
+import EditSettingsScreen from './containers/settings/EditSettingsScreen';
+import EditUserScreen from './containers/settings/EditUserScreen';
+import InviteSettingsScreen from './containers/settings/InviteScreen';
+import RecipesScreen from './containers/settings/RecipesScreen';
+import ServicesScreen from './containers/settings/ServicesScreen';
+import SettingsWindow from './containers/settings/SettingsWindow';
+import TeamScreen from './containers/settings/TeamScreen';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
-import WorkspacesScreen from './features/workspaces/containers/WorkspacesScreen';
-import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceScreen';
-import { WORKSPACES_ROUTES } from './features/workspaces';
-import AnnouncementScreen from './features/announcements/components/AnnouncementScreen';
-import { ANNOUNCEMENTS_ROUTES } from './features/announcements';
 import { isMac } from './environment';
+import { ANNOUNCEMENTS_ROUTES } from './features/announcements';
+import AnnouncementScreen from './features/announcements/components/AnnouncementScreen';
+import { WORKSPACES_ROUTES } from './features/workspaces';
+import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceScreen';
+import WorkspacesScreen from './features/workspaces/containers/WorkspacesScreen';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -110,7 +112,7 @@ window.addEventListener('load', () => {
               </Route>
               <Route path="/payment/:url" component={SubscriptionPopupScreen} />
               <Route path="*">
-                <IndexRedirect to='/' />
+                <IndexRedirect to="/" />
               </Route>
             </Router>
           </I18N>

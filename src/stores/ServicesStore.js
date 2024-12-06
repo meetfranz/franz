@@ -523,11 +523,13 @@ export default class ServicesStore extends Store {
     this.allDisplayed[prevIndex].isActive = true;
   }
 
-  @action _setUnreadMessageCount({ serviceId, count }) {
+  @action _setUnreadMessageCount({ serviceId, count = { direct: 0, indirect: 0 } }) {
     const service = this.one(serviceId);
 
-    service.unreadDirectMessageCount = count.direct;
-    service.unreadIndirectMessageCount = count.indirect;
+    if (service) {
+      service.unreadDirectMessageCount = count.direct;
+      service.unreadIndirectMessageCount = count.indirect;
+    }
   }
 
   @action _toggleService({ serviceId }) {

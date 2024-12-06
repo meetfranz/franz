@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
 import { dialog, getCurrentWindow } from '@electron/remote';
-import { defineMessages, intlShape } from 'react-intl';
 import { ipcRenderer } from 'electron';
+import { Component } from 'react';
+import { defineMessages, intlShape } from 'react-intl';
 
-import PlanSelection from '../components/PlanSelection';
-import ErrorBoundary from '../../../components/util/ErrorBoundary';
 import { ACTIONS, GA_CATEGORY_PLAN_SELECTION } from '..';
+import ErrorBoundary from '../../../components/util/ErrorBoundary';
+import { PLAN_SELECTION_GET_DATA, PLAN_SELECTION_TRIGGER_ACTION, RELAY_MESSAGE } from '../../../ipcChannels';
 import { gaEvent, gaPage } from '../../../lib/analytics';
-import { DEFAULT_WEB_CONTENTS_ID } from '../../../config';
-import { PLAN_SELECTION_GET_DATA, PLAN_SELECTION_TRIGGER_ACTION } from '../../../ipcChannels';
+import PlanSelection from '../components/PlanSelection';
 
 const messages = defineMessages({
   dialogTitle: {
@@ -44,7 +43,7 @@ class PlanSelectionScreen extends Component {
   }
 
   componentWillMount() {
-    ipcRenderer.on(PLAN_SELECTION_GET_DATA, (event, data) => {
+    ipcRenderer.on(PLAN_SELECTION_GET_DATA, (event, senderId, data) => {
       this.setState(prevState => ({
         ...prevState,
         ...data,
@@ -52,11 +51,11 @@ class PlanSelectionScreen extends Component {
       }));
     });
 
-    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, PLAN_SELECTION_GET_DATA);
+    ipcRenderer.send(RELAY_MESSAGE, PLAN_SELECTION_GET_DATA);
   }
 
   triggerAction(action, data) {
-    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, PLAN_SELECTION_TRIGGER_ACTION, action, data);
+    ipcRenderer.send(RELAY_MESSAGE, PLAN_SELECTION_TRIGGER_ACTION, action, data);
   }
 
   render() {

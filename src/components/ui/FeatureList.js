@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 
-import { FeatureItem } from './FeatureItem';
 import { PLANS } from '../../config';
+import { FeatureItem } from './FeatureItem';
 
 const messages = defineMessages({
   availableRecipes: {
@@ -139,7 +139,7 @@ export class FeatureList extends Component {
 
     return (
       <ul className={className}>
-        {features.map(feature => <FeatureItem name={intl.formatMessage(feature)} className={featureClassName} />)}
+        {features.map(feature => <FeatureItem key={feature.id} name={intl.formatMessage(feature)} className={featureClassName} />)}
       </ul>
     );
   }
