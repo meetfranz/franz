@@ -1,25 +1,25 @@
 import { ipcRenderer, webFrame } from 'electron';
 
-import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { render } from 'react-dom';
+import { IntlProvider } from 'react-intl';
 import {
-  Router, Route, hashHistory,
+  Route,
+  Router,
+  hashHistory,
 } from 'react-router';
 
 import '@babel/polyfill';
-import smoothScroll from 'smoothscroll-polyfill';
-import { ThemeProvider } from 'react-jss';
 import { theme } from '@meetfranz/theme';
+import { ThemeProvider } from 'react-jss';
+import smoothScroll from 'smoothscroll-polyfill';
 
-import translations from './i18n/translations';
-import ShareFranz from './features/shareFranz/Component';
-import { OVERLAY_SHARE_SETTINGS } from './ipcChannels';
-import { DEFAULT_WEB_CONTENTS_ID } from './config';
 import SubscriptionPopupScreen from './containers/subscription/SubscriptionPopupScreen';
-import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
-import { Component as DesktopCapturer } from './features/desktopCapturer';
 import { Component as BasicAuth } from './features/basicAuth';
+import { Component as DesktopCapturer } from './features/desktopCapturer';
+import PlanSelectionScreen from './features/planSelection/containers/PlanSelectionScreen';
+import ShareFranz from './features/shareFranz/Component';
+import translations from './i18n/translations';
+import { GET_SETTINGS, SEND_SETTINGS } from './ipcChannels';
 
 // Add Polyfills
 smoothScroll.polyfill();
@@ -58,7 +58,7 @@ let checkAppInitLoop;
 
 function initOverlayApp() {
   if (!overlayAppInitialized) {
-    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, OVERLAY_SHARE_SETTINGS);
+    ipcRenderer.send(GET_SETTINGS, 'app');
   } else {
     clearInterval(checkAppInitLoop);
   }
@@ -70,10 +70,10 @@ window.addEventListener('load', () => {
   checkAppInitLoop = setInterval(() => initOverlayApp(), 500);
 });
 
-ipcRenderer.on(OVERLAY_SHARE_SETTINGS, (event, settings) => {
+ipcRenderer.on(SEND_SETTINGS, (event, { data: settings }) => {
   setup(settings);
 
-  if (settings.theme === 'dark') {
+  if (settings.darkMode) {
     document.querySelector('body').classList.add('theme__dark');
   }
 

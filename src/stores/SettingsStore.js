@@ -4,13 +4,14 @@ import {
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
-import Store from './lib/Store';
-import Request from './lib/Request';
 import { getLocale } from '../helpers/i18n-helpers';
+import Request from './lib/Request';
+import Store from './lib/Store';
 
 import { DEFAULT_APP_SETTINGS, FILE_SYSTEM_SETTINGS_TYPES } from '../config';
-import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 import { APP_MENU_ACKNOWLEDGED_KEY } from '../features/appMenu';
+import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import { GET_SETTINGS, SEND_SETTINGS } from '../ipcChannels';
 
 const debug = require('debug')('Franz:SettingsStore');
 
@@ -31,14 +32,14 @@ export default class SettingsStore extends Store {
     this.actions.settings.update.listen(this._update.bind(this));
     this.actions.settings.remove.listen(this._remove.bind(this));
 
-    ipcRenderer.on('appSettings', (event, resp) => {
+    ipcRenderer.on(SEND_SETTINGS, (event, resp) => {
       debug('Get appSettings resolves', resp.type, resp.data);
 
       Object.assign(this._fileSystemSettingsCache[resp.type], resp.data);
     });
 
     this.fileSystemSettingsTypes.forEach((type) => {
-      ipcRenderer.send('getAppSettings', type);
+      ipcRenderer.send(GET_SETTINGS, type);
     });
   }
 

@@ -1,7 +1,10 @@
-import { BrowserWindow, ipcMain, webContents } from 'electron';
+import {
+  BrowserWindow, ipcMain,
+  webContents,
+} from 'electron';
 // eslint-disable-next-line import/no-named-default
 import { isDevMode, isLinux, isMac } from '../../environment';
-import { OVERLAY_OPEN } from '../../ipcChannels';
+import { OVERLAY_OPEN, RELAY_MESSAGE } from '../../ipcChannels';
 
 const debug = require('debug')('Franz:ipcApi:overlayWindow');
 
@@ -66,6 +69,17 @@ export function openOverlay(mainWindow: BrowserWindow, settings: any, args: IArg
       });
 
       window.on('close', () => resolve('closed'));
+
+      // ipc messages
+      ipcMain.on(RELAY_MESSAGE, (event, channel, ...data) => {
+        const mainWindowWebContentsId = mainWindow.webContents.id;
+
+        if (event.sender.id === mainWindowWebContentsId) {
+          window.webContents.send(channel, event.sender.id, ...data);
+        } else {
+          mainWindow.webContents.send(channel, event.sender.id, ...data);
+        }
+      });
     } catch (err) {
       console.log(err);
       resolve('error');

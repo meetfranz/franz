@@ -2,9 +2,9 @@ import { observable, reaction } from 'mobx';
 import ms from 'ms';
 
 import { ipcRenderer } from 'electron';
-import { state as delayAppState } from '../delayApp';
+import { OVERLAY_OPEN, RELAY_MESSAGE, SHARE_FRANZ_GET_SERVICE_COUNT } from '../../ipcChannels';
 import { gaEvent, gaPage } from '../../lib/analytics';
-import { OVERLAY_OPEN, SHARE_FRANZ_GET_SERVICE_COUNT } from '../../ipcChannels';
+import { state as delayAppState } from '../delayApp';
 import { planSelectionStore } from '../planSelection';
 
 export { default as Component } from './Component';
@@ -25,8 +25,8 @@ export default function initialize(stores) {
     state,
   };
 
-  ipcRenderer.on(SHARE_FRANZ_GET_SERVICE_COUNT, (event) => {
-    ipcRenderer.sendTo(event.senderId, SHARE_FRANZ_GET_SERVICE_COUNT, { serviceCount: stores.services.all.length });
+  ipcRenderer.on(SHARE_FRANZ_GET_SERVICE_COUNT, () => {
+    ipcRenderer.send(RELAY_MESSAGE, SHARE_FRANZ_GET_SERVICE_COUNT, { serviceCount: stores.services.all.length });
   });
 
   function showModal() {

@@ -3,25 +3,25 @@
 import {
   app,
   BrowserWindow,
-  shell,
-  ipcMain,
   dialog,
+  ipcMain,
+  shell,
 } from 'electron';
 
 // import isDevMode from 'electron-is-dev';
+import * as remoteMain from '@electron/remote/main';
+import { enforceMacOSAppLocation } from 'electron-util';
+import windowStateKeeper from 'electron-window-state';
+import { EventEmitter } from 'events';
 import fs from 'fs-extra';
 import path from 'path';
-import windowStateKeeper from 'electron-window-state';
-import { enforceMacOSAppLocation } from 'electron-util';
-import * as remoteMain from '@electron/remote/main';
-import { EventEmitter } from 'events';
 
 remoteMain.initialize();
 
 import {
+  isLinux,
   isMac,
   isWindows,
-  isLinux,
 } from './environment';
 
 // Set app directory before loading user modules
@@ -44,23 +44,23 @@ if (isDevMode) {
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
 app.commandLine.appendSwitch('disable-site-isolation-trials');
 
-import ipcApi from './electron/ipc-api';
-import Tray from './lib/Tray';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
-import { isPositionValid } from './electron/windowUtils';
-import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
+import ipcApi from './electron/ipc-api';
+import { isPositionValid } from './electron/windowUtils';
+import Tray from './lib/Tray';
+import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
 
 import {
   DEFAULT_APP_SETTINGS,
   DEFAULT_WINDOW_OPTIONS,
   LIVE_API_WEBSITE,
 } from './config';
+import { openOverlay } from './electron/ipc-api/overlayWindow';
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
-import { openOverlay } from './electron/ipc-api/overlayWindow';
 import { darkThemeGrayDarker, themeGrayLightest, windowsTitleBarHeight } from './theme/default/legacy';
 
 /* eslint-enable import/first */

@@ -1,7 +1,9 @@
 import { BrowserWindow, webContents } from '@electron/remote';
 import { ipcRenderer } from 'electron';
 import { reaction } from 'mobx';
-import { OVERLAY_OPEN, PLAN_SELECTION_GET_DATA, PLAN_SELECTION_TRIGGER_ACTION } from '../../ipcChannels';
+import {
+  OVERLAY_OPEN, PLAN_SELECTION_GET_DATA, PLAN_SELECTION_TRIGGER_ACTION, RELAY_MESSAGE,
+} from '../../ipcChannels';
 import PlanSelectionStore from './store';
 
 const debug = require('debug')('Franz:feature:planSelection');
@@ -24,6 +26,7 @@ export default function initPlanSelection(stores, actions) {
   reaction(
     () => features.features.isPlanSelectionEnabled,
     (isEnabled) => {
+      console.log('planSelection: isEnabled', isEnabled);
       if (isEnabled) {
         debug('Initializing `planSelection` feature');
         planSelectionStore.start(stores, actions);
@@ -35,9 +38,9 @@ export default function initPlanSelection(stores, actions) {
             route: '/plan-selection', modal: true,
           });
 
-          ipcRenderer.on(PLAN_SELECTION_GET_DATA, (event) => {
+          ipcRenderer.on(PLAN_SELECTION_GET_DATA, () => {
             debug('requesting data');
-            ipcRenderer.sendTo(event.senderId, PLAN_SELECTION_GET_DATA, {
+            ipcRenderer.send(RELAY_MESSAGE, PLAN_SELECTION_GET_DATA, {
               firstname: user.data.firstname,
               hadSubscription: user.data.hadSubscription,
               isSubscriptionExpired: user.team && user.team.state === 'expired' && !user.team.userHasDowngraded,
@@ -48,14 +51,14 @@ export default function initPlanSelection(stores, actions) {
             });
           });
 
-          ipcRenderer.on(PLAN_SELECTION_TRIGGER_ACTION, (event, action, data) => {
+          ipcRenderer.on(PLAN_SELECTION_TRIGGER_ACTION, (event, senderId, action, data) => {
             if (action === ACTIONS.UPGRADE_ACCOUNT) {
               debug('upgrade account');
               actions.payment.upgradeAccount({
                 planId: data.planId,
-                overrideParent: event.senderId,
+                overrideParent: senderId,
                 onCloseWindow: async () => {
-                  const planSelectionWindow = BrowserWindow.fromWebContents(webContents.fromId(event.senderId));
+                  const planSelectionWindow = BrowserWindow.fromWebContents(webContents.fromId(senderId));
 
                   await user.getUserInfoRequest._promise;
 

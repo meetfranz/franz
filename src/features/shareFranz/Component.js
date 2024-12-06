@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-import injectSheet from 'react-jss';
-import { defineMessages, intlShape } from 'react-intl';
 import { Button } from '@meetfranz/forms';
 import { H1, Icon } from '@meetfranz/ui';
+import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
+import { defineMessages, intlShape } from 'react-intl';
+import injectSheet from 'react-jss';
 
 import {
-  mdiHeart, mdiEmail, mdiFacebookBox, mdiTwitter, mdiLinkedinBox, mdiClose,
+  mdiClose,
+  mdiEmail, mdiFacebookBox,
+  mdiHeart,
+  mdiLinkedinBox,
+  mdiTwitter,
 } from '@mdi/js';
 import { ipcRenderer } from 'electron';
 import { state } from '.';
+import { RELAY_MESSAGE, SHARE_FRANZ_GET_SERVICE_COUNT } from '../../ipcChannels';
 import { gaEvent } from '../../lib/analytics';
-import { DEFAULT_WEB_CONTENTS_ID } from '../../config';
-import { SHARE_FRANZ_GET_SERVICE_COUNT } from '../../ipcChannels';
-import service from '../../actions/service';
 
 const messages = defineMessages({
   headline: {
@@ -120,10 +122,10 @@ export default @injectSheet(styles) @observer class ShareFranzModal extends Comp
   }
 
   componentDidMount() {
-    ipcRenderer.on(SHARE_FRANZ_GET_SERVICE_COUNT, (event, { serviceCount }) => {
+    ipcRenderer.on(SHARE_FRANZ_GET_SERVICE_COUNT, (event, senderId, { serviceCount }) => {
       this.setState({ serviceCount });
     });
-    ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SHARE_FRANZ_GET_SERVICE_COUNT);
+    ipcRenderer.send(RELAY_MESSAGE, SHARE_FRANZ_GET_SERVICE_COUNT);
   }
 
   close() {
