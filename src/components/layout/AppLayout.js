@@ -1,27 +1,24 @@
-import React, { Component } from 'react';
+import { PropTypes as MobxPropTypes, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
-import InfoBar from '../ui/InfoBar';
 import { Component as DelayApp } from '../../features/delayApp';
+import InfoBar from '../ui/InfoBar';
 import ErrorBoundary from '../util/ErrorBoundary';
 
-import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
-import AppUpdateInfoBar from '../AppUpdateInfoBar';
-import TrialActivationInfoBar from '../TrialActivationInfoBar';
+import { isMac } from '../../environment';
+import AppMenuBar from '../../features/appMenu';
 import Todos from '../../features/todos/containers/TodosScreen';
 import TrialStatusBar from '../../features/trialStatusBar/containers/TrialStatusBarScreen';
 import WebControlsScreen from '../../features/webControls/containers/WebControlsScreen';
-import Service from '../../models/Service';
 import { workspaceStore } from '../../features/workspaces';
-import AppMenuBar from '../../features/appMenu';
-import { isMac } from '../../environment';
-
-function createMarkup(HTMLString) {
-  return { __html: HTMLString };
-}
+import WorkspaceSwitchingIndicator from '../../features/workspaces/components/WorkspaceSwitchingIndicator';
+import Service from '../../models/Service';
+import AppUpdateInfoBar from '../AppUpdateInfoBar';
+import TrialActivationInfoBar from '../TrialActivationInfoBar';
+import { NewsItem } from '../ui/News';
 
 const messages = defineMessages({
   servicesUpdated: {
@@ -101,6 +98,7 @@ class AppLayout extends Component {
       hasActivatedTrial,
       showWebControls,
       activeService,
+      reloadAfterCountdownEnd,
     } = this.props;
 
     const { intl } = this.context;
@@ -114,23 +112,16 @@ class AppLayout extends Component {
             {sidebar}
             <div className="app__service">
               {news.length > 0 && news.map(item => (
-                <InfoBar
+                <NewsItem
                   key={item.id}
-                  position="top"
+                  id={item.id}
                   type={item.type}
+                  message={item.message}
                   sticky={item.sticky}
-                  onHide={() => removeNewsItem({ newsId: item.id })}
-                >
-                  <span
-                    dangerouslySetInnerHTML={createMarkup(item.message)}
-                    onClick={(event) => {
-                      const { target } = event;
-                      if (target && target.hasAttribute('data-is-news-cta')) {
-                        removeNewsItem({ newsId: item.id });
-                      }
-                    }}
-                  />
-                </InfoBar>
+                  onRemove={() => removeNewsItem({ newsId: item.id })}
+                  meta={item.meta}
+                  onCountdownEnd={reloadAfterCountdownEnd}
+                />
               ))}
               {hasActivatedTrial && (
                 <TrialActivationInfoBar />

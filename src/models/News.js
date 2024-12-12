@@ -5,6 +5,8 @@ export default class News {
 
   message = '';
 
+  meta = {};
+
   type = 'primary';
 
   sticky = false;
@@ -16,6 +18,7 @@ export default class News {
 
     this.id = data.id;
     this.message = data.message || this.message;
+    this.meta = data.meta || this.meta;
     this.type = data.type || this.type;
     this.sticky = data.sticky !== undefined ? data.sticky : this.sticky;
   }

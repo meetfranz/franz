@@ -1,31 +1,31 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { ThemeProvider } from 'react-jss';
 
 import AppStore from '../../stores/AppStore';
-import RecipesStore from '../../stores/RecipesStore';
-import ServicesStore from '../../stores/ServicesStore';
 import FeaturesStore from '../../stores/FeaturesStore';
-import UIStore from '../../stores/UIStore';
-import NewsStore from '../../stores/NewsStore';
-import SettingsStore from '../../stores/SettingsStore';
-import UserStore from '../../stores/UserStore';
-import RequestStore from '../../stores/RequestStore';
 import GlobalErrorStore from '../../stores/GlobalErrorStore';
+import NewsStore from '../../stores/NewsStore';
+import RecipesStore from '../../stores/RecipesStore';
+import RequestStore from '../../stores/RequestStore';
+import ServicesStore from '../../stores/ServicesStore';
+import SettingsStore from '../../stores/SettingsStore';
+import UIStore from '../../stores/UIStore';
+import UserStore from '../../stores/UserStore';
 
-import { oneOrManyChildElements } from '../../prop-types';
 import AppLayout from '../../components/layout/AppLayout';
 import Sidebar from '../../components/layout/Sidebar';
 import Services from '../../components/services/content/Services';
 import AppLoader from '../../components/ui/AppLoader';
+import { oneOrManyChildElements } from '../../prop-types';
 
 import { state as delayAppState } from '../../features/delayApp';
+import { CUSTOM_WEBSITE_ID } from '../../features/webControls/constants';
+import { workspaceStore } from '../../features/workspaces';
 import { workspaceActions } from '../../features/workspaces/actions';
 import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawer';
-import { workspaceStore } from '../../features/workspaces';
 import WorkspacesStore from '../../features/workspaces/store';
-import { CUSTOM_WEBSITE_ID } from '../../features/webControls/constants';
 
 export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
   static defaultProps = {
@@ -151,6 +151,11 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           hasActivatedTrial={user.hasActivatedTrial}
           showWebControls={services.active?.recipe.id === CUSTOM_WEBSITE_ID}
           activeService={services.active}
+          reloadAfterCountdownEnd={() => {
+            user.getUserInfoRequest.invalidate({ immediately: true });
+            features.featuresRequest.invalidate({ immediately: true });
+            news.latestNewsRequest.invalidate({ immediately: true });
+          }}
         >
           {React.Children.count(children) > 0 ? children : null}
         </AppLayout>
