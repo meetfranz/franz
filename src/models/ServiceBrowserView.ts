@@ -158,7 +158,7 @@ export class ServiceBrowserView {
         width: true,
         height: true,
       });
-      this.view.setBackgroundColor('black');
+      this.view.setBackgroundColor('white');
 
       this.isAttached = true;
     }
