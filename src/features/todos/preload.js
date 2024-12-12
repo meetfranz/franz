@@ -22,11 +22,11 @@ ipcRenderer.send('hello');
 window.franz = {
   onInitialize(ipcHostMessageListener) {
     hostMessageListener = ipcHostMessageListener;
-    ipcRenderer.sendTo(1, IPC.TODOS_CLIENT_CHANNEL, { action: 'todos:initialized' });
+    ipcRenderer.send(IPC.TODOS_CLIENT_CHANNEL, { action: 'todos:initialized' });
   },
   sendToHost(message) {
     console.log('send to host', message);
-    ipcRenderer.sendTo(1, IPC.TODOS_CLIENT_CHANNEL, message);
+    ipcRenderer.send(IPC.TODOS_CLIENT_CHANNEL, message);
   },
 };
 

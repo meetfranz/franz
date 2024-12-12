@@ -1,27 +1,30 @@
-import { ipcRenderer } from 'electron';
 import { ThemeType } from '@meetfranz/theme';
+import { ipcRenderer } from 'electron';
 import {
-  computed,
   action,
+  computed,
   observable,
 } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import { webContents } from '@electron/remote';
 import ms from 'ms';
-import { todoActions } from './actions';
-import { FeatureStore } from '../utils/FeatureStore';
-import { createReactions } from '../../stores/lib/Reaction';
-import { createActionBindings } from '../utils/ActionBinding';
 import {
-  DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH, DEFAULT_TODOS_VISIBLE, TODOS_ROUTES, DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+  DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+  DEFAULT_TODOS_VISIBLE,
+  DEFAULT_TODOS_WIDTH, TODOS_MIN_WIDTH,
+  TODOS_ROUTES,
 } from '.';
-import { IPC } from './constants';
-import { state as delayAppState } from '../delayApp';
+import { sleep } from '../../helpers/async-helpers';
 import {
   RESIZE_TODO_VIEW, TODOS_FETCH_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS,
 } from '../../ipcChannels';
-import { sleep } from '../../helpers/async-helpers';
+import { createReactions } from '../../stores/lib/Reaction';
+import { state as delayAppState } from '../delayApp';
+import { createActionBindings } from '../utils/ActionBinding';
+import { FeatureStore } from '../utils/FeatureStore';
+import { todoActions } from './actions';
+import { IPC } from './constants';
 
 const debug = require('debug')('Franz:feature:todos:store');
 
@@ -161,7 +164,7 @@ export default class TodoStore extends FeatureStore {
   @action _handleHostMessage = (e, message) => {
     debug('_handleHostMessage', message, message.action === 'todos:create', e);
     if (message.action === 'todos:create') {
-      this.webContents.send(IPC.TODOS_HOST_CHANNEL, message);
+      ipcRenderer.send(IPC.TODOS_HOST_CHANNEL, message);
     } else if (message.action === 'setWebContentsId') {
       this.webContentsId = e.senderId;
     }
@@ -172,7 +175,6 @@ export default class TodoStore extends FeatureStore {
     switch (message.action) {
       case 'todos:initialized': this._onTodosClientInitialized(); break;
       case 'todos:goToService': this._goToService(message.data); break;
-      // case 'todos:create': this._goToService(message.data); break;
       default:
         debug('Other message received', channel, message);
         if (this.stores.services.isTodosServiceAdded) {
@@ -196,11 +198,7 @@ export default class TodoStore extends FeatureStore {
   _toggleDevTools = () => {
     debug('_toggleDevTools');
 
-    if (this.webContents.isDevToolsOpened()) {
-      this.webContents.closeDevTools();
-    } else {
-      this.webContents.openDevTools({ mode: 'detach' });
-    }
+    ipcRenderer.send(IPC.TODOS_HOST_CHANNEL, { action: 'todos:toggleDevTools' });
   }
 
   _reload = () => {
@@ -218,7 +216,7 @@ export default class TodoStore extends FeatureStore {
     const { locale } = this.stores.app;
     if (!this.webContents) return;
     await sleep(ms('2s'));
-    await this.webContents.send(IPC.TODOS_HOST_CHANNEL, {
+    await ipcRenderer.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
       data: {
         authToken,

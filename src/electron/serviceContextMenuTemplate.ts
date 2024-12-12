@@ -1,5 +1,10 @@
 import {
-  clipboard, nativeImage, shell, webContents,
+  clipboard,
+  ContextMenuParams,
+  nativeImage,
+  shell,
+  webContents,
+  WebContents,
 } from 'electron';
 import fetch from 'electron-fetch';
 import { DEFAULT_WEB_CONTENTS_ID } from '../config';
@@ -19,17 +24,33 @@ function delUnusedElements(menuTpl) {
 }
 
 export const buildMenuTpl = ({
-  serviceId, webContents: contents, props, suggestions, isSpellcheckEnabled, defaultSpellcheckerLanguage, spellcheckerLanguage, onUpdateSpellcheckerLanguage,
+  serviceId,
+  webContents: contents,
+  props,
+  suggestions,
+  isSpellcheckEnabled,
+  defaultSpellcheckerLanguage,
+  spellcheckerLanguage,
+  onUpdateSpellcheckerLanguage,
+}: {
+  serviceId: string,
+  webContents: WebContents,
+  props: ContextMenuParams,
+  suggestions: string[],
+  isSpellcheckEnabled: boolean,
+  defaultSpellcheckerLanguage: string,
+  spellcheckerLanguage: string,
+  onUpdateSpellcheckerLanguage: (lang: string) => void,
 }) => {
   const { editFlags } = props;
   const textSelection = props.selectionText.trim();
   const hasText = textSelection.length > 0;
   const can = type => editFlags[`can${type}`] && hasText;
 
-  const canGoBack = contents.canGoBack();
-  const canGoForward = contents.canGoForward();
+  const canGoBack = contents.navigationHistory.canGoBack();
+  const canGoForward = contents.navigationHistory.canGoForward();
 
-  let menuTpl = [
+  let menuTpl: any = [
     {
       type: 'separator',
     }, {
@@ -38,7 +59,6 @@ export const buildMenuTpl = ({
       visible: hasText,
       click() {
         debug('Create todo from selected text', textSelection);
-        console.log('wc', contents.getURL());
         webContents.fromId(DEFAULT_WEB_CONTENTS_ID).send(IPC.TODOS_HOST_CHANNEL, {
           action: 'todos:create',
           data: {

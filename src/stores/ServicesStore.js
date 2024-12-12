@@ -680,7 +680,7 @@ export default class ServicesStore extends Store {
   @action _openDevTools({ serviceId }) {
     const service = this.one(serviceId);
     if (service.recipe.id === TODOS_RECIPE_ID) {
-      this.actions.todos.openDevTools();
+      this.actions.todos.toggleDevTools();
     } else {
       ipcRenderer.send(OPEN_SERVICE_DEV_TOOLS, { serviceId });
     }
