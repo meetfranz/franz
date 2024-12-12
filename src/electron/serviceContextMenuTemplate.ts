@@ -11,6 +11,7 @@ import { DEFAULT_WEB_CONTENTS_ID } from '../config';
 import { isDevMode, isMac } from '../environment';
 import { IPC } from '../features/todos/constants';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import { downloadFile } from '../lib/download';
 
 const debug = require('debug')('Franz:feature:serviceContextMenu');
 
@@ -211,6 +212,14 @@ export const buildMenuTpl = ({
           reader.onloadend = () => {
             const base64data = reader.result;
 
+            downloadFile({
+              content: base64data,
+              webContents: contents,
+              fileOptions: {
+                name: fileName,
+                mime: blob.type,
+              },
+            });
             contents.send('download-file', {
               content: base64data,
               fileOptions: {
@@ -222,6 +231,10 @@ export const buildMenuTpl = ({
           debug('binary string', blob);
         } else {
           contents.send('download-file', { url: props.srcURL });
+          downloadFile({
+            url: props.srcURL,
+            webContents: contents,
+          });
         }
       },
     }, {
