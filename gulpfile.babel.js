@@ -1,15 +1,15 @@
 /* eslint max-len: 0 */
-import gulp from 'gulp';
-import babel from 'gulp-babel';
-import server from 'gulp-server-livereload';
 import { exec } from 'child_process';
 import dotenv from 'dotenv';
-import sassVariables from 'gulp-sass-variables';
 import { removeSync } from 'fs-extra';
-import kebabCase from 'kebab-case';
-import hexRgb from 'hex-rgb';
-import ts from 'gulp-typescript';
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import sassVariables from 'gulp-sass-variables';
+import server from 'gulp-server-livereload';
 import terser from 'gulp-terser';
+import ts from 'gulp-typescript';
+import hexRgb from 'hex-rgb';
+import kebabCase from 'kebab-case';
 
 import config from './package.json';
 

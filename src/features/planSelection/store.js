@@ -1,12 +1,12 @@
 import {
   action,
-  observable,
   computed,
+  observable,
 } from 'mobx';
 
-import { planSelectionActions } from './actions';
-import { FeatureStore } from '../utils/FeatureStore';
 import { createActionBindings } from '../utils/ActionBinding';
+import { FeatureStore } from '../utils/FeatureStore';
+import { planSelectionActions } from './actions';
 import { downgradeUserRequest } from './api';
 
 const debug = require('debug')('Franz:feature:planSelection:store');

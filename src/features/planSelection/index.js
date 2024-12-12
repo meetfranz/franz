@@ -32,11 +32,7 @@ export default function initPlanSelection(stores, actions) {
 
         debug('plan selection, show overlay');
 
-        if (planSelectionStore.isFeatureActive && planSelectionStore.showPlanSelectionOverlay) {
-          ipcRenderer.invoke(OVERLAY_OPEN, {
-            route: '/plan-selection', modal: true,
-          });
-
+        if (planSelectionStore.isFeatureActive) {
           ipcRenderer.on(PLAN_SELECTION_GET_DATA, () => {
             debug('requesting data');
             ipcRenderer.send(RELAY_MESSAGE, PLAN_SELECTION_GET_DATA, {
@@ -83,6 +79,19 @@ export default function initPlanSelection(stores, actions) {
       }
     },
     {
+      fireImmediately: true,
+    },
+  );
+
+  reaction(
+    () => planSelectionStore.isFeatureActive && planSelectionStore.showPlanSelectionOverlay,
+    (showPlanSelectionOverlay) => {
+      if (showPlanSelectionOverlay) {
+        ipcRenderer.invoke(OVERLAY_OPEN, {
+          route: '/plan-selection', modal: true,
+        });
+      }
+    }, {
       fireImmediately: true,
     },
   );
