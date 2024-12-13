@@ -39,7 +39,6 @@
     "@babel/runtime": "7.4.5",
     "@electron/remote": "2.1.2",
     "@mdi/js": "4.2.95",
-    "@meetfranz/electron-cookies": "3.0.2",
     "@meetfranz/forms": "file:packages/forms",
     "@meetfranz/theme": "file:packages/theme",
     "@meetfranz/ui": "file:packages/ui",
