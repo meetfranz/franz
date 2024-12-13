@@ -127,7 +127,7 @@
     "cz-conventional-changelog": "2.1.0",
     "dotenv": "^4.0.0",
     "electron": "33.3.0",
-    "electron-builder": "24.9.1",
+    "electron-builder": "25.1.8",
     "electron-notarize": "1.0.0",
     "electron-rebuild": "3.2.9",
     "eslint": "8.10.0",
