@@ -46,10 +46,12 @@ const styles = theme => ({
     flexWrap: 'wrap',
     marginTop: 20,
     overflow: 'scroll',
+    gap: '5%',
   },
   cta: {
     width: '100%',
     marginTop: 40,
+    whiteSpace: 'nowrap',
   },
   cancelCta: {
     marginTop: 15,
