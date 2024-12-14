@@ -24,9 +24,11 @@ function getDisplayMedia() {
       width: 600,
     });
 
-    if (overlayAction === 'closed') {
-      reject(new Error('Source selection canceled'));
-    }
+    setTimeout(() => {
+      if (overlayAction === 'closed') {
+        reject(new Error('Source selection canceled'));
+      }
+    }, 250);
   });
 }
 
