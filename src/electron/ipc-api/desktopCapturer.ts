@@ -9,6 +9,7 @@ export default async () => {
       const sources = await desktopCapturer.getSources({
         types: ['window', 'screen'],
         fetchWindowIcons: true,
+        thumbnailSize: { width: 1920, height: 1080 },
       });
       debug('Available sources', sources);
       return sources.map((source) => {
