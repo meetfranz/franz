@@ -64,6 +64,7 @@ class AppLayout extends Component {
     hasActivatedTrial: PropTypes.bool.isRequired,
     showWebControls: PropTypes.bool.isRequired,
     activeService: PropTypes.instanceOf(Service),
+    reloadAfterCountdownEnd: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
