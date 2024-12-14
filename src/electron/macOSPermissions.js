@@ -1,7 +1,7 @@
-import { app, systemPreferences, dialog } from 'electron';
-import { askForScreenCaptureAccess } from 'node-mac-permissions';
+import { app, dialog, systemPreferences } from 'electron';
 import fs from 'fs';
 import macosVersion from 'macos-version';
+import { askForScreenCaptureAccess } from 'node-mac-permissions';
 import path from 'path';
 
 const debug = require('debug')('Franz:macOSPermissions');
@@ -69,7 +69,7 @@ export default async function (mainWindow) {
 
     if (response === 0) {
       debug('Asking for access');
-      askForScreenCaptureAccess();
+      askForScreenCaptureAccess(true);
       createStatusFile();
     } else if (response === 1) {
       debug('Don\'t ask again');
