@@ -29,7 +29,7 @@
     "buildPackges": "npx lerna run build",
     "packages": "npx lerna publish --no-git-tag-version",
     "uidev": "cd uidev && webpack-dev-server",
-    "postinstall": "npx lerna run prepare && node ./build-helpers/ensure-mac-dependency.js"
+    "postinstall": "npx lerna run prepare"
   },
   "keywords": [],
   "author": "Stefan Malzner <stefan@adlk.io>",
