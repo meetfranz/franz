@@ -3,14 +3,14 @@
 .theme__dark {
   .services {
     background: $dark-theme-gray-darkest;
-
+  
     .services__webview-wrapper { background: $dark-theme-gray-darkest; }
   }
 
   .services__no-service,
   .services__info-layer {
     background: $dark-theme-gray-darkest;
-
+  
     h1 { color: $dark-theme-gray-lightest; }
   }
 }
@@ -38,7 +38,7 @@
   text-align: center;
 
   h1 {
-    color: white;
+    color: $theme-gray-dark;
     margin: 25px 0 40px;
   }
 
