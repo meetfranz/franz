@@ -1,11 +1,11 @@
-import { action, observable, computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import { ipcRenderer } from 'electron';
-import Store from './lib/Store';
+import { OVERLAY_OPEN } from '../ipcChannels';
+import { gaEvent } from '../lib/analytics';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
-import { gaEvent } from '../lib/analytics';
-import { OVERLAY_OPEN } from '../ipcChannels';
+import Store from './lib/Store';
 
 export default class PaymentStore extends Store {
   @observable plansRequest = new CachedRequest(this.api.payment, 'plans');
