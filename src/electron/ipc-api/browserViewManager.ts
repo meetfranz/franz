@@ -289,7 +289,7 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
   ipcMain.on(IPC.TODOS_CLIENT_CHANNEL, (event, data) => {
     debug('Received client IPC message from Todos', data);
 
-    mainWindow.webContents.send(IPC.TODOS_CLIENT_CHANNEL, data);
+    mainWindow?.webContents.send(IPC.TODOS_CLIENT_CHANNEL, data);
   });
 
   ipcMain.on(IPC.TODOS_HOST_CHANNEL, (event, data) => {
@@ -298,10 +298,10 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
 
     if (data.action === 'todos:toggleDevTools') {
       if (todosService) {
-        todosService.webContents.toggleDevTools();
+        todosService?.webContents.toggleDevTools();
       }
     } else {
-      todosService.webContents.send(IPC.TODOS_HOST_CHANNEL, data);
+      todosService?.webContents.send(IPC.TODOS_HOST_CHANNEL, data);
     }
   });
 
