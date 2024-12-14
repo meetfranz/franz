@@ -3,7 +3,7 @@ import { H1 } from '@meetfranz/ui';
 import { ipcRenderer } from 'electron';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
@@ -35,6 +35,7 @@ const styles = theme => ({
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
+    background: theme.colorBackground,
     padding: 40,
   },
   headline: {
