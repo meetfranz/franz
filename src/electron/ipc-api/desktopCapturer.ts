@@ -1,7 +1,7 @@
-import { ipcMain, desktopCapturer, webContents } from 'electron';
+import { desktopCapturer, ipcMain, webContents } from 'electron';
 import { RELAY_DESKTOP_CAPTURER_SOURCES_IPC_KEY, REQUEST_DESKTOP_CAPTURER_SOURCES_IPC_KEY, SET_DESKTOP_CAPTURER_SOURCES_IPC_KEY } from '../../features/desktopCapturer/config';
 
-// const debug = require('debug')('Franz:ipcApi:desktopCapturer');
+const debug = require('debug')('Franz:ipcApi:desktopCapturer');
 
 export default async () => {
   ipcMain.handle(REQUEST_DESKTOP_CAPTURER_SOURCES_IPC_KEY, async () => {
@@ -10,7 +10,7 @@ export default async () => {
         types: ['window', 'screen'],
         fetchWindowIcons: true,
       });
-      // debug('Available sources', sources);
+      debug('Available sources', sources);
       return sources.map((source) => {
         const thumbnail = source.thumbnail ? source.thumbnail.toDataURL() : null;
         const appIcon = source.appIcon ? source.appIcon.toDataURL() : null;
