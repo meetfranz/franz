@@ -48,4 +48,6 @@ exports.default = function () {
       }
     }
   });
+
+  return true;
 };
