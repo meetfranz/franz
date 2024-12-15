@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { Field } from 'mobx-react-form';
-import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { Component, Fragment } from 'react';
 import Dropzone from 'react-dropzone';
 
 export default @observer class ImageUpload extends Component {
@@ -21,6 +21,7 @@ export default @observer class ImageUpload extends Component {
 
   state = {
     path: null,
+    image: null,
   }
 
   dropzoneRef = null;
@@ -28,10 +29,32 @@ export default @observer class ImageUpload extends Component {
   onDrop(acceptedFiles) {
     const { field } = this.props;
 
+    console.log('acceptedFiles', acceptedFiles);
+
     acceptedFiles.forEach((file) => {
-      this.setState({
-        path: file.path,
-      });
+      if (file) {
+        const reader = new FileReader();
+
+        // When the file reader is done, this function runs
+        reader.onloadend = () => {
+          // `reader.result` is something like: "data:image/png;base64,iVBORw0K..."
+          const base64Data = reader.result;
+
+          // If you need just the base64 portion without the data URL prefix:
+          // const base64String = base64Data.split(',')[1];
+
+          console.log('Base64 Image:', base64Data);
+
+          this.setState({
+            image: base64Data,
+          });
+          // Now you can use `base64Data` (or `base64String`) as needed.
+        };
+
+        // Read the file as a Data URL
+        reader.readAsDataURL(file);
+      }
+
       this.props.field.onDrop(file);
     });
 
@@ -52,16 +75,18 @@ export default @observer class ImageUpload extends Component {
       [`${className}`]: className,
     });
 
+    console.log('state', this.state);
+
     return (
       <div className="image-upload-wrapper">
         <label className="franz-form__label" htmlFor="iconUpload">{field.label}</label>
         <div className="image-upload">
-          {(field.value && field.value !== 'delete') || this.state.path ? (
+          {(field.value && field.value !== 'delete') || this.state.image ? (
             <Fragment>
               <div
                 className="image-upload__preview"
                 style={({
-                  backgroundImage: `url("${this.state.path || field.value}")`,
+                  backgroundImage: `url("${this.state.image || field.value}")`,
                 })}
               />
               <div className="image-upload__action">
@@ -72,7 +97,7 @@ export default @observer class ImageUpload extends Component {
                       field.set('delete');
                     } else {
                       this.setState({
-                        path: null,
+                        image: null,
                       });
                     }
                   }}
