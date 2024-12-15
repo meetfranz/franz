@@ -23,6 +23,7 @@ jobs:
               out/*.mac.zip.blockmap
               out/latest-mac.yml
             CSC_LINK: CSC_LINK_MAC
+            APPLE_TEAM_ID: TAC9P63ANZ
 
           - platform: ubuntu
             os: ubuntu-latest
