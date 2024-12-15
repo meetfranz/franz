@@ -30,7 +30,7 @@ import { sleep } from '../helpers/async-helpers';
 import { getServiceIdsFromPartitions, removeServicePartitionDirectory } from '../helpers/service-helpers.js';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import {
-  CHECK_FOR_UPDATE, CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, RELOAD_APP, WINDOWS_TITLEBAR_FETCH_MENU,
+  CHECK_MACOS_PERMISSIONS, FETCH_DEBUG_INFO, OVERLAY_SHARE_SETTINGS, RELOAD_APP, WINDOWS_TITLEBAR_FETCH_MENU
 } from '../ipcChannels';
 
 const debug = require('debug')('Franz:AppStore');
@@ -178,10 +178,6 @@ export default class AppStore extends Store {
 
     ipcRenderer.on(FETCH_DEBUG_INFO, (e) => {
       ipcRenderer.sendTo(e.senderId, FETCH_DEBUG_INFO, JSON.parse(JSON.stringify(this.debugInfo)));
-    });
-
-    ipcRenderer.on(CHECK_FOR_UPDATE, () => {
-      this._checkForUpdates();
     });
 
     // Handle deep linking (franz://)
