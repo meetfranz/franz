@@ -51,6 +51,17 @@ jobs:
           node-version: 16.14.0
           cache: "npm"
 
+      - name: Set up Python (mac only)
+        if: matrix.platform == 'mac'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Upgrade pip and install setuptools/wheel (mac only)
+        if: matrix.platform == 'mac'
+        run: |
+          python3 -m pip install --upgrade pip setuptools wheel
+
       - name: Install dependencies
         run: |
           npm i -g lerna@3.8
