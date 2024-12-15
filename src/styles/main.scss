@@ -3,6 +3,10 @@ $mdi-font-path: '../node_modules/mdi/fonts';
   $mdi-font-path: '../../node_modules/mdi/fonts';
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import './node_modules/mdi/scss/materialdesignicons.scss';
 
 // modules
