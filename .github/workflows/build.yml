@@ -3,8 +3,8 @@ name: Build/release
 on: push
 
 env:
-  APPLEID: ${{ secrets.APPLEID }}
-  APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+  APPLE_ID: ${{ secrets.APPLEID }}
+  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 
