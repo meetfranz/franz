@@ -3,8 +3,8 @@ name: Build/release
 on: push
 
 env:
-  APPLEID: ${{ secrets.APPLEID }}
-  APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+  APPLE_ID: ${{ secrets.APPLEID }}
+  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 
@@ -23,6 +23,7 @@ jobs:
               out/*.mac.zip.blockmap
               out/latest-mac.yml
             CSC_LINK: CSC_LINK_MAC
+            APPLE_TEAM_ID: TAC9P63ANZ
 
           - platform: ubuntu
             os: ubuntu-latest
@@ -51,6 +52,17 @@ jobs:
           node-version: 16.14.0
           cache: "npm"
 
+      - name: Set up Python (mac only)
+        if: matrix.platform == 'mac'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Upgrade pip and install setuptools/wheel (mac only)
+        if: matrix.platform == 'mac'
+        run: |
+          python3 -m pip install --upgrade pip setuptools wheel
+
       - name: Install dependencies
         run: |
           npm i -g lerna@3.8
@@ -60,7 +72,7 @@ jobs:
         run: npm run build
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.platform }}
           path: ${{ matrix.artifactPath }}

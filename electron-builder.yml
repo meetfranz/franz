@@ -9,8 +9,6 @@ compression: maximum
 mac:
   category: public.app-category.productivity
   icon: ./build-helpers/images/icon.icns
-  notarize:
-    teamId: TAC9P63ANZ
   target:
     target: default
     arch:
@@ -61,5 +59,6 @@ protocols:
   schemes: [franz]
 
 asarUnpack:
-  - ./node_modules/mac-screen-capture-permissions
   - ./assets/images/taskbar
+
+beforeBuild: ./build-helpers/ensure-mac-dependency.js

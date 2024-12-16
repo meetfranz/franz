@@ -61,7 +61,9 @@ import { openOverlay } from './electron/ipc-api/overlayWindow';
 import { asarPath } from './helpers/asar-helpers';
 import { isValidExternalURL } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
-import { darkThemeGrayDarker, themeGrayLightest, windowsTitleBarHeight } from './theme/default/legacy';
+import {
+  darkThemeGrayDarker, darkThemeGrayDarkest, themeGrayLightest, windowsTitleBarHeight
+} from './theme/default/legacy';
 
 /* eslint-enable import/first */
 const debug = require('debug')('Franz:App');
@@ -184,7 +186,7 @@ const createWindow = () => {
     minWidth: 600,
     minHeight: 500,
     frame: !isMac,
-    backgroundColor: !settings.get('darkMode') ? '#3498db' : '#1E1E1E',
+    backgroundColor: !settings.get('darkMode') ? themeGrayLightest : darkThemeGrayDarkest,
     titleBarStyle: 'hidden',
     autoHideMenuBar: true,
     titleBarOverlay: {

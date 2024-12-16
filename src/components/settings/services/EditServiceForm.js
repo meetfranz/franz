@@ -1,25 +1,25 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router';
-import { defineMessages, intlShape } from 'react-intl';
 import normalizeUrl from 'normalize-url';
+import PropTypes from 'prop-types';
+import { Component, Fragment } from 'react';
+import { defineMessages, intlShape } from 'react-intl';
+import { Link } from 'react-router';
 
 import Form from '../../../lib/Form';
-import User from '../../../models/User';
 import Recipe from '../../../models/Recipe';
 import Service from '../../../models/Service';
-import Tabs, { TabItem } from '../../ui/Tabs';
-import Input from '../../ui/Input';
-import Toggle from '../../ui/Toggle';
+import User from '../../../models/User';
 import Button from '../../ui/Button';
 import ImageUpload from '../../ui/ImageUpload';
+import Input from '../../ui/Input';
 import Select from '../../ui/Select';
+import Tabs, { TabItem } from '../../ui/Tabs';
+import Toggle from '../../ui/Toggle';
 
-import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
-import LimitReachedInfobox from '../../../features/serviceLimit/components/LimitReachedInfobox';
-import { serviceLimitStore } from '../../../features/serviceLimit';
 import { isMac } from '../../../environment';
+import { serviceLimitStore } from '../../../features/serviceLimit';
+import LimitReachedInfobox from '../../../features/serviceLimit/components/LimitReachedInfobox';
+import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 
 const messages = defineMessages({
   saveService: {
@@ -160,7 +160,7 @@ export default @observer class EditServiceForm extends Component {
         const values = form.values();
         let isValid = true;
 
-        const files = form.$('customIcon').files;
+        const { files } = form.$('customIcon');
         if (files) {
           values.iconFile = files[0];
         }

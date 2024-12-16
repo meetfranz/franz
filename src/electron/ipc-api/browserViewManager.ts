@@ -1,5 +1,6 @@
 import { BrowserWindow, Rectangle, ipcMain } from 'electron';
 import { TODOS_RECIPE_ID } from '../../config';
+import { IPC } from '../../features/todos/constants';
 import { loadRecipeConfig } from '../../helpers/recipe-helpers';
 import {
   GET_ACTIVE_SERVICE_WEB_CONTENTS_ID,
@@ -283,6 +284,25 @@ export default async ({ mainWindow, settings: { app: settings } }: { mainWindow:
     const webContentsId = browserViews.find(bw => bw.browserView.isActive)?.browserView.webContents.id;
 
     return webContentsId;
+  });
+
+  ipcMain.on(IPC.TODOS_CLIENT_CHANNEL, (event, data) => {
+    debug('Received client IPC message from Todos', data);
+
+    mainWindow?.webContents.send(IPC.TODOS_CLIENT_CHANNEL, data);
+  });
+
+  ipcMain.on(IPC.TODOS_HOST_CHANNEL, (event, data) => {
+    debug('Received host IPC message from Todos', data);
+    const todosService = browserViews.find(bw => bw.browserView.isTodos)?.browserView;
+
+    if (data.action === 'todos:toggleDevTools') {
+      if (todosService) {
+        todosService?.webContents.toggleDevTools();
+      }
+    } else {
+      todosService?.webContents.send(IPC.TODOS_HOST_CHANNEL, data);
+    }
   });
 
   ipcMain.on(USER_LOGIN_STATUS, (event, isLoggedIn) => {

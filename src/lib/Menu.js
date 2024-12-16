@@ -1,23 +1,28 @@
-import { shell, clipboard, ipcRenderer } from 'electron';
 import {
-  app, Menu, dialog, webContents, getCurrentWindow,
+  app,
+  dialog,
+  getCurrentWindow,
+  Menu,
+  webContents,
 } from '@electron/remote';
-import { observable, autorun } from 'mobx';
+import { clipboard, ipcRenderer, shell } from 'electron';
+import { autorun, observable } from 'mobx';
 import { defineMessages } from 'react-intl';
 
-import { isMac, ctrlKey, cmdKey } from '../environment';
-import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
-import { workspaceActions } from '../features/workspaces/actions';
-import { gaEvent } from './analytics';
-import { announcementActions } from '../features/announcements/actions';
+import { DEFAULT_WEB_CONTENTS_ID } from '../config';
+import { cmdKey, ctrlKey, isMac } from '../environment';
 import { announcementsStore } from '../features/announcements';
+import { announcementActions } from '../features/announcements/actions';
 import { GA_CATEGORY_TODOS, todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { CUSTOM_WEBSITE_ID } from '../features/webControls/constants';
+import { workspaceActions } from '../features/workspaces/actions';
+import { GA_CATEGORY_WORKSPACES, workspaceStore } from '../features/workspaces/index';
 import {
-  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE, CHECK_FOR_UPDATE, FETCH_DEBUG_INFO, GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, OPEN_SERVICE_DEV_TOOLS, RELOAD_APP, RELOAD_SERVICE, SETTINGS_NAVIGATE_TO, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
+  ACTIVATE_NEXT_SERVICE, ACTIVATE_PREVIOUS_SERVICE, ACTIVATE_SERVICE,
+  GET_ACTIVE_SERVICE_WEB_CONTENTS_ID, OPEN_SERVICE_DEV_TOOLS, RELOAD_APP, RELOAD_SERVICE, SETTINGS_NAVIGATE_TO, TODOS_OPEN_DEV_TOOLS, TODOS_RELOAD, TODOS_TOGGLE_DRAWER, TODOS_TOGGLE_ENABLE_TODOS, TOGGLE_FULL_SCREEN, WORKSPACE_ACTIVATE, WORKSPACE_OPEN_SETTINGS, WORKSPACE_TOGGLE_DRAWER,
 } from '../ipcChannels';
-import { DEFAULT_WEB_CONTENTS_ID } from '../config';
+import { gaEvent } from './analytics';
 
 export const menuItems = defineMessages({
   edit: {
@@ -452,7 +457,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
         label: intl.formatMessage(menuItems.reloadFranz),
         accelerator: `${cmdKey}+Shift+R`,
         click: () => {
-          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
+          window.location.reload();
         },
       },
       {
@@ -493,7 +498,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
       },
       {
         label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal('https://github.com/meetfranz/franz/blob/master/CHANGELOG.md'); },
+        click() { shell.openExternal('https://meetfranz.com/changelog'); },
       },
       {
         type: 'separator',
@@ -519,17 +524,14 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
       {
         label: intl.formatMessage(menuItems.debugInfo),
         click: () => {
-          ipcRenderer.on(FETCH_DEBUG_INFO, (e, data) => {
-            console.log('huhu, debug');
-            clipboard.write({
-              text: JSON.stringify(data),
-            });
-
-            const notification = new window.Notification(intl.formatMessage(menuItems.debugInfoCopiedHeadline), {
-              body: intl.formatMessage(menuItems.debugInfoCopiedBody),
-            });
+          const { debugInfo } = window.franz.stores.app;
+          clipboard.write({
+            text: JSON.stringify(debugInfo, null, 2),
           });
-          ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, FETCH_DEBUG_INFO);
+
+          const notification = new window.Notification(intl.formatMessage(menuItems.debugInfoCopiedHeadline), {
+            body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+          });
         },
       },
     ],
@@ -557,7 +559,7 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
   {
     label: intl.formatMessage(menuItems.checkForUpdates),
     click: () => {
-      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, CHECK_FOR_UPDATE);
+      window.franz.actions.app.checkForUpdates();
     },
   },
   {
@@ -567,14 +569,9 @@ export const _titleBarTemplateFactory = ({ user, intl }) => [
     label: intl.formatMessage(menuItems.settings),
     accelerator: 'CmdOrCtrl+,',
     click: () => {
-      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, SETTINGS_NAVIGATE_TO, {
-        path: 'app',
-      });
+      window.franz.actions.ui.openSettings({ path: 'app' });
     },
     enabled: user.isLoggedIn,
-  },
-  {
-    type: 'separator',
   },
   {
     type: 'separator',
@@ -785,7 +782,8 @@ function serviceMenu({
         && services.length > 0) {
             ipcRenderer.send(RELOAD_SERVICE);
           } else {
-            ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, RELOAD_APP);
+            const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+            contents.send(RELOAD_APP);
           }
         },
       });
@@ -819,7 +817,8 @@ function workspacesMenu({
     label: intl.formatMessage(menuItems.addNewWorkspace),
     accelerator: `${cmdKey}+Shift+N`,
     click: () => {
-      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_OPEN_SETTINGS);
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(WORKSPACE_OPEN_SETTINGS);
     },
     enabled: user.isLoggedIn,
   });
@@ -832,7 +831,8 @@ function workspacesMenu({
     label: intl.formatMessage(drawerLabel),
     accelerator: `${cmdKey}+D`,
     click: () => {
-      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_TOGGLE_DRAWER);
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(WORKSPACE_TOGGLE_DRAWER);
       gaEvent(GA_CATEGORY_WORKSPACES, 'toggleDrawer', 'menu');
     },
     enabled: user.isLoggedIn,
@@ -847,7 +847,8 @@ function workspacesMenu({
     type: 'radio',
     checked: !activeWorkspace,
     click: () => {
-      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE);
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(WORKSPACE_ACTIVATE);
       gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
     },
   });
@@ -860,7 +861,8 @@ function workspacesMenu({
       type: 'radio',
       checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
       click: () => {
-        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, WORKSPACE_ACTIVATE, { workspaceId: workspace.id });
+        const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+        contents.send(WORKSPACE_ACTIVATE, { workspaceId: workspace.id });
         gaEvent(GA_CATEGORY_WORKSPACES, 'switch', 'menu');
       },
     }));
@@ -880,7 +882,9 @@ function todosMenu({
     label: intl.formatMessage(drawerLabel),
     accelerator: `${cmdKey}+T`,
     click: () => {
-      ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, TODOS_TOGGLE_DRAWER);
+      const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+      contents.send(TODOS_TOGGLE_DRAWER);
+
       gaEvent(GA_CATEGORY_TODOS, 'toggleDrawer', 'menu');
     },
     enabled: user.isLoggedIn && isTodosEnabled,
@@ -908,7 +912,8 @@ function todosMenu({
     }, {
       label: intl.formatMessage(menuItems.enableTodos),
       click: () => {
-        ipcRenderer.sendTo(DEFAULT_WEB_CONTENTS_ID, TODOS_TOGGLE_ENABLE_TODOS);
+        const contents = webContents.fromId(DEFAULT_WEB_CONTENTS_ID);
+        contents.send(TODOS_TOGGLE_ENABLE_TODOS);
         gaEvent(GA_CATEGORY_TODOS, 'enable', 'menu');
       },
     });

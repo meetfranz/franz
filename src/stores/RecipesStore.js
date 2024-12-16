@@ -1,9 +1,9 @@
 import { action, computed, observable } from 'mobx';
 
-import Store from './lib/Store';
+import { matchRoute } from '../helpers/routing-helpers';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
-import { matchRoute } from '../helpers/routing-helpers';
+import Store from './lib/Store';
 
 const debug = require('debug')('Franz:RecipeStore');
 
@@ -29,6 +29,10 @@ export default class RecipesStore extends Store {
 
   setup() {
     return this.all;
+  }
+
+  @computed get hasFinishedLoading() {
+    return this.allRecipesRequest.wasExecuted;
   }
 
   @computed get all() {

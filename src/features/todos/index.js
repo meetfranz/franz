@@ -23,11 +23,20 @@ export default function initTodos(stores, actions) {
   stores.todos = todosStore;
   const { features } = stores;
 
-  // Franz todos is now deeply baked into Franz, therefore the recipe is always needed
-  if (!stores.recipes.isInstalled(TODOS_RECIPE_ID)) {
-    console.log('Todos recipe is not installed, installing now...');
-    actions.recipe.install({ recipeId: TODOS_RECIPE_ID });
-  }
+  reaction(
+    () => stores.recipes.hasFinishedLoading,
+    (hasFinishedLoading) => {
+      if (hasFinishedLoading) {
+        if (!stores.recipes.isInstalled(TODOS_RECIPE_ID)) {
+          console.log('Todos recipe is not installed, installing now...');
+          actions.recipe.install({ recipeId: TODOS_RECIPE_ID });
+        }
+      }
+    },
+    {
+      fireImmediately: true,
+    },
+  );
 
   // Toggle todos feature
   reaction(

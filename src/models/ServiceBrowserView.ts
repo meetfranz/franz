@@ -1,5 +1,11 @@
 import {
-  BrowserView, BrowserWindow, BrowserWindowConstructorOptions, ipcMain, Menu, Rectangle, shell,
+  BrowserView,
+  BrowserWindow,
+  BrowserWindowConstructorOptions,
+  ipcMain,
+  Menu,
+  Rectangle,
+  shell,
 } from 'electron';
 import ms from 'ms';
 import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
@@ -12,7 +18,10 @@ import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers'
 import { isValidExternalURL } from '../helpers/url-helpers';
 import userAgent from '../helpers/userAgent-helpers';
 import {
-  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SERVICE_STATE, UPDATE_SPELLCHECKING_LANGUAGE,
+  REQUEST_SERVICE_SPELLCHECKING_LANGUAGE,
+  SERVICE_SPELLCHECKING_LANGUAGE,
+  UPDATE_SERVICE_STATE,
+  UPDATE_SPELLCHECKING_LANGUAGE,
 } from '../ipcChannels';
 import RecipeModel from './Recipe';
 
@@ -93,7 +102,6 @@ export class ServiceBrowserView {
     this.window = window;
     this.settings = settings;
 
-
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const Recipe = require(getRecipeDirectory(this.recipeId))(RecipeModel);
     this.recipe = new Recipe(loadRecipeConfig(this.recipeId));
@@ -150,7 +158,7 @@ export class ServiceBrowserView {
         width: true,
         height: true,
       });
-      this.view.setBackgroundColor('black');
+      this.view.setBackgroundColor('white');
 
       this.isAttached = true;
     }

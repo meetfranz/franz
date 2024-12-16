@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import { mdiDotsVertical } from '@mdi/js';
+import { Icon } from '@meetfranz/ui';
 import { inject, observer } from 'mobx-react';
+import { PropTypes } from 'prop-types';
+import React, { Component } from 'react';
 import { intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
-import { Icon } from '@meetfranz/ui';
-import { mdiDotsVertical } from '@mdi/js';
-import { windowsTitleBarHeight } from '../../theme/default/legacy';
 import { AppMenu } from '../../lib/Menu';
 import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
+import { windowsTitleBarHeight } from '../../theme/default/legacy';
 
 export const APP_MENU_ACKNOWLEDGED_KEY = 'appMenuBarAcknowledged';
 

@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 import injectSheet from 'react-jss';
 
+import { mdiArrowRight } from '@mdi/js';
 import { Button } from '@meetfranz/forms';
 import { Icon } from '@meetfranz/ui';
-import { mdiArrowRight } from '@mdi/js';
 import { gaEvent } from '../../lib/analytics';
 
 // import Button from '../../components/ui/Button';
 
-import { config, store, resetAppDelay } from '.';
-import styles from './styles';
+import { config, resetAppDelay, store } from '.';
 import UserStore from '../../stores/UserStore';
+import styles from './styles';
 
 const messages = defineMessages({
   headline: {
@@ -115,7 +115,12 @@ const messages = defineMessages({
 
       gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
     } else {
-      actions.ui.openSettings({ path: 'user' });
+      actions.payment.upgradeAccount({
+        planId: defaultTrialPlan,
+        onCloseWindow: () => {
+          console.log('onCloseWindow');
+        },
+      });
 
       gaEvent('DelayApp', 'subscribe_click', 'Delay App Feature');
     }

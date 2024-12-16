@@ -23,6 +23,21 @@ export function openOverlay(mainWindow: BrowserWindow, settings: any, args: IArg
     try {
       debug('Got overlay window open request', args);
 
+      let { route } = args;
+      if (eventSenderId) {
+        route = route.replace('{webContentsId}', eventSenderId.toString());
+      }
+
+      const windows = BrowserWindow.getAllWindows();
+      const win = windows.find(window => window.webContents.getURL().endsWith(route));
+
+      if (win) {
+        win.show();
+        win.focus();
+
+        return resolve('show');
+      }
+
       const bounds = mainWindow.getBounds();
 
       let parent = args.modal ? mainWindow : null;
@@ -57,11 +72,6 @@ export function openOverlay(mainWindow: BrowserWindow, settings: any, args: IArg
           window.webContents.openDevTools();
         }
       });
-
-      let { route } = args;
-      if (eventSenderId) {
-        route = route.replace('{webContentsId}', eventSenderId.toString());
-      }
 
       window.loadFile('overlay.html', {
         hash: route,

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import PropTypes from 'prop-types';
+import { inject, observer } from 'mobx-react';
 import ms from 'ms';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { intlShape } from 'react-intl';
 
+import { trialStatusBarStore } from '..';
+import ErrorBoundary from '../../../components/util/ErrorBoundary';
+import { i18nPlanName } from '../../../helpers/plan-helpers';
 import FeaturesStore from '../../../stores/FeaturesStore';
 import UserStore from '../../../stores/UserStore';
 import TrialStatusBar from '../components/TrialStatusBar';
-import ErrorBoundary from '../../../components/util/ErrorBoundary';
-import { trialStatusBarStore } from '..';
-import { i18nPlanName } from '../../../helpers/plan-helpers';
 
 @inject('stores', 'actions') @observer
 class TrialStatusBarScreen extends Component {
@@ -29,7 +29,7 @@ class TrialStatusBarScreen extends Component {
   componentDidMount() {
     this.percentInterval = setInterval(() => {
       this.calculateRestTime();
-    }, ms('1m'));
+    }, ms('10s'));
 
     this.calculateRestTime();
   }
