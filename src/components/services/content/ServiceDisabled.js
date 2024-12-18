@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
 
 import Button from '../../ui/Button';
@@ -39,7 +39,7 @@ export default @observer class ServiceDisabled extends Component {
         <h1>{intl.formatMessage(messages.headline, { name })}</h1>
         <Button
           label={intl.formatMessage(messages.action, { name })}
-          buttonType="inverted"
+          buttonType="primary-inverted"
           onClick={() => enable()}
         />
       </div>

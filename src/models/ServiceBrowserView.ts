@@ -493,7 +493,7 @@ export class ServiceBrowserView {
       this.webContents.insertCSS(`
         body:before {
           background: transparent;
-          height: 30px;
+          height: 20px;
           width: 100%;
           position: absolute;
           content: " ";
