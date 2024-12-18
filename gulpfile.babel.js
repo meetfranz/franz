@@ -11,11 +11,6 @@ import ts from 'gulp-typescript';
 import hexRgb from 'hex-rgb';
 import kebabCase from 'kebab-case';
 
-// Tailwind & PostCSS
-import autoprefixer from 'autoprefixer';
-import postcss from 'gulp-postcss';
-import tailwindcss from 'tailwindcss';
-
 import config from './package.json';
 
 import * as rawStyleConfig from './src/theme/default/legacy.js';
@@ -28,13 +23,7 @@ dotenv.config();
 
 const styleConfig = Object.keys(rawStyleConfig).map((key) => {
   const isHex = /^#[0-9A-F]{6}$/i.test(rawStyleConfig[key]);
-  return ({
-    [`$raw_${kebabCase(key)}`]: isHex
-      ? hexRgb(rawStyleConfig[key], { format: 'array' })
-        .splice(0, 3)
-        .join(',')
-      : rawStyleConfig[key],
-  });
+  return ({ [`$raw_${kebabCase(key)}`]: isHex ? hexRgb(rawStyleConfig[key], { format: 'array' }).splice(0, 3).join(',') : rawStyleConfig[key] });
 });
 
 const paths = {
@@ -56,6 +45,7 @@ const paths = {
     src: 'src/**/*.js',
     dest: 'build/',
     watch: [
+      // 'packages/**/*.js',
       'src/**/*.js',
     ],
   },
@@ -63,11 +53,17 @@ const paths = {
     src: 'src/**/*.ts',
     dest: 'build/',
     watch: [
+      // 'packages/**/*.js',
       'src/**/*.ts',
     ],
   },
   packages: {
     watch: 'packages/**/*',
+    // dest: 'build/',
+    // watch: [
+    //   // 'packages/**/*.js',
+    //   'src/**/*.js',
+    // ],
   },
 };
 
@@ -90,6 +86,7 @@ function _shell(cmd, cb) {
 const clean = (done) => {
   removeSync(paths.tmp);
   removeSync(paths.dest);
+
   done();
 };
 export { clean };
@@ -99,6 +96,7 @@ export function mvSrc() {
     [
       `${paths.src}/*`,
       `${paths.src}/*/**`,
+      `!${paths.scripts.watch[1]}`,
       `!${paths.src}/styles/**`,
       `!${paths.src}/**/*.js`,
       `!${paths.src}/**/*.ts`,
@@ -141,10 +139,6 @@ export function styles() {
         '../node_modules',
       ],
     }).on('error', sass.logError))
-    .pipe(postcss([
-      tailwindcss('./tailwind.config.js'),
-      autoprefixer(),
-    ]))
     .pipe(gulp.dest(paths.styles.dest));
 }
 
@@ -174,6 +168,7 @@ export function watch() {
 
   gulp.watch([
     paths.src,
+    `${paths.scripts.src}`,
     `${paths.scripts.src}`,
     `${paths.styles.src}`,
   ], mvSrc);
