@@ -49,6 +49,11 @@ if (!isDevMode || (isDevMode && useLiveAPI)) {
   todos = DEVELOPMENT_TODOS_FRONTEND_URL;
 }
 
+// test build override
+api = DEV_API;
+web = LOCAL_API_WEBSITE;
+todos = 'https://franz-migration--franz-todos.netlify.app/login';
+
 export const API = api;
 export const API_VERSION = 'v1';
 export const WEBSITE = web;
