@@ -9,7 +9,7 @@ const { app, nativeTheme } = process.type === 'renderer' ? require('@electron/re
 export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
 
 export const LOCAL_API = 'http://localhost:3000';
-export const DEV_API = 'https://dev.franzinfra.com';
+export const DEV_API = 'https://apiv2.franzinfra.com';
 export const LIVE_API = 'https://api.franzinfra.com';
 
 export const LOCAL_WS_API = 'ws://localhost:3000';
