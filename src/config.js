@@ -1,8 +1,8 @@
-import path from 'path';
 import ms from 'ms';
+import path from 'path';
 
-import { asarPath } from './helpers/asar-helpers';
 import { DEFAULT_APP_SETTINGS_VANILLA } from './configVanilla';
+import { asarPath } from './helpers/asar-helpers';
 
 const { app, nativeTheme } = process.type === 'renderer' ? require('@electron/remote') : require('electron');
 
@@ -11,10 +11,6 @@ export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
 export const LOCAL_API = 'http://localhost:3000';
 export const DEV_API = 'https://dev.franzinfra.com';
 export const LIVE_API = 'https://api.franzinfra.com';
-
-export const LOCAL_WS_API = 'ws://localhost:3000';
-export const DEV_WS_API = 'wss://dev.franzinfra.com';
-export const LIVE_WS_API = 'wss://api.franzinfra.com';
 
 export const LOCAL_API_WEBSITE = 'http://localhost:3333';
 // export const DEV_API_WEBSITE = 'https://meetfranz.com';t
