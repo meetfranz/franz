@@ -31,9 +31,7 @@ let api;
 let web;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
   api = LIVE_API;
-  // api = DEV_API;
   web = LIVE_API_WEBSITE;
-  // web = DEV_API_WEBSITE;
 } else if (isDevMode && useLocalAPI) {
   api = LOCAL_API;
   web = LOCAL_API_WEBSITE;
