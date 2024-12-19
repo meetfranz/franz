@@ -96,19 +96,6 @@
     }
   }
 
-  &.franz-form__button--primary-inverted {
-    background: none;
-    border: 2px solid white;
-    color: white;
-    padding: 10px 20px;
-    transition: background .5s, color .5s;
-
-    &:hover {
-      background: darken($theme-brand-primary, 5%);
-      color: #FFF;
-    }
-  }
-
   .loader {
     display: inline-block;
     height: 12px;
