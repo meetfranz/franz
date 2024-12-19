@@ -19,10 +19,6 @@ export const LIVE_API_WEBSITE = 'https://meetfranz.com';
 
 export const STATS_API = 'https://stats.franzinfra.com';
 
-export const LOCAL_TODOS_FRONTEND_URL = 'http://localhost:4000';
-export const PRODUCTION_TODOS_FRONTEND_URL = 'https://app.franztodos.com';
-export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.netlify.com';
-
 export const CDN_URL = 'https://cdn.franzinfra.com';
 
 export const GA_ID_DEV = 'UA-74126766-12';
