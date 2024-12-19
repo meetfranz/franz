@@ -214,7 +214,7 @@ export default class TodoStore extends FeatureStore {
     const { authToken } = this.stores.user;
     const { isDarkThemeActive } = this.stores.ui;
     const { locale } = this.stores.app;
-    if (!this.webContents) return;
+
     await sleep(ms('2s'));
     await ipcRenderer.send(IPC.TODOS_HOST_CHANNEL, {
       action: 'todos:configure',
