@@ -53,8 +53,8 @@ const messages = defineMessages({
     defaultMessage: '!!!Franz is proudly powered by:',
   },
   advertisingDisclaimer: {
-    id: 'feature.delayApp.adDisclaimer',
-    defaultMessage: '!!!Advertising',
+    id: 'feature.delayApp."feature.delayApp.adDisclaimer" : "Ads"',
+    defaultMessage: '!!!Ad',
   },
   poweredByDefaultCTA: {
     id: 'feature.delayApp.poweredByDefaultCTA',

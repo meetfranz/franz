@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "Què ha ocorregut?",
    "connectionLostBanner.message" : "Oh no! Franz ha perdut la connexió amb {name}.",
    "feature.announcements.changelog.headline" : "Canvis en Franz {version}",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Ad",
    "feature.delayApp.continueInText" : "You can continue with Franz in {seconds} seconds.",
    "feature.delayApp.continueWithApp" : "Continua a Franz",
    "feature.delayApp.continuing" : "Continuing Franz",

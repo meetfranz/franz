@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "מה קרה?",
    "connectionLostBanner.message" : "אוי לא! החיבור ל {name} התנתק.",
    "feature.announcements.changelog.headline" : "שינויים בפראנץ [version]",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Ad",
    "feature.delayApp.continueInText" : "תוכל להמשיך עם פראנץ בעוד {} שניות",
    "feature.delayApp.continueWithApp" : "המשך ל Franz",
    "feature.delayApp.continuing" : "המשך בפראנץ",

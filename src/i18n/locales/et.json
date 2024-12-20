@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "Mis juhtus?",
    "connectionLostBanner.message" : "Oh ei! Franz kaotas ühenduse {name} teenusega.",
    "feature.announcements.changelog.headline" : "Franz {versiooni} uuendused",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Ad",
    "feature.delayApp.continueInText" : "You can continue with Franz in {seconds} seconds.",
    "feature.delayApp.continueWithApp" : "Edasi Franz'ini",
    "feature.delayApp.continuing" : "Continuing Franz",

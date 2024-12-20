@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "ماذا حدث؟",
    "connectionLostBanner.message" : "للأسف! فقد Franz الاتصال بـ{name}",
    "feature.announcements.changelog.headline" : "تغيير في فرانز {version}",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Ad",
    "feature.delayApp.continueInText" : "يمكنك المواصلة خلال {seconds} ثانية.",
    "feature.delayApp.continueWithApp" : "المواصلة إلى ‪Franz",
    "feature.delayApp.continuing" : "المتابعة",
