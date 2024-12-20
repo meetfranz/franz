@@ -61,5 +61,3 @@ protocols:
 asarUnpack:
   - ./node_modules/mac-screen-capture-permissions
   - ./assets/images/taskbar
-
-afterSign: ./build-helpers/afterSign.js
