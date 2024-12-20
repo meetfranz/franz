@@ -179,9 +179,6 @@ const messages = defineMessages({
             >
               <div className={classes.poweredByContentContainer}>
                 <img src={store.poweredBy.logo} alt={`${store.poweredBy.name} Logo`} className={classes.poweredByLogo} />
-                {/* <p className={classes.poweredByName}>
-                  {store.poweredBy.name}
-                </p> */}
                 <div className={classes.poweredByContent}>
                   <p className={classes.poweredByDescription}>
                     <strong>{store.poweredBy.name}</strong>
@@ -212,8 +209,7 @@ const messages = defineMessages({
                 type="button"
                 className={classes.skipAds}
                 onClick={() => {
-                  actions.ui.openSettings({ path: 'user' });
-
+                  this.handleCTAClick();
                   gaEvent('PoweredBy', 'click', 'skip');
                 }}
               >
