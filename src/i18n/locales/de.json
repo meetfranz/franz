@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "Was ist passiert?",
    "connectionLostBanner.message" : "Oh je! Franz hat die Verbindung zu {name} verloren.",
    "feature.announcements.changelog.headline" : "Änderungen in Franz {version}",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Werbung",
    "feature.delayApp.continueInText" : "Mit Franz geht es in {seconds} Sekunden weiter.",
    "feature.delayApp.continueWithApp" : "Weiter zu Franz!",
    "feature.delayApp.continuing" : "Weiter gehts...",

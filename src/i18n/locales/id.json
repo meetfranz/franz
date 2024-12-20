@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "Apa yang terjadi?",
    "connectionLostBanner.message" : "Yah! Sambungan Franz ke {name} terputus.",
    "feature.announcements.changelog.headline" : "Perubahan dalam Franz {version}",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Ad",
    "feature.delayApp.continueInText" : "Anda bisa melanjutkan kembali bersama Franz dalam {seconds} detik.",
    "feature.delayApp.continueWithApp" : "Lanjutkan ke Franz",
    "feature.delayApp.continuing" : "Melanjutkan Franz",

@@ -5,7 +5,7 @@
    "connectionLostBanner.informationLink" : "Ce s-a întâmplat?",
    "connectionLostBanner.message" : "Oh, nu! Franz a pierdut conexiunea cu {name}.",
    "feature.announcements.changelog.headline" : "Schimbări în Franz {version}",
-   "feature.delayApp.adDisclaimer" : "Advertising",
+   "feature.delayApp.adDisclaimer" : "Ad",
    "feature.delayApp.continueInText" : "Franz poate continua în {seconds} secund(e).",
    "feature.delayApp.continueWithApp" : "Continuă cu Franz",
    "feature.delayApp.continuing" : "Continua programul Fritz",
