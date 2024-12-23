@@ -26,7 +26,6 @@ export default function initPlanSelection(stores, actions) {
   reaction(
     () => features.features.isPlanSelectionEnabled,
     (isEnabled) => {
-      console.log('planSelection: isEnabled', isEnabled);
       if (isEnabled) {
         debug('Initializing `planSelection` feature');
         planSelectionStore.start(stores, actions);

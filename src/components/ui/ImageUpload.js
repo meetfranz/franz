@@ -20,7 +20,6 @@ export default @observer class ImageUpload extends Component {
   };
 
   state = {
-    path: null,
     image: null,
   }
 
@@ -29,29 +28,19 @@ export default @observer class ImageUpload extends Component {
   onDrop(acceptedFiles) {
     const { field } = this.props;
 
-    console.log('acceptedFiles', acceptedFiles);
-
     acceptedFiles.forEach((file) => {
       if (file) {
         const reader = new FileReader();
 
         // When the file reader is done, this function runs
         reader.onloadend = () => {
-          // `reader.result` is something like: "data:image/png;base64,iVBORw0K..."
           const base64Data = reader.result;
-
-          // If you need just the base64 portion without the data URL prefix:
-          // const base64String = base64Data.split(',')[1];
-
-          console.log('Base64 Image:', base64Data);
 
           this.setState({
             image: base64Data,
           });
-          // Now you can use `base64Data` (or `base64String`) as needed.
         };
 
-        // Read the file as a Data URL
         reader.readAsDataURL(file);
       }
 
@@ -74,8 +63,6 @@ export default @observer class ImageUpload extends Component {
       'image-upload__dropzone': true,
       [`${className}`]: className,
     });
-
-    console.log('state', this.state);
 
     return (
       <div className="image-upload-wrapper">
