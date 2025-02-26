@@ -1,5 +1,4 @@
 import { Theme } from '@meetfranz/theme/lib';
-import { Classes } from 'jss';
 
 export interface IFormField {
   showLabel?: boolean;
@@ -10,7 +9,7 @@ export interface IFormField {
 }
 
 export interface IWithStyle {
-  classes: Classes;
+  classes: any;
   theme: Theme;
 }
 

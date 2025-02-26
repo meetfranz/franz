@@ -1,11 +1,10 @@
-import { Classes } from 'jss';
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 
 import styles from './styles';
 
 interface IProps {
-  classes: Classes;
+  classes: any;
   message: string;
 }
 

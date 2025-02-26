@@ -22,7 +22,7 @@
     "linebreak-style": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": [1, {
-      "extensions": [".js", ".jsx"]
+      "extensions": [".js", ".jsx", ".ts", ".tsx"]
     }],
     "react/forbid-prop-types": 0,
     "react/destructuring-assignment": 0,
@@ -32,6 +32,7 @@
     "class-methods-use-this": 0,
     "no-console": 0,
     "react/jsx-no-bind": 0,
+    "react/react-in-jsx-scope": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "react/jsx-no-target-blank": 0,
     "no-restricted-syntax": [0, "ForInStatement"],
@@ -53,7 +54,7 @@
     "jsx-a11y/click-events-have-key-events": 1,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-empty-function": 0
-    
+
   },
   "globals": {
     "window": true,

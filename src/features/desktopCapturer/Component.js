@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-import injectSheet from 'react-jss';
-import { defineMessages, intlShape } from 'react-intl';
-import { H1 } from '@meetfranz/ui';
 import { Button } from '@meetfranz/forms';
+import { H1 } from '@meetfranz/ui';
 import { ipcRenderer } from 'electron';
+import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { defineMessages, intlShape } from 'react-intl';
+import injectSheet from 'react-jss';
 
-import SourceItem from './sourceItem';
 import { state } from '.';
 import { RELAY_DESKTOP_CAPTURER_SOURCES_IPC_KEY, REQUEST_DESKTOP_CAPTURER_SOURCES_IPC_KEY } from './config';
+import SourceItem from './sourceItem';
 
 const messages = defineMessages({
   headline: {
@@ -113,7 +113,7 @@ export default @injectSheet(styles) @observer class DesktopCapturerModal extends
           {(sources.filter(source => !source.displayId) || []).map(source => (
             <SourceItem
               key={source.id}
-              name={`${source.id} ${source.name}`}
+              name={source.name}
               isActive={source.id === state.selectedSource}
               thumbnail={source.thumbnail}
               appIcon={source.appIcon}
@@ -136,7 +136,7 @@ export default @injectSheet(styles) @observer class DesktopCapturerModal extends
             }, 10);
           }}
         />
-        <button type="button" onClick={() => window.close()} buttonType="inverted" className={classes.cancelCta}>{intl.formatMessage(messages.cancel)}</button>
+        <button type="button" onClick={() => window.close()} className={classes.cancelCta}>{intl.formatMessage(messages.cancel)}</button>
       </div>
     );
   }

@@ -1,0 +1,66 @@
+name: Build/release
+
+on: push
+
+env:
+  APPLEID: ${{ secrets.APPLEID }}
+  APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        platform: [mac, ubuntu, windows]
+        include:
+          - platform: mac
+            os: macos-latest
+            artifactPath: |
+              out/*.dmg
+              out/*.mac.zip.blockmap
+              out/latest-mac.yml
+            CSC_LINK: CSC_LINK_MAC
+
+          - platform: ubuntu
+            os: ubuntu-latest
+            artifactPath: |
+              out/*.AppImage
+              out/*.deb
+              out/latest-linux.yml
+
+          - platform: windows
+            os: windows-2019
+            artifactPath: |
+              out/*.exe
+              out/latest.yml
+            CSC_LINK: CSC_LINK_WIN
+
+    env:
+      CSC_LINK: ${{ secrets[matrix.CSC_LINK] }}
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          npm i -g lerna@3.8
+          npx lerna bootstrap
+
+      - name: Build App
+        run: npm run build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.platform }}
+          path: ${{ matrix.artifactPath }}

@@ -2,18 +2,19 @@ import {
   BrowserView, BrowserWindow, BrowserWindowConstructorOptions, ipcMain, Menu, Rectangle, shell,
 } from 'electron';
 import ms from 'ms';
+import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
+import { DEFAULT_APP_SETTINGS_VANILLA } from '../configVanilla';
+import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
+import Settings from '../electron/Settings';
+import { isMac } from '../environment';
+import { IPC } from '../features/todos/constants';
+import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
+import { isValidExternalURL } from '../helpers/url-helpers';
+import userAgent from '../helpers/userAgent-helpers';
 import {
   REQUEST_SERVICE_SPELLCHECKING_LANGUAGE, SERVICE_SPELLCHECKING_LANGUAGE, UPDATE_SERVICE_STATE, UPDATE_SPELLCHECKING_LANGUAGE,
 } from '../ipcChannels';
-import Settings from '../electron/Settings';
-import { TAB_BAR_WIDTH, TODOS_RECIPE_ID } from '../config';
 import RecipeModel from './Recipe';
-import { buildMenuTpl } from '../electron/serviceContextMenuTemplate';
-import { IPC } from '../features/todos/constants';
-import { getRecipeDirectory, loadRecipeConfig } from '../helpers/recipe-helpers';
-import { isMac } from '../environment';
-import { isValidExternalURL } from '../helpers/url-helpers';
-import userAgent from '../helpers/userAgent-helpers';
 
 const debug = require('debug')('Franz:Models:ServiceBrowserView');
 
@@ -104,6 +105,7 @@ export class ServiceBrowserView {
           preload: recipeId !== TODOS_RECIPE_ID ? `${__dirname}/../webview/recipe.js` : `${__dirname}/../features/todos/preload.js`,
           contextIsolation: false,
           spellcheck: this.state.isSpellcheckerEnabled,
+          sandbox: false,
         },
       });
     }
@@ -300,7 +302,13 @@ export class ServiceBrowserView {
       ...state,
     };
 
+    const { isSpellcheckerEnabled, spellcheckerLanguage } = this.state;
+
     this.webContents.session.setSpellCheckerEnabled(this.state.isSpellcheckerEnabled);
+
+    if (isSpellcheckerEnabled) {
+      this.webContents.session.setSpellCheckerLanguages([spellcheckerLanguage || DEFAULT_APP_SETTINGS_VANILLA.spellcheckerLanguage]);
+    }
   }
 
   remove() {
