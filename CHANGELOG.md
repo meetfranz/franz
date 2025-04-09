@@ -1,3 +1,24 @@
+# [5.11.0](https://github.com/meetfranz/franz/compare/v5.10.0...v5.11.0) (2025-04-09)
+
+### Bug Fixes
+
+- **App:** Don't open multiple windows of the same type ([5e3dbec](https://github.com/meetfranz/franz/commit/5e3dbec7cf36cdb59599aac6aca45d1d3136a32a))
+- **App:** Fix "save image as" ([db31dc3](https://github.com/meetfranz/franz/commit/db31dc38d9321d6ba915599d05d750ad1e33b8e1))
+- **App:** Fix background colors ([a28c1d9](https://github.com/meetfranz/franz/commit/a28c1d9547ff693245444b5ce67a26286f656c8d))
+- **App:** Fix crash on logout ([69ad832](https://github.com/meetfranz/franz/commit/69ad832a39eda5ded884b965928c93cb85b8aebf))
+- **App:** Fix screen not being shared after selecting source ([313ca03](https://github.com/meetfranz/franz/commit/313ca031915fa6d603f05a4aa88f5124ed237c2d))
+- **App:** Fix share screen selection styles ([04a3d43](https://github.com/meetfranz/franz/commit/04a3d43d10c51861292fc51f2de0e176b0656ecc))
+- **App:** Improve image quality of window previews in share screen selection ([30f445c](https://github.com/meetfranz/franz/commit/30f445c4fa81fe06c28b7ff76a95f847f59ca6c0))
+- **macOS:** Open System Settings when asking for screen share permissions ([4bf7af8](https://github.com/meetfranz/franz/commit/4bf7af8c3b5745f6c6bc32baf1dde477bbec26d8))
+- **Screen Share:** Fix missing background color ([2627430](https://github.com/meetfranz/franz/commit/262743019c82862de00a58dd62155d8c3589a597))
+- **Service:** Fix custom service icon upload ([97c34d4](https://github.com/meetfranz/franz/commit/97c34d4da0c322464df588ec1a258b71c66b7245))
+- **Todos:** Add check if recipes have been loaded before downloading todos-recipe ([76fea86](https://github.com/meetfranz/franz/commit/76fea86a72f5e34455d26687a209a91590e67e68))
+- **WebView:** Set default background color to white ([7fdf915](https://github.com/meetfranz/franz/commit/7fdf91515e61fa293ebe9df70a39ed29baee158a))
+
+### Features
+
+- Update electron to 33.3.0
+
 # [5.10.0](https://github.com/meetfranz/franz/compare/v5.9.2...v5.10.0) (2023-09-01)
 
 ### Bug Fixes
