@@ -13,7 +13,7 @@ Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many mor
 
 `$ brew cask install franz`
 
-(Don't know homebrew? [brew.sh](https://brew.sh/))
+(Homebrew is a MacOS package manager. Get it at [brew.sh](https://brew.sh/))
 
 ## Development
 
