@@ -30,7 +30,7 @@ jobs:
               out/latest-linux.yml
 
           - platform: windows
-            os: windows-2019
+            os: windows-2022
             artifactPath: |
               out/*.exe
               out/latest.yml
