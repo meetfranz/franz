@@ -5,6 +5,7 @@ on: push
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+  DEBUG: electron-builder
 
 jobs:
   release:
