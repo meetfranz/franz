@@ -1,3 +1,35 @@
+<a href="https://meetfranz.com">
+  <img src="./franz6.png" alt="Franz 6 — All your messaging. One app. Zero noise." width="100%"/>
+</a>
+
+# Franz 6 is here
+
+**One app for every conversation.** Franz 6 brings WhatsApp, Slack, Telegram, Discord,
+Gmail, Outlook, Teams and **70+ services** into one focused desktop window — so you stop
+paying the app-switching tax and never miss the message that matters.
+
+**New since Franz 5:**
+
+- 🔵 **Native Signal** — a real desktop client, not a wrapped web page
+- ✉️ **Franz Mail** — built-in email with priority sorting, smart replies and semantic search
+- 🤖 **Franz Assistant** — catches you up across every channel and drafts your next reply, running fully local, in the EU cloud, or on your own API key
+- 🛡️ **Privacy Shield** — blocks trackers and fingerprinting scripts inside your services
+
+Plus everything Franz already did well — split view, multi-account, hibernation, themes
+and sync — on Mac, Windows and Linux.
+
+Trusted with **1,000,000+ downloads since 2016**, built in Vienna, featured by *Lifehacker*
+and *Wired*. Free to use — Franz Pro from €5/month or a one-time lifetime license.
+
+### 👉 [Get Franz 6 at meetfranz.com](https://meetfranz.com)
+
+---
+
+> **ℹ️ About this repository**
+> This repo holds **Franz 5**, the open-source predecessor of Franz 6. It is no longer the
+> active product, but the source below remains available under Apache-2.0 for reference and
+> self-building. For the current app, see [meetfranz.com](https://meetfranz.com).
+
 <img src="./build-helpers/images/icon.png" alt="" width="150"/>
 
 # Franz 5
